@@ -17,7 +17,7 @@ Our monorepo follows the [recommended Nx structure](https://nx.dev/structure/app
 Our applications in the `apps` folder are our DAO infrastructure and leverage our libraries, subgraphs, and contracts. Currently, we have two categories for these applications:
 
 - **User Interfaces**: These are our applications that are used to interact with DAOs.
-  - Hub App
+  - Admin App
   - Summoner App
 - **Deployed Infrastructure**: These are our jobs and subgraphs and are deployed to provide functionality leveraged throughout our other applications.
   - DAO Producer Job
@@ -26,10 +26,8 @@ Our applications in the `apps` folder are our DAO infrastructure and leverage ou
 
 | App                                              | Build       | Entry Points                          |
 | ------------------------------------------------ | ----------- | ------------------------------------- |
-| [Core App](./apps/core-app)                      | vite, ts    | `apps/core-app`                       |
-| [Hub App](./apps/hub-app)                        | vite, ts    | `apps/hub-app`                        |
-| [Summoner App](./apps/summon-app/)               | vite, ts    | `apps/summon-app`                     |
-| [DAO Producer Job](./apps/jobs/dao-producer-job) | webpack, ts | `apps/dao-producer-job`               |
+| [Admin App](./apps/core-app)                      | webpack, ts    | `apps/core-app`                       |
+| [Summoner App](./apps/summon-app/)               | webpack, ts    | `apps/summon-app`                     |
 | [v3 Subgraph](./apps/v3-subgraph/)               | webpack, ts | `apps/v3-subgraph, apps/summoner-app` |
 
 ### Libs

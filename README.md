@@ -4,6 +4,7 @@ DAOhaus is a no-code platform for summoning and managing Moloch DAOs. We've work
 
 If you'd like to join our community, we coordinate on [Discord](https://discord.gg/gWH4vt3tWE).
 
+### Contribution History
 This is the 2nd version of this monorepo - several community members contributed to the development of this codebase. Contributions and fuller githistory can be seen in the [original repo](https://github.com/HausDAO/daohaus-monorepo/graphs/contributors).
 
 

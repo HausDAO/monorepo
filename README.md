@@ -85,9 +85,9 @@ The package-level commands can be found in each package's `project.json`.
 
 nx run app-name:serve
 
-# example to run the Hub app:
+# example to run the Admin app:
 
-nx run hub-app:serve
+nx run core-app:serve
 
 # lint a specific package
 

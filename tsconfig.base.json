@@ -17,6 +17,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
+      "@daohaus/abis": ["libs/abis/src/index.ts"],
       "@daohaus/utils": ["libs/utils/src/index.ts"]
     }
   },

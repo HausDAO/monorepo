@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconType } from 'react-icons/ri';
+import { IconType } from 'react-icons';
 
 import { BaseInput, WithIcon } from './Input.styles';
 import { Field } from '../../../types/formAndField';

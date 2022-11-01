@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler } from 'react';
 import { SwitchProps } from '@radix-ui/react-switch';
 import { RegisterOptions } from 'react-hook-form';
-import { IconType } from 'react-icons/ri';
+import { IconType } from 'react-icons';
 
 export type ErrorMessage = {
   type: 'error';

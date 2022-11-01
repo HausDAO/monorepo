@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ReactNode, RefObject, forwardRef } from 'react';
 
-import { IconType } from 'react-icons/ri';
+import { IconType } from 'react-icons';
 
 import { BaseTag } from './Tag.styles';
 

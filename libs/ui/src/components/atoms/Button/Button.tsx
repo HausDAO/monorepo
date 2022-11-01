@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
-import { IconType } from 'react-icons';
+import { IconType } from 'react-icons/ri';
 
 import { StyledButton } from './Button.styles';
 

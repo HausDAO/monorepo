@@ -1,6 +1,6 @@
 import React from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import { IconType } from 'react-icons';
+import { IconType } from 'react-icons/ri';
 
 import { Dropdown, DropdownMenuItem } from '../../molecules';
 import { AppSwitcherLink, AppSwitcherTrigger } from './AppSwitcher.styles';

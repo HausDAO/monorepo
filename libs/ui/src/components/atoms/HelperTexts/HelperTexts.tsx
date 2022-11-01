@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
-import { IconType } from 'react-icons';
+import { IconType } from 'react-icons/ri';
 import { RiCheckboxCircleLine, RiErrorWarningLine } from 'react-icons/ri';
 
 import { Theme } from '../../../types/theming';

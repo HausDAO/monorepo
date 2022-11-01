@@ -17,6 +17,7 @@
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
+        "extractCss": false,
         "assets": [
           {
             "glob": "libs/ui/README.md",

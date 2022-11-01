@@ -1,0 +1,141 @@
+query listProposals(
+  $where: Proposal_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Proposal_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
+) {
+  proposals: proposals(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...proposalFields
+  }
+}
+
+query listConnectedMemberProposals(
+  $where: Proposal_filter! = {}
+  $memberWhere: Member_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Proposal_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
+) {
+  proposals: proposals(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    id
+    connectedMemberVotes: votes(where: { member_: $memberWhere }) {
+      id
+      txHash
+      createdAt
+      daoAddress
+      approved
+      balance
+      member {
+        id
+        memberAddress
+      }
+    }
+  }
+}
+
+query findProposal($id: ID!, $connectedAddress: Bytes) {
+  proposal: proposal(id: $id) {
+    ...proposalFields
+    connectedMemberVotes: votes(
+      where: { member_: { memberAddress: $connectedAddress } }
+    ) {
+      id
+      txHash
+      createdAt
+      daoAddress
+      approved
+      balance
+      member {
+        id
+        memberAddress
+      }
+    }
+  }
+}
+
+fragment proposalFields on Proposal {
+  id
+  createdAt
+  createdBy
+  txHash
+  proposalId
+  prevProposalId
+  proposalDataHash
+  proposalData
+  actionGasEstimate
+  details
+  title
+  description
+  proposalType
+  contentURI
+  contentURIType
+  sponsorTxHash
+  sponsored
+  selfSponsor
+  sponsor
+  sponsorTxAt
+  votingPeriod
+  votingStarts
+  votingEnds
+  gracePeriod
+  graceEnds
+  expiration
+  expirationQueryField
+  cancelledTxHash
+  cancelledBy
+  cancelled
+  cancelledTxAt
+  yesBalance
+  noBalance
+  yesVotes
+  noVotes
+  processTxHash
+  processedBy
+  processed
+  processTxAt
+  actionFailed
+  passed
+  proposalOffering
+  maxTotalSharesAndLootAtYesVote
+  tributeToken
+  tributeOffered
+  tributeTokenSymbol
+  tributeTokenDecimals
+  tributeEscrowRecipient
+  sponsorMembership {
+    memberAddress
+    shares
+  }
+  dao {
+    totalShares
+    quorumPercent
+  }
+  votes {
+    id
+    txHash
+    createdAt
+    daoAddress
+    approved
+    balance
+    member {
+      id
+      memberAddress
+    }
+  }
+}

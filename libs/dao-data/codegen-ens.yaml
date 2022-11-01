@@ -1,0 +1,32 @@
+schema: 'libs/dao-data/src/subgraph/schema-ens.graphql'
+documents: 'libs/dao-data/src/subgraph/queries-ens/*.graphql'
+overwrite: true
+config:
+  skipDocumentsValidation: true
+  scalars:
+    Bytes: string
+    BigInt: string
+    BigDecimal: string
+  enumsAsTypes: true
+  avoidOptionals: false
+  flattenGeneratedTypes: true
+  preResolveTypes: true
+  maybeValue: T | undefined
+  inputMaybeValue: T | undefined | null
+  onlyOperationTypes: false
+  declarationKind: 'interface'
+generates:
+  libs/dao-data/src/subgraph/schema-ens.generated.ts:
+    plugins:
+      - 'typescript'
+  libs/dao-data/src/subgraph/queries-ens/:
+    config:
+      dedupeFragments: true
+      nonOptionalTypename: false
+      skipTypename: true
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: ../schema-ens.generated.ts
+    plugins:
+      - 'typescript-operations'
+      - 'typed-document-node'

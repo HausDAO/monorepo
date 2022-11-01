@@ -1,0 +1,63 @@
+{
+  "name": "dao-data",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dao-data/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/dao-data",
+        "main": "libs/dao-data/src/index.ts",
+        "tsConfig": "libs/dao-data/tsconfig.lib.json",
+        "assets": ["libs/dao-data/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs dao-data {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dao-data/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/dao-data/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+
+    "generate-gql-schema": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/dao-data/src/subgraph/schema.graphql",
+          "get-graphql-schema https://api.thegraph.com/subgraphs/name/ensdomains/ens > libs/dao-data/src/subgraph/schema-ens.graphql",
+          "get-graphql-schema https://api.lens.dev > libs/dao-data/src/subgraph/schema-lens.graphql"
+        ]
+      }
+    },
+    "generate-gql-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "graphql-codegen --config libs/dao-data/codegen.yaml",
+          "graphql-codegen --config libs/dao-data/codegen-ens.yaml",
+          "graphql-codegen --config libs/dao-data/codegen-lens.yaml"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

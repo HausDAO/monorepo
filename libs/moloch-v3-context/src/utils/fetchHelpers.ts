@@ -13,7 +13,7 @@ import {
   Paging,
   Proposal_Filter,
   Proposal_OrderBy,
-} from '@daohaus/dao-data';
+} from '@daohaus/moloch-v3-data';
 import deepEqual from 'deep-eql';
 
 export const loadDao = async ({

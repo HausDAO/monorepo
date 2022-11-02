@@ -10,7 +10,7 @@ import {
   Paging,
   Proposal_Filter,
   Proposal_OrderBy,
-} from '@daohaus/dao-data';
+} from '@daohaus/moloch-v3-data';
 import { Dispatch, SetStateAction } from 'react';
 
 export type TDao = DaoWithTokenDataQuery['dao'];

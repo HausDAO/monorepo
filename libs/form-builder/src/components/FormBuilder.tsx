@@ -21,7 +21,6 @@ import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { useTxBuilder } from '@daohaus/tx-builder';
-import { useParams } from 'react-router-dom';
 
 type FormContext<Lookup extends LookupType> = {
   form?: FormLego<Lookup>;
@@ -53,6 +52,7 @@ type BuilderProps<Lookup extends LookupType> = {
   onCancel?: () => void;
   onSuccess?: () => void;
   onError?: () => void;
+  targetNetwork?: string;
 };
 
 export enum StatusMsg {
@@ -73,6 +73,7 @@ export function FormBuilder<Lookup extends LookupType>({
   customFields,
   onSuccess,
   onError,
+  targetNetwork,
 }: BuilderProps<Lookup>) {
   const { chainId } = useHausConnect();
 
@@ -93,14 +94,14 @@ export function FormBuilder<Lookup extends LookupType>({
   } = form;
 
   const { fireTransaction } = useTxBuilder?.() || {};
-  const { daochain } = useParams();
   const { defaultToast, errorToast, successToast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<null | StatusMsg>(null);
   const [txHash, setTxHash] = useState<null | string>(null);
 
-  const isSameNetwork = daochain === chainId;
+  const isSameNetwork = targetNetwork ? targetNetwork === chainId : true;
+
   const submitDisabled =
     !isValid || isLoading || !isValidNetwork(chainId) || !isSameNetwork;
   const formDisabled = isLoading;

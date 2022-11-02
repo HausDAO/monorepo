@@ -1,0 +1,19 @@
+kind: ethereum/contract
+name: LootTemplate
+network:
+source:
+  abi: Loot
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  file: ./src/token-mapping.ts
+  entities:
+    - Dao
+    - Member
+  abis:
+    - name: Loot
+      file: ./abis/Loot.json
+  eventHandlers:
+    - event: 'Transfer(indexed address,indexed address,uint256)'
+      handler: handleLootTransfer

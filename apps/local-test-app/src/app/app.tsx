@@ -1,7 +1,7 @@
 import { HausLayout, useHausConnect } from '@daohaus/connect';
 import { FormBuilder } from '@daohaus/form-builder';
 import { TXBuilder } from '@daohaus/tx-builder';
-import { FORM } from './assets/forms';
+import { FORM } from '../assets/forms';
 
 function App() {
   const { provider } = useHausConnect();

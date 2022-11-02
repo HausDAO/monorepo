@@ -94,6 +94,7 @@ export function FormBuilder<Lookup extends LookupType>({
   } = form;
 
   const { fireTransaction } = useTxBuilder?.() || {};
+
   const { defaultToast, errorToast, successToast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -101,7 +102,6 @@ export function FormBuilder<Lookup extends LookupType>({
   const [txHash, setTxHash] = useState<null | string>(null);
 
   const isSameNetwork = targetNetwork ? targetNetwork === chainId : true;
-
   const submitDisabled =
     !isValid || isLoading || !isValidNetwork(chainId) || !isSameNetwork;
   const formDisabled = isLoading;

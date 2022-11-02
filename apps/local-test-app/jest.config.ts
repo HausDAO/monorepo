@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'local-tester',
+  displayName: 'local-test-app',
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/apps/local-tester',
+  coverageDirectory: '../../coverage/apps/local-test-app',
 };

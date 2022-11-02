@@ -70,8 +70,8 @@ export interface ITransformedProposal extends QueryProposal {
   status?: string;
 }
 
-// copied files start here  in @daohaus/dao-data
-// moving this to common-utilities allows the UI to remove dao-data
+// copied files start here  in @daohaus/moloch-v3-data
+// moving this to common-utilities allows the UI to remove moloch-v3-data
 // from its dependencies
 export interface ITransformedProposalQuery {
   proposal: ITransformedProposal | undefined;

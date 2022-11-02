@@ -5,8 +5,8 @@ DAOhaus is a no-code platform for summoning and managing Moloch DAOs. We've work
 If you'd like to join our community, we coordinate on [Discord](https://discord.gg/gWH4vt3tWE).
 
 ### Contribution History
-This is the 2nd version of this monorepo - several community members contributed to the development of this codebase. Contributions and fuller githistory can be seen in the [original repo](https://github.com/HausDAO/daohaus-monorepo/graphs/contributors).
 
+This is the 2nd version of this monorepo - several community members contributed to the development of this codebase. Contributions and fuller githistory can be seen in the [original repo](https://github.com/HausDAO/daohaus-monorepo/graphs/contributors).
 
 ## Packages
 
@@ -23,12 +23,11 @@ Our applications in the `apps` folder are our DAO infrastructure and leverage ou
   - DAO Producer Job
   - v3 Subgraph
 
-
-| App                                              | Build       | Entry Points                          |
-| ------------------------------------------------ | ----------- | ------------------------------------- |
-| [Admin App](./apps/core-app)                      | webpack, ts    | `apps/core-app`                       |
-| [Summoner App](./apps/summon-app/)               | webpack, ts    | `apps/summon-app`                     |
-| [v3 Subgraph](./apps/v3-subgraph/)               | webpack, ts | `apps/v3-subgraph, apps/summoner-app` |
+| App                                | Build       | Entry Points                          |
+| ---------------------------------- | ----------- | ------------------------------------- |
+| [Admin App](./apps/core-app)       | webpack, ts | `apps/core-app`                       |
+| [Summoner App](./apps/summon-app/) | webpack, ts | `apps/summon-app`                     |
+| [v3 Subgraph](./apps/v3-subgraph/) | webpack, ts | `apps/v3-subgraph, apps/summoner-app` |
 
 ### Libs
 
@@ -42,13 +41,12 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
   - DAOhaus Connect
   - Tx Builder
 
-
 | Lib                                                      | Entry Point                    |
 | -------------------------------------------------------- | ------------------------------ |
 | [ABI Utilities](./libs/abi-utilities/)                   | `libs/abi-utilities`           |
 | [Contract Utilities](./libs/contract-utilties/)          | `libs/contract-utilties`       |
 | [Common Utilities](./libs/common-utilities/)             | `libs/common-utilities`        |
-| [DAO Data SDK](./libs/dao-data)                          | `libs/dao-data-sdk`            |
+| [DAO Data SDK](./libs/moloch-v3-data)                    | `libs/moloch-v3-data-sdk`      |
 | [Component Library (UI)](./libs/ui)                      | `libs/ui`                      |
 | [DAOhaus Connect](./libs/daohaus-connect-feature)        | `libs/daohaus-connect-feature` |
 | [Tx Builder](./libs/tx-builder-feature)                  | `libs/tx-builder-feature`      |

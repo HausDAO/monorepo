@@ -8,7 +8,7 @@ import {
   TXLego,
 } from '@daohaus/utils';
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
-import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
+import { FindTxQuery, IFindQueryResult } from '@daohaus/moloch-v3-data';
 import { bundleLifeCycleFns } from './utils/lifeCycleFns';
 
 export type TXLifeCycleFns = {

@@ -22,6 +22,7 @@
       "@daohaus/contract-utils": ["libs/contract-utils/src/index.ts"],
       "@daohaus/dao-data": ["libs/dao-data/src/index.ts"],
       "@daohaus/form-builder": ["libs/form-builder/src/index.ts"],
+      "@daohaus/moloch-v3-context": ["libs/moloch-v3-context/src/index.ts"],
       "@daohaus/tx-builder": ["libs/tx-builder/src/index.ts"],
       "@daohaus/ui": ["libs/ui/src/index.ts"],
       "@daohaus/utils": ["libs/utils/src/index.ts"]

@@ -1,4 +1,4 @@
-import { Proposal_Filter } from '@daohaus/dao-data';
+import { Proposal_Filter } from '@daohaus/moloch-v3-data';
 import { useContext } from 'react';
 import { DaoContext, defaultDaoData } from '../DaoContext';
 import { DaoConnectProposalsType } from '../utils/types';

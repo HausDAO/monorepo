@@ -18,7 +18,9 @@
     "baseUrl": ".",
     "paths": {
       "@daohaus/abis": ["libs/abis/src/index.ts"],
+      "@daohaus/connect": ["libs/connect/src/index.ts"],
       "@daohaus/contract-utils": ["libs/contract-utils/src/index.ts"],
+      "@daohaus/dao-data": ["libs/dao-data/src/index.ts"],
       "@daohaus/ui": ["libs/ui/src/index.ts"],
       "@daohaus/utils": ["libs/utils/src/index.ts"]
     }

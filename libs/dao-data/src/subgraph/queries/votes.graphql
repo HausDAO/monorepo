@@ -1,0 +1,37 @@
+query listVotes(
+  $where: Vote_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Vote_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
+) {
+  votes: votes(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...voteFields
+  }
+}
+
+query findVote($id: ID!, $connectedAddress: Bytes) {
+  vote: vote(id: $id) {
+    ...voteFields
+  }
+}
+
+fragment voteFields on Vote {
+  id
+  txHash
+  createdAt
+  daoAddress
+  approved
+  balance
+  member {
+    id
+    memberAddress
+  }
+}

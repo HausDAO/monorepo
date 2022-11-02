@@ -1,0 +1,130 @@
+query listDaos(
+  $where: Dao_filter! = {}
+  $now: BigInt! = 0
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Dao_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+) {
+  daos: daos(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...daoFields
+    activeProposals: proposals(
+      first: 101
+      orderBy: createdAt
+      orderDirection: desc
+      where: { cancelled: false, sponsored: true, graceEnds_gt: $now }
+    ) {
+      id
+    }
+  }
+}
+
+query findDao($id: ID!, $now: BigInt! = 0) {
+  dao: dao(id: $id) {
+    ...daoFields
+    activeProposals: proposals(
+      first: 101
+      orderBy: createdAt
+      orderDirection: desc
+      where: { cancelled: false, sponsored: true, graceEnds_gt: $now }
+    ) {
+      id
+    }
+  }
+}
+
+query listMemberships(
+  $where: Dao_filter! = {}
+  $memberWhere: Member_filter! = {}
+  $now: BigInt! = 0
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Dao_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+) {
+  daos: daos(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...daoFields
+    activeProposals: proposals(
+      first: 101
+      orderBy: createdAt
+      orderDirection: desc
+      where: { cancelled: false, sponsored: true, graceEnds_gt: $now }
+    ) {
+      id
+    }
+    members(where: $memberWhere) {
+      id
+      createdAt
+      memberAddress
+      shares
+      loot
+      delegatingTo
+      delegateShares
+      delegateOfCount
+      votes {
+        txHash
+        createdAt
+        approved
+        balance
+      }
+    }
+  }
+}
+
+fragment daoFields on Dao {
+  id
+  createdAt
+  createdBy
+  txHash
+  safeAddress
+  lootPaused
+  sharesPaused
+  gracePeriod
+  votingPeriod
+  proposalOffering
+  quorumPercent
+  sponsorThreshold
+  minRetentionPercent
+  shareTokenName
+  shareTokenSymbol
+  sharesAddress
+  lootTokenName
+  lootTokenSymbol
+  lootAddress
+  totalShares
+  totalLoot
+  latestSponsoredProposalId
+  proposalCount
+  activeMemberCount
+  existingSafe
+  name
+  profile: records(
+    first: 1
+    orderBy: createdAt
+    orderDirection: desc
+    where: { table: "daoProfile" }
+  ) {
+    createdAt
+    createdBy
+    contentType
+    content
+  }
+  shamen: shaman {
+    id
+    createdAt
+    shamanAddress
+    permissions
+  }
+}

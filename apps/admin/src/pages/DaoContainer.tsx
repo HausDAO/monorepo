@@ -12,7 +12,7 @@ export function DaoContainer() {
       address={address}
       daoid={daoid}
       daochain={daochain}
-      graphApiKeys={{ '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'] }}
+      graphApiKeys={{ '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] }}
     >
       <Dao />
     </DaoContextProvider>

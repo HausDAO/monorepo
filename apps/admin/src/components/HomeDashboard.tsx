@@ -54,7 +54,7 @@ export const HomeDashboard = () => {
       try {
         const haus = Haus.create({
           graphApiKeys: {
-            '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+            '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
           },
         });
         const query = await haus.profile.listDaosByMember({

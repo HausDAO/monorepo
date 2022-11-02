@@ -25,7 +25,7 @@ export const loadMember = async ({
     setMemberLoading(true);
     const haus = Haus.create({
       graphApiKeys: {
-        '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
       },
     });
     const memberRes = await haus.query.findMember({
@@ -70,7 +70,7 @@ export const loadProposal = async ({
     setProposalLoading(true);
     const haus = Haus.create({
       graphApiKeys: {
-        '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
       },
     });
     const res = await haus.query.findProposal({
@@ -110,7 +110,7 @@ export const isActiveMember = async ({
     setMemberLoading(true);
     const haus = Haus.create({
       graphApiKeys: {
-        '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
       },
     });
     const memberRes = await haus.query.findMember({

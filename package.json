@@ -30,7 +30,7 @@
     "date-fns": "^2.29.3",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^5.7.2",
-    "graphql": "^16.6.0",
+    "graphql": "16.3.0",
     "graphql-request": "^4.2.0",
     "localforage": "^1.10.0",
     "numbro": "^2.3.6",

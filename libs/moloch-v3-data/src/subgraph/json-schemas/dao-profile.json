@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "$id": "https://raw.githubusercontent.com/HausDAO/daohaus-monorepo/develop/libs/dao-data/src/subgraph/json-schema/dao-profile.json",
+  "$id": "https://raw.githubusercontent.com/HausDAO/daohaus-monorepo/develop/libs/moloch-v3-data/src/subgraph/json-schema/dao-profile.json",
   "title": "DAO Profile",
   "description": "A basic profile of metadata for a DAO",
   "type": "object",

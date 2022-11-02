@@ -1,5 +1,5 @@
 import { isValidNetwork, ReactSetter, truncateAddress } from '@daohaus/utils';
-import { Haus } from '@daohaus/dao-data';
+import { Haus } from '@daohaus/moloch-v3-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
 

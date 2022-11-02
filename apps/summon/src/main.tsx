@@ -1,13 +1,27 @@
 import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+import { HashRouter } from 'react-router-dom';
 
-import App from './app/app';
+import { HausThemeProvider } from '@daohaus/ui';
+import { HausConnectProvider } from '@daohaus/connect';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+import App from './app/App';
+
+const container = document.getElementById('root');
+
+//reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#updates-to-client-rendering-apis
+// THis is how react wants to render the app.
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(container!);
+
 root.render(
   <StrictMode>
-    <App />
+    <HashRouter>
+      <HausThemeProvider>
+        <HausConnectProvider>
+          <App />
+        </HausConnectProvider>
+      </HausThemeProvider>
+    </HashRouter>
   </StrictMode>
 );

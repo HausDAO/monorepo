@@ -1,5 +1,5 @@
 import { ValidNetwork } from '@daohaus/utils';
-import { FindTxQuery, Haus, IFindQueryResult } from '@daohaus/dao-data';
+import { FindTxQuery, Haus, IFindQueryResult } from '@daohaus/moloch-v3-data';
 
 // TS Challenge
 

@@ -1,5 +1,5 @@
-schema: 'libs/dao-data/src/subgraph/schema.graphql'
-documents: 'libs/dao-data/src/subgraph/queries/*.graphql'
+schema: 'libs/moloch-v3-data/src/subgraph/schema-ens.graphql'
+documents: 'libs/moloch-v3-data/src/subgraph/queries-ens/*.graphql'
 overwrite: true
 config:
   skipDocumentsValidation: true
@@ -16,17 +16,17 @@ config:
   onlyOperationTypes: false
   declarationKind: 'interface'
 generates:
-  libs/dao-data/src/subgraph/schema.generated.ts:
+  libs/moloch-v3-data/src/subgraph/schema-ens.generated.ts:
     plugins:
       - 'typescript'
-  libs/dao-data/src/subgraph/queries/:
+  libs/moloch-v3-data/src/subgraph/queries-ens/:
     config:
       dedupeFragments: true
       nonOptionalTypename: false
       skipTypename: true
     preset: near-operation-file
     presetConfig:
-      baseTypesPath: ../schema.generated.ts
+      baseTypesPath: ../schema-ens.generated.ts
     plugins:
       - 'typescript-operations'
       - 'typed-document-node'

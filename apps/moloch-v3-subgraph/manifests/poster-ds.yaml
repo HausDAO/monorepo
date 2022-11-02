@@ -1,0 +1,21 @@
+kind: ethereum/contract
+name: Poster
+network:
+source:
+  address:
+  abi: Poster
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Post
+    - Minion
+  abis:
+    - name: Poster
+      file: ./abis/Poster.json
+  eventHandlers:
+    - event: NewPost(indexed address,string,indexed string)
+      handler: handleNewPost
+  file: ./src/poster-mapping.ts

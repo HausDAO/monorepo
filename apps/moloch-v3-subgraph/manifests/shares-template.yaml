@@ -1,0 +1,23 @@
+kind: ethereum/contract
+name: SharesTemplate
+network:
+source:
+  abi: Shares
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  file: ./src/token-mapping.ts
+  entities:
+    - Dao
+    - Member
+  abis:
+    - name: Shares
+      file: ./abis/Shares.json
+  eventHandlers:
+    - event: 'DelegateChanged(indexed address,indexed address,indexed address)'
+      handler: handleDelegateChanged
+    - event: 'DelegateVotesChanged(indexed address,uint256,uint256)'
+      handler: handleDelegateVotesChanged
+    - event: 'Transfer(indexed address,indexed address,uint256)'
+      handler: handleSharesTransfer

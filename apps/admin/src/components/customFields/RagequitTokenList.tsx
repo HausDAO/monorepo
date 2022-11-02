@@ -6,7 +6,7 @@ import {
   memberTokenBalanceShare,
   memberUsdValueShare,
   NETWORK_TOKEN_ETH_ADDRESS,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 import {
   Buildable,
   Field,
@@ -16,10 +16,10 @@ import {
   DataSm,
 } from '@daohaus/ui';
 
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
 import styled from 'styled-components';
-import { TokenBalance } from '@daohaus/common-utilities';
+import { TokenBalance } from '@daohaus/utils';
 import { useParams } from 'react-router-dom';
 import { sortTokensForRageQuit } from '../../utils/general';
 

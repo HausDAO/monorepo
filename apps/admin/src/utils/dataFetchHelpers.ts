@@ -1,9 +1,9 @@
-import { Keychain, ReactSetter } from '@daohaus/common-utilities';
+import { Keychain, ReactSetter } from '@daohaus/utils';
 import {
   FindMemberQuery,
   Haus,
   ITransformedProposalQuery,
-} from '@daohaus/dao-data';
+} from '@daohaus/moloch-v3-data';
 import { ErrorMessage } from '@daohaus/ui';
 
 export const loadMember = async ({

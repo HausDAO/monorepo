@@ -1,4 +1,4 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { LOCAL_ABI } from '@daohaus/abis';
 import {
   CONTRACTS,
   handleErrorMessage,
@@ -7,10 +7,10 @@ import {
   ReactSetter,
   toBaseUnits,
   toWholeUnits,
-} from '@daohaus/common-utilities';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { FieldSpacer } from '@daohaus/haus-form-builder';
-import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
+} from '@daohaus/utils';
+import { useHausConnect } from '@daohaus/connect';
+import { FieldSpacer } from '@daohaus/form-builder';
+import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
   Buildable,
   Button,

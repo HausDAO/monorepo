@@ -6,8 +6,8 @@ import {
   isValidNetwork,
   ITransformedMembership,
   ValidNetwork,
-} from '@daohaus/common-utilities';
-import { Haus } from '@daohaus/dao-data';
+} from '@daohaus/utils';
+import { Haus } from '@daohaus/moloch-v3-data';
 import {
   H2,
   Spinner,

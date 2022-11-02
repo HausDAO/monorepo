@@ -1,5 +1,5 @@
-import { Member_Filter, Dao_OrderBy, Ordering } from '@daohaus/dao-data';
-import { NETWORK_DATA } from '@daohaus/common-utilities';
+import { Member_Filter, Dao_OrderBy, Ordering } from '@daohaus/moloch-v3-data';
+import { NETWORK_DATA } from '@daohaus/utils';
 
 export const FILTER_TYPE = {
   DELEGATING: 'delegating',

@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import { AccountProfile, Keychain } from "@daohaus/common-utilities";
-import { Haus } from "@daohaus/dao-data";
-import { MemberCard } from "@daohaus/ui";
+import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { AccountProfile, Keychain } from '@daohaus/utils';
+import { Haus } from '@daohaus/moloch-v3-data';
+import { MemberCard } from '@daohaus/ui';
 
 import { fetchProfile } from '../utils/cacheProfile';
 
@@ -25,27 +25,34 @@ export const MemberProfileAvatar = ({
 
   const haus = Haus.create();
 
-  const fetchMemberProfile = useCallback(async (
-    address: string,
-    setter: typeof setSubmitterProfile,
-  ) => {
-    const profile = await fetchProfile({ haus, address });
-    setter(profile);
-  }, [haus]);
+  const fetchMemberProfile = useCallback(
+    async (address: string, setter: typeof setSubmitterProfile) => {
+      const profile = await fetchProfile({ haus, address });
+      setter(profile);
+    },
+    [haus]
+  );
 
   useEffect(() => {
     if (!submitterProfile) {
       fetchMemberProfile(memberAddress, setSubmitterProfile);
     }
-  }, [fetchMemberProfile, memberAddress, submitterProfile, setSubmitterProfile]);
+  }, [
+    fetchMemberProfile,
+    memberAddress,
+    submitterProfile,
+    setSubmitterProfile,
+  ]);
 
   return (
     <MemberContainer>
       <MemberCard
         explorerNetworkId={daochain}
-        profile={submitterProfile || {
-          address: memberAddress,
-        }}
+        profile={
+          submitterProfile || {
+            address: memberAddress,
+          }
+        }
       />
     </MemberContainer>
   );

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { format } from 'date-fns';
-import { FieldSpacer } from '@daohaus/haus-form-builder';
+import { FieldSpacer } from '@daohaus/form-builder';
 import {
   Buildable,
   Field,
@@ -10,8 +10,8 @@ import {
   WrappedInput,
   InputSelect,
 } from '@daohaus/ui';
-import { useDao } from '@daohaus/dao-context';
-import { unixTimeInSeconds } from '@daohaus/common-utilities';
+import { useDao } from '@daohaus/moloch-v3-context';
+import { unixTimeInSeconds } from '@daohaus/utils';
 import { useTheme } from 'styled-components';
 
 const INPUT_ID = 'expiryValue';

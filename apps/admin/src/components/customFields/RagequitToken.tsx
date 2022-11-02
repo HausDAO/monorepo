@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { toWholeUnits, handleBaseUnits } from '@daohaus/common-utilities';
+import { toWholeUnits, handleBaseUnits } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput, Field } from '@daohaus/ui';
 
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 
 export const RagequitToken = (props: Buildable<Field>) => {
   const { id } = props;

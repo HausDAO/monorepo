@@ -1,4 +1,4 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { LOCAL_ABI } from '@daohaus/abis';
 import {
   CONTRACTS,
   NestedArray,
@@ -8,8 +8,8 @@ import {
   TXLego,
   ValidArgType,
   TXLegoBase,
-} from '@daohaus/common-utilities';
-import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
+} from '@daohaus/utils';
+import { buildMultiCallTX } from '@daohaus/tx-builder';
 import { MaxUint256 } from '@ethersproject/constants';
 import { ProposalTypeIds } from '../utils/constants';
 import { CONTRACT } from './contracts';

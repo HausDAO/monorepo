@@ -1,4 +1,4 @@
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
 

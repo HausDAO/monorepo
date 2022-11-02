@@ -5,12 +5,12 @@ import {
   isGovernor,
   PROPOSAL_STATUS,
   TXLego,
-} from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useTxBuilder } from '@daohaus/tx-builder-feature';
+} from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { useHausConnect } from '@daohaus/connect';
+import { useTxBuilder } from '@daohaus/tx-builder';
 import { Spinner, useToast } from '@daohaus/ui';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 
 import { ACTION_TX } from '../legos/tx';
 import { GatedButton } from './proposalCards/GatedButton';

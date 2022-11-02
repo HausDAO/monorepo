@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Card, SingleColumnLayout, widthQuery } from '@daohaus/ui';
 
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import { MetadataSettings } from '../components/MetadataSettings';
 import { GovernanceSettings } from '../components/GovernanceSettings';
 import { ShamanSettings } from '../components/ShamanSettings';

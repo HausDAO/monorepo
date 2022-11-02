@@ -25,10 +25,10 @@ import {
   charLimit,
   NETWORK_TOKEN_ETH_ADDRESS,
   AccountProfile,
-} from '@daohaus/common-utilities';
-import { FindMemberQuery, Haus } from '@daohaus/dao-data';
+} from '@daohaus/utils';
+import { FindMemberQuery, Haus } from '@daohaus/moloch-v3-data';
 
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import { Profile } from '../components/Profile';
 import { DaoTable } from '../components/DaohausTable';
 import { loadMember } from '../utils/dataFetchHelpers';

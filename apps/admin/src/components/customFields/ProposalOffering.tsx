@@ -1,9 +1,5 @@
-import {
-  fromWei,
-  isValidNetwork,
-  NETWORK_DATA,
-} from '@daohaus/common-utilities';
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
+import { fromWei, isValidNetwork, NETWORK_DATA } from '@daohaus/utils';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';

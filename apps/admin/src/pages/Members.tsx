@@ -9,14 +9,14 @@ import {
   Keychain,
   sharesDelegatedToMember,
   votingPowerPercentage,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 import {
   useMembers,
   useDao,
   TMembers,
   useConnectedMembership,
-} from '@daohaus/dao-context';
-import { Member_OrderBy } from '@daohaus/dao-data';
+} from '@daohaus/moloch-v3-context';
+import { Member_OrderBy } from '@daohaus/moloch-v3-data';
 import {
   SingleColumnLayout,
   Card,
@@ -82,7 +82,7 @@ const ActionContainer = styled.div`
 
 export type MembersTableType = TMembers[number];
 
-export const  Members = () => {
+export const Members = () => {
   const { dao } = useDao();
   const { members, membersNextPaging, loadMoreMembers, sortMembers } =
     useMembers();
@@ -100,10 +100,12 @@ export const  Members = () => {
         Header: 'Member',
         accessor: 'memberAddress',
         Cell: ({ value }: { value: string }) => {
-          return <MemberProfileAvatar
-            daochain={daochain as keyof Keychain}
-            memberAddress={value}
-          />
+          return (
+            <MemberProfileAvatar
+              daochain={daochain as keyof Keychain}
+              memberAddress={value}
+            />
+          );
         },
       },
       {
@@ -224,7 +226,7 @@ export const  Members = () => {
         },
       },
     ],
-    [dao, daochain],
+    [dao, daochain]
   );
 
   const handleColumnSort = (
@@ -280,6 +282,6 @@ export const  Members = () => {
       </MemberContainer>
     </SingleColumnLayout>
   );
-}
+};
 
 export default Members;

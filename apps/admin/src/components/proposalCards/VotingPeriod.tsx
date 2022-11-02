@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import { baalTimeToNow } from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { baalTimeToNow } from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { useHausConnect } from '@daohaus/connect';
 
 import { HasVoted } from './HasVoted';
 import { HasNotVoted } from './HasNotVoted';

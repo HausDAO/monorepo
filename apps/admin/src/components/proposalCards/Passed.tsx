@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
-import { formatShares, roundedPercentage } from '@daohaus/common-utilities';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { formatShares, roundedPercentage } from '@daohaus/utils';
+import { useHausConnect } from '@daohaus/connect';
 import { VotingBar } from '../VotingBar';
 
 export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {

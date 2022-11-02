@@ -10,7 +10,7 @@ import {
   Link,
 } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '@daohaus/moloch-v3-context';
 import {
   charLimit,
   formatPeriods,
@@ -19,7 +19,7 @@ import {
   getNetwork,
   INFO_COPY,
   lowerCaseLootToken,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 

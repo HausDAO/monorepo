@@ -1,5 +1,5 @@
-import { percentage } from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { percentage } from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { Progress } from '@daohaus/ui';
 import { mintDark, slateDark, tomatoDark } from '@radix-ui/colors';
 import { useMemo } from 'react';

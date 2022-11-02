@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { H3, ParSm } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '@daohaus/moloch-v3-context';
 import { ShamanList } from './ShamanList';
 
 const ShamanContainer = styled.div`

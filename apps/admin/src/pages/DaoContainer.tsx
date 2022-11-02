@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { DaoContextProvider } from '@daohaus/dao-context';
+import { useHausConnect } from '@daohaus/connect';
+import { DaoContextProvider } from '@daohaus/moloch-v3-context';
 import Dao from './Dao';
 
 export function DaoContainer() {

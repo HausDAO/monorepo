@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FormBuilder } from '@daohaus/haus-form-builder';
+import { FormBuilder } from '@daohaus/form-builder';
 
 import { getFormLegoById } from '../legos/form';
 import { CustomFields } from '../legos/config';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 
 export function NewProposal() {
   const location = useLocation();

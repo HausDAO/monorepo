@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
-import {
-  charLimit,
-  getNetworkName,
-  readableNumbers,
-} from '@daohaus/common-utilities';
-import { ITransformedMembership } from '@daohaus/common-utilities';
+import { charLimit, getNetworkName, readableNumbers } from '@daohaus/utils';
+import { ITransformedMembership } from '@daohaus/utils';
 import {
   Badge,
   Bold,

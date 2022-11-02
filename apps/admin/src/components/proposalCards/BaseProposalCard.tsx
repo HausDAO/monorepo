@@ -4,7 +4,7 @@ import { Card, widthQuery } from '@daohaus/ui';
 
 import { ProposalCardOverview } from '../ProposalCardOverview';
 import { ProposalActions } from './ProposalActions';
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { ActionLifeCycleFns } from '../../utils/general';
 
 const ProposalCardContainer = styled(Card)`
@@ -48,7 +48,6 @@ type BaseProposalCardProps = {
 };
 
 export const BaseProposalCard = ({ proposal }: BaseProposalCardProps) => {
-
   const [actionLoading, setActionLoading] = useState<boolean>(false);
 
   const lifeCycleFnsOverride: ActionLifeCycleFns = {
@@ -61,10 +60,7 @@ export const BaseProposalCard = ({ proposal }: BaseProposalCardProps) => {
   return (
     <ProposalCardContainer>
       <LeftCard>
-        <ProposalCardOverview
-          loading={actionLoading}
-          proposal={proposal}
-        />
+        <ProposalCardOverview loading={actionLoading} proposal={proposal} />
       </LeftCard>
       <RightCard>
         <ProposalActions

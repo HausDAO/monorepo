@@ -2,9 +2,9 @@ import {
   checkHasQuorum,
   formatShares,
   roundedPercentage,
-} from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+} from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { useHausConnect } from '@daohaus/connect';
 import { useMemo } from 'react';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate, Verdict } from './ActionPrimitives';

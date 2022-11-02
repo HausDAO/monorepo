@@ -9,8 +9,8 @@ import {
 } from 'react-icons/ri';
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
-import { ITransformedProposal } from '@daohaus/dao-data';
-import { checkHasQuorum, percentage } from '@daohaus/common-utilities';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { checkHasQuorum, percentage } from '@daohaus/utils';
 
 const TemplateBox = styled.div`
   display: flex;

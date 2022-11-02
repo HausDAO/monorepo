@@ -1,4 +1,4 @@
-import { NETWORK_DATA } from '@daohaus/common-utilities';
+import { NETWORK_DATA } from '@daohaus/utils';
 import {
   Button,
   Dropdown,

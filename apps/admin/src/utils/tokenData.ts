@@ -1,9 +1,5 @@
-import {
-  NETWORK_DATA,
-  TokenBalance,
-  ValidNetwork,
-} from '@daohaus/common-utilities';
-import { DaoWithTokenData } from '@daohaus/dao-data';
+import { NETWORK_DATA, TokenBalance, ValidNetwork } from '@daohaus/utils';
+import { DaoWithTokenData } from '@daohaus/moloch-v3-data';
 
 const isNetworkToken = (tokenData: TokenBalance) => {
   return !tokenData.token;

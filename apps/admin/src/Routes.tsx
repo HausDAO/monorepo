@@ -26,7 +26,7 @@ import {
   HausConnectProvider,
   HausLayout,
   useHausConnect,
-} from '@daohaus/daohaus-connect-feature';
+} from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 const HomeContainer = () => {

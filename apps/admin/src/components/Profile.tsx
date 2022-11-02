@@ -12,14 +12,14 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile } from '@daohaus/common-utilities';
+import { AccountProfile } from '@daohaus/utils';
 import {
   formatLongDateFromSeconds,
   formatValueTo,
   fromWei,
   votingPowerPercentage,
-} from '@daohaus/common-utilities';
-import { TMembership, useDao } from '@daohaus/dao-context';
+} from '@daohaus/utils';
+import { TMembership, useDao } from '@daohaus/moloch-v3-context';
 
 import { MemberProfileMenu } from './MemberProfileMenu';
 

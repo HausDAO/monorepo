@@ -1,7 +1,7 @@
-import { CoreFieldLookup } from '@daohaus/haus-form-builder';
+import { CoreFieldLookup } from '@daohaus/form-builder';
 import { ProposalExpiry } from '../components/customFields/proposalExpiry';
 import { TributeInput } from '../components/customFields/tributeInput';
-import { FieldLegoBase, FormLegoBase } from '@daohaus/common-utilities';
+import { FieldLegoBase, FormLegoBase } from '@daohaus/utils';
 import { SelectApplicant } from '../components/customFields/SelectApplicant';
 import { RequestNativeToken } from '../components/customFields/RequestNativeToken';
 import { RequestERC20 } from '../components/customFields/RequestERC20';

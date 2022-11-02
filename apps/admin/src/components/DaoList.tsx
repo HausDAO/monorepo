@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ITransformedMembership } from '@daohaus/common-utilities';
+import { ITransformedMembership } from '@daohaus/utils';
 import { breakpoints } from '@daohaus/ui';
 
 import { DaoCard } from './DaoCard';

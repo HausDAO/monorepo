@@ -1,6 +1,6 @@
-import { FormBuilder } from '@daohaus/haus-form-builder';
+import { FormBuilder } from '@daohaus/form-builder';
 import { useMemo } from 'react';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 

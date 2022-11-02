@@ -3,8 +3,12 @@ import {
   isEthAddress,
   isValidNetwork,
   ValidNetwork,
-} from '@daohaus/common-utilities';
-import { DecodedAction, DecodedMultiTX, isActionError } from '@daohaus/tx-builder-feature';
+} from '@daohaus/utils';
+import {
+  DecodedAction,
+  DecodedMultiTX,
+  isActionError,
+} from '@daohaus/tx-builder';
 import {
   AddressDisplay,
   Bold,
@@ -59,7 +63,7 @@ export const ActionDisplay = ({
   const network = isValidNetwork(daochain) ? daochain : undefined;
   const isMobile = useBreakpoint(widthQuery.sm);
 
-  const ActionAlert = ({ action }: {action: DecodedAction }) => {
+  const ActionAlert = ({ action }: { action: DecodedAction }) => {
     const actionType = DAO_METHOD_TO_PROPOSAL_TYPE[action.name];
     // Show Action Warning IFF actionType != proposal.proposalType
     // e.g. calling sensitive dao methods through tx builder proposal
@@ -99,7 +103,10 @@ export const ActionDisplay = ({
           );
         }
         return (
-          <div className="display-segment" key={action.name || `action_${index}`}>
+          <div
+            className="display-segment"
+            key={action.name || `action_${index}`}
+          >
             <div className="data">
               <H4 className="space">
                 Action {index + 1}: {action.name}
@@ -171,7 +178,9 @@ const ValueDisplay = ({
           return (
             <div className="space" key={`argValue${index}`}>
               <ValueDisplay
-                argValue={Array.isArray(value) ? `${value[0]}: ${value[1]}` : value}
+                argValue={
+                  Array.isArray(value) ? `${value[0]}: ${value[1]}` : value
+                }
                 network={network}
               />
               {index + 1 < argValue?.length && <Divider />}

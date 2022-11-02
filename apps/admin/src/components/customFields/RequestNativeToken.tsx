@@ -1,14 +1,10 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import {
-  isValidNetwork,
-  toWholeUnits,
-  handleBaseUnits,
-} from '@daohaus/common-utilities';
+import { isValidNetwork, toWholeUnits, handleBaseUnits } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import { getNetworkToken } from '../../utils/tokenData';
 
 // enum InputStates {

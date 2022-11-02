@@ -1,6 +1,6 @@
 import { ParMd, TintSecondary } from '@daohaus/ui';
-import { formatShares } from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { formatShares } from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 
 import { ActionTemplate, VotingResults } from './ActionPrimitives';
 import { VotingBar } from '../VotingBar';

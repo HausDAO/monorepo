@@ -1,17 +1,13 @@
 import React, { MouseEvent } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  formatShares,
-  handleErrorMessage,
-  TXLego,
-} from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useTxBuilder } from '@daohaus/tx-builder-feature';
+import { formatShares, handleErrorMessage, TXLego } from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { useHausConnect } from '@daohaus/connect';
+import { useTxBuilder } from '@daohaus/tx-builder';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
 
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { ACTION_TX } from '../../legos/tx';
 import {
   ActionTemplate,

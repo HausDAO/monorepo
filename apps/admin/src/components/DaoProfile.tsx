@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { charLimit, Keychain } from '@daohaus/common-utilities';
+import { charLimit, Keychain } from '@daohaus/utils';
 import {
   AddressDisplay,
   border,
@@ -15,7 +15,7 @@ import {
   Button,
   Link,
 } from '@daohaus/ui';
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '@daohaus/moloch-v3-context';
 
 import { TagList } from './TagList';
 import { missingDaoProfileData } from '../utils/general';

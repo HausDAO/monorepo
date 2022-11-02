@@ -1,5 +1,5 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
-import { ContractLego, CONTRACTS } from '@daohaus/common-utilities';
+import { LOCAL_ABI } from '@daohaus/abis';
+import { ContractLego, CONTRACTS } from '@daohaus/utils';
 
 export const CONTRACT: Record<string, ContractLego> = {
   POSTER: {

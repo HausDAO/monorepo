@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getNetwork } from '@daohaus/common-utilities';
+import { getNetwork } from '@daohaus/utils';
 
-import { TProposals } from '@daohaus/dao-context';
+import { TProposals } from '@daohaus/moloch-v3-context';
 import { ProposalHistoryCard } from './ProposalHistoryCard';
 import {
   buildProposalHistory,

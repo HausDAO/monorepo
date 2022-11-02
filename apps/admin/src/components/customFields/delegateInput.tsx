@@ -10,12 +10,8 @@ import {
   Theme,
   Tooltip,
 } from '@daohaus/ui';
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
-import {
-  formatValueTo,
-  fromWei,
-  votingPowerPercentage,
-} from '@daohaus/common-utilities';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { formatValueTo, fromWei, votingPowerPercentage } from '@daohaus/utils';
 import styled from 'styled-components';
 import { useFormContext } from 'react-hook-form';
 

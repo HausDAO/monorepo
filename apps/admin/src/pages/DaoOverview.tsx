@@ -7,14 +7,14 @@ import {
   SingleColumnLayout,
   widthQuery,
 } from '@daohaus/ui';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import { DaoProfile } from '../components/DaoProfile';
 import {
   charLimit,
   formatValueTo,
   fromWei,
   lowerCaseLootToken,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 
 const OverviewCard = styled(Card)`
   width: 64rem;

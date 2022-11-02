@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { useBreakpoint, useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '@daohaus/dao-context';
-import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
+import { useHausConnect } from '@daohaus/connect';
+import { useDao } from '@daohaus/moloch-v3-context';
+import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
   handleErrorMessage,
   isValidNetwork,
@@ -15,11 +15,11 @@ import {
   roundedPercentage,
   TXLego,
   ValidNetwork,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { LOCAL_ABI } from '@daohaus/abis';
 
 import { ActionLifeCycleFns } from '../../utils/general';
 

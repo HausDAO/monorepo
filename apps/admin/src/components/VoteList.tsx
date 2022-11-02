@@ -5,8 +5,8 @@ import {
   formatValueTo,
   fromWei,
   Keychain,
-} from '@daohaus/common-utilities';
-import { TProposals } from '@daohaus/dao-context';
+} from '@daohaus/utils';
+import { TProposals } from '@daohaus/moloch-v3-context';
 import { DataMd, ParMd, widthQuery } from '@daohaus/ui';
 
 import { MemberProfileAvatar } from './MemberProfileAvatar';
@@ -25,7 +25,7 @@ const VotesContainer = styled.div`
   max-height: 50rem;
   @media ${widthQuery.sm} {
     min-width: 100%;
-  };
+  }
   overflow: scroll;
   padding-right: 1rem;
 `;

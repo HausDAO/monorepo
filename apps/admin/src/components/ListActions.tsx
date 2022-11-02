@@ -1,4 +1,4 @@
-import { Noun } from '@daohaus/common-utilities';
+import { Noun } from '@daohaus/utils';
 import {
   Button,
   SingleColumnLayout,

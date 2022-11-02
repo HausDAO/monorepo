@@ -3,14 +3,14 @@ import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
-import { ITransformedMembership } from '@daohaus/common-utilities';
+import { ITransformedMembership } from '@daohaus/utils';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
 import {
   charLimit,
   getNetworkName,
   readableNumbers,
   truncateAddress,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 
 // REVIEW NOTES
 // Can this be refactored to use DaoHaus Table?

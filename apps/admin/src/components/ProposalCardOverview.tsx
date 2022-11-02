@@ -7,9 +7,9 @@ import {
   charLimit,
   formatShortDateTimeFromSeconds,
   Keychain,
-} from '@daohaus/common-utilities';
-import { TProposals } from '@daohaus/dao-context';
-import { Haus, ITransformedProposal } from '@daohaus/dao-data';
+} from '@daohaus/utils';
+import { TProposals } from '@daohaus/moloch-v3-context';
+import { Haus, ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {
   Button,
   ParLg,
@@ -81,19 +81,24 @@ export const ProposalCardOverview = ({
 
   const haus = Haus.create();
 
-  const fetchMemberProfile = useCallback(async (
-    address: string,
-    setter: typeof setSubmitterProfile,
-  ) => {
-    const profile = await fetchProfile({ haus, address });
-    setter(profile);
-  }, [haus]);
+  const fetchMemberProfile = useCallback(
+    async (address: string, setter: typeof setSubmitterProfile) => {
+      const profile = await fetchProfile({ haus, address });
+      setter(profile);
+    },
+    [haus]
+  );
 
   useEffect(() => {
     if (!submitterProfile) {
       fetchMemberProfile(proposal.createdBy, setSubmitterProfile);
     }
-  }, [fetchMemberProfile, proposal.createdBy, submitterProfile, setSubmitterProfile]);
+  }, [
+    fetchMemberProfile,
+    proposal.createdBy,
+    submitterProfile,
+    setSubmitterProfile,
+  ]);
 
   return (
     <OverviewBox>
@@ -126,9 +131,11 @@ export const ProposalCardOverview = ({
         </ParMd>
         <MemberCard
           explorerNetworkId={daochain as keyof Keychain}
-          profile={submitterProfile || {
-            address: proposal.createdBy,
-          }}
+          profile={
+            submitterProfile || {
+              address: proposal.createdBy,
+            }
+          }
         />
       </SubmittedContainer>
     </OverviewBox>

@@ -4,8 +4,8 @@ import { FaQrcode } from 'react-icons/fa';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { ValidNetwork } from '@daohaus/common-utilities';
-import { useDao } from '@daohaus/dao-context';
+import { ValidNetwork } from '@daohaus/utils';
+import { useDao } from '@daohaus/moloch-v3-context';
 import {
   border,
   Buildable,
@@ -20,7 +20,7 @@ import {
   Theme,
   WrappedInput,
 } from '@daohaus/ui';
-import { FieldSpacer } from '@daohaus/haus-form-builder';
+import { FieldSpacer } from '@daohaus/form-builder';
 
 import { useWalletConnect } from '../../hook/walletConnect';
 

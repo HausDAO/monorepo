@@ -1,12 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  ParMd,
-  Link,
-  Theme,
-  border,
-  DataIndicator,
-} from '@daohaus/ui';
+import { ParMd, Link, Theme, border, DataIndicator } from '@daohaus/ui';
 import {
   dynamicDecimals,
   formatShortDateTimeFromSeconds,
@@ -15,9 +9,9 @@ import {
   Keychain,
   NETWORK_DATA,
   ValidNetwork,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 
-import { TProposals } from '@daohaus/dao-context';
+import { TProposals } from '@daohaus/moloch-v3-context';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { ProposalWarning } from './ProposalWarning';
 
@@ -54,7 +48,10 @@ type ProposalDetailsGutsProps = {
   decodeError: boolean;
 };
 
-export const ProposalDetailsGuts = ({ decodeError, proposal }: ProposalDetailsGutsProps) => {
+export const ProposalDetailsGuts = ({
+  decodeError,
+  proposal,
+}: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
 
   return (

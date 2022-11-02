@@ -1,6 +1,6 @@
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import styled from 'styled-components';
-import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
+import { ExplorerLink } from '@daohaus/connect';
 import { Italic, ParSm } from '@daohaus/ui';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate } from './ActionPrimitives';
@@ -22,10 +22,11 @@ export const ActionFailed = ({
       helperDisplay={
         <ParSm>
           <Italic>
-            The external contract interaction failed. See <Link
-              address={proposal.processTxHash}
-              type="tx">transaction details
-            </Link> for more information.
+            The external contract interaction failed. See{' '}
+            <Link address={proposal.processTxHash} type="tx">
+              transaction details
+            </Link>{' '}
+            for more information.
           </Italic>
         </ParSm>
       }

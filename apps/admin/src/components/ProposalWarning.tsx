@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import styled from 'styled-components';
-import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
+import { ExplorerLink } from '@daohaus/connect';
 import { Card, Icon, ParXs, Theme } from '@daohaus/ui';
 
 import {
@@ -12,15 +12,36 @@ import {
 const WarningContainer = styled(Card)`
   display: flex;
   width: 100%;
-  background-color: ${({ theme, error, warning }: { theme: Theme; error: boolean, warning: boolean }) =>
-    (error && theme.danger.step3) || (warning && theme.warning.step3)};
-  border-color: ${({ theme, error, warning }: { theme: Theme; error: boolean, warning: boolean }) =>
-    (error && theme.danger.step7) || (warning && theme.warning.step7)};
+  background-color: ${({
+    theme,
+    error,
+    warning,
+  }: {
+    theme: Theme;
+    error: boolean;
+    warning: boolean;
+  }) => (error && theme.danger.step3) || (warning && theme.warning.step3)};
+  border-color: ${({
+    theme,
+    error,
+    warning,
+  }: {
+    theme: Theme;
+    error: boolean;
+    warning: boolean;
+  }) => (error && theme.danger.step7) || (warning && theme.warning.step7)};
 `;
 
 const StyledParXs = styled(ParXs)`
-  color: ${({ theme, error, warning }: { theme: Theme; error: boolean, warning: boolean }) =>
-    (error && theme.danger.step12) || (warning && theme.warning.step12)};
+  color: ${({
+    theme,
+    error,
+    warning,
+  }: {
+    theme: Theme;
+    error: boolean;
+    warning: boolean;
+  }) => (error && theme.danger.step12) || (warning && theme.warning.step12)};
 `;
 
 const Spacer = styled.div`
@@ -28,17 +49,16 @@ const Spacer = styled.div`
 `;
 
 const WarningIcon = styled(RiErrorWarningLine)`
-  color: ${({ theme }: { theme: Theme; }) => theme.warning.step9};
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
   height: 2.5rem;
   width: 2.5rem;
-`
+`;
 
 const IconContainer = styled.div`
   margin-right: 1rem;
-`
-
-const MessageContainer = styled.div`
 `;
+
+const MessageContainer = styled.div``;
 
 type ProposalWarningProps = {
   proposalType: string | undefined;
@@ -71,10 +91,16 @@ export const ProposalWarning = ({
   const hasError = false;
 
   return (
-    <WarningContainer className='container' error={hasError} warning={hasWarning}>
+    <WarningContainer
+      className="container"
+      error={hasError}
+      warning={hasWarning}
+    >
       {hasWarning && (
         <IconContainer>
-          <Icon label='Warning'><WarningIcon /></Icon>
+          <Icon label="Warning">
+            <WarningIcon />
+          </Icon>
         </IconContainer>
       )}
       <MessageContainer>

@@ -7,8 +7,8 @@ import {
   fromWei,
   NetworkType,
   PROPOSAL_STATUS,
-} from '@daohaus/common-utilities';
-import { TProposals } from '@daohaus/dao-context';
+} from '@daohaus/utils';
+import { TProposals } from '@daohaus/moloch-v3-context';
 
 export type ProposalHistoryElementData = {
   dataType: 'member' | 'dataIndicator';

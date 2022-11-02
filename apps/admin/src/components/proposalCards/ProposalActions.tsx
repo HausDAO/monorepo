@@ -1,5 +1,5 @@
-import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { PROPOSAL_STATUS } from '@daohaus/utils';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { ParMd, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionLifeCycleFns } from '../../utils/general';

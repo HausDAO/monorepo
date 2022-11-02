@@ -10,16 +10,16 @@ import {
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-import { statusFilter } from '@daohaus/dao-data';
+import { statusFilter } from '@daohaus/moloch-v3-data';
 import { BsPlusLg } from 'react-icons/bs';
 
-import { useDao, useProposals } from '@daohaus/dao-context';
+import { useDao, useProposals } from '@daohaus/moloch-v3-context';
 import { NewProposalList } from '../components/NewProposalList';
 import { PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
 import { BaseProposalCard } from '../components/proposalCards/BaseProposalCard';
-import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
+import { PROPOSAL_STATUS } from '@daohaus/utils';
 
 const ActionsContainer = styled.div`
   width: 100%;

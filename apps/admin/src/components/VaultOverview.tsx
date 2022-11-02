@@ -11,13 +11,9 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import {
-  formatValueTo,
-  generateGnosisUiLink,
-  Keychain,
-} from '@daohaus/common-utilities';
+import { formatValueTo, generateGnosisUiLink, Keychain } from '@daohaus/utils';
 
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '@daohaus/moloch-v3-context';
 
 const VaultOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};

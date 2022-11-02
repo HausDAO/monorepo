@@ -5,19 +5,19 @@ import {
   CACHE_CONFIG,
   CacheStoreName,
   getlocalForage,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 import {
   Dao_Filter,
   Haus,
   ICrossNetworkMemberListArguments,
   Member_Filter,
   Member_OrderBy,
-} from '@daohaus/dao-data';
+} from '@daohaus/moloch-v3-data';
 
 export const getProfileStore = async () =>
   (await getlocalForage(CacheStoreName.MEMBERS_PROFILE)) as ArbitraryState;
 
-export const getCachedProfile = async ({ address }: { address: string; }) => {
+export const getCachedProfile = async ({ address }: { address: string }) => {
   const abiStore = await getProfileStore();
   const profile = abiStore?.[address] as AccountProfile | undefined;
   return profile;
@@ -37,7 +37,7 @@ const addProfile = ({
     [address]: {
       ...profileStore[address],
       ...profile,
-       // This could be used to expire cache periodically and update profiles
+      // This could be used to expire cache periodically and update profiles
       lastUpdated: new Date().getTime(),
     },
   };
@@ -69,15 +69,11 @@ export const fetchProfile = async ({
   haus,
   address,
   includeDaosOptions,
-} : {
-  haus: Haus,
+}: {
+  haus: Haus;
   address: string;
   includeDaosOptions?: Omit<
-    ICrossNetworkMemberListArguments<
-      Member_OrderBy,
-      Dao_Filter,
-      Member_Filter
-    >,
+    ICrossNetworkMemberListArguments<Member_OrderBy, Dao_Filter, Member_Filter>,
     'memberAddress'
   >;
 }): Promise<AccountProfile> => {

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '@daohaus/moloch-v3-context';
 import {
   charLimit,
   formatValueTo,
   fromWei,
   lowerCaseLootToken,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 
 const MembersOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};

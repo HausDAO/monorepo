@@ -8,14 +8,14 @@ import {
   Spinner,
   widthQuery,
 } from '@daohaus/ui';
-import { ITransformedProposalQuery } from '@daohaus/dao-data';
+import { ITransformedProposalQuery } from '@daohaus/moloch-v3-data';
 import {
   isValidNetwork,
   Keychain,
   MulticallArg,
   ValidNetwork,
-} from '@daohaus/common-utilities';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+} from '@daohaus/utils';
+import { useHausConnect } from '@daohaus/connect';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
 import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
@@ -27,7 +27,7 @@ import {
   DecodedMultiTX,
   decodeProposalActions,
   isActionError,
-} from '@daohaus/tx-builder-feature';
+} from '@daohaus/tx-builder';
 import { ActionDisplay } from '../components/ActionDisplay';
 import { TX } from '../legos/tx';
 
@@ -99,9 +99,11 @@ export function ProposalDetails() {
     const fetchPropActions = async (
       chainId: ValidNetwork,
       actionData: string,
-      proposalType: string,
+      proposalType: string
     ) => {
-      const multicallMeta = TX[proposalType]?.args?.find(tx => (tx as MulticallArg).type === 'multicall');
+      const multicallMeta = TX[proposalType]?.args?.find(
+        (tx) => (tx as MulticallArg).type === 'multicall'
+      );
       const proposalActions = await decodeProposalActions({
         chainId,
         actionData,
@@ -109,7 +111,7 @@ export function ProposalDetails() {
       });
       if (shouldUpdate) {
         setActionData(proposalActions);
-        setDecodeError(proposalActions.some(action => isActionError(action)));
+        setDecodeError(proposalActions.some((action) => isActionError(action)));
       }
     };
 
@@ -144,12 +146,12 @@ export function ProposalDetails() {
       }
       left={
         <OverviewCard>
-          {proposal && 
+          {proposal && (
             <ProposalDetailsGuts
               decodeError={decodeError}
               proposal={proposal}
             />
-          }
+          )}
           {actionData && (
             <ActionContainer>
               <ActionDisplay

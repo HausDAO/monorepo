@@ -12,10 +12,10 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { TDao, useConnectedMembership } from '@daohaus/dao-context';
+import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { charLimit, Keychain } from '@daohaus/common-utilities';
+import { charLimit, Keychain } from '@daohaus/utils';
 
 const MetaCardHeader = styled.div`
   display: flex;

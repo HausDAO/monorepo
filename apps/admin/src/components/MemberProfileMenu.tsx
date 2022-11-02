@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useConnectedMembership } from '@daohaus/dao-context';
+import { useConnectedMembership } from '@daohaus/moloch-v3-context';
 import {
   Dropdown,
   DropdownMenuItem,

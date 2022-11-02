@@ -1,7 +1,7 @@
 import { useParams, Outlet, useLocation } from 'react-router-dom';
-import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
-import { TXBuilder } from '@daohaus/tx-builder-feature';
+import { HausLayout, useHausConnect } from '@daohaus/connect';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { TXBuilder } from '@daohaus/tx-builder';
 import { useMemo } from 'react';
 
 export function Dao() {

@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { BigNumberish, BytesLike } from 'ethers';
-import { hashMessage, _TypedDataEncoder } from 'ethers/lib/utils'
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
-import { CONTRACTS, encodeFunction, ValidNetwork } from '@daohaus/common-utilities';
+import { hashMessage, _TypedDataEncoder } from 'ethers/lib/utils';
+import { LOCAL_ABI } from '@daohaus/abis';
+import { CONTRACTS, encodeFunction, ValidNetwork } from '@daohaus/utils';
 import WalletConnect from '@walletconnect/client';
 import { IClientMeta } from '@walletconnect/types';
 
@@ -14,25 +14,36 @@ type EIP712TypedData = {
     verifyingContract?: string;
     salt?: BytesLike;
   };
-  types: { 
+  types: {
     [key: string]: {
       name: string;
       type: string;
-    }[]
+    }[];
   };
   message: Record<string, unknown>;
 };
 
 const isObjectEIP712TypedData = (obj?: unknown): obj is EIP712TypedData => {
-  return typeof obj === 'object' && obj != null && 'domain' in obj && 'types' in obj && 'message' in obj;
+  return (
+    typeof obj === 'object' &&
+    obj != null &&
+    'domain' in obj &&
+    'types' in obj &&
+    'message' in obj
+  );
 };
 
-export const encodeSafeSignMessage = (chainId: ValidNetwork, message: string | EIP712TypedData) => {
+export const encodeSafeSignMessage = (
+  chainId: ValidNetwork,
+  message: string | EIP712TypedData
+) => {
   const signLibAddress = CONTRACTS.GNOSIS_SIGNLIB[chainId];
   const msgHash = isObjectEIP712TypedData(message)
     ? _TypedDataEncoder.hash(message.domain, message.types, message.message)
     : hashMessage(message);
-  const data = encodeFunction(LOCAL_ABI.GNOSIS_SIGNLIB, 'signMessage', [msgHash]);
+  const data = encodeFunction(LOCAL_ABI.GNOSIS_SIGNLIB, 'signMessage', [
+    msgHash,
+  ]);
   if (signLibAddress && typeof data === 'string') {
     return {
       to: signLibAddress,
@@ -43,7 +54,11 @@ export const encodeSafeSignMessage = (chainId: ValidNetwork, message: string | E
   }
 };
 
-const rejectWithMessage = (connector: WalletConnect, id: number, message: string) => {
+const rejectWithMessage = (
+  connector: WalletConnect,
+  id: number,
+  message: string
+) => {
   connector.rejectRequest({ id, error: { message } });
 };
 
@@ -73,9 +88,9 @@ type WCPayload = {
 export const useWalletConnect = (): {
   wcConnector?: WalletConnect;
   wcClientData?: IClientMeta;
-  txPayload?: WCPayload,
+  txPayload?: WCPayload;
   txError?: string;
-  wcConnect: (params: WCParams) => Promise<void>,
+  wcConnect: (params: WCParams) => Promise<void>;
   wcDisconnect: (session: WalletConnect) => Promise<void>;
 } => {
   const [wcClientData, setWcClientData] = useState<IClientMeta>();
@@ -98,7 +113,7 @@ export const useWalletConnect = (): {
         setTxError('');
       }
     },
-    [localStorageSessionKey],
+    [localStorageSessionKey]
   );
 
   const wcConnect = useCallback(
@@ -184,7 +199,7 @@ export const useWalletConnect = (): {
         }
       });
 
-      connector.on('disconnect', error => {
+      connector.on('disconnect', (error) => {
         if (error) {
           throw error;
         }
@@ -192,7 +207,7 @@ export const useWalletConnect = (): {
         if (wcConnector) wcDisconnect(wcConnector);
       });
     },
-    [wcConnector, wcDisconnect],
+    [wcConnector, wcDisconnect]
   );
 
   return {

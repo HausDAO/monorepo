@@ -1,4 +1,4 @@
-import { FormBuilder } from '@daohaus/haus-form-builder';
+import { FormBuilder } from '@daohaus/form-builder';
 import { CustomFields } from '../legos/config';
 import { TABULA_FORMS } from '../legos/form';
 

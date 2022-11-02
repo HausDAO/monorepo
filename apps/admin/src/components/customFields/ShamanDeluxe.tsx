@@ -6,10 +6,10 @@ import {
   ignoreEmptyVal,
   isNumberish,
   SHAMAN_PERMISSIONS,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
 
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 
 const Secondary = styled.span`
   color: ${(props) => props.theme.secondary.step9};

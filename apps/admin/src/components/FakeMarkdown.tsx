@@ -7,17 +7,17 @@ import {
   SuccessMessage,
   WrappedTextArea,
 } from '@daohaus/ui';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import { useParams } from 'react-router-dom';
 import {
   ENDPOINTS,
   isValidNetwork,
   ReactSetter,
   ValidNetwork,
-} from '@daohaus/common-utilities';
+} from '@daohaus/utils';
 
 import { gql, request } from 'graphql-request';
-import { useFormBuilder } from '@daohaus/haus-form-builder';
+import { useFormBuilder } from '@daohaus/form-builder';
 import { FieldValues, UseFormSetValue } from 'react-hook-form';
 
 const PUB_ID = 'pubId';

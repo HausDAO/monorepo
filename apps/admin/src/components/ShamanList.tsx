@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { AddressDisplay, Button, DataSm, Link, widthQuery } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '@daohaus/moloch-v3-context';
 import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/common-utilities';
+import { Keychain } from '@daohaus/utils';
 
 const ShamanContainer = styled.div`
   display: flex;

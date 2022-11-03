@@ -15,17 +15,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-      steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: nrwl/nx-set-shas@v3
-    - run: npm ci
+    steps:
+  - uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
+  - uses: nrwl/nx-set-shas@v3
+  - run: npm ci
 
-    - run: npx nx workspace-lint
-    - run: npx nx format:check
-    - run: npx nx affected --target=lint --parallel=3
-    - run: npx nx affected --target=build --parallel=3
+  - run: npx nx workspace-lint
+  - run: npx nx format:check
+  - run: npx nx affected --target=lint --parallel=3
+  - run: npx nx affected --target=build --parallel=3
 
     # steps:
     #   - uses: actions/checkout@v3

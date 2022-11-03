@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ListDaosQuery } from '@daohaus/moloch-v3-data';
+import { ITransformedDao } from '@daohaus/moloch-v3-data';
 import { Container, Grid } from '@material-ui/core';
 import {
   Button,
@@ -24,7 +24,7 @@ interface DaosProps {
 const Daos: React.FC<DaosProps> = (props: DaosProps) => {
   const { newBaalEvent } = props;
   const [loading, setLoading] = useState(false);
-  const [listDaos, setListDaos] = useState<ListDaosQuery['daos']>([]);
+  const [listDaos, setListDaos] = useState<Array<ITransformedDao>>([]);
   const { sdk, safe, connected } = useSafeAppsSDK();
 
   const fetchSafeInfo = useCallback(async () => {
@@ -86,7 +86,15 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
                 <StyledDaoCard>
                   <Grid container direction="column" spacing={2}>
                     <Grid item>
-                      <Identicon address={dao.id} size="xl" />
+                      {dao.avatarImg ? (
+                        <img
+                          alt='DAO Avatar'
+                          src={dao.avatarImg}
+                          style={{width: '48px', height: '48px', borderRadius: '50%'}}
+                        />
+                      ) : (
+                        <Identicon address={dao.id} size="xl" />
+                      )}
                     </Grid>
                     <Grid item>
                       <Text strong size="xl">

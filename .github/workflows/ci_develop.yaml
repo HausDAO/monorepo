@@ -35,4 +35,6 @@ jobs:
         run: npx nx affected:build --base $BASE
 
       - name: Deploy staging
-        run: npx nx affected:deployStaging --base $BASE
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          nx affected --target deployStaging --base $BASE

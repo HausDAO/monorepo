@@ -33,3 +33,8 @@ jobs:
 
       - name: Build mono
         run: npx nx affected:build --base $BASE
+
+      - name: Deploy staging
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          nx affected --target deployStaging --base $BASE

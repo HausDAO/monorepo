@@ -75,6 +75,13 @@
         "jestConfig": "apps/summon/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+
+    "deployStaging": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/deploy.js --someArg=yolo"
+      }
     }
   },
   "tags": []

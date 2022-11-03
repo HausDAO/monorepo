@@ -1,3 +1,3 @@
 # summon app
 
-an app
+an app for summoning

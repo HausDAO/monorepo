@@ -80,7 +80,7 @@
     "deployStaging": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/deploy.mjs --someArg=yolo"
+        "command": "node tools/scripts/deploy.js --someArg=yolo"
       }
     }
   },

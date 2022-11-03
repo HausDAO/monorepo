@@ -8,30 +8,39 @@ on:
   pull_request:
     branches:
       - 'develop'
-env:
-  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+# env:
+#   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: nrwl/nx-set-shas@v3
+    - run: npm ci
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
+    - run: npx nx workspace-lint
+    - run: npx nx format:check
+    - run: npx nx affected --target=lint --parallel=3
+    - run: npx nx affected --target=build --parallel=3
 
-      - name: Install dependencies
-        run: yarn install
+    # steps:
+    #   - uses: actions/checkout@v3
+    #     with:
+    #       fetch-depth: 0
 
-      - name: Lint mono
-        run: npx nx affected:lint --base $BASE
+    #   - uses: actions/setup-node@v3
+    #     with:
+    #       node-version: 16.x
 
-      - name: Test mono
-        run: npx nx affected:test --base $BASE
+    #   - name: Install dependencies
+    #     run: yarn install
 
-      - name: Build mono
-        run: npx nx affected:build --base $BASE
+    #   - name: Lint mono
+    #     run: npx nx affected:lint --base $BASE
+
+    #   - name: Build mono
+    #     run: npx nx affected:build --base $BASE

@@ -18,7 +18,12 @@
         "tsConfig": "apps/summon-safe/tsconfig.app.json",
         "assets": [
           "apps/summon-safe/src/assets/favicon.ico",
-          "apps/summon-safe/src/assets"
+          "apps/summon-safe/src/assets",
+          {
+            "input": "apps/summon-safe/src/assets",
+            "glob": "manifest.json",
+            "output": "."
+          }
         ],
         "styles": [],
         "scripts": [],

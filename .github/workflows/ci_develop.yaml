@@ -39,10 +39,10 @@ jobs:
         run: yarn install
 
       - name: Lint mono
-        run: yarn nx affected:lint --base $BASE
+        run: npx nx affected:lint --base $BASE
 
       - name: Test mono
-        run: yarn nx affected:test --base $BASE
+        run: npx nx affected:test --base $BASE
 
       - name: Build mono
-        run: yarn nx affected:build --base $BASE
+        run: npx affected:build --base $BASE

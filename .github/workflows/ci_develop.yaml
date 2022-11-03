@@ -8,17 +8,39 @@ on:
   pull_request:
     branches:
       - 'develop'
+env:
+  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
 
 jobs:
-  my_first_job:
-    name: My first job
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
-      - name: Print a greeting
-        env:
-          MY_VAR: Hi there! My name is
-          FIRST_NAME: Jord
-          MIDDLE_NAME: The
-          LAST_NAME: Octocat
-        run: |
-          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME ${{ github.ref }}.
+      - uses: actions/checkout@v2
+      - uses: yarn/action-setup@v2.0.1
+        with:
+          version: 7.1.7
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint
+        run: run lint
+
+      - name: Lint mono
+        run: nx affected:lint --base $BASE
+
+      - name: Test mono
+        run: nx affected:test --base $BASE
+
+      - name: Build mono
+        run: nx affected:build --base $BASE

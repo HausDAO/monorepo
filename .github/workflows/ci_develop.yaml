@@ -1,0 +1,24 @@
+name: CI Develop
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+  pull_request:
+    branches:
+      - 'develop'
+
+jobs:
+  my_first_job:
+    name: My first job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a greeting
+        env:
+          MY_VAR: Hi there! My name is
+          FIRST_NAME: Jord
+          MIDDLE_NAME: The
+          LAST_NAME: Octocat
+        run: |
+          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.

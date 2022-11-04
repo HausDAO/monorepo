@@ -28,8 +28,8 @@ export const handleIPFSPinata = async ({
     appState,
   });
 
-  const pinata_api_key = process.env['VITE_PINATA_API_KEY'];
-  const pinata_api_secret = process.env['VITE_PINATA_API_SECRET'];
+  const pinata_api_key = process.env['NX_PINATA_API_KEY'];
+  const pinata_api_secret = process.env['NX_PINATA_API_SECRET'];
 
   if (!pinata_api_key || !pinata_api_secret) {
     throw new Error(

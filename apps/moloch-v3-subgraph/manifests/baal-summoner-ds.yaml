@@ -1,0 +1,20 @@
+kind: ethereum/contract
+name: BaalSummoner
+network:
+source:
+  address: ''
+  abi: BaalSummoner
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Dao
+  abis:
+    - name: BaalSummoner
+      file: ./abis/BaalSummoner.json
+  eventHandlers:
+    - event: SummonBaal(indexed address,indexed address,indexed address,address,bool)
+      handler: handleSummonBaal
+  file: ./src/baal-summoner-mapping.ts

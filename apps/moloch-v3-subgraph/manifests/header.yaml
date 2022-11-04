@@ -1,0 +1,7 @@
+specVersion: 0.0.2
+description: DAOHaus V3 Subgraph
+repository: https://github.com/hausdao/daohaus-v3-subgraph-sandbox
+schema:
+  file: ./schema.graphql
+dataSources: []
+templates: []

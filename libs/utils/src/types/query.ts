@@ -4,6 +4,7 @@ export interface ITransformedMembership {
   dao: string;
   name?: string;
   safeAddress: string;
+  daoAvatarImg?: string;
   activeProposalCount: number;
   activeMemberCount: string;
   votingPower: number;

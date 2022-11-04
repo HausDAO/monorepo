@@ -75,19 +75,20 @@
         "jestConfig": "apps/admin/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "cloudflareStaging": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=admin-staging --directory=dist/apps/admin"
+      }
+    },
+    "cloudflareProduction": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=admin --directory=dist/apps/admin"
+      }
     }
   },
-  "cloudflareStaging": {
-    "executor": "nx:run-commands",
-    "options": {
-      "command": "node tools/scripts/cloudflarePublish.mjs --projectName=admin-staging --directory=dist/apps/admin"
-    }
-  },
-  "cloudflareProduction": {
-    "executor": "nx:run-commands",
-    "options": {
-      "command": "node tools/scripts/cloudflarePublish.mjs --projectName=admin --directory=dist/apps/admin"
-    }
-  },
+
   "tags": []
 }

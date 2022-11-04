@@ -36,7 +36,7 @@ jobs:
       - name: Build mono
         run: npx nx affected:build --base $BASE
 
-      - name: Deploy staging
+      - name: Publish to cloudflare pages
         if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
           npx nx affected --target cloudflareStaging --base $BASE

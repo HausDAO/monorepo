@@ -11,8 +11,15 @@ type CheckGateProps = {
   onUnchecked?: () => void;
 };
 
-export const CheckGate = ({ id, fields, gateLabel, onUnchecked, rules, ...props }: Buildable<CheckGateProps>) => {
-  const [gatedOn, toggleGate]= useState(false);
+export const CheckGate = ({
+  id,
+  fields,
+  gateLabel,
+  onUnchecked,
+  rules,
+  ...props
+}: Buildable<CheckGateProps>) => {
+  const [gatedOn, toggleGate] = useState(false);
 
   const onCheckedChanged = (checked: CheckedState) => {
     toggleGate(checked.valueOf() as boolean);
@@ -21,16 +28,8 @@ export const CheckGate = ({ id, fields, gateLabel, onUnchecked, rules, ...props 
 
   return (
     <FieldWrapper {...props} id={id} rules={rules}>
-       <Checkbox
-          id={id}
-          title={gateLabel}
-          onCheckedChange={onCheckedChanged}
-        /> 
-      {gatedOn && (
-        <CheckGateBox>
-          {fields}
-        </CheckGateBox>
-      )}
+      <Checkbox id={id} title={gateLabel} onCheckedChange={onCheckedChanged} />
+      {gatedOn && <CheckGateBox>{fields}</CheckGateBox>}
     </FieldWrapper>
   );
 };

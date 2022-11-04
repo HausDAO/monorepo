@@ -86,5 +86,5 @@ export const ButtonContainer = styled.div<{
   gap: 1rem;
   @media ${widthQuery.sm} {
     width: 100%;
-  };
+  } ;
 `;

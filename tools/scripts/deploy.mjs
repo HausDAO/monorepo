@@ -24,5 +24,5 @@ console.log('directory', argsObj.directory);
 // import wrangler
 // run wrangler cmd
 execSync(
-  `CLOUDFLARE_ACCOUNT_ID=${process.env.CLOUDFLARE_ACCOUNT_ID} CLOUDFLARE_API_TOKEN=${process.env.CLOUDFLARE_API_TOKEN} wrangler pages publish ${argsObj.directory} --project-name ${argsObj.projectName}`
+  `CLOUDFLARE_ACCOUNT_ID=${process.env.CLOUDFLARE_ACCOUNT_ID} CLOUDFLARE_API_TOKEN=${process.env.CLOUDFLARE_API_TOKEN} npx wrangler pages publish ${argsObj.directory} --project-name ${argsObj.projectName}`
 );

@@ -79,6 +79,30 @@
           "quiet": true
         }
       }
+    },
+    "clouflareStaging": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=storybook-staging --directory=dist/storybook/ui"
+      },
+      "dependsOn": [
+        {
+          "target": "build-storybook",
+          "projects": "self"
+        }
+      ]
+    },
+    "clouflareProduction": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=storybook --directory=dist/storybook/ui"
+      },
+      "dependsOn": [
+        {
+          "target": "build-storybook",
+          "projects": "self"
+        }
+      ]
     }
   }
 }

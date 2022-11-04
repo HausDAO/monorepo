@@ -67,5 +67,5 @@ export const SENSITIVE_PROPOSAL_TYPES: { [key: string]: boolean } = {
 };
 
 export const DAO_METHOD_TO_PROPOSAL_TYPE: { [key: string]: string } = {
-  'setShamans': ProposalTypeIds.AddShaman,
+  setShamans: ProposalTypeIds.AddShaman,
 };

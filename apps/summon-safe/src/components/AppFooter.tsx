@@ -4,12 +4,12 @@ import { Container } from '@material-ui/core';
 
 const AppFooter = () => {
   return (
-      <StyledFooter>
-        <Link href='https://daohaus.club/' target='_blank'>
-          <StyledImage alt='built by daohaus' src='/assets/daohaus.png' />
-        </Link>
-      </StyledFooter>
-    );
+    <StyledFooter>
+      <Link href="https://daohaus.club/" target="_blank">
+        <StyledImage alt="built by daohaus" src="/assets/daohaus.png" />
+      </Link>
+    </StyledFooter>
+  );
 };
 
 const StyledImage = styled.img`

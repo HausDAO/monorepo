@@ -11,7 +11,7 @@ import {
   SuccessText,
   WarningText,
 } from '../../atoms/HelperTexts';
-import{ Spinner } from '../../atoms/Spinner';
+import { Spinner } from '../../atoms/Spinner';
 import {
   BottomContainer,
   FieldWrapperBase,
@@ -75,7 +75,7 @@ export const FieldWrapper = ({
       <div className="field-slot">{children}</div>
       <BottomContainer className={classes}>
         <LeftAddonContainer>
-          {loading && <Spinner size='2rem' />}
+          {loading && <Spinner size="2rem" />}
           <HelperTextFactory
             error={error || fieldError}
             success={success}
@@ -83,9 +83,7 @@ export const FieldWrapper = ({
             helperText={helperText}
           />
         </LeftAddonContainer>
-        {rightAddon && (
-          <RightAddonContainer>{rightAddon}</RightAddonContainer>
-        )}
+        {rightAddon && <RightAddonContainer>{rightAddon}</RightAddonContainer>}
       </BottomContainer>
     </FieldWrapperBase>
   );

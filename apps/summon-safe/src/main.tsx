@@ -21,8 +21,8 @@ root.render(
       <SafeProvider
         loader={
           <>
-            <Title size='md'>Waiting for Safe...</Title>
-            <Loader size='md' />
+            <Title size="md">Waiting for Safe...</Title>
+            <Loader size="md" />
           </>
         }
       >

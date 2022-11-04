@@ -7,10 +7,16 @@ const BAAL_DOCS = 'https://summon.daohaus.fun';
 
 const AppBar = () => {
   return (
-    <StyledAppBar position='static' color='default'>
-      <StyledAppBarTitle size='xl'>DAO Launcher</StyledAppBarTitle>
+    <StyledAppBar position="static" color="default">
+      <StyledAppBarTitle size="xl">DAO Launcher</StyledAppBarTitle>
       <StyledSubtitleContainer>
-        <Text size='md'>Upgrade your DAO with a Moloch v3 DAO module. Read more about Moloch v3 <Link href={BAAL_DOCS} target='_blank'>here</Link></Text>
+        <Text size="md">
+          Upgrade your DAO with a Moloch v3 DAO module. Read more about Moloch
+          v3{' '}
+          <Link href={BAAL_DOCS} target="_blank">
+            here
+          </Link>
+        </Text>
       </StyledSubtitleContainer>
     </StyledAppBar>
   );

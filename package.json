@@ -2,7 +2,9 @@
   "name": "daohaus",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "husky install"
+  },
   "private": true,
   "dependencies": {
     "@daohaus/baal-contracts": "^1.0.0",
@@ -94,13 +96,14 @@
     "babel-plugin-styled-components": "1.10.7",
     "cypress": "^10.7.0",
     "eslint": "~8.15.0",
-    "eslint-config-prettier": "8.1.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-react": "7.31.8",
     "eslint-plugin-react-hooks": "4.6.0",
     "get-graphql-schema": "^2.1.2",
+    "husky": "^8.0.1",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "nx": "15.0.4",

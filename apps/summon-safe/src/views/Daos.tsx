@@ -88,9 +88,13 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
                     <Grid item>
                       {dao.avatarImg ? (
                         <img
-                          alt='DAO Avatar'
+                          alt="DAO Avatar"
                           src={dao.avatarImg}
-                          style={{width: '48px', height: '48px', borderRadius: '50%'}}
+                          style={{
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                          }}
                         />
                       ) : (
                         <Identicon address={dao.id} size="xl" />

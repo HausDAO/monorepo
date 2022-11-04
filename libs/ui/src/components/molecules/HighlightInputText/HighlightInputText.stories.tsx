@@ -9,14 +9,13 @@ export default {
 } as ComponentMeta<typeof HighlightInputText>;
 
 const Template: ComponentStory<typeof HighlightInputText> = (args) => {
-
   return (
     <div style={{ margin: '4rem' }}>
       {args.highlightInputId && (
         <WrappedInput
           id={args.highlightInputId}
-          label='Sample Input'
-          placeholder='Type something'
+          label="Sample Input"
+          placeholder="Type something"
         />
       )}
       <HighlightInputText {...args} />

@@ -1,10 +1,10 @@
 import { useFormContext } from 'react-hook-form';
 
 import { Bold, ParSm } from '../../atoms/Typography';
-import { Buildable } from '../../../types/formAndField'
+import { Buildable } from '../../../types/formAndField';
 
 type HighlightTextProps = {
-  color?: string
+  color?: string;
   description: string;
   highlightColor?: string;
   highlightInputId?: string;
@@ -21,7 +21,8 @@ export const HighlightInputText = ({
 
   return (
     <ParSm color={color}>
-      {description} {highlightValue && <Bold color={highlightColor}>{highlightValue}</Bold>}
+      {description}
+      {highlightValue && <Bold color={highlightColor}>{highlightValue}</Bold>}
     </ParSm>
   );
 };

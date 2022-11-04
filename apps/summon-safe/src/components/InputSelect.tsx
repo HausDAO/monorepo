@@ -19,19 +19,19 @@ export type SelectOpt = {
 };
 
 interface InputProps {
-  id: string
-  label: string
-  defaultValue: string
-  options: Array<SelectOpt>
-  placeholder: string
-  required?: boolean
-  disabled?: boolean
-  shouldUnregister: boolean
-  control: Control
-  register: UseFormRegister<FieldValues>
-  setValue: (id: string, selectedId: string, value: string) => void
-  getValues: UseFormGetValues<FieldValues>
-};
+  id: string;
+  label: string;
+  defaultValue: string;
+  options: Array<SelectOpt>;
+  placeholder: string;
+  required?: boolean;
+  disabled?: boolean;
+  shouldUnregister: boolean;
+  control: Control;
+  register: UseFormRegister<FieldValues>;
+  setValue: (id: string, selectedId: string, value: string) => void;
+  getValues: UseFormGetValues<FieldValues>;
+}
 
 const InputText: React.FC<InputProps> = (props: InputProps) => {
   const {
@@ -51,7 +51,7 @@ const InputText: React.FC<InputProps> = (props: InputProps) => {
   const [activeItemId, setActiveItemId] = useState<string>(defaultValue);
 
   useEffect(() => {
-    register(id)
+    register(id);
   }, [id, register]);
 
   const updateValue = (
@@ -86,9 +86,11 @@ const InputText: React.FC<InputProps> = (props: InputProps) => {
               disabled={disabled}
               label={label}
               placeholder={placeholder}
-              autoComplete='off'
+              autoComplete="off"
               name={field.name}
-              onChange={(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => updateValue(event, field) }
+              onChange={(
+                event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => updateValue(event, field)}
               error={fieldState.error?.message}
               required={required}
             />
@@ -101,7 +103,7 @@ const InputText: React.FC<InputProps> = (props: InputProps) => {
               disabled={disabled}
               items={options}
               activeItemId={activeItemId}
-              onItemClick={newId => updateSelectValue(newId)}
+              onItemClick={(newId) => updateSelectValue(newId)}
             />
           </Grid>
         </Grid>
@@ -111,9 +113,9 @@ const InputText: React.FC<InputProps> = (props: InputProps) => {
 };
 
 const StyledTextFieldInput = styled(TextFieldInput)`
-background-color: #fff;
-border-radius: 6px;
-border: 0;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 0;
 `;
 
 export default InputText;

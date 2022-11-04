@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Implement conventinal commits here. If we want to go with this plugin
+# https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional

@@ -47,7 +47,6 @@ export const AddressDisplay = ({
         type: txHash ? 'tx' : 'address',
       });
     }
-    return undefined;
   }, [address, txHash, explorerNetworkId]);
 
   const handleCopy = () => {

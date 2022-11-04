@@ -9,16 +9,34 @@ on:
     branches:
       - 'develop'
 
+env:
+  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
 jobs:
-  my_first_job:
-    name: My first job
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Print a greeting
-        env:
-          MY_VAR: Hi there! My name is
-          FIRST_NAME: Jord
-          MIDDLE_NAME: The
-          LAST_NAME: Octocat
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint mono
+        run: npx nx affected:lint --base $BASE
+
+      - name: Build mono
+        run: npx nx affected:build --base $BASE
+
+      - name: Publish to cloudflare pages
+        if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
-          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME ${{ github.ref }}.
+          npx nx affected --target cloudflareStaging --base $BASE

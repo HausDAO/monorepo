@@ -75,6 +75,19 @@
         "jestConfig": "apps/summon/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+
+    "cloudflareStaging": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=summon-staging --directory=dist/apps/summon"
+      }
+    },
+    "cloudflareProduction": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=summon --directory=dist/apps/summon"
+      }
     }
   },
   "tags": []

@@ -2,3 +2,6 @@
 
 /dist
 /coverage
+
+# Ignore generated files
+**/.generated.ts

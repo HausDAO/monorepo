@@ -1,0 +1,101 @@
+{
+  "name": "summon-safe",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/summon-safe/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/summon-safe",
+        "index": "apps/summon-safe/src/index.html",
+        "baseHref": "/",
+        "main": "apps/summon-safe/src/main.tsx",
+        "polyfills": "apps/summon-safe/src/polyfills.ts",
+        "tsConfig": "apps/summon-safe/tsconfig.app.json",
+        "assets": [
+          "apps/summon-safe/src/assets/favicon.ico",
+          "apps/summon-safe/src/assets",
+          {
+            "input": "apps/summon-safe/src/assets",
+            "glob": "manifest.json",
+            "output": "."
+          }
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/summon-safe/src/environments/environment.ts",
+              "with": "apps/summon-safe/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "summon-safe:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "summon-safe:build:development"
+        },
+        "production": {
+          "buildTarget": "summon-safe:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/summon-safe/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/summon-safe/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "cloudflareStaging": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=summon-safe-staging --directory=dist/apps/summon-safe"
+      }
+    },
+    "cloudflareProduction": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=summon-safe --directory=dist/apps/summon-safe"
+      }
+    }
+  },
+  "tags": []
+}

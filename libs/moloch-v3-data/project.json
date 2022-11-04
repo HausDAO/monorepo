@@ -1,0 +1,63 @@
+{
+  "name": "moloch-v3-data",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/moloch-v3-data/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/moloch-v3-data",
+        "main": "libs/moloch-v3-data/src/index.ts",
+        "tsConfig": "libs/moloch-v3-data/tsconfig.lib.json",
+        "assets": ["libs/moloch-v3-data/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs moloch-v3-data {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/moloch-v3-data/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/moloch-v3-data/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+
+    "generate-gql-schema": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/moloch-v3-data/src/subgraph/schema.graphql",
+          "get-graphql-schema https://api.thegraph.com/subgraphs/name/ensdomains/ens > libs/moloch-v3-data/src/subgraph/schema-ens.graphql",
+          "get-graphql-schema https://api.lens.dev > libs/moloch-v3-data/src/subgraph/schema-lens.graphql"
+        ]
+      }
+    },
+    "generate-gql-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "graphql-codegen --config libs/moloch-v3-data/codegen.yaml",
+          "graphql-codegen --config libs/moloch-v3-data/codegen-ens.yaml",
+          "graphql-codegen --config libs/moloch-v3-data/codegen-lens.yaml"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

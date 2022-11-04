@@ -1,0 +1,384 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "_template",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_gnosisSingleton",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_gnosisFallbackLibrary",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_gnosisMultisendLibrary",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_gnosisSafeProxyFactory",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_moduleProxyFactory",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_lootSingleton",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_sharesSingleton",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "FailedInitialization",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "address_",
+        "type": "address"
+      }
+    ],
+    "name": "TakenAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
+    ],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "referrer",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "daoHadExistingSafe",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "daoAddress",
+        "type": "address"
+      }
+    ],
+    "name": "DaoReferral",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "proxy",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "masterCopy",
+        "type": "address"
+      }
+    ],
+    "name": "ModuleProxyCreation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "baal",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "loot",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "shares",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "safe",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "existingSafe",
+        "type": "bool"
+      }
+    ],
+    "name": "SummonBaal",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "masterCopy",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "initializer",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "saltNonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "deployModule",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "proxy",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "_calls",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "address",
+        "name": "_target",
+        "type": "address"
+      }
+    ],
+    "name": "encodeMultisend",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "encodedMultisend",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gnosisFallbackLibrary",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gnosisMultisendLibrary",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gnosisSingleton",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lootSingleton",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "sharesSingleton",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "initializationParams",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "initializationActions",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_saltNonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "summonBaal",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "initializationParams",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "initializationActions",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_saltNonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "summonBaalAndSafe",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "initializationParams",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "initializationActions",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_saltNonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "existingSafe",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "referrer",
+        "type": "bytes32"
+      }
+    ],
+    "name": "summonBaalFromReferrer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "template",
+    "outputs": [
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

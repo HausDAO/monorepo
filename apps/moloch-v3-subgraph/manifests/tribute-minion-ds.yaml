@@ -1,0 +1,24 @@
+kind: ethereum/contract
+name: TributeMinion
+network:
+source:
+  address:
+  abi: TributeMinion
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Proposal
+  abis:
+    - name: TributeMinion
+      file: ./abis/TributeMinion.json
+    - name: Erc20
+      file: ./abis/Erc20.json
+    - name: Erc20Bytes32
+      file: ./abis/Erc20Bytes32.json
+  eventHandlers:
+    - event: TributeProposal(indexed address,address,uint256,address,uint256)
+      handler: handleTributeProposal
+  file: ./src/tribute-minion-mapping.ts

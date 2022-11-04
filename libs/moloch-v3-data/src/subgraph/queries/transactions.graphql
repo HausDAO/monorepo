@@ -1,0 +1,27 @@
+query listTxs(
+  $where: EventTransaction_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: EventTransaction_orderBy! = createdAt
+  $orderDirection: OrderDirection! = asc
+) {
+  transactions: eventTransactions(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    id
+    createdAt
+    daoAddress
+  }
+}
+
+query findTx($id: ID!) {
+  transaction: eventTransaction(id: $id) {
+    id
+    createdAt
+    daoAddress
+  }
+}

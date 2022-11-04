@@ -1,0 +1,56 @@
+name: CI Main
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  pull_request:
+    branches:
+      - 'main'
+
+env:
+  BASE: ${{ github.ref == 'refs/heads/main' && 'origin/main~1' || 'origin/main' }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo NX_RIVET_KEY=${{ secrets.NX_RIVET_KEY }}  >> .env
+          echo NX_INFURA_PROJECT_ID=${{ secrets.NX_INFURA_PROJECT_ID }}  >> .env
+          echo NX_ETHERSCAN_KEY=${{ secrets.NX_ETHERSCAN_KEY }}  >> .env
+          echo NX_GRAPH_API_KEY_MAINNET=${{ secrets.NX_GRAPH_API_KEY_MAINNET }}  >> .env
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint mono
+        run: npx nx affected:lint --base $BASE
+
+      - name: Build mono
+        run: npx nx affected:build --base $BASE
+
+      - name: Publish to cloudflare pages
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          npx nx affected --target cloudflareProduction --base $BASE
+
+      - name: NPM Publish
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}' > .npmrc
+          nx affected --target npmSimplePublish --base $BASE

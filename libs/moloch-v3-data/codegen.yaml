@@ -1,0 +1,32 @@
+schema: 'libs/moloch-v3-data/src/subgraph/schema.graphql'
+documents: 'libs/moloch-v3-data/src/subgraph/queries/*.graphql'
+overwrite: true
+config:
+  skipDocumentsValidation: true
+  scalars:
+    Bytes: string
+    BigInt: string
+    BigDecimal: string
+  enumsAsTypes: true
+  avoidOptionals: false
+  flattenGeneratedTypes: true
+  preResolveTypes: true
+  maybeValue: T | undefined
+  inputMaybeValue: T | undefined | null
+  onlyOperationTypes: false
+  declarationKind: 'interface'
+generates:
+  libs/moloch-v3-data/src/subgraph/schema.generated.ts:
+    plugins:
+      - 'typescript'
+  libs/moloch-v3-data/src/subgraph/queries/:
+    config:
+      dedupeFragments: true
+      nonOptionalTypename: false
+      skipTypename: true
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: ../schema.generated.ts
+    plugins:
+      - 'typescript-operations'
+      - 'typed-document-node'

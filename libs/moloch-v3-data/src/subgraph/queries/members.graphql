@@ -1,0 +1,43 @@
+query listMembers(
+  $where: Member_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Member_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+) {
+  members: members(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...memberFields
+  }
+}
+
+query findMember($id: ID!) {
+  member: member(id: $id) {
+    ...memberFields
+  }
+}
+
+fragment memberFields on Member {
+  id
+  createdAt
+  txHash
+  memberAddress
+  shares
+  loot
+  sharesLootDelegateShares
+  delegatingTo
+  delegateShares
+  delegateOfCount
+  lastDelegateUpdateTxHash
+  votes {
+    txHash
+    createdAt
+    approved
+    balance
+  }
+}

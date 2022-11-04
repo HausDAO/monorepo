@@ -1,0 +1,44 @@
+kind: ethereum/contract
+name: BaalTemplate
+network:
+source:
+  abi: Baal
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  file: ./src/baal-mapping.ts
+  entities:
+    - Dao
+  abis:
+    - name: Baal
+      file: ./abis/Baal.json
+  eventHandlers:
+    - event: 'SetupComplete(bool,bool,uint32,uint32,uint256,uint256,uint256,uint256,string,string,uint256,uint256)'
+      handler: handleSetupComplete
+    - event: 'GovernanceConfigSet(uint32,uint32,uint256,uint256,uint256,uint256)'
+      handler: handleGovernanceConfigSet
+    - event: 'ShamanSet(indexed address,uint256)'
+      handler: handleShamanSet
+    - event: 'LootPaused(bool)'
+      handler: handleLootPaused
+    - event: 'SharesPaused(bool)'
+      handler: handleSharesPaused
+    - event: 'SubmitProposal(indexed uint256,indexed bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)'
+      handler: handleSubmitProposal
+    - event: 'SponsorProposal(indexed address,indexed uint256,indexed uint256)'
+      handler: handleSponsorProposal
+    - event: 'ProcessProposal(indexed uint256,bool,bool)'
+      handler: handleProcessProposal
+    - event: 'CancelProposal(indexed uint256)'
+      handler: handleCancelProposal
+    - event: 'SubmitVote(indexed address,uint256,indexed uint256,indexed bool)'
+      handler: handleSubmitVote
+    - event: 'Ragequit(indexed address,address,indexed uint256,indexed uint256,address[])'
+      handler: handleRageQuit
+    - event: 'LockAdmin(bool)'
+      handler: handleLockAdmin
+    - event: 'LockGovernor(bool)'
+      handler: handleLockGovernor
+    - event: 'LockManager(bool)'
+      handler: handleLockManager

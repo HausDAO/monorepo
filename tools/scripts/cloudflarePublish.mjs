@@ -17,7 +17,7 @@ if (
   !process.env.CLOUDFLARE_ACCOUNT_ID
 ) {
   console.error(
-    `missing args or env, projectName: ${argsObj.projectName}, directory: ${argsObj.directory}, CLOUDFLARE_API_TOKEN: ${process.env.CLOUDFLARE_API_TOKEN}, CLOUDFLARE_ACCOUNT_ID: ${process.env.CLOUDFLARE_ACCOUNT_ID}`
+    `missing args or env - projectName: ${argsObj.projectName}, directory: ${argsObj.directory}, CLOUDFLARE_API_TOKEN: ${process.env.CLOUDFLARE_API_TOKEN}, CLOUDFLARE_ACCOUNT_ID: ${process.env.CLOUDFLARE_ACCOUNT_ID}`
   );
   process.exit(1);
 }

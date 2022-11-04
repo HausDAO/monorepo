@@ -21,6 +21,13 @@
       },
       "dependsOn": ["build"]
     },
+    "npmSimplePublish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/npmSimplePublish.mjs --name=abis"
+      },
+      "dependsOn": ["build"]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

@@ -83,6 +83,18 @@
         "jestConfig": "apps/summon-safe/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "cloudflareStaging": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=summon-safe-staging --directory=dist/apps/summon-safe"
+      }
+    },
+    "cloudflareProduction": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=summon-safe --directory=dist/apps/summon-safe"
+      }
     }
   },
   "tags": []

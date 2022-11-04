@@ -10,7 +10,7 @@ on:
       - 'main'
 
 env:
-  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+  BASE: ${{ github.ref == 'refs/heads/main' && 'origin/main~1' || 'origin/main' }}
   CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
   CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 

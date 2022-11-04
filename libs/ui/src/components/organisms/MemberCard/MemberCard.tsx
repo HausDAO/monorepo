@@ -44,7 +44,6 @@ export const MemberCard = ({
         type: 'address',
       });
     }
-    return undefined;
   }, [profile, explorerNetworkId]);
 
   const handleCopy = () => {

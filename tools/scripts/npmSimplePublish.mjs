@@ -1,6 +1,6 @@
 import { readCachedProjectGraph } from '@nrwl/devkit';
 import { execSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync } from 'fs';
 
 const argsObj = process.argv.slice(2).reduce((acc, arg) => {
   const key = arg.split('=')[0].replace('--', '');

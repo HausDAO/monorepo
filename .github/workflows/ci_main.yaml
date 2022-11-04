@@ -1,13 +1,13 @@
-name: CI Master
+name: CI Main
 
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
   pull_request:
     branches:
-      - 'master'
+      - 'main'
 
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
@@ -44,8 +44,13 @@ jobs:
       - name: Build mono
         run: npx nx affected:build --base $BASE
 
+      - name: Publish to cloudflare pages
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          npx nx affected --target cloudflareProduction --base $BASE
+
       - name: NPM Publish
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           echo '//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}' > .npmrc
           nx affected --target npmSimplePublish --base $BASE

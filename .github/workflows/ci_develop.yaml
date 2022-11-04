@@ -11,6 +11,8 @@ on:
 
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
 jobs:
   build:
@@ -34,7 +36,7 @@ jobs:
       - name: Build mono
         run: npx nx affected:build --base $BASE
 
-      - name: Deploy staging
+      - name: Publish to cloudflare pages
         if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
-          npx nx affected --target deployStaging --base $BASE
+          npx nx affected --target cloudflareStaging --base $BASE

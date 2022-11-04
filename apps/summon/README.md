@@ -1,3 +1,5 @@
 # summon app
 
-TBD
+TBD bring this over when ready.
+
+## Getting started

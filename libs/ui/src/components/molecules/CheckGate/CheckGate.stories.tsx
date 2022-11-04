@@ -12,7 +12,6 @@ export default {
 } as ComponentMeta<typeof CheckGate>;
 
 const Template: ComponentStory<typeof CheckGate> = (args) => {
-
   return (
     <div style={{ margin: '4rem' }}>
       <CheckGate {...args} />
@@ -26,10 +25,10 @@ FullGatedInput.args = {
   id: 'checkGate',
   label: 'Wrapped Input',
   fields: [
-    // TS does not seem to want to recognize that args 
+    // TS does not seem to want to recognize that args
     // and type are derived from the same source
     // @ts-expect-error: explanation above
-    <FullWrappedInput {...FullWrappedInput.args}/>,
+    <FullWrappedInput {...FullWrappedInput.args} />,
   ],
 };
 
@@ -40,7 +39,7 @@ FullGatedInputSelect.args = {
   label: 'Wrapped Input Select',
   fields: [
     // @ts-expect-error: explanation above
-    <BaseInputSelect {...BaseInputSelect.args}/>,
+    <BaseInputSelect {...BaseInputSelect.args} />,
   ],
 };
 
@@ -51,7 +50,7 @@ FullGatedSelect.args = {
   label: 'Wrapped Select',
   fields: [
     // @ts-expect-error: explanation above
-    <FullWrappedSelect {...FullWrappedSelect.args}/>,
+    <FullWrappedSelect {...FullWrappedSelect.args} />,
   ],
 };
 
@@ -62,6 +61,6 @@ FullGatedTextArea.args = {
   label: 'Wrapped Text Area',
   fields: [
     // @ts-expect-error: explanation above
-    <FullWrappedTextArea {...FullWrappedTextArea.args}/>,
+    <FullWrappedTextArea {...FullWrappedTextArea.args} />,
   ],
 };

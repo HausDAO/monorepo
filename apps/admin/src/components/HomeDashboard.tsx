@@ -25,6 +25,7 @@ import {
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
 import { useParams } from 'react-router-dom';
+import { useHausConnect } from '@daohaus/connect';
 
 export enum ListType {
   Cards,
@@ -36,7 +37,7 @@ export const HomeDashboard = () => {
   const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
 
-  const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
+  const [daoData, setDaoData] = useState<ITransformedMembership[]>();
   const [filterNetworks, setFilterNetworks] =
     useState<Record<string, string>>(defaultNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');

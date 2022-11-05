@@ -25,7 +25,6 @@ import {
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/connect';
 
 export enum ListType {
   Cards,
@@ -33,11 +32,10 @@ export enum ListType {
 }
 
 export const HomeDashboard = () => {
-  // const { address } = useHausConnect();
   const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
 
-  const [daoData, setDaoData] = useState<ITransformedMembership[]>();
+  const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
   const [filterNetworks, setFilterNetworks] =
     useState<Record<string, string>>(defaultNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
@@ -68,6 +66,7 @@ export const HomeDashboard = () => {
         });
         if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
+          setLoading(false);
         }
       } catch (error) {
         const errMsg = handleErrorMessage({
@@ -133,13 +132,6 @@ export const HomeDashboard = () => {
     },
   };
 
-  if (loading) {
-    return (
-      <ListActions {...tableControlProps}>
-        <Loading isMobile={isMobile} />
-      </ListActions>
-    );
-  }
   if (!daoData.length) {
     return (
       <ListActions {...tableControlProps}>
@@ -147,7 +139,13 @@ export const HomeDashboard = () => {
       </ListActions>
     );
   }
-
+  if (loading) {
+    return (
+      <ListActions {...tableControlProps}>
+        <Loading isMobile={isMobile} />
+      </ListActions>
+    );
+  }
   return (
     <ListActions {...tableControlProps}>
       <DaoList daoData={daoData} isMobile={isMobile} listType={listType} />

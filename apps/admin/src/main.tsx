@@ -6,7 +6,7 @@ import { Buffer } from 'buffer';
 import { HausThemeProvider } from '@daohaus/ui';
 
 import Routes from './Routes';
-console.log(process.env);
+
 // This solves an issue when using WalletConnect and intercept Txs to create dao proposals
 // Related open issue: https://github.com/WalletConnect/walletconnect-monorepo/issues/748
 window.Buffer = window.Buffer || Buffer;

@@ -32,7 +32,6 @@ export enum ListType {
 }
 
 export const HomeDashboard = () => {
-  // const { address } = useHausConnect();
   const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
 
@@ -67,6 +66,7 @@ export const HomeDashboard = () => {
         });
         if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
+          setLoading(false);
         }
       } catch (error) {
         const errMsg = handleErrorMessage({
@@ -132,13 +132,6 @@ export const HomeDashboard = () => {
     },
   };
 
-  if (loading) {
-    return (
-      <ListActions {...tableControlProps}>
-        <Loading isMobile={isMobile} />
-      </ListActions>
-    );
-  }
   if (!daoData.length) {
     return (
       <ListActions {...tableControlProps}>
@@ -146,7 +139,13 @@ export const HomeDashboard = () => {
       </ListActions>
     );
   }
-
+  if (loading) {
+    return (
+      <ListActions {...tableControlProps}>
+        <Loading isMobile={isMobile} />
+      </ListActions>
+    );
+  }
   return (
     <ListActions {...tableControlProps}>
       <DaoList daoData={daoData} isMobile={isMobile} listType={listType} />

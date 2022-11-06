@@ -51,14 +51,11 @@ try {
   );
 }
 
-console.log(
-  'trying to make .npmrc here with token',
-  process.env.NPM_AUTH_TOKEN
-);
+console.log('NPM_AUTH_TOKEN', process.env.NPM_AUTH_TOKEN);
 
-execSync(
-  `echo '//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}' > .npmrc`
-);
+// execSync(
+//   `echo '//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}' > .npmrc`
+// );
 
 // Execute "npm publish" to publish
 execSync(`npm publish --access public --tag latest`);

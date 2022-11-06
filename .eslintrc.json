@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": ["**/*.generated.ts"],
   "plugins": ["@nrwl/nx"],
   "overrides": [
     {

@@ -53,4 +53,4 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           echo '//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}' > .npmrc
-          nx affected --target npmSimplePublish --base $BASE
+          npx nx affected --target npmSimplePublish --base $BASE

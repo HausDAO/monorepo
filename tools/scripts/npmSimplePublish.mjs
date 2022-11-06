@@ -52,6 +52,7 @@ try {
 }
 
 console.log('NPM_AUTH_TOKEN', process.env.NPM_AUTH_TOKEN);
+console.log('env', process.env);
 
 // execSync(
 //   `echo '//registry.npmjs.org/:_authToken=${process.env.NPM_AUTH_TOKEN}' > .npmrc`

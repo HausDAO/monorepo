@@ -41,7 +41,7 @@ const HomeContainer = () => {
     }
     if (isConnected && !profile) {
       navigate(`/${address}`);
-      // window.location.href = `/${address}`;
+      window.location.href = `/${address}`;
     }
   }, [isConnected, address, profile, navigate]);
   return (

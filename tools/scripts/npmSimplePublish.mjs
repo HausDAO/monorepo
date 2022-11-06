@@ -20,7 +20,6 @@ if (!argsObj.name) {
 const graph = readCachedProjectGraph();
 const project = graph.nodes[argsObj.name];
 
-console.log('project', project);
 if (!project) {
   console.error(
     `Could not find project "${argsObj.name}" in the workspace. Is the project.json configured correctly?`

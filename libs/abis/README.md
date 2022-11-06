@@ -2,6 +2,8 @@
 
 This library was generated with [Nx](https://nx.dev).
 
+v0.0.24
+
 ## Building
 
 Run `nx build abis` to build the library.

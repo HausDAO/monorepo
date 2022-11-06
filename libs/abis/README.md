@@ -2,7 +2,7 @@
 
 This library was generated with [Nx](https://nx.dev).
 
-v0.0.24 again and again
+v0.0.24 #3
 
 ## Building
 

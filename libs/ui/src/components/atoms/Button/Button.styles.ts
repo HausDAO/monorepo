@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-
 import { font } from '../../../theme/global/font';
-import { ButtonJustifyContent, ButtonColor } from './Button';
+import { ButtonJustifyContent, ButtonColor } from './Button.types';
 
 export const StyledButton = styled.button<{
   justify: ButtonJustifyContent;

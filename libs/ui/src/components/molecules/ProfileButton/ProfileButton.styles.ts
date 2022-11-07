@@ -11,7 +11,7 @@ export const StyledProfileButton = styled(Button)`
   }
 `;
 
-export const DropdownAvatar = styled(ProfileAvatar)`
+export const ProfileBtnAvatar = styled(ProfileAvatar)`
   margin-right: 1rem;
 
   &.sm {

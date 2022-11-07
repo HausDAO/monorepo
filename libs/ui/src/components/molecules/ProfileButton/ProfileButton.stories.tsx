@@ -1,4 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { RiStarHalfSFill } from 'react-icons/ri';
+
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
 import { ProfileButton } from './ProfileButton';
 
@@ -46,15 +48,16 @@ BaseDropdownButton.args = {
   fullWidth: false,
 };
 
-export const ProfileDropdownButton = Template.bind({});
+export const ProfileButtonWithIcon = Template.bind({});
 
-ProfileDropdownButton.args = {
+ProfileButtonWithIcon.args = {
   children: 'Button',
   color: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
   fullWidth: false,
+  IconRight: RiStarHalfSFill,
   profile: {
     image:
       'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',

@@ -1,8 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { RiArrowDropDownLine } from 'react-icons/ri';
 
-import { DropdownAvatar, StyledProfileButton } from './ProfileButton.styles';
+import { ProfileBtnAvatar, StyledProfileButton } from './ProfileButton.styles';
 import { ProfileButtonProps } from './ProfileButton.types';
 
 export const ProfileButton = React.forwardRef<
@@ -10,13 +9,13 @@ export const ProfileButton = React.forwardRef<
   ProfileButtonProps
 >((props, ref) => {
   const {
-    IconRight,
-    children,
-    className,
     color = 'secondary',
     variant = 'solid',
     size = 'md',
     profile,
+    IconRight,
+    children,
+    className,
     ...rest
   } = props;
 
@@ -36,7 +35,7 @@ export const ProfileButton = React.forwardRef<
       ref={ref}
       IconRight={IconRight}
     >
-      {profile && <DropdownAvatar {...profile} size={size} />}
+      <ProfileBtnAvatar {...profile} size={size} />
       {children}
     </StyledProfileButton>
   );

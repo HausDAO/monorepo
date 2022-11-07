@@ -32,7 +32,6 @@ import { DaoTable } from '../components/DaohausTable';
 import { MembersOverview } from '../components/MembersOverview';
 import { MemberProfileAvatar } from '../components/MemberProfileAvatar';
 import { MemberProfileMenu } from '../components/MemberProfileMenu';
-import { ProfileLink } from '../components/ProfileLink';
 
 const Actions = styled.div`
   display: flex;
@@ -213,13 +212,6 @@ export const Members = () => {
         Cell: ({ row }: { row: Row<MembersTableType> }) => {
           return (
             <ActionContainer>
-              <ProfileLink
-                color="secondary"
-                size="sm"
-                memberAddress={row.original.memberAddress}
-              >
-                Profile
-              </ProfileLink>
               <MemberProfileMenu memberAddress={row.original.memberAddress} />
             </ActionContainer>
           );

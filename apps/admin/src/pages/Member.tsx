@@ -1,8 +1,10 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
+import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
+import { useDao } from '@daohaus/moloch-v3-context';
+import { FindMemberQuery, Haus } from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
   Button,
@@ -26,13 +28,12 @@ import {
   NETWORK_TOKEN_ETH_ADDRESS,
   AccountProfile,
 } from '@daohaus/utils';
-import { FindMemberQuery, Haus } from '@daohaus/moloch-v3-data';
 
-import { useDao } from '@daohaus/moloch-v3-context';
-import { Profile } from '../components/Profile';
-import { DaoTable } from '../components/DaohausTable';
-import { loadMember } from '../utils/dataFetchHelpers';
 import { ButtonLink } from '../components/ButtonLink';
+import { DaoTable } from '../components/DaohausTable';
+import { Profile } from '../components/Profile';
+import { fetchProfile } from '../utils/cacheProfile';
+import { loadMember } from '../utils/dataFetchHelpers';
 
 const ProfileCard = styled(Card)`
   width: 64rem;
@@ -115,26 +116,22 @@ export function Member() {
     };
   }, [daochain, daoid, memberAddress]);
 
-  // TODO: This will change when we come to a conclusion on how we'll cache member profiles
-  useEffect(() => {
-    const getProfile = async (shouldUpdate: boolean, address: string) => {
-      if (shouldUpdate) {
-        const haus = Haus.create();
-        const profile = await haus.profile.get({
-          address,
-        });
+  const fetchMemberProfile = useCallback(
+    async (address: string, loadState: typeof setCurrentMemberLoading) => {
+      loadState(true);
+      const haus = Haus.create();
+      const profile = await fetchProfile({ haus, address });
+      setCurrentProfile(profile);
+      loadState(false);
+    },
+    [setCurrentProfile]
+  );
 
-        setCurrentProfile(profile);
-      }
-    };
-    let shouldUpdate = true;
-    if (daochain && currentMember) {
-      getProfile(shouldUpdate, currentMember.memberAddress);
+  useEffect(() => {
+    if (currentMember) {
+      fetchMemberProfile(currentMember.memberAddress, setCurrentMemberLoading);
     }
-    return () => {
-      shouldUpdate = false;
-    };
-  }, [currentMember, daochain]);
+  }, [currentMember, fetchMemberProfile]);
 
   type TokenTableType = {
     token: {

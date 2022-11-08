@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import {
@@ -23,6 +24,7 @@ import { useCopyToClipboard } from '../../../hooks';
 type MemberCardProps = {
   profile: AccountProfile;
   explorerNetworkId: ValidNetwork;
+  customProfileURI?: string;
   minWidth?: string;
   menuBg?: string;
   className?: string;
@@ -31,10 +33,12 @@ type MemberCardProps = {
 export const MemberCard = ({
   className,
   profile,
+  customProfileURI,
   explorerNetworkId,
   minWidth = '17.8rem',
 }: MemberCardProps) => {
   const copy = useCopyToClipboard();
+  const { daochain, daoid } = useParams();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {
@@ -71,7 +75,7 @@ export const MemberCard = ({
       }
     >
       <DropdownMenuItem>
-        <DropdownLink href={`/profile/${profile.address}`}>
+        <DropdownLink href={`${customProfileURI || profile.address}`}>
           <ParMd>View Profile</ParMd>
         </DropdownLink>
       </DropdownMenuItem>

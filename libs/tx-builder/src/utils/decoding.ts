@@ -120,12 +120,12 @@ const buildEthTransferAction = (
   params: [],
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const decodeParam = ({
   argMeta,
   value,
 }: {
   argMeta?: ValidArgType;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }) => {
   if (!argMeta || isSearchArg(argMeta)) {

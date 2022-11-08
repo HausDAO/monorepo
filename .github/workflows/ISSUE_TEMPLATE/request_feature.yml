@@ -1,0 +1,41 @@
+---
+name: Feature Request
+description: Share your ideas for future development
+labels: ['enhancement', 'beta']
+body:
+  - type: checkboxes
+    attributes:
+      label: App
+      description: What app would you like to help improve?
+      options:
+        - label: '[Admin](https://admin.daohaus.fun)'
+        - label: '[Summon](https://summon.daohaus.fun)'
+        - label: '[Hub](https://hub.daohaus.fun)'
+        - label: '[Toolbox](https://toolbox.daohaus.fun/)'
+    validations:
+      required: false
+  - type: checkboxes
+    attributes:
+      label: Feature Type
+      description: |
+        Is your request a new feature or an enhancement to an existing feature?
+      options:
+        - label: 'New Feature'
+        - label: 'Enhancement'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Feature
+      description: Please describe the feature request or enhancement.
+      placeholder: 'Example: killer feature nobody thought of before'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Screenshots and Context
+      placeholder: |
+        Add additional information that will help explain the feature.
+        You can add screenshots by pasting from your clipboard.
+    validations:
+      required: false

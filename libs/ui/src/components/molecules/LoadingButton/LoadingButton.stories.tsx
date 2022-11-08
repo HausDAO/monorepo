@@ -38,7 +38,7 @@ const Template: ComponentStory<typeof LoadingButton> = (args) => (
 export const BaseLoadingButton = Template.bind({});
 
 BaseLoadingButton.args = {
-  children: 'Button',
+  children: 'Button that is really really long',
   color: 'primary',
   variant: 'solid',
   size: 'md',

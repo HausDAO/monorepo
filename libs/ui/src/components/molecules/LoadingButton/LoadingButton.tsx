@@ -1,10 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useTheme } from 'styled-components';
 
-import { Theme } from '../../../types/theming';
-import { ButtonProps, Spinner } from '../../atoms/';
-import { StyledLoadingButton } from './LoadingButton.styles';
+import { Button, ButtonProps } from '../../atoms/';
+import { LoadingAbsolute, StyledInvisibleSpan } from './LoadingButton.styles';
 
 type OmittedProps = 'IconLeft' | 'IconRight' | 'leftAlign';
 
@@ -20,7 +18,6 @@ export const LoadingButton = React.forwardRef<
   HTMLButtonElement,
   LoadingButtonProps
 >((props, ref) => {
-  const theme = useTheme() as Theme;
   const {
     loading = false,
     children,
@@ -38,7 +35,7 @@ export const LoadingButton = React.forwardRef<
   });
 
   return (
-    <StyledLoadingButton
+    <Button
       {...rest}
       color={color}
       size={size}
@@ -46,15 +43,12 @@ export const LoadingButton = React.forwardRef<
       className={`${classes} ${className}`}
       ref={ref}
     >
-      {loading && (
-        <Spinner
-          topColor={theme.primary.step8}
-          bottomColor={theme.primary.step11}
-          size={'2.8rem'}
-          strokeWidth=".3rem"
-        />
+      {loading && <LoadingAbsolute color={color} />}
+      {loading ? (
+        <StyledInvisibleSpan>{children}</StyledInvisibleSpan>
+      ) : (
+        children
       )}
-      {children}
-    </StyledLoadingButton>
+    </Button>
   );
 });

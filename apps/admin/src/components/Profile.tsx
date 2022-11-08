@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
@@ -12,7 +13,7 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile } from '@daohaus/utils';
+import { AccountProfile, Keychain } from '@daohaus/utils';
 import {
   formatLongDateFromSeconds,
   formatValueTo,
@@ -22,6 +23,7 @@ import {
 import { TMembership, useDao } from '@daohaus/moloch-v3-context';
 
 import { MemberProfileMenu } from './MemberProfileMenu';
+import { MemberProfileAvatar } from './MemberProfileAvatar';
 
 const AvatarLarge = styled(Avatar)`
   height: 12rem;
@@ -101,6 +103,7 @@ type ProfileProps = {
 
 export const Profile = ({ profile, membership }: ProfileProps) => {
   const { dao } = useDao();
+  const { daochain } = useParams();
 
   return (
     <PContainer>
@@ -140,41 +143,47 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
         )}
       </PSubContainer>
       {membership && dao && (
-        <DataGrid>
-          <DataIndicator
-            label="Power"
-            data={formatValueTo({
-              value: votingPowerPercentage(
-                dao?.totalShares || '0',
-                membership.delegateShares
-              ),
-              decimals: 2,
-              format: 'percent',
-            })}
-          />
-          <DataIndicator
-            label="Voting Tokens"
-            data={formatValueTo({
-              value: fromWei(membership.shares),
-              decimals: 2,
-              format: 'number',
-            })}
-          />
-          <DataIndicator
-            label="Non-Voting Tokens"
-            data={formatValueTo({
-              value: fromWei(membership.loot),
-              decimals: 2,
-              format: 'number',
-            })}
-          />
+        <>
+          <DataGrid>
+            <DataIndicator
+              label="Power"
+              data={formatValueTo({
+                value: votingPowerPercentage(
+                  dao?.totalShares || '0',
+                  membership.delegateShares
+                ),
+                decimals: 2,
+                format: 'percent',
+              })}
+            />
+            <DataIndicator
+              label="Voting Tokens"
+              data={formatValueTo({
+                value: fromWei(membership.shares),
+                decimals: 2,
+                format: 'number',
+              })}
+            />
+            <DataIndicator
+              label="Non-Voting Tokens"
+              data={formatValueTo({
+                value: fromWei(membership.loot),
+                decimals: 2,
+                format: 'number',
+              })}
+            />
+          </DataGrid>
           {membership.delegatingTo !== membership.memberAddress && (
             <DataIndicatorContainer>
               <DataIndicatorLabelMd>Delegating To</DataIndicatorLabelMd>
-              <AddressDisplay address={membership.delegatingTo} truncate />
+              <MemberProfileAvatar
+                daochain={daochain as keyof Keychain}
+                daoid={dao.id}
+                memberAddress={membership.delegatingTo}
+              />
             </DataIndicatorContainer>
           )}
-        </DataGrid>
+        </>
       )}
     </PContainer>
   );

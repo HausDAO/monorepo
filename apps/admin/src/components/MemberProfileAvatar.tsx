@@ -9,6 +9,7 @@ import { fetchProfile } from '../utils/cacheProfile';
 type MemberProfileProps = {
   memberAddress: string;
   daochain: keyof Keychain;
+  daoid?: string;
 };
 
 const MemberContainer = styled.div`
@@ -20,36 +21,34 @@ const MemberContainer = styled.div`
 export const MemberProfileAvatar = ({
   memberAddress,
   daochain,
+  daoid,
 }: MemberProfileProps) => {
-  const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
-
-  const haus = Haus.create();
+  const [memberProfile, setMemberProfile] = useState<AccountProfile>();
+  const customProfileURI =
+    daoid && `/molochv3/${daochain}/${daoid}/members/${memberAddress}`;
 
   const fetchMemberProfile = useCallback(
-    async (address: string, setter: typeof setSubmitterProfile) => {
+    async (address: string, setter: typeof setMemberProfile) => {
+      const haus = Haus.create();
       const profile = await fetchProfile({ haus, address });
       setter(profile);
     },
-    [haus]
+    []
   );
 
   useEffect(() => {
-    if (!submitterProfile) {
-      fetchMemberProfile(memberAddress, setSubmitterProfile);
+    if (!memberProfile) {
+      fetchMemberProfile(memberAddress, setMemberProfile);
     }
-  }, [
-    fetchMemberProfile,
-    memberAddress,
-    submitterProfile,
-    setSubmitterProfile,
-  ]);
+  }, [fetchMemberProfile, memberAddress, memberProfile, setMemberProfile]);
 
   return (
     <MemberContainer>
       <MemberCard
         explorerNetworkId={daochain}
+        customProfileURI={customProfileURI}
         profile={
-          submitterProfile || {
+          memberProfile || {
             address: memberAddress,
           }
         }

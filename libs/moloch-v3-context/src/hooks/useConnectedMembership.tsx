@@ -1,22 +1,23 @@
 import { useContext } from 'react';
-import { DaoContext } from '../DaoContext';
-import { DaoConnectConnectedMembershipType } from '../utils/types';
+import { MolochV3Context } from '../MolochV3Context';
+import { MolochV3ContextConnectedMembershipType } from '../utils/types';
 
-export const useConnectedMembership = (): DaoConnectConnectedMembershipType => {
-  const {
-    connectedMembership,
-    isConnectedMembershipLoading,
-    refreshConnectedMembership,
-    connectedMembershipProposalVotes,
-    isConnectedMembershipProposalVotesLoading,
-    refreshConnectedMembershipProposalVotes,
-  } = useContext(DaoContext);
-  return {
-    connectedMembership,
-    isConnectedMembershipLoading,
-    refreshConnectedMembership,
-    connectedMembershipProposalVotes,
-    isConnectedMembershipProposalVotesLoading,
-    refreshConnectedMembershipProposalVotes,
+export const useConnectedMembership =
+  (): MolochV3ContextConnectedMembershipType => {
+    const {
+      connectedMembership,
+      isConnectedMembershipLoading,
+      refreshConnectedMembership,
+      connectedMembershipProposalVotes,
+      isConnectedMembershipProposalVotesLoading,
+      refreshConnectedMembershipProposalVotes,
+    } = useContext(MolochV3Context);
+    return {
+      connectedMembership,
+      isConnectedMembershipLoading,
+      refreshConnectedMembership,
+      connectedMembershipProposalVotes,
+      isConnectedMembershipProposalVotesLoading,
+      refreshConnectedMembershipProposalVotes,
+    };
   };
-};

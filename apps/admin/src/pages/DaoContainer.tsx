@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/connect';
-import { DaoContextProvider } from '@daohaus/moloch-v3-context';
+import { MolochV3ContextProvider } from '@daohaus/moloch-v3-context';
 import Dao from './Dao';
 
 export function DaoContainer() {
@@ -8,14 +8,14 @@ export function DaoContainer() {
   const { address } = useHausConnect();
 
   return (
-    <DaoContextProvider
+    <MolochV3ContextProvider
       address={address}
       daoid={daoid}
       daochain={daochain}
       graphApiKeys={{ '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] }}
     >
       <Dao />
-    </DaoContextProvider>
+    </MolochV3ContextProvider>
   );
 }
 

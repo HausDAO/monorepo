@@ -61,6 +61,8 @@ export const MemberCard = ({
       trigger={
         <MemberCardTrigger
           // avatar
+          variant="ghost"
+          color="secondary"
           minWidth={minWidth}
           IconRight={RiArrowDropDownLine}
         >

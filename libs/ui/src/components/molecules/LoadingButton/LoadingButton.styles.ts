@@ -7,5 +7,5 @@ export const LoadingAbsolute = styled(Loading)`
 `;
 
 export const StyledInvisibleSpan = styled.span`
-  opacity: 0;
+  visibility: hidden;
 `;

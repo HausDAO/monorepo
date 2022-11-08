@@ -38,7 +38,20 @@ const Template: ComponentStory<typeof LoadingButton> = (args) => (
 export const BaseLoadingButton = Template.bind({});
 
 BaseLoadingButton.args = {
+  children: 'Button',
+  color: 'primary',
+  variant: 'solid',
+  size: 'md',
+  loading: true,
+  disabled: false,
+  fullWidth: false,
+};
+
+export const LoadingButtonWithText = Template.bind({});
+
+LoadingButtonWithText.args = {
   children: 'Button that is really really long',
+  loadingText: 'Loading text goes here',
   color: 'primary',
   variant: 'solid',
   size: 'md',

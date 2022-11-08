@@ -9,7 +9,6 @@ type OmittedProps = 'IconLeft' | 'IconRight' | 'leftAlign';
 export interface LoadingButtonProps extends Omit<ButtonProps, OmittedProps> {
   // Shows loading spinner */
   loading: boolean;
-
   /* The label to show in the button when loading is true */
   loadingText?: string;
 }
@@ -20,6 +19,7 @@ export const LoadingButton = React.forwardRef<
 >((props, ref) => {
   const {
     loading = false,
+    loadingText,
     children,
     className,
     color = 'secondary',

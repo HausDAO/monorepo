@@ -1,14 +1,14 @@
 import { Proposal_Filter } from '@daohaus/moloch-v3-data';
 import { useContext } from 'react';
-import { DaoContext, defaultDaoData } from '../DaoContext';
-import { DaoConnectProposalsType } from '../utils/types';
+import { MolochV3Context, defaultDaoData } from '../MolochV3Context';
+import { MolochV3ContextProposalsType } from '../utils/types';
 
 type ProposalsHookTypes = {
   loadMoreProposals: () => Promise<void>;
   filterProposals: (filterQuery?: Proposal_Filter) => Promise<void>;
 };
 
-export const useProposals = (): DaoConnectProposalsType &
+export const useProposals = (): MolochV3ContextProposalsType &
   ProposalsHookTypes => {
   const {
     proposals,
@@ -23,7 +23,7 @@ export const useProposals = (): DaoConnectProposalsType &
     setProposalsPaging,
     proposalsNextPaging,
     getNextPage,
-  } = useContext(DaoContext);
+  } = useContext(MolochV3Context);
 
   const loadMoreProposals = async () => {
     setProposalsPaging(proposalsNextPaging);

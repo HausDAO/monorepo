@@ -1,7 +1,7 @@
 import { Member_OrderBy } from '@daohaus/moloch-v3-data';
 import { useContext } from 'react';
-import { DaoContext, defaultDaoData } from '../DaoContext';
-import { DaoConnectMembersType } from '../utils/types';
+import { MolochV3Context, defaultDaoData } from '../MolochV3Context';
+import { MolochV3ContextMembersType } from '../utils/types';
 
 type MembersHookTypes = {
   loadMoreMembers: () => Promise<void>;
@@ -11,7 +11,7 @@ type MembersHookTypes = {
   ) => Promise<void>;
 };
 
-export const useMembers = (): DaoConnectMembersType & MembersHookTypes => {
+export const useMembers = (): MolochV3ContextMembersType & MembersHookTypes => {
   const {
     members,
     setMembers,
@@ -25,7 +25,7 @@ export const useMembers = (): DaoConnectMembersType & MembersHookTypes => {
     setMembersPaging,
     membersNextPaging,
     getNextPage,
-  } = useContext(DaoContext);
+  } = useContext(MolochV3Context);
 
   const loadMoreMembers = async () => {
     setMembersPaging(membersNextPaging);

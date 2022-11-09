@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
+
 import { Italic, ParMd, Tooltip, useBreakpoint, widthQuery } from '@daohaus/ui';
 import {
   RiGasStationLine,
@@ -10,7 +11,16 @@ import {
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { ITransformedProposal } from '@daohaus/moloch-v3-data';
-import { checkHasQuorum, percentage } from '@daohaus/utils';
+import {
+  checkHasQuorum,
+  getGasCostEstimate,
+  NETWORK_DATA,
+  percentage,
+  toWholeUnits,
+  ValidNetwork,
+} from '@daohaus/utils';
+import { useParams } from 'react-router-dom';
+import { RPC_ENDPOINTS } from '../../utils/constants';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -206,17 +216,38 @@ const GasBox = styled.div`
 `;
 
 export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
-  const isMobile = useBreakpoint(widthQuery.sm);
   const theme = useTheme();
+  const { daochain } = useParams();
+  const [estimate, setEstimate] = useState<string | undefined>();
+
+  useEffect(() => {
+    const getGasEst = async () => {
+      if (gasAmt) {
+        const est = await getGasCostEstimate(
+          gasAmt,
+          RPC_ENDPOINTS[daochain as ValidNetwork]
+        );
+        const estEth = toWholeUnits(est.toFixed());
+        setEstimate(Number(estEth).toFixed(6));
+      }
+    };
+
+    if (daochain && gasAmt) {
+      getGasEst();
+    }
+  }, [daochain, gasAmt]);
+
   return (
     <Tooltip
       triggerEl={
         <GasBox>
           <RiGasStationLine color={theme.primary.step9} size="1.6rem" />
-          {isMobile || <ParMd color={theme.primary.step9}>Estimate Gas</ParMd>}
+          <ParMd color={theme.primary.step9}>Min. gas required</ParMd>
         </GasBox>
       }
-      content={`If gas is less than ${gasAmt}, the proposal will likely fail.`}
+      content={`If gas is less than ${estimate} ${
+        daochain && NETWORK_DATA[daochain as ValidNetwork]?.symbol
+      }, the proposal will likely fail.`}
       side="bottom"
     />
   );

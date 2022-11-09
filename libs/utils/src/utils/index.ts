@@ -1,5 +1,6 @@
 export * from './cache';
 export * from './dates';
+export * from './gas';
 export * from './general';
 export * from './explorer';
 export * from './formatting';

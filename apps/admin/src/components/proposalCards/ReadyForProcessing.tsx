@@ -9,6 +9,7 @@ import { useHausConnect } from '@daohaus/connect';
 import { useDao } from '@daohaus/moloch-v3-context';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
+  getProcessingGasLimit,
   handleErrorMessage,
   isValidNetwork,
   ReactSetter,
@@ -23,9 +24,6 @@ import { LOCAL_ABI } from '@daohaus/abis';
 
 import { ActionLifeCycleFns } from '../../utils/general';
 
-// Adding to the gas limit to account for cost of processProposal
-export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
-
 const ProcessBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -33,7 +31,8 @@ const ProcessBox = styled.div`
     margin-left: auto;
   }
   @media ${widthQuery.sm} {
-    /* flex-direction: column; */
+    flex-direction: column;
+    gap: 1.2rem;
     .execute {
       min-width: 0;
       width: 100%;
@@ -95,12 +94,6 @@ export const ReadyForProcessing = ({
     // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to
     // be indexed by the Gnosis API (a DAO was recently summonned)
     // or when a proposal is submitted through a 3rd party contract with baalGas->0 (e.g. TributeMinion)
-    const processingGasLimit = (
-      Number(actionGasEstimate) > 0
-        ? Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
-        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6
-    ).toFixed();
-
     if (!proposalId) return;
     setIsLoading(true);
     lifeCycleFnsOverride?.onActionTriggered?.();
@@ -108,7 +101,7 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
-        overrides: { gasLimit: processingGasLimit },
+        overrides: { gasLimit: getProcessingGasLimit(actionGasEstimate) },
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

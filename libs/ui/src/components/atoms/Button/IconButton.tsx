@@ -2,21 +2,17 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { StyledButton } from './Button.styles';
-import { ButtonProps } from './Button.types';
+import { IconButtonProps } from './IconButton.types';
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
       type = 'button',
-      IconLeft,
-      IconRight,
+      Icon,
       color = 'primary',
       variant = 'solid',
       size = 'md',
-      fullWidth,
-      justify = 'center',
       className,
-      children,
       ...rest
     },
     ref
@@ -24,21 +20,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const classes = classNames({
       [variant]: variant,
       [size]: size,
-      'full-width': fullWidth,
     });
 
     return (
       <StyledButton
         {...rest}
+        justify="center"
         color={color}
-        justify={justify}
         className={`${classes} ${className}`}
         ref={ref}
         type={type}
       >
-        {IconLeft && <IconLeft className="icon-left" />}
-        {children}
-        {IconRight && <IconRight className="icon-right" />}
+        {Icon && <Icon />}
       </StyledButton>
     );
   }

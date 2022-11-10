@@ -4,18 +4,19 @@ import {
   ParMd,
   ProfileAvatar,
   DataIndicator,
-  AddressDisplay,
-  ParSm,
   Button,
   Link,
-  useBreakpoint,
-  widthQuery,
 } from '@daohaus/ui';
 
 import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { charLimit, Keychain } from '@daohaus/utils';
+import {
+  charLimit,
+  formatDateTimeFromSeconds,
+  formatLongDateFromSeconds,
+  formatShortDateTimeFromSeconds,
+} from '@daohaus/utils';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -36,6 +37,9 @@ const MetaContent = styled.div`
   }
   .section-middle {
     max-width: 37rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
   }
   .tags {
     margin-top: 2.9rem;
@@ -57,7 +61,6 @@ type MetadataSettingsProps = {
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
   const { connectedMembership } = useConnectedMembership();
-  const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <>
@@ -82,57 +85,18 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             data={charLimit(dao.name, 21)}
             size="sm"
           />
-          <div className="tags">
-            <DataIndicator
-              label="Description"
-              data={dao.description}
-              size="sm"
-            />
-          </div>
+          <DataIndicator
+            label="Summon Date"
+            data={formatLongDateFromSeconds(dao.createdAt)}
+            size="sm"
+          />
+
+          <DataIndicator label="Description" data={dao.description} size="sm" />
           {dao.tags && (
             <div className="tags">
               <TagList tags={dao.tags} />
             </div>
           )}
-        </div>
-        <div>
-          <ParMd>DAO Contracts</ParMd>
-          <div className="contract">
-            <ParSm>Moloch v3</ParSm>
-            <AddressDisplay
-              address={dao.id}
-              copy
-              explorerNetworkId={daochain as keyof Keychain}
-              truncate={isMobile}
-            />
-          </div>
-          <div className="contract">
-            <ParSm>Gnosis Safe (Treasury)</ParSm>
-            <AddressDisplay
-              address={dao.safeAddress}
-              copy
-              truncate={isMobile}
-              explorerNetworkId={daochain as keyof Keychain}
-            />
-          </div>
-          <div className="contract">
-            <ParSm>Voting Token</ParSm>
-            <AddressDisplay
-              address={dao.sharesAddress}
-              copy
-              truncate={isMobile}
-              explorerNetworkId={daochain as keyof Keychain}
-            />
-          </div>
-          <div className="contract">
-            <ParSm>Non-Voting Token</ParSm>
-            <AddressDisplay
-              address={dao.lootAddress}
-              copy
-              truncate={isMobile}
-              explorerNetworkId={daochain as keyof Keychain}
-            />
-          </div>
         </div>
       </MetaContent>
     </>

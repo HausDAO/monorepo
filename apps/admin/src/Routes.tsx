@@ -47,7 +47,7 @@ const HomeContainer = () => {
   return (
     <HausLayout
       pathname={location.pathname}
-      navLinks={[{ label: 'Home', href: `/${address}` }]}
+      navLinks={[{ label: 'Hub', href: `/${address}` }]}
     >
       <Outlet />
     </HausLayout>

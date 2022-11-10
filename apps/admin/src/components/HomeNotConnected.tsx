@@ -6,7 +6,7 @@ const ViewBox = styled.div`
   width: 100%;
   height: 70rem;
   display: flex;
-  background-image: url('hub-illustration.svg');
+  background-image: url('assets/hub-illustration.svg');
   background-size: auto 60rem;
   background-repeat: no-repeat;
   background-position: -10% 180%;

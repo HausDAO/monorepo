@@ -44,8 +44,11 @@ export function Dao() {
       <HausLayout
         pathname={location.pathname}
         navLinks={[
-          { label: 'Home', href: `/${address}` },
-          { label: 'DAO', href: `/molochv3/${daochain}/${daoid}` },
+          { label: 'Hub', href: `/${address}` },
+          {
+            label: 'DAO',
+            href: `/molochv3/${daochain}/${daoid}`,
+          },
           {
             label: 'Proposals',
             href: `/molochv3/${daochain}/${daoid}/proposals`,

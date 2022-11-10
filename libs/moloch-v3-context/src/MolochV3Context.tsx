@@ -25,7 +25,7 @@ import {
   loadMembersList,
   loadProposalsList,
 } from './utils/fetchHelpers';
-import { DaoConnectType } from './utils/types';
+import { MolochV3ContextType } from './utils/types';
 
 export const defaultDaoData = {
   dao: null,
@@ -93,9 +93,10 @@ export const defaultDaoData = {
   },
 };
 
-export const DaoContext = createContext<DaoConnectType>(defaultDaoData);
+export const MolochV3Context =
+  createContext<MolochV3ContextType>(defaultDaoData);
 
-type DaoContextProviderProps = {
+type MolochV3ContextProviderProps = {
   address: string | null | undefined;
   daoid: string | null | undefined;
   daochain: string | null | undefined;
@@ -103,13 +104,13 @@ type DaoContextProviderProps = {
   children: ReactNode;
 };
 
-export const DaoContextProvider = ({
+export const MolochV3ContextProvider = ({
   address,
   children,
   daoid,
   daochain,
   graphApiKeys,
-}: DaoContextProviderProps) => {
+}: MolochV3ContextProviderProps) => {
   const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
   const [connectedMembership, setConnectedMembership] = useState<
@@ -411,7 +412,7 @@ export const DaoContextProvider = ({
   };
 
   return (
-    <DaoContext.Provider
+    <MolochV3Context.Provider
       value={{
         dao,
         isDaoLoading,
@@ -449,6 +450,6 @@ export const DaoContextProvider = ({
       }}
     >
       {children}
-    </DaoContext.Provider>
+    </MolochV3Context.Provider>
   );
 };

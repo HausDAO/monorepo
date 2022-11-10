@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
-import { DropdownButton } from './DropdownButton';
+import { LoadingButton } from './LoadingButton';
 
 export default {
-  title: 'Atoms/DropdownButton',
-  component: DropdownButton,
+  title: 'Molecules/LoadingButton',
+  component: LoadingButton,
   subcomponents: { ProfileAvatar },
   argTypes: {
     color: {
@@ -26,38 +26,36 @@ export default {
       control: { type: 'radio' },
     },
   },
-} as ComponentMeta<typeof DropdownButton>;
+} as ComponentMeta<typeof LoadingButton>;
 
 // Setting displayName manually since Storybook displays it as [Object, object]
-DropdownButton.displayName = 'DropdownButton';
+LoadingButton.displayName = 'LoadingButton';
 
-const Template: ComponentStory<typeof DropdownButton> = (args) => (
-  <DropdownButton {...args} />
+const Template: ComponentStory<typeof LoadingButton> = (args) => (
+  <LoadingButton {...args} />
 );
 
-export const BaseDropdownButton = Template.bind({});
+export const BaseLoadingButton = Template.bind({});
 
-BaseDropdownButton.args = {
+BaseLoadingButton.args = {
   children: 'Button',
   color: 'primary',
   variant: 'solid',
   size: 'md',
+  loading: true,
   disabled: false,
   fullWidth: false,
 };
 
-export const ProfileDropdownButton = Template.bind({});
+export const LoadingButtonWithText = Template.bind({});
 
-ProfileDropdownButton.args = {
-  children: 'Button',
+LoadingButtonWithText.args = {
+  children: 'Button that is really really long',
+  loadingText: 'Loading text goes here',
   color: 'primary',
   variant: 'solid',
   size: 'md',
+  loading: true,
   disabled: false,
   fullWidth: false,
-  profile: {
-    image:
-      'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
-    address: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
-  },
 };

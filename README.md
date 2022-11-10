@@ -6,7 +6,7 @@ If you'd like to join our community, we coordinate on [Discord](https://discord.
 
 ### Contribution History
 
-This is the 2nd version of this monorepo - several community members contributed to the development of this codebase. Contributions and fuller githistory can be seen in the [original repo](https://github.com/HausDAO/daohaus-monorepo/graphs/contributors).
+This is the 2nd version of this monorepo - several community members contributed to the development of this codebase. Contributions and fuller githistory can be seen in the [original/deprecated repo](https://github.com/HausDAO/daohaus-monorepo-deprecated/graphs/contributors).
 
 ## Packages
 
@@ -20,37 +20,40 @@ Our applications in the `apps` folder are our DAO infrastructure and leverage ou
   - Admin App
   - Summoner App
 - **Deployed Infrastructure**: These are our jobs and subgraphs and are deployed to provide functionality leveraged throughout our other applications.
-  - DAO Producer Job
   - v3 Subgraph
 
-| App                                | Build       | Entry Points                          |
-| ---------------------------------- | ----------- | ------------------------------------- |
-| [Admin App](./apps/core-app)       | webpack, ts | `apps/core-app`                       |
-| [Summoner App](./apps/summon-app/) | webpack, ts | `apps/summon-app`                     |
-| [v3 Subgraph](./apps/v3-subgraph/) | webpack, ts | `apps/v3-subgraph, apps/summoner-app` |
+| App                                | Build       | Entry Points       |
+| ---------------------------------- | ----------- | ------------------ |
+| [Admin App](./apps/admin)          | webpack, ts | `apps/admin`       |
+| [Summoner App](./apps/summon/)     | webpack, ts | `apps/summon`      |
+| [v3 Subgraph](./apps/v3-subgraph/) | webpack, ts | `apps/v3-subgraph` |
 
 ### Libs
 
 Our libraries in the `libs` folder are structured to be consumed by our apps as well as used by external developers using our tooling. Currently, we have three categories of libraries:
 
 - **Utility Libraries**: These are libraries that are used to provide foundational utility that can be composed and integrated into applications.
-  - Helm Chart Infrastructure Playbook
-  - DAO Data SDK
+  - Utilities libraries
+  - Data reading libraries
+  - Date writing libraries (contract function wrappers)
   - Component Library
 - **Feature Libraries**: These compose together other libraries such as the _DAO Data SDK_ and the _Component Library_ to create "smart components" that can be integrated into applications.
   - DAOhaus Connect
   - Tx Builder
+  - Form Builder
+  - React application data context
 
-| Lib                                                      | Entry Point                    |
-| -------------------------------------------------------- | ------------------------------ |
-| [ABI Utilities](./libs/abi-utilities/)                   | `libs/abi-utilities`           |
-| [Contract Utilities](./libs/contract-utilties/)          | `libs/contract-utilties`       |
-| [Common Utilities](./libs/common-utilities/)             | `libs/common-utilities`        |
-| [DAO Data SDK](./libs/moloch-v3-data)                    | `libs/moloch-v3-data-sdk`      |
-| [Component Library (UI)](./libs/ui)                      | `libs/ui`                      |
-| [DAOhaus Connect](./libs/daohaus-connect-feature)        | `libs/daohaus-connect-feature` |
-| [Tx Builder](./libs/tx-builder-feature)                  | `libs/tx-builder-feature`      |
-| [Helm Chart Infrastructure Playbook](./libs/infra-chart) | `libs/infra-chart`             |
+| Lib                                          | Entry Point               |
+| -------------------------------------------- | ------------------------- |
+| [ABI Utilities](./libs/abis/)                | `libs/abis`               |
+| [Contract Utilities](./libs/contract-utils/) | `libs/contract-utils`     |
+| [Common Utilities](./libs/utils/)            | `libs/utils`              |
+| [DAO Data SDK](./libs/moloch-v3-data)        | `libs/moloch-v3-data-sdk` |
+| [Component Library (UI)](./libs/ui)          | `libs/ui`                 |
+| [DAOhaus Connect](./libs/connect)            | `libs/connect`            |
+| [Tx Builder](./libs/tx-builder)              | `libs/tx-builder`         |
+| [Form Builder](./libs/form-builder)          | `libs/form-builder`       |
+| [Reacgt Context](./libs/moloch-v3-context)   | `libs/moloch-v3-context`  |
 
 ## Getting Started
 
@@ -111,17 +114,17 @@ We've created _generators_ that leverage `nx` with predetermined option flags.
 
 ### React App
 
-Our stack uses [Vite](https://vitejs.dev/) as our React build tool. This generator will scaffold a new React app, such as a frontend app, using `vite` and `styled-components`.
+Our stack uses [Rollup](https://rollupjs.org/guide/en/) as our React build tool. This generator will scaffold a new React app.
 
-`nx g @nxext/react:application --name <name of app> --pascalCaseFiles true --routing true --style styled-components`
+`nx g @nrwl/react:app my-new-app`
 
 TypeScript is enabled and included by default.
 
 ### React Library
 
-Our stack uses [Vite](https://vitejs.dev/) as our React build tool. This generator will scaffold a new React library (such as a component library) with `vite` and `styled-components`.
+Our stack uses [Rollup](https://rollupjs.org/guide/en/) as our React build tool. This generator will scaffold a new React library (such as a component library).
 
-- `nx g @nxext/react:library --name here --importPath @daohaus/<package_name> --buildable true --publishable true --style styled-components`
+- `nx g @nrwl/react:lib my-new-lib --publishable --importPath @myorg/my-new-lib`
 
 TypeScript is enabled and included by default.
 
@@ -129,18 +132,6 @@ Notes: - use the `--publishable` flag for external libraries - use the `--builda
 
 ### TypeScript Library
 
-- `nx g @nrwl/js:lib <lib_name> --importPath @daohaus/<package_name> --publishable true`
+- `npx nx generate @nrwl/js:library my-new-lib --publishable --importPath @daohau/my-new-lib`
 
 Notes: - use the `--publishable` flag for external libraries - use the `--buildable` flag for internal libraries
-
-### Node Application
-
-- `nx g @nrwl/node:application <app_name>`
-
-### Lamdba Application
-
-- `nx generate @ns3/nx-serverless:app <name> --plugin @ns3/nx-serverless/plugin`
-
-### Common Issues
-
-- Sometimes vite applications will have trouble finding dependencies with a depth greater than 1. To resolve this create a custom vite config like the one mentioned in [this](https://github.com/aleclarson/vite-tsconfig-paths/issues/12#issuecomment-1081160667) issue, and update the build and serve commands in the project.json to point to the new vite config path. Now your issues should be resolved.

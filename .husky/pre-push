@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx nx format:write
 npx nx affected --target=lint
-npx nx affected --target=b
+npx nx affected --target=build

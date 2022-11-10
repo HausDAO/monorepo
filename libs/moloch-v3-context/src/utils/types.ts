@@ -18,14 +18,14 @@ export type TMembers = ListMembersQuery['members'];
 export type TProposals = ITransformedProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
-export type DaoConnectDaoType = {
+export type MolochV3ContextDaoType = {
   dao: DaoWithTokenDataQuery['dao'] | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
   refreshAll: () => Promise<void>;
 };
 
-export type DaoConnectConnectedMembershipType = {
+export type MolochV3ContextConnectedMembershipType = {
   connectedMembership: FindMemberQuery['member'] | null | undefined;
   isConnectedMembershipLoading: boolean;
   refreshConnectedMembership: () => Promise<void>;
@@ -37,7 +37,7 @@ export type DaoConnectConnectedMembershipType = {
   refreshConnectedMembershipProposalVotes: () => Promise<void>;
 };
 
-export type DaoConnectMembersType = {
+export type MolochV3ContextMembersType = {
   members: ListMembersQuery['members'] | null | undefined;
   setMembers: Dispatch<SetStateAction<ListMembersQuery['members'] | undefined>>;
   isMembersLoading: boolean;
@@ -55,7 +55,7 @@ export type DaoConnectMembersType = {
   // loadMoreMembers: () => Promise<void>;
 };
 
-export type DaoConnectProposalsType = {
+export type MolochV3ContextProposalsType = {
   proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
   setProposals: Dispatch<
     SetStateAction<ITransformedProposalListQuery['proposals'] | undefined>
@@ -74,8 +74,8 @@ export type DaoConnectProposalsType = {
   getNextPage: (entity: string) => Promise<void>;
 };
 
-export interface DaoConnectType
-  extends DaoConnectDaoType,
-    DaoConnectConnectedMembershipType,
-    DaoConnectMembersType,
-    DaoConnectProposalsType {}
+export interface MolochV3ContextType
+  extends MolochV3ContextDaoType,
+    MolochV3ContextConnectedMembershipType,
+    MolochV3ContextMembersType,
+    MolochV3ContextProposalsType {}

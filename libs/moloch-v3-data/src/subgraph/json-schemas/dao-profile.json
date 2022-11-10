@@ -55,8 +55,19 @@
         "twitter": {
           "type": "string"
         },
-        "other": {
-          "type": "string"
+        "otherLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }

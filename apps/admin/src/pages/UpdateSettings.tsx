@@ -20,7 +20,6 @@ export function UpdateSettings() {
   }, [dao]);
 
   if (!dao) {
-    // TODO handle loading state
     return null;
   }
 

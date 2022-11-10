@@ -526,12 +526,31 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         label: 'Long Description',
       },
       { ...FIELD.LINK, id: 'icon', label: 'Icon' },
-      { ...FIELD.LINK, id: 'discord', label: 'Discord' },
-      { ...FIELD.LINK, id: 'github', label: 'Github' },
-      { ...FIELD.LINK, id: 'medium', label: 'Medium' },
-      { ...FIELD.LINK, id: 'telegram', label: 'Telegram' },
-      { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
-      { ...FIELD.LINK, id: 'other', label: 'Other' },
+      {
+        id: 'links',
+        type: 'formSegment',
+        title: 'Add links to important content for your DAO',
+        fields: [
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.LINK, id: 'discord', label: 'Discord' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'github', label: 'Github' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'blog', label: 'Blog' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'telegram', label: 'Telegram' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'twitter', label: 'Twitter' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'web', label: 'Website' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'custom1', label: 'Custom Link 1' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'custom2', label: 'Custom Link 2' },
+          // @ts-expect-error: cannot resolve nested custom field types
+          { ...FIELD.METADATA_LINK, id: 'custom3', label: 'Custom Link 3' },
+        ],
+      },
       FIELD.TAGS,
     ],
   },

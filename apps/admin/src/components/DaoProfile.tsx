@@ -20,7 +20,7 @@ import { TDao } from '@daohaus/moloch-v3-context';
 import { TagList } from './TagList';
 import { missingDaoProfileData } from '../utils/general';
 import { daoProfileHasLinks } from '../utils/settingsHelper';
-import { OverviewIconLinkList, OverviewLinkList } from './LinkLists';
+import { OverviewIconLinkList, OverviewLinkList } from './MetadataLinkLists';
 
 const DaoProfileContainer = styled.div`
   width: 100%;

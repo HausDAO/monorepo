@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { DaoProfileLink } from '@daohaus/moloch-v3-data';
 import { DataMd, Link, ParMd } from '@daohaus/ui';
 import { charLimit } from '@daohaus/utils';
-import { LinkIcons } from './LinkIcons';
+import { MetadataLinkIcons } from './MetadataLinkIcons';
 import { isPredefinedSettingsLink } from '../utils/settingsHelper';
 
 const LinkContainer = styled.div`
@@ -41,7 +41,8 @@ export const SettingsLinkList = ({ links }: LinkListsProps) => {
           .map((link) => (
             <Link linkType="no-icon-external" href={link.url}>
               <LinkContents>
-                {(link.label && LinkIcons[link.label]) || LinkIcons['default']}
+                {(link.label && MetadataLinkIcons[link.label]) ||
+                  MetadataLinkIcons['default']}
                 <DataMd>{charLimit(link.url, 28)}</DataMd>
               </LinkContents>
             </Link>
@@ -62,7 +63,8 @@ export const OverviewIconLinkList = ({ links }: LinkListsProps) => {
         .map((link) => (
           <Link linkType="no-icon-external" href={link.url}>
             <LinkContents>
-              {(link.label && LinkIcons[link.label]) || LinkIcons['default']}
+              {(link.label && MetadataLinkIcons[link.label]) ||
+                MetadataLinkIcons['default']}
             </LinkContents>
           </Link>
         ))}
@@ -81,7 +83,8 @@ export const OverviewLinkList = ({ links }: LinkListsProps) => {
         .map((link) => (
           <Link linkType="no-icon-external" href={link.url}>
             <LinkContents>
-              {(link.label && LinkIcons[link.label]) || LinkIcons['default']}
+              {(link.label && MetadataLinkIcons[link.label]) ||
+                MetadataLinkIcons['default']}
               <DataMd>{charLimit(link.label, 45)}</DataMd>
             </LinkContents>
           </Link>

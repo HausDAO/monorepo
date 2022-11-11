@@ -5,9 +5,11 @@ import { IconType } from 'react-icons';
 
 import { BaseTag } from './Tag.styles';
 
+export type TagColors = 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
+
 export type TagProps = {
   children: ReactNode;
-  tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
+  tagColor: TagColors;
   className?: string;
   IconLeft?: IconType;
   IconRight?: IconType;

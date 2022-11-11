@@ -1,4 +1,4 @@
-import { Tag } from '@daohaus/ui';
+import { Tag, TagColors } from '@daohaus/ui';
 import styled from 'styled-components';
 import { randFromArray } from '../utils/settingsHelper';
 
@@ -12,8 +12,6 @@ const TagContainer = styled.div`
 type TagListProps = {
   tags: string[];
 };
-
-type TagColors = 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
 
 const tagColors: TagColors[] = [
   'violet',

@@ -1,4 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { RiUserAddLine } from 'react-icons/ri';
+
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
 import { LoadingButton } from './LoadingButton';
 
@@ -45,6 +47,7 @@ BaseLoadingButton.args = {
   loading: true,
   disabled: false,
   fullWidth: false,
+  IconLeft: RiUserAddLine,
 };
 
 export const LoadingButtonWithText = Template.bind({});

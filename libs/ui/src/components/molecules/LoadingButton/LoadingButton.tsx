@@ -2,9 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Button, ButtonProps } from '../../atoms/';
-import { LoadingAbsolute, StyledInvisibleSpan } from './LoadingButton.styles';
+import {
+  LoadingAbsolute,
+  StyledInvisibleSpan,
+  StyledLoadingButton,
+} from './LoadingButton.styles';
 
-type OmittedProps = 'IconLeft' | 'IconRight' | 'leftAlign';
+type OmittedProps = 'IconRight' | 'leftAlign';
 
 export interface LoadingButtonProps extends Omit<ButtonProps, OmittedProps> {
   // Shows loading spinner */
@@ -25,30 +29,32 @@ export const LoadingButton = React.forwardRef<
     color = 'secondary',
     variant = 'solid',
     size = 'md',
+    IconLeft,
     ...rest
   } = props;
 
   const classes = classNames({
     [variant]: variant,
     [size]: size,
-    profile: true,
+    loading,
   });
 
   return (
-    <Button
+    <StyledLoadingButton
       {...rest}
       color={color}
       size={size}
       variant={variant}
       className={`${classes} ${className}`}
       ref={ref}
+      IconLeft={IconLeft}
     >
-      {loading && <LoadingAbsolute color={color} />}
+      {loading && <LoadingAbsolute />}
       {loading ? (
         <StyledInvisibleSpan>{children}</StyledInvisibleSpan>
       ) : (
         children
       )}
-    </Button>
+    </StyledLoadingButton>
   );
 });

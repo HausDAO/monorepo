@@ -398,9 +398,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   WALLETCONNECT: {
     devtool: true,
     id: 'WALLETCONNECT',
-    title: 'WalletConnect Proposal',
-    subtitle: 'Use WalletConnect to create a Proposal',
-    description: 'Extend DAO Proposals to external contracts',
+    title: 'Use WalletConnect',
+    subtitle: 'WalletConnect Proposal',
+    description: 'Interact with external contracts and  applications.',
     tx: TX.WALLETCONNECT,
     requiredFields: {
       title: true,

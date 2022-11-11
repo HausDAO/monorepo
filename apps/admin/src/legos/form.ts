@@ -116,7 +116,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_ERC20: {
     id: 'TRANSFER_ERC20',
-    title: 'Transfer ERC-20 Tokens',
+    title: 'ERC-20 Token Transfer',
     subtitle: 'Funding Proposal',
     description: 'Request ERC-20 tokens from the DAO treasury.',
     log: true,
@@ -144,7 +144,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
-    title: 'Transfer Network Tokens',
+    title: 'Network Token Transfer',
     subtitle: 'Funding Proposal',
     description: "Request network's native token from the DAO treasury.",
     log: true,

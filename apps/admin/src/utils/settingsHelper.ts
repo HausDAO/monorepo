@@ -10,11 +10,11 @@ export const formatDaoProfileForForm = (dao: DaoWithTokenData) => {
     description: dao?.description,
     long_description: dao?.longDescription,
     discord: links.find((link) => link.label === 'Discord')?.url,
-    blog: links.find((link) => link.label === 'Blog')?.url,
     github: links.find((link) => link.label === 'Github')?.url,
-    web: links.find((link) => link.label === 'Website')?.url,
     telegram: links.find((link) => link.label === 'Telegram')?.url,
     twitter: links.find((link) => link.label === 'Twitter')?.url,
+    blog: links.find((link) => link.label === 'Blog')?.url,
+    web: links.find((link) => link.label === 'Web')?.url,
     custom1: links[6]?.url,
     custom1Label: links[6]?.label,
     custom2: links[7]?.url,
@@ -32,4 +32,13 @@ export const daoProfileHasLinks = (
   links: DaoWithTokenData['links']
 ): boolean | undefined => {
   return links?.some((link: DaoProfileLink) => link.url);
+};
+
+export const isPredefinedSettingsLink = (link: DaoProfileLink) => {
+  return (
+    link.label &&
+    ['Github', 'Discord', 'Telegram', 'Twitter', 'Blog', 'Web'].indexOf(
+      link.label
+    ) >= 0
+  );
 };

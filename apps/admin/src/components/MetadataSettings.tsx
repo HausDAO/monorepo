@@ -19,7 +19,7 @@ import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import { charLimit, formatLongDateFromSeconds, Keychain } from '@daohaus/utils';
 import { daoProfileHasLinks } from '../utils/settingsHelper';
-import { SettingsLinkList } from './SettingsLinkList';
+import { SettingsLinkList } from './LinkLists';
 
 const MetaCardHeader = styled.div`
   display: flex;

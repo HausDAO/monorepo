@@ -1,4 +1,5 @@
 import {
+  RiArticleLine,
   RiDiscordFill,
   RiGithubFill,
   RiLinksFill,
@@ -7,9 +8,10 @@ import {
 } from 'react-icons/ri';
 
 export const LinkIcons: { [key: string]: React.ReactNode } = {
-  Github: <RiGithubFill />,
-  Discord: <RiDiscordFill />,
-  Twitter: <RiTwitterFill />,
-  Telegram: <RiTelegramFill />,
-  default: <RiLinksFill />,
+  Github: <RiGithubFill size={'2.5rem'} />,
+  Discord: <RiDiscordFill size={'2.5rem'} />,
+  Twitter: <RiTwitterFill size={'2.5rem'} />,
+  Telegram: <RiTelegramFill size={'2.5rem'} />,
+  Blog: <RiArticleLine size={'2.5rem'} />,
+  default: <RiLinksFill size={'2.5rem'} />,
 };

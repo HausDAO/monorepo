@@ -19,6 +19,7 @@ import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import { charLimit, formatLongDateFromSeconds, Keychain } from '@daohaus/utils';
 import { daoProfileHasLinks } from '../utils/settingsHelper';
+import { SettingsLinkList } from './SettingsLinkList';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -38,12 +39,12 @@ const MetaContent = styled.div`
     margin-top: 1.2rem;
   }
   .section-middle {
-    max-width: 37rem;
+    width: 38rem;
     display: flex;
     flex-direction: column;
     gap: 3rem;
   }
-  .contract {
+  .links {
     margin: 1.2rem 0;
   }
 `;
@@ -59,6 +60,7 @@ const WarningContainer = styled(Card)`
   gap: 0.5rem;
   width: 100%;
   padding: 1rem 2rem;
+  margin-top: 3rem;
   background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
   border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
   .title {
@@ -113,8 +115,10 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             </div>
           )}
         </div>
-        <div>
-          {daoProfileHasLinks(dao.links) && <ParMd>Links</ParMd>}
+        <div className="links">
+          {daoProfileHasLinks(dao.links) && (
+            <SettingsLinkList links={dao.links} />
+          )}
           {dao.txHash === '0x0' && (
             <WarningContainer>
               <div className="title">

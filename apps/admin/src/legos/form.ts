@@ -42,9 +42,9 @@ COMMON_FORMS KEYS
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   SIGNAL: {
     id: 'SIGNAL',
-    title: 'Signal Form',
+    title: 'Request Signal',
     subtitle: 'Signal Proposal',
-    description: 'Ratify on-chain using a DAO proposal.',
+    description: 'Request an on-chain member vote.',
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,

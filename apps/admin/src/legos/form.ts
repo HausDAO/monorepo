@@ -173,9 +173,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   UPDATE_GOV_SETTINGS: {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
-    subtitle: 'Governance Setting Proposal',
+    subtitle: 'Governance Proposal',
     log: true,
-    description: 'Learn more about Governance Settings in our documentation.',
+    description: 'Change proposal timing or advanced governance settings.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
       title: true,

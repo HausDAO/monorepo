@@ -39,7 +39,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
           <ParSm className="number-display">{amtMembers} Members</ParSm>
           <WrappedTextArea
             label="Addresses & Stake Amounts"
-            placeholder="0x00000000000000000000000000 30 0"
+            placeholder="0x00000000000000000000000000 1 0"
             id={FORM_KEYS.MEMBERS}
             info={INFO_COPY.MEMBERS}
             full

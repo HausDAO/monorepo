@@ -57,7 +57,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   ISSUE: {
     id: 'ISSUE',
-    title: 'DAO Tokens Request',
+    title: 'DAO Token Request',
     subtitle: 'Token Proposal',
     log: true,
     description: 'Request voting or non-voting tokens from the DAO.',

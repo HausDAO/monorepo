@@ -53,6 +53,8 @@ type Dao @entity {
   name: String
   "was Dao summoned by an existing safe or did it create a new safe."
   existingSafe: Boolean!
+  "was Dao summoned by an existing shares and loot token or did it create new ones."
+  existingSharesAndLoot: Boolean!
   "Indicates if admin shamans can be added to the DAO"
   adminLocked: Boolean!
   "Indicates if governor shamans can be added to the DAO"
@@ -61,6 +63,10 @@ type Dao @entity {
   managerLocked: Boolean!
   "version of the baal contract and summoner"
   baalVersion: String!
+  "Forwarder address"
+  forwarder: Bytes!
+  "summoning referrer identifier"
+  referrer: String
   "proposals scoped to this dao"
   proposals: [Proposal!] @derivedFrom(field: "dao")
   "members scoped to this dao"

@@ -92,6 +92,18 @@ module.exports.config = {
         startBlock: 7798375,
       },
       {
+        name: 'baalSummoner-v2.0.0',
+        template: 'baal-summoner-2.0.0-ds.yaml',
+        address: '0xAAbB14060DC79d2de7901218ee4681330976aC5f',
+        startBlock: 7936220,
+      },
+      {
+        name: 'vaultSummoner',
+        template: 'vault-summoner-ds.yaml',
+        address: '0xfBd2073964Ab55CbC17462fC79a7b6d38Ab01928',
+        startBlock: 7936223,
+      },
+      {
         name: 'poster',
         template: 'poster-ds.yaml',
         address: '0x000000000000cd17345801aa8147b8d3950260ff',

@@ -1,18 +1,19 @@
 import { CoreFieldLookup } from '@daohaus/form-builder';
-import { ProposalExpiry } from '../components/customFields/proposalExpiry';
-import { TributeInput } from '../components/customFields/tributeInput';
+import { ProposalExpiry } from '../components/customFields/ProposalExpiry';
+import { TributeInput } from '../components/customFields/TributeInput';
 import { FieldLegoBase, FormLegoBase } from '@daohaus/utils';
 import { SelectApplicant } from '../components/customFields/SelectApplicant';
 import { RequestNativeToken } from '../components/customFields/RequestNativeToken';
 import { RequestERC20 } from '../components/customFields/RequestERC20';
 import { ShamanDeluxe } from '../components/customFields/ShamanDeluxe';
-import { TagsInput } from '../components/customFields/tagsInput';
+import { TagsInput } from '../components/customFields/TagsInput';
 import { FakeMarkdown } from '../components/FakeMarkdown';
 import { ProposalOffering } from '../components/customFields/ProposalOffering';
-import { DelegateInput } from '../components/customFields/delegateInput';
+import { DelegateInput } from '../components/customFields/DelegateInput';
 import { RagequitToken } from '../components/customFields/RagequitToken';
 import { RagequitTokenList } from '../components/customFields/RagequitTokenList';
-import { WalletConnectLink } from '../components/customFields/walletConnectLink';
+import { WalletConnectLink } from '../components/customFields/WalletConnectLink';
+import { MetadataLink } from '../components/customFields/MetadataLink';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -29,6 +30,7 @@ export const CustomFields = {
   ragequitToken: RagequitToken,
   ragequitTokenList: RagequitTokenList,
   walletConnectLink: WalletConnectLink,
+  metadataLink: MetadataLink,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

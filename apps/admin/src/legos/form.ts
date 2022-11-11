@@ -42,7 +42,7 @@ COMMON_FORMS KEYS
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   SIGNAL: {
     id: 'SIGNAL',
-    title: 'Request Signal',
+    title: 'Signal Request',
     subtitle: 'Signal Proposal',
     description: 'Request an on-chain member vote.',
     requiredFields: { title: true, description: true },
@@ -57,7 +57,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   ISSUE: {
     id: 'ISSUE',
-    title: 'Request DAO Tokens',
+    title: 'DAO Tokens Request',
     subtitle: 'Token Proposal',
     log: true,
     description: 'Request voting or non-voting tokens from the DAO.',
@@ -342,7 +342,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TOKENS_FOR_SHARES: {
     id: 'TOKENS_FOR_SHARES',
-    title: 'Swap for DAO Tokens',
+    title: 'DAO Token Swap',
     description:
       'Request voting or non-voting tokens from the DAO in exchange for tokens.',
     subtitle: 'Token Proposal',

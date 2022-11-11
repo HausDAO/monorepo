@@ -1,50 +1,31 @@
-import { ReactNode, RefObject, forwardRef } from 'react';
+import React from 'react';
 
 import { Bold, ParMd, ParXs } from '../Typography';
-
 import { BaseBadge } from './Badge.styles';
+import { BadgeProps } from './Badge.types';
 
-export type BadgeProps = {
-  badgeLabel: ReactNode;
-  badgeSize?: 'sm' | 'lg';
-  badgeColor?: 'blue' | 'green' | 'pink' | 'violet';
-  className?: string;
-  children?: ReactNode;
+export const Badge = ({
+  className,
+  badgeLabel,
+  badgeSize = 'sm',
+  badgeColor = 'blue',
+}: BadgeProps) => {
+  return (
+    <BaseBadge
+      badgeColor={badgeColor}
+      badgeSize={badgeSize}
+      className={className}
+    >
+      {badgeSize === 'sm' && (
+        <ParXs>
+          <Bold>{badgeLabel}</Bold>
+        </ParXs>
+      )}
+      {badgeSize === 'lg' && (
+        <ParMd>
+          <Bold>{badgeLabel}</Bold>
+        </ParMd>
+      )}
+    </BaseBadge>
+  );
 };
-
-type Ref =
-  | ((instance: HTMLBaseElement | null) => void)
-  | RefObject<HTMLBaseElement>
-  | null
-  | undefined;
-
-export const Badge = forwardRef(
-  (
-    {
-      className,
-      badgeLabel,
-      badgeSize = 'sm',
-      badgeColor = 'blue',
-    }: BadgeProps,
-    ref: Ref
-  ) => {
-    return (
-      <BaseBadge
-        badgeColor={badgeColor}
-        badgeSize={badgeSize}
-        className={className}
-      >
-        {badgeSize === 'sm' && (
-          <ParXs>
-            <Bold>{badgeLabel}</Bold>
-          </ParXs>
-        )}
-        {badgeSize === 'lg' && (
-          <ParMd>
-            <Bold>{badgeLabel}</Bold>
-          </ParMd>
-        )}
-      </BaseBadge>
-    );
-  }
-);

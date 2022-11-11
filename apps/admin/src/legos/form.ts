@@ -277,10 +277,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
-    title: 'Change Token Settings',
+    title: 'Update Token Settings',
     log: true,
-    subtitle: 'Token Settings Proposal',
-    description: 'Learn more about Token Settings in our documentation.',
+    subtitle: 'Token Proposal',
+    description: 'Change transferability of voting or non-voting tokens.',
     tx: TX.TOKEN_SETTINGS,
     requiredFields: {
       title: true,

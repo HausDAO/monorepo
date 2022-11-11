@@ -342,9 +342,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TOKENS_FOR_SHARES: {
     id: 'TOKENS_FOR_SHARES',
-    title: 'Swap Tokens for Shares',
+    title: 'Swap for DAO Tokens',
     description:
-      'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
+      'Request voting or non-voting tokens from the DAO in exchange for tokens.',
     subtitle: 'Token Proposal',
     tx: TX.TOKENS_FOR_SHARES,
     requiredFields: {

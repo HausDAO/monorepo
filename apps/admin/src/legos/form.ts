@@ -116,10 +116,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_ERC20: {
     id: 'TRANSFER_ERC20',
-    title: 'Request ERC-20',
+    title: 'Transfer ERC-20 Tokens',
     subtitle: 'Funding Proposal',
-    description:
-      'Create a proposal to request ERC-20 tokens from the DAO treasury',
+    description: 'Request ERC-20 tokens from the DAO treasury.',
     log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {

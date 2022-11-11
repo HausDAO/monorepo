@@ -373,10 +373,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   GUILDKICK: {
     id: 'GUILDKICK',
-    title: 'Guild Kick Proposal',
-    subtitle: 'Guild Kick Member',
-    description:
-      'Propose to exchange a member’s voting token balance with non-voting tokens. If passed, this will mean they can no longer vote on proposals.',
+    title: 'Remove Member',
+    subtitle: 'Token Proposal',
+    description: 'Change a member’s voting tokens into non-voting tokens.',
     tx: TX.GUILDKICK,
     requiredFields: {
       title: true,

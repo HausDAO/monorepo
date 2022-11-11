@@ -80,12 +80,17 @@ export interface ITransformedProposalListQuery {
   proposals: ITransformedProposal[];
 }
 
+export type DaoProfileLink = {
+  label?: string;
+  url?: string;
+};
+
 export type DaoProfile = {
   description?: string;
   longDescription?: string;
   avatarImg?: string;
   tags?: string[];
-  links?: string;
+  links?: DaoProfileLink[];
 };
 
 export type ITransformedDao = ListDaosQuery['daos'][number] & DaoProfile;

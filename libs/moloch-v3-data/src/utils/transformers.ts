@@ -128,9 +128,10 @@ export const addDaoProfileFields = (
   try {
     const obj = JSON.parse(dao.profile[0].content);
     const links =
-      obj.links && typeof obj.links === 'string'
-        ? JSON.parse(obj.links)
-        : obj.links;
+      obj.links &&
+      obj.links.map((linkObj: string) => {
+        return typeof linkObj === 'string' ? JSON.parse(linkObj) : {};
+      });
 
     const avatarUrl = getDaoAvatarImg(dao);
 

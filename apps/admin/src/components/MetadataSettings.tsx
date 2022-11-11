@@ -6,17 +6,19 @@ import {
   DataIndicator,
   Button,
   Link,
+  Card,
+  Theme,
+  Tooltip,
+  AddressDisplay,
+  useBreakpoint,
+  widthQuery,
 } from '@daohaus/ui';
 
 import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import {
-  charLimit,
-  formatDateTimeFromSeconds,
-  formatLongDateFromSeconds,
-  formatShortDateTimeFromSeconds,
-} from '@daohaus/utils';
+import { charLimit, formatLongDateFromSeconds, Keychain } from '@daohaus/utils';
+import { daoProfileHasLinks } from '../utils/settingsHelper';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -41,9 +43,6 @@ const MetaContent = styled.div`
     flex-direction: column;
     gap: 3rem;
   }
-  .tags {
-    margin-top: 2.9rem;
-  }
   .contract {
     margin: 1.2rem 0;
   }
@@ -54,6 +53,21 @@ const DaoProfileAvatar = styled(ProfileAvatar)`
   height: 8.9rem;
 `;
 
+const WarningContainer = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
+  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+  .title {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+`;
+
 type MetadataSettingsProps = {
   dao: TDao;
 };
@@ -61,6 +75,7 @@ type MetadataSettingsProps = {
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
   const { connectedMembership } = useConnectedMembership();
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <>
@@ -96,6 +111,23 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <div className="tags">
               <TagList tags={dao.tags} />
             </div>
+          )}
+        </div>
+        <div>
+          {daoProfileHasLinks(dao.links) && <ParMd>Links</ParMd>}
+          {dao.txHash === '0x0' && (
+            <WarningContainer>
+              <div className="title">
+                <ParMd>Forwarder Address</ParMd>
+                <Tooltip content="Forwarder Address is the contract used to sign and send transactions without the original sender paying for gas." />
+              </div>
+              <AddressDisplay
+                address={dao.sharesAddress}
+                copy
+                truncate={isMobile}
+                explorerNetworkId={daochain as keyof Keychain}
+              />
+            </WarningContainer>
           )}
         </div>
       </MetaContent>

@@ -400,7 +400,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'WALLETCONNECT',
     title: 'Use WalletConnect',
     subtitle: 'WalletConnect Proposal',
-    description: 'Interact with external contracts and applications.',
+    description: 'Interact with external contracts and applications.',
     tx: TX.WALLETCONNECT,
     requiredFields: {
       title: true,

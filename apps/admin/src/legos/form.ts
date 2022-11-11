@@ -144,10 +144,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
-    title: 'Reqest Network Token',
+    title: 'Transfer Network Tokens',
     subtitle: 'Funding Proposal',
-    description:
-      "Create a proposal to request funding from the DAO treasury in the network's native token",
+    description: "Request network's native token from the DAO treasury.",
     log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {

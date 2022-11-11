@@ -60,7 +60,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'Request DAO Tokens',
     subtitle: 'Token Proposal',
     log: true,
-    description: 'Request membership or increased stake in the DAO.',
+    description: 'Request voting or non-voting tokens from the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
       title: true,

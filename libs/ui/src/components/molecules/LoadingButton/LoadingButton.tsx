@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Button, ButtonProps } from '../../atoms/';
+import { ButtonProps } from '../../atoms/';
 import {
   LoadingAbsolute,
   StyledInvisibleSpan,

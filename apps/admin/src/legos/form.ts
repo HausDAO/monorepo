@@ -95,9 +95,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   ADD_SHAMAN: {
     id: 'ADD_SHAMAN',
-    title: 'Add a Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Add Shaman Proposal',
+    title: 'Add Shaman',
+    description: 'Grant DAO permissions to an external contract.',
+    subtitle: 'Shaman Proposal',
     requiredFields: {
       title: true,
       description: true,

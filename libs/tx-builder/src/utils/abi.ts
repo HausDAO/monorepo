@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ABI, isJSON, Keychain, ValidNetwork } from '@daohaus/utils';
+import { ABI, HAUS_RPC, isJSON, Keychain, ValidNetwork } from '@daohaus/utils';
 import { cacheABI, getCachedABI } from './cache';
 import { LOCAL_ABI } from '@daohaus/abis';
 
@@ -17,12 +17,6 @@ export const isProxyABI = (abi: ABI) => {
     return abi.some((fn) => fn.name === 'implementation');
   }
   return false;
-};
-
-export const TEMPORARY_RPC = {
-  '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
-  '0x64': 'https://rpc.gnosischain.com/',
 };
 
 const ABI_ADDRESS = '<<address>>';
@@ -57,7 +51,7 @@ export const createContract = ({
   address,
   abi,
   chainId,
-  rpcs = TEMPORARY_RPC,
+  rpcs = HAUS_RPC,
 }: {
   address: string;
   abi: ABI;
@@ -73,7 +67,7 @@ export const getImplementation = async ({
   address,
   chainId,
   abi,
-  rpcs = TEMPORARY_RPC,
+  rpcs = HAUS_RPC,
 }: {
   address: string;
   chainId: ValidNetwork;
@@ -101,7 +95,7 @@ export const processABI = async ({
   fetchABI,
   contractAddress,
   chainId,
-  rpcs = TEMPORARY_RPC,
+  rpcs = HAUS_RPC,
 }: {
   abi: ABI;
   fetchABI: ({
@@ -170,7 +164,7 @@ export const processABI = async ({
 export const fetchABI = async ({
   contractAddress,
   chainId,
-  rpcs = TEMPORARY_RPC,
+  rpcs = HAUS_RPC,
 }: {
   contractAddress: string;
   chainId: ValidNetwork;
@@ -222,7 +216,7 @@ export const fetchABI = async ({
 export const getCode = async ({
   contractAddress,
   chainId,
-  rpcs = TEMPORARY_RPC,
+  rpcs = HAUS_RPC,
 }: {
   contractAddress: string;
   chainId: ValidNetwork;

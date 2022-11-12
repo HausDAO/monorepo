@@ -54,7 +54,7 @@ const HomeContainer = () => {
     </HausLayout>
   );
 };
-const customNetworks: NetworkConfigs = {
+const customNetworks = {
   '0x1': {
     chainId: '0x1',
     networkId: 1,
@@ -80,7 +80,7 @@ const Routes = () => {
   }, [pathMatch?.params?.daochain, setDaoChainId, daoChainId]);
 
   return (
-    <HausConnectProvider daoChainId={daoChainId} networks={}>
+    <HausConnectProvider daoChainId={daoChainId} networks={customNetworks}>
       <Banner />
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>

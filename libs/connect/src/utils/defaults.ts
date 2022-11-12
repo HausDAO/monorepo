@@ -1,12 +1,12 @@
 import { IProviderOptions } from 'web3modal';
 import WalletConnectProvider from '@walletconnect/ethereum-provider';
 import { addKeychain, ENDPOINTS } from '@daohaus/utils';
-import { TEMPORARY_RPC } from './common';
+import { HAUS_RPC } from '@daohaus/utils';
 
 export const supportedNetworks = addKeychain(
   ENDPOINTS.EXPLORER,
   'explorer',
-  addKeychain(TEMPORARY_RPC, 'rpc')
+  addKeychain(HAUS_RPC, 'rpc')
 );
 
 const providerOptions: IProviderOptions = {
@@ -14,9 +14,9 @@ const providerOptions: IProviderOptions = {
     package: WalletConnectProvider,
     options: {
       rpc: {
-        1: TEMPORARY_RPC['0x1'],
-        5: TEMPORARY_RPC['0x5'],
-        100: TEMPORARY_RPC['0x64'],
+        1: HAUS_RPC['0x1'],
+        5: HAUS_RPC['0x5'],
+        100: HAUS_RPC['0x64'],
       },
     },
   },

@@ -26,7 +26,6 @@ const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
-  // USE THEME
   fill: ${({ theme }: { theme: Theme }) => theme.secondary.step10};
 
   :hover {

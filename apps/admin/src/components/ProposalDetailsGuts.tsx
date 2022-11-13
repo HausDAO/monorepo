@@ -7,13 +7,13 @@ import {
   formatValueTo,
   fromWei,
   Keychain,
-  HAUS_NETWORK_DATA,
   ValidNetwork,
 } from '@daohaus/utils';
 
 import { TProposals } from '@daohaus/moloch-v3-context';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { ProposalWarning } from './ProposalWarning';
+import { useHausConnect } from '@daohaus/connect';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ export const ProposalDetailsGuts = ({
   proposal,
 }: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
-
+  const { networks } = useHausConnect();
   return (
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>
@@ -91,7 +91,7 @@ export const ProposalDetailsGuts = ({
           data={formatValueTo({
             value: fromWei(proposal.proposalOffering),
             format: 'number',
-            unit: HAUS_NETWORK_DATA[daochain as ValidNetwork]?.symbol,
+            unit: networks?.[daochain as ValidNetwork]?.symbol,
             decimals: dynamicDecimals({
               baseUnits: Number(proposal.proposalOffering),
             }),

@@ -14,13 +14,13 @@ import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {
   checkHasQuorum,
   getGasCostEstimate,
-  HAUS_NETWORK_DATA,
   percentage,
   toWholeUnits,
   ValidNetwork,
 } from '@daohaus/utils';
 import { useParams } from 'react-router-dom';
 import { RPC_ENDPOINTS } from '../../utils/constants';
+import { useHausConnect } from '@daohaus/connect';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -219,6 +219,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
   const theme = useTheme();
   const { daochain } = useParams();
   const [estimate, setEstimate] = useState<string | undefined>();
+  const { networks } = useHausConnect();
 
   useEffect(() => {
     const getGasEst = async () => {
@@ -246,7 +247,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
         </GasBox>
       }
       content={`If gas is less than ${estimate} ${
-        daochain && HAUS_NETWORK_DATA[daochain as ValidNetwork]?.symbol
+        daochain && networks?.[daochain as ValidNetwork]?.symbol
       }, the proposal will likely fail.`}
       side="bottom"
     />

@@ -16,7 +16,7 @@ import { useHausConnect } from '@daohaus/connect';
 // HOW CAN THIS BE GENERALIZED?
 
 type DAOFilterDropdownProps = {
-  filterNetworks: Record<string, string>;
+  filterNetworks: string[];
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -43,7 +43,7 @@ export const DAOFilterDropdown = ({
   const { networks } = useHausConnect();
   const networkButtons = useMemo(() => {
     return Object.values(networks).map((network) => {
-      const isActive = filterNetworks[network.chainId];
+      const isActive = filterNetworks.includes(network.chainId);
 
       return (
         <DropdownMenuItem key={network.chainId} asChild>

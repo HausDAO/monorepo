@@ -25,6 +25,7 @@ import {
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
 import { useParams } from 'react-router-dom';
+import { useHausConnect } from '@daohaus/connect';
 
 export enum ListType {
   Cards,
@@ -34,10 +35,9 @@ export enum ListType {
 export const HomeDashboard = () => {
   const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
-
+  const { appNetworks } = useHausConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
-  const [filterNetworks, setFilterNetworks] =
-    useState<Record<string, string>>(defaultNetworks);
+  const [filterNetworks, setFilterNetworks] = useState<string[]>(appNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
   const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
   const [searchTerm, setSearchTerm] = useState<string | ''>('');
@@ -58,7 +58,7 @@ export const HomeDashboard = () => {
         });
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
-          networkIds: Object.keys(filterNetworks) as ValidNetwork[],
+          networkIds: filterNetworks as ValidNetwork[],
           includeTokens: true,
           daoFilter: { name_contains_nocase: debouncedSearchTerm },
           memberFilter: getDelegateFilter(filterDelegate, address),
@@ -88,15 +88,11 @@ export const HomeDashboard = () => {
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;
     if (network && isValidNetwork(network)) {
-      filterNetworks[network]
-        ? setFilterNetworks((prevState) => {
-            delete prevState[network];
-            return { ...prevState };
-          })
-        : setFilterNetworks((prevState) => ({
-            ...prevState,
-            [network]: network,
-          }));
+      filterNetworks.includes(network)
+        ? setFilterNetworks((prevState) =>
+            prevState.filter((n) => n !== network)
+          )
+        : setFilterNetworks((prevState) => [...prevState, network]);
     }
   };
   const toggleDelegateFilter = (event: MouseEvent<HTMLButtonElement>) => {

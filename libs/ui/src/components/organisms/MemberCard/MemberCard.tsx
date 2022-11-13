@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import {
@@ -38,7 +37,6 @@ export const MemberCard = ({
   minWidth = '17.8rem',
 }: MemberCardProps) => {
   const copy = useCopyToClipboard();
-  const { daochain, daoid } = useParams();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {

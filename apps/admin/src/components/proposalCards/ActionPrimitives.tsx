@@ -14,12 +14,12 @@ import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {
   checkHasQuorum,
   getGasCostEstimate,
+  HAUS_RPC,
   percentage,
   toWholeUnits,
   ValidNetwork,
 } from '@daohaus/utils';
 import { useParams } from 'react-router-dom';
-import { RPC_ENDPOINTS } from '../../utils/constants';
 import { useHausConnect } from '@daohaus/connect';
 
 const TemplateBox = styled.div`
@@ -226,7 +226,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
       if (gasAmt) {
         const est = await getGasCostEstimate(
           gasAmt,
-          RPC_ENDPOINTS[daochain as ValidNetwork]
+          HAUS_RPC[daochain as ValidNetwork]
         );
         const estEth = toWholeUnits(est.toFixed());
         setEstimate(Number(estEth).toFixed(6));

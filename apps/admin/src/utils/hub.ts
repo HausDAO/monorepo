@@ -1,5 +1,5 @@
 import { Member_Filter, Dao_OrderBy, Ordering } from '@daohaus/moloch-v3-data';
-import { NETWORK_DATA } from '@daohaus/utils';
+import { HAUS_NETWORK_DATA } from '@daohaus/utils';
 
 export const FILTER_TYPE = {
   DELEGATING: 'delegating',
@@ -50,7 +50,7 @@ export const getDelegateFilter = (
   }
 };
 
-export const defaultNetworks = Object.keys(NETWORK_DATA).reduce(
+export const defaultNetworks = Object.keys(HAUS_NETWORK_DATA).reduce(
   (acc, networkId) => ({ ...acc, [networkId]: networkId }),
   {}
 );

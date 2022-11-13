@@ -7,7 +7,7 @@ import {
   formatValueTo,
   fromWei,
   Keychain,
-  NETWORK_DATA,
+  HAUS_NETWORK_DATA,
   ValidNetwork,
 } from '@daohaus/utils';
 
@@ -91,7 +91,7 @@ export const ProposalDetailsGuts = ({
           data={formatValueTo({
             value: fromWei(proposal.proposalOffering),
             format: 'number',
-            unit: NETWORK_DATA[daochain as ValidNetwork]?.symbol,
+            unit: HAUS_NETWORK_DATA[daochain as ValidNetwork]?.symbol,
             decimals: dynamicDecimals({
               baseUnits: Number(proposal.proposalOffering),
             }),

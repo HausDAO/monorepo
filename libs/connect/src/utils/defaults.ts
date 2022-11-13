@@ -47,4 +47,5 @@ export const defaultWalletValues = {
   daoChainId: undefined,
   validNetwork: false,
   isAppNetwork: () => false,
+  appNetworks: [],
 };

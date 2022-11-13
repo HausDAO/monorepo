@@ -1,4 +1,4 @@
-import { fromWei, isValidNetwork, NETWORK_DATA } from '@daohaus/utils';
+import { fromWei, isValidNetwork, HAUS_NETWORK_DATA } from '@daohaus/utils';
 import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   const [requiresOffering, setRequiresOffering] = useState(false);
 
   const networkTokenSymbol =
-    isValidNetwork(daochain) && NETWORK_DATA[daochain]?.symbol;
+    isValidNetwork(daochain) && HAUS_NETWORK_DATA[daochain]?.symbol;
 
   register(id);
 

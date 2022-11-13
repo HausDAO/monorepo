@@ -1,4 +1,4 @@
-import { NETWORK_DATA, TokenBalance, ValidNetwork } from '@daohaus/utils';
+import { HAUS_NETWORK_DATA, TokenBalance, ValidNetwork } from '@daohaus/utils';
 import { DaoWithTokenData } from '@daohaus/moloch-v3-data';
 
 const isNetworkToken = (tokenData: TokenBalance) => {
@@ -38,7 +38,7 @@ export const getNetworkToken = (
   daoData: DaoWithTokenData,
   daochain: ValidNetwork
 ) => {
-  const networkData = NETWORK_DATA[daochain];
+  const networkData = HAUS_NETWORK_DATA[daochain];
   const networkToken = daoData.tokenBalances.find(isNetworkToken);
 
   if (networkToken && networkData) {

@@ -21,7 +21,7 @@ import {
 import {
   formatValueTo,
   Keychain,
-  NETWORK_DATA,
+  HAUS_NETWORK_DATA,
   memberTokenBalanceShare,
   memberUsdValueShare,
   charLimit,
@@ -188,7 +188,9 @@ export function Member() {
         accessor: 'token',
         Cell: ({ value }: { value: TokenTableType['token'] }) => {
           return value.address === NETWORK_TOKEN_ETH_ADDRESS ? (
-            <DataMd>{NETWORK_DATA[daochain as keyof Keychain]?.symbol}</DataMd>
+            <DataMd>
+              {HAUS_NETWORK_DATA[daochain as keyof Keychain]?.symbol}
+            </DataMd>
           ) : (
             <AddressDisplay
               address={value.address}

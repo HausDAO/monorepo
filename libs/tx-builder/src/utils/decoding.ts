@@ -4,7 +4,7 @@ import {
   CONTRACTS,
   ENCODED_0X0_DATA,
   MulticallAction,
-  NETWORK_DATA,
+  HAUS_NETWORK_DATA,
   StringSearch,
   ValidArgType,
   ValidNetwork,
@@ -115,7 +115,7 @@ const buildEthTransferAction = (
   action: EncodedAction
 ): DecodedAction => ({
   to: action.to,
-  name: `${NETWORK_DATA[chainId]?.symbol} Transfer`,
+  name: `${HAUS_NETWORK_DATA[chainId]?.symbol} Transfer`,
   value: BigNumber.from(action.value).toString(),
   params: [],
 });

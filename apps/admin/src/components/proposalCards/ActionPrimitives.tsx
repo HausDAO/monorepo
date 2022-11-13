@@ -14,7 +14,7 @@ import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {
   checkHasQuorum,
   getGasCostEstimate,
-  NETWORK_DATA,
+  HAUS_NETWORK_DATA,
   percentage,
   toWholeUnits,
   ValidNetwork,
@@ -246,7 +246,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
         </GasBox>
       }
       content={`If gas is less than ${estimate} ${
-        daochain && NETWORK_DATA[daochain as ValidNetwork]?.symbol
+        daochain && HAUS_NETWORK_DATA[daochain as ValidNetwork]?.symbol
       }, the proposal will likely fail.`}
       side="bottom"
     />

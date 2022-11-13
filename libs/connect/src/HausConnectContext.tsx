@@ -50,6 +50,7 @@ export type UserConnectType = {
   daoChainId?: string;
   validNetwork: boolean;
   isAppNetwork: (chainId: string) => boolean;
+  appNetworks: string[];
 };
 
 export const HausConnectContext =
@@ -151,6 +152,7 @@ export const HausConnectProvider = ({
         daoChainId,
         validNetwork,
         isAppNetwork,
+        appNetworks,
       }}
     >
       {children}

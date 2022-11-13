@@ -1,4 +1,9 @@
-import { isValidNetwork, ReactSetter, truncateAddress } from '@daohaus/utils';
+import {
+  isValidNetwork,
+  NetworkConfigs,
+  ReactSetter,
+  truncateAddress,
+} from '@daohaus/utils';
 import { Haus } from '@daohaus/moloch-v3-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
@@ -9,7 +14,6 @@ import {
   ModalOptions,
   WalletStateType,
   UserProfile,
-  NetworkConfigs,
 } from './types';
 
 export const numberToHex = (number: number) => {

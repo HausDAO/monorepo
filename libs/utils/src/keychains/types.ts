@@ -1,4 +1,4 @@
-import { VALID_NETWORKS } from '../constants';
+import { VALID_NETWORKS } from './validNetworks';
 
 export type ValidNetwork = keyof typeof VALID_NETWORKS;
 export type Keychain<T = string> = { [key in ValidNetwork]?: T };
@@ -13,3 +13,13 @@ export type NetworkType = {
   symbol: string;
   tokenDecimals: number;
 };
+export type NetworkConfig = {
+  chainId: string;
+  networkId: number;
+  name: string;
+  symbol: string;
+  explorer: string;
+  tokenDecimals: number;
+  rpc: string;
+};
+export type NetworkConfigs = Keychain<NetworkConfig>;

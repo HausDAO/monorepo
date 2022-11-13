@@ -1,15 +1,7 @@
-import { Keychain, NetworkType, ValidNetwork } from '../types';
+import { Keychain, NetworkType, ValidNetwork } from './types';
 import { isString } from '../utils';
-
-export const VALID_NETWORKS = {
-  '0x1': true,
-  '0x5': true,
-  '0x64': true,
-  '0xa': true,
-  '0x89': true,
-  '0xa4b1': true,
-  '0xa4ec': true,
-};
+import { HAUS_NETWORK_DATA } from './networkData';
+import { VALID_NETWORKS } from './validNetworks';
 
 export const isValidNetwork = (
   str: unknown,
@@ -18,30 +10,6 @@ export const isValidNetwork = (
   isString(str) && networks
     ? networks[str as ValidNetwork] !== undefined
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
-
-export const HAUS_NETWORK_DATA: Keychain<NetworkType> = {
-  '0x1': {
-    chainId: '0x1',
-    networkId: 1,
-    name: 'Mainnet',
-    symbol: 'ETH',
-    tokenDecimals: 18,
-  },
-  '0x5': {
-    chainId: '0x5',
-    networkId: 5,
-    name: 'Goerli',
-    symbol: 'ETH',
-    tokenDecimals: 18,
-  },
-  '0x64': {
-    chainId: '0x64',
-    networkId: 100,
-    name: 'Gnosis Chain',
-    symbol: 'XDAI',
-    tokenDecimals: 18,
-  },
-};
 
 export const getNetwork = (chainId: string | undefined) => {
   if (!isValidNetwork(chainId)) {

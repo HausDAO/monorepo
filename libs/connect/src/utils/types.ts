@@ -1,7 +1,7 @@
 import { providers } from 'ethers';
 import { ICoreOptions } from 'web3modal';
 
-import { AccountProfile, Keychain } from '@daohaus/utils';
+import { AccountProfile } from '@daohaus/utils';
 
 export type ModalEvents = (
   eventName: 'error' | 'accountsChanged' | 'chainChanged',
@@ -16,14 +16,3 @@ export type WalletStateType = {
 };
 export type UserProfile = AccountProfile & { displayName?: string };
 export type ModalOptions = Partial<ICoreOptions>;
-
-export type NetworkConfig = {
-  chainId: string;
-  networkId: number;
-  name: string;
-  symbol: string;
-  explorer: string;
-  tokenDecimals: number;
-  rpc: string;
-};
-export type NetworkConfigs = Keychain<NetworkConfig>;

@@ -1,13 +1,7 @@
 import { IProviderOptions } from 'web3modal';
 import WalletConnectProvider from '@walletconnect/ethereum-provider';
-import { addKeychain, ENDPOINTS } from '@daohaus/utils';
-import { HAUS_RPC } from '@daohaus/utils';
 
-export const supportedNetworks = addKeychain(
-  ENDPOINTS.EXPLORER,
-  'explorer',
-  addKeychain(HAUS_RPC, 'rpc')
-);
+import { HAUS_RPC } from '@daohaus/utils';
 
 const providerOptions: IProviderOptions = {
   walletconnect: {

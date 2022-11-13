@@ -28,6 +28,7 @@ import {
   useHausConnect,
 } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
+import { HAUS_RPC } from '@daohaus/utils';
 
 const HomeContainer = () => {
   const location = useLocation();
@@ -53,7 +54,17 @@ const HomeContainer = () => {
     </HausLayout>
   );
 };
-
+// const customNetworks = {
+//   '0x1': {
+//     chainId: '0x1',
+//     networkId: 1,
+//     name: 'Ethereum Mainnet',
+//     symbol: 'ETH',
+//     explorer: 'https://etherscan.io',
+//     tokenDecimals: 18,
+//     rpc: HAUS_RPC['0x1'],
+//   },
+// };
 const Routes = () => {
   const [daoChainId, setDaoChainId] = useState<string | undefined>();
   const location = useLocation();

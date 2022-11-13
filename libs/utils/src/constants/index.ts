@@ -1,5 +1,4 @@
-export * from './endpoints';
-export * from './chainData';
+export * from '../keychains/endpoints';
 export * from './posterTags';
 export * from './proposals';
 export * from './posterTags';

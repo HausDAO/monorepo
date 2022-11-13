@@ -1,5 +1,5 @@
 import { KeychainList } from '..';
-import { Keychain } from '../types';
+import { Keychain } from './types';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
@@ -8,11 +8,6 @@ export const ENDPOINTS: KeychainList = {
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
     '0x64': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-gnosis',
   },
-  // RPC: {
-  //   '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  //   '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
-  //   '0x64': 'https://rpc.gnosischain.com/',
-  // },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
     '0x5': 'https://goerli.etherscan.io',
@@ -59,4 +54,13 @@ export const addApiKeyToGraphEnpoints = (
     }
     return acc;
   }, endpoints);
+};
+export const HAUS_RPC = {
+  '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
+  '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
+  '0x64': 'https://rpc.gnosischain.com/',
+  '0xa': 'https://mainnet.optimism.io',
+  '0x89': 'https://polygon-rpc.com/',
+  '0xa4b1': 'https://arb1.arbitrum.io/rpc',
+  '0xa4ec': 'https://forno.celo.org',
 };

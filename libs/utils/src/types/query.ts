@@ -1,4 +1,4 @@
-import { Keychain } from './keychains';
+import { Keychain } from '../keychains';
 
 export interface ITransformedMembership {
   dao: string;

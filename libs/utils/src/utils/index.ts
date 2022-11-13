@@ -2,7 +2,7 @@ export * from './cache';
 export * from './dates';
 export * from './gas';
 export * from './general';
-export * from './explorer';
+export * from '../keychains/explorerUtils';
 export * from './formatting';
 export * from './gnosis';
 export * from './ipfs';

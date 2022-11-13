@@ -1,5 +1,5 @@
-import { ENDPOINTS } from '../constants';
-import { ValidNetwork } from '../types';
+import { ENDPOINTS } from '../keychains';
+import { ValidNetwork } from '../keychains';
 
 export const generateGnosisUiLink = ({
   chainId,

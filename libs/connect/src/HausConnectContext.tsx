@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-import { isValidNetwork } from '@daohaus/utils';
+import { HAUS_NETWORK_DATA, isValidNetwork } from '@daohaus/utils';
 
 import {
   getModal,
@@ -19,21 +19,16 @@ import {
   loadWallet,
 } from './utils/contextHelpers';
 
-import {
-  defaultWalletValues,
-  supportedNetworks,
-  web3modalDefaults,
-} from './utils/defaults';
+import { defaultWalletValues, web3modalDefaults } from './utils/defaults';
 
 import {
   ModalEvents,
   ModalOptions,
-  NetworkConfigs,
   ProviderType,
   UserProfile,
   WalletStateType,
 } from './utils/types';
-
+import { NetworkConfigs } from '@daohaus/utils';
 export type UserConnectType = {
   provider: ProviderType | null | undefined;
   chainId: string | null | undefined;
@@ -67,7 +62,7 @@ type ConnectProviderProps = {
 export const HausConnectProvider = ({
   web3modalOptions = web3modalDefaults,
   children,
-  networks = supportedNetworks,
+  networks = HAUS_NETWORK_DATA,
   handleModalEvents,
   daoChainId,
 }: ConnectProviderProps) => {

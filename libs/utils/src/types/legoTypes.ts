@@ -2,7 +2,7 @@ import { JSXElementConstructor } from 'react';
 import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
 import { EthAddress, RequireOnlyOne } from './general';
-import { Keychain } from './keychains';
+import { Keychain } from '../keychains';
 
 export type LookupType = Record<
   string,

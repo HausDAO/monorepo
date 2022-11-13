@@ -21,24 +21,3 @@ export const getNetwork = (chainId: string | undefined) => {
 export const getNetworkName = (chainId: string | undefined) => {
   return getNetwork(chainId)?.name || null;
 };
-
-export const addKeychain = (
-  keychain: Keychain<unknown>,
-  property: string,
-  networkList: Keychain<NetworkType> = HAUS_NETWORK_DATA
-) => {
-  return Object.values(networkList).reduce((acc, networkObj) => {
-    const { chainId } = networkObj;
-    if (!isValidNetwork(chainId)) {
-      console.warn(`Invalid network: ${chainId}`);
-      return acc;
-    }
-    return {
-      ...acc,
-      [chainId]: {
-        ...networkObj,
-        [property]: keychain[chainId],
-      },
-    };
-  }, {});
-};

@@ -1,7 +1,7 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
   ArgType,
-  CONTRACTS,
+  CONTRACT_KEYCHAINS,
   encodeFunction,
   encodeValues,
   getNonce,
@@ -186,7 +186,7 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
 };
 
 export const handleKeychains = (chainId: ValidNetwork) => {
-  const { V3_FACTORY, POSTER } = CONTRACTS;
+  const { V3_FACTORY, POSTER } = CONTRACT_KEYCHAINS;
   const v3Contracts = [V3_FACTORY, POSTER];
 
   if (v3Contracts.every((contract) => contract[chainId])) {

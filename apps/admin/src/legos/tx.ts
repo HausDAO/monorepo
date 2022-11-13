@@ -1,6 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
-  CONTRACTS,
+  CONTRACT_KEYCHAINS,
   NestedArray,
   POSTER_TAGS,
   TABULA_TAGS,
@@ -59,7 +59,7 @@ export const TX: Record<string, TXLego> = {
     contract: CONTRACT.ERC_20,
     method: 'approve',
     args: [
-      { type: 'singleton', keychain: CONTRACTS.TRIBUTE_MINION },
+      { type: 'singleton', keychain: CONTRACT_KEYCHAINS.TRIBUTE_MINION },
       { type: 'static', value: MaxUint256 },
     ],
   },

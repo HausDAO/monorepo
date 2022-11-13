@@ -1,7 +1,7 @@
 import { BigNumber, utils } from 'ethers';
 import {
   ArgType,
-  CONTRACTS,
+  CONTRACT_KEYCHAINS,
   ENCODED_0X0_DATA,
   MulticallAction,
   HAUS_NETWORK_DATA,
@@ -53,7 +53,7 @@ export const isActionError = (action: any): action is ActionError => {
 };
 
 const getMultisendHex = ({ chainId, actionData }: MultisendArgs) => {
-  const multisendAddr = CONTRACTS.GNOSIS_MULTISEND[chainId];
+  const multisendAddr = CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId];
   if (!multisendAddr) throw new Error('Invalid chainId');
 
   const multisendContract = createContract({

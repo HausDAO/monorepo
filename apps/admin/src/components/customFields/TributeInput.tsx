@@ -1,6 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
-  CONTRACTS,
+  CONTRACT_KEYCHAINS,
   handleErrorMessage,
   isEthAddress,
   isValidNetwork,
@@ -69,11 +69,11 @@ const fetchUserERC20 = async ({
   if (
     !isValidNetwork(chainId) ||
     !userAddress ||
-    !CONTRACTS.TRIBUTE_MINION[chainId]
+    !CONTRACT_KEYCHAINS.TRIBUTE_MINION[chainId]
   )
     return setFetchState(TokenFetchStates.NotValidNetwork);
 
-  const spenderAddress = CONTRACTS.TRIBUTE_MINION[chainId];
+  const spenderAddress = CONTRACT_KEYCHAINS.TRIBUTE_MINION[chainId];
   const contract = createContract({
     address: tokenAddress,
     chainId,

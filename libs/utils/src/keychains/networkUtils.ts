@@ -1,4 +1,4 @@
-import { Keychain, NetworkType, ValidNetwork } from './types';
+import { Keychain, ValidNetwork } from './types';
 import { isString } from '../utils';
 import { HAUS_NETWORK_DATA } from './networkData';
 import { VALID_NETWORKS } from './validNetworks';

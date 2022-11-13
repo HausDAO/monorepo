@@ -3,7 +3,7 @@ import {
   ArbitraryState,
   ArgEncode,
   ArgType,
-  CONTRACTS,
+  CONTRACT_KEYCHAINS,
   encodeFunction,
   encodeValues,
   ENDPOINTS,
@@ -45,7 +45,8 @@ export const estimateGas = async ({
       `Gnosis Gas Estimation API not found for chainID: ${chainId}`
     );
 
-  const gnosisMultisendAddress = CONTRACTS['GNOSIS_MULTISEND'][chainId];
+  const gnosisMultisendAddress =
+    CONTRACT_KEYCHAINS['GNOSIS_MULTISEND'][chainId];
 
   if (!gnosisMultisendAddress)
     throw new Error(

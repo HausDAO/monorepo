@@ -1,4 +1,4 @@
-import { CONTRACTS, ENDPOINTS, ValidNetwork } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ENDPOINTS, ValidNetwork } from '@daohaus/utils';
 import { getAddress } from 'ethers/lib/utils';
 
 export const estimateGas = async ({
@@ -16,7 +16,8 @@ export const estimateGas = async ({
       `Gnosis Gas Estimation API not found for chainID: ${chainId}`
     );
 
-  const gnosisMultisendAddress = CONTRACTS['GNOSIS_MULTISEND'][chainId];
+  const gnosisMultisendAddress =
+    CONTRACT_KEYCHAINS['GNOSIS_MULTISEND'][chainId];
 
   if (!gnosisMultisendAddress)
     throw new Error(

@@ -1,4 +1,4 @@
-import { ENDPOINTS, HAUS_RPC } from '../constants';
+import { ENDPOINTS, HAUS_RPC } from './endpoints';
 import { Keychain, NetworkConfig } from './types';
 
 export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {

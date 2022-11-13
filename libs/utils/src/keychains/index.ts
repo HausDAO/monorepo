@@ -4,3 +4,4 @@ export * from './explorerUtils';
 export * from './networkUtils';
 export * from './types';
 export * from './validNetworks';
+export * from './contractKeychains';

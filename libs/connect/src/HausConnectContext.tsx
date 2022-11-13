@@ -49,6 +49,7 @@ export type UserConnectType = {
   isProfileLoading: boolean;
   daoChainId?: string;
   validNetwork: boolean;
+  isAppNetwork: (chainId: string) => boolean;
 };
 
 export const HausConnectContext =
@@ -86,6 +87,10 @@ export const HausConnectProvider = ({
   const validNetwork = useMemo(
     () => !!chainId && isValidNetwork(chainId, networks),
     [chainId, networks]
+  );
+  const appNetworks = useMemo(
+    () => Object.values(networks).map((network) => network.chainId),
+    [networks]
   );
 
   const connectWallet = useCallback(async () => {
@@ -127,7 +132,7 @@ export const HausConnectProvider = ({
     modal.clearCachedProvider();
     setWalletState({});
   };
-
+  const isAppNetwork = (chainId: string) => appNetworks.includes(chainId);
   return (
     <HausConnectContext.Provider
       value={{
@@ -145,6 +150,7 @@ export const HausConnectProvider = ({
         isProfileLoading,
         daoChainId,
         validNetwork,
+        isAppNetwork,
       }}
     >
       {children}

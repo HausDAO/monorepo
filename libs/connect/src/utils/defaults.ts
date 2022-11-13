@@ -46,4 +46,5 @@ export const defaultWalletValues = {
   isProfileLoading: false,
   daoChainId: undefined,
   validNetwork: false,
+  isAppNetwork: () => false,
 };

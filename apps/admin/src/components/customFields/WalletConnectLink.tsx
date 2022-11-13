@@ -45,7 +45,6 @@ const WalletConectContainer = styled.div`
     margin-bottom: 2.7rem;
     width: 20%;
   }
-  }
 `;
 
 const BaseContainer = styled.div`

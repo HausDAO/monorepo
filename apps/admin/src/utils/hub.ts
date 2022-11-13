@@ -1,5 +1,4 @@
 import { Member_Filter, Dao_OrderBy, Ordering } from '@daohaus/moloch-v3-data';
-import { HAUS_NETWORK_DATA } from '@daohaus/utils';
 
 export const FILTER_TYPE = {
   DELEGATING: 'delegating',
@@ -50,8 +49,4 @@ export const getDelegateFilter = (
   }
 };
 
-export const defaultNetworks = Object.keys(HAUS_NETWORK_DATA).reduce(
-  (acc, networkId) => ({ ...acc, [networkId]: networkId }),
-  {}
-);
 export const DEFAULT_SORT_KEY = 'PROPOSALS';

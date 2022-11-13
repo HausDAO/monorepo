@@ -16,12 +16,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import {
-  defaultNetworks,
-  DEFAULT_SORT_KEY,
-  getDelegateFilter,
-  SORT_FIELDS,
-} from '../utils/hub';
+import { DEFAULT_SORT_KEY, getDelegateFilter, SORT_FIELDS } from '../utils/hub';
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
 import { useParams } from 'react-router-dom';

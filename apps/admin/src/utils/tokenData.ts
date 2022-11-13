@@ -36,9 +36,10 @@ export const getErc20s = (daoData: DaoWithTokenData) => {
 
 export const getNetworkToken = (
   daoData: DaoWithTokenData,
-  daochain: ValidNetwork
+  daochain: ValidNetwork,
+  networks = HAUS_NETWORK_DATA
 ) => {
-  const networkData = HAUS_NETWORK_DATA[daochain];
+  const networkData = networks[daochain];
   const networkToken = daoData.tokenBalances.find(isNetworkToken);
 
   if (networkToken && networkData) {

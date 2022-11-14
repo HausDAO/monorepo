@@ -1,5 +1,5 @@
 import { ENDPOINTS } from './endpoints';
-import { ValidNetwork } from '../keychains';
+import { ValidNetwork } from './types';
 
 export const generateExplorerLink = ({
   chainId,

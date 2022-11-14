@@ -1,5 +1,4 @@
-import { KeychainList } from '..';
-import { Keychain } from './types';
+import { Keychain, KeychainList } from './types';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {

@@ -399,7 +399,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     ],
   },
   WALLETCONNECT: {
-    devtool: true,
     id: 'WALLETCONNECT',
     title: 'WalletConnect Proposal',
     subtitle: 'Use WalletConnect to create a Proposal',
@@ -500,7 +499,6 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
             label: 'Article Title',
             placeholder: "ex. 10 Signs You're a Real Champ",
           },
-          // @ts-expect-error: cannot resolve nested custom field types
           FIELD.FAKE_MD,
         ],
       },
@@ -531,23 +529,14 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         type: 'formSegment',
         title: 'Add links to important content for your DAO',
         fields: [
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.LINK, id: 'discord', label: 'Discord' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'github', label: 'Github' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'blog', label: 'Blog' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'telegram', label: 'Telegram' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'twitter', label: 'Twitter' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'web', label: 'Website' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'custom1', label: 'Custom Link 1' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'custom2', label: 'Custom Link 2' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'custom3', label: 'Custom Link 3' },
         ],
       },
@@ -596,10 +585,8 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         fields: [
           {
             id: 'sharesToBurn',
-            // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
             type: 'ragequitToken',
           },
-          // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
           { id: 'lootToBurn', type: 'ragequitToken' },
         ],
       },
@@ -609,7 +596,6 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         title:
           'Step 2. Select treasury tokens you want to receive in exchange for your DAO tokens',
         fields: [
-          // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
           { id: 'tokens', type: 'ragequitTokenList' },
         ],
       },

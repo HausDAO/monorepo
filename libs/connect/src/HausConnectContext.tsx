@@ -23,7 +23,6 @@ import { defaultWalletValues, web3modalDefaults } from './utils/defaults';
 
 import {
   ConnectLifecycleFns,
-  ModalEvents,
   ModalOptions,
   ProviderType,
   UserProfile,

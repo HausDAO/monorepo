@@ -1,8 +1,4 @@
-import {
-  isValidNetwork,
-  NetworkConfigs,
-  truncateAddress,
-} from '@daohaus/utils';
+import { isValidNetwork, NetworkConfigs } from '@daohaus/utils';
 import { Haus } from '@daohaus/moloch-v3-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
@@ -26,7 +22,8 @@ export const getModal = (options: ModalOptions) => {
 export const isMetamaskProvider = (
   provider: providers.Web3Provider | undefined | null
 ) => provider?.connection?.url === 'metamask';
-
+export const truncateAddress = (addr: string) =>
+  `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 export const handleSetProvider = async ({
   provider,
   setWalletState,

@@ -109,6 +109,7 @@ fragment daoFields on Dao {
   proposalCount
   activeMemberCount
   existingSafe
+  delegatedVaultManager
   name
   profile: records(
     first: 1
@@ -126,5 +127,13 @@ fragment daoFields on Dao {
     createdAt
     shamanAddress
     permissions
+  }
+  vaults {
+    id
+    createdAt
+    active
+    ragequitable
+    name
+    safeAddress
   }
 }

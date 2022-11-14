@@ -63,6 +63,7 @@ export function handleSummonBaalV2(event: SummonBaalV2): void {
   vault.active = true;
   vault.ragequitable = true;
   vault.name = 'Treasury';
+  vault.safeAddress = event.params.safe;
 
   vault.save();
 

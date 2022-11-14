@@ -78,7 +78,7 @@ type Dao @entity {
   "shaman scoped to this dao"
   shaman: [Shaman!] @derivedFrom(field: "dao")
   records: [Record!] @derivedFrom(field: "dao")
-  vaults: [Vault!] @derivedFrom(field: "dao")
+  vaults: [Vault!]! @derivedFrom(field: "dao")
   eventTransactions: EventTransaction @derivedFrom(field: "dao")
 }
 
@@ -313,6 +313,8 @@ type Vault @entity {
   createdAt: BigInt!
   "related DAO"
   dao: Dao!
+  "contract address of the gnosis safe treasury"
+  safeAddress: Bytes!
   "indicates if the vault is active"
   active: Boolean!
   "indicates of the funds in the vault are ragequitable"

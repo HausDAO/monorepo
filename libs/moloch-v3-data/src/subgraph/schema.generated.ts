@@ -37,9 +37,15 @@ export interface Dao {
   createdAt: Scalars['BigInt'];
   /** address that created the dao */
   createdBy: Scalars['Bytes'];
+  /** address delegated to manage the active status of non-ragequitable vaults */
+  delegatedVaultManager: Scalars['Bytes'];
   eventTransactions?: Maybe<EventTransaction>;
   /** was Dao summoned by an existing safe or did it create a new safe. */
   existingSafe: Scalars['Boolean'];
+  /** was Dao summoned by an existing shares and loot token or did it create new ones. */
+  existingSharesAndLoot: Scalars['Boolean'];
+  /** Forwarder address */
+  forwarder: Scalars['Bytes'];
   /** Indicates if governor shamans can be added to the DAO */
   governorLocked: Scalars['Boolean'];
   /** length in seconds of the current grace period */
@@ -75,6 +81,8 @@ export interface Dao {
   /** rage quits scoped to this dao */
   rageQuits?: Maybe<Array<RageQuit>>;
   records?: Maybe<Array<Record>>;
+  /** summoning referrer identifier */
+  referrer?: Maybe<Scalars['String']>;
   /** contract address of the gnosis safe treasury */
   safeAddress: Scalars['Bytes'];
   /** shaman scoped to this dao */
@@ -95,6 +103,7 @@ export interface Dao {
   totalShares: Scalars['BigInt'];
   /** transaction hash of the dao contract deployment */
   txHash: Scalars['Bytes'];
+  vaults: Array<Vault>;
   /** length in seconds of the current voting period */
   votingPeriod: Scalars['BigInt'];
   /** length in seconds of the current voting period and grace period */
@@ -146,6 +155,15 @@ export interface DaoShamanArgs {
   where?: InputMaybe<Shaman_Filter>;
 }
 
+
+export interface DaoVaultsArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vault_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Vault_Filter>;
+}
+
 export interface Dao_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
@@ -195,11 +213,27 @@ export interface Dao_Filter {
   createdBy_not?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  delegatedVaultManager?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_contains?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  delegatedVaultManager_not?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_not_contains?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   eventTransactions_?: InputMaybe<EventTransaction_Filter>;
   existingSafe?: InputMaybe<Scalars['Boolean']>;
   existingSafe_in?: InputMaybe<Array<Scalars['Boolean']>>;
   existingSafe_not?: InputMaybe<Scalars['Boolean']>;
   existingSafe_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  existingSharesAndLoot?: InputMaybe<Scalars['Boolean']>;
+  existingSharesAndLoot_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  existingSharesAndLoot_not?: InputMaybe<Scalars['Boolean']>;
+  existingSharesAndLoot_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  forwarder?: InputMaybe<Scalars['Bytes']>;
+  forwarder_contains?: InputMaybe<Scalars['Bytes']>;
+  forwarder_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  forwarder_not?: InputMaybe<Scalars['Bytes']>;
+  forwarder_not_contains?: InputMaybe<Scalars['Bytes']>;
+  forwarder_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   governorLocked?: InputMaybe<Scalars['Boolean']>;
   governorLocked_in?: InputMaybe<Array<Scalars['Boolean']>>;
   governorLocked_not?: InputMaybe<Scalars['Boolean']>;
@@ -344,6 +378,26 @@ export interface Dao_Filter {
   quorumPercent_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   rageQuits_?: InputMaybe<RageQuit_Filter>;
   records_?: InputMaybe<Record_Filter>;
+  referrer?: InputMaybe<Scalars['String']>;
+  referrer_contains?: InputMaybe<Scalars['String']>;
+  referrer_contains_nocase?: InputMaybe<Scalars['String']>;
+  referrer_ends_with?: InputMaybe<Scalars['String']>;
+  referrer_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  referrer_gt?: InputMaybe<Scalars['String']>;
+  referrer_gte?: InputMaybe<Scalars['String']>;
+  referrer_in?: InputMaybe<Array<Scalars['String']>>;
+  referrer_lt?: InputMaybe<Scalars['String']>;
+  referrer_lte?: InputMaybe<Scalars['String']>;
+  referrer_not?: InputMaybe<Scalars['String']>;
+  referrer_not_contains?: InputMaybe<Scalars['String']>;
+  referrer_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  referrer_not_ends_with?: InputMaybe<Scalars['String']>;
+  referrer_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  referrer_not_in?: InputMaybe<Array<Scalars['String']>>;
+  referrer_not_starts_with?: InputMaybe<Scalars['String']>;
+  referrer_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  referrer_starts_with?: InputMaybe<Scalars['String']>;
+  referrer_starts_with_nocase?: InputMaybe<Scalars['String']>;
   safeAddress?: InputMaybe<Scalars['Bytes']>;
   safeAddress_contains?: InputMaybe<Scalars['Bytes']>;
   safeAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -431,6 +485,7 @@ export interface Dao_Filter {
   txHash_not?: InputMaybe<Scalars['Bytes']>;
   txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  vaults_?: InputMaybe<Vault_Filter>;
   votingPeriod?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_gt?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_gte?: InputMaybe<Scalars['BigInt']>;
@@ -455,8 +510,11 @@ export type Dao_OrderBy =
   | 'baalVersion'
   | 'createdAt'
   | 'createdBy'
+  | 'delegatedVaultManager'
   | 'eventTransactions'
   | 'existingSafe'
+  | 'existingSharesAndLoot'
+  | 'forwarder'
   | 'governorLocked'
   | 'gracePeriod'
   | 'id'
@@ -475,6 +533,7 @@ export type Dao_OrderBy =
   | 'quorumPercent'
   | 'rageQuits'
   | 'records'
+  | 'referrer'
   | 'safeAddress'
   | 'shaman'
   | 'shareTokenName'
@@ -485,6 +544,7 @@ export type Dao_OrderBy =
   | 'totalLoot'
   | 'totalShares'
   | 'txHash'
+  | 'vaults'
   | 'votingPeriod'
   | 'votingPlusGraceDuration';
 
@@ -1456,6 +1516,8 @@ export interface Query {
   shamans: Array<Shaman>;
   tokenLookup?: Maybe<TokenLookup>;
   tokenLookups: Array<TokenLookup>;
+  vault?: Maybe<Vault>;
+  vaults: Array<Vault>;
   vote?: Maybe<Vote>;
   votes: Array<Vote>;
 }
@@ -1607,6 +1669,24 @@ export interface QueryTokenLookupsArgs {
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<TokenLookup_Filter>;
+}
+
+
+export interface QueryVaultArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryVaultsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vault_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Vault_Filter>;
 }
 
 
@@ -1990,6 +2070,8 @@ export interface Subscription {
   shamans: Array<Shaman>;
   tokenLookup?: Maybe<TokenLookup>;
   tokenLookups: Array<TokenLookup>;
+  vault?: Maybe<Vault>;
+  vaults: Array<Vault>;
   vote?: Maybe<Vote>;
   votes: Array<Vote>;
 }
@@ -2144,6 +2226,24 @@ export interface SubscriptionTokenLookupsArgs {
 }
 
 
+export interface SubscriptionVaultArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionVaultsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vault_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Vault_Filter>;
+}
+
+
 export interface SubscriptionVoteArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
@@ -2191,6 +2291,109 @@ export interface TokenLookup_Filter {
 export type TokenLookup_OrderBy =
   | 'dao'
   | 'id';
+
+export interface Vault {
+  __typename?: 'Vault';
+  /** indicates if the vault is active */
+  active: Scalars['Boolean'];
+  /** block timestamp of the transaction */
+  createdAt: Scalars['BigInt'];
+  /** related DAO */
+  dao: Dao;
+  /** unique identifier and primary key of the entity */
+  id: Scalars['ID'];
+  /** name assigned when vault is set */
+  name: Scalars['String'];
+  /** indicates of the funds in the vault are ragequitable */
+  ragequitable: Scalars['Boolean'];
+  /** contract address of the gnosis safe treasury */
+  safeAddress: Scalars['Bytes'];
+}
+
+export interface Vault_Filter {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  active?: InputMaybe<Scalars['Boolean']>;
+  active_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  active_not?: InputMaybe<Scalars['Boolean']>;
+  active_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  dao?: InputMaybe<Scalars['String']>;
+  dao_?: InputMaybe<Dao_Filter>;
+  dao_contains?: InputMaybe<Scalars['String']>;
+  dao_contains_nocase?: InputMaybe<Scalars['String']>;
+  dao_ends_with?: InputMaybe<Scalars['String']>;
+  dao_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  dao_gt?: InputMaybe<Scalars['String']>;
+  dao_gte?: InputMaybe<Scalars['String']>;
+  dao_in?: InputMaybe<Array<Scalars['String']>>;
+  dao_lt?: InputMaybe<Scalars['String']>;
+  dao_lte?: InputMaybe<Scalars['String']>;
+  dao_not?: InputMaybe<Scalars['String']>;
+  dao_not_contains?: InputMaybe<Scalars['String']>;
+  dao_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  dao_not_ends_with?: InputMaybe<Scalars['String']>;
+  dao_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  dao_not_in?: InputMaybe<Array<Scalars['String']>>;
+  dao_not_starts_with?: InputMaybe<Scalars['String']>;
+  dao_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  dao_starts_with?: InputMaybe<Scalars['String']>;
+  dao_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_contains_nocase?: InputMaybe<Scalars['String']>;
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  name_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  name_gt?: InputMaybe<Scalars['String']>;
+  name_gte?: InputMaybe<Scalars['String']>;
+  name_in?: InputMaybe<Array<Scalars['String']>>;
+  name_lt?: InputMaybe<Scalars['String']>;
+  name_lte?: InputMaybe<Scalars['String']>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  name_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<Scalars['String']>>;
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  name_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  ragequitable?: InputMaybe<Scalars['Boolean']>;
+  ragequitable_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  ragequitable_not?: InputMaybe<Scalars['Boolean']>;
+  ragequitable_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  safeAddress?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  safeAddress_not?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+}
+
+export type Vault_OrderBy =
+  | 'active'
+  | 'createdAt'
+  | 'dao'
+  | 'id'
+  | 'name'
+  | 'ragequitable'
+  | 'safeAddress';
 
 export interface Vote {
   __typename?: 'Vote';

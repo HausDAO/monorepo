@@ -904,6 +904,8 @@ export interface DoesFollowResponse {
   followerAddress: Scalars['EthereumAddress'];
   /** If the user does follow */
   follows: Scalars['Boolean'];
+  /** Is finalised on-chain */
+  isFinalisedOnChain: Scalars['Boolean'];
   /** The profile id */
   profileId: Scalars['ProfileId'];
 }

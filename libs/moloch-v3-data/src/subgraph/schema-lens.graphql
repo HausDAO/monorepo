@@ -882,6 +882,9 @@ type DoesFollowResponse {
 
   """If the user does follow"""
   follows: Boolean!
+
+  """Is finalised on-chain"""
+  isFinalisedOnChain: Boolean!
 }
 
 """The eip 712 typed data domain"""

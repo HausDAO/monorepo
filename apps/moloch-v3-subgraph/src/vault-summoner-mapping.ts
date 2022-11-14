@@ -22,6 +22,7 @@ export function handleSetVault(event: SetVault): void {
     vault.dao = daoId;
     vault.ragequitable = false;
     vault.name = event.params.vault.name;
+    vault.safeAddress = event.params.vault.vaultAddress;
   }
 
   vault.active = event.params.vault.active;

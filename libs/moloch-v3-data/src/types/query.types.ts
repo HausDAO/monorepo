@@ -104,6 +104,7 @@ export interface ITransformedDaoListQuery {
 export type DaoWithTokenData = {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
+  vaults: ITransformedDao['vaults'] & TokenBalance[];
 } & ITransformedDao;
 
 export type DaoWithTokenDataQuery = {

@@ -9,7 +9,7 @@ import {
   LootTemplate,
   SharesTemplate,
 } from '../generated/templates';
-import { Dao, TokenLookup } from '../generated/schema';
+import { Dao, TokenLookup, Vault } from '../generated/schema';
 import { constants } from './util/constants';
 import { Address } from '@graphprotocol/graph-ts';
 
@@ -29,7 +29,6 @@ export function handleSummonBaalV2(event: SummonBaalV2): void {
   dao.txHash = event.transaction.hash;
   dao.lootAddress = event.params.loot;
   dao.sharesAddress = event.params.shares;
-  dao.safeAddress = event.params.safe;
   dao.totalShares = constants.BIGINT_ZERO;
   dao.totalLoot = constants.BIGINT_ZERO;
   dao.latestSponsoredProposalId = constants.BIGINT_ZERO;
@@ -48,6 +47,24 @@ export function handleSummonBaalV2(event: SummonBaalV2): void {
   dao.adminLocked = false;
   dao.governorLocked = false;
   dao.managerLocked = false;
+
+  dao.safeAddress = event.params.safe;
+  dao.delegatedVaultManager = Address.fromString(constants.ADDRESS_ZERO);
+
+  const vaultId = daoId
+    .concat('-vault-')
+    .concat(event.params.safe.toHexString());
+  let vault = Vault.load(vaultId);
+  if (!vault) {
+    vault = new Vault(vaultId);
+  }
+  vault.dao = daoId;
+  vault.createdAt = event.block.timestamp;
+  vault.active = true;
+  vault.ragequitable = true;
+  vault.name = 'Treasury';
+
+  vault.save();
 
   dao.forwarder = event.params.forwarder;
   dao.existingSafe =
@@ -88,7 +105,6 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.txHash = event.transaction.hash;
   dao.lootAddress = event.params.loot;
   dao.sharesAddress = event.params.shares;
-  dao.safeAddress = event.params.safe;
   dao.totalShares = constants.BIGINT_ZERO;
   dao.totalLoot = constants.BIGINT_ZERO;
   dao.latestSponsoredProposalId = constants.BIGINT_ZERO;
@@ -110,6 +126,24 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.forwarder = Address.fromString(constants.ADDRESS_ZERO);
   dao.existingSafe = event.params.existingSafe;
   dao.existingSharesAndLoot = false;
+
+  dao.safeAddress = event.params.safe;
+  dao.delegatedVaultManager = Address.fromString(constants.ADDRESS_ZERO);
+
+  const vaultId = daoId
+    .concat('-vault-')
+    .concat(event.params.safe.toHexString());
+  let vault = Vault.load(vaultId);
+  if (!vault) {
+    vault = new Vault(vaultId);
+  }
+  vault.createdAt = event.block.timestamp;
+  vault.dao = daoId;
+  vault.active = true;
+  vault.ragequitable = true;
+  vault.name = 'Treasury';
+
+  vault.save();
 
   dao.baalVersion = '1.0.0';
 

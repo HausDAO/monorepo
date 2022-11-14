@@ -69,6 +69,8 @@ dataSources:
       eventHandlers:
         - event: SetVault((uint256,bool,address,address,string))
           handler: handleSetVault
+        - event: SetDelegate(address,address)
+          handler: handleSetVaultDelegate
       file: ./src/vault-summoner-mapping.ts
   - kind: ethereum/contract
     name: Poster

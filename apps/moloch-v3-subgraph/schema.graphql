@@ -61,6 +61,8 @@ type Dao @entity {
   governorLocked: Boolean!
   "Indicates if manager shamans can be added to the DAO"
   managerLocked: Boolean!
+  "address delegated to manage the active status of non-ragequitable vaults"
+  delegatedVaultManager: Bytes!
   "version of the baal contract and summoner"
   baalVersion: String!
   "Forwarder address"
@@ -76,6 +78,7 @@ type Dao @entity {
   "shaman scoped to this dao"
   shaman: [Shaman!] @derivedFrom(field: "dao")
   records: [Record!] @derivedFrom(field: "dao")
+  vaults: [Vault!] @derivedFrom(field: "dao")
   eventTransactions: EventTransaction @derivedFrom(field: "dao")
 }
 
@@ -301,4 +304,19 @@ type TokenLookup @entity {
   id: ID!
   "related DAO"
   dao: Bytes!
+}
+
+type Vault @entity {
+  "unique identifier and primary key of the entity"
+  id: ID!
+  "block timestamp of the transaction"
+  createdAt: BigInt!
+  "related DAO"
+  dao: Dao!
+  "indicates if the vault is active"
+  active: Boolean!
+  "indicates of the funds in the vault are ragequitable"
+  ragequitable: Boolean!
+  "name assigned when vault is set"
+  name: String!
 }

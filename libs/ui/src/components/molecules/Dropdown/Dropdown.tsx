@@ -1,14 +1,35 @@
 import React from 'react';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 import {
   DropdownMenuProps,
   DropdownMenuContentProps,
+  DropdownMenuTriggerProps,
 } from '@radix-ui/react-dropdown-menu';
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from './Dropdown.styles';
+import { Button, ButtonProps } from '../../atoms/Button';
+
+import { Root, DropdownMenuContent, Trigger } from './Dropdown.styles';
+import { DropdownTriggerProps } from './Dropdown.types';
+import { ProfileButton } from '../ProfileButton';
+
+export const DropdownMenu = Root;
+
+export const DropdownTrigger = (props: DropdownTriggerProps) => {
+  if ('profile' in props) {
+    return (
+      <Trigger asChild>
+        <ProfileButton {...props}>{props.children}</ProfileButton>
+      </Trigger>
+    );
+  }
+  return (
+    <Trigger asChild>
+      <Button IconRight={RiArrowDropDownLine} {...props}>
+        {props.children}
+      </Button>
+    </Trigger>
+  );
+};
 
 export type DropdownItem = {
   content: React.ReactNode;
@@ -42,14 +63,14 @@ export const Dropdown = ({
   children,
 }: DropdownProps) => {
   return (
-    <DropdownMenu
+    <Root
       // open={open}
       onOpenChange={onOpenChange}
       defaultOpen={defaultOpen}
       modal={modal}
       dir={dir}
     >
-      <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+      <Trigger asChild>{trigger}</Trigger>
       <DropdownMenuContent
         side={side}
         sideOffset={sideOffset}
@@ -62,6 +83,6 @@ export const Dropdown = ({
       >
         {children}
       </DropdownMenuContent>
-    </DropdownMenu>
+    </Root>
   );
 };

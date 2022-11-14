@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ParXs } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
-import { Dropdown } from './Dropdown';
+import { Dropdown, DropdownMenu, DropdownTrigger } from './Dropdown';
 import { DropdownMenuItem, DropdownMenuLabel } from './Dropdown.styles';
 
 export default {
@@ -15,42 +15,52 @@ export default {
 
 const Template: ComponentStory<typeof Dropdown> = (args) => (
   <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-    <Dropdown {...args} />
+    {/* <Dropdown {...args} /> */}
+    <DropdownMenu>
+      <DropdownTrigger>Button</DropdownTrigger>
+    </DropdownMenu>
   </div>
 );
 
-const networkPanels = [
-  'Mainnet',
-  'Arbitrum',
-  'Celo',
-  'Gnosis',
-  'Optimism',
-  'Gnosis',
-  'Polygon',
-  'Kovan',
-  'Rinkeby',
-].map((item, index) => (
-  <DropdownMenuItem key={index} spacing="0.7rem">
-    <Button color="secondary" fullWidth>
-      {item}
-    </Button>
-  </DropdownMenuItem>
-));
+export const BaseDropdown = Template.bind({});
 
-export const FullDropdown = Template.bind({});
-
-FullDropdown.args = {
-  menuMinWidth: '26rem',
-  align: 'end',
-  trigger: (
-    <Button IconLeft={RiAlertLine} variant="outline">
-      Network Unavailable
-    </Button>
-  ),
-  children: [
-    <DropdownMenuLabel key={uuidv4()}>
-      <ParXs>Switch to available network</ParXs>
-    </DropdownMenuLabel>,
-    ...networkPanels,
-  ],
+BaseDropdown.args = {
+  children: 'Button',
+  color: 'primary',
 };
+
+// const networkPanels = [
+//   'Mainnet',
+//   'Arbitrum',
+//   'Celo',
+//   'Gnosis',
+//   'Optimism',
+//   'Gnosis',
+//   'Polygon',
+//   'Kovan',
+//   'Rinkeby',
+// ].map((item, index) => (
+//   <DropdownMenuItem key={index} spacing="0.7rem">
+//     <Button color="secondary" fullWidth>
+//       {item}
+//     </Button>
+//   </DropdownMenuItem>
+// ));
+
+// export const FullDropdown = Template.bind({});
+
+// FullDropdown.args = {
+//   menuMinWidth: '26rem',
+//   align: 'end',
+//   trigger: (
+//     <Button IconLeft={RiAlertLine} variant="outline">
+//       Network Unavailable
+//     </Button>
+//   ),
+//   children: [
+//     <DropdownMenuLabel key={uuidv4()}>
+//       <ParXs>Switch to available network</ParXs>
+//     </DropdownMenuLabel>,
+//     ...networkPanels,
+//   ],
+// };

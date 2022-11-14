@@ -4,8 +4,15 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import { Theme } from '../../../types/theming';
 import { Button, Link } from '../../atoms';
 
-export const DropdownMenu = Dropdown.Root;
-export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
+export const Root = Dropdown.Root;
+
+export const Trigger = styled(Dropdown.Trigger)`
+  svg {
+    &.icon-right {
+      margin-left: auto;
+    }
+  }
+`;
 
 type MenuContentType = {
   bgmenu?: string;

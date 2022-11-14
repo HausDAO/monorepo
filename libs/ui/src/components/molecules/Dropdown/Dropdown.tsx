@@ -18,7 +18,9 @@ export const DropdownTrigger = (props: DropdownTriggerProps) => {
   if ('profile' in props) {
     return (
       <Trigger asChild>
-        <ProfileButton {...props}>{props.children}</ProfileButton>
+        <ProfileButton IconRight={RiArrowDropDownLine} {...props}>
+          {props.children}
+        </ProfileButton>
       </Trigger>
     );
   }

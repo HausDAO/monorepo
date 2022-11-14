@@ -178,6 +178,7 @@ export const fetchABI = async ({
       fetchABI,
       contractAddress,
       chainId,
+      rpcs,
     });
 
     return processedABI;

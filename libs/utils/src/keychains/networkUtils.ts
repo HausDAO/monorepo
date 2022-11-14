@@ -10,11 +10,14 @@ export const isValidNetwork = (
     ? networks[str as ValidNetwork] !== undefined
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 
-export const getNetwork = (chainId: string | undefined) => {
+export const getNetwork = (
+  chainId: string | undefined,
+  networks = HAUS_NETWORK_DATA
+) => {
   if (!isValidNetwork(chainId)) {
     return null;
   }
-  return HAUS_NETWORK_DATA[chainId];
+  return networks[chainId];
 };
 
 export const getNetworkName = (chainId: string | undefined) => {

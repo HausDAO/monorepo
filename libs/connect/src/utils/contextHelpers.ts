@@ -91,13 +91,17 @@ export const handleConnectWallet = async ({
 };
 
 export const loadWallet = async ({
-  connectWallet,
   setConnecting,
   web3modalOptions,
+  setWalletState,
+  handleModalEvents,
+  disconnect,
 }: {
-  connectWallet: () => Promise<void>;
   setConnecting: ReactSetter<boolean>;
   web3modalOptions: ModalOptions;
+  setWalletState: ReactSetter<WalletStateType>;
+  handleModalEvents?: ModalEvents;
+  disconnect: () => Promise<void>;
 }) => {
   const isMetamaskUnlocked =
     (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
@@ -105,7 +109,13 @@ export const loadWallet = async ({
   const _isGnosisSafe = await modal.isSafeApp();
 
   if (isMetamaskUnlocked && (_isGnosisSafe || web3modalOptions.cacheProvider)) {
-    await connectWallet();
+    await handleConnectWallet({
+      setConnecting,
+      setWalletState,
+      handleModalEvents,
+      disconnect,
+      web3modalOptions,
+    });
   } else {
     setConnecting(false);
   }

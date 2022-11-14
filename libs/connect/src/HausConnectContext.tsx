@@ -89,19 +89,14 @@ export const HausConnectProvider = ({
     [networks]
   );
 
-  const connectWallet = useCallback(async () => {
-    handleConnectWallet({
+  useEffect(() => {
+    loadWallet({
       setConnecting,
-      handleModalEvents,
+      web3modalOptions,
       disconnect,
       setWalletState,
-      web3modalOptions,
     });
-  }, [setConnecting, handleModalEvents, web3modalOptions]);
-
-  useEffect(() => {
-    loadWallet({ setConnecting, connectWallet, web3modalOptions });
-  }, [web3modalOptions, connectWallet]);
+  }, [web3modalOptions, setWalletState]);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -119,6 +114,16 @@ export const HausConnectProvider = ({
     };
   }, [address, isConnected, networks]);
 
+  const connectWallet = useCallback(async () => {
+    handleConnectWallet({
+      setConnecting,
+      handleModalEvents,
+      disconnect,
+      setWalletState,
+      web3modalOptions,
+    });
+  }, [setConnecting, handleModalEvents, web3modalOptions]);
+
   const switchNetwork = async (_chainId: string | number) => {
     handleSwitchNetwork(_chainId, networks);
   };
@@ -128,6 +133,7 @@ export const HausConnectProvider = ({
     modal.clearCachedProvider();
     setWalletState({});
   };
+
   const isAppNetwork = (chainId: string) => appNetworks.includes(chainId);
   return (
     <HausConnectContext.Provider

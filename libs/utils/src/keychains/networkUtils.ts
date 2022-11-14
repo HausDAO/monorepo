@@ -1,4 +1,4 @@
-import { Keychain, ValidNetwork } from './types';
+import { Keychain, NetworkConfigs, ValidNetwork } from './types';
 import { HAUS_NETWORK_DATA } from './networkData';
 import { VALID_NETWORKS } from './validNetworks';
 
@@ -20,6 +20,9 @@ export const getNetwork = (
   return networks[chainId];
 };
 
-export const getNetworkName = (chainId: string | undefined) => {
-  return getNetwork(chainId)?.name || null;
+export const getNetworkName = (
+  chainId: string | undefined,
+  networks?: NetworkConfigs
+) => {
+  return getNetwork(chainId, networks)?.name || null;
 };

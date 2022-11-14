@@ -7,6 +7,16 @@ export type ModalEvents = (
   eventName: 'error' | 'accountsChanged' | 'chainChanged',
   error?: { code: string; message: string }
 ) => void;
+
+export type ConnectLifecycleFns = {
+  onConnect?: () => void;
+  onDisconnect?: () => void;
+  chainChanged?: (chainId: string) => void;
+  accountsChanged?: () => void;
+  onConnectError?: (error: Error) => void;
+  onProfileError?: (error: Error) => void;
+};
+
 export type ProviderType = providers.Web3Provider;
 
 export type WalletStateType = {

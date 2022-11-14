@@ -1,7 +1,6 @@
 import {
   isValidNetwork,
   NetworkConfigs,
-  ReactSetter,
   truncateAddress,
 } from '@daohaus/utils';
 import { Haus } from '@daohaus/moloch-v3-data';
@@ -10,11 +9,12 @@ import { providers } from 'ethers';
 
 import { switchChainOnMetaMask } from './metamask';
 import {
-  ModalEvents,
   ModalOptions,
   WalletStateType,
   UserProfile,
+  ConnectLifecycleFns,
 } from './types';
+import { Dispatch, SetStateAction } from 'react';
 
 export const numberToHex = (number: number) => {
   return `0x${number.toString(16)}`;
@@ -33,7 +33,7 @@ export const handleSetProvider = async ({
 }: {
   // eslint-disable-next-line
   provider: any;
-  setWalletState: ReactSetter<WalletStateType>;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
 }) => {
   const ethersProvider = new providers.Web3Provider(provider);
   const signerAddress = await ethersProvider.getSigner().getAddress();
@@ -46,15 +46,15 @@ export const handleSetProvider = async ({
 
 export const handleConnectWallet = async ({
   setConnecting,
-  handleModalEvents,
+  lifeCycleFns,
   disconnect,
   setWalletState,
   web3modalOptions,
 }: {
-  setConnecting: ReactSetter<boolean>;
-  handleModalEvents?: ModalEvents;
+  setConnecting: Dispatch<SetStateAction<boolean>>;
+  lifeCycleFns?: ConnectLifecycleFns;
   disconnect: () => Promise<void>;
-  setWalletState: ReactSetter<WalletStateType>;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
   web3modalOptions: ModalOptions;
 }) => {
   try {
@@ -67,23 +67,32 @@ export const handleConnectWallet = async ({
     if (!_isGnosisSafe) {
       modalProvider.on('accountsChanged', () => {
         handleSetProvider({ provider: modalProvider, setWalletState });
-        handleModalEvents && handleModalEvents('accountsChanged');
+        lifeCycleFns?.accountsChanged?.();
       });
       modalProvider.on('chainChanged', (chainId: string) => {
         handleSetProvider({ provider: modalProvider, setWalletState });
-        handleModalEvents && handleModalEvents('chainChanged');
+        lifeCycleFns?.chainChanged?.(chainId);
         if (!isValidNetwork(chainId)) {
-          handleModalEvents &&
-            handleModalEvents('error', {
-              code: 'UNSUPPORTED_NETWORK',
-              message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-            });
+          lifeCycleFns?.onConnectError?.({
+            name: 'UNSUPPORTED_NETWORK',
+            message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
+          });
         }
       });
     }
+
     handleSetProvider({ provider: modalProvider, setWalletState });
-  } catch (web3Error) {
-    console.error(web3Error);
+    lifeCycleFns?.onConnect?.();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (web3Error: any) {
+    const errMsg =
+      typeof web3Error === 'string'
+        ? web3Error
+        : web3Error?.message || 'Unknown Error';
+    lifeCycleFns?.onConnectError?.({
+      name: 'Connection Error',
+      message: errMsg,
+    });
     disconnect();
   } finally {
     setConnecting(false);
@@ -94,13 +103,13 @@ export const loadWallet = async ({
   setConnecting,
   web3modalOptions,
   setWalletState,
-  handleModalEvents,
+  lifeCycleFns,
   disconnect,
 }: {
-  setConnecting: ReactSetter<boolean>;
+  setConnecting: Dispatch<SetStateAction<boolean>>;
   web3modalOptions: ModalOptions;
-  setWalletState: ReactSetter<WalletStateType>;
-  handleModalEvents?: ModalEvents;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
+  lifeCycleFns?: ConnectLifecycleFns;
   disconnect: () => Promise<void>;
 }) => {
   const isMetamaskUnlocked =
@@ -112,7 +121,7 @@ export const loadWallet = async ({
     await handleConnectWallet({
       setConnecting,
       setWalletState,
-      handleModalEvents,
+      lifeCycleFns,
       disconnect,
       web3modalOptions,
     });
@@ -126,11 +135,10 @@ export const loadProfile = async ({
   setProfile,
   setProfileLoading,
   shouldUpdate,
-  networks,
 }: {
   address: string;
-  setProfile: ReactSetter<UserProfile>;
-  setProfileLoading: ReactSetter<boolean>;
+  setProfile: Dispatch<SetStateAction<UserProfile>>;
+  setProfileLoading: Dispatch<SetStateAction<boolean>>;
   shouldUpdate: boolean;
   networks: NetworkConfigs;
 }) => {

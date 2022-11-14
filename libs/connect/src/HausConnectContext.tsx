@@ -22,6 +22,7 @@ import {
 import { defaultWalletValues, web3modalDefaults } from './utils/defaults';
 
 import {
+  ConnectLifecycleFns,
   ModalEvents,
   ModalOptions,
   ProviderType,
@@ -29,6 +30,7 @@ import {
   WalletStateType,
 } from './utils/types';
 import { NetworkConfigs } from '@daohaus/utils';
+
 export type UserConnectType = {
   provider: ProviderType | null | undefined;
   chainId: string | null | undefined;
@@ -55,15 +57,15 @@ type ConnectProviderProps = {
   web3modalOptions?: ModalOptions;
   networks?: NetworkConfigs;
   children: ReactNode;
-  handleModalEvents?: ModalEvents;
   daoChainId?: string;
+  lifeCycleFns?: ConnectLifecycleFns;
 };
 
 export const HausConnectProvider = ({
   web3modalOptions = web3modalDefaults,
   children,
   networks = HAUS_NETWORK_DATA,
-  handleModalEvents,
+  lifeCycleFns,
   daoChainId,
 }: ConnectProviderProps) => {
   const [isConnecting, setConnecting] = useState(true);
@@ -117,12 +119,12 @@ export const HausConnectProvider = ({
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
       setConnecting,
-      handleModalEvents,
+      lifeCycleFns,
       disconnect,
       setWalletState,
       web3modalOptions,
     });
-  }, [setConnecting, handleModalEvents, web3modalOptions]);
+  }, [setConnecting, lifeCycleFns, web3modalOptions]);
 
   const switchNetwork = async (_chainId: string | number) => {
     handleSwitchNetwork(_chainId, networks);

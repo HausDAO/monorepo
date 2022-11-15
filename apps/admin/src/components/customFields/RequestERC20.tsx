@@ -31,7 +31,10 @@ export const RequestERC20 = (
 
   const erc20s = useMemo(() => {
     if (dao && isValidNetwork(daochain)) {
-      return getErc20s(dao);
+      const treasury = dao.vaults.find(
+        (v) => v.safeAddress === dao.safeAddress
+      );
+      return treasury && getErc20s(treasury);
     }
     return null;
   }, [dao, daochain]);

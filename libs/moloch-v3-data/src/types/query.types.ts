@@ -100,11 +100,15 @@ export interface ITransformedDaoQuery {
 export interface ITransformedDaoListQuery {
   daos: ITransformedDao[];
 }
-export type DaoWithTokenData = {
+
+export type TransformedVault = ITransformedDao['vaults'][number] & {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
-  // vaults: ITransformedDao['vaults'] & TokenBalance[];
-} & ITransformedDao;
+};
+export type DaoWithTokenData = Omit<ITransformedDao, 'vaults'> & {
+  vaults: TransformedVault[];
+  fiatTotal: number;
+};
 
 export type DaoWithTokenDataQuery = {
   dao: DaoWithTokenData;

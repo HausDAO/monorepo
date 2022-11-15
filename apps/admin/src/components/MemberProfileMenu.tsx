@@ -14,11 +14,12 @@ import {
   DialogContent,
   DropdownLink,
   DropdownText,
+  Button,
 } from '@daohaus/ui';
 
 import ManageDelegate from './ManageDelegate';
 
-export const ProfileMenuTrigger = styled(DropdownButton)`
+export const ProfileMenuTrigger = styled(Button)`
   padding: 0 4px 0 4px;
 
   &[data-state='open'] {
@@ -87,10 +88,16 @@ export const MemberProfileMenu = ({
     return connectedMembership?.memberAddress === memberAddress;
   }, [connectedMembership, memberAddress]);
 
+  console.log('isMenuForConnectedMember', isMenuForConnectedMember);
+
+  if (!connectedMembership) return null;
+
   return (
     <Dropdown
       menuMinWidth="17.8rem"
-      trigger={<ProfileMenuTrigger IconLeft={RiMore2Fill} size="sm" />}
+      trigger={
+        <ProfileMenuTrigger IconLeft={RiMore2Fill} size="sm" variant="ghost" />
+      }
       side="left"
     >
       {isMenuForConnectedMember && (

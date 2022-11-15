@@ -17,6 +17,7 @@ const VaultContainer = styled(Card)`
   padding: 3rem;
   width: 100%;
   border: none;
+  margin-bottom: 3rem;
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -57,7 +58,11 @@ export function Safes() {
         </>
       }
     >
-      <VaultContainer>{dao && <VaultOverview dao={dao} />}</VaultContainer>
+      {dao?.vaults.map((vault) => (
+        <VaultContainer>
+          {dao && vault && <VaultOverview dao={dao} vault={vault} />}
+        </VaultContainer>
+      ))}
     </SingleColumnLayout>
   );
 }

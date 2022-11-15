@@ -130,7 +130,7 @@ fragment daoFields on Dao {
     shamanAddress
     permissions
   }
-  vaults {
+  vaults (where: {active: true}){
     id
     createdAt
     active

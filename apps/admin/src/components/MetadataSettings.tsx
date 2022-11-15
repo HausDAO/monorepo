@@ -17,7 +17,12 @@ import {
 import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { charLimit, formatLongDateFromSeconds, Keychain } from '@daohaus/utils';
+import {
+  charLimit,
+  formatLongDateFromSeconds,
+  Keychain,
+  ZERO_ADDRESS,
+} from '@daohaus/utils';
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { SettingsLinkList } from './MetadataLinkLists';
 
@@ -119,7 +124,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
           {daoProfileHasLinks(dao.links) && (
             <SettingsLinkList links={dao.links} />
           )}
-          {dao.txHash === '0x0' && (
+          {dao.forwarder !== ZERO_ADDRESS && (
             <WarningContainer>
               <div className="title">
                 <ParMd>Forwarder Address</ParMd>

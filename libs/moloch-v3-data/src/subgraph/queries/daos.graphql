@@ -110,6 +110,8 @@ fragment daoFields on Dao {
   activeMemberCount
   existingSafe
   delegatedVaultManager
+  forwarder
+  referrer
   name
   profile: records(
     first: 1

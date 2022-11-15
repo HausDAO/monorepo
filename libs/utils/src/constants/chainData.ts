@@ -20,13 +20,13 @@ export const isValidNetwork = (
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 
 export const NETWORK_DATA: Keychain<NetworkType> = {
-  '0x1': {
-    chainId: '0x1',
-    networkId: 1,
-    name: 'Mainnet',
-    symbol: 'ETH',
-    tokenDecimals: 18,
-  },
+  // '0x1': {
+  //   chainId: '0x1',
+  //   networkId: 1,
+  //   name: 'Mainnet',
+  //   symbol: 'ETH',
+  //   tokenDecimals: 18,
+  // },
   '0x5': {
     chainId: '0x5',
     networkId: 5,

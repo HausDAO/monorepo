@@ -366,7 +366,8 @@ export default class Query {
         try {
           const tokenPromises: Promise<IFindQueryResult<DaoTokenBalances>>[] =
             [];
-          daoRes.data.dao.vaults?.forEach((vault) => {
+
+          daoRes.data.dao.vaults.forEach((vault) => {
             tokenPromises.push(
               this.listTokenBalances({
                 networkId,
@@ -376,30 +377,31 @@ export default class Query {
           });
 
           const tokenData = await Promise.all(tokenPromises);
-          // use dao.vaults in promise all
-          // const res = await fetch.get<TokenBalance[]>(
-          //   `${gnosisUrl}/safes/${ethers.utils.getAddress(
-          //     daoRes.data.dao.safeAddress
-          //   )}/balances/usd/`
-          // );
 
-          console.log('tokenData', tokenData);
+          const hydratedVaults = daoRes.data.dao.vaults.map((vault) => {
+            const vaultResMatch = tokenData.find(
+              (tokenRes) =>
+                tokenRes.data?.safeAddress.toLowerCase() ===
+                vault.safeAddress.toLowerCase()
+            );
 
-          // need toy hydrate current dao.vaults
-          const transformedTokenBalances = tokenData.map((res) => {
-            // return transformTokenBalances(res, daoRes.data.dao.safeAddress);
+            return {
+              ...vault,
+              fiatTotal: vaultResMatch?.data?.fiatTotal,
+              tokenBalances: vaultResMatch?.data?.tokenBalances,
+            };
           });
-
-          // console.log('transformedTokenBalances', transformedTokenBalances);
 
           return {
             data: {
               dao: {
                 ...daoRes.data.dao,
                 ...addDaoProfileFields(daoRes.data.dao),
-                // ...transformTokenBalances(res, daoRes.data.dao.safeAddress),
-                // fiatTotal:
-                // vaults
+                vaults: hydratedVaults,
+                fiatTotal: tokenData.reduce((sum, vault) => {
+                  sum += Number(vault.data?.fiatTotal);
+                  return sum;
+                }, 0),
               },
             },
           };

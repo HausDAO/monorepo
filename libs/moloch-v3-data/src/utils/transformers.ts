@@ -55,7 +55,6 @@ export const transformTokenBalances = (
   tokenBalanceRes: TokenBalance[],
   safeAddress: string
 ): DaoTokenBalances => {
-  // total all vaults + hydrate vault with thier token balances
   const fiatTotal = tokenBalanceRes.reduce(
     (sum: number, balance: TokenBalance): number => {
       sum += Number(balance.fiatBalance);

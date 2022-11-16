@@ -38,7 +38,7 @@ const Template: ComponentStory<typeof Dropdown> = (args) => {
           <DropdownItem disabled>I'm Disabled</DropdownItem>
           <DropdownItem>Click Me 2</DropdownItem>
           <DropdownSeparator />
-          <DropdownItem>Click Me</DropdownItem>
+          <DropdownItem>Grape</DropdownItem>
           <DropdownItem>Click Me</DropdownItem>
           <DropdownSeparator />
           <DropdownCheckbox checked>Checked</DropdownCheckbox>

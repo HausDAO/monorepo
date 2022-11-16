@@ -1,5 +1,7 @@
 import React, { FocusEventHandler, FormEventHandler } from 'react';
-import { SwitchProps } from '@radix-ui/react-switch';
+import classNames from 'classnames';
+
+import { SwitchProps } from './Switch.types';
 import {
   SwitchBase,
   SwitchSlider,
@@ -7,14 +9,14 @@ import {
   LabelContainer,
   StyledLabel,
 } from './Switch.styles.';
-import classNames from 'classnames';
 
 type LabelProps = {
   id?: string;
   children: React.ReactChild;
-  className?: string;
+  className: string;
 };
 
+// ! Why this here? Should use label component. Refactor label out
 const Label: React.FC<LabelProps> = ({
   children = 'label',
   id,
@@ -27,28 +29,8 @@ const Label: React.FC<LabelProps> = ({
   );
 };
 
-export type Props = {
-  defaultOn?: boolean;
-  fieldLabel: string;
-  id?: string;
-  className?: string;
-  switchOn?: boolean;
-  onBlur?: FocusEventHandler<HTMLButtonElement>;
-  onChange?: FormEventHandler<HTMLButtonElement>;
-  onCheckedChange?: () => void;
-};
-
-type Ref =
-  | React.RefObject<HTMLInputElement>
-  | ((instance: HTMLInputElement | null) => void)
-  | null
-  | undefined;
-
-export const Switch = React.forwardRef(
-  (
-    props: Omit<SwitchProps, 'checked' | 'defaultChecked'> & Props,
-    ref: Ref
-  ) => {
+export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
+  (props, ref) => {
     const {
       fieldLabel,
       id,

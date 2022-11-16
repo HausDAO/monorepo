@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {
   RiArrowDropDownLine,
   RiCheckLine,
-  RiCheckboxBlankCircleFill,
+  RiRadioButtonFill,
 } from 'react-icons/ri';
 import {
   DropdownMenuProps,
@@ -153,7 +153,7 @@ export const DropdownRadio = React.forwardRef<
       >
         {children}
         <ItemIndicator>
-          <RiCheckboxBlankCircleFill />
+          <RiRadioButtonFill />
         </ItemIndicator>
       </RadioItem>
     );

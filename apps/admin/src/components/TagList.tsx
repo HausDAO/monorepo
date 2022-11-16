@@ -1,5 +1,6 @@
-import { Tag } from '@daohaus/ui';
+import { Tag, TagColors } from '@daohaus/ui';
 import styled from 'styled-components';
+import { randFromArray } from '../utils/settingsHelper';
 
 const TagContainer = styled.div`
   display: flex;
@@ -12,11 +13,20 @@ type TagListProps = {
   tags: string[];
 };
 
+const tagColors: TagColors[] = [
+  'violet',
+  'green',
+  'blue',
+  'pink',
+  'yellow',
+  'red',
+];
+
 export const TagList = ({ tags }: TagListProps) => {
   return (
     <TagContainer>
       {tags.filter(Boolean).map((tag) => (
-        <Tag tagColor="green" key={tag}>
+        <Tag tagColor={randFromArray(tagColors)} key={tag}>
           {tag}
         </Tag>
       ))}

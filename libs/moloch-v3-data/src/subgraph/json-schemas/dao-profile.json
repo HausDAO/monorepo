@@ -38,25 +38,14 @@
       "uniqueItems": true
     },
     "links": {
-      "type": "object",
-      "properties": {
-        "website": {
-          "type": "string"
-        },
-        "github": {
-          "type": "string"
-        },
-        "telegram": {
-          "type": "string"
-        },
-        "discord": {
-          "type": "string"
-        },
-        "twitter": {
-          "type": "string"
-        },
-        "other": {
-          "type": "string"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "url": { "$ref": "#/definitions/saneUrl" }
         }
       }
     }

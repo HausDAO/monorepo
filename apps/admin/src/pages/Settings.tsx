@@ -5,6 +5,7 @@ import { useDao } from '@daohaus/moloch-v3-context';
 import { MetadataSettings } from '../components/MetadataSettings';
 import { GovernanceSettings } from '../components/GovernanceSettings';
 import { ShamanSettings } from '../components/ShamanSettings';
+import { ContractSettings } from '../components/ContractSettings';
 
 const SettingsContainer = styled(Card)`
   width: 110rem;
@@ -26,6 +27,10 @@ export function Settings() {
         <>
           <SettingsContainer>
             <MetadataSettings dao={dao} />
+          </SettingsContainer>
+
+          <SettingsContainer>
+            <ContractSettings dao={dao} />
           </SettingsContainer>
 
           <SettingsContainer>

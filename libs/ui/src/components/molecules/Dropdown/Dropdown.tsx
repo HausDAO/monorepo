@@ -1,6 +1,10 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import {
+  RiArrowDropDownLine,
+  RiCheckLine,
+  RiCheckboxBlankCircleFill,
+} from 'react-icons/ri';
 import {
   DropdownMenuProps,
   DropdownMenuContentProps,
@@ -15,16 +19,30 @@ import {
   Trigger,
   Content,
   Item,
+  CheckboxItem,
+  ItemIndicator,
   Label,
+  Separator,
+  Portal,
+  Group,
+  RadioItem,
+  RadioGroup,
 } from './Dropdown.styles';
 import {
   DropdownTriggerProps,
   DropdownContentProps,
   DropdownItemProps,
+  DropdownCheckboxProps,
+  DropdownRadioProps,
 } from './Dropdown.types';
+
+// * Start New Dropdown Implementation
 
 export const DropdownMenu = Root;
 export const DropdownLabel = Label;
+export const DropdownGroup = Group;
+export const DropdownRadioGroup = RadioGroup;
+export const DropdownSeparator = Separator;
 
 export const DropdownTrigger = ({
   color = 'secondary',
@@ -54,15 +72,17 @@ export const DropdownContent = React.forwardRef<
   DropdownContentProps
 >(({ color = 'secondary', className, children, ...props }, forwardedRef) => {
   return (
-    <Content color={color} {...props} ref={forwardedRef}>
-      {children}
-    </Content>
+    <Portal>
+      <Content color={color} {...props} ref={forwardedRef}>
+        {children}
+      </Content>
+    </Portal>
   );
 });
 
 export const DropdownItem = ({
   color = 'secondary',
-  size = 'md',
+  size = 'lg',
   className,
   children,
   ...props
@@ -76,6 +96,71 @@ export const DropdownItem = ({
     </Item>
   );
 };
+
+export const DropdownCheckbox = React.forwardRef<
+  HTMLDivElement,
+  DropdownCheckboxProps
+>(
+  (
+    {
+      color = 'secondary',
+      size = 'lg',
+      checked,
+      className,
+      children,
+      ...props
+    },
+    forwardedRef
+  ) => {
+    const classes = classNames({
+      [size]: size,
+    });
+    return (
+      <CheckboxItem
+        color={color}
+        checked={checked}
+        className={`${classes} ${className}`}
+        ref={forwardedRef}
+        {...props}
+      >
+        {children}
+        {/* <RiCheckLine /> */}
+        <ItemIndicator>
+          <RiCheckLine />
+        </ItemIndicator>
+      </CheckboxItem>
+    );
+  }
+);
+
+export const DropdownRadio = React.forwardRef<
+  HTMLDivElement,
+  DropdownRadioProps
+>(
+  (
+    { color = 'secondary', size = 'lg', className, children, ...props },
+    forwardedRef
+  ) => {
+    const classes = classNames({
+      [size]: size,
+    });
+    return (
+      <RadioItem
+        color={color}
+        className={`${classes} ${className}`}
+        ref={forwardedRef}
+        {...props}
+      >
+        {children}
+        <ItemIndicator>
+          <RiCheckboxBlankCircleFill />
+        </ItemIndicator>
+      </RadioItem>
+    );
+  }
+);
+
+// ! End new Dropdown Implementation
 
 export type DropdownItem = {
   content: React.ReactNode;

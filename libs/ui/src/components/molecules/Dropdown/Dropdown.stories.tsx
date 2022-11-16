@@ -11,6 +11,8 @@ import {
   DropdownTrigger,
   DropdownItem,
   DropdownLabel,
+  DropdownSeparator,
+  DropdownCheckbox,
 } from './Dropdown';
 import { DropdownMenuItem, DropdownMenuLabel } from './Dropdown.styles';
 
@@ -25,10 +27,18 @@ const Template: ComponentStory<typeof Dropdown> = (args) => (
     {/* <Dropdown {...args} /> */}
     <DropdownMenu>
       <DropdownTrigger>Button</DropdownTrigger>
-      <DropdownContent>
+      <DropdownContent align="end">
         <DropdownLabel>Switch to available network</DropdownLabel>
         <DropdownItem>Click Me</DropdownItem>
         <DropdownItem disabled>I'm Disabled</DropdownItem>
+        <DropdownItem>Click Me</DropdownItem>
+        <DropdownSeparator />
+        <DropdownItem>Click Me</DropdownItem>
+        <DropdownItem>Click Me</DropdownItem>
+        <DropdownSeparator />
+        <DropdownCheckbox checked>Checked</DropdownCheckbox>
+        <DropdownCheckbox>Unchecked</DropdownCheckbox>
+        <DropdownSeparator />
       </DropdownContent>
     </DropdownMenu>
   </div>

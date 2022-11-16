@@ -1,12 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 import { Button, Link } from '../../atoms';
-import { DropdownContentProps } from './Dropdown.types';
+import { DropdownContentProps, DropdownColor } from './Dropdown.types';
+import { theme } from '@gnosis.pm/safe-react-components';
+
 // * Start New Dropdown implementation
 export const Root = Dropdown.Root;
+export const Portal = Dropdown.Portal;
+export const Group = Dropdown.Group;
+export const RadioGroup = Dropdown.RadioGroup;
 
 export const Trigger = styled(Dropdown.Trigger)`
   svg {
@@ -16,19 +21,31 @@ export const Trigger = styled(Dropdown.Trigger)`
   }
 `;
 
-export const Content = styled(Dropdown.DropdownMenuContent)`
+const BaseContentStyle = css`
   background-color: ${({
     color,
     theme,
   }: {
-    color: 'primary' | 'secondary';
+    color: DropdownColor;
     theme: Theme;
   }) => theme[color].step3};
+  border-radius: 4px;
   font-weight: ${font.weight.reg};
   line-height: ${font.lineHeight};
   letter-spacing: ${font.letterSpacing};
   font-size: ${font.size.md};
-  padding: 4px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const Content = styled(Dropdown.DropdownMenuContent)`
+  ${BaseContentStyle}
+`;
+
+export const SubContent = styled(Dropdown.DropdownMenuSubContent)`
+  ${BaseContentStyle}
 `;
 
 export const Label = styled(Dropdown.Label)`
@@ -37,38 +54,48 @@ export const Label = styled(Dropdown.Label)`
   padding: 12px;
 `;
 
-export const Item = styled(Dropdown.Item)`
+const BaseItemStyles = css`
+  align-items: center;
   background-color: ${({
     color,
     theme,
   }: {
-    color: 'primary' | 'secondary';
+    color: DropdownColor;
     theme: Theme;
   }) => theme[color].step3};
   border-radius: 4px;
   cursor: pointer;
-  margin: 0;
-  padding: 12px;
+  display: flex;
+  padding: 0 12px;
   width: 100%;
+  outline: none;
 
-  &:hover {
-    background-color: ${({
-      color,
-      theme,
-    }: {
-      color: 'primary' | 'secondary';
-      theme: Theme;
-    }) => theme[color].step4};
+  &.md {
+    height: 36px;
   }
 
-  &:focus {
+  &.lg {
+    height: 48px;
+  }
+
+  &:focus-visible {
     background-color: ${({
       color,
       theme,
     }: {
-      color: 'primary' | 'secondary';
+      color: DropdownColor;
       theme: Theme;
     }) => theme[color].step5};
+  }
+
+  &[data-highlighted] {
+    background-color: ${({
+      color,
+      theme,
+    }: {
+      color: DropdownColor;
+      theme: Theme;
+    }) => theme[color].step4};
   }
 
   &[data-disabled] {
@@ -84,21 +111,41 @@ export const Item = styled(Dropdown.Item)`
         color,
         theme,
       }: {
-        color: 'primary' | 'secondary';
-        theme: Theme;
-      }) => theme[color].step3};
-    }
-
-    &:focus {
-      background-color: ${({
-        color,
-        theme,
-      }: {
-        color: 'primary' | 'secondary';
+        color: DropdownColor;
         theme: Theme;
       }) => theme[color].step3};
     }
   }
+`;
+
+export const Item = styled(Dropdown.Item)`
+  ${BaseItemStyles}
+`;
+
+export const CheckboxItem = styled(Dropdown.CheckboxItem)`
+  ${BaseItemStyles}
+`;
+
+export const RadioItem = styled(Dropdown.RadioItem)`
+  ${BaseItemStyles}
+`;
+
+export const SubTrigger = styled(Dropdown.SubTrigger)`
+  ${BaseItemStyles}
+`;
+
+export const Separator = styled(Dropdown.Separator)`
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+  height: 1px;
+  margin: 5px 0;
+  width: 100%;
+`;
+
+export const ItemIndicator = styled(Dropdown.ItemIndicator)`
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 // ! End New Dropdown implementation

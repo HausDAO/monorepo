@@ -30,7 +30,7 @@ export interface DropdownContentProps extends DropdownMenuContentProps {
 
 /* Types for Dropdown Items */
 
-interface BaseItemProps {
+export interface BaseItemProps {
   color?: DropdownColor;
   size?: DropdownSize;
 }

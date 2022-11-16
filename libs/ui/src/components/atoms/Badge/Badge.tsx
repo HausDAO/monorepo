@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Bold, ParMd, ParXs } from '../Typography';
 import { BaseBadge } from './Badge.styles';
-import { BadgeProps } from './Badge.types';
+import type { BadgeProps } from './Badge.types';
 
 export const Badge = ({
   className,

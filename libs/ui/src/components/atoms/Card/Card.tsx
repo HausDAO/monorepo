@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BaseCard } from './Card.styles';
-import { CardProps } from './Card.types';
+import type { CardProps } from './Card.types';
 
 export const Card = ({
   className,

@@ -1,5 +1,5 @@
 import { AvatarBase, AvatarImage, AvatarFallback } from './Avatar.styles';
-import { AvatarProps } from './Avatar.types';
+import type { AvatarProps } from './Avatar.types';
 
 export const Avatar = ({
   src,

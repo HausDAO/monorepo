@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BadgeColor, BadgeSize } from './Badge.types';
+import type { BadgeColor, BadgeSize } from './Badge.types';
 
 export const BaseBadge = styled.div<{
   badgeColor: BadgeColor;

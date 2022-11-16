@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { StyledButton } from './Button.styles';
-import { IconButtonProps } from './IconButton.types';
+import type { IconButtonProps } from './IconButton.types';
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (

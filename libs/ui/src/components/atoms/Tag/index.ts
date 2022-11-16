@@ -1,5 +1,5 @@
 import { Tag } from './Tag';
-import type { TagProps } from './Tag.types';
+import type { TagProps, TagColors } from './Tag.types';
 
-export type { TagProps };
+export type { TagProps, TagColors };
 export { Tag };

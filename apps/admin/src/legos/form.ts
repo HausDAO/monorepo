@@ -592,9 +592,7 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         type: 'formSegment',
         title:
           'Step 2. Select treasury tokens you want to receive in exchange for your DAO tokens',
-        fields: [
-          { id: 'tokens', type: 'ragequitTokenList' },
-        ],
+        fields: [{ id: 'tokens', type: 'ragequitTokenList' }],
       },
       {
         id: 'checkRender',

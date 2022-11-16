@@ -2,9 +2,16 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { RiAlertLine } from 'react-icons/ri';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ParXs } from '../../atoms/Typography';
+import { ParMd, ParXs } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
-import { Dropdown, DropdownMenu, DropdownTrigger } from './Dropdown';
+import {
+  Dropdown,
+  DropdownContent,
+  DropdownMenu,
+  DropdownTrigger,
+  DropdownItem,
+  DropdownLabel,
+} from './Dropdown';
 import { DropdownMenuItem, DropdownMenuLabel } from './Dropdown.styles';
 
 export default {
@@ -18,6 +25,11 @@ const Template: ComponentStory<typeof Dropdown> = (args) => (
     {/* <Dropdown {...args} /> */}
     <DropdownMenu>
       <DropdownTrigger>Button</DropdownTrigger>
+      <DropdownContent>
+        <DropdownLabel>Switch to available network</DropdownLabel>
+        <DropdownItem>Click Me</DropdownItem>
+        <DropdownItem disabled>I'm Disabled</DropdownItem>
+      </DropdownContent>
     </DropdownMenu>
   </div>
 );

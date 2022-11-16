@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { Theme } from '../../../types/theming';
+import { font } from '../../../theme/global/font';
 import { Button, Link } from '../../atoms';
-
+import { DropdownContentProps } from './Dropdown.types';
+// * Start New Dropdown implementation
 export const Root = Dropdown.Root;
 
 export const Trigger = styled(Dropdown.Trigger)`
@@ -13,6 +15,93 @@ export const Trigger = styled(Dropdown.Trigger)`
     }
   }
 `;
+
+export const Content = styled(Dropdown.DropdownMenuContent)`
+  background-color: ${({
+    color,
+    theme,
+  }: {
+    color: 'primary' | 'secondary';
+    theme: Theme;
+  }) => theme[color].step3};
+  font-weight: ${font.weight.reg};
+  line-height: ${font.lineHeight};
+  letter-spacing: ${font.letterSpacing};
+  font-size: ${font.size.md};
+  padding: 4px;
+`;
+
+export const Label = styled(Dropdown.Label)`
+  font-size: ${font.size.xs};
+  min-height: 4.8rem;
+  padding: 12px;
+`;
+
+export const Item = styled(Dropdown.Item)`
+  background-color: ${({
+    color,
+    theme,
+  }: {
+    color: 'primary' | 'secondary';
+    theme: Theme;
+  }) => theme[color].step3};
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
+  padding: 12px;
+  width: 100%;
+
+  &:hover {
+    background-color: ${({
+      color,
+      theme,
+    }: {
+      color: 'primary' | 'secondary';
+      theme: Theme;
+    }) => theme[color].step4};
+  }
+
+  &:focus {
+    background-color: ${({
+      color,
+      theme,
+    }: {
+      color: 'primary' | 'secondary';
+      theme: Theme;
+    }) => theme[color].step5};
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+    color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
+
+    & * {
+      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
+    }
+
+    &:hover {
+      background-color: ${({
+        color,
+        theme,
+      }: {
+        color: 'primary' | 'secondary';
+        theme: Theme;
+      }) => theme[color].step3};
+    }
+
+    &:focus {
+      background-color: ${({
+        color,
+        theme,
+      }: {
+        color: 'primary' | 'secondary';
+        theme: Theme;
+      }) => theme[color].step3};
+    }
+  }
+`;
+
+// ! End New Dropdown implementation
 
 type MenuContentType = {
   bgmenu?: string;

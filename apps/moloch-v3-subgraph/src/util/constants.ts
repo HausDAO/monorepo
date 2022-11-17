@@ -20,6 +20,4 @@ export namespace constants {
     '0x7983ed9a7b186e99a3013717a3415e68a645a683afa103a308be273625b7f9d9';
   export const DAOHAUS_PROPOSAL_SIGNAL =
     '0x76cfe3c064b09ef30c85339b8c6afdc968c86e99f694cece7363eb9ddc05872f';
-  export const BAAL_SUMMONER_V1_ADDRESS =
-    '0xf020a55794DB5e065692F86a0Eb82197850a09b9';
 }

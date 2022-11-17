@@ -55,6 +55,44 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "baalSafe",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "moduleAddr",
+        "type": "address"
+      }
+    ],
+    "name": "DeployBaalSafe",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "lootToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sharesToken",
+        "type": "address"
+      }
+    ],
+    "name": "DeployBaalTokens",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
@@ -160,8 +198,7 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_moduleAddr", "type": "address" },
-      { "internalType": "uint256", "name": "_saltNonce", "type": "uint256" }
+      { "internalType": "address", "name": "_moduleAddr", "type": "address" }
     ],
     "name": "deployAndSetupSafe",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],

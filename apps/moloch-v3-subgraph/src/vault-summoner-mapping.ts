@@ -3,6 +3,7 @@ import {
   SetDelegate,
 } from '../generated/VaultSummoner/VaultSummoner';
 import { Dao, Vault } from '../generated/schema';
+import { addTransaction } from './util/transactions';
 
 export function handleSetVault(event: SetVault): void {
   const daoId = event.params.vault.daoAddress.toHexString();
@@ -28,6 +29,8 @@ export function handleSetVault(event: SetVault): void {
   vault.active = event.params.vault.active;
 
   vault.save();
+
+  addTransaction(event.block, event.transaction, event.address);
 }
 
 export function handleSetVaultDelegate(event: SetDelegate): void {
@@ -40,4 +43,6 @@ export function handleSetVaultDelegate(event: SetDelegate): void {
   dao.delegatedVaultManager = event.params.delegate;
 
   dao.save();
+
+  addTransaction(event.block, event.transaction, event.address);
 }

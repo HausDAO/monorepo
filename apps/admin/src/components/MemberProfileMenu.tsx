@@ -88,68 +88,67 @@ export const MemberProfileMenu = ({
     return connectedMembership?.memberAddress === memberAddress;
   }, [connectedMembership, memberAddress]);
 
-  console.log('isMenuForConnectedMember', isMenuForConnectedMember);
-
   if (!connectedMembership) return null;
 
   return (
-    <Dropdown
-      menuMinWidth="17.8rem"
-      trigger={
-        <ProfileMenuTrigger IconLeft={RiMore2Fill} size="sm" variant="ghost" />
-      }
-      side="left"
-    >
-      {isMenuForConnectedMember && (
-        <>
-          <DropdownMenuItem key="delegate" asChild>
-            <Dialog>
+    <Dialog>
+      <Dropdown
+        menuMinWidth="17.8rem"
+        trigger={
+          <ProfileMenuTrigger
+            IconLeft={RiMore2Fill}
+            size="sm"
+            variant="ghost"
+          />
+        }
+        side="left"
+      >
+        {isMenuForConnectedMember && (
+          <>
+            <DropdownMenuItem key="delegate" asChild>
               <DialogTrigger asChild>
                 <ProfileMenuText>Delegate</ProfileMenuText>
               </DialogTrigger>
-              <DialogContent title="Manage Delegate">
-                <ManageDelegate />
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuItem>
-          <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink
-              href={`/molochv3/${daochain}/${daoid}/members/ragequit`}
-            >
-              Rage Quit
-            </ProfileMenuLink>
-          </DropdownMenuItem>
-        </>
-      )}
+            </DropdownMenuItem>
+            <DropdownMenuItem key="ragequit" asChild>
+              <ProfileMenuLink
+                href={`/molochv3/${daochain}/${daoid}/members/ragequit`}
+              >
+                Rage Quit
+              </ProfileMenuLink>
+            </DropdownMenuItem>
+          </>
+        )}
 
-      {!isMenuForConnectedMember && (
-        <>
-          <DropdownMenuItem key="delegateTo" asChild>
-            <Dialog>
+        {!isMenuForConnectedMember && (
+          <>
+            <DropdownMenuItem key="delegateTo" asChild>
               <DialogTrigger asChild>
                 <ProfileMenuText className={enableActions ? '' : 'disabled'}>
                   Delegate To
                 </ProfileMenuText>
               </DialogTrigger>
-              <DialogContent title="Manage Delegate">
-                <ManageDelegate defaultMember={memberAddress} />
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuItem>
-          <DropdownMenuItem key="guildkick" asChild>
-            <ProfileMenuLink
-              className={enableActions ? '' : 'disabled'}
-              href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
-                {
-                  memberAddress: memberAddress,
-                }
-              )}`}
-            >
-              Guild Kick
-            </ProfileMenuLink>
-          </DropdownMenuItem>
-        </>
-      )}
-    </Dropdown>
+            </DropdownMenuItem>
+            <DropdownMenuItem key="guildkick" asChild>
+              <ProfileMenuLink
+                className={enableActions ? '' : 'disabled'}
+                href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
+                  {
+                    memberAddress: memberAddress,
+                  }
+                )}`}
+              >
+                Guild Kick
+              </ProfileMenuLink>
+            </DropdownMenuItem>
+          </>
+        )}
+      </Dropdown>
+      <DialogContent title="Manage Delegate">
+        <ManageDelegate
+          defaultMember={!isMenuForConnectedMember ? memberAddress : undefined}
+        />
+      </DialogContent>
+    </Dialog>
   );
 };

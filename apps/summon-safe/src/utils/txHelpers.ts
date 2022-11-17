@@ -56,7 +56,7 @@ export const encodeSummonBaal = (params: Array<string>) => {
   const ifaceSummoner = new utils.Interface([
     'function summonBaal(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce) external returns (address)',
   ]);
-  return ifaceSummoner.encodeFunctionData('summonBaal', params);
+  return ifaceSummoner.encodeFunctionData('summonBaalFromReferrer', params);
 };
 
 export const getSafeModules = async (safeAddress: string, sdk: SafeAppsSDK) => {

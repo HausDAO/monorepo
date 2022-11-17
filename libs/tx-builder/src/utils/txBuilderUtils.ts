@@ -166,10 +166,14 @@ export async function prepareTX(args: {
 
     lifeCycleFns?.onRequestSign?.();
 
+    console.log('contract', contract, method);
+
     const ethersTx = await contract.functions[method](
       ...processedArgs,
       overrides
     );
+
+    console.log('ethersTx', ethersTx);
     executeTx({ ...args, ethersTx });
   } catch (error) {
     console.log('**TX Error (Pre-Fire)**');

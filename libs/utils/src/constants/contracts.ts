@@ -8,7 +8,8 @@ export type ContractKey =
   | 'GNOSIS_MULTISEND'
   | 'GNOSIS_SIGNLIB'
   | 'TRIBUTE_MINION'
-  | 'POSTER';
+  | 'POSTER'
+  | 'VAULT_SUMMONER';
 
 export type AddressKeyChain = { [key in ValidNetwork]?: string };
 export type ContractAddressList = Record<ContractKey, AddressKeyChain>;
@@ -20,7 +21,7 @@ export const NETWORK_TOKEN_ETH_ADDRESS =
 export const CONTRACTS: ContractAddressList = {
   V3_FACTORY: {
     '0x1': '0xf020a55794DB5e065692F86a0Eb82197850a09b9',
-    '0x5': '0xf020a55794DB5e065692F86a0Eb82197850a09b9',
+    '0x5': '0x1FD666e54a769d7dd945924cbb13Aed2CFeA2953',
     '0x64': '0xf020a55794DB5e065692F86a0Eb82197850a09b9',
   },
   LOOT_SINGLETON: {
@@ -57,6 +58,11 @@ export const CONTRACTS: ContractAddressList = {
     '0x1': '0x000000000000cd17345801aa8147b8d3950260ff',
     '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
     '0x64': '0x000000000000cd17345801aa8147b8d3950260ff',
+  },
+  VAULT_SUMMONER: {
+    '0x1': '0x138Dc8493A658D7b7AfCe007F81EcD82298DFE2c',
+    '0x5': '0x138Dc8493A658D7b7AfCe007F81EcD82298DFE2c',
+    '0x64': '0x138Dc8493A658D7b7AfCe007F81EcD82298DFE2c',
   },
 };
 

@@ -630,4 +630,22 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
     ],
     tx: TX.RAGEQUIT,
   },
+  ADD_SAFE: {
+    id: 'ADD_SAFE',
+    description:
+      'Create a new Gnosis Safe and attach to your DAO as a non-ragequittable vault.',
+    requiredFields: {
+      name: true,
+    },
+    tx: TX.ADD_SAFE,
+    fields: [
+      {
+        id: 'name',
+        type: 'input',
+        label: 'Safe Name',
+        placeholder: 'Enter name',
+      },
+    ],
+    submitButtonText: 'Create',
+  },
 };

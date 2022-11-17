@@ -79,7 +79,7 @@ export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
               copy
               explorerNetworkId={daochain as keyof Keychain}
             />
-            {isTreasury && <Tag tagColor="pink">Ragequitable</Tag>}
+            {isTreasury && <Tag tagColor="pink">Ragequittable</Tag>}
           </TagSection>
         </div>
         <div className="safe-link">

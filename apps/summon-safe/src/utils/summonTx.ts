@@ -2,6 +2,7 @@ import { LOCAL_ABI } from '@daohaus/abis';
 import {
   ArgType,
   CONTRACTS,
+  DAOHAUS_SAFE_SUMMONER_REFERRER,
   encodeFunction,
   encodeValues,
   getNonce,
@@ -217,8 +218,15 @@ export const assembleTxArgs = (
 
   const { POSTER } = handleKeychains(chainId);
   const initParams = encodeValues(
-    ['string', 'string', 'address', 'address'],
-    [tokenName, tokenSymbol, safeAddress, ZERO_ADDRESS]
+    ['string', 'string', 'address', 'address', 'address', 'address'],
+    [
+      tokenName,
+      tokenSymbol,
+      safeAddress,
+      ZERO_ADDRESS,
+      ZERO_ADDRESS,
+      ZERO_ADDRESS,
+    ]
   );
   const initActions = [
     tokenConfigTX(formValues),
@@ -228,7 +236,12 @@ export const assembleTxArgs = (
     lootConfigTX(formValues),
     metadataConfigTX(formValues, POSTER),
   ];
-  const args = [initParams, initActions, getNonce()];
+  const args = [
+    initParams,
+    initActions,
+    getNonce(),
+    DAOHAUS_SAFE_SUMMONER_REFERRER,
+  ];
 
   return args;
 };

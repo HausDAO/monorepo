@@ -11,5 +11,5 @@ const BaalSummonerContract: ContractLego = {
 export const SummonTX = {
   id: 'SummonTX',
   contract: BaalSummonerContract,
-  method: 'summonBaalAndSafe',
+  method: 'summonBaalFromReferrer',
 };

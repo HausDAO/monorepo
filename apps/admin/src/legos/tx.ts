@@ -455,6 +455,12 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ADD_SAFE: {
+    id: 'ADD_SAFE',
+    contract: CONTRACT.VAULT_SUMMONER,
+    method: 'summonVault',
+    args: ['.daoId', '.formValues.name'],
+  },
 };
 
 export const TABULA_TX: Record<string, TXLego> = {

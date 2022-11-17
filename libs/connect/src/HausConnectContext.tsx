@@ -108,12 +108,13 @@ export const HausConnectProvider = ({
         setProfileLoading,
         shouldUpdate,
         networks,
+        lifeCycleFns,
       });
     }
     return () => {
       shouldUpdate = false;
     };
-  }, [address, isConnected, networks]);
+  }, [address, isConnected, networks, lifeCycleFns]);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({

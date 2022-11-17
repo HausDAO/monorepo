@@ -132,11 +132,13 @@ export const loadProfile = async ({
   setProfile,
   setProfileLoading,
   shouldUpdate,
+  lifeCycleFns,
 }: {
   address: string;
   setProfile: Dispatch<SetStateAction<UserProfile>>;
   setProfileLoading: Dispatch<SetStateAction<boolean>>;
   shouldUpdate: boolean;
+  lifeCycleFns?: ConnectLifecycleFns;
   networks: NetworkConfigs;
 }) => {
   try {
@@ -149,9 +151,19 @@ export const loadProfile = async ({
         profile.name || profile.ens || truncateAddress(address);
       setProfile({ ...profile, displayName });
     }
-  } catch (error) {
-    console.error(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (web3Error: any) {
+    const errMsg =
+      typeof web3Error === 'string'
+        ? web3Error
+        : web3Error?.message || 'Unknown Error';
+    lifeCycleFns?.onConnectError?.({
+      name: 'Connection Error',
+      message: errMsg,
+    });
+    console.error(web3Error);
     setProfile({ displayName: '', address: '', ens: '' });
+    lifeCycleFns?.onProfileError?.(web3Error);
   } finally {
     if (shouldUpdate) {
       setProfileLoading(false);

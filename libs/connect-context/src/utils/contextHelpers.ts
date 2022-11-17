@@ -65,11 +65,12 @@ export const handleConnectWallet = async ({
     if (!_isGnosisSafe) {
       modalProvider.on('accountsChanged', () => {
         handleSetProvider({ provider: modalProvider, setWalletState });
-        lifeCycleFns?.accountsChanged?.();
+        lifeCycleFns?.onAccountsChanged?.();
       });
       modalProvider.on('chainChanged', (chainId: string) => {
+        console.log(chainId);
         handleSetProvider({ provider: modalProvider, setWalletState });
-        lifeCycleFns?.chainChanged?.(chainId);
+        lifeCycleFns?.onChainChanged?.(chainId);
         if (!isValidNetwork(chainId)) {
           lifeCycleFns?.onConnectError?.({
             name: 'UNSUPPORTED_NETWORK',

@@ -6,8 +6,8 @@ import { AccountProfile } from '@daohaus/utils';
 export type ConnectLifecycleFns = {
   onConnect?: () => void;
   onDisconnect?: () => void;
-  chainChanged?: (chainId: string) => void;
-  accountsChanged?: () => void;
+  onChainChanged?: (chainId: string) => void;
+  onAccountsChanged?: () => void;
   onConnectError?: (error: Error) => void;
   onProfileError?: (error: Error) => void;
 };

@@ -21,6 +21,9 @@ export const DHConnectProvider = (props: ConnectProviderProps) => {
         onDisconnect: () => {
           defaultToast({ title: 'Disconnected' });
         },
+        onChainChanged: () => {
+          defaultToast({ title: 'Chain Changed' });
+        },
       }}
     />
   );

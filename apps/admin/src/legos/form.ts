@@ -42,9 +42,9 @@ COMMON_FORMS KEYS
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   SIGNAL: {
     id: 'SIGNAL',
-    title: 'Signal Form',
+    title: 'Signal Request',
     subtitle: 'Signal Proposal',
-    description: 'Ratify on-chain using a DAO proposal.',
+    description: 'Request an on-chain member vote.',
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,
@@ -57,10 +57,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   ISSUE: {
     id: 'ISSUE',
-    title: 'Request DAO Tokens',
+    title: 'DAO Token Request',
     subtitle: 'Token Proposal',
     log: true,
-    description: 'Request membership or increased stake in the DAO.',
+    description: 'Request voting or non-voting tokens from the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
       title: true,
@@ -95,9 +95,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   ADD_SHAMAN: {
     id: 'ADD_SHAMAN',
-    title: 'Add a Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Add Shaman Proposal',
+    title: 'Add Shaman',
+    description: 'Grant DAO permissions to an external contract.',
+    subtitle: 'Shaman Proposal',
     requiredFields: {
       title: true,
       description: true,
@@ -116,10 +116,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_ERC20: {
     id: 'TRANSFER_ERC20',
-    title: 'Request ERC-20',
+    title: 'ERC-20 Token Transfer',
     subtitle: 'Funding Proposal',
-    description:
-      'Create a proposal to request ERC-20 tokens from the DAO treasury',
+    description: 'Request ERC-20 tokens from the DAO treasury.',
     log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {
@@ -145,10 +144,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
-    title: 'Reqest Network Token',
+    title: 'Network Token Transfer',
     subtitle: 'Funding Proposal',
-    description:
-      "Create a proposal to request funding from the DAO treasury in the network's native token",
+    description: "Request network's native token from the DAO treasury.",
     log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
@@ -175,9 +173,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   UPDATE_GOV_SETTINGS: {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
-    subtitle: 'Governance Setting Proposal',
+    subtitle: 'Governance Proposal',
     log: true,
-    description: 'Learn more about Governance Settings in our documentation.',
+    description: 'Change proposal timing or advanced governance settings.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
       title: true,
@@ -279,10 +277,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
-    title: 'Change Token Settings',
+    title: 'Update Token Settings',
     log: true,
-    subtitle: 'Token Settings Proposal',
-    description: 'Learn more about Token Settings in our documentation.',
+    subtitle: 'Token Proposal',
+    description: 'Change transferability of voting or non-voting tokens.',
     tx: TX.TOKEN_SETTINGS,
     requiredFields: {
       title: true,
@@ -344,9 +342,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TOKENS_FOR_SHARES: {
     id: 'TOKENS_FOR_SHARES',
-    title: 'Swap Tokens for Shares',
+    title: 'DAO Token Swap',
     description:
-      'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
+      'Request voting or non-voting tokens from the DAO in exchange for tokens.',
     subtitle: 'Token Proposal',
     tx: TX.TOKENS_FOR_SHARES,
     requiredFields: {
@@ -375,10 +373,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   GUILDKICK: {
     id: 'GUILDKICK',
-    title: 'Guild Kick Proposal',
-    subtitle: 'Guild Kick Member',
-    description:
-      'Propose to exchange a member’s voting token balance with non-voting tokens. If passed, this will mean they can no longer vote on proposals.',
+    title: 'Remove Member',
+    subtitle: 'Token Proposal',
+    description: 'Change a member’s voting tokens into non-voting tokens.',
     tx: TX.GUILDKICK,
     requiredFields: {
       title: true,
@@ -399,11 +396,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     ],
   },
   WALLETCONNECT: {
-    devtool: true,
     id: 'WALLETCONNECT',
-    title: 'WalletConnect Proposal',
-    subtitle: 'Use WalletConnect to create a Proposal',
-    description: 'Extend DAO Proposals to external contracts',
+    title: 'Use WalletConnect',
+    subtitle: 'WalletConnect Proposal',
+    description: 'Interact with external contracts and applications.',
     tx: TX.WALLETCONNECT,
     requiredFields: {
       title: true,
@@ -500,7 +496,6 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
             label: 'Article Title',
             placeholder: "ex. 10 Signs You're a Real Champ",
           },
-          // @ts-expect-error: cannot resolve nested custom field types
           FIELD.FAKE_MD,
         ],
       },
@@ -531,23 +526,14 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         type: 'formSegment',
         title: 'Add links to important content for your DAO',
         fields: [
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.LINK, id: 'discord', label: 'Discord' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'github', label: 'Github' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'blog', label: 'Blog' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'telegram', label: 'Telegram' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'twitter', label: 'Twitter' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'web', label: 'Website' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'custom1', label: 'Custom Link 1' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'custom2', label: 'Custom Link 2' },
-          // @ts-expect-error: cannot resolve nested custom field types
           { ...FIELD.METADATA_LINK, id: 'custom3', label: 'Custom Link 3' },
         ],
       },
@@ -596,10 +582,8 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         fields: [
           {
             id: 'sharesToBurn',
-            // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
             type: 'ragequitToken',
           },
-          // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
           { id: 'lootToBurn', type: 'ragequitToken' },
         ],
       },
@@ -609,7 +593,6 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         title:
           'Step 2. Select treasury tokens you want to receive in exchange for your DAO tokens',
         fields: [
-          // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
           { id: 'tokens', type: 'ragequitTokenList' },
         ],
       },

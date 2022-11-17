@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx nx affected --target=lint
-npx nx affected --target=build
+npx nx affected --target=lint --base=develop
+npx nx affected --target=build --base=develop

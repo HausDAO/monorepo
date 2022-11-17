@@ -1,5 +1,5 @@
 import { useParams, Outlet, useLocation } from 'react-router-dom';
-import { HausLayout, useDHConnect } from '@daohaus/connect';
+import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { useMemo } from 'react';
@@ -41,7 +41,7 @@ export function Dao() {
       daoId={daoid}
       appState={{ dao }}
     >
-      <HausLayout
+      <DHLayout
         pathname={location.pathname}
         navLinks={[
           { label: 'Hub', href: `/${address}` },
@@ -63,7 +63,7 @@ export function Dao() {
         dropdownLinks={moreLinks}
       >
         <Outlet />
-      </HausLayout>
+      </DHLayout>
     </TXBuilder>
   );
 }

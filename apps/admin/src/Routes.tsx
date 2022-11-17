@@ -22,7 +22,7 @@ import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
-import { DHConnectProvider, HausLayout, useDHConnect } from '@daohaus/connect';
+import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 const HomeContainer = () => {
@@ -41,12 +41,12 @@ const HomeContainer = () => {
     }
   }, [isConnected, address, profile, navigate]);
   return (
-    <HausLayout
+    <DHLayout
       pathname={location.pathname}
       navLinks={[{ label: 'Hub', href: `/${address}` }]}
     >
       <Outlet />
-    </HausLayout>
+    </DHLayout>
   );
 };
 // const customNetworks = {

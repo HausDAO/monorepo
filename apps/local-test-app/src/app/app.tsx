@@ -1,4 +1,4 @@
-import { HausLayout, useDHConnect } from '@daohaus/connect';
+import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { FormBuilder } from '@daohaus/form-builder';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { FORM } from '../assets/forms';
@@ -13,9 +13,9 @@ function App() {
       safeId="0xacdbe468400d3cb18ab796e85b91395f7fb5db09"
       appState={{}}
     >
-      <HausLayout pathname="/">
+      <DHLayout pathname="/">
         <FormBuilder form={FORM.SIGNAL} targetNetwork="0x5" />
-      </HausLayout>
+      </DHLayout>
     </TXBuilder>
   );
 }

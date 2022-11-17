@@ -1,4 +1,8 @@
-import { isValidNetwork, NetworkConfigs } from '@daohaus/keychain-utils';
+import {
+  isValidNetwork,
+  NetworkConfigs,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 
 import { Haus } from '@daohaus/moloch-v3-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
@@ -25,6 +29,7 @@ export const isMetamaskProvider = (
 ) => provider?.connection?.url === 'metamask';
 export const truncateAddress = (addr: string) =>
   `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+
 export const handleSetProvider = async ({
   provider,
   setWalletState,
@@ -37,7 +42,7 @@ export const handleSetProvider = async ({
   const signerAddress = await ethersProvider.getSigner().getAddress();
   setWalletState({
     provider: ethersProvider,
-    chainId: provider.chainId,
+    chainId: provider.chainId as ValidNetwork,
     address: signerAddress,
   });
 };

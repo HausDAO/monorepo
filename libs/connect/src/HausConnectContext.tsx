@@ -28,6 +28,6 @@ export const DHConnectProvider = (props: ConnectProviderProps) => {
     />
   );
 };
-export const useHausConnect = (): UserConnectType => useContext(ConnectContext);
+export const useDHConnect = (): UserConnectType => useContext(ConnectContext);
 
 export default DHConnectProvider;

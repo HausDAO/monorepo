@@ -3,11 +3,11 @@ import React, { useMemo } from 'react';
 import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
 import { formatShares, roundedPercentage } from '@daohaus/utils';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { VotingBar } from '../VotingBar';
 
 export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   const userVoteData = useMemo(() => {
     if (address && proposal) {

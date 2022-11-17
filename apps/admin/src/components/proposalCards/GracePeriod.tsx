@@ -1,6 +1,6 @@
 import { baalTimeToNow, formatShares } from '@daohaus/utils';
 import { ITransformedProposal } from '@daohaus/moloch-v3-data';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { ParMd, TintSecondary } from '@daohaus/ui';
 import { useMemo } from 'react';
 import { VotingBar } from '../VotingBar';
@@ -11,7 +11,7 @@ export const GracePeriod = ({
 }: {
   proposal: ITransformedProposal;
 }) => {
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   const userVoteData = useMemo(() => {
     if (address && proposal) {

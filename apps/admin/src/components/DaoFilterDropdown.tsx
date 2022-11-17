@@ -11,7 +11,7 @@ import { MouseEvent, useMemo } from 'react';
 import { RiCheckLine, RiFilterFill } from 'react-icons/ri';
 import styled, { useTheme } from 'styled-components';
 import { FILTER_TYPE } from '../utils/hub';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 // HOW CAN THIS BE GENERALIZED?
 
@@ -40,7 +40,7 @@ export const DAOFilterDropdown = ({
   toggleDelegateFilter,
 }: DAOFilterDropdownProps) => {
   const theme = useTheme();
-  const { networks } = useHausConnect();
+  const { networks } = useDHConnect();
   const networkButtons = useMemo(() => {
     return Object.values(networks).map((network) => {
       const isActive = filterNetworks.includes(network.chainId);

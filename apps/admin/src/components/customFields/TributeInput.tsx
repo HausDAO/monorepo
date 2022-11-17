@@ -7,7 +7,7 @@ import {
   toWholeUnits,
 } from '@daohaus/utils';
 import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
@@ -113,7 +113,7 @@ export const TributeInput = (
   const { addressId = 'tokenAddress', amtId = 'tokenAmount' } = props;
 
   const { control, setValue } = useFormContext();
-  const { address, chainId } = useHausConnect();
+  const { address, chainId } = useDHConnect();
   const tokenAddress = useWatch({
     name: addressId,
     control,

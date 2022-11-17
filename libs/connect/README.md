@@ -45,16 +45,16 @@ After including the `<DHConnectProvider/>` component in your app, you'll be able
 
 ### Connecting to a Wallet
 
-DAOhaus Connect exposes several useful tools that can be used throughout your app. You can access these by importing `useHausConnect` from DAOhas Connect:
+DAOhaus Connect exposes several useful tools that can be used throughout your app. You can access these by importing `useDHConnect` from DAOhas Connect:
 
 ```jsx
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { useDHConnect } from '@daohaus/daohaus-connect-feature';
 ```
 
 Once this is imported, you can destructure out useful tools, such as `connectWallet`:
 
 ```jsx
-const { connectWallet } = useHausConnect();
+const { connectWallet } = useDHConnect();
 ```
 
 This can then be passed into any Button with an `onClick` handler:

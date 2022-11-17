@@ -16,12 +16,12 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { useHausConnect } from '../../HausConnectContext';
+import { useDHConnect } from '../../HausConnectContext';
 import { ExplorerLink } from '../ExplorerLink';
 
 export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const { disconnect, address, chainId, profile, validNetwork } =
-    useHausConnect();
+    useDHConnect();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);

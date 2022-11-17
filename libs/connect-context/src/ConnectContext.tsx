@@ -12,6 +12,7 @@ import {
   HAUS_NETWORK_DATA,
   isValidNetwork,
   NetworkConfigs,
+  ValidNetwork,
 } from '@daohaus/keychain-utils';
 
 import {
@@ -35,7 +36,7 @@ import {
 
 export type UserConnectType = {
   provider: ProviderType | null | undefined;
-  chainId: string | null | undefined;
+  chainId: ValidNetwork | null | undefined;
   address: string | null | undefined;
   profile: UserProfile;
   connectWallet: () => Promise<void>;

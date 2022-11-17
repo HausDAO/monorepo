@@ -20,7 +20,7 @@ import {
 import { ValidNetwork, HAUS_RPC } from '@daohaus/keychain-utils';
 
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -219,7 +219,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
   const theme = useTheme();
   const { daochain } = useParams();
   const [estimate, setEstimate] = useState<string | undefined>();
-  const { networks } = useHausConnect();
+  const { networks } = useDHConnect();
 
   useEffect(() => {
     const getGasEst = async () => {

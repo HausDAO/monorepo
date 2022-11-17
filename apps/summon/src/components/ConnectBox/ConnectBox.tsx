@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { border, Button, ParSm, Theme } from '@daohaus/ui';
 
 const ConnectBoxContainer = styled.div`
@@ -19,7 +19,7 @@ const ConnectBoxContainer = styled.div`
 `;
 
 export const ConnectBox = () => {
-  const { connectWallet } = useHausConnect();
+  const { connectWallet } = useDHConnect();
   return (
     <ConnectBoxContainer>
       <div className="inner">

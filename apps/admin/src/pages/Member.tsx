@@ -34,7 +34,7 @@ import { DaoTable } from '../components/DaohausTable';
 import { Profile } from '../components/Profile';
 import { fetchProfile } from '../utils/cacheProfile';
 import { loadMember } from '../utils/dataFetchHelpers';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 const ProfileCard = styled(Card)`
   width: 64rem;
@@ -90,7 +90,7 @@ export function Member() {
   const { dao } = useDao();
   const { successToast } = useToast();
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { networks } = useHausConnect();
+  const { networks } = useDHConnect();
   const [currentMember, setCurrentMember] = useState<
     FindMemberQuery['member'] | undefined
   >();

@@ -22,17 +22,13 @@ import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
-import {
-  DHConnectProvider,
-  HausLayout,
-  useHausConnect,
-} from '@daohaus/connect';
+import { DHConnectProvider, HausLayout, useDHConnect } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 const HomeContainer = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isConnected, address } = useHausConnect();
+  const { isConnected, address } = useDHConnect();
   const { profile } = useParams();
 
   useLayoutEffect(() => {

@@ -13,7 +13,7 @@ import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { TProposals } from '@daohaus/moloch-v3-context';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { ProposalWarning } from './ProposalWarning';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ export const ProposalDetailsGuts = ({
   proposal,
 }: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
-  const { networks } = useHausConnect();
+  const { networks } = useDHConnect();
   return (
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>

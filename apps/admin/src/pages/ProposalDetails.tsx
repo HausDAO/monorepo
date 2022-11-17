@@ -16,7 +16,7 @@ import {
   Keychain,
 } from '@daohaus/keychain-utils';
 
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
 import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
@@ -66,7 +66,7 @@ const ActionContainer = styled.div`
 
 export function ProposalDetails() {
   const { daoid, daochain, proposalId } = useParams();
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   const [proposal, setProposal] = useState<
     ITransformedProposalQuery['proposal'] | undefined

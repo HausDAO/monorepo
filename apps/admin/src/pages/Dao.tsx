@@ -1,5 +1,5 @@
 import { useParams, Outlet, useLocation } from 'react-router-dom';
-import { HausLayout, useHausConnect } from '@daohaus/connect';
+import { HausLayout, useDHConnect } from '@daohaus/connect';
 import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { useMemo } from 'react';
@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 export function Dao() {
   const { daochain, daoid } = useParams();
   const location = useLocation();
-  const { provider, address } = useHausConnect();
+  const { provider, address } = useDHConnect();
   const { dao } = useDao();
   const { connectedMembership } = useConnectedMembership();
 

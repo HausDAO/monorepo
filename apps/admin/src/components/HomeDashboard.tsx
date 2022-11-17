@@ -16,7 +16,7 @@ import { DEFAULT_SORT_KEY, getDelegateFilter, SORT_FIELDS } from '../utils/hub';
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 export enum ListType {
   Cards,
@@ -26,7 +26,7 @@ export enum ListType {
 export const HomeDashboard = () => {
   const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { appNetworks } = useHausConnect();
+  const { appNetworks } = useDHConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<string[]>(appNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');

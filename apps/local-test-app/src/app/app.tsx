@@ -1,10 +1,10 @@
-import { HausLayout, useHausConnect } from '@daohaus/connect';
+import { HausLayout, useDHConnect } from '@daohaus/connect';
 import { FormBuilder } from '@daohaus/form-builder';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { FORM } from '../assets/forms';
 
 function App() {
-  const { provider } = useHausConnect();
+  const { provider } = useDHConnect();
   return (
     <TXBuilder
       provider={provider}

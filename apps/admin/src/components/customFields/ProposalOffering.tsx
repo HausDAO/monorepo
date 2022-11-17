@@ -6,12 +6,12 @@ import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 
 export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   const { id = 'proposalOffering' } = props;
   const { daochain } = useParams();
-  const { networks } = useHausConnect();
+  const { networks } = useDHConnect();
   const { dao } = useDao();
   const { connectedMembership } = useConnectedMembership();
   const { register, setValue } = useFormContext();

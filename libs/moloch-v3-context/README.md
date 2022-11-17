@@ -34,7 +34,7 @@ Once imported you can use it as you would any other Context Provider.
 ```jsx
 export function DaoContainer() {
   const { daochain, daoid } = useParams();
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   return (
     <MolochV3ContextProvider

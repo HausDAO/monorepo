@@ -10,8 +10,6 @@ export const AddSafeForm = () => {
     refreshAll?.();
   };
 
-  console.log('COMMON_FORMS.ADD_SAFE', COMMON_FORMS.ADD_SAFE);
-
   return (
     <FormBuilder form={COMMON_FORMS.ADD_SAFE} onSuccess={onFormComplete} />
   );

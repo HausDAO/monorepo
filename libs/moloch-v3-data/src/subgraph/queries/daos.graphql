@@ -134,7 +134,7 @@ fragment daoFields on Dao {
     id
     createdAt
     active
-    ragequitable
+    ragequittable
     name
     safeAddress
   }

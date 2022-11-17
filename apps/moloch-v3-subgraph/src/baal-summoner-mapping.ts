@@ -61,7 +61,7 @@ export function handleSummonBaalV2(event: SummonBaalV2): void {
   vault.dao = daoId;
   vault.createdAt = event.block.timestamp;
   vault.active = true;
-  vault.ragequitable = true;
+  vault.ragequittable = true;
   vault.name = 'Treasury';
   vault.safeAddress = event.params.safe;
 
@@ -141,7 +141,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   vault.createdAt = event.block.timestamp;
   vault.dao = daoId;
   vault.active = true;
-  vault.ragequitable = true;
+  vault.ragequittable = true;
   vault.name = 'Treasury';
   vault.safeAddress = event.params.safe;
 

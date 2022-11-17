@@ -37,7 +37,7 @@ export interface Dao {
   createdAt: Scalars['BigInt'];
   /** address that created the dao */
   createdBy: Scalars['Bytes'];
-  /** address delegated to manage the active status of non-ragequitable vaults */
+  /** address delegated to manage the active status of non-ragequittable vaults */
   delegatedVaultManager: Scalars['Bytes'];
   eventTransactions?: Maybe<EventTransaction>;
   /** was Dao summoned by an existing safe or did it create a new safe. */
@@ -2304,8 +2304,8 @@ export interface Vault {
   id: Scalars['ID'];
   /** name assigned when vault is set */
   name: Scalars['String'];
-  /** indicates of the funds in the vault are ragequitable */
-  ragequitable: Scalars['Boolean'];
+  /** indicates of the funds in the vault are ragequittable */
+  ragequittable: Scalars['Boolean'];
   /** contract address of the gnosis safe treasury */
   safeAddress: Scalars['Bytes'];
 }
@@ -2374,10 +2374,10 @@ export interface Vault_Filter {
   name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   name_starts_with?: InputMaybe<Scalars['String']>;
   name_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  ragequitable?: InputMaybe<Scalars['Boolean']>;
-  ragequitable_in?: InputMaybe<Array<Scalars['Boolean']>>;
-  ragequitable_not?: InputMaybe<Scalars['Boolean']>;
-  ragequitable_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  ragequittable?: InputMaybe<Scalars['Boolean']>;
+  ragequittable_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  ragequittable_not?: InputMaybe<Scalars['Boolean']>;
+  ragequittable_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   safeAddress?: InputMaybe<Scalars['Bytes']>;
   safeAddress_contains?: InputMaybe<Scalars['Bytes']>;
   safeAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2392,7 +2392,7 @@ export type Vault_OrderBy =
   | 'dao'
   | 'id'
   | 'name'
-  | 'ragequitable'
+  | 'ragequittable'
   | 'safeAddress';
 
 export interface Vote {

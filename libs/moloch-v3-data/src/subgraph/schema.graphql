@@ -166,7 +166,7 @@ type Dao {
   managerLocked: Boolean!
 
   """
-  address delegated to manage the active status of non-ragequitable vaults
+  address delegated to manage the active status of non-ragequittable vaults
   """
   delegatedVaultManager: Bytes!
 
@@ -2812,8 +2812,8 @@ type Vault {
   """indicates if the vault is active"""
   active: Boolean!
 
-  """indicates of the funds in the vault are ragequitable"""
-  ragequitable: Boolean!
+  """indicates of the funds in the vault are ragequittable"""
+  ragequittable: Boolean!
 
   """name assigned when vault is set"""
   name: String!
@@ -2867,10 +2867,10 @@ input Vault_filter {
   active_not: Boolean
   active_in: [Boolean!]
   active_not_in: [Boolean!]
-  ragequitable: Boolean
-  ragequitable_not: Boolean
-  ragequitable_in: [Boolean!]
-  ragequitable_not_in: [Boolean!]
+  ragequittable: Boolean
+  ragequittable_not: Boolean
+  ragequittable_in: [Boolean!]
+  ragequittable_not_in: [Boolean!]
   name: String
   name_not: String
   name_gt: String
@@ -2902,7 +2902,7 @@ enum Vault_orderBy {
   dao
   safeAddress
   active
-  ragequitable
+  ragequittable
   name
 }
 

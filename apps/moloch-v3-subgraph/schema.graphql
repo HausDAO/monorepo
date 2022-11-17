@@ -61,7 +61,7 @@ type Dao @entity {
   governorLocked: Boolean!
   "Indicates if manager shamans can be added to the DAO"
   managerLocked: Boolean!
-  "address delegated to manage the active status of non-ragequitable vaults"
+  "address delegated to manage the active status of non-ragequittable vaults"
   delegatedVaultManager: Bytes!
   "version of the baal contract and summoner"
   baalVersion: String!
@@ -317,8 +317,8 @@ type Vault @entity {
   safeAddress: Bytes!
   "indicates if the vault is active"
   active: Boolean!
-  "indicates of the funds in the vault are ragequitable"
-  ragequitable: Boolean!
+  "indicates of the funds in the vault are ragequittable"
+  ragequittable: Boolean!
   "name assigned when vault is set"
   name: String!
 }

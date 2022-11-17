@@ -18,6 +18,8 @@ export interface Scalars {
   ChainId: any;
   /** collect module data scalar type */
   CollectModuleData: any;
+  /** ContentEncryptionKey scalar type */
+  ContentEncryptionKey: any;
   /** Contract address custom scalar type */
   ContractAddress: any;
   /** create handle custom scalar type */
@@ -26,6 +28,8 @@ export interface Scalars {
   Cursor: any;
   /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
   DateTime: any;
+  /** EncryptedValue custom scalar type */
+  EncryptedValueScalar: any;
   /** Ens custom scalar type */
   Ens: any;
   /** Ethereum address custom scalar type */
@@ -36,6 +40,8 @@ export interface Scalars {
   Handle: any;
   /** handle claim id custom scalar type */
   HandleClaimIdScalar: any;
+  /** IfpsCid scalar type */
+  IfpsCid: any;
   /** Internal publication id custom scalar type */
   InternalPublicationId: any;
   /** jwt custom scalar type */
@@ -56,6 +62,8 @@ export interface Scalars {
   NotificationId: any;
   /** ProfileId custom scalar type */
   ProfileId: any;
+  /** ProfileInterest custom scalar type */
+  ProfileInterest: any;
   /** proxy action scalar id type */
   ProxyActionId: any;
   /** Publication id custom scalar type */
@@ -76,6 +84,8 @@ export interface Scalars {
   Sources: any;
   /** timestamp date custom scalar type */
   TimestampScalar: any;
+  /** The NFT token id */
+  TokenId: any;
   /** The tx hash */
   TxHash: any;
   /** The tx id */
@@ -88,6 +98,47 @@ export interface Scalars {
   Void: any;
 }
 
+/** The access conditions for the publication */
+export interface AccessConditionInput {
+  /** AND condition */
+  and?: InputMaybe<AndConditionInput>;
+  /** Profile follow condition */
+  collect?: InputMaybe<CollectConditionInput>;
+  /** EOA ownership condition */
+  eoa?: InputMaybe<EoaOwnershipInput>;
+  /** Profile follow condition */
+  follow?: InputMaybe<FollowConditionInput>;
+  /** NFT ownership condition */
+  nft?: InputMaybe<NftOwnershipInput>;
+  /** OR condition */
+  or?: InputMaybe<OrConditionInput>;
+  /** Profile ownership condition */
+  profile?: InputMaybe<ProfileOwnershipInput>;
+  /** ERC20 token ownership condition */
+  token?: InputMaybe<Erc20OwnershipInput>;
+}
+
+/** The access conditions for the publication */
+export interface AccessConditionOutput {
+  __typename?: 'AccessConditionOutput';
+  /** AND condition */
+  and?: Maybe<AndConditionOutput>;
+  /** Profile follow condition */
+  collect?: Maybe<CollectConditionOutput>;
+  /** EOA ownership condition */
+  eoa?: Maybe<EoaOwnershipOutput>;
+  /** Profile follow condition */
+  follow?: Maybe<FollowConditionOutput>;
+  /** NFT ownership condition */
+  nft?: Maybe<NftOwnershipOutput>;
+  /** OR condition */
+  or?: Maybe<OrConditionOutput>;
+  /** Profile ownership condition */
+  profile?: Maybe<ProfileOwnershipOutput>;
+  /** ERC20 token ownership condition */
+  token?: Maybe<Erc20OwnershipOutput>;
+}
+
 export interface AchRequest {
   ethereumAddress: Scalars['EthereumAddress'];
   freeTextHandle?: InputMaybe<Scalars['Boolean']>;
@@ -97,12 +148,31 @@ export interface AchRequest {
   secret: Scalars['String'];
 }
 
+/** The request object to add interests to a profile */
+export interface AddProfileInterestsRequest {
+  /** The profile interest to add */
+  interests: Array<Scalars['ProfileInterest']>;
+  /** The profileId to add interests to */
+  profileId: Scalars['ProfileId'];
+}
+
 export interface AllPublicationsTagsRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   sort: TagSortCriteria;
   /** The App Id */
   source?: InputMaybe<Scalars['Sources']>;
+}
+
+export interface AndConditionInput {
+  /** The list of conditions to apply AND to. You can only use nested boolean conditions at the root level. */
+  criteria: Array<AccessConditionInput>;
+}
+
+export interface AndConditionOutput {
+  __typename?: 'AndConditionOutput';
+  /** The list of conditions to apply AND to. You can only use nested boolean conditions at the root level. */
+  criteria: Array<AccessConditionOutput>;
 }
 
 export interface ApprovedAllowanceAmount {
@@ -167,6 +237,12 @@ export interface CanCommentResponse {
   result: Scalars['Boolean'];
 }
 
+export interface CanDecryptResponse {
+  __typename?: 'CanDecryptResponse';
+  reasons?: Maybe<DecryptFailReason>;
+  result: Scalars['Boolean'];
+}
+
 export interface CanMirrorResponse {
   __typename?: 'CanMirrorResponse';
   result: Scalars['Boolean'];
@@ -195,6 +271,23 @@ export interface ClaimableHandles {
   __typename?: 'ClaimableHandles';
   canClaimFreeTextHandle: Scalars['Boolean'];
   reservedHandles: Array<ReservedClaimableHandle>;
+}
+
+/** Condition that signifies if address or profile has collected a publication */
+export interface CollectConditionInput {
+  /** The collected publication id */
+  publicationId: Scalars['PublicationId'];
+  /** The collected publication id */
+  publisherId: Scalars['ProfileId'];
+}
+
+/** Condition that signifies if address or profile has collected a publication */
+export interface CollectConditionOutput {
+  __typename?: 'CollectConditionOutput';
+  /** The collected publication id */
+  publicationId: Scalars['PublicationId'];
+  /** The collected publication id */
+  publisherId: Scalars['ProfileId'];
 }
 
 export type CollectModule = FeeCollectModuleSettings | FreeCollectModuleSettings | LimitedFeeCollectModuleSettings | LimitedTimedFeeCollectModuleSettings | RevertCollectModuleSettings | TimedFeeCollectModuleSettings | UnknownCollectModuleSettings;
@@ -242,6 +335,7 @@ export interface Comment {
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
   canComment: CanCommentResponse;
+  canDecrypt: CanDecryptResponse;
   canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
@@ -260,6 +354,8 @@ export interface Comment {
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is gated behind some access criteria */
+  isGated: Scalars['Boolean'];
   /** The top level post/mirror this comment lives on */
   mainPost: MainPostReference;
   /** The metadata for the post */
@@ -284,6 +380,13 @@ export interface CommentCanCommentArgs {
 
 
 /** The social comment */
+export interface CommentCanDecryptArgs {
+  address?: InputMaybe<Scalars['EthereumAddress']>;
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}
+
+
+/** The social comment */
 export interface CommentCanMirrorArgs {
   profileId?: InputMaybe<Scalars['ProfileId']>;
 }
@@ -299,6 +402,12 @@ export interface CommentMirrorsArgs {
 export interface CommentReactionArgs {
   request?: InputMaybe<ReactionFieldResolverRequest>;
 }
+
+/** The gated publication access criteria contract types */
+export type ContractType =
+  | 'ERC20'
+  | 'ERC721'
+  | 'ERC1155';
 
 /** The create burn eip 712 typed data */
 export interface CreateBurnEip712TypedData {
@@ -557,6 +666,8 @@ export interface CreatePublicCommentRequest {
   collectModule: CollectModuleParams;
   /** The metadata uploaded somewhere passing in the url to reach it */
   contentURI: Scalars['Url'];
+  /** The criteria to access the publication data */
+  gated?: InputMaybe<GatedPublicationParamsInput>;
   /** Profile id */
   profileId: Scalars['ProfileId'];
   /** Publication id of what your comments on remember if this is a comment you commented on it will be that as the id */
@@ -570,6 +681,8 @@ export interface CreatePublicPostRequest {
   collectModule: CollectModuleParams;
   /** The metadata uploaded somewhere passing in the url to reach it */
   contentURI: Scalars['Url'];
+  /** The criteria to access the publication data */
+  gated?: InputMaybe<GatedPublicationParamsInput>;
   /** Profile id */
   profileId: Scalars['ProfileId'];
   /** The reference module */
@@ -850,6 +963,18 @@ export interface CreateUnfollowBroadcastItemResult {
 export type CustomFiltersTypes =
   | 'GARDENERS';
 
+/** The reason why a profile cannot decrypt a publication */
+export type DecryptFailReason =
+  | 'COLLECT_NOT_FINALISED_ON_CHAIN'
+  | 'DOES_NOT_FOLLOW_PROFILE'
+  | 'DOES_NOT_OWN_NFT'
+  | 'DOES_NOT_OWN_PROFILE'
+  | 'FOLLOW_NOT_FINALISED_ON_CHAIN'
+  | 'HAS_NOT_COLLECTED_PUBLICATION'
+  | 'PROFILE_DOES_NOT_EXIST'
+  | 'UNAUTHORIZED_ADDRESS'
+  | 'UNAUTHORIZED_BALANCE';
+
 export interface DefaultProfileRequest {
   ethereumAddress: Scalars['EthereumAddress'];
 }
@@ -956,10 +1081,93 @@ export interface EnabledModules {
   referenceModules: Array<EnabledModule>;
 }
 
+/** The encrypted fields */
+export interface EncryptedFieldsOutput {
+  __typename?: 'EncryptedFieldsOutput';
+  /** The encrypted animation_url field */
+  animation_url?: Maybe<Scalars['EncryptedValueScalar']>;
+  /** The encrypted content field */
+  content?: Maybe<Scalars['EncryptedValueScalar']>;
+  /** The encrypted external_url field */
+  external_url?: Maybe<Scalars['EncryptedValueScalar']>;
+  /** The encrypted image field */
+  image?: Maybe<Scalars['EncryptedValueScalar']>;
+  /** The encrypted media field */
+  media?: Maybe<Array<EncryptedMediaSet>>;
+}
+
+/** The Encrypted Media url and metadata */
+export interface EncryptedMedia {
+  __typename?: 'EncryptedMedia';
+  /** The encrypted alt tags for accessibility */
+  altTag?: Maybe<Scalars['EncryptedValueScalar']>;
+  /** The encrypted cover for any video or audio you attached */
+  cover?: Maybe<Scalars['EncryptedValueScalar']>;
+  /** Height - will always be null on the public API */
+  height?: Maybe<Scalars['Int']>;
+  /** The image/audio/video mime type for the publication */
+  mimeType?: Maybe<Scalars['MimeType']>;
+  /** Size - will always be null on the public API */
+  size?: Maybe<Scalars['Int']>;
+  /** The encrypted value for the URL */
+  url: Scalars['Url'];
+  /** Width - will always be null on the public API */
+  width?: Maybe<Scalars['Int']>;
+}
+
+/** The encrypted media set */
+export interface EncryptedMediaSet {
+  __typename?: 'EncryptedMediaSet';
+  /**
+   * Medium media - will always be null on the public API
+   * @deprecated should not be used will always be null
+   */
+  medium?: Maybe<EncryptedMedia>;
+  /** Original media */
+  original: EncryptedMedia;
+  /**
+   * Small media - will always be null on the public API
+   * @deprecated should not be used will always be null
+   */
+  small?: Maybe<EncryptedMedia>;
+}
+
+/** The metadata encryption params */
+export interface EncryptionParamsOutput {
+  __typename?: 'EncryptionParamsOutput';
+  /** The access conditions */
+  accessCondition: AccessConditionOutput;
+  /** The encrypted fields */
+  encryptedFields: EncryptedFieldsOutput;
+  /** The encryption provider */
+  encryptionProvider: EncryptionProvider;
+  /** The provider-specific encryption params */
+  providerSpecificParams: ProviderSpecificParamsOutput;
+}
+
+/** The gated publication encryption provider */
+export type EncryptionProvider =
+  | 'LIT_PROTOCOL';
+
 export interface EnsOnChainIdentity {
   __typename?: 'EnsOnChainIdentity';
   /** The default ens mapped to this address */
   name?: Maybe<Scalars['Ens']>;
+}
+
+export interface EoaOwnershipInput {
+  /** The address that will have access to the content */
+  address: Scalars['EthereumAddress'];
+  /** The chain ID of the address */
+  chainID: Scalars['ChainId'];
+}
+
+export interface EoaOwnershipOutput {
+  __typename?: 'EoaOwnershipOutput';
+  /** The address that will have access to the content */
+  address: Scalars['EthereumAddress'];
+  /** The chain ID of the address */
+  chainID: Scalars['ChainId'];
 }
 
 /** The erc20 type */
@@ -984,6 +1192,33 @@ export interface Erc20Amount {
    * precision of the Asset or be truncated to the last significant decimal.
    */
   value: Scalars['String'];
+}
+
+export interface Erc20OwnershipInput {
+  /** The amount of tokens required to access the content */
+  amount: Scalars['String'];
+  /** The amount of tokens required to access the content */
+  chainID: Scalars['ChainId'];
+  /** The operator to use when comparing the amount of tokens */
+  condition: ScalarOperator;
+  /** The ERC20 token's ethereum address */
+  contractAddress: Scalars['ContractAddress'];
+  /** The amount of decimals of the ERC20 contract */
+  decimals: Scalars['Float'];
+}
+
+export interface Erc20OwnershipOutput {
+  __typename?: 'Erc20OwnershipOutput';
+  /** The amount of tokens required to access the content */
+  amount: Scalars['String'];
+  /** The amount of tokens required to access the content */
+  chainID: Scalars['ChainId'];
+  /** The operator to use when comparing the amount of tokens */
+  condition: ScalarOperator;
+  /** The ERC20 token's ethereum address */
+  contractAddress: Scalars['ContractAddress'];
+  /** The amount of decimals of the ERC20 contract */
+  decimals: Scalars['Float'];
 }
 
 /** The paginated publication result */
@@ -1128,6 +1363,17 @@ export interface Follow {
   profile: Scalars['ProfileId'];
 }
 
+export interface FollowConditionInput {
+  /** The profile id of the gated profile */
+  profileId: Scalars['ProfileId'];
+}
+
+export interface FollowConditionOutput {
+  __typename?: 'FollowConditionOutput';
+  /** The profile id of the gated profile */
+  profileId: Scalars['ProfileId'];
+}
+
 export type FollowModule = FeeFollowModuleSettings | ProfileFollowModuleSettings | RevertFollowModuleSettings | UnknownFollowModuleSettings;
 
 export interface FollowModuleParams {
@@ -1239,6 +1485,28 @@ export interface FreeCollectProxyAction {
 
 export interface FreeFollowProxyAction {
   profileId: Scalars['ProfileId'];
+}
+
+/** The access conditions for the publication */
+export interface GatedPublicationParamsInput {
+  /** AND condition */
+  and?: InputMaybe<AndConditionInput>;
+  /** Profile follow condition */
+  collect?: InputMaybe<CollectConditionInput>;
+  /** The LIT Protocol encrypted symmetric key */
+  encryptedSymmetricKey: Scalars['ContentEncryptionKey'];
+  /** EOA ownership condition */
+  eoa?: InputMaybe<EoaOwnershipInput>;
+  /** Profile follow condition */
+  follow?: InputMaybe<FollowConditionInput>;
+  /** NFT ownership condition */
+  nft?: InputMaybe<NftOwnershipInput>;
+  /** OR condition */
+  or?: InputMaybe<OrConditionInput>;
+  /** Profile ownership condition */
+  profile?: InputMaybe<ProfileOwnershipInput>;
+  /** ERC20 token ownership condition */
+  token?: InputMaybe<Erc20OwnershipInput>;
 }
 
 export interface GenerateModuleCurrencyApproval {
@@ -1400,7 +1668,7 @@ export interface Media {
   /** The alt tags for accessibility */
   altTag?: Maybe<Scalars['String']>;
   /** The cover for any video or audio you attached */
-  cover?: Maybe<Scalars['String']>;
+  cover?: Maybe<Scalars['Url']>;
   /** Height - will always be null on the public API */
   height?: Maybe<Scalars['Int']>;
   /** The image/audio/video mime type for the publication */
@@ -1411,6 +1679,19 @@ export interface Media {
   url: Scalars['Url'];
   /** Width - will always be null on the public API */
   width?: Maybe<Scalars['Int']>;
+}
+
+/** Media object output */
+export interface MediaOutput {
+  __typename?: 'MediaOutput';
+  /** The alt tags for accessibility */
+  altTag?: Maybe<Scalars['String']>;
+  /** The cover for any video or audio you attached */
+  cover?: Maybe<Scalars['Url']>;
+  item: Scalars['Url'];
+  source?: Maybe<PublicationMediaSource>;
+  /** This is the mime type of media */
+  type?: Maybe<Scalars['MimeType']>;
 }
 
 /** The Media Set */
@@ -1468,6 +1749,8 @@ export interface MetadataOutput {
   cover?: Maybe<MediaSet>;
   /** This is the metadata description */
   description?: Maybe<Scalars['Markdown']>;
+  /** The publication's encryption params in case it's encrypted */
+  encryptionParams?: Maybe<EncryptionParamsOutput>;
   /** This is the image attached to the metadata and the property used to show the NFT! */
   image?: Maybe<Scalars['Url']>;
   /** The locale of the publication,  */
@@ -1488,6 +1771,7 @@ export interface Mirror {
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
   canComment: CanCommentResponse;
+  canDecrypt: CanDecryptResponse;
   canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
@@ -1500,6 +1784,8 @@ export interface Mirror {
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is gated behind some access criteria */
+  isGated: Scalars['Boolean'];
   /** The metadata for the post */
   metadata: MetadataOutput;
   /** The mirror publication */
@@ -1518,6 +1804,13 @@ export interface Mirror {
 
 /** The social mirror */
 export interface MirrorCanCommentArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}
+
+
+/** The social mirror */
+export interface MirrorCanDecryptArgs {
+  address?: InputMaybe<Scalars['EthereumAddress']>;
   profileId?: InputMaybe<Scalars['ProfileId']>;
 }
 
@@ -1571,10 +1864,13 @@ export interface ModuleInfo {
 export interface Mutation {
   __typename?: 'Mutation';
   ach?: Maybe<Scalars['Void']>;
+  /** Adds profile interests to the given profile */
+  addProfileInterests?: Maybe<Scalars['Void']>;
   addReaction?: Maybe<Scalars['Void']>;
   authenticate: AuthenticationResult;
   broadcast: RelayResult;
   claim: RelayResult;
+  createAttachMediaData: PublicMediaResults;
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
@@ -1597,6 +1893,8 @@ export interface Mutation {
   hidePublication?: Maybe<Scalars['Void']>;
   proxyAction: Scalars['ProxyActionId'];
   refresh: AuthenticationResult;
+  /** Removes profile interests from the given profile */
+  removeProfileInterests?: Maybe<Scalars['Void']>;
   removeReaction?: Maybe<Scalars['Void']>;
   reportPublication?: Maybe<Scalars['Void']>;
 }
@@ -1604,6 +1902,11 @@ export interface Mutation {
 
 export interface MutationAchArgs {
   request: AchRequest;
+}
+
+
+export interface MutationAddProfileInterestsArgs {
+  request: AddProfileInterestsRequest;
 }
 
 
@@ -1624,6 +1927,11 @@ export interface MutationBroadcastArgs {
 
 export interface MutationClaimArgs {
   request: ClaimHandleRequest;
+}
+
+
+export interface MutationCreateAttachMediaDataArgs {
+  request: PublicMediaRequest;
 }
 
 
@@ -1748,6 +2056,11 @@ export interface MutationProxyActionArgs {
 
 export interface MutationRefreshArgs {
   request: RefreshRequest;
+}
+
+
+export interface MutationRemoveProfileInterestsArgs {
+  request: RemoveProfileInterestsRequest;
 }
 
 
@@ -1925,6 +2238,29 @@ export interface NftOwnershipChallengeResult {
   timeout: Scalars['TimestampScalar'];
 }
 
+export interface NftOwnershipInput {
+  /** The NFT chain id */
+  chainID: Scalars['ChainId'];
+  /** The NFT collection's ethereum address */
+  contractAddress: Scalars['ContractAddress'];
+  /** The unlocker contract type */
+  contractType: ContractType;
+  /** The optional token ID(s) to check for ownership */
+  tokenIds?: InputMaybe<Scalars['TokenId']>;
+}
+
+export interface NftOwnershipOutput {
+  __typename?: 'NftOwnershipOutput';
+  /** The NFT chain id */
+  chainID: Scalars['ChainId'];
+  /** The NFT collection's ethereum address */
+  contractAddress: Scalars['ContractAddress'];
+  /** The unlocker contract type */
+  contractType: ContractType;
+  /** The optional token ID(s) to check for ownership */
+  tokenIds?: Maybe<Scalars['TokenId']>;
+}
+
 export type Notification = NewCollectNotification | NewCommentNotification | NewFollowerNotification | NewMentionNotification | NewMirrorNotification | NewReactionNotification;
 
 export interface NotificationRequest {
@@ -1964,6 +2300,17 @@ export interface OnChainIdentity {
   sybilDotOrg: SybilDotOrgIdentity;
   /** The worldcoin identity */
   worldcoin: WorldcoinIdentity;
+}
+
+export interface OrConditionInput {
+  /** The list of conditions to apply OR to. You can only use nested boolean conditions at the root level. */
+  criteria: Array<AccessConditionInput>;
+}
+
+export interface OrConditionOutput {
+  __typename?: 'OrConditionOutput';
+  /** The list of conditions to apply OR to. You can only use nested boolean conditions at the root level. */
+  criteria: Array<AccessConditionOutput>;
 }
 
 /** The nft type */
@@ -2084,6 +2431,7 @@ export interface Post {
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
   canComment: CanCommentResponse;
+  canDecrypt: CanDecryptResponse;
   canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
@@ -2101,6 +2449,8 @@ export interface Post {
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is gated behind some access criteria */
+  isGated: Scalars['Boolean'];
   /** The metadata for the post */
   metadata: MetadataOutput;
   mirrors: Array<Scalars['InternalPublicationId']>;
@@ -2118,6 +2468,13 @@ export interface Post {
 
 /** The social post */
 export interface PostCanCommentArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}
+
+
+/** The social post */
+export interface PostCanDecryptArgs {
+  address?: InputMaybe<Scalars['EthereumAddress']>;
   profileId?: InputMaybe<Scalars['ProfileId']>;
 }
 
@@ -2158,6 +2515,8 @@ export interface Profile {
   handle: Scalars['Handle'];
   /** The profile id */
   id: Scalars['ProfileId'];
+  /** The profile interests */
+  interests?: Maybe<Array<Scalars['ProfileInterest']>>;
   /** Is the profile default */
   isDefault: Scalars['Boolean'];
   isFollowedByMe: Scalars['Boolean'];
@@ -2208,6 +2567,19 @@ export type ProfileMedia = MediaSet | NftImage;
 
 export interface ProfileOnChainIdentityRequest {
   profileIds: Array<Scalars['ProfileId']>;
+}
+
+/** Condition that signifies if address has access to profile */
+export interface ProfileOwnershipInput {
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
+}
+
+/** Condition that signifies if address has access to profile */
+export interface ProfileOwnershipOutput {
+  __typename?: 'ProfileOwnershipOutput';
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
 }
 
 export interface ProfilePublicationRevenueQueryRequest {
@@ -2319,6 +2691,13 @@ export interface ProfileStatsPublicationsTotalArgs {
   forSources: Array<Scalars['Sources']>;
 }
 
+/** The provider-specific encryption params */
+export interface ProviderSpecificParamsOutput {
+  __typename?: 'ProviderSpecificParamsOutput';
+  /** The encryption key */
+  encryptionKey: Scalars['ContentEncryptionKey'];
+}
+
 export interface ProxyActionError {
   __typename?: 'ProxyActionError';
   lastKnownTxId?: Maybe<Scalars['TxId']>;
@@ -2350,6 +2729,26 @@ export type ProxyActionStatusTypes =
   | 'MINTING'
   | 'TRANSFERRING';
 
+export interface PublicMediaRequest {
+  /** The alt tags for accessibility */
+  altTag?: InputMaybe<Scalars['String']>;
+  /** The cover for any video or audio you attached */
+  cover?: InputMaybe<Scalars['Url']>;
+  /** Pre calculated cid of the file to push */
+  itemCid: Scalars['IfpsCid'];
+  /** This is the mime type of media */
+  type?: InputMaybe<Scalars['MimeType']>;
+}
+
+/** The response to upload the attached file */
+export interface PublicMediaResults {
+  __typename?: 'PublicMediaResults';
+  /** ipfs uri to add on the metadata */
+  media: MediaOutput;
+  /** Signed url to push the file */
+  signedUrl: Scalars['String'];
+}
+
 export type Publication = Comment | Mirror | Post;
 
 /** The publication content warning */
@@ -2369,6 +2768,10 @@ export type PublicationMainFocus =
   | 'LINK'
   | 'TEXT_ONLY'
   | 'VIDEO';
+
+/** The source of the media */
+export type PublicationMediaSource =
+  | 'LENS';
 
 /** Publication metadata content waring filters */
 export interface PublicationMetadataContentWarningFilter {
@@ -2394,13 +2797,14 @@ export interface PublicationMetadataFilters {
   tags?: InputMaybe<PublicationMetadataTagsFilter>;
 }
 
-/** The metadata attribute output */
+/** The metadata attribute input */
 export interface PublicationMetadataMediaInput {
   /** The alt tags for accessibility */
   altTag?: InputMaybe<Scalars['String']>;
   /** The cover for any video or audio you attached */
-  cover?: InputMaybe<Scalars['String']>;
+  cover?: InputMaybe<Scalars['Url']>;
   item: Scalars['Url'];
+  source?: InputMaybe<PublicationMediaSource>;
   /** This is the mime type of media */
   type?: InputMaybe<Scalars['MimeType']>;
 }
@@ -2692,6 +3096,8 @@ export interface Query {
   profile?: Maybe<Profile>;
   profileFollowModuleBeenRedeemed: Scalars['Boolean'];
   profileFollowRevenue: FollowRevenueResult;
+  /** Get the list of profile interests */
+  profileInterests: Array<Scalars['ProfileInterest']>;
   profileOnChainIdentity: Array<OnChainIdentity>;
   profilePublicationRevenue: ProfilePublicationRevenueResult;
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult;
@@ -3010,6 +3416,14 @@ export interface RelayerResult {
   txId: Scalars['TxId'];
 }
 
+/** The request object to remove interests from a profile */
+export interface RemoveProfileInterestsRequest {
+  /** The profile interest to add */
+  interests: Array<Scalars['ProfileInterest']>;
+  /** The profileId to add interests to */
+  profileId: Scalars['ProfileId'];
+}
+
 export interface ReportPublicationRequest {
   additionalComments?: InputMaybe<Scalars['String']>;
   publicationId: Scalars['InternalPublicationId'];
@@ -3049,6 +3463,15 @@ export interface RevertFollowModuleSettings {
   /** The follow module enum */
   type: FollowModules;
 }
+
+/** The gated publication access criteria scalar operators */
+export type ScalarOperator =
+  | 'EQUAL'
+  | 'GREATER_THAN'
+  | 'GREATER_THAN_OR_EQUAL'
+  | 'LESS_THAN'
+  | 'LESS_THAN_OR_EQUAL'
+  | 'NOT_EQUAL';
 
 export interface SearchQueryRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;

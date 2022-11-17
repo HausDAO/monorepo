@@ -71,13 +71,17 @@ export function Safes() {
         </Dialog>
       }
     >
-      {dao?.vaults.map((vault) => (
-        <VaultContainer>
-          {dao && vault && (
-            <VaultOverview dao={dao} vault={vault} key={vault.id} />
-          )}
-        </VaultContainer>
-      ))}
+      {dao?.vaults
+        .sort((a, b) => Number(b.ragequittable) - Number(a.ragequittable))
+        .map(
+          (vault) =>
+            dao &&
+            vault && (
+              <VaultContainer key={vault.id}>
+                <VaultOverview dao={dao} vault={vault} />
+              </VaultContainer>
+            )
+        )}
     </SingleColumnLayout>
   );
 }

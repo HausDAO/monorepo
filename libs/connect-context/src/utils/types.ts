@@ -3,11 +3,6 @@ import { ICoreOptions } from 'web3modal';
 
 import { AccountProfile } from '@daohaus/utils';
 
-export type ModalEvents = (
-  eventName: 'error' | 'accountsChanged' | 'chainChanged',
-  error?: { code: string; message: string }
-) => void;
-
 export type ConnectLifecycleFns = {
   onConnect?: () => void;
   onDisconnect?: () => void;

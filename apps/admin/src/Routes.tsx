@@ -23,7 +23,7 @@ import { DaoContainer } from './pages/DaoContainer';
 import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
 import {
-  HausConnectProvider,
+  DHConnectProvider,
   HausLayout,
   useHausConnect,
 } from '@daohaus/connect';
@@ -79,7 +79,7 @@ const Routes = () => {
   }, [pathMatch?.params?.daochain, setDaoChainId, daoChainId]);
 
   return (
-    <HausConnectProvider daoChainId={daoChainId}>
+    <DHConnectProvider daoChainId={daoChainId}>
       <Banner />
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>
@@ -99,7 +99,7 @@ const Routes = () => {
           <Route path="members/ragequit" element={<RageQuit />} />
         </Route>
       </RoutesDom>
-    </HausConnectProvider>
+    </DHConnectProvider>
   );
 };
 

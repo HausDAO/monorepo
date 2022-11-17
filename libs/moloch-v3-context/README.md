@@ -49,7 +49,7 @@ export function DaoContainer() {
 }
 ```
 
-After including the `<HausConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
+After including the `<DHConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
 
 ### Accessing data
 

@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './app/app';
 import { HausThemeProvider } from '@daohaus/ui';
-import { HausConnectProvider } from '@daohaus/connect';
+import { DHConnectProvider } from '@daohaus/connect';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,9 +10,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <HausThemeProvider>
-      <HausConnectProvider>
+      <DHConnectProvider>
         <App />
-      </HausConnectProvider>
+      </DHConnectProvider>
     </HausThemeProvider>
   </StrictMode>
 );

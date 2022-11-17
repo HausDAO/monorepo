@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 
 import { HausThemeProvider } from '@daohaus/ui';
-import { HausConnectProvider } from '@daohaus/connect';
+import { DHConnectProvider } from '@daohaus/connect';
 
 import App from './app/App';
 
@@ -18,9 +18,9 @@ root.render(
   <StrictMode>
     <HashRouter>
       <HausThemeProvider>
-        <HausConnectProvider>
+        <DHConnectProvider>
           <App />
-        </HausConnectProvider>
+        </DHConnectProvider>
       </HausThemeProvider>
     </HashRouter>
   </StrictMode>

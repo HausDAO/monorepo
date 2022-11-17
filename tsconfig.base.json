@@ -20,6 +20,7 @@
     "paths": {
       "@daohaus/abis": ["libs/abis/src/index.ts"],
       "@daohaus/connect": ["libs/connect/src/index.ts"],
+      "@daohaus/connect-context": ["libs/connect-context/src/index.ts"],
       "@daohaus/contract-utils": ["libs/contract-utils/src/index.ts"],
       "@daohaus/form-builder": ["libs/form-builder/src/index.ts"],
       "@daohaus/keychain-utils": ["libs/keychain-utils/src/index.ts"],

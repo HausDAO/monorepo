@@ -4,8 +4,9 @@ import {
   formatShortDateTimeFromSeconds,
   formatValueTo,
   fromWei,
-  Keychain,
 } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { TProposals } from '@daohaus/moloch-v3-context';
 import { DataMd, ParMd, widthQuery } from '@daohaus/ui';
 

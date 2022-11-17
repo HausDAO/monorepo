@@ -1,7 +1,8 @@
 import { BiError } from 'react-icons/bi';
 import styled from 'styled-components';
 
-import { getNetworkName, Keychain, NetworkType } from '@daohaus/utils';
+import { Keychain, getNetworkName, NetworkType } from '@daohaus/keychain-utils';
+
 import {
   Button,
   Dropdown,

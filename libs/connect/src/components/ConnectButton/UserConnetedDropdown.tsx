@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
 
-import { getNetworkName, truncateAddress } from '@daohaus/utils';
+import { truncateAddress } from '@daohaus/utils';
+import { getNetworkName } from '@daohaus/keychain-utils';
+
 import {
   Button,
   Dropdown,

@@ -17,7 +17,9 @@ import {
 import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { charLimit, formatLongDateFromSeconds, Keychain } from '@daohaus/utils';
+import { charLimit, formatLongDateFromSeconds } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { SettingsLinkList } from './MetadataLinkLists';
 

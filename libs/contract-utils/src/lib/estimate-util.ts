@@ -1,5 +1,9 @@
-import { CONTRACT_KEYCHAINS, ENDPOINTS, ValidNetwork } from '@daohaus/utils';
 import { getAddress } from 'ethers/lib/utils';
+import {
+  CONTRACT_KEYCHAINS,
+  ValidNetwork,
+  ENDPOINTS,
+} from '@daohaus/keychain-utils';
 
 export const estimateGas = async ({
   chainId,

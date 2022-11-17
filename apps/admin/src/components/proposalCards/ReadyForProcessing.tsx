@@ -11,12 +11,12 @@ import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
   getProcessingGasLimit,
   handleErrorMessage,
-  isValidNetwork,
   ReactSetter,
   roundedPercentage,
   TXLego,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';

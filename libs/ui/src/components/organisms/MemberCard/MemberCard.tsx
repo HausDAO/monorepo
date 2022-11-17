@@ -1,12 +1,8 @@
 import React, { useMemo } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
-import {
-  generateExplorerLink,
-  truncateAddress,
-  ValidNetwork,
-} from '@daohaus/utils';
-import { AccountProfile } from '@daohaus/utils';
+import { generateExplorerLink, ValidNetwork } from '@daohaus/keychain-utils';
+import { AccountProfile, truncateAddress } from '@daohaus/utils';
 
 import { ParMd } from '../../atoms';
 

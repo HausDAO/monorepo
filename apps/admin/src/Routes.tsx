@@ -28,7 +28,6 @@ import {
   useHausConnect,
 } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { HAUS_RPC } from '@daohaus/utils';
 
 const HomeContainer = () => {
   const location = useLocation();

@@ -1,4 +1,4 @@
-import { ValidNetwork } from '..';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 export type ContractKey =
   | 'V3_FACTORY'

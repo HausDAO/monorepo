@@ -1,7 +1,7 @@
 import { IProviderOptions } from 'web3modal';
 import WalletConnectProvider from '@walletconnect/ethereum-provider';
 
-import { HAUS_RPC } from '@daohaus/utils';
+import { HAUS_RPC } from '@daohaus/keychain-utils';
 
 const providerOptions: IProviderOptions = {
   walletconnect: {

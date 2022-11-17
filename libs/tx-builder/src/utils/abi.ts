@@ -1,5 +1,7 @@
 import { ethers } from 'ethers';
-import { ABI, HAUS_RPC, isJSON, Keychain, ValidNetwork } from '@daohaus/utils';
+import { ABI, isJSON } from '@daohaus/utils';
+import { Keychain, HAUS_RPC, ValidNetwork } from '@daohaus/keychain-utils';
+
 import { cacheABI, getCachedABI } from './cache';
 import { LOCAL_ABI } from '@daohaus/abis';
 

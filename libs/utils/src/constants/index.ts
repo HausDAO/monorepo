@@ -1,4 +1,3 @@
-export * from '../keychains/endpoints';
 export * from './posterTags';
 export * from './proposals';
 export * from './posterTags';

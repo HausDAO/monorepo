@@ -1,4 +1,6 @@
-import { Keychain, ReactSetter } from '@daohaus/utils';
+import { ReactSetter } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   FindMemberQuery,
   Haus,

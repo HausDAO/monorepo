@@ -2,9 +2,10 @@ import {
   AccountProfile,
   DaoTokenBalances,
   ITransformedMembershipsQuery,
-  Keychain,
   nowInSeconds,
 } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   ENSDomain,
   ICrossNetworkMemberListArguments,

@@ -1,4 +1,4 @@
-import { ValidNetwork } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 import { Haus } from '@daohaus/moloch-v3-data';
 
 export const fetchDaos = async (

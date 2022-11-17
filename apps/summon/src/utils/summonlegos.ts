@@ -1,5 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
-import { ContractLego, CONTRACT_KEYCHAINS } from '@daohaus/utils';
+import { ContractLego } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 
 const BaalSummonerContract: ContractLego = {
   contractName: 'BaalSummoner',

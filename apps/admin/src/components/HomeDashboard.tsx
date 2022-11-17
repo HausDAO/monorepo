@@ -1,12 +1,7 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import {
-  handleErrorMessage,
-  isValidNetwork,
-  ITransformedMembership,
-  ValidNetwork,
-} from '@daohaus/utils';
+import { handleErrorMessage, ITransformedMembership } from '@daohaus/utils';
 import { Haus } from '@daohaus/moloch-v3-data';
 import {
   H2,
@@ -15,6 +10,7 @@ import {
   useDebounce,
   widthQuery,
 } from '@daohaus/ui';
+import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { DEFAULT_SORT_KEY, getDelegateFilter, SORT_FIELDS } from '../utils/hub';
 import { DaoList } from './DaoList';

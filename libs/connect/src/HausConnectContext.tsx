@@ -8,7 +8,11 @@ import {
   useState,
 } from 'react';
 
-import { HAUS_NETWORK_DATA, isValidNetwork } from '@daohaus/utils';
+import {
+  HAUS_NETWORK_DATA,
+  isValidNetwork,
+  NetworkConfigs,
+} from '@daohaus/keychain-utils';
 
 import {
   getModal,
@@ -28,7 +32,6 @@ import {
   UserProfile,
   WalletStateType,
 } from './utils/types';
-import { NetworkConfigs } from '@daohaus/utils';
 
 export type UserConnectType = {
   provider: ProviderType | null | undefined;

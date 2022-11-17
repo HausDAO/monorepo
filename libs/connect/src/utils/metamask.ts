@@ -1,6 +1,10 @@
 import { utils } from 'ethers';
 
-import { isValidNetwork, NetworkConfig, NetworkConfigs } from '@daohaus/utils';
+import {
+  isValidNetwork,
+  NetworkConfig,
+  NetworkConfigs,
+} from '@daohaus/keychain-utils';
 
 type SwitchError = Error & { code: number };
 const isSwitchError = (err: unknown): err is SwitchError =>

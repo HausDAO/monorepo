@@ -1,7 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
   ArgType,
-  CONTRACT_KEYCHAINS,
   encodeFunction,
   encodeValues,
   getNonce,
@@ -10,9 +9,9 @@ import {
   isString,
   POSTER_TAGS,
   toBaseUnits,
-  ValidNetwork,
   ZERO_ADDRESS,
 } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';

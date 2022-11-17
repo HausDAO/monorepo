@@ -9,12 +9,13 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { ITransformedProposalQuery } from '@daohaus/moloch-v3-data';
+import { MulticallArg } from '@daohaus/utils';
 import {
   isValidNetwork,
-  Keychain,
-  MulticallArg,
   ValidNetwork,
-} from '@daohaus/utils';
+  Keychain,
+} from '@daohaus/keychain-utils';
+
 import { useHausConnect } from '@daohaus/connect';
 
 import { loadProposal } from '../utils/dataFetchHelpers';

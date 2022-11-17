@@ -1,13 +1,12 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
-  CONTRACT_KEYCHAINS,
   handleErrorMessage,
   isEthAddress,
-  isValidNetwork,
   ReactSetter,
   toBaseUnits,
   toWholeUnits,
 } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
 import { useHausConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';

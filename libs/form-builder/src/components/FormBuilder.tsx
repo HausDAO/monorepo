@@ -8,12 +8,9 @@ import {
 import { DevTool } from '@hookform/devtools';
 
 import { FormLayout, useToast } from '@daohaus/ui';
-import {
-  handleErrorMessage,
-  isValidNetwork,
-  LookupType,
-  RequiredFields,
-} from '@daohaus/utils';
+import { handleErrorMessage, LookupType, RequiredFields } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import { useHausConnect } from '@daohaus/connect';
 
 import { FormLego } from '../types';

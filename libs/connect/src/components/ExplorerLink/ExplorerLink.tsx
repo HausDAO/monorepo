@@ -6,7 +6,7 @@ import {
   generateExplorerLink,
   isValidNetwork,
   ValidNetwork,
-} from '@daohaus/utils';
+} from '@daohaus/keychain-utils';
 import { Link } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';

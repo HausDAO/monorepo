@@ -14,11 +14,11 @@ import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {
   checkHasQuorum,
   getGasCostEstimate,
-  HAUS_RPC,
   percentage,
   toWholeUnits,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { ValidNetwork, HAUS_RPC } from '@daohaus/keychain-utils';
+
 import { useParams } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/connect';
 

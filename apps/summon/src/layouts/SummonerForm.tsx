@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useHausConnect } from '@daohaus/connect';
-import { isValidNetwork, ReactSetter } from '@daohaus/utils';
+import { ReactSetter } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import {
   Bold,
   Button,

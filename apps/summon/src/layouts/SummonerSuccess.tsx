@@ -11,7 +11,9 @@ import {
 
 import { InfoSection } from './FormLayouts';
 import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
-import { Keychain, ReactSetter } from '@daohaus/utils';
+import { ReactSetter } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { SummonStates } from '../app/App';
 import styled from 'styled-components';
 

@@ -6,9 +6,9 @@ import {
   formatShortDateTimeFromSeconds,
   formatValueTo,
   fromWei,
-  Keychain,
-  ValidNetwork,
 } from '@daohaus/utils';
+
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { TProposals } from '@daohaus/moloch-v3-context';
 import { MemberProfileAvatar } from './MemberProfileAvatar';

@@ -4,8 +4,9 @@ import {
   isArgType,
   JSONDetailsSearch,
   StringSearch,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
+
 import { processArg } from './args';
 
 export const checkArgType = (arg: unknown) => {

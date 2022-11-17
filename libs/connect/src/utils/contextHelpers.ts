@@ -1,4 +1,5 @@
-import { isValidNetwork, NetworkConfigs } from '@daohaus/utils';
+import { isValidNetwork, NetworkConfigs } from '@daohaus/keychain-utils';
+
 import { Haus } from '@daohaus/moloch-v3-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';

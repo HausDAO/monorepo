@@ -1,4 +1,6 @@
-import { fromWei, isValidNetwork } from '@daohaus/utils';
+import { fromWei } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
 import { useEffect, useState } from 'react';

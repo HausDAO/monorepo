@@ -2,11 +2,9 @@ import { useState, useCallback } from 'react';
 import { BigNumberish, BytesLike } from 'ethers';
 import { hashMessage, _TypedDataEncoder } from 'ethers/lib/utils';
 import { LOCAL_ABI } from '@daohaus/abis';
-import {
-  CONTRACT_KEYCHAINS,
-  encodeFunction,
-  ValidNetwork,
-} from '@daohaus/utils';
+import { encodeFunction } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
+
 import WalletConnect from '@walletconnect/client';
 import { IClientMeta } from '@walletconnect/types';
 

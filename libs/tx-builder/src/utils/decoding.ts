@@ -1,14 +1,17 @@
 import { BigNumber, utils } from 'ethers';
 import {
   ArgType,
-  CONTRACT_KEYCHAINS,
   ENCODED_0X0_DATA,
   MulticallAction,
-  HAUS_NETWORK_DATA,
   StringSearch,
   ValidArgType,
-  ValidNetwork,
 } from '@daohaus/utils';
+import {
+  CONTRACT_KEYCHAINS,
+  HAUS_NETWORK_DATA,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
+
 import { LOCAL_ABI } from '@daohaus/abis';
 import { createContract, fetchABI, getCode } from './abi';
 import { isSearchArg } from './args';

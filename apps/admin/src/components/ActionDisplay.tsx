@@ -1,9 +1,6 @@
-import {
-  ArgType,
-  isEthAddress,
-  isValidNetwork,
-  ValidNetwork,
-} from '@daohaus/utils';
+import { ArgType, isEthAddress } from '@daohaus/utils';
+
+import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
 import {
   DecodedAction,
   DecodedMultiTX,

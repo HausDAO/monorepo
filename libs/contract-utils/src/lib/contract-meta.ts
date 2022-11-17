@@ -1,5 +1,6 @@
 import { ContractABIKey, LOCAL_ABI } from '@daohaus/abis';
-import { ValidNetwork, CONTRACT_KEYCHAINS, ContractKey } from '@daohaus/utils';
+import { ContractKey } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 
 /**
  * Get addresses of contracts that have been deployed to the

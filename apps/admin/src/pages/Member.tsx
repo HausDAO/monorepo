@@ -20,13 +20,14 @@ import {
 } from '@daohaus/ui';
 import {
   formatValueTo,
-  Keychain,
   memberTokenBalanceShare,
   memberUsdValueShare,
   charLimit,
   NETWORK_TOKEN_ETH_ADDRESS,
   AccountProfile,
 } from '@daohaus/utils';
+
+import { Keychain } from '@daohaus/keychain-utils';
 
 import { ButtonLink } from '../components/ButtonLink';
 import { DaoTable } from '../components/DaohausTable';

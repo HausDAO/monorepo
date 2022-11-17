@@ -1,6 +1,5 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
-  CONTRACT_KEYCHAINS,
   NestedArray,
   POSTER_TAGS,
   TABULA_TAGS,
@@ -9,6 +8,8 @@ import {
   ValidArgType,
   TXLegoBase,
 } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
+
 import { buildMultiCallTX } from '@daohaus/tx-builder';
 import { MaxUint256 } from '@ethersproject/constants';
 import { ProposalTypeIds } from '../utils/constants';

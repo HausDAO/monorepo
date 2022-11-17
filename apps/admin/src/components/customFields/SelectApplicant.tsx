@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useMembers } from '@daohaus/moloch-v3-context';
-import { Keychain } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   Buildable,
   Button,

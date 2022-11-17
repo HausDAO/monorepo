@@ -4,7 +4,7 @@ import { FaQrcode } from 'react-icons/fa';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { ValidNetwork } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 import { useDao } from '@daohaus/moloch-v3-context';
 import {
   border,

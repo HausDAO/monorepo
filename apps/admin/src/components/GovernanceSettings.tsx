@@ -16,10 +16,12 @@ import {
   formatPeriods,
   formatValueTo,
   fromWei,
-  getNetwork,
   INFO_COPY,
   lowerCaseLootToken,
 } from '@daohaus/utils';
+
+import { getNetwork } from '@daohaus/keychain-utils';
+
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 

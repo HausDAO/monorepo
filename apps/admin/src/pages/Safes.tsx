@@ -10,7 +10,7 @@ import {
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { VaultOverview } from '../components/VaultOverview';
 import AddSafeForm from '../components/AddSafeForm';
 
@@ -27,6 +27,7 @@ const VaultContainer = styled(Card)`
 
 export function Safes() {
   const { dao } = useDao();
+  const { connectedMembership } = useConnectedMembership();
 
   const isMobile = useBreakpoint(widthQuery.sm);
 

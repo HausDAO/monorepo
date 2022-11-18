@@ -1,5 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
-import { ContractLego, CONTRACTS } from '@daohaus/utils';
+import { ContractLego } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 
 export const CONTRACT: Record<string, ContractLego> = {
   POSTER: {
@@ -34,7 +35,7 @@ export const CONTRACT: Record<string, ContractLego> = {
     type: 'static',
     contractName: 'Tribute Minion',
     abi: LOCAL_ABI.TRIBUTE_MINION,
-    targetAddress: CONTRACTS.TRIBUTE_MINION,
+    targetAddress: CONTRACT_KEYCHAINS.TRIBUTE_MINION,
   },
   SHARES_ERC20: {
     type: 'static',

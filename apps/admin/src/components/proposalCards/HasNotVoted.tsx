@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { formatShares, handleErrorMessage, TXLego } from '@daohaus/utils';
 import { ITransformedProposal } from '@daohaus/moloch-v3-data';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
 
@@ -33,7 +33,7 @@ export const HasNotVoted = ({
   readableTime?: string;
 }) => {
   const { daochain } = useParams();
-  const { chainId } = useHausConnect();
+  const { chainId } = useDHConnect();
   const { connectedMembership } = useConnectedMembership();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();

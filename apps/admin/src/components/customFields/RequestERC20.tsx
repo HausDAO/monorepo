@@ -1,10 +1,11 @@
 import {
   handleBaseUnits,
   ignoreEmptyVal,
-  isValidNetwork,
   toWholeUnits,
   ValidateField,
 } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import { Buildable, Button, WrappedInputSelect } from '@daohaus/ui';
 import { useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';

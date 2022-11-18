@@ -5,12 +5,8 @@ import { indigoDark } from '@radix-ui/colors';
 
 import { ITransformedMembership } from '@daohaus/utils';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
-import {
-  charLimit,
-  getNetworkName,
-  readableNumbers,
-  truncateAddress,
-} from '@daohaus/utils';
+import { charLimit, readableNumbers, truncateAddress } from '@daohaus/utils';
+import { getNetworkName } from '@daohaus/keychain-utils';
 
 // REVIEW NOTES
 // Can this be refactored to use DaoHaus Table?

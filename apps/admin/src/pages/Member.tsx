@@ -24,8 +24,6 @@ import {
 } from '@daohaus/ui';
 import {
   formatValueTo,
-  Keychain,
-  NETWORK_DATA,
   memberTokenBalanceShare,
   memberUsdValueShare,
   charLimit,
@@ -33,11 +31,14 @@ import {
   AccountProfile,
 } from '@daohaus/utils';
 
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { ButtonLink } from '../components/ButtonLink';
 import { DaoTable } from '../components/DaohausTable';
 import { Profile } from '../components/Profile';
 import { fetchProfile } from '../utils/cacheProfile';
 import { loadMember } from '../utils/dataFetchHelpers';
+import { useDHConnect } from '@daohaus/connect';
 
 const ProfileCard = styled(Card)`
   width: 64rem;
@@ -91,6 +92,9 @@ export const ValueRow = styled.div`
 export function Member() {
   const { daochain, daoid, memberAddress } = useParams();
   const { dao } = useDao();
+  const { successToast } = useToast();
+  const isMobile = useBreakpoint(widthQuery.sm);
+  const { networks } = useDHConnect();
   const [currentMember, setCurrentMember] = useState<
     FindMemberQuery['member'] | undefined
   >();
@@ -99,9 +103,6 @@ export function Member() {
   const [currentProfile, setCurrentProfile] = useState<
     AccountProfile | undefined
   >();
-  const { successToast } = useToast();
-
-  const isMobile = useBreakpoint(widthQuery.sm);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -201,7 +202,7 @@ export function Member() {
         accessor: 'token',
         Cell: ({ value }: { value: TokenTableType['token'] }) => {
           return value.address === NETWORK_TOKEN_ETH_ADDRESS ? (
-            <DataMd>{NETWORK_DATA[daochain as keyof Keychain]?.symbol}</DataMd>
+            <DataMd>{networks?.[daochain as keyof Keychain]?.symbol}</DataMd>
           ) : (
             <AddressDisplay
               address={value.address}
@@ -230,7 +231,7 @@ export function Member() {
         },
       },
     ],
-    [daochain]
+    [daochain, networks]
   );
 
   const handleOnClick = () => {

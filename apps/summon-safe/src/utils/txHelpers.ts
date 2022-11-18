@@ -1,15 +1,11 @@
 import { Contract, utils } from 'ethers';
 import { LOCAL_ABI } from '@daohaus/abis';
-import { ENDPOINTS, ValidNetwork } from '@daohaus/utils';
+import { ENDPOINTS, ValidNetwork } from '@daohaus/keychain-utils';
 import SafeAppsSDK, {
   GatewayTransactionDetails,
 } from '@gnosis.pm/safe-apps-sdk';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
-import {
-  calculateProxyAddress,
-  CONTRACT_ABIS,
-  // CONTRACT_ADDRESSES,
-} from '@gnosis.pm/zodiac';
+import { calculateProxyAddress, CONTRACT_ABIS } from '@gnosis.pm/zodiac';
 
 import { handleKeychains } from './summonTx';
 

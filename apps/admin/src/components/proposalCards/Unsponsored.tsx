@@ -5,7 +5,7 @@ import {
   TXLego,
 } from '@daohaus/utils';
 import { ITransformedProposal } from '@daohaus/moloch-v3-data';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import {
   Italic,
@@ -36,7 +36,7 @@ export const Unsponsored = ({
   const { daochain } = useParams();
   const { fireTransaction } = useTxBuilder();
   const { connectedMembership } = useConnectedMembership();
-  const { chainId } = useHausConnect();
+  const { chainId } = useDHConnect();
   const { errorToast, defaultToast, successToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const { dao, refreshAll } = useDao();

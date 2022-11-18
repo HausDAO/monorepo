@@ -1,12 +1,13 @@
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import {
-  getNetwork,
   formatValueTo,
   memberTokenBalanceShare,
   memberUsdValueShare,
   NETWORK_TOKEN_ETH_ADDRESS,
 } from '@daohaus/utils';
+import { getNetwork } from '@daohaus/keychain-utils';
+
 import {
   Buildable,
   Field,

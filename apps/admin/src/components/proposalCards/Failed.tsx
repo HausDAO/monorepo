@@ -4,7 +4,7 @@ import {
   roundedPercentage,
 } from '@daohaus/utils';
 import { ITransformedProposal } from '@daohaus/moloch-v3-data';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { useMemo } from 'react';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
@@ -36,7 +36,7 @@ const getFailReason = ({
 };
 
 export const Failed = ({ proposal }: { proposal: ITransformedProposal }) => {
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
   const percentNo = roundedPercentage(
     Number(proposal.noBalance),
     Number(proposal.dao.totalShares)

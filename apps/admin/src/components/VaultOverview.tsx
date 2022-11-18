@@ -12,7 +12,8 @@ import {
   widthQuery,
   Tag,
 } from '@daohaus/ui';
-import { formatValueTo, generateGnosisUiLink, Keychain } from '@daohaus/utils';
+import { formatValueTo, generateGnosisUiLink } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
 
 import { TDao } from '@daohaus/moloch-v3-context';
 import { TransformedVault } from '@daohaus/moloch-v3-data';

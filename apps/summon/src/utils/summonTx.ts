@@ -1,7 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
   ArgType,
-  CONTRACTS,
   DAOHAUS_SUMMONER_REFERRER,
   encodeFunction,
   encodeValues,
@@ -11,9 +10,9 @@ import {
   isString,
   POSTER_TAGS,
   toBaseUnits,
-  ValidNetwork,
   ZERO_ADDRESS,
 } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';
@@ -190,7 +189,7 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
 };
 
 const handleKeychains = (chainId: ValidNetwork) => {
-  const { V3_FACTORY, POSTER } = CONTRACTS;
+  const { V3_FACTORY, POSTER } = CONTRACT_KEYCHAINS;
   const v3Contracts = [V3_FACTORY, POSTER];
 
   if (v3Contracts.every((contract) => contract[chainId])) {

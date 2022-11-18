@@ -1,4 +1,5 @@
-import { NETWORK_DATA, TokenBalance, ValidNetwork } from '@daohaus/utils';
+import { TokenBalance } from '@daohaus/utils';
+import { HAUS_NETWORK_DATA, ValidNetwork } from '@daohaus/keychain-utils';
 import { DaoWithTokenData } from '@daohaus/moloch-v3-data';
 
 const isNetworkToken = (tokenData: TokenBalance) => {
@@ -37,9 +38,10 @@ export const getErc20s = (treasury: DaoWithTokenData['vaults'][number]) => {
 export const getNetworkToken = (
   daoData: DaoWithTokenData,
   daochain: ValidNetwork,
-  safeAddress: string
+  safeAddress: string,
+  networks = HAUS_NETWORK_DATA
 ) => {
-  const networkData = NETWORK_DATA[daochain];
+  const networkData = networks[daochain];
   const treasury = daoData.vaults.find((v) => {
     if (!safeAddress) return v.safeAddress === daoData.safeAddress;
     return v.safeAddress === safeAddress;

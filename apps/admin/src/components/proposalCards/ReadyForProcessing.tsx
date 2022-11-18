@@ -5,18 +5,18 @@ import { useBreakpoint, useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { useDao } from '@daohaus/moloch-v3-context';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
   getProcessingGasLimit,
   handleErrorMessage,
-  isValidNetwork,
   ReactSetter,
   roundedPercentage,
   TXLego,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';
@@ -78,7 +78,7 @@ export const ReadyForProcessing = ({
   proposal: ITransformedProposal;
 }) => {
   const { daochain, daoid } = useParams();
-  const { chainId } = useHausConnect();
+  const { chainId } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
   const { refreshAll } = useDao();

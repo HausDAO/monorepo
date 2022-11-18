@@ -1,13 +1,10 @@
+import { DaoTokenBalances, nowInSeconds, TokenBalance } from '@daohaus/utils';
 import {
   addApiKeyToGraphEnpoints,
-  DaoTokenBalances,
   ENDPOINTS,
   Keychain,
   KeychainList,
-  nowInSeconds,
-  TokenBalance,
-} from '@daohaus/utils';
-
+} from '@daohaus/keychain-utils';
 import {
   IListQueryArguments,
   IFindQueryResult,

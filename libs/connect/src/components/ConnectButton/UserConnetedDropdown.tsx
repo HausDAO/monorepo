@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
 
-import { getNetworkName, truncateAddress } from '@daohaus/utils';
+import { truncateAddress } from '@daohaus/utils';
+import { getNetworkName } from '@daohaus/keychain-utils';
+
 import {
   Button,
   Dropdown,
@@ -14,12 +16,12 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { useHausConnect } from '../../HausConnectContext';
+import { useDHConnect } from '../../HausConnectContext';
 import { ExplorerLink } from '../ExplorerLink';
 
 export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const { disconnect, address, chainId, profile, validNetwork } =
-    useHausConnect();
+    useDHConnect();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);

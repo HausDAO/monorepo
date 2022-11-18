@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react';
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import {
-  getNetwork,
-  handleBaseUnits,
-  INFO_COPY,
-  ValidateField,
-} from '@daohaus/utils';
-import { useHausConnect } from '@daohaus/connect';
+import { handleBaseUnits, INFO_COPY, ValidateField } from '@daohaus/utils';
+import { getNetwork } from '@daohaus/keychain-utils';
+import { useDHConnect } from '@daohaus/connect';
 
 import { FORM_KEYS } from '../utils/formKeys';
 
@@ -17,7 +13,7 @@ export const AdvancedSegment = ({
 }: {
   formDisabled: boolean;
 }) => {
-  const { chainId } = useHausConnect();
+  const { chainId } = useDHConnect();
   const [nativeSymbol, setNativeSymbol] = useState(DEFAULT_ASSET_SYMBOL);
 
   useEffect(() => {

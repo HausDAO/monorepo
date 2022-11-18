@@ -1,13 +1,8 @@
 import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
-import {
-  generateExplorerLink,
-  truncateAddress,
-  ValidNetwork,
-} from '@daohaus/utils';
-import { AccountProfile } from '@daohaus/utils';
+import { generateExplorerLink, ValidNetwork } from '@daohaus/keychain-utils';
+import { AccountProfile, truncateAddress } from '@daohaus/utils';
 
 import { ParMd } from '../../atoms';
 
@@ -38,7 +33,6 @@ export const MemberCard = ({
   minWidth = '17.8rem',
 }: MemberCardProps) => {
   const copy = useCopyToClipboard();
-  const { daochain, daoid } = useParams();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {

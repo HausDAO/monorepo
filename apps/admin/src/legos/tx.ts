@@ -1,6 +1,5 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
-  CONTRACTS,
   NestedArray,
   POSTER_TAGS,
   TABULA_TAGS,
@@ -9,6 +8,8 @@ import {
   ValidArgType,
   TXLegoBase,
 } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
+
 import { buildMultiCallTX } from '@daohaus/tx-builder';
 import { MaxUint256 } from '@ethersproject/constants';
 import { ProposalTypeIds } from '../utils/constants';
@@ -59,7 +60,7 @@ export const TX: Record<string, TXLego> = {
     contract: CONTRACT.ERC_20,
     method: 'approve',
     args: [
-      { type: 'singleton', keychain: CONTRACTS.TRIBUTE_MINION },
+      { type: 'singleton', keychain: CONTRACT_KEYCHAINS.TRIBUTE_MINION },
       { type: 'static', value: MaxUint256 },
     ],
   },

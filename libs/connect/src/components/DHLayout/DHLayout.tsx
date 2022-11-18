@@ -28,7 +28,7 @@ const Header = styled.div`
   }
 `;
 
-export const HausLayout = ({
+export const DHLayout = ({
   navLinks,
   dropdownLinks,
   children,

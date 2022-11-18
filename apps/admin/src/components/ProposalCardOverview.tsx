@@ -6,8 +6,9 @@ import {
   AccountProfile,
   charLimit,
   formatShortDateTimeFromSeconds,
-  Keychain,
 } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { TProposals } from '@daohaus/moloch-v3-context';
 import { Haus, ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {

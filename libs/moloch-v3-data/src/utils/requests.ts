@@ -2,7 +2,8 @@ import 'cross-fetch/polyfill';
 
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';
-import { Keychain } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { request } from 'graphql-request';
 
 import { IFindQueryResult, QueryVariables } from '..';

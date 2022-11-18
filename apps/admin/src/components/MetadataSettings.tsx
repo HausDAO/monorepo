@@ -20,9 +20,10 @@ import { useParams } from 'react-router-dom';
 import {
   charLimit,
   formatLongDateFromSeconds,
-  Keychain,
   ZERO_ADDRESS,
 } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { SettingsLinkList } from './MetadataLinkLists';
 

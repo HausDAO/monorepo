@@ -34,7 +34,7 @@ Once imported you can use it as you would any other Context Provider.
 ```jsx
 export function DaoContainer() {
   const { daochain, daoid } = useParams();
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   return (
     <MolochV3ContextProvider
@@ -49,7 +49,7 @@ export function DaoContainer() {
 }
 ```
 
-After including the `<HausConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
+After including the `<DHConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
 
 ### Accessing data
 

@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { isValidNetwork, toWholeUnits, handleBaseUnits } from '@daohaus/utils';
+import { toWholeUnits, handleBaseUnits } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
+import { isValidNetwork } from '@daohaus/keychain-utils';
 
 import { useDao } from '@daohaus/moloch-v3-context';
 import { getNetworkToken } from '../../utils/tokenData';

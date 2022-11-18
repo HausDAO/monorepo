@@ -1,14 +1,13 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
-  CONTRACTS,
   handleErrorMessage,
   isEthAddress,
-  isValidNetwork,
   ReactSetter,
   toBaseUnits,
   toWholeUnits,
 } from '@daohaus/utils';
-import { useHausConnect } from '@daohaus/connect';
+import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
+import { useDHConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
@@ -69,11 +68,11 @@ const fetchUserERC20 = async ({
   if (
     !isValidNetwork(chainId) ||
     !userAddress ||
-    !CONTRACTS.TRIBUTE_MINION[chainId]
+    !CONTRACT_KEYCHAINS.TRIBUTE_MINION[chainId]
   )
     return setFetchState(TokenFetchStates.NotValidNetwork);
 
-  const spenderAddress = CONTRACTS.TRIBUTE_MINION[chainId];
+  const spenderAddress = CONTRACT_KEYCHAINS.TRIBUTE_MINION[chainId];
   const contract = createContract({
     address: tokenAddress,
     chainId,
@@ -114,7 +113,7 @@ export const TributeInput = (
   const { addressId = 'tokenAddress', amtId = 'tokenAmount' } = props;
 
   const { control, setValue } = useFormContext();
-  const { address, chainId } = useHausConnect();
+  const { address, chainId } = useDHConnect();
   const tokenAddress = useWatch({
     name: addressId,
     control,

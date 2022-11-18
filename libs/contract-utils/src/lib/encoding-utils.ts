@@ -4,8 +4,9 @@ import {
   encodeValues,
   isString,
   POSTER_TAGS,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
+
 import { ethers } from 'ethers';
 import { getContractAbi, getContractAddressesForChain } from './contract-meta';
 import { SummonMolochV3Args } from './types';

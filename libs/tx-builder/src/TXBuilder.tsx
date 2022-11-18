@@ -1,12 +1,8 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
-import {
-  ABI,
-  ArbitraryState,
-  ArgType,
-  isValidNetwork,
-  TXLego,
-} from '@daohaus/utils';
+import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery, IFindQueryResult } from '@daohaus/moloch-v3-data';
 import { bundleLifeCycleFns } from './utils/lifeCycleFns';

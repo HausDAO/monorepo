@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
-import { formatValueTo, fromWei, Keychain } from '@daohaus/utils';
+import { formatValueTo, fromWei } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { TProposals } from '@daohaus/moloch-v3-context';
 import { ExplorerLink } from '@daohaus/connect';
 import {

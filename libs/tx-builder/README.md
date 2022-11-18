@@ -31,7 +31,7 @@ In this example, `TXBuilder` is used in combination with DAOhaus Connect, where 
 
 ```jsx
 // App.tsx
-const { provider, chainId } = useHausConnect();
+const { provider, chainId } = useDHConnect();
 
 <TXBuilder provider={provider} chainId={chainId}>
   <YourComponents />

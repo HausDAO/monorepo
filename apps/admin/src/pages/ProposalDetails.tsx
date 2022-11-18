@@ -9,13 +9,14 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { ITransformedProposalQuery } from '@daohaus/moloch-v3-data';
+import { MulticallArg } from '@daohaus/utils';
 import {
   isValidNetwork,
-  Keychain,
-  MulticallArg,
   ValidNetwork,
-} from '@daohaus/utils';
-import { useHausConnect } from '@daohaus/connect';
+  Keychain,
+} from '@daohaus/keychain-utils';
+
+import { useDHConnect } from '@daohaus/connect';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
 import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
@@ -65,7 +66,7 @@ const ActionContainer = styled.div`
 
 export function ProposalDetails() {
   const { daoid, daochain, proposalId } = useParams();
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   const [proposal, setProposal] = useState<
     ITransformedProposalQuery['proposal'] | undefined

@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/connect';
+import { useDHConnect } from '@daohaus/connect';
 import { MolochV3ContextProvider } from '@daohaus/moloch-v3-context';
 import Dao from './Dao';
 
 export function DaoContainer() {
   const { daochain, daoid } = useParams();
-  const { address } = useHausConnect();
+  const { address } = useDHConnect();
 
   return (
     <MolochV3ContextProvider

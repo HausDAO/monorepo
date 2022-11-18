@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-import { charLimit, getNetworkName, readableNumbers } from '@daohaus/utils';
+import { charLimit, readableNumbers } from '@daohaus/utils';
+import { getNetworkName } from '@daohaus/keychain-utils';
+
 import { ITransformedMembership } from '@daohaus/utils';
 import {
   Badge,

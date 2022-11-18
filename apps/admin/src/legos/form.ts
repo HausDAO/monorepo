@@ -542,9 +542,9 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
   },
   UPDATE_SHAMAN: {
     id: 'UPDATE_SHAMAN',
-    title: 'Manage Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Manange Shaman Proposal',
+    title: 'Update Shaman Settings',
+    description: 'Reduce shaman permissions level.',
+    subtitle: 'Shaman Proposal',
     requiredFields: {
       title: true,
       description: true,

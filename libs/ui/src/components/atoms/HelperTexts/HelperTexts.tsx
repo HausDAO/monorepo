@@ -1,20 +1,11 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
-import { IconType } from 'react-icons';
 import { RiCheckboxCircleLine, RiErrorWarningLine } from 'react-icons/ri';
 
 import { Theme } from '../../../types/theming';
 import { WithIcon } from './HelperText.styles';
 import { ParXs } from '../Typography';
-
-export type HelperTextType = {
-  color?: string;
-  icon?: IconType;
-  children: React.ReactNode;
-};
-export type SpecialHelperText = {
-  children: React.ReactNode;
-};
+import type { HelperTextType, SpecialHelperText } from './HelperText.types';
 
 export const HelperText = ({ color, icon, children }: HelperTextType) => {
   if (icon) {

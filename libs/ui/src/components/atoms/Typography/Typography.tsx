@@ -1,5 +1,6 @@
-import { font } from '../../../theme/global/font';
 import styled from 'styled-components';
+
+import { font } from '../../../theme/global/font';
 import { Theme } from '../../../types/theming';
 
 ////////////////////PARAGRAPH TEXT////////////////////

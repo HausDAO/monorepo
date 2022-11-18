@@ -39,11 +39,7 @@ const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
 const LoadingButton = ({ isSm }: { isSm: boolean }) => {
   return (
     <ButtonContainer>
-      <Button
-        fullWidth={!isSm}
-        size={isSm ? 'sm' : 'md'}
-        // centerAlign
-      >
+      <Button fullWidth={!isSm} size={isSm ? 'sm' : 'md'}>
         <Spinner
           topColor={amberDark.amber8}
           bottomColor={amberDark.amber11}

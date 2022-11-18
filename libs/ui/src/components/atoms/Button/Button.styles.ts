@@ -17,6 +17,7 @@ export const StyledButton = styled.button<{
   letter-spacing: 1.8px;
   padding: 1.2rem;
   transition: 0.2s all;
+  outline: none;
 
   svg {
     width: 2.2rem;
@@ -45,7 +46,7 @@ export const StyledButton = styled.button<{
         ${({ theme, color }) => theme.button[`${color}`].solid.borderHover};
     }
 
-    :focus {
+    :focus-visible {
       background-color: ${({ theme, color }) =>
         theme.button[`${color}`].solid.bgFocus};
       border: 0.1rem solid
@@ -73,7 +74,7 @@ export const StyledButton = styled.button<{
       color: ${({ theme, color }) => theme.button[`${color}`].outline.hover};
     }
 
-    :focus {
+    :focus-visible {
       border: 0.1rem solid
         ${({ theme, color }) => theme.button[`${color}`].outline.focus};
       color: ${({ theme, color }) => theme.button[`${color}`].outline.focus};
@@ -97,7 +98,7 @@ export const StyledButton = styled.button<{
         theme.button[`${color}`].ghost.bgHover};
     }
 
-    :focus {
+    :focus-visible {
       border: 1px solid
         ${({ theme, color }) => theme.button[`${color}`].ghost.borderFocus};
     }
@@ -125,7 +126,7 @@ export const StyledButton = styled.button<{
       text-decoration: underline;
     }
 
-    :focus {
+    :focus-visible {
       color: ${({ theme, color }) => theme.button[`${color}`].link.focus};
     }
 

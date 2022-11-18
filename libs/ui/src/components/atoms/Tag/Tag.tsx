@@ -1,38 +1,22 @@
+import React from 'react';
 import classNames from 'classnames';
-import { ReactNode, RefObject, forwardRef } from 'react';
 
-import { IconType } from 'react-icons';
-
+import { TagProps } from './Tag.types';
 import { BaseTag } from './Tag.styles';
 
-export type TagColors = 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
-
-export type TagProps = {
-  children: ReactNode;
-  tagColor: TagColors;
-  className?: string;
-  IconLeft?: IconType;
-  IconRight?: IconType;
+export const Tag = ({
+  className,
+  children,
+  tagColor,
+  IconLeft,
+  IconRight,
+}: TagProps) => {
+  const iconClasses = classNames({ tagColor });
+  return (
+    <BaseTag tagColor={tagColor || 'green'} className={className}>
+      {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
+      {children}
+      {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
+    </BaseTag>
+  );
 };
-
-type Ref =
-  | ((instance: HTMLBaseElement | null) => void)
-  | RefObject<HTMLBaseElement>
-  | null
-  | undefined;
-
-export const Tag = forwardRef(
-  (
-    { className, children, tagColor, IconLeft, IconRight }: TagProps,
-    ref: Ref
-  ) => {
-    const iconClasses = classNames({ tagColor });
-    return (
-      <BaseTag tagColor={tagColor || 'green'} className={className}>
-        {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
-        {children}
-        {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
-      </BaseTag>
-    );
-  }
-);

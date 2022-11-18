@@ -1,7 +1,8 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
 import { ContractNetworkConfig, SummonMolochV3Args } from './types';
-import { encodeValues, getNonce, ValidNetwork } from '@daohaus/utils';
+import { encodeValues, getNonce } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 import { getContractAddressesForChain } from './contract-meta';
 import { encodeInitializationParams } from './encoding-utils';
 

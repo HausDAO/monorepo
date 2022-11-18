@@ -1,14 +1,6 @@
 import styled, { useTheme } from 'styled-components';
 
-type SpinnerType = {
-  topColor?: string;
-  bottomColor?: string;
-  size?: string;
-  strokeWidth?: string;
-  margin?: string;
-  padding?: string;
-  speed?: string;
-};
+import { SpinnerType } from './Spinner.types';
 
 const StyledSpinner = styled.div`
   &.loader,

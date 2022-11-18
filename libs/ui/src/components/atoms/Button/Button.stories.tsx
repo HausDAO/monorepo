@@ -105,6 +105,7 @@ ButtonLeftIcon.args = {
 export const ButtonRightIcon = Template.bind({});
 ButtonRightIcon.args = {
   children: 'Button',
+  disabled: false,
   IconRight: RiArrowDropDownLine,
 };
 

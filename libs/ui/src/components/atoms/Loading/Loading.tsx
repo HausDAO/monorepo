@@ -2,16 +2,13 @@ import { StyledLoader, StyledInvisibleSpan } from './Loading.styles';
 import { useTheme } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { ButtonColor } from '../Button/Button.types';
+import { LoadingProps } from './Loading.types';
 
 export const Loading = ({
   color = 'primary',
   size = 50,
   ...rest
-}: {
-  size?: number;
-  color?: ButtonColor;
-}) => {
+}: LoadingProps) => {
   const theme = useTheme() as Theme;
   return (
     <>

@@ -1,27 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconType } from 'react-icons';
 import { RiExternalLinkLine } from 'react-icons/ri';
 
+import { LinkProps } from './Link.types';
 import { InternalLink, ExternalLink } from './Link.styles';
 
-export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
-  href?: string;
-  Icon?: IconType;
-  LeftIcon?:
-    | IconType
-    | React.FunctionComponent<
-        React.SVGProps<SVGSVGElement> & {
-          title?: string | undefined;
-        }
-      >;
-  selected?: boolean;
-  disabled?: boolean;
-  linkType?: 'internal' | 'external' | 'no-icon-external';
-  hideIcon?: boolean;
-}
-
-// TODO Better way to do types
+// TODO Refactor React Router out
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {

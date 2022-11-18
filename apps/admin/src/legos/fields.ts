@@ -20,6 +20,13 @@ export const FIELD: Record<string, CustomFieldLego> = {
     placeholder: 'http://',
     expectType: 'url',
   },
+  METADATA_LINK: {
+    id: 'metadataLink',
+    type: 'metadataLink',
+    label: 'Link poopin',
+    placeholder: 'http://',
+    expectType: 'url',
+  },
   SHAMAN_ADDRESS: {
     id: 'shamanAddress',
     type: 'input',

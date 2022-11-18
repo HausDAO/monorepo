@@ -31,9 +31,9 @@ ReactDOM.render(
   <StrictMode>
     <HausThemeProvider>
       <HashRouter>
-        <HausConnectProvider>
+        <DHConnectProvider>
           <Routes />
-        </HausConnectProvider>
+        </DHConnectProvider>
       </HashRouter>
     </HausThemeProvider>
   </StrictMode>,

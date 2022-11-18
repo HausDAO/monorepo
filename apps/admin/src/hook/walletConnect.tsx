@@ -2,7 +2,9 @@ import { useState, useCallback } from 'react';
 import { BigNumberish, BytesLike } from 'ethers';
 import { hashMessage, _TypedDataEncoder } from 'ethers/lib/utils';
 import { LOCAL_ABI } from '@daohaus/abis';
-import { CONTRACTS, encodeFunction, ValidNetwork } from '@daohaus/utils';
+import { encodeFunction } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
+
 import WalletConnect from '@walletconnect/client';
 import { IClientMeta } from '@walletconnect/types';
 
@@ -37,7 +39,7 @@ export const encodeSafeSignMessage = (
   chainId: ValidNetwork,
   message: string | EIP712TypedData
 ) => {
-  const signLibAddress = CONTRACTS.GNOSIS_SIGNLIB[chainId];
+  const signLibAddress = CONTRACT_KEYCHAINS.GNOSIS_SIGNLIB[chainId];
   const msgHash = isObjectEIP712TypedData(message)
     ? _TypedDataEncoder.hash(message.domain, message.types, message.message)
     : hashMessage(message);

@@ -1,20 +1,24 @@
-import { fromWei, isValidNetwork, NETWORK_DATA } from '@daohaus/utils';
+import { fromWei } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
 import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { useDHConnect } from '@daohaus/connect';
 
 export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   const { id = 'proposalOffering' } = props;
   const { daochain } = useParams();
+  const { networks } = useDHConnect();
   const { dao } = useDao();
   const { connectedMembership } = useConnectedMembership();
   const { register, setValue } = useFormContext();
   const [requiresOffering, setRequiresOffering] = useState(false);
 
   const networkTokenSymbol =
-    isValidNetwork(daochain) && NETWORK_DATA[daochain]?.symbol;
+    isValidNetwork(daochain) && networks?.[daochain]?.symbol;
 
   register(id);
 

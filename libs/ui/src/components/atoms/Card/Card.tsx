@@ -1,15 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import { BaseCard } from './Card.styles';
-
-export type CardProps = {
-  children: ReactNode;
-  className?: string;
-  success?: boolean;
-  warning?: boolean;
-  error?: boolean;
-  width?: string;
-};
+import type { CardProps } from './Card.types';
 
 export const Card = ({
   className,

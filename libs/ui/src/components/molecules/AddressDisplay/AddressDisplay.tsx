@@ -1,8 +1,5 @@
-import {
-  generateExplorerLink,
-  Keychain,
-  truncateAddress,
-} from '@daohaus/utils';
+import { generateExplorerLink, Keychain } from '@daohaus/keychain-utils';
+
 import { useTheme } from 'styled-components';
 import { RiFileCopyLine } from 'react-icons/ri';
 
@@ -15,6 +12,7 @@ import {
 import { Icon, Link } from '../../atoms';
 import { useCopyToClipboard } from '../../../hooks';
 import { useMemo } from 'react';
+import { truncateAddress } from '@daohaus/utils';
 
 type AddressDisplayProps = {
   address: string;

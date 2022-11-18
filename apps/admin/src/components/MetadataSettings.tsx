@@ -4,10 +4,12 @@ import {
   ParMd,
   ProfileAvatar,
   DataIndicator,
-  AddressDisplay,
-  ParSm,
   Button,
   Link,
+  Card,
+  Theme,
+  Tooltip,
+  AddressDisplay,
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
@@ -15,7 +17,11 @@ import {
 import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { charLimit, Keychain } from '@daohaus/utils';
+import { charLimit, formatLongDateFromSeconds } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
+import { daoProfileHasLinks } from '../utils/settingsHelper';
+import { SettingsLinkList } from './MetadataLinkLists';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -35,12 +41,12 @@ const MetaContent = styled.div`
     margin-top: 1.2rem;
   }
   .section-middle {
-    max-width: 37rem;
+    width: 38rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
   }
-  .tags {
-    margin-top: 2.9rem;
-  }
-  .contract {
+  .links {
     margin: 1.2rem 0;
   }
 `;
@@ -48,6 +54,22 @@ const MetaContent = styled.div`
 const DaoProfileAvatar = styled(ProfileAvatar)`
   width: 8.9rem;
   height: 8.9rem;
+`;
+
+const WarningContainer = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  margin-top: 3rem;
+  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
+  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+  .title {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
 `;
 
 type MetadataSettingsProps = {
@@ -82,57 +104,37 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             data={charLimit(dao.name, 21)}
             size="sm"
           />
-          <div className="tags">
-            <DataIndicator
-              label="Description"
-              data={dao.description}
-              size="sm"
-            />
-          </div>
+          <DataIndicator
+            label="Summon Date"
+            data={formatLongDateFromSeconds(dao.createdAt)}
+            size="sm"
+          />
+
+          <DataIndicator label="Description" data={dao.description} size="sm" />
           {dao.tags && (
             <div className="tags">
               <TagList tags={dao.tags} />
             </div>
           )}
         </div>
-        <div>
-          <ParMd>DAO Contracts</ParMd>
-          <div className="contract">
-            <ParSm>Moloch v3</ParSm>
-            <AddressDisplay
-              address={dao.id}
-              copy
-              explorerNetworkId={daochain as keyof Keychain}
-              truncate={isMobile}
-            />
-          </div>
-          <div className="contract">
-            <ParSm>Gnosis Safe (Treasury)</ParSm>
-            <AddressDisplay
-              address={dao.safeAddress}
-              copy
-              truncate={isMobile}
-              explorerNetworkId={daochain as keyof Keychain}
-            />
-          </div>
-          <div className="contract">
-            <ParSm>Voting Token</ParSm>
-            <AddressDisplay
-              address={dao.sharesAddress}
-              copy
-              truncate={isMobile}
-              explorerNetworkId={daochain as keyof Keychain}
-            />
-          </div>
-          <div className="contract">
-            <ParSm>Non-Voting Token</ParSm>
-            <AddressDisplay
-              address={dao.lootAddress}
-              copy
-              truncate={isMobile}
-              explorerNetworkId={daochain as keyof Keychain}
-            />
-          </div>
+        <div className="links">
+          {daoProfileHasLinks(dao.links) && (
+            <SettingsLinkList links={dao.links} />
+          )}
+          {dao.txHash === '0x0' && (
+            <WarningContainer>
+              <div className="title">
+                <ParMd>Forwarder Address</ParMd>
+                <Tooltip content="Forwarder Address is the contract used to sign and send transactions without the original sender paying for gas." />
+              </div>
+              <AddressDisplay
+                address={dao.sharesAddress}
+                copy
+                truncate={isMobile}
+                explorerNetworkId={daochain as keyof Keychain}
+              />
+            </WarningContainer>
+          )}
         </div>
       </MetaContent>
     </>

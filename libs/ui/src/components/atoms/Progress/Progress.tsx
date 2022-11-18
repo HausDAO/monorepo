@@ -2,15 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
+import { ProgressProps } from './Progress.types';
 import { ProgressVisualFull, ProgressVisualPart } from './Progress.styles';
-
-export type ProgressProps = {
-  backgroundColor: string;
-  progressSection: {
-    percentage: string;
-    color: string;
-  }[];
-};
 
 export const Progress = ({
   backgroundColor,

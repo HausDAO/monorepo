@@ -9,13 +9,12 @@ import {
 } from '@daohaus/ui';
 import { useDao } from '@daohaus/moloch-v3-context';
 import { useParams } from 'react-router-dom';
+import { ReactSetter } from '@daohaus/utils';
 import {
   ENDPOINTS,
   isValidNetwork,
-  ReactSetter,
   ValidNetwork,
-} from '@daohaus/utils';
-
+} from '@daohaus/keychain-utils';
 import { gql, request } from 'graphql-request';
 import { useFormBuilder } from '@daohaus/form-builder';
 import { FieldValues, UseFormSetValue } from 'react-hook-form';

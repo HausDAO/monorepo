@@ -3,20 +3,23 @@ import {
   ArbitraryState,
   ArgEncode,
   ArgType,
-  CONTRACTS,
   encodeFunction,
   encodeValues,
-  ENDPOINTS,
   EstmimateGas,
   EthAddress,
   JSONDetailsSearch,
-  Keychain,
   MulticallAction,
   MulticallArg,
   StringSearch,
   TXLego,
-  ValidNetwork,
 } from '@daohaus/utils';
+import {
+  CONTRACT_KEYCHAINS,
+  ENDPOINTS,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
+
 import { LOCAL_ABI } from '@daohaus/abis';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';
@@ -45,7 +48,8 @@ export const estimateGas = async ({
       `Gnosis Gas Estimation API not found for chainID: ${chainId}`
     );
 
-  const gnosisMultisendAddress = CONTRACTS['GNOSIS_MULTISEND'][chainId];
+  const gnosisMultisendAddress =
+    CONTRACT_KEYCHAINS['GNOSIS_MULTISEND'][chainId];
 
   if (!gnosisMultisendAddress)
     throw new Error(

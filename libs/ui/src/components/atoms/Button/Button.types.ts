@@ -16,8 +16,8 @@ export type ButtonJustifyContent =
   | 'space-around'
   | 'space-evenly';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Set theme color */
+export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
+  /* Set color as defined by the theme */
   color?: ButtonColor;
   /* Size of the button */
   size?: 'sm' | 'md' | 'lg';

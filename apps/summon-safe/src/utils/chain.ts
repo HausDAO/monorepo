@@ -1,4 +1,4 @@
-import { ValidNetwork } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 export const VALID_NETWORKS: { [key: number]: ValidNetwork } = {
   1: '0x1',

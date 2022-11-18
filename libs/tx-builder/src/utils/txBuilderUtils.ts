@@ -1,12 +1,7 @@
 import { ethers, providers } from 'ethers';
 
-import {
-  ABI,
-  ArbitraryState,
-  ReactSetter,
-  TXLego,
-  ValidNetwork,
-} from '@daohaus/utils';
+import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';

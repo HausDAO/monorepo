@@ -8,13 +8,10 @@ import {
 import { DevTool } from '@hookform/devtools';
 
 import { FormLayout, useToast } from '@daohaus/ui';
-import {
-  handleErrorMessage,
-  isValidNetwork,
-  LookupType,
-  RequiredFields,
-} from '@daohaus/utils';
-import { useHausConnect } from '@daohaus/connect';
+import { handleErrorMessage, LookupType, RequiredFields } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
+import { useDHConnect } from '@daohaus/connect';
 
 import { FormLego } from '../types';
 import { Logger } from './Logger';
@@ -75,7 +72,7 @@ export function FormBuilder<Lookup extends LookupType>({
   onError,
   targetNetwork,
 }: BuilderProps<Lookup>) {
-  const { chainId } = useHausConnect();
+  const { chainId } = useDHConnect();
 
   const methods = useForm({ mode: 'onChange', defaultValues });
   const {

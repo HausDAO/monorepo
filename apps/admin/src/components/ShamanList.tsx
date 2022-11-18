@@ -3,7 +3,7 @@ import { AddressDisplay, Button, DataSm, Link, widthQuery } from '@daohaus/ui';
 
 import { TDao } from '@daohaus/moloch-v3-context';
 import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
 
 const ShamanContainer = styled.div`
   display: flex;

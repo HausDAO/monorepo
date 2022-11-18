@@ -5,8 +5,8 @@ import {
   CACHE_CONFIG,
   CacheStoreName,
   getlocalForage,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 const defaultABIStore = {
   '0x1': {},

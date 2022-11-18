@@ -22,17 +22,13 @@ import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
-import {
-  HausConnectProvider,
-  HausLayout,
-  useHausConnect,
-} from '@daohaus/connect';
+import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
 
 const HomeContainer = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isConnected, address } = useHausConnect();
+  const { isConnected, address } = useDHConnect();
   const { profile } = useParams();
 
   useLayoutEffect(() => {
@@ -45,15 +41,25 @@ const HomeContainer = () => {
     }
   }, [isConnected, address, profile, navigate]);
   return (
-    <HausLayout
+    <DHLayout
       pathname={location.pathname}
-      navLinks={[{ label: 'Home', href: `/${address}` }]}
+      navLinks={[{ label: 'Hub', href: `/${address}` }]}
     >
       <Outlet />
-    </HausLayout>
+    </DHLayout>
   );
 };
-
+// const customNetworks = {
+//   '0x1': {
+//     chainId: '0x1',
+//     networkId: 1,
+//     name: 'Ethereum Mainnet',
+//     symbol: 'ETH',
+//     explorer: 'https://etherscan.io',
+//     tokenDecimals: 18,
+//     rpc: HAUS_RPC['0x1'],
+//   },
+// };
 const Routes = () => {
   const [daoChainId, setDaoChainId] = useState<string | undefined>();
   const location = useLocation();
@@ -69,7 +75,7 @@ const Routes = () => {
   }, [pathMatch?.params?.daochain, setDaoChainId, daoChainId]);
 
   return (
-    <HausConnectProvider daoChainId={daoChainId}>
+    <DHConnectProvider daoChainId={daoChainId}>
       <Banner />
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>
@@ -89,7 +95,7 @@ const Routes = () => {
           <Route path="members/ragequit" element={<RageQuit />} />
         </Route>
       </RoutesDom>
-    </HausConnectProvider>
+    </DHConnectProvider>
   );
 };
 

@@ -2,12 +2,12 @@ import { amberDark } from '@radix-ui/colors';
 import { Button, Spinner } from '@daohaus/ui';
 import { RiUserAddLine } from 'react-icons/ri';
 
-import { useHausConnect } from '../../HausConnectContext';
+import { useDHConnect } from '../../HausConnectContext';
 import { ButtonContainer } from './ConnectButtonStyles';
 import { UserConnectedDropdown } from './UserConnetedDropdown';
 
 export const ConnectButton = ({ isSm }: { isSm: boolean }) => {
-  const { isConnected, isProfileLoading } = useHausConnect();
+  const { isConnected, isProfileLoading } = useDHConnect();
 
   if (!isConnected) {
     return <ConnectWalletButton isSm={isSm} />;
@@ -19,7 +19,7 @@ export const ConnectButton = ({ isSm }: { isSm: boolean }) => {
 };
 
 const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
-  const { connectWallet } = useHausConnect();
+  const { connectWallet } = useDHConnect();
 
   return (
     <ButtonContainer>
@@ -39,11 +39,7 @@ const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
 const LoadingButton = ({ isSm }: { isSm: boolean }) => {
   return (
     <ButtonContainer>
-      <Button
-        fullWidth={!isSm}
-        size={isSm ? 'sm' : 'md'}
-        // centerAlign
-      >
+      <Button fullWidth={!isSm} size={isSm ? 'sm' : 'md'}>
         <Spinner
           topColor={amberDark.amber8}
           bottomColor={amberDark.amber11}

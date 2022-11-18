@@ -1,4 +1,6 @@
-import { ABI, Keychain, ValidNetwork } from '@daohaus/utils';
+import { ABI } from '@daohaus/utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+
 import { ethers } from 'ethers';
 
 export type ContractConfig = {

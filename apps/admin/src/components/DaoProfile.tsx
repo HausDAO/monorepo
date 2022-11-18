@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { charLimit, Keychain } from '@daohaus/utils';
+import { charLimit } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   AddressDisplay,
   border,
@@ -19,6 +21,8 @@ import { TDao } from '@daohaus/moloch-v3-context';
 
 import { TagList } from './TagList';
 import { missingDaoProfileData } from '../utils/general';
+import { daoProfileHasLinks } from '../utils/settingsHelper';
+import { OverviewIconLinkList, OverviewLinkList } from './MetadataLinkLists';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
@@ -96,6 +100,13 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
       {missingProfile || (
         <>
           <ParMd>{dao.description}</ParMd>
+
+          {daoProfileHasLinks(dao.links) && (
+            <>
+              <OverviewLinkList links={dao.links} />
+              <OverviewIconLinkList links={dao.links} />
+            </>
+          )}
           <TagListContainer>
             {dao.tags && <TagList tags={dao.tags} />}
           </TagListContainer>

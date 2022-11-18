@@ -1,4 +1,5 @@
-import { Keychain, TokenBalance } from '@daohaus/utils';
+import { TokenBalance } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
 import { HausError } from '../HausError';
 import { ListDaosQuery } from '../subgraph/queries/daos.generated';
 import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
@@ -80,12 +81,17 @@ export interface ITransformedProposalListQuery {
   proposals: ITransformedProposal[];
 }
 
+export type DaoProfileLink = {
+  label?: string;
+  url?: string;
+};
+
 export type DaoProfile = {
   description?: string;
   longDescription?: string;
   avatarImg?: string;
   tags?: string[];
-  links?: string;
+  links?: DaoProfileLink[];
 };
 
 export type ITransformedDao = ListDaosQuery['daos'][number] & DaoProfile;

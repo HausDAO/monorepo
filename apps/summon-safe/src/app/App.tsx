@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { VALID_NETWORKS } from '@daohaus/utils';
+import { VALID_NETWORKS } from '@daohaus/keychain-utils';
 import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
 import { Tab, TabItem, Card } from '@gnosis.pm/safe-react-components';
 import { Container, Grid } from '@material-ui/core';

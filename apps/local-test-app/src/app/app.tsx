@@ -1,22 +1,19 @@
-import { HausLayout, useHausConnect } from '@daohaus/connect';
-import { FormBuilder } from '@daohaus/form-builder';
-import { TXBuilder } from '@daohaus/tx-builder';
-import { FORM } from '../assets/forms';
+import { useConnect } from '@daohaus/connect-context';
 
 function App() {
-  const { provider } = useHausConnect();
+  const { connectWallet, disconnect, profile } = useConnect();
+
   return (
-    <TXBuilder
-      provider={provider}
-      chainId="0x5"
-      daoId="0x643e8e197de8760a23c64cf78bef7047084d5408"
-      safeId="0xacdbe468400d3cb18ab796e85b91395f7fb5db09"
-      appState={{}}
-    >
-      <HausLayout pathname="/">
-        <FormBuilder form={FORM.SIGNAL} targetNetwork="0x5" />
-      </HausLayout>
-    </TXBuilder>
+    <div>
+      <h1>{profile.displayName}</h1>
+      <div>
+        {profile.daos?.map((dao) => (
+          <p>{dao.name}</p>
+        ))}
+      </div>
+      <button onClick={connectWallet}>Connect</button>;
+      <button onClick={disconnect}>disonnect</button>;
+    </div>
   );
 }
 

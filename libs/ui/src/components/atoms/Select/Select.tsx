@@ -1,18 +1,12 @@
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { forwardRef } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
 
+import type { SelectProps } from './Select.types';
 import { BaseSelect, StyledOption, WithIcon } from './Select.styles';
-import { SelectProps } from '../../../types/formAndField';
 
-type Ref =
-  | React.RefObject<HTMLSelectElement>
-  | ((instance: HTMLSelectElement | null) => void)
-  | null
-  | undefined;
-
-export const Select = forwardRef(
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       options,
@@ -26,8 +20,8 @@ export const Select = forwardRef(
       className,
       containerClassName,
       ...props
-    }: SelectProps,
-    ref: Ref
+    },
+    ref
   ) => {
     const theme = useTheme();
     const wrapperClasses = classNames({

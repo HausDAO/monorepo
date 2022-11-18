@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState, useRef } from 'react';
-import { Keychain } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   DaoWithTokenDataQuery,
   FindMemberQuery,

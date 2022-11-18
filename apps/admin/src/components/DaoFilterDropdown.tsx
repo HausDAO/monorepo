@@ -1,4 +1,3 @@
-import { NETWORK_DATA } from '@daohaus/utils';
 import {
   Button,
   Dropdown,
@@ -6,17 +5,18 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   ParSm,
+  Theme,
 } from '@daohaus/ui';
-import { indigoDark } from '@radix-ui/colors';
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import { RiCheckLine, RiFilterFill } from 'react-icons/ri';
 import styled, { useTheme } from 'styled-components';
 import { FILTER_TYPE } from '../utils/hub';
+import { useDHConnect } from '@daohaus/connect';
 
 // HOW CAN THIS BE GENERALIZED?
 
 type DAOFilterDropdownProps = {
-  filterNetworks: Record<string, string>;
+  filterNetworks: string[];
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -26,10 +26,10 @@ const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
-  // USE THEME
-  fill: ${indigoDark.indigo10};
+  fill: ${({ theme }: { theme: Theme }) => theme.secondary.step10};
+
   :hover {
-    fill: ${indigoDark.indigo10};
+    fill: ${({ theme }: { theme: Theme }) => theme.secondary.step10};
   }
 `;
 
@@ -40,26 +40,28 @@ export const DAOFilterDropdown = ({
   toggleDelegateFilter,
 }: DAOFilterDropdownProps) => {
   const theme = useTheme();
+  const { networks } = useDHConnect();
+  const networkButtons = useMemo(() => {
+    return Object.values(networks).map((network) => {
+      const isActive = filterNetworks.includes(network.chainId);
 
-  const networkButtons = Object.values(NETWORK_DATA).map((network) => {
-    const isActive = filterNetworks[network.chainId];
-    // We should be using DropdownMenu.CheckboxItem in this instance and not modifying the button
-    return (
-      <DropdownMenuItem key={network.chainId} asChild>
-        <DropdownButton
-          value={network.chainId}
-          onClick={toggleNetworkFilter}
-          className={isActive ? 'selected' : ''}
-          color="secondary"
-          justify="flex-start"
-          fullWidth
-          IconRight={isActive ? RiCheckLine : undefined}
-        >
-          <div style={{ width: '100%' }}>{network.name}</div>
-        </DropdownButton>
-      </DropdownMenuItem>
-    );
-  });
+      return (
+        <DropdownMenuItem key={network.chainId} asChild>
+          <DropdownButton
+            value={network.chainId}
+            onClick={toggleNetworkFilter}
+            className={isActive ? 'selected' : ''}
+            color="secondary"
+            justify="flex-start"
+            fullWidth
+            IconRight={isActive ? RiCheckLine : undefined}
+          >
+            <div style={{ width: '100%' }}>{network.name}</div>
+          </DropdownButton>
+        </DropdownMenuItem>
+      );
+    });
+  }, [networks, toggleNetworkFilter, filterNetworks]);
 
   return (
     <Dropdown

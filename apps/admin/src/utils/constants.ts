@@ -24,14 +24,14 @@ export enum ProposalTypeIds {
 
 export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
   SIGNAL: 'Signal Proposal',
-  ISSUE: 'Issue Tokens Proposal',
-  ADD_SHAMAN: 'Manage Shaman Proposal',
-  TRANSFER_ERC20: 'Issue ERC20 Token Funding Proposal',
-  TRANSFER_NETWORK_TOKEN: 'Issue Network Token Funding Proposal',
-  UPDATE_GOV_SETTINGS: 'Governance Settings Proposal',
-  TOKEN_SETTINGS: 'Token Settings Proposal',
-  TOKENS_FOR_SHARES: 'Shares for Tokens Proposal',
-  GUILDKICK: 'Guildkick Proposal',
+  ISSUE: 'Token Proposal',
+  ADD_SHAMAN: 'Shaman Proposal',
+  TRANSFER_ERC20: 'Funding Proposal',
+  TRANSFER_NETWORK_TOKEN: 'Funding Proposal',
+  UPDATE_GOV_SETTINGS: 'Governance Proposal',
+  TOKEN_SETTINGS: 'Token Proposal',
+  TOKENS_FOR_SHARES: 'Token Proposal',
+  GUILDKICK: 'Token Proposal',
   WALLETCONNECT: 'WalletConnect Proposal',
 };
 

@@ -35,17 +35,19 @@ export function Safes() {
     <SingleColumnLayout
       title="Safes"
       actions={
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button color="secondary" fullWidth={isMobile}>
-              New Safe
-            </Button>
-          </DialogTrigger>
+        connectedMembership && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button color="secondary" fullWidth={isMobile}>
+                New Safe
+              </Button>
+            </DialogTrigger>
 
-          <DialogContent title="Add Safe">
-            <AddSafeForm />
-          </DialogContent>
-        </Dialog>
+            <DialogContent title="Add Safe">
+              <AddSafeForm />
+            </DialogContent>
+          </Dialog>
+        )
       }
     >
       {dao?.vaults

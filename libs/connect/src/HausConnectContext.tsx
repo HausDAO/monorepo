@@ -9,7 +9,7 @@ import {
 import { useToast } from '@daohaus/ui';
 
 export const DHConnectProvider = (props: ConnectProviderProps) => {
-  const { defaultToast } = useToast();
+  const { defaultToast, errorToast } = useToast();
 
   return (
     <ConnectProvider
@@ -18,11 +18,17 @@ export const DHConnectProvider = (props: ConnectProviderProps) => {
         onConnect: () => {
           defaultToast({ title: 'Connected' });
         },
-        onDisconnect: () => {
-          defaultToast({ title: 'Disconnected' });
+        onConnectError(error) {
+          errorToast({
+            title: 'Error connecting',
+            description: error.message,
+          });
         },
-        onChainChanged: () => {
-          defaultToast({ title: 'Chain Changed' });
+        onProfileError(error) {
+          errorToast({
+            title: 'Error loading profile',
+            description: error.message,
+          });
         },
       }}
     />

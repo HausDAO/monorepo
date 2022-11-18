@@ -55,6 +55,7 @@ export const HomeDashboard = () => {
           ordering: SORT_FIELDS[sortBy].ordering,
         });
         if (query.data?.daos && shouldUpdate) {
+          console.log('query', query);
           setDaoData(query.data.daos);
           setLoading(false);
         }

@@ -53,7 +53,7 @@ export const CONTRACT: Record<string, ContractLego> = {
     type: 'static',
     contractName: 'VAULT_SUMMONER',
     abi: LOCAL_ABI.VAULT_SUMMONER,
-    targetAddress: CONTRACTS.VAULT_SUMMONER,
+    targetAddress: CONTRACT_KEYCHAINS.VAULT_SUMMONER,
   },
   GNOSIS_MODULE: {
     type: 'static',

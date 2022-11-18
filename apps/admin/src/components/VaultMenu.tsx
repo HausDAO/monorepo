@@ -11,7 +11,7 @@ import {
   DropdownLink,
   Button,
 } from '@daohaus/ui';
-import { getNetwork } from '@daohaus/utils';
+import { getNetwork } from '@daohaus/keychain-utils';
 
 export const VaultMenuTrigger = styled(Button)`
   padding: 0 4px 0 4px;

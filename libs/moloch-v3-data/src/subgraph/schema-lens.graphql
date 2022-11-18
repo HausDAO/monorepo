@@ -338,7 +338,7 @@ type Comment {
   """
   collectedBy: Wallet
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
-  hasCollectedByMe: Boolean!
+  hasCollectedByMe(isFinalisedOnChain: Boolean): Boolean!
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
   canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
@@ -1935,7 +1935,7 @@ type Mirror {
   """The mirror publication"""
   mirrorOf: MirrorablePublication!
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
-  hasCollectedByMe: Boolean!
+  hasCollectedByMe(isFinalisedOnChain: Boolean): Boolean!
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
   canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
@@ -2445,7 +2445,7 @@ type Post {
   """
   collectedBy: Wallet @deprecated(reason: "use `feed` query, timeline query will be killed on the 15th November. This includes this field.")
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
-  hasCollectedByMe: Boolean!
+  hasCollectedByMe(isFinalisedOnChain: Boolean): Boolean!
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
   canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
@@ -2501,7 +2501,7 @@ type Profile {
 
   """The profile interests"""
   interests: [ProfileInterest!]
-  isFollowedByMe: Boolean!
+  isFollowedByMe(isFinalisedOnChain: Boolean): Boolean!
   isFollowing(who: ProfileId): Boolean!
 }
 

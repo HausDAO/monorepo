@@ -393,6 +393,12 @@ export interface CommentCanMirrorArgs {
 
 
 /** The social comment */
+export interface CommentHasCollectedByMeArgs {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
+}
+
+
+/** The social comment */
 export interface CommentMirrorsArgs {
   by?: InputMaybe<Scalars['ProfileId']>;
 }
@@ -1822,6 +1828,12 @@ export interface MirrorCanMirrorArgs {
 
 
 /** The social mirror */
+export interface MirrorHasCollectedByMeArgs {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
+}
+
+
+/** The social mirror */
 export interface MirrorReactionArgs {
   request?: InputMaybe<ReactionFieldResolverRequest>;
 }
@@ -2486,6 +2498,12 @@ export interface PostCanMirrorArgs {
 
 
 /** The social post */
+export interface PostHasCollectedByMeArgs {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
+}
+
+
+/** The social post */
 export interface PostMirrorsArgs {
   by?: InputMaybe<Scalars['ProfileId']>;
 }
@@ -2533,6 +2551,12 @@ export interface Profile {
   picture?: Maybe<ProfileMedia>;
   /** Profile stats */
   stats: ProfileStats;
+}
+
+
+/** The Profile */
+export interface ProfileIsFollowedByMeArgs {
+  isFinalisedOnChain?: InputMaybe<Scalars['Boolean']>;
 }
 
 

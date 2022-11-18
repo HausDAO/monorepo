@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import {
-  getNetwork,
-  handleBaseUnits,
-  INFO_COPY,
-  ValidateField,
-} from '@daohaus/utils';
+import { handleBaseUnits, INFO_COPY, ValidateField } from '@daohaus/utils';
+import { getNetwork } from '@daohaus/keychain-utils';
 import { useDHConnect } from '@daohaus/connect';
 
 import { FORM_KEYS } from '../utils/formKeys';

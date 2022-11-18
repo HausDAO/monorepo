@@ -144,7 +144,7 @@ export const TX: Record<string, TXLego> = {
     ],
   }),
   ISSUE_ERC20_SIDECAR: buildMultiCallTX({
-    id: 'ISSUE_ERC20',
+    id: 'ISSUE_ERC20_SIDECAR',
     JSONDetails: {
       type: 'JSONDetails',
       jsonSchema: {
@@ -170,8 +170,12 @@ export const TX: Record<string, TXLego> = {
             actions: [
               {
                 contract: CONTRACT.ERC_20_FUNDING,
-                method: 'transfer',
-                args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+                method: 'transferFrom',
+                args: [
+                  '.formValues.safeAddress',
+                  '.formValues.recipient',
+                  '.formValues.paymentTokenAmt',
+                ],
               },
             ],
           },

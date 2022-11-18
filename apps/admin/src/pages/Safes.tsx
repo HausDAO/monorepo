@@ -12,10 +12,6 @@ import {
 } from '@daohaus/ui';
 import { useDao } from '@daohaus/moloch-v3-context';
 import { VaultOverview } from '../components/VaultOverview';
-import { useParams } from 'react-router-dom';
-import { useMemo } from 'react';
-import { getNetwork } from '@daohaus/utils';
-import { ButtonLink } from '../components/ButtonLink';
 import AddSafeForm from '../components/AddSafeForm';
 
 const VaultContainer = styled(Card)`
@@ -31,11 +27,7 @@ const VaultContainer = styled(Card)`
 
 export function Safes() {
   const { dao } = useDao();
-  const { daoid, daochain } = useParams();
-  const networkData = useMemo(() => {
-    if (!daochain) return null;
-    return getNetwork(daochain);
-  }, [daochain]);
+
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
@@ -48,22 +40,6 @@ export function Safes() {
               New Safe
             </Button>
           </DialogTrigger>
-
-          <ButtonLink
-            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_ERC20`}
-            color="secondary"
-            fullWidth={isMobile}
-          >
-            Request ERC-20
-          </ButtonLink>
-
-          <ButtonLink
-            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_NETWORK_TOKEN`}
-            color="secondary"
-            fullWidth={isMobile}
-          >
-            Request {networkData?.symbol}
-          </ButtonLink>
 
           <DialogContent title="Add Safe">
             <AddSafeForm />

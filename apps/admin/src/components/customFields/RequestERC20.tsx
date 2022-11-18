@@ -19,25 +19,36 @@ export enum InputStates {
 }
 
 export const RequestERC20 = (
-  props: Buildable<{ amtId?: string; addressId?: string }>
+  props: Buildable<{
+    amtId?: string;
+    addressId?: string;
+    safeAddressId?: string;
+  }>
 ) => {
   const { daochain } = useParams();
-  const { amtId = 'paymentTokenAmt', addressId = 'paymentTokenAddress' } =
-    props;
+  const {
+    amtId = 'paymentTokenAmt',
+    addressId = 'paymentTokenAddress',
+    safeAddressId = 'safeAddress',
+  } = props;
   const { dao } = useDao();
   const { watch, setValue } = useFormContext();
 
   const paymentTokenAddr = watch(addressId);
+  const safeAddress = watch(safeAddressId);
 
   const erc20s = useMemo(() => {
     if (dao && isValidNetwork(daochain)) {
-      const treasury = dao.vaults.find(
-        (v) => v.safeAddress === dao.safeAddress
-      );
-      return treasury && getErc20s(treasury);
+      const selectedSafe = dao.vaults.find((v) => {
+        if (!safeAddress) return v.safeAddress === dao.safeAddress;
+        return v.safeAddress === safeAddress;
+      });
+
+      console.log('selectedSafe', selectedSafe);
+      return selectedSafe && getErc20s(selectedSafe);
     }
     return null;
-  }, [dao, daochain]);
+  }, [dao, daochain, safeAddress]);
 
   const selectOptions = useMemo(() => {
     if (erc20s) {

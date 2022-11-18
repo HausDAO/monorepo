@@ -143,6 +143,43 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ISSUE_ERC20_SIDECAR: buildMultiCallTX({
+    id: 'ISSUE_ERC20',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.TransferErc20,
+        },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.GNOSIS_MODULE,
+        method: 'execTransactionFromModule',
+        args: [
+          '.formValues.paymentTokenAddress',
+          { type: 'static', value: '0' },
+          {
+            type: 'multicall',
+            actions: [
+              {
+                contract: CONTRACT.ERC_20_FUNDING,
+                method: 'transfer',
+                args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+              },
+            ],
+          },
+          { type: 'static', value: '0' },
+        ],
+      },
+    ],
+  }),
   ISSUE_NETWORK_TOKEN: buildMultiCallTX({
     id: 'ISSUE_NETWORK_TOKEN',
     JSONDetails: {

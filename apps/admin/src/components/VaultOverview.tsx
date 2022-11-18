@@ -16,6 +16,7 @@ import { formatValueTo, generateGnosisUiLink, Keychain } from '@daohaus/utils';
 
 import { TDao } from '@daohaus/moloch-v3-context';
 import { TransformedVault } from '@daohaus/moloch-v3-data';
+import { VaultMenu } from './VaultMenu';
 
 const VaultOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
@@ -30,6 +31,10 @@ const VaultCardHeader = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 3rem;
+
+  .right-section {
+    display: flex;
+  }
 
   .safe-link {
     padding: 0.9rem;
@@ -82,18 +87,24 @@ export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
             {isTreasury && <Tag tagColor="pink">Ragequittable</Tag>}
           </TagSection>
         </div>
-        <div className="safe-link">
-          <Link
-            linkType="external"
-            href={generateGnosisUiLink({
-              chainId: daochain as keyof Keychain,
-              address: vault.safeAddress,
-            })}
-          >
-            <ParXs>
-              <Bold>Gnosis Safe</Bold>
-            </ParXs>
-          </Link>
+        <div className="right-section">
+          <div className="safe-link">
+            <Link
+              linkType="external"
+              href={generateGnosisUiLink({
+                chainId: daochain as keyof Keychain,
+                address: vault.safeAddress,
+              })}
+            >
+              <ParXs>
+                <Bold>Gnosis Safe</Bold>
+              </ParXs>
+            </Link>
+          </div>
+          <VaultMenu
+            ragequittable={vault.ragequittable}
+            safeAddress={vault.safeAddress}
+          />
         </div>
       </VaultCardHeader>
       <DataGrid>

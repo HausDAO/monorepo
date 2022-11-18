@@ -36,12 +36,14 @@ export const getErc20s = (treasury: DaoWithTokenData['vaults'][number]) => {
 
 export const getNetworkToken = (
   daoData: DaoWithTokenData,
-  daochain: ValidNetwork
+  daochain: ValidNetwork,
+  safeAddress: string
 ) => {
   const networkData = NETWORK_DATA[daochain];
-  const treasury = daoData.vaults.find(
-    (v) => v.safeAddress === daoData.safeAddress
-  );
+  const treasury = daoData.vaults.find((v) => {
+    if (!safeAddress) return v.safeAddress === daoData.safeAddress;
+    return v.safeAddress === safeAddress;
+  });
   const networkToken = treasury && treasury.tokenBalances.find(isNetworkToken);
 
   if (networkToken && networkData) {

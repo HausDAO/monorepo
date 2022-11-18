@@ -14,19 +14,25 @@ import { getNetworkToken } from '../../utils/tokenData';
 // }
 
 export const RequestNativeToken = (
-  props: Buildable<{ amtId?: string; addressId?: string }>
+  props: Buildable<{
+    amtId?: string;
+    addressId?: string;
+    safeAddressId?: string;
+  }>
 ) => {
-  const { id = 'valueRequested' } = props;
+  const { id = 'valueRequested', safeAddressId = 'safeAddress' } = props;
   const { daochain } = useParams();
-  const { setValue } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const { dao } = useDao();
+
+  const safeAddress = watch(safeAddressId);
 
   // const [inputState, setInputState] = useState(InputStates.Loading);
 
   const networkTokenData = useMemo(() => {
     if (!dao || !isValidNetwork(daochain)) return null;
-    return getNetworkToken(dao, daochain);
-  }, [dao, daochain]);
+    return getNetworkToken(dao, daochain, safeAddress);
+  }, [dao, daochain, safeAddress]);
 
   const label = networkTokenData?.name
     ? `Request ${networkTokenData.name}`

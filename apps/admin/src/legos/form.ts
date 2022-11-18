@@ -143,6 +143,36 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  TRANSFER_ERC20_SIDECAR: {
+    id: 'TRANSFER_ERC20_SIDECAR',
+    title: 'Transfer ERC-20',
+    subtitle: 'Transfer Proposal',
+    description:
+      'Create a proposal to transfer ERC-20 tokens from the DAO safe',
+    log: true,
+    tx: TX.ISSUE_ERC20_SIDECAR,
+    requiredFields: {
+      title: true,
+      description: true,
+      payment: true,
+      recipient: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SAFE_SELECT,
+      {
+        id: 'recipient',
+        type: 'input',
+        label: 'Recipient',
+        info: 'Address to receive the tokens',
+        placeholder: '0x...',
+      },
+      FIELD.REQUEST_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
     title: 'Reqest Network Token',

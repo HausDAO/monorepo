@@ -6,7 +6,6 @@ import { useConnectedMembership } from '@daohaus/moloch-v3-context';
 import {
   Dropdown,
   DropdownMenuItem,
-  DropdownButton,
   font,
   Theme,
   Dialog,

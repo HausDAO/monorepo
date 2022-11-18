@@ -16,6 +16,7 @@
         "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
         "assets": [
           {
             "glob": "libs/connect-context/README.md",
@@ -30,6 +31,20 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/connect-context/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs connect-context {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "npmPublish": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public",
+        "noBuild": true
       }
     },
     "test": {

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { StyledButton } from './Button.styles';
-import { ButtonProps } from './Button.types';
+import type { ButtonProps } from './Button.types';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -36,9 +36,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
       >
-        {IconLeft && <IconLeft className="icon-left" />}
+        {IconLeft && <IconLeft className={`${className} icon-left`} />}
         {children}
-        {IconRight && <IconRight className="icon-right" />}
+        {IconRight && <IconRight className={`${className} icon-right`} />}
       </StyledButton>
     );
   }

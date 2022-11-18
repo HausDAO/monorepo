@@ -1,36 +1,27 @@
 import React from 'react';
-
 import classNames from 'classnames';
+
+import { TextAreaProps } from './TextArea.types';
 import { BaseTextArea } from './TextArea.styles';
-import { Field } from '../../../types/formAndField';
 
-export type TextAreaProps = Field & {
-  className?: string;
-  height?: string;
-};
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  (props, ref) => {
+    const { full, warning, error, success, className, height } = props;
+    const classes = classNames({
+      full,
+      success,
+      warning,
+      error,
+    });
 
-type Ref =
-  | React.RefObject<HTMLTextAreaElement>
-  | ((instance: HTMLTextAreaElement | null) => void)
-  | null
-  | undefined;
-
-export const TextArea = React.forwardRef((props: TextAreaProps, ref: Ref) => {
-  const { full, warning, error, success, className, height } = props;
-  const classes = classNames({
-    full,
-    success,
-    warning,
-    error,
-  });
-
-  return (
-    <BaseTextArea
-      {...props}
-      className={`${classes} ${className}`}
-      ref={ref}
-      rows={10}
-      height={height}
-    />
-  );
-});
+    return (
+      <BaseTextArea
+        {...props}
+        className={`${classes} ${className}`}
+        ref={ref}
+        rows={10}
+        height={height}
+      />
+    );
+  }
+);

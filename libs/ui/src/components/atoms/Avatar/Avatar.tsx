@@ -1,13 +1,5 @@
 import { AvatarBase, AvatarImage, AvatarFallback } from './Avatar.styles';
-
-export type AvatarProps = {
-  src?: string;
-  alt?: string;
-  fallback?: string | React.ReactNode;
-  delayMs?: number;
-  size?: string;
-  className?: string;
-};
+import type { AvatarProps } from './Avatar.types';
 
 export const Avatar = ({
   src,

@@ -1,4 +1,7 @@
 import { useState } from 'react';
+
+import { TooltipProps } from './Tooltip.types';
+import { SmTooltipIcon } from './TooltipTriggers';
 import {
   TooltipArrow,
   TooltipContent,
@@ -7,16 +10,6 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from './Tooltip.styles';
-import { SmTooltipIcon } from './TooltipTriggers';
-
-export type TooltipProps = {
-  content?: string | React.ReactNode;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  triggerEl?: React.ReactNode;
-  offset?: number;
-  delay?: number;
-  triggerAsChild?: boolean;
-};
 
 export const Tooltip = ({
   content = 'Content goes here',

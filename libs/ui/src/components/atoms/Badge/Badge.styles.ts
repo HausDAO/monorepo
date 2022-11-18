@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
+import type { BadgeColor, BadgeSize } from './Badge.types';
+
 export const BaseBadge = styled.div<{
-  badgeColor: 'blue' | 'green' | 'pink' | 'violet';
-  badgeSize: 'sm' | 'lg';
+  badgeColor: BadgeColor;
+  badgeSize: BadgeSize;
 }>`
   display: inline-flex;
   align-items: center;

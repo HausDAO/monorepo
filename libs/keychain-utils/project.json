@@ -32,6 +32,20 @@
         "lintFilePatterns": ["libs/keychain-utils/**/*.{ts,tsx,js,jsx}"]
       }
     },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs keychain-utils {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "npmPublish": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public",
+        "noBuild": true
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

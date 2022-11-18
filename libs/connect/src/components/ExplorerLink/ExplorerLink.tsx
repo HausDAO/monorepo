@@ -6,10 +6,10 @@ import {
   generateExplorerLink,
   isValidNetwork,
   ValidNetwork,
-} from '@daohaus/utils';
+} from '@daohaus/keychain-utils';
 import { Link } from '@daohaus/ui';
 
-import { useHausConnect } from '../../HausConnectContext';
+import { useDHConnect } from '../../HausConnectContext';
 
 type ExplorerLinkProps = {
   children?: React.ReactNode;
@@ -28,7 +28,7 @@ export const ExplorerLink = ({
   className,
   type,
 }: ExplorerLinkProps) => {
-  const { chainId: contextChainId } = useHausConnect();
+  const { chainId: contextChainId } = useDHConnect();
 
   const explorerLink = useMemo(() => {
     if (chainId) {

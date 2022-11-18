@@ -1,16 +1,21 @@
-import { isValidNetwork, ReactSetter, truncateAddress } from '@daohaus/utils';
+import {
+  isValidNetwork,
+  NetworkConfigs,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
+
 import { Haus } from '@daohaus/moloch-v3-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
 
 import { switchChainOnMetaMask } from './metamask';
 import {
-  ModalEvents,
   ModalOptions,
   WalletStateType,
   UserProfile,
-  NetworkConfigs,
+  ConnectLifecycleFns,
 } from './types';
+import { Dispatch, SetStateAction } from 'react';
 
 export const numberToHex = (number: number) => {
   return `0x${number.toString(16)}`;
@@ -22,6 +27,8 @@ export const getModal = (options: ModalOptions) => {
 export const isMetamaskProvider = (
   provider: providers.Web3Provider | undefined | null
 ) => provider?.connection?.url === 'metamask';
+export const truncateAddress = (addr: string) =>
+  `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
 export const handleSetProvider = async ({
   provider,
@@ -29,28 +36,28 @@ export const handleSetProvider = async ({
 }: {
   // eslint-disable-next-line
   provider: any;
-  setWalletState: ReactSetter<WalletStateType>;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
 }) => {
   const ethersProvider = new providers.Web3Provider(provider);
   const signerAddress = await ethersProvider.getSigner().getAddress();
   setWalletState({
     provider: ethersProvider,
-    chainId: provider.chainId,
+    chainId: provider.chainId as ValidNetwork,
     address: signerAddress,
   });
 };
 
 export const handleConnectWallet = async ({
   setConnecting,
-  handleModalEvents,
+  lifeCycleFns,
   disconnect,
   setWalletState,
   web3modalOptions,
 }: {
-  setConnecting: ReactSetter<boolean>;
-  handleModalEvents?: ModalEvents;
+  setConnecting: Dispatch<SetStateAction<boolean>>;
+  lifeCycleFns?: ConnectLifecycleFns;
   disconnect: () => Promise<void>;
-  setWalletState: ReactSetter<WalletStateType>;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
   web3modalOptions: ModalOptions;
 }) => {
   try {
@@ -63,23 +70,33 @@ export const handleConnectWallet = async ({
     if (!_isGnosisSafe) {
       modalProvider.on('accountsChanged', () => {
         handleSetProvider({ provider: modalProvider, setWalletState });
-        handleModalEvents && handleModalEvents('accountsChanged');
+        lifeCycleFns?.onAccountsChanged?.();
       });
       modalProvider.on('chainChanged', (chainId: string) => {
+        console.log(chainId);
         handleSetProvider({ provider: modalProvider, setWalletState });
-        handleModalEvents && handleModalEvents('chainChanged');
+        lifeCycleFns?.onChainChanged?.(chainId);
         if (!isValidNetwork(chainId)) {
-          handleModalEvents &&
-            handleModalEvents('error', {
-              code: 'UNSUPPORTED_NETWORK',
-              message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-            });
+          lifeCycleFns?.onConnectError?.({
+            name: 'UNSUPPORTED_NETWORK',
+            message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
+          });
         }
       });
     }
+
     handleSetProvider({ provider: modalProvider, setWalletState });
-  } catch (web3Error) {
-    console.error(web3Error);
+    lifeCycleFns?.onConnect?.();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (web3Error: any) {
+    const errMsg =
+      typeof web3Error === 'string'
+        ? web3Error
+        : web3Error?.message || 'Unknown Error';
+    lifeCycleFns?.onConnectError?.({
+      name: 'Connection Error',
+      message: errMsg,
+    });
     disconnect();
   } finally {
     setConnecting(false);
@@ -87,13 +104,17 @@ export const handleConnectWallet = async ({
 };
 
 export const loadWallet = async ({
-  connectWallet,
   setConnecting,
   web3modalOptions,
+  setWalletState,
+  lifeCycleFns,
+  disconnect,
 }: {
-  connectWallet: () => Promise<void>;
-  setConnecting: ReactSetter<boolean>;
+  setConnecting: Dispatch<SetStateAction<boolean>>;
   web3modalOptions: ModalOptions;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
+  lifeCycleFns?: ConnectLifecycleFns;
+  disconnect: () => Promise<void>;
 }) => {
   const isMetamaskUnlocked =
     (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
@@ -101,7 +122,13 @@ export const loadWallet = async ({
   const _isGnosisSafe = await modal.isSafeApp();
 
   if (isMetamaskUnlocked && (_isGnosisSafe || web3modalOptions.cacheProvider)) {
-    await connectWallet();
+    await handleConnectWallet({
+      setConnecting,
+      setWalletState,
+      lifeCycleFns,
+      disconnect,
+      web3modalOptions,
+    });
   } else {
     setConnecting(false);
   }
@@ -112,12 +139,13 @@ export const loadProfile = async ({
   setProfile,
   setProfileLoading,
   shouldUpdate,
-  networks,
+  lifeCycleFns,
 }: {
   address: string;
-  setProfile: ReactSetter<UserProfile>;
-  setProfileLoading: ReactSetter<boolean>;
+  setProfile: Dispatch<SetStateAction<UserProfile>>;
+  setProfileLoading: Dispatch<SetStateAction<boolean>>;
   shouldUpdate: boolean;
+  lifeCycleFns?: ConnectLifecycleFns;
   networks: NetworkConfigs;
 }) => {
   try {
@@ -130,9 +158,19 @@ export const loadProfile = async ({
         profile.name || profile.ens || truncateAddress(address);
       setProfile({ ...profile, displayName });
     }
-  } catch (error) {
-    console.error(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (web3Error: any) {
+    const errMsg =
+      typeof web3Error === 'string'
+        ? web3Error
+        : web3Error?.message || 'Unknown Error';
+    lifeCycleFns?.onConnectError?.({
+      name: 'Connection Error',
+      message: errMsg,
+    });
+    console.error(web3Error);
     setProfile({ displayName: '', address: '', ens: '' });
+    lifeCycleFns?.onProfileError?.(web3Error);
   } finally {
     if (shouldUpdate) {
       setProfileLoading(false);

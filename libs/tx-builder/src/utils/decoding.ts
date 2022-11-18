@@ -1,14 +1,17 @@
 import { BigNumber, utils } from 'ethers';
 import {
   ArgType,
-  CONTRACTS,
   ENCODED_0X0_DATA,
   MulticallAction,
-  NETWORK_DATA,
   StringSearch,
   ValidArgType,
-  ValidNetwork,
 } from '@daohaus/utils';
+import {
+  CONTRACT_KEYCHAINS,
+  HAUS_NETWORK_DATA,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
+
 import { LOCAL_ABI } from '@daohaus/abis';
 import { createContract, fetchABI, getCode } from './abi';
 import { isSearchArg } from './args';
@@ -53,7 +56,7 @@ export const isActionError = (action: any): action is ActionError => {
 };
 
 const getMultisendHex = ({ chainId, actionData }: MultisendArgs) => {
-  const multisendAddr = CONTRACTS.GNOSIS_MULTISEND[chainId];
+  const multisendAddr = CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId];
   if (!multisendAddr) throw new Error('Invalid chainId');
 
   const multisendContract = createContract({
@@ -115,7 +118,7 @@ const buildEthTransferAction = (
   action: EncodedAction
 ): DecodedAction => ({
   to: action.to,
-  name: `${NETWORK_DATA[chainId]?.symbol} Transfer`,
+  name: `${HAUS_NETWORK_DATA[chainId]?.symbol} Transfer`,
   value: BigNumber.from(action.value).toString(),
   params: [],
 });

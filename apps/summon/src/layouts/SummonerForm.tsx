@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { useHausConnect } from '@daohaus/connect';
-import { isValidNetwork, ReactSetter } from '@daohaus/utils';
+import { useDHConnect } from '@daohaus/connect';
+import { ReactSetter } from '@daohaus/utils';
+import { isValidNetwork } from '@daohaus/keychain-utils';
+
 import {
   Bold,
   Button,
@@ -40,7 +42,7 @@ export const SummonerForm = ({
   setDaoAddress,
   setErrMsg,
 }: SummonFormProps) => {
-  const { chainId, isConnected } = useHausConnect();
+  const { chainId, isConnected } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const methods = useForm({ mode: 'onTouched' });
   const {

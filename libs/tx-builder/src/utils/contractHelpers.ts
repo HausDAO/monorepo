@@ -1,17 +1,17 @@
 import {
   StaticContract,
   ProcessedContract,
-  ValidNetwork,
   LocalContract,
   ContractLego,
   ABI,
   StringSearch,
-  Keychain,
   ArbitraryState,
   isEthAddress,
   EthAddress,
   RemoteContract,
 } from '@daohaus/utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+
 import { fetchABI } from './abi';
 import { isSearchArg } from './args';
 import { searchArg } from './search';

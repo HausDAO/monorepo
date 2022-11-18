@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 import { Banner, Footer, widthQuery } from '@daohaus/ui';
-import { DaoHausNav, useHausConnect } from '@daohaus/connect';
+import { DaoHausNav, useDHConnect } from '@daohaus/connect';
 
 import { TXBuilder } from '@daohaus/tx-builder';
 import { SummonerForm } from '../layouts/SummonerForm';
@@ -25,7 +25,7 @@ const TemporaryLayout = styled.div`
 
 export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
-  const { provider, chainId } = useHausConnect();
+  const { provider, chainId } = useDHConnect();
 
   const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');

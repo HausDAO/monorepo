@@ -10,7 +10,7 @@ import { useDao } from '@daohaus/moloch-v3-context';
 import { VaultOverview } from '../components/VaultOverview';
 import { useParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { getNetwork } from '@daohaus/utils';
+import { getNetwork } from '@daohaus/keychain-utils';
 import { ButtonLink } from '../components/ButtonLink';
 
 const VaultContainer = styled(Card)`

@@ -1,5 +1,6 @@
 import { ContractABIKey, LOCAL_ABI } from '@daohaus/abis';
-import { ValidNetwork, CONTRACTS, ContractKey } from '@daohaus/utils';
+import { ContractKey } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 
 /**
  * Get addresses of contracts that have been deployed to the
@@ -12,10 +13,10 @@ export const getContractAddressesForChain = (
   contractKey: ContractKey,
   chainId: ValidNetwork
 ): string | null => {
-  if (!CONTRACTS?.[contractKey]?.[chainId]) {
+  if (!CONTRACT_KEYCHAINS?.[contractKey]?.[chainId]) {
     return null;
   }
-  return CONTRACTS[contractKey][chainId] as string;
+  return CONTRACT_KEYCHAINS[contractKey][chainId] as string;
 };
 
 /**

@@ -3,8 +3,9 @@ import {
   ArbitraryState,
   IPFSPinata,
   pinataPostJSON,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
+
 import { processArg } from './args';
 
 export const handleIPFSPinata = async ({

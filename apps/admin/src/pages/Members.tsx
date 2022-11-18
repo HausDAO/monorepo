@@ -6,10 +6,11 @@ import {
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
-  Keychain,
   sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   useMembers,
   useDao,

@@ -14,14 +14,14 @@ This library was generated with [Nx](https://nx.dev).
 yarn add @daohaus/connect
 ```
 
-### HausConnectProvider Context Provider
+### DHConnectProvider Context Provider
 
-Start by importing the `HausConnectProvider` component from the `@daohaus/connect` package at your app's root component, such as `main.tsx`:
+Start by importing the `DHConnectProvider` component from the `@daohaus/connect` package at your app's root component, such as `main.tsx`:
 
 ```jsx
 // main.tsx
 
-import { HausConnectProvider } from '@daohaus/daohaus-connect-feature';
+import { DHConnectProvider } from '@daohaus/daohaus-connect-feature';
 ```
 
 Once imported you can use it as you would any other Context Provider:
@@ -32,29 +32,29 @@ Once imported you can use it as you would any other Context Provider:
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
-      <HausConnectProvider>
+      <DHConnectProvider>
         <App />
-      </HausConnectProvider>
+      </DHConnectProvider>
     </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')
 );
 ```
 
-After including the `<HausConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
+After including the `<DHConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
 
 ### Connecting to a Wallet
 
-DAOhaus Connect exposes several useful tools that can be used throughout your app. You can access these by importing `useHausConnect` from DAOhas Connect:
+DAOhaus Connect exposes several useful tools that can be used throughout your app. You can access these by importing `useDHConnect` from DAOhas Connect:
 
 ```jsx
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { useDHConnect } from '@daohaus/daohaus-connect-feature';
 ```
 
 Once this is imported, you can destructure out useful tools, such as `connectWallet`:
 
 ```jsx
-const { connectWallet } = useHausConnect();
+const { connectWallet } = useDHConnect();
 ```
 
 This can then be passed into any Button with an `onClick` handler:

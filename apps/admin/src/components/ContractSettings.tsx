@@ -9,7 +9,7 @@ import {
 
 import { TDao } from '@daohaus/moloch-v3-context';
 import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
 
 const MetaCardHeader = styled.div`
   display: flex;

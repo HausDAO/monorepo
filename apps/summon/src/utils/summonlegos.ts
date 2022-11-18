@@ -1,11 +1,12 @@
 import { LOCAL_ABI } from '@daohaus/abis';
-import { ContractLego, CONTRACTS } from '@daohaus/utils';
+import { ContractLego } from '@daohaus/utils';
+import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 
 const BaalSummonerContract: ContractLego = {
   contractName: 'BaalSummoner',
   type: 'static',
   abi: LOCAL_ABI.BAAL_SUMMONER,
-  targetAddress: CONTRACTS.V3_FACTORY,
+  targetAddress: CONTRACT_KEYCHAINS.V3_FACTORY,
 };
 
 export const SummonTX = {

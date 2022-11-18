@@ -5,9 +5,10 @@ import {
   formatShortDateTimeFromSeconds,
   formatValueTo,
   fromWei,
-  NetworkType,
   PROPOSAL_STATUS,
 } from '@daohaus/utils';
+import { NetworkType } from '@daohaus/keychain-utils';
+
 import { TProposals } from '@daohaus/moloch-v3-context';
 
 export type ProposalHistoryElementData = {

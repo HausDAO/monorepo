@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { charLimit, Keychain } from '@daohaus/utils';
+import { charLimit } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import {
   AddressDisplay,
   border,

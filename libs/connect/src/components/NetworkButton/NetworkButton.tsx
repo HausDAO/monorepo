@@ -1,7 +1,8 @@
 import { BiError } from 'react-icons/bi';
 import styled from 'styled-components';
 
-import { getNetworkName, Keychain, NetworkType } from '@daohaus/utils';
+import { Keychain, getNetworkName, NetworkType } from '@daohaus/keychain-utils';
+
 import {
   Button,
   Dropdown,
@@ -11,10 +12,10 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { useHausConnect } from '../../HausConnectContext';
+import { useDHConnect } from '../../HausConnectContext';
 
 export const NetworkButton = ({ isSm }: { isSm: boolean }) => {
-  const { chainId, validNetwork, isConnected, daoChainId } = useHausConnect();
+  const { chainId, validNetwork, isConnected, daoChainId } = useDHConnect();
 
   if (!isConnected) return null;
 
@@ -50,7 +51,7 @@ export const getNetworkPanels = (
   });
 
 export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
-  const { switchNetwork, daoChainId } = useHausConnect();
+  const { switchNetwork, daoChainId } = useDHConnect();
 
   const handleSwitchNetwork = () => {
     switchNetwork(daoChainId as string);
@@ -72,7 +73,7 @@ export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
 };
 
 export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
-  const { switchNetwork, networks } = useHausConnect();
+  const { switchNetwork, networks } = useDHConnect();
 
   const innerButton = isSm ? (
     <WarningButton

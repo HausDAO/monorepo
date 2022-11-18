@@ -69,13 +69,3 @@ export const SENSITIVE_PROPOSAL_TYPES: { [key: string]: boolean } = {
 export const DAO_METHOD_TO_PROPOSAL_TYPE: { [key: string]: string } = {
   setShamans: ProposalTypeIds.AddShaman,
 };
-
-export const RPC_ENDPOINTS = {
-  '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
-  '0x64': 'https://rpc.gnosischain.com/',
-  '0xa': '',
-  '0x89': '',
-  '0xa4b1': '',
-  '0xa4ec': '',
-};

@@ -18,7 +18,7 @@ import { SortDropdown } from './SortDropdown';
 type ListActionsProps = {
   children: ReactNode;
   searchTerm: string;
-  filterNetworks: Record<string, string>;
+  filterNetworks: string[];
   listType: ListType;
   toggleListType: () => void;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;

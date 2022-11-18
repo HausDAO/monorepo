@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AccountProfile, Keychain } from '@daohaus/utils';
+import { AccountProfile } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { Haus } from '@daohaus/moloch-v3-data';
 import { MemberCard } from '@daohaus/ui';
 

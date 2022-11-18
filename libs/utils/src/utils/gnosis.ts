@@ -1,5 +1,4 @@
-import { ENDPOINTS } from '../constants';
-import { ValidNetwork } from '../types';
+import { ENDPOINTS, ValidNetwork } from '@daohaus/keychain-utils';
 
 export const generateGnosisUiLink = ({
   chainId,

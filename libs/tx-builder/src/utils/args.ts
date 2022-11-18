@@ -3,12 +3,12 @@ import {
   ArbitraryState,
   ArgType,
   calcExpiry,
-  Keychain,
   StringSearch,
   TXLego,
   ValidArgType,
-  ValidNetwork,
 } from '@daohaus/utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+
 import { ArgCallback } from '../TXBuilder';
 import { handleIPFSPinata } from './ipfs';
 import {

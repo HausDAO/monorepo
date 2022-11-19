@@ -161,26 +161,34 @@ export const TX: Record<string, TXLego> = {
     },
     actions: [
       {
-        contract: CONTRACT.GNOSIS_MODULE,
-        method: 'execTransactionFromModule',
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'executeAsBaal',
         args: [
-          '.formValues.paymentTokenAddress',
+          '.formValues.safeAddress',
           { type: 'static', value: '0' },
           {
-            type: 'multicall',
-            actions: [
-              {
-                contract: CONTRACT.ERC_20_FUNDING,
-                method: 'transferFrom',
-                args: [
-                  '.formValues.safeAddress',
-                  '.formValues.recipient',
-                  '.formValues.paymentTokenAmt',
-                ],
-              },
-            ],
+            type: 'encodeCall',
+            action: {
+              contract: CONTRACT.GNOSIS_MODULE,
+              method: 'execTransactionFromModule',
+              args: [
+                { type: 'singleton', keychain: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND },
+                { type: 'static', value: '0' },
+                {
+                  type: 'multicall',
+                  actions: [{
+                    contract: CONTRACT.ERC_20_FUNDING,
+                    method: 'transfer',
+                    args: [
+                      '.formValues.recipient',
+                      '.formValues.paymentTokenAmt',
+                    ],
+                  }],
+                },
+                { type: 'static', value: '1' },
+              ],
+            },
           },
-          { type: 'static', value: '0' },
         ],
       },
     ],

@@ -3,6 +3,7 @@ import {
   ArbitraryState,
   ArgEncode,
   ArgType,
+  EncodeCallArg,
   encodeFunction,
   encodeValues,
   EstmimateGas,
@@ -104,6 +105,44 @@ export const txActionToMetaTx = ({
     value: value.toString(),
     operation,
   };
+};
+
+export const handleEncodeCallArg = async ({
+  arg,
+  chainId,
+  localABIs,
+  appState,
+}: {
+  arg: EncodeCallArg;
+  chainId: ValidNetwork;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+}) => {
+  const { contract, method, args } = arg.action;
+  const processedContract = await processContractLego({
+    contract,
+    chainId,
+    localABIs,
+    appState,
+  });
+
+  const processedArgs = await Promise.all(
+    args.map(
+      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+    )
+  );
+
+  const encodedData = encodeFunction(
+    processedContract.abi,
+    method,
+    processedArgs,
+  );
+
+  if (typeof encodedData !== 'string') {
+    throw new Error(encodedData.message);
+  }
+
+  return encodedData;
 };
 
 export const handleMulticallArg = async ({

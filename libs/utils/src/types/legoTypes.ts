@@ -54,6 +54,10 @@ export type MulticallArg = {
   type: 'multicall';
   actions: MulticallAction[];
 };
+export type EncodeCallArg = {
+  type: 'encodeCall';
+  action: MulticallAction;
+};
 export type EstmimateGas = {
   type: 'estimateGas';
   actions: MulticallAction[];
@@ -99,6 +103,7 @@ export type ValidArgType =
   | SingletonSearch
   | NestedArray
   | MulticallArg
+  | EncodeCallArg
   | ProposalExpiry
   | StaticArg
   | IPFSPinata

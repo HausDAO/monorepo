@@ -135,7 +135,7 @@ export const handleEncodeCallArg = async ({
   const encodedData = encodeFunction(
     processedContract.abi,
     method,
-    processedArgs,
+    processedArgs
   );
 
   if (typeof encodedData !== 'string') {

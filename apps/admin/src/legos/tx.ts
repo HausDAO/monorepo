@@ -172,18 +172,23 @@ export const TX: Record<string, TXLego> = {
               contract: CONTRACT.GNOSIS_MODULE,
               method: 'execTransactionFromModule',
               args: [
-                { type: 'singleton', keychain: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND },
+                {
+                  type: 'singleton',
+                  keychain: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND,
+                },
                 { type: 'static', value: '0' },
                 {
                   type: 'multicall',
-                  actions: [{
-                    contract: CONTRACT.ERC_20_FUNDING,
-                    method: 'transfer',
-                    args: [
-                      '.formValues.recipient',
-                      '.formValues.paymentTokenAmt',
-                    ],
-                  }],
+                  actions: [
+                    {
+                      contract: CONTRACT.ERC_20_FUNDING,
+                      method: 'transfer',
+                      args: [
+                        '.formValues.recipient',
+                        '.formValues.paymentTokenAmt',
+                      ],
+                    },
+                  ],
                 },
                 { type: 'static', value: '1' },
               ],

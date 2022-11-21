@@ -3,12 +3,8 @@ import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
-import { TDao, useDao } from '@daohaus/moloch-v3-context';
-import {
-  DaoWithTokenData,
-  FindMemberQuery,
-  Haus,
-} from '@daohaus/moloch-v3-data';
+import { useDao } from '@daohaus/moloch-v3-context';
+import { DaoWithTokenData, FindMemberQuery } from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
   Button,
@@ -124,8 +120,7 @@ export function Member() {
   const fetchMemberProfile = useCallback(
     async (address: string, loadState: typeof setCurrentMemberLoading) => {
       loadState(true);
-      const haus = Haus.create();
-      const profile = await fetchProfile({ haus, address });
+      const profile = await fetchProfile(address);
       setCurrentProfile(profile);
       loadState(false);
     },

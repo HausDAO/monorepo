@@ -22,6 +22,7 @@
       "@daohaus/connect": ["libs/connect/src/index.ts"],
       "@daohaus/connect-context": ["libs/connect-context/src/index.ts"],
       "@daohaus/contract-utils": ["libs/contract-utils/src/index.ts"],
+      "@daohaus/data-fetch-utils": ["libs/data-fetch-utils/src/index.ts"],
       "@daohaus/form-builder": ["libs/form-builder/src/index.ts"],
       "@daohaus/keychain-utils": ["libs/keychain-utils/src/index.ts"],
       "@daohaus/moloch-v3-context": ["libs/moloch-v3-context/src/index.ts"],

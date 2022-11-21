@@ -10,7 +10,7 @@ import {
 import { Keychain } from '@daohaus/keychain-utils';
 
 import { TProposals } from '@daohaus/moloch-v3-context';
-import { Haus, ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { ITransformedProposal } from '@daohaus/moloch-v3-data';
 import {
   Button,
   ParLg,
@@ -80,14 +80,12 @@ export const ProposalCardOverview = ({
   const isMd = useBreakpoint(widthQuery.md);
   const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
 
-  const haus = Haus.create();
-
   const fetchMemberProfile = useCallback(
     async (address: string, setter: typeof setSubmitterProfile) => {
-      const profile = await fetchProfile({ haus, address });
+      const profile = await fetchProfile(address);
       setter(profile);
     },
-    [haus]
+    []
   );
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { AccountProfile } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { Haus } from '@daohaus/moloch-v3-data';
 import { MemberCard } from '@daohaus/ui';
 
 import { fetchProfile } from '../utils/cacheProfile';
@@ -31,8 +30,7 @@ export const MemberProfileAvatar = ({
 
   const fetchMemberProfile = useCallback(
     async (address: string, setter: typeof setMemberProfile) => {
-      const haus = Haus.create();
-      const profile = await fetchProfile({ haus, address });
+      const profile = await fetchProfile(address);
       setter(profile);
     },
     []

@@ -11,6 +11,7 @@ export interface IListQueryArguments<TOrderBy extends string, Variables> {
   filter?: Variables;
   ordering?: Ordering<TOrderBy>;
   paging?: Paging;
+  graphApiKeys?: Keychain;
 }
 
 export type QueryVariables = {

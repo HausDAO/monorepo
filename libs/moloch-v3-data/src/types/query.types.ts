@@ -25,6 +25,7 @@ export interface ICrossNetworkMemberListArguments<
   daoFilter?: DaoVariables;
   memberFilter?: MemberVariables;
   ordering?: Ordering<TOrderBy>;
+  graphApiKeys: Keychain;
 }
 
 export type QueryVariables = {

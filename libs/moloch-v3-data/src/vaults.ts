@@ -15,7 +15,7 @@ export const listTokenBalances = async ({
 }: {
   networkId: ValidNetwork;
   safeAddress: string;
-  graphApiKeys: Keychain;
+  graphApiKeys?: Keychain;
 }): Promise<IFindQueryResult<DaoTokenBalances>> => {
   const url = getGraphUrl(networkId, graphApiKeys);
   if (!url) {

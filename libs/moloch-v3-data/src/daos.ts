@@ -4,6 +4,7 @@ import {
   graphFetchList,
   IFindQueryResult,
   IListQueryArguments,
+  IListQueryResults,
 } from '@daohaus/data-fetch-utils';
 import {
   ENDPOINTS,
@@ -19,7 +20,6 @@ import {
   FindDaoDocument,
   FindDaoQuery,
   FindDaoQueryVariables,
-  IListQueryResults,
   ITransformedDaoListQuery,
   ITransformedDaoQuery,
   ListDaosDocument,
@@ -75,6 +75,7 @@ export const findDao = async ({
             listTokenBalances({
               networkId,
               safeAddress: vault.safeAddress,
+              graphApiKeys,
             })
           );
         });

@@ -1,19 +1,8 @@
 import { TokenBalance } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
-import { HausError } from '../HausError';
 import { ListDaosQuery } from '../subgraph/queries/daos.generated';
 import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
-import { OrderDirection } from '../subgraph/schema.generated';
-
-/**
- * Query related types
- */
-export interface IListQueryArguments<TOrderBy extends string, Variables> {
-  networkId: keyof Keychain;
-  filter?: Variables;
-  ordering?: Ordering<TOrderBy>;
-  paging?: Paging;
-}
+import { Ordering } from '@daohaus/data-fetch-utils';
 
 export interface ICrossNetworkMemberListArguments<
   TOrderBy extends string,
@@ -28,52 +17,11 @@ export interface ICrossNetworkMemberListArguments<
   graphApiKeys: Keychain;
 }
 
-export type QueryVariables = {
-  [field: string]: string;
-};
-
-export type Ordering<TOrderBy extends string> = {
-  orderBy: TOrderBy;
-  orderDirection: OrderDirection;
-};
-
-export type Paging = {
-  pageSize: number;
-  offset?: number;
-  lastId?: string;
-  previousPageLastId?: string;
-};
-
-export interface IListQueryResults<
-  TOrderBy extends string,
-  Variables,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Data = any
-> {
-  items: Data;
-  error?: HausError;
-  networkId?: keyof Keychain;
-  filter?: Variables;
-  ordering?: Ordering<TOrderBy>;
-  nextPaging?: Paging;
-  previousPaging?: Paging;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface IFindQueryResult<Data = any> {
-  data?: Data;
-  error?: HausError;
-  networkId?: keyof Keychain;
-}
-
 export type QueryProposal = ListProposalsQuery['proposals'][number];
 export interface ITransformedProposal extends QueryProposal {
   status?: string;
 }
 
-// copied files start here  in @daohaus/moloch-v3-data
-// moving this to common-utilities allows the UI to remove moloch-v3-data
-// from its dependencies
 export interface ITransformedProposalQuery {
   proposal: ITransformedProposal | undefined;
 }

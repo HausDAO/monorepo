@@ -141,7 +141,7 @@
     "name": "_baalSummoner",
     "outputs": [
       {
-        "internalType": "contract IBAALSUMMONER",
+        "internalType": "contract IBaalSummoner",
         "name": "",
         "type": "address"
       }

@@ -22,7 +22,7 @@ export const Tabs = ({ tabList }: TabsInterface) => {
     selected: 0,
   });
 
-  const Panel = tabList && tabList.find((_, index) => index === selected);
+  const TabsContent = tabList && tabList.find((_, index) => index === selected);
 
   return (
     <TabsContainer>
@@ -42,7 +42,7 @@ export const Tabs = ({ tabList }: TabsInterface) => {
 
       <div className="tab-content">
         <div className="tab-panel" role="tabpanel">
-          {Panel && <Panel.Component />}
+          {TabsContent && <TabsContent.Component />}
         </div>
       </div>
     </TabsContainer>

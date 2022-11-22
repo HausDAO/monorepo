@@ -2,3 +2,4 @@ export * from './NavigationTabs';
 export * from './MemberCard';
 export * from './AppSwitcher';
 export * from './Footer';
+export * from './Tabs';

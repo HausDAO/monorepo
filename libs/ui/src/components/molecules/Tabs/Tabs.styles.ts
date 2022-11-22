@@ -5,7 +5,7 @@ export const TabsContainer = styled.div`
   flex-direction: column;
 `;
 
-export const TabLinks = styled.ul`
+export const TabLinks = styled.div`
   display: flex;
   width: '100%';
   list-style: none;
@@ -28,7 +28,7 @@ export const TabLink = styled.li`
   cursor: pointer;
   font-size: 2.2rem;
   letter-spacing: 1.5px;
-  padding: 3.2rem 3.5rem 2.2rem 3.5rem;
+  margin: 2.2rem 2.2rem 2.2rem 0;
   padding-bottom: 1rem;
   transition: 0.2s all;
   svg {

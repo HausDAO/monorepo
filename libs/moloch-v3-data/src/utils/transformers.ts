@@ -1,5 +1,5 @@
+import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 import {
-  AccountProfile,
   DaoTokenBalances,
   ITransformedMembership,
   TokenBalance,
@@ -7,13 +7,10 @@ import {
 } from '@daohaus/utils';
 import {
   ITransformedProposal,
-  IFindQueryResult,
   QueryProposal,
   ListMembershipsQuery,
   DaoProfile,
   ListDaosQuery,
-  LensProfile,
-  ENSDomain,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -23,31 +20,6 @@ export const transformProposal = (
   return {
     ...proposal,
     status: getProposalStatus(proposal),
-  };
-};
-
-export const transformProfile = ({
-  address,
-  lensProfile,
-  ensDomain,
-}: {
-  address: string;
-  lensProfile?: LensProfile;
-  ensDomain?: ENSDomain;
-}): AccountProfile => {
-  return {
-    address,
-    name: lensProfile?.name,
-    ens: ensDomain?.domain?.name || lensProfile?.onChainIdentity?.ens?.name,
-    image:
-      lensProfile?.picture?.__typename === 'MediaSet'
-        ? `https://daohaus.mypinata.cloud/ipfs/${lensProfile.picture.original.url.match(
-            /Qm[a-zA-Z0-9/.]+/
-          )}`
-        : '',
-    description: lensProfile?.bio,
-    lensHandle: lensProfile?.handle,
-    lensId: lensProfile?.id,
   };
 };
 

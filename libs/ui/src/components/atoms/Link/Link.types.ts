@@ -18,3 +18,12 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   linkType?: 'internal' | 'external' | 'no-icon-external';
   hideIcon?: boolean;
 }
+
+type NewLinkProps<Element extends React.ElementType> = {
+  as?: Element;
+  disabled?: boolean;
+};
+
+export type PolymorphicLinkProps<Element extends React.ElementType> =
+  React.PropsWithChildren<NewLinkProps<Element>> &
+    Omit<React.ComponentPropsWithoutRef<Element>, keyof NewLinkProps<Element>>;

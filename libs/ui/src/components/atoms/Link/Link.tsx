@@ -1,28 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
 import { RiExternalLinkLine } from 'react-icons/ri';
-import styled, { css, StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 
-import { LinkProps } from './Link.types';
+import { LinkProps, PolymorphicLinkProps } from './Link.types';
 import { InternalLink, ExternalLink, LinkStyles } from './Link.styles';
 
-type NewLinkProps<C extends React.ElementType> = {
-  as?: C;
-  disabled?: boolean;
-};
-
-type Props<C extends React.ElementType> = React.PropsWithChildren<
-  NewLinkProps<C>
-> &
-  Omit<React.ComponentPropsWithoutRef<C>, keyof NewLinkProps<C>>;
-
-const UnstyledPolymorphicLink = <C extends React.ElementType = 'a'>({
+const UnstyledPolymorphicLink = <Element extends React.ElementType = 'a'>({
   as,
   disabled,
   children,
   className,
   ...restProps
-}: Props<C>) => {
+}: PolymorphicLinkProps<Element>) => {
   const Component = as || 'a';
 
   const classes = classNames({ disabled });

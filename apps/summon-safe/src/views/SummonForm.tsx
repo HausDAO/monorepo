@@ -140,6 +140,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
       // returns safeTxStatus
       await pollSafeTx(chainId, sdk, safeTxHash, setTxExplorerURI);
     } catch (error) {
+      console.error(error);
       setError('An error has occurred. Please try again');
     } finally {
       if (currentTx) {

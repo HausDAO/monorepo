@@ -186,13 +186,14 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
 };
 
 export const handleKeychains = (chainId: ValidNetwork) => {
-  const { V3_FACTORY, POSTER } = CONTRACT_KEYCHAINS;
-  const v3Contracts = [V3_FACTORY, POSTER];
+  const { V3_FACTORY, POSTER, ZODIAC_FACTORY } = CONTRACT_KEYCHAINS;
+  const v3Contracts = [V3_FACTORY, POSTER, ZODIAC_FACTORY];
 
   if (v3Contracts.every((contract) => contract[chainId])) {
     return {
       V3_FACTORY: V3_FACTORY[chainId] || '',
       POSTER: POSTER[chainId] || '',
+      ZODIAC_FACTORY: ZODIAC_FACTORY[chainId] || '',
     };
   }
 

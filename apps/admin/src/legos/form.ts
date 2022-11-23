@@ -46,7 +46,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     subtitle: 'Signal Proposal',
     description: 'Request an on-chain member vote.',
     requiredFields: { title: true, description: true },
-    log: true,
     tx: TX.POST_SIGNAL,
     fields: [
       FIELD.TITLE,
@@ -59,7 +58,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'ISSUE',
     title: 'DAO Token Request',
     subtitle: 'Token Proposal',
-    log: true,
     description: 'Request voting or non-voting tokens from the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
@@ -119,7 +117,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'ERC-20 Token Transfer',
     subtitle: 'Funding Proposal',
     description: 'Request ERC-20 tokens from the DAO treasury.',
-    log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {
       title: true,
@@ -148,7 +145,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     subtitle: 'Transfer Proposal',
     description:
       'Create a proposal to transfer ERC-20 tokens from the DAO safe',
-    log: true,
     tx: TX.ISSUE_ERC20_SIDECAR,
     requiredFields: {
       title: true,
@@ -177,7 +173,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'Network Token Transfer',
     subtitle: 'Funding Proposal',
     description: "Request network's native token from the DAO treasury.",
-    log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
       title: true,
@@ -205,7 +200,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'Network Token Transfer',
     subtitle: 'Funding Proposal',
     description: "Request network's native token from the DAO safe.",
-    log: true,
     tx: TX.ISSUE_NETWORK_TOKEN_SIDECAR,
     requiredFields: {
       title: true,
@@ -233,7 +227,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Proposal',
-    log: true,
     description: 'Change proposal timing or advanced governance settings.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
@@ -337,7 +330,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
     title: 'Update Token Settings',
-    log: true,
     subtitle: 'Token Proposal',
     description: 'Change transferability of voting or non-voting tokens.',
     tx: TX.TOKEN_SETTINGS,
@@ -530,7 +522,6 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     title: 'Write an Article',
     subtitle: 'Tabula Article Proposal',
     description: 'Write an article on Tabula.gg',
-    log: true,
     tx: TABULA_TX.CREATE_ARTICLE,
     requiredFields: {
       title: true,
@@ -569,7 +560,6 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
     title: 'Update Metadata Settings',
     subtitle: 'Settings',
     requiredFields: { name: true },
-    log: true,
     tx: TX.UPDATE_METADATA_SETTINGS,
     fields: [
       FIELD.NAME,

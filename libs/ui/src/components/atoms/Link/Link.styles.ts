@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
-const LinkStyles = css`
+export const LinkStyles = css`
   align-items: center;
   color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
   cursor: pointer;
@@ -32,6 +32,10 @@ const LinkStyles = css`
     }
   }
 `;
+
+export const NewStyledLink = styled.a`
+  ${LinkStyles}
+`
 
 export const ExternalLink = styled.a`
   ${LinkStyles}

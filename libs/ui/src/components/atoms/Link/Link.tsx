@@ -4,7 +4,7 @@ import { RiExternalLinkLine } from 'react-icons/ri';
 import styled, { css, StyledComponent } from 'styled-components';
 
 import { LinkProps } from './Link.types';
-import { InternalLink, ExternalLink } from './Link.styles';
+import { InternalLink, ExternalLink, LinkStyles } from './Link.styles';
 
 type NewLinkProps<C extends React.ElementType> = {
   as?: C;
@@ -16,18 +16,27 @@ type Props<C extends React.ElementType> = React.PropsWithChildren<
 > &
   Omit<React.ComponentPropsWithoutRef<C>, keyof NewLinkProps<C>>;
 
-export const NewLink = <C extends React.ElementType = 'a'>({
+const UnstyledPolymorphicLink = <C extends React.ElementType = 'a'>({
   as,
   disabled,
   children,
+  className,
   ...restProps
 }: Props<C>) => {
   const Component = as || 'a';
 
   const classes = classNames({ disabled });
 
-  return <Component {...restProps}>{children}</Component>;
+  return (
+    <Component {...restProps} className={`${classes} ${className}`}>
+      {children}
+    </Component>
+  );
 };
+
+export const NewLink = styled(UnstyledPolymorphicLink)`
+  ${LinkStyles}
+`;
 
 // TODO Refactor React Router out
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(

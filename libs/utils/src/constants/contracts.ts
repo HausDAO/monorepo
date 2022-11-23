@@ -8,14 +8,13 @@ export type ContractKey =
   | 'GNOSIS_MULTISEND'
   | 'GNOSIS_SIGNLIB'
   | 'TRIBUTE_MINION'
-  | 'POSTER';
+  | 'POSTER'
+  | 'VAULT_SUMMONER';
 
 export type AddressKeyChain = { [key in ValidNetwork]?: string };
 
 export const NETWORK_TOKEN_ETH_ADDRESS =
   '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
-
-// https://github.com/HausDAO/Baal#addresses-beta-factories-and-templates
 
 export const SHAMAN_PERMISSIONS = [
   {

@@ -14,8 +14,8 @@ export type TokenData = {
   address: string;
 };
 
-export const getErc20s = (daoData: DaoWithTokenData) => {
-  return daoData.tokenBalances.reduce(
+export const getErc20s = (treasury: DaoWithTokenData['vaults'][number]) => {
+  return treasury.tokenBalances.reduce(
     (acc: TokenData[], tokenData: TokenBalance) => {
       if (!isNetworkToken(tokenData)) {
         return [
@@ -38,10 +38,15 @@ export const getErc20s = (daoData: DaoWithTokenData) => {
 export const getNetworkToken = (
   daoData: DaoWithTokenData,
   daochain: ValidNetwork,
+  safeAddress: string,
   networks = HAUS_NETWORK_DATA
 ) => {
   const networkData = networks[daochain];
-  const networkToken = daoData.tokenBalances.find(isNetworkToken);
+  const treasury = daoData.vaults.find((v) => {
+    if (!safeAddress) return v.safeAddress === daoData.safeAddress;
+    return v.safeAddress === safeAddress;
+  });
+  const networkToken = treasury && treasury.tokenBalances.find(isNetworkToken);
 
   if (networkToken && networkData) {
     return {

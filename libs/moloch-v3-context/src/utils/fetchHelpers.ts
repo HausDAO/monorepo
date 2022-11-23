@@ -43,13 +43,7 @@ export const loadDao = async ({
     });
 
     if (daoRes?.data?.dao && shouldUpdate) {
-      const daoData: DaoWithTokenDataQuery['dao'] = {
-        tokenBalances: [],
-        fiatTotal: 0,
-        ...daoRes.data.dao,
-      };
-
-      setDao(daoData);
+      setDao(daoRes.data.dao as DaoWithTokenDataQuery['dao']);
     }
   } catch (error) {
     console.error(error);

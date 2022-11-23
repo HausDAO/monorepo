@@ -361,18 +361,44 @@ export default class Query {
 
       if (includeTokens && daoRes?.data?.dao && gnosisUrl) {
         try {
-          const res = await fetch.get<TokenBalance[]>(
-            `${gnosisUrl}/safes/${ethers.utils.getAddress(
-              daoRes.data.dao.safeAddress
-            )}/balances/usd/`
-          );
+          const tokenPromises: Promise<IFindQueryResult<DaoTokenBalances>>[] =
+            [];
+
+          daoRes.data.dao.vaults.forEach((vault) => {
+            tokenPromises.push(
+              this.listTokenBalances({
+                networkId,
+                safeAddress: vault.safeAddress,
+              })
+            );
+          });
+
+          const tokenData = await Promise.all(tokenPromises);
+
+          const hydratedVaults = daoRes.data.dao.vaults.map((vault) => {
+            const vaultResMatch = tokenData.find(
+              (tokenRes) =>
+                tokenRes.data?.safeAddress.toLowerCase() ===
+                vault.safeAddress.toLowerCase()
+            );
+
+            return {
+              ...vault,
+              fiatTotal: vaultResMatch?.data?.fiatTotal,
+              tokenBalances: vaultResMatch?.data?.tokenBalances,
+            };
+          });
 
           return {
             data: {
               dao: {
                 ...daoRes.data.dao,
                 ...addDaoProfileFields(daoRes.data.dao),
-                ...transformTokenBalances(res, daoRes.data.dao.safeAddress),
+                vaults: hydratedVaults,
+                fiatTotal: tokenData.reduce((sum, vault) => {
+                  sum += Number(vault.data?.fiatTotal);
+                  return sum;
+                }, 0),
               },
             },
           };

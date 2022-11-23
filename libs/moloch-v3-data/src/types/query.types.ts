@@ -25,7 +25,6 @@ export interface ICrossNetworkMemberListArguments<
   daoFilter?: DaoVariables;
   memberFilter?: MemberVariables;
   ordering?: Ordering<TOrderBy>;
-  includeTokens?: boolean;
 }
 
 export type QueryVariables = {
@@ -102,10 +101,15 @@ export interface ITransformedDaoQuery {
 export interface ITransformedDaoListQuery {
   daos: ITransformedDao[];
 }
-export type DaoWithTokenData = {
+
+export type TransformedVault = ITransformedDao['vaults'][number] & {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
-} & ITransformedDao;
+};
+export type DaoWithTokenData = Omit<ITransformedDao, 'vaults'> & {
+  vaults: TransformedVault[];
+  fiatTotal: number;
+};
 
 export type DaoWithTokenDataQuery = {
   dao: DaoWithTokenData;

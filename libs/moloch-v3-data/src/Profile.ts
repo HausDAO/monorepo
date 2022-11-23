@@ -1,6 +1,5 @@
 import {
   AccountProfile,
-  DaoTokenBalances,
   ITransformedMembershipsQuery,
   nowInSeconds,
 } from '@daohaus/utils';
@@ -83,7 +82,6 @@ export default class Profile {
       const daoRes = await this.listDaosByMember({
         memberAddress: address,
         networkIds: includeDaosOptions['networkIds'],
-        includeTokens: includeDaosOptions['includeTokens'],
       });
 
       profile = { ...profile, daos: daoRes.data?.daos };
@@ -136,7 +134,6 @@ export default class Profile {
       orderDirection: 'desc',
     },
     networkIds,
-    includeTokens = false,
   }: ICrossNetworkMemberListArguments<
     Dao_OrderBy,
     Dao_Filter,
@@ -170,36 +167,7 @@ export default class Profile {
 
     const memberData = await Promise.all(promises);
 
-    const transformedList = transformMembershipList(memberData);
-
-    if (includeTokens) {
-      const tokenPromises: Promise<IFindQueryResult<DaoTokenBalances>>[] = [];
-      transformedList.forEach((dao) => {
-        if (dao.networkId) {
-          tokenPromises.push(
-            this.query.listTokenBalances({
-              networkId: dao.networkId,
-              safeAddress: dao.safeAddress,
-            })
-          );
-        }
-      });
-
-      const tokenData = await Promise.all(tokenPromises);
-
-      const dataWithTokens = transformedList.map((dao) => {
-        return {
-          ...dao,
-          ...tokenData.find(
-            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
-          )?.data,
-        };
-      });
-
-      return { data: { daos: dataWithTokens } };
-    } else {
-      return { data: { daos: transformedList } };
-    }
+    return { data: { daos: transformMembershipList(memberData) } };
   }
 
   public async listProposalVotesByMember({

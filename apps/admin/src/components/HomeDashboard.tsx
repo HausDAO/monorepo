@@ -50,7 +50,6 @@ export const HomeDashboard = () => {
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
           networkIds: filterNetworks as ValidNetwork[],
-          includeTokens: true,
           daoFilter: { name_contains_nocase: debouncedSearchTerm },
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,

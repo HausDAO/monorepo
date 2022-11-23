@@ -13,6 +13,7 @@ import { ArgCallback } from '../TXBuilder';
 import { handleIPFSPinata } from './ipfs';
 import {
   handleArgEncode,
+  handleEncodeCallArg,
   handleGasEstimate,
   handleMulticallArg,
 } from './multicall';
@@ -92,6 +93,15 @@ export const processArg = async ({
   }
   if (arg?.type === 'multicall') {
     const result = await handleMulticallArg({
+      arg,
+      chainId,
+      localABIs,
+      appState,
+    });
+    return result;
+  }
+  if (arg?.type === 'encodeCall') {
+    const result = await handleEncodeCallArg({
       arg,
       chainId,
       localABIs,

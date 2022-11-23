@@ -3,8 +3,12 @@ import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
-import { useDao } from '@daohaus/moloch-v3-context';
-import { FindMemberQuery, Haus } from '@daohaus/moloch-v3-data';
+import { TDao, useDao } from '@daohaus/moloch-v3-context';
+import {
+  DaoWithTokenData,
+  FindMemberQuery,
+  Haus,
+} from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
   Button,
@@ -142,10 +146,19 @@ export function Member() {
     balance: string;
     fiatBalance: string;
   };
+  const treasury: DaoWithTokenData['vaults'][number] | undefined =
+    useMemo(() => {
+      if (dao) {
+        return (
+          dao.vaults.find((v) => v.safeAddress === dao.safeAddress) || undefined
+        );
+      }
+      return undefined;
+    }, [dao]);
 
   const tableData: TokenTableType[] | null = useMemo(() => {
-    if (dao && currentMember) {
-      return dao.tokenBalances
+    if (dao && currentMember && treasury) {
+      return treasury.tokenBalances
         .filter((bal) => Number(bal.balance))
         .map((bal) => {
           return {
@@ -180,7 +193,7 @@ export function Member() {
     } else {
       return null;
     }
-  }, [dao, currentMember]);
+  }, [dao, currentMember, treasury]);
 
   const columns = useMemo<Column<TokenTableType>[]>(
     () => [
@@ -280,7 +293,7 @@ export function Member() {
               </>
             )}
 
-            {dao?.tokenBalances && tableData && columns && (
+            {treasury && tableData && columns && (
               <DaoTable<TokenTableType>
                 tableData={tableData}
                 columns={columns}

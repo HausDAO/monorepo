@@ -144,6 +144,60 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ISSUE_ERC20_SIDECAR: buildMultiCallTX({
+    id: 'ISSUE_ERC20_SIDECAR',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.TransferErc20,
+        },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'executeAsBaal',
+        args: [
+          '.formValues.safeAddress',
+          { type: 'static', value: '0' },
+          {
+            type: 'encodeCall',
+            action: {
+              contract: CONTRACT.GNOSIS_MODULE,
+              method: 'execTransactionFromModule',
+              args: [
+                {
+                  type: 'singleton',
+                  keychain: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND,
+                },
+                { type: 'static', value: '0' },
+                {
+                  type: 'multicall',
+                  actions: [
+                    {
+                      contract: CONTRACT.ERC_20_FUNDING,
+                      method: 'transfer',
+                      args: [
+                        '.formValues.recipient',
+                        '.formValues.paymentTokenAmt',
+                      ],
+                    },
+                  ],
+                },
+                { type: 'static', value: '1' },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  }),
   ISSUE_NETWORK_TOKEN: buildMultiCallTX({
     id: 'ISSUE_NETWORK_TOKEN',
     JSONDetails: {
@@ -174,6 +228,67 @@ export const TX: Record<string, TXLego> = {
           type: 'static',
           value: ENCODED_0X0_DATA,
         },
+      },
+    ],
+  }),
+  ISSUE_NETWORK_TOKEN_SIDECAR: buildMultiCallTX({
+    id: 'ISSUE_NETWORK_TOKEN_SIDECAR',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.TransferNetworkToken,
+        },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'executeAsBaal',
+        args: [
+          '.formValues.safeAddress',
+          { type: 'static', value: '0' },
+          {
+            type: 'encodeCall',
+            action: {
+              contract: CONTRACT.GNOSIS_MODULE,
+              method: 'execTransactionFromModule',
+              args: [
+                {
+                  type: 'singleton',
+                  keychain: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND,
+                },
+                { type: 'static', value: '0' },
+                {
+                  type: 'multicall',
+                  actions: [
+                    {
+                      contract: {
+                        type: 'static',
+                        contractName: 'NETWORK',
+                        abi: LOCAL_ABI.ERC20,
+                        targetAddress: '.formValues.recipient',
+                      },
+                      method: 'noMethod',
+                      args: [],
+                      value: '.formValues.paymentAmount',
+                      data: {
+                        type: 'static',
+                        value: ENCODED_0X0_DATA,
+                      },
+                    },
+                  ],
+                },
+                { type: 'static', value: '1' },
+              ],
+            },
+          },
+        ],
       },
     ],
   }),
@@ -456,6 +571,12 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ADD_SAFE: {
+    id: 'ADD_SAFE',
+    contract: CONTRACT.VAULT_SUMMONER,
+    method: 'summonVault',
+    args: ['.daoId', '.formValues.name'],
+  },
 };
 
 export const TABULA_TX: Record<string, TXLego> = {

@@ -10,11 +10,14 @@ import {
   Bold,
   DataIndicator,
   widthQuery,
+  Tag,
 } from '@daohaus/ui';
 import { formatValueTo, generateGnosisUiLink } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import { TDao } from '@daohaus/moloch-v3-context';
+import { TransformedVault } from '@daohaus/moloch-v3-data';
+import { VaultMenu } from './VaultMenu';
 
 const VaultOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
@@ -29,6 +32,10 @@ const VaultCardHeader = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 3rem;
+
+  .right-section {
+    display: flex;
+  }
 
   .safe-link {
     padding: 0.9rem;
@@ -52,49 +59,65 @@ const DataGrid = styled.div`
   }
 `;
 
+const TagSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+`;
+
 type VaultOverviewProps = {
   dao: TDao;
+  vault: TransformedVault;
 };
 
-export const VaultOverview = ({ dao }: VaultOverviewProps) => {
+export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
   const { daochain } = useParams();
-
+  const isTreasury = vault.safeAddress === dao.safeAddress;
   return (
     <VaultOverviewCard>
       <VaultCardHeader>
         <div>
-          <H4>Main Treasury</H4>
-          <AddressDisplay
-            address={dao?.safeAddress}
-            truncate
-            copy
-            explorerNetworkId={daochain as keyof Keychain}
-          />
+          <H4>{vault.name}</H4>
+          <TagSection>
+            <AddressDisplay
+              address={vault.safeAddress}
+              truncate
+              copy
+              explorerNetworkId={daochain as keyof Keychain}
+            />
+            {isTreasury && <Tag tagColor="pink">Ragequittable</Tag>}
+          </TagSection>
         </div>
-        <div className="safe-link">
-          <Link
-            linkType="external"
-            href={generateGnosisUiLink({
-              chainId: daochain as keyof Keychain,
-              address: dao.safeAddress,
-            })}
-          >
-            <ParXs>
-              <Bold>Gnosis Safe</Bold>
-            </ParXs>
-          </Link>
+        <div className="right-section">
+          <div className="safe-link">
+            <Link
+              linkType="external"
+              href={generateGnosisUiLink({
+                chainId: daochain as keyof Keychain,
+                address: vault.safeAddress,
+              })}
+            >
+              <ParXs>
+                <Bold>Gnosis Safe</Bold>
+              </ParXs>
+            </Link>
+          </div>
+          <VaultMenu
+            ragequittable={vault.ragequittable}
+            safeAddress={vault.safeAddress}
+          />
         </div>
       </VaultCardHeader>
       <DataGrid>
         <DataIndicator
           label="Balance"
           data={formatValueTo({
-            value: dao.fiatTotal,
+            value: vault.fiatTotal,
             decimals: 2,
             format: 'currencyShort',
           })}
         />
-        <DataIndicator label="Tokens" data={dao.tokenBalances.length} />
+        <DataIndicator label="Tokens" data={vault.tokenBalances.length} />
       </DataGrid>
     </VaultOverviewCard>
   );

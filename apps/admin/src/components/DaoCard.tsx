@@ -103,17 +103,6 @@ export const DaoCard = ({
               : 'Members'}
           </ParMd>
         )}
-        {fiatTotal != null && (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toDollars({
-                value: fiatTotal,
-                unit: 'USD',
-                separator: ' ',
-              })}
-            </Bold>
-          </ParMd>
-        )}
         {totalProposalCount && (
           <ParMd>
             <Bold>

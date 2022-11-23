@@ -4,6 +4,60 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""The access conditions for the publication"""
+input AccessConditionInput {
+  """NFT ownership condition"""
+  nft: NftOwnershipInput
+
+  """ERC20 token ownership condition"""
+  token: Erc20OwnershipInput
+
+  """EOA ownership condition"""
+  eoa: EoaOwnershipInput
+
+  """Profile ownership condition"""
+  profile: ProfileOwnershipInput
+
+  """Profile follow condition"""
+  follow: FollowConditionInput
+
+  """Profile follow condition"""
+  collect: CollectConditionInput
+
+  """AND condition"""
+  and: AndConditionInput
+
+  """OR condition"""
+  or: OrConditionInput
+}
+
+"""The access conditions for the publication"""
+type AccessConditionOutput {
+  """NFT ownership condition"""
+  nft: NftOwnershipOutput
+
+  """ERC20 token ownership condition"""
+  token: Erc20OwnershipOutput
+
+  """EOA ownership condition"""
+  eoa: EoaOwnershipOutput
+
+  """Profile ownership condition"""
+  profile: ProfileOwnershipOutput
+
+  """Profile follow condition"""
+  follow: FollowConditionOutput
+
+  """Profile follow condition"""
+  collect: CollectConditionOutput
+
+  """AND condition"""
+  and: AndConditionOutput
+
+  """OR condition"""
+  or: OrConditionOutput
+}
+
 input AchRequest {
   secret: String!
   ethereumAddress: EthereumAddress!
@@ -13,6 +67,15 @@ input AchRequest {
   overrideAlreadyClaimed: Boolean!
 }
 
+"""The request object to add interests to a profile"""
+input AddProfileInterestsRequest {
+  """The profile interest to add"""
+  interests: [ProfileInterest!]!
+
+  """The profileId to add interests to"""
+  profileId: ProfileId!
+}
+
 input AllPublicationsTagsRequest {
   limit: LimitScalar
   cursor: Cursor
@@ -20,6 +83,20 @@ input AllPublicationsTagsRequest {
 
   """The App Id"""
   source: Sources
+}
+
+input AndConditionInput {
+  """
+  The list of conditions to apply AND to. You can only use nested boolean conditions at the root level.
+  """
+  criteria: [AccessConditionInput!]!
+}
+
+type AndConditionOutput {
+  """
+  The list of conditions to apply AND to. You can only use nested boolean conditions at the root level.
+  """
+  criteria: [AccessConditionOutput!]!
 }
 
 type ApprovedAllowanceAmount {
@@ -93,6 +170,11 @@ type CanCommentResponse {
   result: Boolean!
 }
 
+type CanDecryptResponse {
+  result: Boolean!
+  reasons: DecryptFailReason
+}
+
 type CanMirrorResponse {
   result: Boolean!
 }
@@ -124,6 +206,28 @@ enum ClaimStatus {
   ALREADY_CLAIMED
   CLAIM_FAILED
   NOT_CLAIMED
+}
+
+"""
+Condition that signifies if address or profile has collected a publication
+"""
+input CollectConditionInput {
+  """The collected publication id"""
+  publisherId: ProfileId!
+
+  """The collected publication id"""
+  publicationId: PublicationId!
+}
+
+"""
+Condition that signifies if address or profile has collected a publication
+"""
+type CollectConditionOutput {
+  """The collected publication id"""
+  publisherId: ProfileId!
+
+  """The collected publication id"""
+  publicationId: PublicationId!
 }
 
 type CollectedEvent {
@@ -213,6 +317,9 @@ type Comment {
   """
   collectNftAddress: ContractAddress
 
+  """Indicates if the publication is gated behind some access criteria"""
+  isGated: Boolean!
+
   """The top level post/mirror this comment lives on"""
   mainPost: MainPostReference!
 
@@ -231,14 +338,25 @@ type Comment {
   """
   collectedBy: Wallet
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
-  hasCollectedByMe: Boolean!
+  hasCollectedByMe(isFinalisedOnChain: Boolean): Boolean!
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
+  canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
+"""ContentEncryptionKey scalar type"""
+scalar ContentEncryptionKey
+
 """Contract address custom scalar type"""
 scalar ContractAddress
+
+"""The gated publication access criteria contract types"""
+enum ContractType {
+  ERC721
+  ERC1155
+  ERC20
+}
 
 """The create burn eip 712 typed data"""
 type CreateBurnEIP712TypedData {
@@ -517,6 +635,9 @@ input CreatePublicCommentRequest {
 
   """The reference module"""
   referenceModule: ReferenceModuleParams
+
+  """The criteria to access the publication data"""
+  gated: GatedPublicationParamsInput
 }
 
 input CreatePublicPostRequest {
@@ -531,6 +652,9 @@ input CreatePublicPostRequest {
 
   """The reference module"""
   referenceModule: ReferenceModuleParams
+
+  """The criteria to access the publication data"""
+  gated: GatedPublicationParamsInput
 }
 
 input CreatePublicSetProfileMetadataURIRequest {
@@ -820,6 +944,19 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+"""The reason why a profile cannot decrypt a publication"""
+enum DecryptFailReason {
+  UNAUTHORIZED_ADDRESS
+  DOES_NOT_OWN_NFT
+  DOES_NOT_OWN_PROFILE
+  DOES_NOT_FOLLOW_PROFILE
+  HAS_NOT_COLLECTED_PUBLICATION
+  UNAUTHORIZED_BALANCE
+  PROFILE_DOES_NOT_EXIST
+  FOLLOW_NOT_FINALISED_ON_CHAIN
+  COLLECT_NOT_FINALISED_ON_CHAIN
+}
+
 input DefaultProfileRequest {
   ethereumAddress: EthereumAddress!
 }
@@ -882,6 +1019,9 @@ type DoesFollowResponse {
 
   """If the user does follow"""
   follows: Boolean!
+
+  """Is finalised on-chain"""
+  isFinalisedOnChain: Boolean!
 }
 
 """The eip 712 typed data domain"""
@@ -929,12 +1069,105 @@ type EnabledModules {
   referenceModules: [EnabledModule!]!
 }
 
+"""The encrypted fields"""
+type EncryptedFieldsOutput {
+  """The encrypted content field"""
+  content: EncryptedValueScalar
+
+  """The encrypted image field"""
+  image: EncryptedValueScalar
+
+  """The encrypted media field"""
+  media: [EncryptedMediaSet!]
+
+  """The encrypted animation_url field"""
+  animation_url: EncryptedValueScalar
+
+  """The encrypted external_url field"""
+  external_url: EncryptedValueScalar
+}
+
+"""The Encrypted Media url and metadata"""
+type EncryptedMedia {
+  """The encrypted value for the URL"""
+  url: Url!
+
+  """Width - will always be null on the public API"""
+  width: Int
+
+  """Height - will always be null on the public API"""
+  height: Int
+
+  """Size - will always be null on the public API"""
+  size: Int
+
+  """The image/audio/video mime type for the publication"""
+  mimeType: MimeType
+
+  """The encrypted alt tags for accessibility"""
+  altTag: EncryptedValueScalar
+
+  """The encrypted cover for any video or audio you attached"""
+  cover: EncryptedValueScalar
+}
+
+"""The encrypted media set"""
+type EncryptedMediaSet {
+  """Original media"""
+  original: EncryptedMedia!
+
+  """Small media - will always be null on the public API"""
+  small: EncryptedMedia @deprecated(reason: "should not be used will always be null")
+
+  """Medium media - will always be null on the public API"""
+  medium: EncryptedMedia @deprecated(reason: "should not be used will always be null")
+}
+
+"""EncryptedValue custom scalar type"""
+scalar EncryptedValueScalar
+
+"""The metadata encryption params"""
+type EncryptionParamsOutput {
+  """The provider-specific encryption params"""
+  providerSpecificParams: ProviderSpecificParamsOutput!
+
+  """The encryption provider"""
+  encryptionProvider: EncryptionProvider!
+
+  """The access conditions"""
+  accessCondition: AccessConditionOutput!
+
+  """The encrypted fields"""
+  encryptedFields: EncryptedFieldsOutput!
+}
+
+"""The gated publication encryption provider"""
+enum EncryptionProvider {
+  LIT_PROTOCOL
+}
+
 """Ens custom scalar type"""
 scalar Ens
 
 type EnsOnChainIdentity {
   """The default ens mapped to this address"""
   name: Ens
+}
+
+input EoaOwnershipInput {
+  """The address that will have access to the content"""
+  address: EthereumAddress!
+
+  """The chain ID of the address"""
+  chainID: ChainId!
+}
+
+type EoaOwnershipOutput {
+  """The address that will have access to the content"""
+  address: EthereumAddress!
+
+  """The chain ID of the address"""
+  chainID: ChainId!
 }
 
 """The erc20 type"""
@@ -961,6 +1194,40 @@ type Erc20Amount {
   precision of the Asset or be truncated to the last significant decimal.
   """
   value: String!
+}
+
+input Erc20OwnershipInput {
+  """The ERC20 token's ethereum address"""
+  contractAddress: ContractAddress!
+
+  """The amount of tokens required to access the content"""
+  chainID: ChainId!
+
+  """The amount of tokens required to access the content"""
+  amount: String!
+
+  """The amount of decimals of the ERC20 contract"""
+  decimals: Float!
+
+  """The operator to use when comparing the amount of tokens"""
+  condition: ScalarOperator!
+}
+
+type Erc20OwnershipOutput {
+  """The ERC20 token's ethereum address"""
+  contractAddress: ContractAddress!
+
+  """The amount of tokens required to access the content"""
+  chainID: ChainId!
+
+  """The amount of tokens required to access the content"""
+  amount: String!
+
+  """The amount of decimals of the ERC20 contract"""
+  decimals: Float!
+
+  """The operator to use when comparing the amount of tokens"""
+  condition: ScalarOperator!
 }
 
 """Ethereum address custom scalar type"""
@@ -1132,6 +1399,16 @@ input Follow {
   followModule: FollowModuleRedeemParams
 }
 
+input FollowConditionInput {
+  """The profile id of the gated profile"""
+  profileId: ProfileId!
+}
+
+type FollowConditionOutput {
+  """The profile id of the gated profile"""
+  profileId: ProfileId!
+}
+
 type Follower {
   wallet: Wallet!
   totalAmountOfTimesFollowed: Int!
@@ -1250,6 +1527,36 @@ input FreeFollowProxyAction {
   profileId: ProfileId!
 }
 
+"""The access conditions for the publication"""
+input GatedPublicationParamsInput {
+  """NFT ownership condition"""
+  nft: NftOwnershipInput
+
+  """ERC20 token ownership condition"""
+  token: Erc20OwnershipInput
+
+  """EOA ownership condition"""
+  eoa: EoaOwnershipInput
+
+  """Profile ownership condition"""
+  profile: ProfileOwnershipInput
+
+  """Profile follow condition"""
+  follow: FollowConditionInput
+
+  """Profile follow condition"""
+  collect: CollectConditionInput
+
+  """AND condition"""
+  and: AndConditionInput
+
+  """OR condition"""
+  or: OrConditionInput
+
+  """The LIT Protocol encrypted symmetric key"""
+  encryptedSymmetricKey: ContentEncryptionKey!
+}
+
 type GenerateModuleCurrencyApproval {
   to: ContractAddress!
   from: EthereumAddress!
@@ -1321,6 +1628,9 @@ input HidePublicationRequest {
   """Publication id"""
   publicationId: InternalPublicationId!
 }
+
+"""IfpsCid scalar type"""
+scalar IfpsCid
 
 input IllegalReasonInputParams {
   reason: PublicationReportingReason!
@@ -1473,7 +1783,22 @@ type Media {
   altTag: String
 
   """The cover for any video or audio you attached"""
-  cover: String
+  cover: Url
+}
+
+"""Media object output"""
+type MediaOutput {
+  item: Url!
+
+  """This is the mime type of media"""
+  type: MimeType
+
+  """The alt tags for accessibility"""
+  altTag: String
+
+  """The cover for any video or audio you attached"""
+  cover: Url
+  source: PublicationMediaSource
 }
 
 """The Media Set"""
@@ -1557,6 +1882,9 @@ type MetadataOutput {
 
   """The main focus of the publication"""
   animatedUrl: Url
+
+  """The publication's encryption params in case it's encrypted"""
+  encryptionParams: EncryptionParamsOutput
 }
 
 """mimetype custom scalar type"""
@@ -1601,12 +1929,16 @@ type Mirror {
   """
   collectNftAddress: ContractAddress
 
+  """Indicates if the publication is gated behind some access criteria"""
+  isGated: Boolean!
+
   """The mirror publication"""
   mirrorOf: MirrorablePublication!
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
-  hasCollectedByMe: Boolean!
+  hasCollectedByMe(isFinalisedOnChain: Boolean): Boolean!
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
+  canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
 }
 
 union MirrorablePublication = Post | Comment
@@ -1665,7 +1997,14 @@ type Mutation {
   createMirrorTypedData(options: TypedDataOptions, request: CreateMirrorRequest!): CreateMirrorBroadcastItemResult!
   hidePublication(request: HidePublicationRequest!): Void
   createMirrorViaDispatcher(request: CreateMirrorRequest!): RelayResult!
+  createAttachMediaData(request: PublicMediaRequest!): PublicMediaResults!
   claim(request: ClaimHandleRequest!): RelayResult!
+
+  """Adds profile interests to the given profile"""
+  addProfileInterests(request: AddProfileInterestsRequest!): Void
+
+  """Removes profile interests from the given profile"""
+  removeProfileInterests(request: RemoveProfileInterestsRequest!): Void
   createSetProfileMetadataTypedData(options: TypedDataOptions, request: CreatePublicSetProfileMetadataURIRequest!): CreateSetProfileMetadataURIBroadcastItemResult!
   createSetProfileMetadataViaDispatcher(request: CreatePublicSetProfileMetadataURIRequest!): RelayResult!
   proxyAction(request: ProxyActionRequest!): ProxyActionId!
@@ -1843,6 +2182,34 @@ type NftOwnershipChallengeResult {
 """Nft ownership id type"""
 scalar NftOwnershipId
 
+input NftOwnershipInput {
+  """The NFT collection's ethereum address"""
+  contractAddress: ContractAddress!
+
+  """The NFT chain id"""
+  chainID: ChainId!
+
+  """The unlocker contract type"""
+  contractType: ContractType!
+
+  """The optional token ID(s) to check for ownership"""
+  tokenIds: TokenId
+}
+
+type NftOwnershipOutput {
+  """The NFT collection's ethereum address"""
+  contractAddress: ContractAddress!
+
+  """The NFT chain id"""
+  chainID: ChainId!
+
+  """The unlocker contract type"""
+  contractType: ContractType!
+
+  """The optional token ID(s) to check for ownership"""
+  tokenIds: TokenId
+}
+
 input NFTsRequest {
   limit: LimitScalar
   cursor: Cursor
@@ -1914,6 +2281,20 @@ type OnChainIdentity {
 
   """The worldcoin identity"""
   worldcoin: WorldcoinIdentity!
+}
+
+input OrConditionInput {
+  """
+  The list of conditions to apply OR to. You can only use nested boolean conditions at the root level.
+  """
+  criteria: [AccessConditionInput!]!
+}
+
+type OrConditionOutput {
+  """
+  The list of conditions to apply OR to. You can only use nested boolean conditions at the root level.
+  """
+  criteria: [AccessConditionOutput!]!
 }
 
 """The nft type"""
@@ -2056,14 +2437,18 @@ type Post {
   """
   collectNftAddress: ContractAddress
 
+  """Indicates if the publication is gated behind some access criteria"""
+  isGated: Boolean!
+
   """
   Who collected it, this is used for timeline results and like this for better caching for the client
   """
   collectedBy: Wallet @deprecated(reason: "use `feed` query, timeline query will be killed on the 15th November. This includes this field.")
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
-  hasCollectedByMe: Boolean!
+  hasCollectedByMe(isFinalisedOnChain: Boolean): Boolean!
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
+  canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -2113,7 +2498,10 @@ type Profile {
 
   """The on chain identity"""
   onChainIdentity: OnChainIdentity!
-  isFollowedByMe: Boolean!
+
+  """The profile interests"""
+  interests: [ProfileInterest!]
+  isFollowedByMe(isFinalisedOnChain: Boolean): Boolean!
   isFollowing(who: ProfileId): Boolean!
 }
 
@@ -2141,10 +2529,25 @@ input ProfileFollowRevenueQueryRequest {
 """ProfileId custom scalar type"""
 scalar ProfileId
 
+"""ProfileInterest custom scalar type"""
+scalar ProfileInterest
+
 union ProfileMedia = NftImage | MediaSet
 
 input ProfileOnChainIdentityRequest {
   profileIds: [ProfileId!]!
+}
+
+"""Condition that signifies if address has access to profile"""
+input ProfileOwnershipInput {
+  """The profile id"""
+  profileId: ProfileId!
+}
+
+"""Condition that signifies if address has access to profile"""
+type ProfileOwnershipOutput {
+  """The profile id"""
+  profileId: ProfileId!
 }
 
 input ProfilePublicationRevenueQueryRequest {
@@ -2248,6 +2651,12 @@ type ProfileStats {
   publicationsTotal(forSources: [Sources!]!): Int!
 }
 
+"""The provider-specific encryption params"""
+type ProviderSpecificParamsOutput {
+  """The encryption key"""
+  encryptionKey: ContentEncryptionKey!
+}
+
 type ProxyActionError {
   reason: String!
   lastKnownTxId: TxId
@@ -2305,6 +2714,11 @@ enum PublicationMainFocus {
   EMBED
 }
 
+"""The source of the media"""
+enum PublicationMediaSource {
+  LENS
+}
+
 """Publication metadata content waring filters"""
 input PublicationMetadataContentWarningFilter {
   """
@@ -2332,7 +2746,7 @@ input PublicationMetadataFilters {
   tags: PublicationMetadataTagsFilter
 }
 
-"""The metadata attribute output"""
+"""The metadata attribute input"""
 input PublicationMetadataMediaInput {
   item: Url!
 
@@ -2343,7 +2757,8 @@ input PublicationMetadataMediaInput {
   altTag: String
 
   """The cover for any video or audio you attached"""
-  cover: String
+  cover: Url
+  source: PublicationMediaSource = LENS
 }
 
 type PublicationMetadataStatus {
@@ -2657,6 +3072,29 @@ type PublicationValidateMetadataResult {
   reason: String
 }
 
+input PublicMediaRequest {
+  """Pre calculated cid of the file to push"""
+  itemCid: IfpsCid!
+
+  """This is the mime type of media"""
+  type: MimeType
+
+  """The alt tags for accessibility"""
+  altTag: String
+
+  """The cover for any video or audio you attached"""
+  cover: Url
+}
+
+"""The response to upload the attached file"""
+type PublicMediaResults {
+  """Signed url to push the file"""
+  signedUrl: String!
+
+  """ipfs uri to add on the metadata"""
+  media: MediaOutput!
+}
+
 type Query {
   challenge(request: ChallengeRequest!): AuthChallengeResult!
   verify(request: VerifyRequest!): Boolean!
@@ -2699,6 +3137,9 @@ type Query {
   claimableStatus: ClaimStatus!
   internalPublicationFilter(request: InternalPublicationsFilterRequest!): PaginatedPublicationResult!
   profileOnChainIdentity(request: ProfileOnChainIdentityRequest!): [OnChainIdentity!]!
+
+  """Get the list of profile interests"""
+  profileInterests: [ProfileInterest!]!
   proxyActionStatus(proxyActionId: ProxyActionId!): ProxyActionStatusResultUnion!
   validatePublicationMetadata(request: ValidatePublicationMetadataRequest!): PublicationValidateMetadataResult!
   publicationMetadataStatus(request: GetPublicationMetadataStatusRequest!): PublicationMetadataStatus!
@@ -2808,6 +3249,15 @@ input RelRequest {
   ethereumAddress: EthereumAddress!
 }
 
+"""The request object to remove interests from a profile"""
+input RemoveProfileInterestsRequest {
+  """The profile interest to add"""
+  interests: [ProfileInterest!]!
+
+  """The profileId to add interests to"""
+  profileId: ProfileId!
+}
+
 input ReportingReasonInputParams {
   sensitiveReason: SensitiveReasonInputParams
   illegalReason: IllegalReasonInputParams
@@ -2842,6 +3292,16 @@ type RevertFollowModuleSettings {
   """The follow module enum"""
   type: FollowModules!
   contractAddress: ContractAddress!
+}
+
+"""The gated publication access criteria scalar operators"""
+enum ScalarOperator {
+  EQUAL
+  NOT_EQUAL
+  GREATER_THAN
+  GREATER_THAN_OR_EQUAL
+  LESS_THAN
+  LESS_THAN_OR_EQUAL
 }
 
 """Query search"""
@@ -3045,6 +3505,9 @@ enum TimelineType {
 
 """timestamp date custom scalar type"""
 scalar TimestampScalar
+
+"""The NFT token id"""
+scalar TokenId
 
 type TransactionError {
   reason: TransactionErrorReasons!

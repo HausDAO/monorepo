@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ITransformedDao } from '@daohaus/moloch-v3-data';
+import { ListDaosQueryRes } from '@daohaus/moloch-v3-data';
 import { Container, Grid } from '@material-ui/core';
 import {
   Button,
@@ -24,7 +24,7 @@ interface DaosProps {
 const Daos: React.FC<DaosProps> = (props: DaosProps) => {
   const { newBaalEvent } = props;
   const [loading, setLoading] = useState(false);
-  const [listDaos, setListDaos] = useState<Array<ITransformedDao>>([]);
+  const [listDaos, setListDaos] = useState<Array<ListDaosQueryRes>>([]);
   const { sdk, safe, connected } = useSafeAppsSDK();
 
   const fetchSafeInfo = useCallback(async () => {

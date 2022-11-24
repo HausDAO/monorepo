@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState, useRef } from 'react';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {
-  DaoWithTokenDataQuery,
+  MolochV3Dao,
   FindMemberQuery,
   ITransformedProposalListQuery,
   ListConnectedMemberProposalsQuery,
@@ -111,7 +111,7 @@ export const MolochV3ContextProvider = ({
   daochain,
   graphApiKeys,
 }: MolochV3ContextProviderProps) => {
-  const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
+  const [dao, setDao] = useState<MolochV3Dao | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
   const [connectedMembership, setConnectedMembership] = useState<
     FindMemberQuery['member'] | undefined

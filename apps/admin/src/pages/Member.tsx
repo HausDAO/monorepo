@@ -4,7 +4,11 @@ import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
 import { useDao } from '@daohaus/moloch-v3-context';
-import { DaoWithTokenData, FindMemberQuery } from '@daohaus/moloch-v3-data';
+import {
+  MolochV3Dao,
+  FindMemberQuery,
+  DaoVault,
+} from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
   Button,
@@ -141,15 +145,15 @@ export function Member() {
     balance: string;
     fiatBalance: string;
   };
-  const treasury: DaoWithTokenData['vaults'][number] | undefined =
-    useMemo(() => {
-      if (dao) {
-        return (
-          dao.vaults.find((v) => v.safeAddress === dao.safeAddress) || undefined
-        );
-      }
-      return undefined;
-    }, [dao]);
+  const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
+    if (dao) {
+      return (
+        dao.vaults.find((v: DaoVault) => v.safeAddress === dao.safeAddress) ||
+        undefined
+      );
+    }
+    return undefined;
+  }, [dao]);
 
   const tableData: TokenTableType[] | null = useMemo(() => {
     if (dao && currentMember && treasury) {

@@ -2,7 +2,7 @@ import { ReactSetter } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {
-  DaoWithTokenDataQuery,
+  MolochV3Dao,
   findDao,
   findMember,
   FindMemberQuery,
@@ -32,7 +32,7 @@ export const loadDao = async ({
 }: {
   daoid: string;
   daochain: keyof Keychain;
-  setDao: ReactSetter<DaoWithTokenDataQuery['dao'] | undefined>;
+  setDao: ReactSetter<MolochV3Dao | undefined>;
   setDaoLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   graphApiKeys?: Keychain;
@@ -47,7 +47,7 @@ export const loadDao = async ({
     });
 
     if (daoRes?.data?.dao && shouldUpdate) {
-      setDao(daoRes.data.dao as DaoWithTokenDataQuery['dao']);
+      setDao(daoRes.data.dao as MolochV3Dao);
     }
   } catch (error) {
     console.error(error);

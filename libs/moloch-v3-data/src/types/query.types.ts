@@ -1,6 +1,9 @@
 import { TokenBalance } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
-import { ListDaosQuery } from '../subgraph/queries/daos.generated';
+import {
+  FindDaoQuery,
+  ListDaosQuery,
+} from '../subgraph/queries/daos.generated';
 import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
 import { Ordering } from '@daohaus/data-fetch-utils';
 
@@ -29,11 +32,11 @@ export interface ITransformedProposalListQuery {
   proposals: ITransformedProposal[];
 }
 
+// DAO
 export type DaoProfileLink = {
   label?: string;
   url?: string;
 };
-
 export type DaoProfile = {
   description?: string;
   longDescription?: string;
@@ -41,25 +44,25 @@ export type DaoProfile = {
   tags?: string[];
   links?: DaoProfileLink[];
 };
-
-export type ITransformedDao = ListDaosQuery['daos'][number] & DaoProfile;
-
-export interface ITransformedDaoQuery {
-  dao: ITransformedDao | undefined;
-}
-export interface ITransformedDaoListQuery {
-  daos: ITransformedDao[];
-}
-
-export type TransformedVault = ITransformedDao['vaults'][number] & {
+type DaoWithProfile = FindDaoQuery['dao'] & DaoProfile;
+type DaoWithProfileQuery = {
+  dao: DaoWithProfile | undefined;
+};
+export type DaoVault = DaoWithProfile['vaults'][number] & {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
 };
-export type DaoWithTokenData = Omit<ITransformedDao, 'vaults'> & {
-  vaults: TransformedVault[];
+type MolochV3DaoQuery = {
+  dao: MolochV3Dao;
+};
+
+export type MolochV3Dao = Omit<DaoWithProfile, 'vaults'> & {
+  vaults: DaoVault[];
   fiatTotal: number;
 };
 
-export type DaoWithTokenDataQuery = {
-  dao: DaoWithTokenData;
-};
+export type FindDaoQueryRes =
+  | DaoWithProfileQuery
+  | MolochV3DaoQuery
+  | FindDaoQuery;
+export type ListDaosQueryResDaos = DaoWithProfile[];

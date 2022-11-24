@@ -15,8 +15,7 @@ import {
 import { formatValueTo, generateGnosisUiLink } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { TDao } from '@daohaus/moloch-v3-context';
-import { TransformedVault } from '@daohaus/moloch-v3-data';
+import { DaoVault } from '@daohaus/moloch-v3-data';
 import { VaultMenu } from './VaultMenu';
 
 const VaultOverviewCard = styled(Card)`
@@ -66,8 +65,8 @@ const TagSection = styled.div`
 `;
 
 type VaultOverviewProps = {
-  dao: TDao;
-  vault: TransformedVault;
+  dao: MolochV3Dao;
+  vault: DaoVault;
 };
 
 export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {

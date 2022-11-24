@@ -1,6 +1,6 @@
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 import {
-  DaoWithTokenDataQuery,
+  MolochV3Dao,
   FindMemberQuery,
   ITransformedProposalListQuery,
   ListConnectedMemberProposalsQuery,
@@ -12,13 +12,12 @@ import {
 } from '@daohaus/moloch-v3-data';
 import { Dispatch, SetStateAction } from 'react';
 
-export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
 export type TProposals = ITransformedProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
 export type MolochV3ContextDaoType = {
-  dao: DaoWithTokenDataQuery['dao'] | null | undefined;
+  dao: MolochV3Dao | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
   refreshAll: () => Promise<void>;

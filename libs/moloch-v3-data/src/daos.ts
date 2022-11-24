@@ -14,16 +14,15 @@ import {
 } from '@daohaus/keychain-utils';
 import { DaoTokenBalances, nowInSeconds } from '@daohaus/utils';
 import {
-  DaoWithTokenDataQuery,
   Dao_Filter,
   Dao_OrderBy,
   FindDaoDocument,
   FindDaoQuery,
+  FindDaoQueryRes,
   FindDaoQueryVariables,
-  ITransformedDaoListQuery,
-  ITransformedDaoQuery,
   ListDaosDocument,
   ListDaosQuery,
+  ListDaosQueryResDaos,
   ListDaosQueryVariables,
 } from './types';
 import {
@@ -43,9 +42,7 @@ export const findDao = async ({
   dao: string;
   graphApiKeys?: Keychain;
   includeTokens?: boolean;
-}): Promise<
-  IFindQueryResult<ITransformedDaoQuery | DaoWithTokenDataQuery | FindDaoQuery>
-> => {
+}): Promise<IFindQueryResult<FindDaoQueryRes>> => {
   const url = getGraphUrl(networkId, graphApiKeys);
   if (!url) {
     return {
@@ -144,7 +141,7 @@ export const listDaos = async ({
   },
   graphApiKeys,
 }: IListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
-  IListQueryResults<Dao_OrderBy, Dao_Filter, ITransformedDaoListQuery['daos']>
+  IListQueryResults<Dao_OrderBy, Dao_Filter, ListDaosQueryResDaos>
 > => {
   const url = getGraphUrl(networkId, graphApiKeys);
   if (!url) {

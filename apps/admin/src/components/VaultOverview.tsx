@@ -15,7 +15,7 @@ import {
 import { formatValueTo, generateGnosisUiLink } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { DaoVault } from '@daohaus/moloch-v3-data';
+import { DaoVault, MolochV3Dao } from '@daohaus/moloch-v3-data';
 import { VaultMenu } from './VaultMenu';
 
 const VaultOverviewCard = styled(Card)`

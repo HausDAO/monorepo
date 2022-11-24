@@ -14,7 +14,7 @@ export const calculateBaalAddress = async (
   sdk: SafeAppsSDK,
   saltNonce: string
 ) => {
-  const { V3_FACTORY } = handleKeychains(chainId);
+  const { V3_FACTORY, ZODIAC_FACTORY } = handleKeychains(chainId);
   const baalFactory = new Contract(V3_FACTORY, LOCAL_ABI.BAAL_SUMMONER);
   const rs: string = await sdk.eth.call([
     {
@@ -25,13 +25,7 @@ export const calculateBaalAddress = async (
   ]);
   const templateAddress = `0x${rs.substring(rs.length - 40, rs.length)}`;
   const baalSingleton = new Contract(templateAddress, LOCAL_ABI.BAAL);
-  const moduleProxyFactory = new Contract(
-    // TODO: switch to use the latest moduleProxyFactory from Zodiac
-    // once the BaalSummoner gets updated
-    // CONTRACT_ADDRESSES[Number(chainId)].factory,
-    '0x00000000062c52e29e8029dc2413172f6d619d85',
-    CONTRACT_ABIS.factory
-  );
+  const moduleProxyFactory = new Contract(ZODIAC_FACTORY, CONTRACT_ABIS.factory);
   const initData = baalSingleton.interface.encodeFunctionData('avatar');
   return calculateProxyAddress(
     moduleProxyFactory,
@@ -50,7 +44,7 @@ export const encodeAddModule = (moduleAddress: string) => {
 
 export const encodeSummonBaal = (params: Array<string>) => {
   const ifaceSummoner = new utils.Interface([
-    'function summonBaal(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce) external returns (address)',
+    'function summonBaalFromReferrer(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce, bytes32 referrer) external returns (address)',
   ]);
   return ifaceSummoner.encodeFunctionData('summonBaalFromReferrer', params);
 };

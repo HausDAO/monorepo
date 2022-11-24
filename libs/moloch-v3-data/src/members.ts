@@ -7,7 +7,7 @@ import {
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
 import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
-import { ITransformedMembershipsQuery, nowInSeconds } from '@daohaus/utils';
+import { nowInSeconds, MolochV3MembershipQuery } from '@daohaus/utils';
 import {
   Dao_Filter,
   Dao_OrderBy,
@@ -127,7 +127,7 @@ export const listDaosByMember = async ({
   Dao_OrderBy,
   Dao_Filter,
   Member_Filter
->): Promise<IFindQueryResult<ITransformedMembershipsQuery>> => {
+>): Promise<IFindQueryResult<MolochV3MembershipQuery>> => {
   const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
 
   networkIds.forEach((networkId: ValidNetwork) => {

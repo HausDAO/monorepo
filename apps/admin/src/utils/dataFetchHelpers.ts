@@ -4,7 +4,7 @@ import { Keychain } from '@daohaus/keychain-utils';
 import {
   FindMemberQuery,
   findMember,
-  MolochV3ProposalQuery,
+  MolochV3Proposal,
   findProposal,
 } from '@daohaus/moloch-v3-data';
 import { ErrorMessage } from '@daohaus/ui';
@@ -62,7 +62,7 @@ export const loadProposal = async ({
   daoid: string;
   daochain: keyof Keychain;
   proposalId: string;
-  setProposal: ReactSetter<MolochV3ProposalQuery['proposal'] | undefined>;
+  setProposal: ReactSetter<MolochV3Proposal | undefined>;
   setProposalLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   connectedAddress?: string | null;

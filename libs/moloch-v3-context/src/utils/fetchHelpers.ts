@@ -7,8 +7,8 @@ import {
   findMember,
   FindMemberQuery,
   findProposal,
-  ITransformedProposalListQuery,
-  ITransformedProposalQuery,
+  MolochV3ProposalListQuery,
+  MolochV3ProposalQuery,
   ListConnectedMemberProposalsQuery,
   listMembers,
   ListMembersQuery,
@@ -113,7 +113,7 @@ export const loadProposal = async ({
   daoid: string;
   daochain: keyof Keychain;
   proposalId: string;
-  setProposal: ReactSetter<ITransformedProposalQuery['proposal'] | undefined>;
+  setProposal: ReactSetter<MolochV3ProposalQuery['proposal'] | undefined>;
   setProposalLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   connectedAddress?: string | null;
@@ -212,7 +212,7 @@ export const loadProposalsList = async ({
   ordering?: Ordering<Proposal_OrderBy>;
   paging?: Paging;
   daochain: keyof Keychain;
-  setData: ReactSetter<ITransformedProposalListQuery['proposals'] | undefined>;
+  setData: ReactSetter<MolochV3ProposalListQuery['proposals'] | undefined>;
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;

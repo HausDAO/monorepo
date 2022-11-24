@@ -4,7 +4,7 @@ import { Card, widthQuery } from '@daohaus/ui';
 
 import { ProposalCardOverview } from '../ProposalCardOverview';
 import { ProposalActions } from './ProposalActions';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { ActionLifeCycleFns } from '../../utils/general';
 
 const ProposalCardContainer = styled(Card)`
@@ -44,7 +44,7 @@ const RightCard = styled.div`
 `;
 
 type BaseProposalCardProps = {
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 };
 
 export const BaseProposalCard = ({ proposal }: BaseProposalCardProps) => {

@@ -24,7 +24,7 @@ interface DaosProps {
 const Daos: React.FC<DaosProps> = (props: DaosProps) => {
   const { newBaalEvent } = props;
   const [loading, setLoading] = useState(false);
-  const [listDaos, setListDaos] = useState<Array<ListDaosQueryResDaos>>([]);
+  const [listDaos, setListDaos] = useState<ListDaosQueryResDaos>([]);
   const { sdk, safe, connected } = useSafeAppsSDK();
 
   const fetchSafeInfo = useCallback(async () => {

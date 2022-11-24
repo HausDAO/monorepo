@@ -1,7 +1,8 @@
-import { TokenBalance } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
-import { FindDaoQuery } from '../subgraph/queries/daos.generated';
-import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
+import {
+  FindProposalQuery,
+  ListProposalsQuery,
+} from '../subgraph/queries/proposals.generated';
 import { Ordering } from '@daohaus/data-fetch-utils';
 
 export interface ICrossNetworkMemberListArguments<
@@ -18,48 +19,13 @@ export interface ICrossNetworkMemberListArguments<
 }
 
 export type QueryProposal = ListProposalsQuery['proposals'][number];
-export interface ITransformedProposal extends QueryProposal {
+export type MolochV3Proposal = QueryProposal & {
   status?: string;
-}
-
-export interface ITransformedProposalQuery {
-  proposal: ITransformedProposal | undefined;
-}
-export interface ITransformedProposalListQuery {
-  proposals: ITransformedProposal[];
-}
-
-// DAO
-export type DaoProfileLink = {
-  label?: string;
-  url?: string;
-};
-export type DaoProfile = {
-  description?: string;
-  longDescription?: string;
-  avatarImg?: string;
-  tags?: string[];
-  links?: DaoProfileLink[];
-};
-type DaoWithProfile = FindDaoQuery['dao'] & DaoProfile;
-type DaoWithProfileQuery = {
-  dao: DaoWithProfile | undefined;
-};
-export type DaoVault = DaoWithProfile['vaults'][number] & {
-  fiatTotal: number;
-  tokenBalances: TokenBalance[];
-};
-type MolochV3DaoQuery = {
-  dao: MolochV3Dao;
 };
 
-export type MolochV3Dao = Omit<DaoWithProfile, 'vaults'> & {
-  vaults: DaoVault[];
-  fiatTotal: number;
+export type FindProposalQueryRes = {
+  proposal: MolochV3Proposal | undefined;
 };
-
-export type FindDaoQueryRes =
-  | DaoWithProfileQuery
-  | MolochV3DaoQuery
-  | FindDaoQuery;
-export type ListDaosQueryResDaos = DaoWithProfile[];
+export type ListProposalQueryRes = {
+  proposals: MolochV3Proposal[];
+};

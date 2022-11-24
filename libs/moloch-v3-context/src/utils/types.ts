@@ -2,7 +2,7 @@ import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 import {
   MolochV3Dao,
   FindMemberQuery,
-  ITransformedProposalListQuery,
+  MolochV3ProposalListQuery,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
@@ -13,7 +13,7 @@ import {
 import { Dispatch, SetStateAction } from 'react';
 
 export type TMembers = ListMembersQuery['members'];
-export type TProposals = ITransformedProposalListQuery['proposals'];
+export type TProposals = MolochV3ProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
 export type MolochV3ContextDaoType = {
@@ -54,9 +54,9 @@ export type MolochV3ContextMembersType = {
 };
 
 export type MolochV3ContextProposalsType = {
-  proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
+  proposals: MolochV3ProposalListQuery['proposals'] | null | undefined;
   setProposals: Dispatch<
-    SetStateAction<ITransformedProposalListQuery['proposals'] | undefined>
+    SetStateAction<MolochV3ProposalListQuery['proposals'] | undefined>
   >;
   isProposalsLoading: boolean;
   refreshProposals: () => Promise<void>;

@@ -10,7 +10,7 @@ import {
 import { Keychain } from '@daohaus/keychain-utils';
 
 import { TProposals } from '@daohaus/moloch-v3-context';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   Button,
   ParLg,
@@ -173,7 +173,7 @@ export const OverviewHeader = ({
   proposal,
 }: {
   loading: boolean;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const { daochain, daoid } = useParams();
 

@@ -8,7 +8,7 @@ import {
   Spinner,
   widthQuery,
 } from '@daohaus/ui';
-import { ITransformedProposalQuery } from '@daohaus/moloch-v3-data';
+import { MolochV3ProposalQuery } from '@daohaus/moloch-v3-data';
 import { MulticallArg } from '@daohaus/utils';
 import {
   isValidNetwork,
@@ -69,7 +69,7 @@ export function ProposalDetails() {
   const { address } = useDHConnect();
 
   const [proposal, setProposal] = useState<
-    ITransformedProposalQuery['proposal'] | undefined
+    MolochV3ProposalQuery['proposal'] | undefined
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
   const [decodeError, setDecodeError] = useState<boolean>(false);

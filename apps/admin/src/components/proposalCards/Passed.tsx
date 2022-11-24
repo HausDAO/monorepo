@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
 import { formatShares, roundedPercentage } from '@daohaus/utils';
 import { useDHConnect } from '@daohaus/connect';
 import { VotingBar } from '../VotingBar';
 
-export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
+export const Passed = ({ proposal }: { proposal: MolochV3Proposal }) => {
   const { address } = useDHConnect();
 
   const userVoteData = useMemo(() => {

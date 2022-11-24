@@ -6,17 +6,17 @@ import {
   votingPowerPercentage,
 } from '@daohaus/utils';
 import {
-  ITransformedProposal,
   QueryProposal,
   ListMembershipsQuery,
   DaoProfile,
   ListDaosQuery,
+  MolochV3Proposal,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
 export const transformProposal = (
   proposal: QueryProposal
-): ITransformedProposal => {
+): MolochV3Proposal => {
   return {
     ...proposal,
     status: getProposalStatus(proposal),

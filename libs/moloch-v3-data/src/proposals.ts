@@ -15,9 +15,9 @@ import {
 import {
   FindProposalDocument,
   FindProposalQuery,
+  FindProposalQueryRes,
   FindProposalQueryVariables,
-  ITransformedProposalListQuery,
-  ITransformedProposalQuery,
+  ListProposalQueryRes,
   ListProposalsDocument,
   ListProposalsQuery,
   ListProposalsQueryVariables,
@@ -44,7 +44,7 @@ export const findProposal = async ({
   proposalId: string;
   connectedAddress?: string | null;
   graphApiKeys?: Keychain;
-}): Promise<IFindQueryResult<ITransformedProposalQuery>> => {
+}): Promise<IFindQueryResult<FindProposalQueryRes>> => {
   const url = getGraphUrl(networkId, graphApiKeys);
   if (!url) {
     return {
@@ -92,7 +92,7 @@ export const listProposals = async ({
   IListQueryResults<
     Proposal_OrderBy,
     Proposal_Filter,
-    ITransformedProposalListQuery['proposals']
+    ListProposalQueryRes['proposals']
   >
 > => {
   const url = getGraphUrl(networkId, graphApiKeys);

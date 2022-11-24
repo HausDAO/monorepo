@@ -1,9 +1,6 @@
 import { TokenBalance } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
-import {
-  FindDaoQuery,
-  ListDaosQuery,
-} from '../subgraph/queries/daos.generated';
+import { FindDaoQuery } from '../subgraph/queries/daos.generated';
 import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
 import { Ordering } from '@daohaus/data-fetch-utils';
 

@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { formatValueTo, fromWei } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { TProposals } from '@daohaus/moloch-v3-context';
 import { ExplorerLink } from '@daohaus/connect';
 import {
   Bold,
@@ -28,6 +27,7 @@ import {
 } from '../utils/historyHelpers';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { VoteList } from './VoteList';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 
 const ElementContainer = styled.div`
   display: flex;
@@ -114,7 +114,7 @@ const DataPoint = ({
 
 type ProposalHistoryCardProps = {
   element: ProposalHistoryElement;
-  proposal?: TProposals[number];
+  proposal?: MolochV3Proposal;
 };
 
 export const ProposalHistoryCard = ({

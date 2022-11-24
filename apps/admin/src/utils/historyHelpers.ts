@@ -9,7 +9,7 @@ import {
 } from '@daohaus/utils';
 import { NetworkType } from '@daohaus/keychain-utils';
 
-import { TProposals } from '@daohaus/moloch-v3-context';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 
 export type ProposalHistoryElementData = {
   dataType: 'member' | 'dataIndicator';
@@ -28,7 +28,7 @@ export type ProposalHistoryElement = {
 };
 
 type ElementBuildArgs = {
-  proposal: TProposals[number];
+  proposal: MolochV3Proposal;
   networkData?: NetworkType | null;
 };
 

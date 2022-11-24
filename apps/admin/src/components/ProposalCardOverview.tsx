@@ -9,7 +9,6 @@ import {
 } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { TProposals } from '@daohaus/moloch-v3-context';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   Button,
@@ -67,7 +66,7 @@ const StyledLink = styled(Link)`
 
 type ProposalCardOverviewProps = {
   loading: boolean;
-  proposal: TProposals[number];
+  proposal: MolochV3Proposal;
 };
 
 export const ProposalCardOverview = ({

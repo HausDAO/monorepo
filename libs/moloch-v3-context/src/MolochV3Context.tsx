@@ -4,7 +4,7 @@ import { Keychain } from '@daohaus/keychain-utils';
 import {
   MolochV3Dao,
   FindMemberQuery,
-  MolochV3ProposalListQuery,
+  MolochV3Proposal,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
@@ -146,9 +146,7 @@ export const MolochV3ContextProvider = ({
     Paging | undefined
   >();
 
-  const [proposals, setProposals] = useState<
-    MolochV3ProposalListQuery['proposals'] | undefined
-  >();
+  const [proposals, setProposals] = useState<MolochV3Proposal[] | undefined>();
   const [isProposalsLoading, setProposalsLoading] = useState(false);
   const [proposalsFilter, setProposalsFilter] = useState<
     Proposal_Filter | undefined

@@ -2,18 +2,17 @@ import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 import {
   MolochV3Dao,
   FindMemberQuery,
-  MolochV3ProposalListQuery,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
   Proposal_Filter,
   Proposal_OrderBy,
+  MolochV3Proposal,
 } from '@daohaus/moloch-v3-data';
 import { Dispatch, SetStateAction } from 'react';
 
 export type TMembers = ListMembersQuery['members'];
-export type TProposals = MolochV3ProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
 export type MolochV3ContextDaoType = {
@@ -54,10 +53,8 @@ export type MolochV3ContextMembersType = {
 };
 
 export type MolochV3ContextProposalsType = {
-  proposals: MolochV3ProposalListQuery['proposals'] | null | undefined;
-  setProposals: Dispatch<
-    SetStateAction<MolochV3ProposalListQuery['proposals'] | undefined>
-  >;
+  proposals: MolochV3Proposal[] | null | undefined;
+  setProposals: Dispatch<SetStateAction<MolochV3Proposal[] | undefined>>;
   isProposalsLoading: boolean;
   refreshProposals: () => Promise<void>;
   proposalsFilter: Proposal_Filter | undefined;

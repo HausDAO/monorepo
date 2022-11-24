@@ -7,8 +7,6 @@ import {
   findMember,
   FindMemberQuery,
   findProposal,
-  MolochV3ProposalListQuery,
-  MolochV3ProposalQuery,
   ListConnectedMemberProposalsQuery,
   listMembers,
   ListMembersQuery,
@@ -18,6 +16,7 @@ import {
   Member_OrderBy,
   Proposal_Filter,
   Proposal_OrderBy,
+  MolochV3Proposal,
 } from '@daohaus/moloch-v3-data';
 import deepEqual from 'deep-eql';
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
@@ -113,7 +112,7 @@ export const loadProposal = async ({
   daoid: string;
   daochain: keyof Keychain;
   proposalId: string;
-  setProposal: ReactSetter<MolochV3ProposalQuery['proposal'] | undefined>;
+  setProposal: ReactSetter<MolochV3Proposal | undefined>;
   setProposalLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   connectedAddress?: string | null;
@@ -212,7 +211,7 @@ export const loadProposalsList = async ({
   ordering?: Ordering<Proposal_OrderBy>;
   paging?: Paging;
   daochain: keyof Keychain;
-  setData: ReactSetter<MolochV3ProposalListQuery['proposals'] | undefined>;
+  setData: ReactSetter<MolochV3Proposal[] | undefined>;
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;

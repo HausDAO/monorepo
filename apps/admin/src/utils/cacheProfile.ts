@@ -6,13 +6,6 @@ import {
   CacheStoreName,
   getlocalForage,
 } from '@daohaus/utils';
-import {
-  Dao_Filter,
-  Haus,
-  ICrossNetworkMemberListArguments,
-  Member_Filter,
-  Member_OrderBy,
-} from '@daohaus/moloch-v3-data';
 import { getProfileForAddress } from '@daohaus/profile-data';
 
 export const getProfileStore = async () =>

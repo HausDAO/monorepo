@@ -1,4 +1,4 @@
-import { graphFetchList } from '@daohaus/moloch-v3-data';
+import { graphFetchList } from '@daohaus/data-fetch-utils';
 import { AccountProfile } from '@daohaus/utils';
 import {
   ListActiveDomainsDocument,

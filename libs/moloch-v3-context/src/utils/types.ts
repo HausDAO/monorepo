@@ -1,3 +1,4 @@
+import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 import {
   DaoWithTokenDataQuery,
   FindMemberQuery,
@@ -6,8 +7,6 @@ import {
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
-  Ordering,
-  Paging,
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/moloch-v3-data';

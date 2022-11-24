@@ -2,7 +2,7 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { handleErrorMessage, ITransformedMembership } from '@daohaus/utils';
-import { Haus } from '@daohaus/moloch-v3-data';
+import { listDaosByMember } from '@daohaus/moloch-v3-data';
 import {
   H2,
   Spinner,
@@ -42,17 +42,15 @@ export const HomeDashboard = () => {
     const getDaos = async (address: string) => {
       setLoading(true);
       try {
-        const haus = Haus.create({
-          graphApiKeys: {
-            '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-          },
-        });
-        const query = await haus.profile.listDaosByMember({
+        const query = await listDaosByMember({
           memberAddress: address,
           networkIds: filterNetworks as ValidNetwork[],
           daoFilter: { name_contains_nocase: debouncedSearchTerm },
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
+          graphApiKeys: {
+            '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+          },
         });
         if (query.data?.daos && shouldUpdate) {
           console.log('query', query);

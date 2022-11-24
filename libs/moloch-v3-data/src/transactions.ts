@@ -4,6 +4,7 @@ import {
   graphFetchList,
   IFindQueryResult,
   IListQueryArguments,
+  IListQueryResults,
 } from '@daohaus/data-fetch-utils';
 import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { createPaging, DEFAULT_RECORDS_PER_PAGE } from './utils';
@@ -13,7 +14,6 @@ import {
   FindTxDocument,
   FindTxQuery,
   FindTxQueryVariables,
-  IListQueryResults,
   ListTxsDocument,
   ListTxsQuery,
   ListTxsQueryVariables,

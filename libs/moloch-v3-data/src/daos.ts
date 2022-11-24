@@ -75,7 +75,6 @@ export const findDao = async ({
             listTokenBalances({
               networkId,
               safeAddress: vault.safeAddress,
-              graphApiKeys,
             })
           );
         });

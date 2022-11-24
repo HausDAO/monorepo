@@ -9,8 +9,6 @@ import {
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
-  Ordering,
-  Paging,
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/moloch-v3-data';
@@ -27,6 +25,7 @@ import {
   loadProposalsList,
 } from './utils/fetchHelpers';
 import { MolochV3ContextType } from './utils/types';
+import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
 export const defaultDaoData = {
   dao: null,

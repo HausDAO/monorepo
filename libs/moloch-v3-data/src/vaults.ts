@@ -4,25 +4,25 @@ import {
   IFindQueryResult,
   fetch,
 } from '@daohaus/data-fetch-utils';
-import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { ENDPOINTS, ValidNetwork } from '@daohaus/keychain-utils';
 import { DaoTokenBalances, TokenBalance } from '@daohaus/utils';
 import { transformTokenBalances } from './utils';
 
 export const listTokenBalances = async ({
   networkId,
   safeAddress,
-  graphApiKeys,
 }: {
   networkId: ValidNetwork;
   safeAddress: string;
-  graphApiKeys?: Keychain;
 }): Promise<IFindQueryResult<DaoTokenBalances>> => {
-  const url = getGraphUrl(networkId, graphApiKeys);
+  const url = ENDPOINTS['GNOSIS_API'][networkId];
   if (!url) {
     return {
       error: formatFetchError({ type: 'INVALID_NETWORK_ERROR' }),
     };
   }
+
+  console.log('url', url);
 
   try {
     const res = await fetch.get<TokenBalance[]>(

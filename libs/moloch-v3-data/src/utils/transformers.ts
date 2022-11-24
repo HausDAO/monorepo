@@ -1,7 +1,7 @@
 import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 import {
   DaoTokenBalances,
-  ITransformedMembership,
+  MolochV3Membership,
   TokenBalance,
   votingPowerPercentage,
 } from '@daohaus/utils';
@@ -40,10 +40,10 @@ export const transformTokenBalances = (
 
 export const transformMembershipList = (
   memberships: IFindQueryResult<ListMembershipsQuery>[]
-): ITransformedMembership[] => {
-  return memberships.reduce((list: ITransformedMembership[], network) => {
+): MolochV3Membership[] => {
+  return memberships.reduce((list: MolochV3Membership[], network) => {
     if (network?.data?.daos) {
-      const daos: ITransformedMembership[] = network?.data?.daos.map(
+      const daos: MolochV3Membership[] = network?.data?.daos.map(
         (dao: ListMembershipsQuery['daos'][number]) => {
           return {
             dao: dao.id,

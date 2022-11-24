@@ -3,7 +3,7 @@ import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
-import { ITransformedMembership } from '@daohaus/utils';
+import { MolochV3Membership } from '@daohaus/utils';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
 import { charLimit, readableNumbers, truncateAddress } from '@daohaus/utils';
 import { getNetworkName } from '@daohaus/keychain-utils';
@@ -12,7 +12,7 @@ import { getNetworkName } from '@daohaus/keychain-utils';
 // Can this be refactored to use DaoHaus Table?
 
 interface IDaoTableData {
-  daoData: ITransformedMembership[];
+  daoData: MolochV3Membership[];
 }
 
 const Table = styled.table`
@@ -62,14 +62,14 @@ const StyledLink = styled.a`
   color: unset;
 `;
 
-type HubTableType = Omit<ITransformedMembership, 'name'> & {
+type HubTableType = Omit<MolochV3Membership, 'name'> & {
   name: { name?: string; address: string; networkId?: string };
 };
 
 export const DaoTable = ({ daoData }: IDaoTableData) => {
   const tableData = React.useMemo<HubTableType[]>(
     () =>
-      daoData.map((dao: ITransformedMembership) => ({
+      daoData.map((dao: MolochV3Membership) => ({
         name: {
           name: charLimit(dao.name, 21),
           address: dao.dao,

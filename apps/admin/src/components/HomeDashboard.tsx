@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { handleErrorMessage, ITransformedMembership } from '@daohaus/utils';
+import { handleErrorMessage, MolochV3Membership } from '@daohaus/utils';
 import { listDaosByMember } from '@daohaus/moloch-v3-data';
 import {
   H2,
@@ -27,7 +27,7 @@ export const HomeDashboard = () => {
   const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
   const { appNetworks } = useDHConnect();
-  const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
+  const [daoData, setDaoData] = useState<MolochV3Membership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<string[]>(appNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
   const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ITransformedMembership } from '@daohaus/utils';
+import { MolochV3Membership } from '@daohaus/utils';
 import { breakpoints } from '@daohaus/ui';
 
 import { DaoCard } from './DaoCard';
@@ -12,7 +12,7 @@ export const DaoList = ({
   isMobile,
   listType,
 }: {
-  daoData: ITransformedMembership[];
+  daoData: MolochV3Membership[];
   isMobile: boolean;
   listType: ListType;
 }) => {
@@ -37,7 +37,7 @@ const CardListBox = styled.div`
   }
 `;
 
-const DaoCards = ({ daoData }: { daoData: ITransformedMembership[] }) => (
+const DaoCards = ({ daoData }: { daoData: MolochV3Membership[] }) => (
   <CardListBox>
     {daoData.map((dao) => (
       <DaoCard key={dao.dao} {...dao} />

@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BiError } from 'react-icons/bi';
-import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
-import { v4 as uuidv4 } from 'uuid';
 import { violet } from '@radix-ui/colors';
 import styled from 'styled-components';
 
-import { ButtonProps, Button } from '../../atoms/Button/Button';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
+import { BiError } from 'react-icons/bi';
+
+import { ButtonProps, Button } from '../../atoms/Button/';
 import { Bold, ParMd, ParXs } from '../../atoms/Typography';
 import { DropdownMenuLabel, DropdownMenuItem, Dropdown } from '../../molecules';
 
@@ -136,7 +136,7 @@ export const UserConnectedDropdown = Template.bind({});
 
 UserConnectedDropdown.args = {
   trigger: (
-    <Button avatar>
+    <Button>
       <Container>
         <TemporaryAvatar />
         <div className="interior">
@@ -147,12 +147,12 @@ UserConnectedDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownMenuLabel key={uuidv4()}>
+    <DropdownMenuLabel key={Math.random(10000)}>
       <ParXs>
         Connected to <Bold>Ethereum</Bold>
       </ParXs>
     </DropdownMenuLabel>,
-    <DropdownMenuItem key={uuidv4()} spacing="0.7rem">
+    <DropdownMenuItem key={Math.random(10000)} spacing="0.7rem">
       <ExitButton>Disconnect</ExitButton>
     </DropdownMenuItem>,
   ],
@@ -188,7 +188,7 @@ NetworkUnavailableDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownMenuLabel key={uuidv4()}>
+    <DropdownMenuLabel key={Math.random(10000)}>
       <ParXs>Switch to available network</ParXs>
     </DropdownMenuLabel>,
     ...networkPanels,

@@ -6,7 +6,7 @@ type ProfileLinkProps = {
   to?: string;
   selected?: boolean;
   disabled?: boolean;
-  linkType?: 'internal' | 'external' | 'no-icon-external';
+  linkType?: 'external' | 'no-icon-external';
   hideIcon?: boolean;
   target?: string;
   rel?: string;

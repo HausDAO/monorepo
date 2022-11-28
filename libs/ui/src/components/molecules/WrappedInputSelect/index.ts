@@ -1,1 +1,1 @@
-export * from './WrappedInputSelect';
+export { WrappedInputSelect } from './WrappedInputSelect';

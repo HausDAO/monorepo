@@ -3,7 +3,8 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import { InputSelectProps } from '../../../types/formAndField';
 
 import { Input, Select } from '../../atoms';
-import { InputSelectBox } from './inputSelect.style';
+
+import { InputSelectBox } from './InputSelect.styles';
 
 export const InputSelect = ({
   selectId,

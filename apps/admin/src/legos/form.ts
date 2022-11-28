@@ -46,7 +46,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     subtitle: 'Signal Proposal',
     description: 'Request an on-chain member vote.',
     requiredFields: { title: true, description: true },
-    log: true,
     tx: TX.POST_SIGNAL,
     fields: [
       FIELD.TITLE,
@@ -59,7 +58,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'ISSUE',
     title: 'DAO Token Request',
     subtitle: 'Token Proposal',
-    log: true,
     description: 'Request voting or non-voting tokens from the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
@@ -119,7 +117,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'ERC-20 Token Transfer',
     subtitle: 'Funding Proposal',
     description: 'Request ERC-20 tokens from the DAO treasury.',
-    log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {
       title: true,
@@ -142,12 +139,40 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  TRANSFER_ERC20_SIDECAR: {
+    id: 'TRANSFER_ERC20_SIDECAR',
+    title: 'Transfer ERC-20',
+    subtitle: 'Transfer Proposal',
+    description:
+      'Create a proposal to transfer ERC-20 tokens from the DAO safe',
+    tx: TX.ISSUE_ERC20_SIDECAR,
+    requiredFields: {
+      title: true,
+      description: true,
+      payment: true,
+      recipient: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SAFE_SELECT,
+      {
+        id: 'recipient',
+        type: 'input',
+        label: 'Recipient',
+        info: 'Address to receive the tokens',
+        placeholder: '0x...',
+      },
+      FIELD.REQUEST_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
     title: 'Network Token Transfer',
     subtitle: 'Funding Proposal',
     description: "Request network's native token from the DAO treasury.",
-    log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
       title: true,
@@ -170,11 +195,38 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  TRANSFER_NETWORK_TOKEN_SIDECAR: {
+    id: 'TRANSFER_NETWORK_TOKEN_SIDECAR',
+    title: 'Network Token Transfer',
+    subtitle: 'Funding Proposal',
+    description: "Request network's native token from the DAO safe.",
+    tx: TX.ISSUE_NETWORK_TOKEN_SIDECAR,
+    requiredFields: {
+      title: true,
+      description: true,
+      payment: true,
+      recipient: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SAFE_SELECT,
+      {
+        id: 'recipient',
+        type: 'input',
+        label: 'Recipient',
+        info: 'Address to receive the tokens',
+        placeholder: '0x...',
+      },
+      FIELD.REQUEST_NATIVE_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
   UPDATE_GOV_SETTINGS: {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Proposal',
-    log: true,
     description: 'Change proposal timing or advanced governance settings.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
@@ -278,7 +330,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
     title: 'Update Token Settings',
-    log: true,
     subtitle: 'Token Proposal',
     description: 'Change transferability of voting or non-voting tokens.',
     tx: TX.TOKEN_SETTINGS,
@@ -471,7 +522,6 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     title: 'Write an Article',
     subtitle: 'Tabula Article Proposal',
     description: 'Write an article on Tabula.gg',
-    log: true,
     tx: TABULA_TX.CREATE_ARTICLE,
     requiredFields: {
       title: true,
@@ -510,7 +560,6 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
     title: 'Update Metadata Settings',
     subtitle: 'Settings',
     requiredFields: { name: true },
-    log: true,
     tx: TX.UPDATE_METADATA_SETTINGS,
     fields: [
       FIELD.NAME,
@@ -610,5 +659,23 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
       },
     ],
     tx: TX.RAGEQUIT,
+  },
+  ADD_SAFE: {
+    id: 'ADD_SAFE',
+    description:
+      'Create a new Gnosis Safe and attach to your DAO as a non-ragequittable vault.',
+    requiredFields: {
+      name: true,
+    },
+    tx: TX.ADD_SAFE,
+    fields: [
+      {
+        id: 'name',
+        type: 'input',
+        label: 'Safe Name',
+        placeholder: 'Enter name',
+      },
+    ],
+    submitButtonText: 'Create',
   },
 };

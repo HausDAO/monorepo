@@ -17,12 +17,12 @@ import {
   Button,
   Link,
 } from '@daohaus/ui';
-import { TDao } from '@daohaus/moloch-v3-context';
 
 import { TagList } from './TagList';
 import { missingDaoProfileData } from '../utils/general';
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { OverviewIconLinkList, OverviewLinkList } from './MetadataLinkLists';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
@@ -62,7 +62,7 @@ const TagListContainer = styled.div`
 `;
 
 type DaoProfileProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const DaoProfile = ({ dao }: DaoProfileProps) => {

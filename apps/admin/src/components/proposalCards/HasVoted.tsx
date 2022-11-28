@@ -1,6 +1,6 @@
 import { ParMd, TintSecondary } from '@daohaus/ui';
 import { formatShares } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 
 import { ActionTemplate, VotingResults } from './ActionPrimitives';
 import { VotingBar } from '../VotingBar';
@@ -11,7 +11,7 @@ export const HasVoted = ({
   userVoteBalance,
   readableTime,
 }: {
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
   approved?: boolean;
   userVoteBalance?: string;
   readableTime?: string;

@@ -190,21 +190,15 @@ Provide options for pagination. The SDK supports offest and cursor pagination. O
 
 Run `nx build moloch-v3-data` to build the library.
 
-## Running Unit Tests
-
-Run `NODE_OPTIONS=--experimental-vm-modules nx run dao-data:test` to execute the unit tests via [Jest](https://jestjs.io).
-
-Be sure to include the `NODE_OPTIONS=--experimental-vm-modules` flag when running the tests or else the tests will throw an error.
-
 ## Generating GraphQL Schema and Types
 
-1. When updates are deployed to the Daohaus V3 subgraphs, a new schema should be generated
+1. When updates are deployed to the moloch-v3haus V3 subgraphs, a new schema should be generated
 
-   run `nx generate-gql-schema dao-data` to create a new `src/subgraph/schema.graphql` file
+   run `nx generate-gql-schema moloch-v3-data` to create a new `src/subgraph/schema.graphql` file
 
 2. When there is a new schema or new query files are added, new types should be generated
 
-   run `nx generate-gql-types dao-data` to create type files for each query file in `src/subgraph/queries`
+   run `nx generate-gql-types moloch-v3-data` to create type files for each query file in `src/subgraph/queries`
 
 ```
 

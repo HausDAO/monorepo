@@ -1,25 +1,22 @@
+import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 import {
-  DaoWithTokenDataQuery,
+  MolochV3Dao,
   FindMemberQuery,
-  ITransformedProposalListQuery,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
-  Ordering,
-  Paging,
   Proposal_Filter,
   Proposal_OrderBy,
+  MolochV3Proposal,
 } from '@daohaus/moloch-v3-data';
 import { Dispatch, SetStateAction } from 'react';
 
-export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
-export type TProposals = ITransformedProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
 export type MolochV3ContextDaoType = {
-  dao: DaoWithTokenDataQuery['dao'] | null | undefined;
+  dao: MolochV3Dao | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
   refreshAll: () => Promise<void>;
@@ -56,10 +53,8 @@ export type MolochV3ContextMembersType = {
 };
 
 export type MolochV3ContextProposalsType = {
-  proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
-  setProposals: Dispatch<
-    SetStateAction<ITransformedProposalListQuery['proposals'] | undefined>
-  >;
+  proposals: MolochV3Proposal[] | null | undefined;
+  setProposals: Dispatch<SetStateAction<MolochV3Proposal[] | undefined>>;
   isProposalsLoading: boolean;
   refreshProposals: () => Promise<void>;
   proposalsFilter: Proposal_Filter | undefined;

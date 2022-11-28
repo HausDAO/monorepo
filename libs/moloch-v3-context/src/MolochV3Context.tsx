@@ -2,15 +2,13 @@ import { createContext, ReactNode, useEffect, useState, useRef } from 'react';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {
-  DaoWithTokenDataQuery,
+  MolochV3Dao,
   FindMemberQuery,
-  ITransformedProposalListQuery,
+  MolochV3Proposal,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
-  Ordering,
-  Paging,
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/moloch-v3-data';
@@ -27,6 +25,7 @@ import {
   loadProposalsList,
 } from './utils/fetchHelpers';
 import { MolochV3ContextType } from './utils/types';
+import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
 export const defaultDaoData = {
   dao: null,
@@ -112,7 +111,7 @@ export const MolochV3ContextProvider = ({
   daochain,
   graphApiKeys,
 }: MolochV3ContextProviderProps) => {
-  const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
+  const [dao, setDao] = useState<MolochV3Dao | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
   const [connectedMembership, setConnectedMembership] = useState<
     FindMemberQuery['member'] | undefined
@@ -147,9 +146,7 @@ export const MolochV3ContextProvider = ({
     Paging | undefined
   >();
 
-  const [proposals, setProposals] = useState<
-    ITransformedProposalListQuery['proposals'] | undefined
-  >();
+  const [proposals, setProposals] = useState<MolochV3Proposal[] | undefined>();
   const [isProposalsLoading, setProposalsLoading] = useState(false);
   const [proposalsFilter, setProposalsFilter] = useState<
     Proposal_Filter | undefined

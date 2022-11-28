@@ -29,8 +29,6 @@ export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
     refreshAll?.();
   };
 
-  if (!connectedMembership) return null;
-
   return (
     <FormBuilder
       defaultValues={defaultValues}

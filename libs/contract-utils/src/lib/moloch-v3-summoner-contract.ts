@@ -1,7 +1,12 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
 import { ContractNetworkConfig, SummonMolochV3Args } from './types';
-import { encodeValues, getNonce } from '@daohaus/utils';
+import {
+  DAOHAUS_CONTRACT_UTILS_REFERRER,
+  encodeValues,
+  getNonce,
+  ZERO_ADDRESS,
+} from '@daohaus/utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { getContractAddressesForChain } from './contract-meta';
 import { encodeInitializationParams } from './encoding-utils';
@@ -32,7 +37,7 @@ export class MolochV3SummonerContract {
 
   /**
    * Deploy dao and safe contracts
-   * @param initializationParams encoded share token name and symbol and forwarder (string, string, address)
+   * @param initializationParams encoded share token name and symbol and forwarder, safeAddress, shareToken address (string, string, address, address, address)
    * @param initializationActions encoded functions with args called in summoning
    * * setAdminConfig(bool pauseShares, bool pauseLoot)
    * * setGovernanceConfig (
@@ -53,42 +58,24 @@ export class MolochV3SummonerContract {
    * @param _saltNonce any uint256
    */
 
-  public async summonMolochV3AndSafe(
-    args: SummonMolochV3Args
-  ): Promise<ethers.ContractTransaction> {
-    return await this.summoner.summonBaalAndSafe(
-      encodeValues(
-        ['string', 'string', 'address'],
-        [args.sharesTokenName, args.sharesTokenSymbol, args.forwarder]
-      ),
-      encodeInitializationParams(args, this.networkId),
-      getNonce()
-    );
-  }
-
-  /**
-   * Deploy dao with existing safe contracts
-   * params the same as above with one extra in initializationParams
-   * @param initializationParams encoded share token name and symbol and safe address and forwarder (string, string, address, address)
-   * @param _saltNonce any uint256
-   */
   public async summonMolochV3(
     args: SummonMolochV3Args
   ): Promise<ethers.ContractTransaction> {
-    if (!args.safeAddress) throw 'Missing safe address';
-
-    return await this.summoner.summonBaal(
+    return await this.summoner.summonBaalFromReferrer(
       encodeValues(
-        ['string', 'string', 'address', 'address'],
+        ['string', 'string', 'address', 'address', 'address', 'address'],
         [
           args.sharesTokenName,
           args.sharesTokenSymbol,
-          args.safeAddress,
-          args.forwarder,
+          args.safeAddress || ZERO_ADDRESS,
+          args.forwarder || ZERO_ADDRESS,
+          args.lootToken || ZERO_ADDRESS,
+          args.sharesToken || ZERO_ADDRESS,
         ]
       ),
       encodeInitializationParams(args, this.networkId),
-      getNonce()
+      getNonce(),
+      DAOHAUS_CONTRACT_UTILS_REFERRER
     );
   }
 }

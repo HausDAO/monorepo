@@ -1,0 +1,18 @@
+query listActiveDomains(
+  $address: ID!,
+  $now: BigInt! = 0
+) {
+  account(id: $address) {
+    id
+    activeDomains: registrations(where: {
+      expiryDate_gt: $now
+    }, orderBy: registrationDate) {
+      id
+      domain {
+        name
+      }
+      registrationDate
+      expiryDate
+    }
+  }
+}

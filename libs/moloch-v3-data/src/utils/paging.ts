@@ -1,4 +1,4 @@
-import { Paging } from '../types';
+import { Paging } from '@daohaus/data-fetch-utils';
 
 export const DEFAULT_RECORDS_PER_PAGE = 25;
 

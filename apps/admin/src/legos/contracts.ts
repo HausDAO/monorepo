@@ -49,4 +49,16 @@ export const CONTRACT: Record<string, ContractLego> = {
     abi: LOCAL_ABI.LOOT,
     targetAddress: '.dao.sharesAddress',
   },
+  VAULT_SUMMONER: {
+    type: 'static',
+    contractName: 'VAULT_SUMMONER',
+    abi: LOCAL_ABI.VAULT_SUMMONER,
+    targetAddress: CONTRACT_KEYCHAINS.VAULT_SUMMONER,
+  },
+  GNOSIS_MODULE: {
+    type: 'static',
+    contractName: 'GNOSIS_MODULE',
+    abi: LOCAL_ABI.GNOSIS_MODULE,
+    targetAddress: '.formValues.safeAddress',
+  },
 };

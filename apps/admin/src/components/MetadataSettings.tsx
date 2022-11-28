@@ -14,14 +14,19 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
+import { useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { charLimit, formatLongDateFromSeconds } from '@daohaus/utils';
+import {
+  charLimit,
+  formatLongDateFromSeconds,
+  ZERO_ADDRESS,
+} from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { SettingsLinkList } from './MetadataLinkLists';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -73,7 +78,7 @@ const WarningContainer = styled(Card)`
 `;
 
 type MetadataSettingsProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
@@ -121,7 +126,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
           {daoProfileHasLinks(dao.links) && (
             <SettingsLinkList links={dao.links} />
           )}
-          {dao.txHash === '0x0' && (
+          {dao.forwarder !== ZERO_ADDRESS && (
             <WarningContainer>
               <div className="title">
                 <ParMd>Forwarder Address</ParMd>

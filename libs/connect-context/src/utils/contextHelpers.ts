@@ -1,12 +1,12 @@
+import { Dispatch, SetStateAction } from 'react';
+import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
+import { providers } from 'ethers';
 import {
   isValidNetwork,
   NetworkConfigs,
   ValidNetwork,
 } from '@daohaus/keychain-utils';
-
-import { Haus } from '@daohaus/moloch-v3-data';
-import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
-import { providers } from 'ethers';
+import { getProfileForAddress } from '@daohaus/profile-data';
 
 import { switchChainOnMetaMask } from './metamask';
 import {
@@ -15,7 +15,6 @@ import {
   UserProfile,
   ConnectLifecycleFns,
 } from './types';
-import { Dispatch, SetStateAction } from 'react';
 
 export const numberToHex = (number: number) => {
   return `0x${number.toString(16)}`;
@@ -150,8 +149,7 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const haus = Haus.create();
-    const profile = await haus.profile.get({ address: address });
+    const profile = await getProfileForAddress(address);
 
     if (profile && shouldUpdate) {
       const displayName =

@@ -3,8 +3,9 @@ import { Keychain } from '@daohaus/keychain-utils';
 
 import {
   FindMemberQuery,
-  Haus,
-  ITransformedProposalQuery,
+  findMember,
+  MolochV3Proposal,
+  findProposal,
 } from '@daohaus/moloch-v3-data';
 import { ErrorMessage } from '@daohaus/ui';
 
@@ -25,15 +26,13 @@ export const loadMember = async ({
 }) => {
   try {
     setMemberLoading(true);
-    const haus = Haus.create({
-      graphApiKeys: {
-        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-      },
-    });
-    const memberRes = await haus.query.findMember({
+    const memberRes = await findMember({
       networkId: daochain,
       dao: daoid,
       memberAddress: address.toLowerCase(),
+      graphApiKeys: {
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+      },
     });
 
     if (memberRes?.data?.member && shouldUpdate) {
@@ -63,23 +62,21 @@ export const loadProposal = async ({
   daoid: string;
   daochain: keyof Keychain;
   proposalId: string;
-  setProposal: ReactSetter<ITransformedProposalQuery['proposal'] | undefined>;
+  setProposal: ReactSetter<MolochV3Proposal | undefined>;
   setProposalLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   connectedAddress?: string | null;
 }) => {
   try {
     setProposalLoading(true);
-    const haus = Haus.create({
-      graphApiKeys: {
-        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-      },
-    });
-    const res = await haus.query.findProposal({
+    const res = await findProposal({
       networkId: daochain,
       dao: daoid,
       proposalId: proposalId.toLowerCase(),
       connectedAddress,
+      graphApiKeys: {
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+      },
     });
 
     if (res?.data?.proposal && shouldUpdate) {
@@ -110,15 +107,13 @@ export const isActiveMember = async ({
 }): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
   try {
     setMemberLoading(true);
-    const haus = Haus.create({
-      graphApiKeys: {
-        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-      },
-    });
-    const memberRes = await haus.query.findMember({
+    const memberRes = await findMember({
       networkId: daochain,
       dao: daoid,
       memberAddress: address.toLowerCase(),
+      graphApiKeys: {
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+      },
     });
 
     if (

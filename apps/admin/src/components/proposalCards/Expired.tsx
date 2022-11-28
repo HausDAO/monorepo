@@ -1,8 +1,8 @@
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
 
-export const Expired = ({ proposal }: { proposal: ITransformedProposal }) => {
+export const Expired = ({ proposal }: { proposal: MolochV3Proposal }) => {
   return (
     <ActionTemplate
       proposal={proposal}

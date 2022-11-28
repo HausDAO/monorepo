@@ -1,4 +1,5 @@
-import { Member_Filter, Dao_OrderBy, Ordering } from '@daohaus/moloch-v3-data';
+import { Member_Filter, Dao_OrderBy } from '@daohaus/moloch-v3-data';
+import { Ordering } from '@daohaus/data-fetch-utils';
 
 export const FILTER_TYPE = {
   DELEGATING: 'delegating',

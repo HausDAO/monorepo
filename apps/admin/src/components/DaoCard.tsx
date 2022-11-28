@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { charLimit, readableNumbers } from '@daohaus/utils';
 import { getNetworkName } from '@daohaus/keychain-utils';
 
-import { ITransformedMembership } from '@daohaus/utils';
+import { MolochV3Membership } from '@daohaus/utils';
 import {
   Badge,
   Bold,
@@ -65,7 +65,7 @@ export const DaoCard = ({
   name,
   networkId,
   contractType,
-}: ITransformedMembership) => {
+}: MolochV3Membership) => {
   return (
     <StyledDaoCard className="dao-card">
       <div className="top-box">
@@ -101,17 +101,6 @@ export const DaoCard = ({
             ) === 1
               ? 'Member'
               : 'Members'}
-          </ParMd>
-        )}
-        {fiatTotal != null && (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toDollars({
-                value: fiatTotal,
-                unit: 'USD',
-                separator: ' ',
-              })}
-            </Bold>
           </ParMd>
         )}
         {totalProposalCount && (

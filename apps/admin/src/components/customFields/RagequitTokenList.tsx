@@ -23,6 +23,7 @@ import styled from 'styled-components';
 import { TokenBalance } from '@daohaus/utils';
 import { useParams } from 'react-router-dom';
 import { sortTokensForRageQuit } from '../../utils/general';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const TokenListContainer = styled.div`
   display: flex;
@@ -64,31 +65,18 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
     return getNetwork(daochain);
   }, [daochain]);
 
-  const handleSelectAll = (checked: CheckedState) => {
-    if (checked) {
-      setValue(
-        id,
-        sortTokensForRageQuit(
-          dao?.tokenBalances
-            .filter((token) => Number(token.balance) > 0)
-            .map((token) => token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS) ||
-            []
-        )
+  const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
+    if (dao) {
+      return (
+        dao.vaults.find((v) => v.safeAddress === dao.safeAddress) || undefined
       );
-    } else {
-      setValue(id, []);
     }
-
-    dao?.tokenBalances.forEach((token) => {
-      if (Number(token.balance) > 0) {
-        setValue(token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS, checked);
-      }
-    });
-  };
+    return undefined;
+  }, [dao]);
 
   const tokenTable = useMemo((): TokenTable | null => {
-    if (!dao || !networkData || !connectedMembership) return null;
-    return dao?.tokenBalances
+    if (!dao || !networkData || !connectedMembership || !treasury) return null;
+    return treasury.tokenBalances
       .filter((token) => Number(token.balance) > 0)
       .reduce(
         (acc: TokenTable, token: TokenBalance) => {
@@ -176,8 +164,31 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
     lootToBurn,
     id,
     tokens,
+    treasury,
     setValue,
   ]);
+
+  const handleSelectAll = (checked: CheckedState) => {
+    if (checked) {
+      setValue(
+        id,
+        sortTokensForRageQuit(
+          treasury?.tokenBalances
+            .filter((token) => Number(token.balance) > 0)
+            .map((token) => token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS) ||
+            []
+        )
+      );
+    } else {
+      setValue(id, []);
+    }
+
+    treasury?.tokenBalances.forEach((token) => {
+      if (Number(token.balance) > 0) {
+        setValue(token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS, checked);
+      }
+    });
+  };
 
   if (!tokenTable) return null;
 

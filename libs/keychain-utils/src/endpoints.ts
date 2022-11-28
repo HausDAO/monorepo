@@ -1,4 +1,4 @@
-import { Keychain, KeychainList } from './types';
+import { Keychain, KeychainList, ValidNetwork } from './types';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
@@ -13,7 +13,7 @@ export const ENDPOINTS: KeychainList = {
     '0x64': 'https://gnosisscan.io/',
   },
   GNOSIS_API: {
-    '0x1': 'https://safe-transaction.mainnet.io/api/v1',
+    '0x1': 'https://safe-transaction.mainnet.gnosis.io/api/v1',
     '0x5': 'https://safe-transaction.goerli.gnosis.io/api/v1',
     '0x64': 'https://safe-transaction.xdai.gnosis.io/api/v1',
   },
@@ -53,6 +53,16 @@ export const addApiKeyToGraphEnpoints = (
     }
     return acc;
   }, endpoints);
+};
+export const getGraphUrl = (
+  networkId: ValidNetwork,
+  graphApiKeys?: Keychain
+): string | undefined => {
+  if (graphApiKeys) {
+    const endpoints = addApiKeyToGraphEnpoints(graphApiKeys, ENDPOINTS);
+    return endpoints['V3_SUBGRAPH'][networkId];
+  }
+  return ENDPOINTS['V3_SUBGRAPH'][networkId];
 };
 export const HAUS_RPC = {
   '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,

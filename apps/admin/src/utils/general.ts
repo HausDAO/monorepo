@@ -1,4 +1,5 @@
-import { TDao, TMembers } from '@daohaus/moloch-v3-context';
+import { TMembers } from '@daohaus/moloch-v3-context';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import { TXLifeCycleFns } from '@daohaus/tx-builder';
 import { PROPOSAL_TYPE_LABELS } from './constants';
 
@@ -6,7 +7,7 @@ export type ActionLifeCycleFns = TXLifeCycleFns & {
   onActionTriggered?: () => void;
 };
 
-export const missingDaoProfileData = (dao: TDao): boolean => {
+export const missingDaoProfileData = (dao: MolochV3Dao): boolean => {
   if (!dao?.profile || !dao.profile.length) return true;
   return dao.description === '' && dao.avatarImg === '';
 };

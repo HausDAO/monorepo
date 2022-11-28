@@ -2,7 +2,7 @@ import React, { MouseEvent } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { formatShares, handleErrorMessage, TXLego } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
@@ -29,7 +29,7 @@ export const HasNotVoted = ({
   readableTime,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
   readableTime?: string;
 }) => {
   const { daochain } = useParams();

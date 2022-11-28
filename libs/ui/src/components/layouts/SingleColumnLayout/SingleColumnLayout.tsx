@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { DataMd, H2 } from '../../atoms';
+import { SingleColumnLayoutProps } from './SingleColumnLayout.types';
 import {
   ActionButtonContainer,
   ColumnBox,
@@ -8,14 +9,6 @@ import {
   ContentBox,
   TitleContainerWithActions,
 } from './SingleColumnLayout.styles';
-
-type SingleColumnLayoutProps = {
-  title?: 'string' | React.ReactNode;
-  subtitle?: 'string' | React.ReactNode;
-  description?: 'string' | React.ReactNode;
-  actions?: React.ReactNode;
-  children: React.ReactNode;
-};
 
 export const SingleColumnLayout = ({
   title,

@@ -1,13 +1,8 @@
 import React, { useMemo } from 'react';
-import { DataMd, H2 } from '../../atoms';
-import { FormContainer } from './FormLayout.styles';
 
-type FormLayoutProps = {
-  title?: string | React.ReactNode;
-  subtitle?: string | React.ReactNode;
-  description?: string | React.ReactNode;
-  children: React.ReactNode;
-};
+import { DataMd, H2 } from '../../atoms';
+import { FormLayoutProps } from './FormLayout.types';
+import { FormContainer } from './FormLayout.styles';
 
 export const FormLayout = ({
   title,

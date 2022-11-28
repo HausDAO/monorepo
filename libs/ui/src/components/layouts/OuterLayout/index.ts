@@ -1,1 +1,3 @@
-export * from './OuterLayout';
+import { OuterLayout } from './OuterLayout';
+
+export { OuterLayout };

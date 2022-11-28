@@ -2,8 +2,10 @@ import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { conversionFns, isNumberString, toSeconds } from '@daohaus/utils';
-import { Field, OptionType, Buildable } from '../../../types';
+
+import { Buildable } from '../../../types';
 import { WrappedInputSelect } from '../WrappedInputSelect';
+import { TimePickerProps } from './TimePicker.types';
 
 const defaultOptions = [
   { name: 'Days', value: 'days' },
@@ -12,12 +14,6 @@ const defaultOptions = [
   { name: 'Seconds', value: 'seconds' },
 ];
 
-type TimePickerProps = Field & {
-  defaultValue?: string;
-  options?: OptionType[];
-  selectId?: string;
-  selectPlaceholder?: string;
-};
 export const TimePicker = ({
   id,
   options = defaultOptions,

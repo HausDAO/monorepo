@@ -1,1 +1,1 @@
-export * from './ShamanPermission';
+export { ShamanPermission } from './ShamanPermission';

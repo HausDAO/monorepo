@@ -1,1 +1,3 @@
-export * from './SingleColumnLayout';
+import { SingleColumnLayout } from './SingleColumnLayout';
+
+export { SingleColumnLayout };

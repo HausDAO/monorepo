@@ -1,1 +1,3 @@
-export * from './FormLayout';
+import { FormLayout } from './FormLayout';
+
+export { FormLayout };

@@ -9,13 +9,13 @@ import { Theme } from '../types/theming';
 import './global/fonts.css';
 import { Toast } from '../components';
 import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
-import { CustomToastProps } from '../types/toast.types';
+import { ToastProps } from '../components/molecules';
 
 type HausUI = {
   theme: Theme;
   setTheme: ReactSetter<Theme>;
   toggleLightDark: () => void;
-  setToast: (toast: CustomToastProps) => void;
+  setToast: (toast: ToastProps) => void;
 };
 
 type ProviderProps = {
@@ -41,7 +41,7 @@ export const HausThemeProvider = ({
   startDark = true,
 }: ProviderProps) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
-  const [toast, setToast] = useState<CustomToastProps | null>(null);
+  const [toast, setToast] = useState<ToastProps | null>(null);
   console.log('defaultDarkTheme', defaultDarkTheme);
   useEffect(() => {
     setTheme(startDark ? defaultDark : defaultLight);

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   RiCloseFill,
   RiCheckboxCircleFill,
@@ -6,6 +7,7 @@ import {
 } from 'react-icons/ri';
 
 import { ParSm, Link } from '../../atoms';
+import { ToastProps, ToastLinksProps, ToastType } from './Toast.types';
 import {
   ToastViewport,
   ToastHeaderContainer,
@@ -18,13 +20,8 @@ import {
   ToastClose,
   CloseIcon,
 } from './Toast.styles';
-import {
-  CustomToastProps,
-  ToastLinksProps,
-  ToastType,
-} from '../../../types/toast.types';
 
-export const Toast = (props: CustomToastProps) => {
+export const Toast = (props: ToastProps) => {
   const {
     title,
     description,

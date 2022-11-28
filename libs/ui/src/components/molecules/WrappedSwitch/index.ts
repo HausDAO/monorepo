@@ -1,1 +1,1 @@
-export * from './WrappedSwitch';
+export { WrappedSwitch } from './WrappedSwitch';

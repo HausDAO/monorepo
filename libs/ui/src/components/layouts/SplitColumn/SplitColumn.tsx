@@ -1,10 +1,9 @@
+import React from 'react';
+
+import { SplitColumnProps, SplitColumnRowProps } from './SplitColumn.types';
 import { StyledRow, StyledSplitColumn } from './SplitColumn.styles';
 
 // REVIEW: No stories until there's a solid form sub-layout
-
-type SplitColumnProps = {
-  rows: Row[] | Row;
-};
 export const SplitColumn = ({ rows }: SplitColumnProps) => {
   return (
     <StyledSplitColumn>
@@ -19,12 +18,7 @@ export const SplitColumn = ({ rows }: SplitColumnProps) => {
   );
 };
 
-type Row = {
-  rowId: string;
-  left: React.ReactNode;
-  right: React.ReactNode;
-};
-const Row = ({ left, right }: Row) => {
+const Row = ({ left, right }: SplitColumnRowProps) => {
   return (
     <StyledRow>
       <div className="left-section">{left}</div>

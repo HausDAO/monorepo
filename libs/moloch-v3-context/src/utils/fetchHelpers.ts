@@ -21,6 +21,35 @@ import {
 import deepEqual from 'deep-eql';
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
+export const fetchDao = async ({
+  daoid,
+  daochain,
+  graphApiKeys,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  graphApiKeys?: Keychain;
+}) => {
+  try {
+    const daoRes = await findDao({
+      networkId: daochain,
+      dao: daoid,
+      includeTokens: true,
+      graphApiKeys,
+    });
+
+    if (!daoRes?.data?.dao) {
+      console.error('no dao found');
+    }
+
+    return daoRes?.data?.dao;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// pre 11/28
+
 export const loadDao = async ({
   daoid,
   daochain,

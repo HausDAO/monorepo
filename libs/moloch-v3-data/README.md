@@ -190,12 +190,6 @@ Provide options for pagination. The SDK supports offest and cursor pagination. O
 
 Run `nx build moloch-v3-data` to build the library.
 
-## Running Unit Tests
-
-Run `NODE_OPTIONS=--experimental-vm-modules nx run moloch-v3-data:test` to execute the unit tests via [Jest](https://jestjs.io).
-
-Be sure to include the `NODE_OPTIONS=--experimental-vm-modules` flag when running the tests or else the tests will throw an error.
-
 ## Generating GraphQL Schema and Types
 
 1. When updates are deployed to the moloch-v3haus V3 subgraphs, a new schema should be generated

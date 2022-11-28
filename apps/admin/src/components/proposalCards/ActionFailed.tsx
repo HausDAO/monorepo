@@ -1,4 +1,4 @@
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import styled from 'styled-components';
 import { ExplorerLink } from '@daohaus/connect';
 import { Italic, ParSm } from '@daohaus/ui';
@@ -9,11 +9,7 @@ const Link = styled(ExplorerLink)`
   font-size: inherit;
 `;
 
-export const ActionFailed = ({
-  proposal,
-}: {
-  proposal: ITransformedProposal;
-}) => {
+export const ActionFailed = ({ proposal }: { proposal: MolochV3Proposal }) => {
   return (
     <ActionTemplate
       proposal={proposal}

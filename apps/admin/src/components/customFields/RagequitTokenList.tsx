@@ -23,7 +23,7 @@ import styled from 'styled-components';
 import { TokenBalance } from '@daohaus/utils';
 import { useParams } from 'react-router-dom';
 import { sortTokensForRageQuit } from '../../utils/general';
-import { DaoWithTokenData } from '@daohaus/moloch-v3-data';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const TokenListContainer = styled.div`
   display: flex;
@@ -65,15 +65,14 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
     return getNetwork(daochain);
   }, [daochain]);
 
-  const treasury: DaoWithTokenData['vaults'][number] | undefined =
-    useMemo(() => {
-      if (dao) {
-        return (
-          dao.vaults.find((v) => v.safeAddress === dao.safeAddress) || undefined
-        );
-      }
-      return undefined;
-    }, [dao]);
+  const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
+    if (dao) {
+      return (
+        dao.vaults.find((v) => v.safeAddress === dao.safeAddress) || undefined
+      );
+    }
+    return undefined;
+  }, [dao]);
 
   const tokenTable = useMemo((): TokenTable | null => {
     if (!dao || !networkData || !connectedMembership || !treasury) return null;

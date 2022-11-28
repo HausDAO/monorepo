@@ -3,11 +3,11 @@ import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
-import { TDao, useDao } from '@daohaus/moloch-v3-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 import {
-  DaoWithTokenData,
+  MolochV3Dao,
   FindMemberQuery,
-  Haus,
+  DaoVault,
 } from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
@@ -124,8 +124,7 @@ export function Member() {
   const fetchMemberProfile = useCallback(
     async (address: string, loadState: typeof setCurrentMemberLoading) => {
       loadState(true);
-      const haus = Haus.create();
-      const profile = await fetchProfile({ haus, address });
+      const profile = await fetchProfile(address);
       setCurrentProfile(profile);
       loadState(false);
     },
@@ -146,15 +145,15 @@ export function Member() {
     balance: string;
     fiatBalance: string;
   };
-  const treasury: DaoWithTokenData['vaults'][number] | undefined =
-    useMemo(() => {
-      if (dao) {
-        return (
-          dao.vaults.find((v) => v.safeAddress === dao.safeAddress) || undefined
-        );
-      }
-      return undefined;
-    }, [dao]);
+  const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
+    if (dao) {
+      return (
+        dao.vaults.find((v: DaoVault) => v.safeAddress === dao.safeAddress) ||
+        undefined
+      );
+    }
+    return undefined;
+  }, [dao]);
 
   const tableData: TokenTableType[] | null = useMemo(() => {
     if (dao && currentMember && treasury) {

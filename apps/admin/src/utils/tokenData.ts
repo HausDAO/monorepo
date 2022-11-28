@@ -1,6 +1,6 @@
 import { TokenBalance } from '@daohaus/utils';
 import { HAUS_NETWORK_DATA, ValidNetwork } from '@daohaus/keychain-utils';
-import { DaoWithTokenData } from '@daohaus/moloch-v3-data';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const isNetworkToken = (tokenData: TokenBalance) => {
   return !tokenData.token;
@@ -14,7 +14,7 @@ export type TokenData = {
   address: string;
 };
 
-export const getErc20s = (treasury: DaoWithTokenData['vaults'][number]) => {
+export const getErc20s = (treasury: MolochV3Dao['vaults'][number]) => {
   return treasury.tokenBalances.reduce(
     (acc: TokenData[], tokenData: TokenBalance) => {
       if (!isNetworkToken(tokenData)) {
@@ -36,7 +36,7 @@ export const getErc20s = (treasury: DaoWithTokenData['vaults'][number]) => {
 };
 
 export const getNetworkToken = (
-  daoData: DaoWithTokenData,
+  daoData: MolochV3Dao,
   daochain: ValidNetwork,
   safeAddress: string,
   networks = HAUS_NETWORK_DATA

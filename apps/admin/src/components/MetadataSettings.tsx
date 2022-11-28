@@ -14,7 +14,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { TDao, useConnectedMembership } from '@daohaus/moloch-v3-context';
+import { useConnectedMembership } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import {
@@ -26,6 +26,7 @@ import { Keychain } from '@daohaus/keychain-utils';
 
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { SettingsLinkList } from './MetadataLinkLists';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -77,7 +78,7 @@ const WarningContainer = styled(Card)`
 `;
 
 type MetadataSettingsProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {

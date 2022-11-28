@@ -2,12 +2,10 @@ import 'cross-fetch/polyfill';
 
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';
-import { Keychain } from '@daohaus/keychain-utils';
-
 import { request } from 'graphql-request';
-
-import { IFindQueryResult, QueryVariables } from '..';
-import { HausError } from '../HausError';
+import { Keychain } from '@daohaus/keychain-utils';
+import { IFindQueryResult, QueryVariables } from '../types/query.types';
+import { formatFetchError } from './fetchErrors';
 
 type RequestDocument = string | DocumentNode;
 
@@ -29,7 +27,7 @@ export const graphFetchList = async <T = unknown, V = QueryVariables>(
   try {
     return await request<T, V>(url, document, cleanVariables(variables));
   } catch (err) {
-    throw new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err });
+    throw formatFetchError({ type: 'SUBGRAPH_ERROR', errorObject: err });
   }
 };
 

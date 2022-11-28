@@ -1,0 +1,36 @@
+query listVaults(
+  $where: Vault_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Vault_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
+) {
+  vaults: vaults(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...vaultFields
+  }
+}
+
+query findVault($id: ID!) {
+  vault: vault(id: $id) {
+    ...vaultFields
+  }
+}
+
+fragment vaultFields on Vault {
+  id
+  createdAt
+  active
+  ragequittable
+  name
+  safeAddress
+  dao {
+    id
+  }
+}

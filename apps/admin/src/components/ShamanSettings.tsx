@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { H3, ParSm } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/moloch-v3-context';
 import { ShamanList } from './ShamanList';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const ShamanContainer = styled.div`
   .tokens {
@@ -23,7 +23,7 @@ const ShamanCardHeader = styled.div`
 `;
 
 type ShamanSettingsProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const ShamanSettings = ({ dao }: ShamanSettingsProps) => {

@@ -4,8 +4,9 @@ import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
 import { isValidNetwork } from '@daohaus/keychain-utils';
 
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
-import { FindTxQuery, IFindQueryResult } from '@daohaus/moloch-v3-data';
+import { FindTxQuery } from '@daohaus/moloch-v3-data';
 import { bundleLifeCycleFns } from './utils/lifeCycleFns';
+import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
 export type TXLifeCycleFns = {
   onRequestSign?: () => void;

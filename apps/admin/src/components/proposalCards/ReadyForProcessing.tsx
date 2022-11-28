@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useBreakpoint, useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
@@ -75,7 +75,7 @@ export const ReadyForProcessing = ({
   proposal,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const { daochain, daoid } = useParams();
   const { chainId } = useDHConnect();

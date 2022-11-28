@@ -1,5 +1,5 @@
 import { percentage } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { Progress } from '@daohaus/ui';
 import { mintDark, slateDark, tomatoDark } from '@radix-ui/colors';
 import { useMemo } from 'react';
@@ -10,7 +10,7 @@ const VoteBarBox = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-export const VotingBar = ({ proposal }: { proposal: ITransformedProposal }) => {
+export const VotingBar = ({ proposal }: { proposal: MolochV3Proposal }) => {
   const percentages = useMemo(() => {
     return [
       {

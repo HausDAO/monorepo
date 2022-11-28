@@ -2,21 +2,24 @@ import { ReactSetter } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {
-  DaoWithTokenDataQuery,
+  MolochV3Dao,
+  findDao,
+  findMember,
   FindMemberQuery,
-  Haus,
-  ITransformedProposalListQuery,
-  ITransformedProposalQuery,
+  findProposal,
   ListConnectedMemberProposalsQuery,
+  listMembers,
   ListMembersQuery,
+  listProposals,
+  listProposalVotesByMember,
   Member_Filter,
   Member_OrderBy,
-  Ordering,
-  Paging,
   Proposal_Filter,
   Proposal_OrderBy,
+  MolochV3Proposal,
 } from '@daohaus/moloch-v3-data';
 import deepEqual from 'deep-eql';
+import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
 export const loadDao = async ({
   daoid,
@@ -28,22 +31,22 @@ export const loadDao = async ({
 }: {
   daoid: string;
   daochain: keyof Keychain;
-  setDao: ReactSetter<DaoWithTokenDataQuery['dao'] | undefined>;
+  setDao: ReactSetter<MolochV3Dao | undefined>;
   setDaoLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   graphApiKeys?: Keychain;
 }) => {
   try {
     setDaoLoading(true);
-    const haus = Haus.create({ graphApiKeys });
-    const daoRes = await haus.query.findDao({
+    const daoRes = await findDao({
       networkId: daochain,
       dao: daoid,
       includeTokens: true,
+      graphApiKeys,
     });
 
     if (daoRes?.data?.dao && shouldUpdate) {
-      setDao(daoRes.data.dao as DaoWithTokenDataQuery['dao']);
+      setDao(daoRes.data.dao as MolochV3Dao);
     }
   } catch (error) {
     console.error(error);
@@ -74,11 +77,11 @@ export const loadMember = async ({
 }) => {
   try {
     setMemberLoading(true);
-    const haus = Haus.create({ graphApiKeys });
-    const memberRes = await haus.query.findMember({
+    const memberRes = await findMember({
       networkId: daochain,
       dao: daoid,
       memberAddress: address.toLowerCase(),
+      graphApiKeys,
     });
 
     if (memberRes?.data?.member && shouldUpdate) {
@@ -109,7 +112,7 @@ export const loadProposal = async ({
   daoid: string;
   daochain: keyof Keychain;
   proposalId: string;
-  setProposal: ReactSetter<ITransformedProposalQuery['proposal'] | undefined>;
+  setProposal: ReactSetter<MolochV3Proposal | undefined>;
   setProposalLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   connectedAddress?: string | null;
@@ -117,12 +120,12 @@ export const loadProposal = async ({
 }) => {
   try {
     setProposalLoading(true);
-    const haus = Haus.create({ graphApiKeys });
-    const res = await haus.query.findProposal({
+    const res = await findProposal({
       networkId: daochain,
       dao: daoid,
       proposalId: proposalId.toLowerCase(),
       connectedAddress,
+      graphApiKeys,
     });
 
     if (res?.data?.proposal && shouldUpdate) {
@@ -163,12 +166,12 @@ export const loadMembersList = async ({
 }) => {
   try {
     setLoading(true);
-    const haus = Haus.create({ graphApiKeys });
-    const res = await haus.query.listMembers({
+    const res = await listMembers({
       networkId: daochain,
       filter,
       ordering,
       paging,
+      graphApiKeys,
     });
 
     if (shouldUpdate) {
@@ -208,7 +211,7 @@ export const loadProposalsList = async ({
   ordering?: Ordering<Proposal_OrderBy>;
   paging?: Paging;
   daochain: keyof Keychain;
-  setData: ReactSetter<ITransformedProposalListQuery['proposals'] | undefined>;
+  setData: ReactSetter<MolochV3Proposal[] | undefined>;
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;
@@ -216,12 +219,12 @@ export const loadProposalsList = async ({
 }) => {
   try {
     setLoading(true);
-    const haus = Haus.create({ graphApiKeys });
-    const res = await haus.query.listProposals({
+    const res = await listProposals({
       networkId: daochain,
       filter,
       ordering,
       paging,
+      graphApiKeys,
     });
 
     if (shouldUpdate) {
@@ -271,13 +274,13 @@ export const loadConnectedMemberVotesList = async ({
 }) => {
   try {
     setLoading(true);
-    const haus = Haus.create({ graphApiKeys });
-    const res = await haus.profile.listProposalVotesByMember({
+    const res = await listProposalVotesByMember({
       networkId: daochain,
       filter,
       ordering,
       paging,
       memberAddress,
+      graphApiKeys,
     });
     if (shouldUpdate) {
       setData((prevState) => {

@@ -10,10 +10,10 @@ import {
 
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
-import { TProposals } from '@daohaus/moloch-v3-context';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { ProposalWarning } from './ProposalWarning';
 import { useDHConnect } from '@daohaus/connect';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ const Spacer = styled.div`
 `;
 
 type ProposalDetailsGutsProps = {
-  proposal: TProposals[number];
+  proposal: MolochV3Proposal;
   decodeError: boolean;
 };
 

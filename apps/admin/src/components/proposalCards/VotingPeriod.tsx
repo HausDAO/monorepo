@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { baalTimeToNow } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
 
 import { HasVoted } from './HasVoted';
@@ -13,7 +13,7 @@ export const VotingPeriod = ({
   proposal,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const { address } = useDHConnect();
   const readableTime = useMemo(() => {

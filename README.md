@@ -132,6 +132,6 @@ Notes: - use the `--publishable` flag for external libraries - use the `--builda
 
 ### TypeScript Library
 
-- `npx nx generate @nrwl/js:library my-new-lib --publishable --importPath @daohau/my-new-lib`
+- `npx nx generate @nrwl/js:library my-new-lib --publishable --importPath @daohaus/my-new-lib`
 
 Notes: - use the `--publishable` flag for external libraries - use the `--buildable` flag for internal libraries

@@ -1,5 +1,6 @@
-import { FindTxQuery, Haus, IFindQueryResult } from '@daohaus/moloch-v3-data';
+import { findTransaction, FindTxQuery } from '@daohaus/moloch-v3-data';
 import { ValidNetwork } from '@daohaus/keychain-utils';
+import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
 // TS Challenge
 
@@ -35,10 +36,12 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
   txHash: string;
 }) => {
   try {
-    const haus = Haus.create();
-    const result = await haus.query.findTransaction({
+    const result = await findTransaction({
       networkId: chainId,
       txHash,
+      graphApiKeys: {
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+      },
     });
     return result;
   } catch (error) {

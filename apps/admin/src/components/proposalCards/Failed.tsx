@@ -3,7 +3,7 @@ import {
   formatShares,
   roundedPercentage,
 } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
 import { useMemo } from 'react';
 import { VotingBar } from '../VotingBar';
@@ -14,7 +14,7 @@ const getFailReason = ({
   userApproved,
   userVotePower,
 }: {
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
   userApproved?: boolean;
   userVotePower?: number | string;
 }) => {
@@ -35,7 +35,7 @@ const getFailReason = ({
   return undefined;
 };
 
-export const Failed = ({ proposal }: { proposal: ITransformedProposal }) => {
+export const Failed = ({ proposal }: { proposal: MolochV3Proposal }) => {
   const { address } = useDHConnect();
   const percentNo = roundedPercentage(
     Number(proposal.noBalance),

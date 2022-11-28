@@ -1,32 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames';
+import { Link as RouterLink } from 'react-router-dom';
 import { RiExternalLinkLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
 import { LinkProps, PolymorphicLinkProps } from './Link.types';
-import { InternalLink, ExternalLink, LinkStyles } from './Link.styles';
-
-const UnstyledPolymorphicLink = <Element extends React.ElementType = 'a'>({
-  as,
-  disabled,
-  children,
-  className,
-  ...restProps
-}: PolymorphicLinkProps<Element>) => {
-  const Component = as || 'a';
-
-  const classes = classNames({ disabled });
-
-  return (
-    <Component {...restProps} className={`${classes} ${className}`}>
-      {children}
-    </Component>
-  );
-};
-
-export const NewLink = styled(UnstyledPolymorphicLink)`
-  ${LinkStyles}
-`;
+import { InternalLink, ExternalLink, StyledLink } from './Link.styles';
 
 // TODO Refactor React Router out
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
@@ -73,3 +52,23 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     );
   }
 );
+
+export const UnstyledPolymorphicLink = <
+  Element extends React.ElementType = 'a'
+>({
+  as,
+  disabled,
+  children,
+  className,
+  ...restProps
+}: PolymorphicLinkProps<Element>) => {
+  const Component = as || 'a';
+
+  const classes = classNames({ disabled });
+
+  return (
+    <Component {...restProps} className={`${classes} ${className}`}>
+      {children}
+    </Component>
+  );
+};

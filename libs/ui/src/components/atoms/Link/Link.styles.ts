@@ -33,14 +33,6 @@ export const LinkStyles = css`
   }
 `;
 
-export const ExternalLink = styled.a`
-  ${LinkStyles}
-`;
-
-export const InternalLink = styled(Link)`
-  ${LinkStyles}
-`;
-
 export const StyledLink = styled.a`
   ${LinkStyles}
 `;

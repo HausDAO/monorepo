@@ -48,6 +48,37 @@ export const fetchDao = async ({
   }
 };
 
+export const fetchProposalsList = async ({
+  filter,
+  ordering,
+  paging,
+  daochain,
+  graphApiKeys,
+}: {
+  filter: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
+  daochain: keyof Keychain;
+  graphApiKeys?: Keychain;
+}) => {
+  try {
+    const res = await listProposals({
+      networkId: daochain,
+      filter,
+      ordering,
+      paging,
+      graphApiKeys,
+    });
+    if (!res) {
+      console.error('no proposals found');
+    }
+
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // pre 11/28
 
 export const loadDao = async ({

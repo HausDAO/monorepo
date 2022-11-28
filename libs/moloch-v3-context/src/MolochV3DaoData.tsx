@@ -1,6 +1,6 @@
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
-import { ReactNode, useMemo } from 'react';
-import { fetchDao } from './utils';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { fetchDao, fetchProposalsList, InitialDaoData } from './utils';
 
 type MolochV3DaoDataProps = {
   address: string | null | undefined;
@@ -17,17 +17,35 @@ export const MolochV3DaoData = ({
   graphApiKeys,
   children,
 }: MolochV3DaoDataProps) => {
-  const initialDaoData = useMemo(async () => {
-    if (daoid && daochain) {
-      const daoRes = await fetchDao({
-        daoid,
-        daochain: daochain as ValidNetwork,
-        graphApiKeys,
-      });
+  //refetch here uses default filter/order/pagination
+  //will context refetch for us?
+  //why fetch here
 
-      console.log('daoRes', daoRes);
+  // maybe this level just keeps the while state object?
+  useEffect(() => {
+    const fetchDaoData = async () => {
+      if (daoid && daochain) {
+        const daoRes = await fetchDao({
+          daoid,
+          daochain: daochain as ValidNetwork,
+          graphApiKeys,
+        });
+
+        const proposalRes = await fetchProposalsList({
+          filter: { dao: daoid },
+          daochain: daochain as ValidNetwork,
+          graphApiKeys,
+        });
+
+        return {
+          dao: daoRes,
+          proposals: proposalRes,
+        };
+      }
+    };
+    if (daoid && daochain) {
+      fetchDaoData();
     }
-    return null;
   }, [daoid, daochain, graphApiKeys]);
 
   return (

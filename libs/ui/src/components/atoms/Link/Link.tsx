@@ -1,11 +1,9 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { Link as RouterLink } from 'react-router-dom';
 import { RiExternalLinkLine } from 'react-icons/ri';
-import styled from 'styled-components';
 
 import { LinkProps, PolymorphicLinkProps } from './Link.types';
-import { InternalLink, ExternalLink, StyledLink } from './Link.styles';
+import { InternalLink, ExternalLink } from './Link.styles';
 
 // TODO Refactor React Router out
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(

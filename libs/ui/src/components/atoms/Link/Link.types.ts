@@ -1,7 +1,5 @@
 import React from 'react';
 import { IconType } from 'react-icons';
-import { StyledComponentPropsWithRef } from 'styled-components';
-import { StyledLink } from './Link.styles';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href?: string;

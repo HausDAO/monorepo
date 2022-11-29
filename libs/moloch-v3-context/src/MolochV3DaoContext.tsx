@@ -1,30 +1,12 @@
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
-import {
-  ReactNode,
-  useEffect,
-  createContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { ReactNode, useEffect, createContext, useState } from 'react';
 import {
   fetchAllDaoData,
   fetchAllMemberData,
+  MolochV3DaoContextType,
   MolochV3DaoData,
-  MolochV3MemberData,
+  MolochV3ConnectedMemberData,
 } from './utils';
-
-export type MolochV3DaoDataContextType = {
-  address: string | null | undefined;
-  daoid: string | null | undefined;
-  daochain: string | null | undefined;
-  graphApiKeys: Keychain | undefined;
-  daoData: MolochV3DaoData | undefined;
-  setDaoData: Dispatch<SetStateAction<MolochV3DaoData>>;
-  memberData: MolochV3MemberData | undefined;
-  setMemberData: Dispatch<SetStateAction<MolochV3MemberData>>;
-  refreshAll: () => Promise<void>;
-};
 
 const defaultData = {
   address: undefined,
@@ -35,8 +17,8 @@ const defaultData = {
   setDaoData: async () => {
     return;
   },
-  memberData: undefined,
-  setMemberData: async () => {
+  connectedMemberData: undefined,
+  setConnectedMemberData: async () => {
     return;
   },
   refreshAll: async () => {
@@ -44,10 +26,10 @@ const defaultData = {
   },
 };
 
-export const MolochV3DaoDataContext =
-  createContext<MolochV3DaoDataContextType>(defaultData);
+export const MolochV3DaoContext =
+  createContext<MolochV3DaoContextType>(defaultData);
 
-type MolochV3DaoDataProps = {
+type MolochV3DaoProps = {
   address: string | null | undefined;
   daoid: string | null | undefined;
   daochain: string | null | undefined;
@@ -55,18 +37,19 @@ type MolochV3DaoDataProps = {
   children: ReactNode;
 };
 
-export const MolochV3DaoDataProvider = ({
+export const MolochV3DaoProvider = ({
   address,
   daoid,
   daochain,
   graphApiKeys,
   children,
-}: MolochV3DaoDataProps) => {
+}: MolochV3DaoProps) => {
   const [daoData, setDaoData] = useState<MolochV3DaoData>({});
-  const [memberData, setMemberData] = useState<MolochV3MemberData>({});
+  const [connectedMemberData, setConnectedMemberData] =
+    useState<MolochV3ConnectedMemberData>({});
 
   useEffect(() => {
-    // TODO: shouldUpdate
+    let shouldUpdate = true;
     const fetchDaoData = async () => {
       if (daoid && daochain) {
         const res = await fetchAllDaoData({
@@ -75,18 +58,24 @@ export const MolochV3DaoDataProvider = ({
           graphApiKeys,
         });
 
-        setDaoData(res);
+        if (shouldUpdate) {
+          setDaoData(res);
+        }
       }
     };
 
     if (daoid && daochain) {
       fetchDaoData();
     }
+
+    return () => {
+      shouldUpdate = false;
+    };
   }, [daoid, daochain, graphApiKeys]);
 
   useEffect(() => {
+    let shouldUpdate = true;
     const fetchMemberData = async () => {
-      // TODO: shouldUpdate
       if (daoid && daochain && address) {
         const res = await fetchAllMemberData({
           daoid,
@@ -94,14 +83,17 @@ export const MolochV3DaoDataProvider = ({
           address,
           graphApiKeys,
         });
-
-        setMemberData(res);
+        if (shouldUpdate) {
+          setConnectedMemberData(res);
+        }
       }
     };
-
     if (daoid && daochain && address) {
       fetchMemberData();
     }
+    return () => {
+      shouldUpdate = false;
+    };
   }, [daoid, daochain, graphApiKeys, address]);
 
   const refreshAll = async () => {
@@ -122,12 +114,12 @@ export const MolochV3DaoDataProvider = ({
         graphApiKeys,
       });
 
-      setMemberData(res);
+      setConnectedMemberData(res);
     }
   };
 
   return (
-    <MolochV3DaoDataContext.Provider
+    <MolochV3DaoContext.Provider
       value={{
         address,
         daoid,
@@ -135,12 +127,12 @@ export const MolochV3DaoDataProvider = ({
         graphApiKeys,
         daoData,
         setDaoData,
-        memberData,
-        setMemberData,
+        connectedMemberData,
+        setConnectedMemberData,
         refreshAll,
       }}
     >
       {children}
-    </MolochV3DaoDataContext.Provider>
+    </MolochV3DaoContext.Provider>
   );
 };

@@ -7,18 +7,14 @@ import {
   findMember,
   FindMemberQuery,
   findProposal,
-  ListConnectedMemberProposalsQuery,
   listMembers,
-  ListMembersQuery,
   listProposals,
-  listProposalVotesByMember,
   Member_Filter,
   Member_OrderBy,
   Proposal_Filter,
   Proposal_OrderBy,
   MolochV3Proposal,
 } from '@daohaus/moloch-v3-data';
-import deepEqual from 'deep-eql';
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
 export const fetchDao = async ({
@@ -194,7 +190,7 @@ export const fetchAllMemberData = async ({
   });
 
   return {
-    connectedMembership: memberRes,
+    connectedMember: memberRes,
   };
 };
 
@@ -211,45 +207,6 @@ export const fetchGeneric = async ({
 }) => {
   if (entityName === 'dao') {
     return fetchDao({ daoid, daochain, graphApiKeys });
-  }
-};
-
-// pre 11/28
-
-export const loadDao = async ({
-  daoid,
-  daochain,
-  setDao,
-  setDaoLoading,
-  shouldUpdate,
-  graphApiKeys,
-}: {
-  daoid: string;
-  daochain: keyof Keychain;
-  setDao: ReactSetter<MolochV3Dao | undefined>;
-  setDaoLoading: ReactSetter<boolean>;
-  shouldUpdate: boolean;
-  graphApiKeys?: Keychain;
-}) => {
-  try {
-    setDaoLoading(true);
-    const daoRes = await findDao({
-      networkId: daochain,
-      dao: daoid,
-      includeTokens: true,
-      graphApiKeys,
-    });
-
-    if (daoRes?.data?.dao && shouldUpdate) {
-      setDao(daoRes.data.dao as MolochV3Dao);
-    }
-  } catch (error) {
-    console.error(error);
-    setDao(undefined);
-  } finally {
-    if (shouldUpdate) {
-      setDaoLoading(false);
-    }
   }
 };
 
@@ -334,165 +291,6 @@ export const loadProposal = async ({
   } finally {
     if (shouldUpdate) {
       setProposalLoading(false);
-    }
-  }
-};
-
-export const loadMembersList = async ({
-  filter,
-  ordering,
-  paging,
-  daochain,
-  setData,
-  setLoading,
-  setNextPaging,
-  shouldUpdate,
-  graphApiKeys,
-}: {
-  filter: Member_Filter;
-  ordering?: Ordering<Member_OrderBy>;
-  paging?: Paging;
-  daochain: keyof Keychain;
-  setData: ReactSetter<ListMembersQuery['members'] | undefined>;
-  setLoading: ReactSetter<boolean>;
-  setNextPaging: ReactSetter<Paging | undefined>;
-  shouldUpdate: boolean;
-  graphApiKeys?: Keychain;
-}) => {
-  try {
-    setLoading(true);
-    const res = await listMembers({
-      networkId: daochain,
-      filter,
-      ordering,
-      paging,
-      graphApiKeys,
-    });
-
-    if (shouldUpdate) {
-      setNextPaging(res.nextPaging);
-
-      setData((prevState) => {
-        if (deepEqual(prevState, res.items)) return res.items;
-        if (prevState) {
-          return [...prevState, ...res.items];
-        } else {
-          return res.items;
-        }
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    setData(undefined);
-  } finally {
-    if (shouldUpdate) {
-      setLoading(false);
-    }
-  }
-};
-
-export const loadProposalsList = async ({
-  filter,
-  ordering,
-  paging,
-  daochain,
-  setData,
-  setLoading,
-  setNextPaging,
-  shouldUpdate,
-  graphApiKeys,
-}: {
-  filter: Proposal_Filter;
-  ordering?: Ordering<Proposal_OrderBy>;
-  paging?: Paging;
-  daochain: keyof Keychain;
-  setData: ReactSetter<MolochV3Proposal[] | undefined>;
-  setLoading: ReactSetter<boolean>;
-  setNextPaging: ReactSetter<Paging | undefined>;
-  shouldUpdate: boolean;
-  graphApiKeys?: Keychain;
-}) => {
-  try {
-    setLoading(true);
-    const res = await listProposals({
-      networkId: daochain,
-      filter,
-      ordering,
-      paging,
-      graphApiKeys,
-    });
-
-    if (shouldUpdate) {
-      setNextPaging(res.nextPaging);
-
-      setData((prevState) => {
-        if (deepEqual(prevState, res.items)) return res.items;
-        if (prevState) {
-          return [...prevState, ...res.items];
-        } else {
-          return res.items;
-        }
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    setData(undefined);
-  } finally {
-    if (shouldUpdate) {
-      setLoading(false);
-    }
-  }
-};
-
-export const loadConnectedMemberVotesList = async ({
-  filter,
-  ordering,
-  paging,
-  daochain,
-  setData,
-  setLoading,
-  shouldUpdate,
-  memberAddress,
-  graphApiKeys,
-}: {
-  filter: Proposal_Filter;
-  ordering?: Ordering<Proposal_OrderBy>;
-  paging?: Paging;
-  daochain: keyof Keychain;
-  setData: ReactSetter<
-    ListConnectedMemberProposalsQuery['proposals'] | undefined
-  >;
-  setLoading: ReactSetter<boolean>;
-  shouldUpdate: boolean;
-  memberAddress: string;
-  graphApiKeys?: Keychain;
-}) => {
-  try {
-    setLoading(true);
-    const res = await listProposalVotesByMember({
-      networkId: daochain,
-      filter,
-      ordering,
-      paging,
-      memberAddress,
-      graphApiKeys,
-    });
-    if (shouldUpdate) {
-      setData((prevState) => {
-        if (deepEqual(prevState, res.items)) return res.items;
-        if (prevState) {
-          return [...prevState, ...res.items];
-        } else {
-          return res.items;
-        }
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    setData(undefined);
-  } finally {
-    if (shouldUpdate) {
-      setLoading(false);
     }
   }
 };

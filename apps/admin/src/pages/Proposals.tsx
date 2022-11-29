@@ -42,19 +42,13 @@ const SearchFilterContainer = styled.div`
 
 export function Proposals() {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const {
-    isProposalsLoading,
-    proposals,
-    proposalsNextPaging,
-    loadMoreProposals,
-    filterProposals,
-  } = useProposals();
+  const { proposals, paging, loadNextPage, filterProposals } = useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
-    filterProposals();
+    filterProposals({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -78,7 +72,7 @@ export function Proposals() {
         title_contains_nocase: term,
       });
     } else {
-      filterProposals(filterQuery);
+      filterProposals(filterQuery || {});
     }
   };
 
@@ -87,7 +81,7 @@ export function Proposals() {
       searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
     setFilter((prevState) => {
       if (prevState === event.currentTarget.value) {
-        filterProposals(searchQuery);
+        filterProposals(searchQuery || {});
         return '';
       } else {
         const votingPlusGraceDuration =
@@ -123,20 +117,18 @@ export function Proposals() {
           </DialogContent>
         </Dialog>
       </ActionsContainer>
-      {(!proposals || isProposalsLoading) && (
-        <Spinner size={isMobile ? '8rem' : '16rem'} />
-      )}
+      {!proposals && <Spinner size={isMobile ? '8rem' : '16rem'} />}
       {proposals &&
         proposals.map((proposal) => (
           <BaseProposalCard proposal={proposal} key={proposal.id} />
         ))}
 
-      {proposals && proposalsNextPaging && (
+      {proposals && paging.next && (
         <Button
           color="secondary"
           variant="outline"
           size="sm"
-          onClick={loadMoreProposals}
+          onClick={loadNextPage}
         >
           Show More Proposals
         </Button>

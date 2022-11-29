@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
-import { useConnectedMembership } from '@daohaus/moloch-v3-context';
+import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
   Dropdown,
   DropdownMenuItem,
@@ -41,12 +41,12 @@ type VaultMenuProps = {
 
 export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
   const { daoid, daochain } = useParams();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const theme = useTheme();
 
   const enableActions = useMemo(() => {
-    return connectedMembership && Number(connectedMembership.shares) > 0;
-  }, [connectedMembership]);
+    return connectedMember && Number(connectedMember.shares) > 0;
+  }, [connectedMember]);
 
   const networkData = useMemo(() => {
     if (!daochain) return null;

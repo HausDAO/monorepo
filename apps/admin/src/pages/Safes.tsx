@@ -10,7 +10,7 @@ import {
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { VaultOverview } from '../components/VaultOverview';
 import AddSafeForm from '../components/AddSafeForm';
 
@@ -27,7 +27,7 @@ const VaultContainer = styled(Card)`
 
 export function Safes() {
   const { dao } = useDao();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
 
   const isMobile = useBreakpoint(widthQuery.sm);
 
@@ -35,7 +35,7 @@ export function Safes() {
     <SingleColumnLayout
       title="Safes"
       actions={
-        connectedMembership && (
+        connectedMember && (
           <Dialog>
             <DialogTrigger asChild>
               <Button color="secondary" fullWidth={isMobile}>

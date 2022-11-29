@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { FormBuilder } from '@daohaus/form-builder';
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from '@daohaus/utils';
@@ -9,16 +9,16 @@ import { sortTokensForRageQuit } from '../utils/general';
 
 export function RageQuit() {
   const { dao, refreshAll } = useDao();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
 
   const defaultFields = useMemo(() => {
-    if (connectedMembership && dao) {
+    if (connectedMember && dao) {
       const treasury = dao.vaults.find(
         (v) => dao.safeAddress === v.safeAddress
       );
 
       return {
-        to: connectedMembership.memberAddress,
+        to: connectedMember.memberAddress,
         tokens:
           treasury &&
           sortTokensForRageQuit(
@@ -31,13 +31,13 @@ export function RageQuit() {
           ),
       };
     }
-  }, [connectedMembership, dao]);
+  }, [connectedMember, dao]);
 
   const onFormComplete = () => {
     refreshAll?.();
   };
 
-  if (!dao || !connectedMembership) {
+  if (!dao || !connectedMember) {
     return null;
   }
 

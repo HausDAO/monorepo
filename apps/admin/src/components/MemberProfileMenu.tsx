@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useConnectedMembership } from '@daohaus/moloch-v3-context';
+import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
   Dropdown,
   DropdownMenuItem,
@@ -73,21 +73,21 @@ export const MemberProfileMenu = ({
   memberAddress,
 }: MemberProfileMenuProps) => {
   const { daoid, daochain } = useParams();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
 
   const enableActions = useMemo(() => {
     return (
-      connectedMembership &&
-      connectedMembership?.memberAddress !== memberAddress &&
-      Number(connectedMembership.shares) > 0
+      connectedMember &&
+      connectedMember?.memberAddress !== memberAddress &&
+      Number(connectedMember.shares) > 0
     );
-  }, [connectedMembership, memberAddress]);
+  }, [connectedMember, memberAddress]);
 
   const isMenuForConnectedMember = useMemo(() => {
-    return connectedMembership?.memberAddress === memberAddress;
-  }, [connectedMembership, memberAddress]);
+    return connectedMember?.memberAddress === memberAddress;
+  }, [connectedMember, memberAddress]);
 
-  if (!connectedMembership) return null;
+  if (!connectedMember) return null;
 
   return (
     <Dialog>

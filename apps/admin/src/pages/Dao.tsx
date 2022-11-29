@@ -1,6 +1,6 @@
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { DHLayout, useDHConnect } from '@daohaus/connect';
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { useMemo } from 'react';
 
@@ -9,10 +9,10 @@ export function Dao() {
   const location = useLocation();
   const { provider, address } = useDHConnect();
   const { dao } = useDao();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
 
   const moreLinks = useMemo(() => {
-    if (connectedMembership) {
+    if (connectedMember) {
       return [
         {
           label: 'Settings',
@@ -20,7 +20,7 @@ export function Dao() {
         },
         {
           label: 'Profile',
-          href: `/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`,
+          href: `/molochv3/${daochain}/${daoid}/members/${connectedMember.memberAddress}`,
         },
       ];
     } else {
@@ -31,7 +31,7 @@ export function Dao() {
         },
       ];
     }
-  }, [connectedMembership, daochain, daoid]);
+  }, [connectedMember, daochain, daoid]);
 
   return (
     <TXBuilder

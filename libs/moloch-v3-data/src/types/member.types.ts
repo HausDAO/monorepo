@@ -3,6 +3,5 @@ import {
   ListMembersQuery,
 } from '../subgraph/queries/members.generated';
 
-export type MolochV3Member =
-  | ListMembersQuery['members']
-  | FindMemberQuery['member'];
+export type MolochV3Members = ListMembersQuery['members'];
+export type MolochV3Member = FindMemberQuery['member'];

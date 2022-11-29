@@ -1,7 +1,7 @@
 import { fromWei } from '@daohaus/utils';
 import { isValidNetwork } from '@daohaus/keychain-utils';
 
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -13,7 +13,7 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   const { daochain } = useParams();
   const { networks } = useDHConnect();
   const { dao } = useDao();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const { register, setValue } = useFormContext();
   const [requiresOffering, setRequiresOffering] = useState(false);
 
@@ -25,10 +25,7 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   useEffect(() => {
     if (!dao || !id) return;
 
-    if (
-      !connectedMembership ||
-      dao.sponsorThreshold > connectedMembership.shares
-    ) {
+    if (!connectedMember || dao.sponsorThreshold > connectedMember.shares) {
       setRequiresOffering(true);
       setValue(id, dao.proposalOffering);
       return;
@@ -37,7 +34,7 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
     setValue(id, '0');
     setRequiresOffering(false);
     return;
-  }, [dao, connectedMembership, setValue, id]);
+  }, [dao, connectedMember, setValue, id]);
 
   if (!requiresOffering || !dao?.proposalOffering || !networkTokenSymbol)
     return null;

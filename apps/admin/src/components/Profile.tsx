@@ -13,7 +13,7 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile } from '@daohaus/utils';
+import { AccountProfile, MolochV3Membership } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {
@@ -22,10 +22,11 @@ import {
   fromWei,
   votingPowerPercentage,
 } from '@daohaus/utils';
-import { TMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useDao } from '@daohaus/moloch-v3-context';
 
 import { MemberProfileMenu } from './MemberProfileMenu';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
+import { MolochV3Member } from '@daohaus/moloch-v3-data';
 
 const AvatarLarge = styled(Avatar)`
   height: 12rem;
@@ -100,7 +101,7 @@ export const DataIndicatorLabelMd = styled(ParMd)`
 
 type ProfileProps = {
   profile: AccountProfile;
-  membership: TMembership;
+  membership: MolochV3Member;
 };
 
 export const Profile = ({ profile, membership }: ProfileProps) => {

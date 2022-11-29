@@ -24,7 +24,6 @@ import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
 import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import Yolo from './pages/Yolo';
 
 const HomeContainer = () => {
   const location = useLocation();

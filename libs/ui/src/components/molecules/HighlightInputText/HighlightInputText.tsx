@@ -1,21 +1,16 @@
 import { useFormContext } from 'react-hook-form';
 
-import { Bold, ParSm } from '../../atoms/Typography';
 import { Buildable } from '../../../types/formAndField';
+import { Bold, ParSm } from '../../atoms/Typography';
 
-type HighlightTextProps = {
-  color?: string;
-  description: string;
-  highlightColor?: string;
-  highlightInputId?: string;
-};
+import { HighlightInputTextProps } from './HighlightInputText.types';
 
 export const HighlightInputText = ({
   color,
   description,
   highlightColor,
   highlightInputId,
-}: Buildable<HighlightTextProps>) => {
+}: Buildable<HighlightInputTextProps>) => {
   const { watch } = useFormContext();
   const highlightValue = highlightInputId ? watch(highlightInputId) : '';
 

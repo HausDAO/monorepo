@@ -1,1 +1,3 @@
-export * from './BiColumnLayout';
+import { BiColumnLayout } from './BiColumnLayout';
+
+export { BiColumnLayout };

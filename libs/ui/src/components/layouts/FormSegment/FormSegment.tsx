@@ -1,15 +1,15 @@
+import React from 'react';
+
 import { Divider, H5, ParMd } from '../../atoms';
+import { FormSegmentProps } from './FormSegment.types';
 import { StyledFormSegment } from './FormSegment.styles';
 
 // REVIEW: No stories until there's a solid form sub-layout
-
-type SegmentType = {
-  title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
-  formArea: React.ReactNode;
-};
-
-export const FormSegment = ({ title, description, formArea }: SegmentType) => {
+export const FormSegment = ({
+  title,
+  description,
+  formArea,
+}: FormSegmentProps) => {
   return (
     <StyledFormSegment>
       <H5 className="segment-title">{title}</H5>

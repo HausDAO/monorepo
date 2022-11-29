@@ -1,6 +1,8 @@
+import React from 'react';
+import styled from 'styled-components';
+
 import { ParMd, Link } from '../../atoms';
 import hausCastle from '../../../assets/hausCastle.svg';
-import styled from 'styled-components';
 import { widthQuery } from '../../../theme/global/breakpoints';
 
 const StyledFooter = styled.footer`

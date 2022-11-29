@@ -2,12 +2,17 @@ import { useParams } from 'react-router-dom';
 import { useDHConnect } from '@daohaus/connect';
 import { MolochV3DaoProvider } from '@daohaus/moloch-v3-context';
 import Dao from './Dao';
+import { useMemo } from 'react';
 
 const graphApiKeys = { '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] };
 
 export function DaoContainer() {
   const { daochain, daoid } = useParams();
   const { address } = useDHConnect();
+
+  const graphApiKeys = useMemo(() => {
+    return { '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] };
+  }, []);
 
   return (
     <MolochV3DaoProvider

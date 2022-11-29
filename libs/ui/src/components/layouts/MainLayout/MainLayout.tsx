@@ -1,5 +1,7 @@
-import { widthQuery } from '../../../theme/global';
+import React from 'react';
 import styled from 'styled-components';
+
+import { widthQuery } from '../../../theme/global';
 
 export const MainLayout = styled.main`
   display: flex;

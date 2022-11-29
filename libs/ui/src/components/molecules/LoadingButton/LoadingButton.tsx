@@ -1,21 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { ButtonProps } from '../../atoms/';
+import { LoadingButtonProps } from './LoadingButton.types';
 import {
   LoadingAbsolute,
   StyledInvisibleSpan,
   StyledLoadingButton,
 } from './LoadingButton.styles';
-
-type OmittedProps = 'IconRight' | 'leftAlign';
-
-export interface LoadingButtonProps extends Omit<ButtonProps, OmittedProps> {
-  // Shows loading spinner */
-  loading: boolean;
-  /* The label to show in the button when loading is true */
-  loadingText?: string;
-}
 
 export const LoadingButton = React.forwardRef<
   HTMLButtonElement,

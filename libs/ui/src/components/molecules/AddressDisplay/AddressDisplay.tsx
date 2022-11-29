@@ -1,29 +1,21 @@
-import { generateExplorerLink, Keychain } from '@daohaus/keychain-utils';
-
+import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
 import { RiFileCopyLine } from 'react-icons/ri';
 
+import { generateExplorerLink } from '@daohaus/keychain-utils';
+import { truncateAddress } from '@daohaus/utils';
+
 import { Theme } from '../../../types/theming';
+import { useCopyToClipboard } from '../../../hooks';
+import { Icon, Link } from '../../atoms';
+import { AddressDisplayProps } from './AddressDisplay.types';
 import {
   AddressContainer,
   AddressCopyIcon,
   AddressDataSm,
 } from './AddressDisplay.styles';
-import { Icon, Link } from '../../atoms';
-import { useCopyToClipboard } from '../../../hooks';
-import { useMemo } from 'react';
-import { truncateAddress } from '@daohaus/utils';
 
-type AddressDisplayProps = {
-  address: string;
-  explorerNetworkId?: keyof Keychain;
-  copy?: boolean;
-  truncate?: boolean;
-  txHash?: boolean;
-  textOverride?: string;
-  className?: string;
-};
-
+// ! Where the rest of the props go?
 export const AddressDisplay = ({
   address,
   explorerNetworkId,

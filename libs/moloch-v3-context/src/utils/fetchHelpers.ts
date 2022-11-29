@@ -5,15 +5,12 @@ import {
   MolochV3Dao,
   findDao,
   findMember,
-  FindMemberQuery,
-  findProposal,
   listMembers,
   listProposals,
   Member_Filter,
   Member_OrderBy,
   Proposal_Filter,
   Proposal_OrderBy,
-  MolochV3Proposal,
 } from '@daohaus/moloch-v3-data';
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
@@ -180,8 +177,6 @@ export const fetchAllMemberData = async ({
   address: string;
   graphApiKeys?: Keychain;
 }) => {
-  //need some proposal info here... or can we use default?
-
   const memberRes = await fetchMember({
     daoid,
     daochain,
@@ -207,90 +202,5 @@ export const fetchGeneric = async ({
 }) => {
   if (entityName === 'dao') {
     return fetchDao({ daoid, daochain, graphApiKeys });
-  }
-};
-
-export const loadMember = async ({
-  daoid,
-  daochain,
-  address,
-  setMember,
-  setMemberLoading,
-  shouldUpdate,
-  graphApiKeys,
-}: {
-  daoid: string;
-  daochain: keyof Keychain;
-  address: string;
-  setMember: ReactSetter<FindMemberQuery['member'] | undefined>;
-  setMemberLoading: ReactSetter<boolean>;
-  shouldUpdate: boolean;
-  graphApiKeys?: Keychain;
-}) => {
-  try {
-    setMemberLoading(true);
-    const memberRes = await findMember({
-      networkId: daochain,
-      dao: daoid,
-      memberAddress: address.toLowerCase(),
-      graphApiKeys,
-    });
-
-    if (memberRes?.data?.member && shouldUpdate) {
-      setMember(memberRes.data.member);
-    } else if (shouldUpdate) {
-      setMember(undefined);
-    }
-  } catch (error) {
-    console.error(error);
-    setMember(undefined);
-  } finally {
-    if (shouldUpdate) {
-      setMemberLoading(false);
-    }
-  }
-};
-
-export const loadProposal = async ({
-  daoid,
-  daochain,
-  proposalId,
-  setProposal,
-  setProposalLoading,
-  shouldUpdate,
-  connectedAddress,
-  graphApiKeys,
-}: {
-  daoid: string;
-  daochain: keyof Keychain;
-  proposalId: string;
-  setProposal: ReactSetter<MolochV3Proposal | undefined>;
-  setProposalLoading: ReactSetter<boolean>;
-  shouldUpdate: boolean;
-  connectedAddress?: string | null;
-  graphApiKeys?: Keychain;
-}) => {
-  try {
-    setProposalLoading(true);
-    const res = await findProposal({
-      networkId: daochain,
-      dao: daoid,
-      proposalId: proposalId.toLowerCase(),
-      connectedAddress,
-      graphApiKeys,
-    });
-
-    if (res?.data?.proposal && shouldUpdate) {
-      setProposal(res.data.proposal);
-    } else if (shouldUpdate) {
-      setProposal(undefined);
-    }
-  } catch (error) {
-    console.error(error);
-    setProposal(undefined);
-  } finally {
-    if (shouldUpdate) {
-      setProposalLoading(false);
-    }
   }
 };

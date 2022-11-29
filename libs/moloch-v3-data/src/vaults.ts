@@ -22,8 +22,6 @@ export const listTokenBalances = async ({
     };
   }
 
-  console.log('url', url);
-
   try {
     const res = await fetch.get<TokenBalance[]>(
       `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd/`

@@ -24,6 +24,7 @@ import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
 import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
+import Yolo from './pages/Yolo';
 
 const HomeContainer = () => {
   const location = useLocation();
@@ -74,6 +75,9 @@ const Routes = () => {
         </Route>
         <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />
+
+          <Route path="yolo" element={<Yolo />} />
+
           <Route path="formtest" element={<FormTest />} />
           <Route path="proposals" element={<Proposals />} />
           <Route path="new-proposal" element={<NewProposal />} />

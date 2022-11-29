@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDHConnect } from '@daohaus/connect';
 import {
   MolochV3ContextProvider,
-  MolochV3DaoData,
+  MolochV3DaoDataProvider,
 } from '@daohaus/moloch-v3-context';
 import Dao from './Dao';
 import { useMemo } from 'react';
@@ -16,12 +16,13 @@ export function DaoContainer() {
   }, []);
 
   return (
-    <MolochV3DaoData
+    <MolochV3DaoDataProvider
       address={address}
       daoid={daoid}
       daochain={daochain}
       graphApiKeys={graphApiKeys}
     >
+      <Dao />
       {/* <MolochV3ContextProvider
         address={address}
         daoid={daoid}
@@ -30,7 +31,7 @@ export function DaoContainer() {
       >
         <Dao />
       </MolochV3ContextProvider> */}
-    </MolochV3DaoData>
+    </MolochV3DaoDataProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import { ReactSetter } from '@daohaus/utils';
-import { Keychain } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import {
   MolochV3Dao,
@@ -38,11 +38,11 @@ export const fetchDao = async ({
       graphApiKeys,
     });
 
-    if (!daoRes?.data?.dao) {
+    if (daoRes?.data?.dao) {
+      return daoRes.data.dao as MolochV3Dao;
+    } else {
       console.error('no dao found');
     }
-
-    return daoRes?.data?.dao;
   } catch (error) {
     console.error(error);
   }
@@ -77,6 +77,33 @@ export const fetchProposalsList = async ({
   } catch (error) {
     console.error(error);
   }
+};
+
+export const fetchAllDaoData = async ({
+  daoid,
+  daochain,
+  graphApiKeys,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  graphApiKeys?: Keychain;
+}) => {
+  const daoRes = await fetchDao({
+    daoid,
+    daochain: daochain as ValidNetwork,
+    graphApiKeys,
+  });
+
+  const proposalRes = await fetchProposalsList({
+    filter: { dao: daoid },
+    daochain: daochain as ValidNetwork,
+    graphApiKeys,
+  });
+
+  return {
+    dao: daoRes,
+    proposals: proposalRes,
+  };
 };
 
 // pre 11/28

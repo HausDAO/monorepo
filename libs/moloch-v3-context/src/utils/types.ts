@@ -1,4 +1,4 @@
-import { Ordering, Paging } from '@daohaus/data-fetch-utils';
+import { IListQueryResults, Ordering, Paging } from '@daohaus/data-fetch-utils';
 import {
   MolochV3Dao,
   FindMemberQuery,
@@ -13,8 +13,14 @@ import {
 import { Dispatch, SetStateAction } from 'react';
 
 export type InitialDaoData = {
-  dao: MolochV3Dao;
-  proposals: MolochV3Proposal[];
+  dao?: MolochV3Dao;
+
+  // proposals?: MolochV3Proposal[];
+  proposals?: IListQueryResults<
+    Proposal_OrderBy,
+    Proposal_Filter,
+    MolochV3Proposal[]
+  >;
 };
 
 // PRE 11/28

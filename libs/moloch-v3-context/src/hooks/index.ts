@@ -4,4 +4,5 @@ export * from './useMembers';
 export * from './useProposals';
 
 export * from './useDaoData';
-export * from './useProposalData';
+export * from './useProposalsData';
+export * from './useMembersData';

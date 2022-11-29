@@ -20,14 +20,13 @@ type MolochV3DaoDataContextProposalsType = {
   refreshProposals: () => Promise<void>;
 };
 
-export const useProposalData = (): MolochV3DaoDataContextProposalsType => {
+export const useProposalsData = (): MolochV3DaoDataContextProposalsType => {
   const { daoData, daoid, daochain, graphApiKeys, setDaoData } = useContext(
     MolochV3DaoDataContext
   );
   // todo: these will also need to handle member vote fetch if a user is connected
 
   const filterProposals = async (filter: Proposal_Filter) => {
-    // todo: this will also need to handle if a user is connected
     if (daoid && daochain) {
       const res = await fetchProposalsList({
         filter: { dao: daoid, ...filter },
@@ -68,7 +67,17 @@ export const useProposalData = (): MolochV3DaoDataContextProposalsType => {
       });
 
       setDaoData((prevState) => {
-        return { ...prevState, proposals: res };
+        const prevItems = prevState.proposals
+          ? [...prevState.proposals.items]
+          : [];
+
+        return {
+          ...prevState,
+          proposals: {
+            ...res,
+            items: res ? [...prevItems, ...res.items] : [],
+          },
+        };
       });
     }
   };

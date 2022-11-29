@@ -79,6 +79,37 @@ export const fetchProposalsList = async ({
   }
 };
 
+export const fetchMembersList = async ({
+  filter,
+  ordering,
+  paging,
+  daochain,
+  graphApiKeys,
+}: {
+  filter: Member_Filter;
+  ordering?: Ordering<Member_OrderBy>;
+  paging?: Paging;
+  daochain: keyof Keychain;
+  graphApiKeys?: Keychain;
+}) => {
+  try {
+    const res = await listMembers({
+      networkId: daochain,
+      filter,
+      ordering,
+      paging,
+      graphApiKeys,
+    });
+    if (!res) {
+      console.error('no members found');
+    }
+
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchAllDaoData = async ({
   daoid,
   daochain,
@@ -94,7 +125,13 @@ export const fetchAllDaoData = async ({
     graphApiKeys,
   });
 
-  const proposalRes = await fetchProposalsList({
+  const proposalsRes = await fetchProposalsList({
+    filter: { dao: daoid },
+    daochain: daochain as ValidNetwork,
+    graphApiKeys,
+  });
+
+  const membersRes = await fetchMembersList({
     filter: { dao: daoid },
     daochain: daochain as ValidNetwork,
     graphApiKeys,
@@ -102,8 +139,25 @@ export const fetchAllDaoData = async ({
 
   return {
     dao: daoRes,
-    proposals: proposalRes,
+    proposals: proposalsRes,
+    members: membersRes,
   };
+};
+
+export const fetchGeneric = async ({
+  daoid,
+  daochain,
+  graphApiKeys,
+  entityName,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  graphApiKeys?: Keychain;
+  entityName: 'dao' | 'proposals';
+}) => {
+  if (entityName === 'dao') {
+    return fetchDao({ daoid, daochain, graphApiKeys });
+  }
 };
 
 // pre 11/28

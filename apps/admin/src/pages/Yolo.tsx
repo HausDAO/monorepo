@@ -1,13 +1,18 @@
-import { useDaoData, useProposalData } from '@daohaus/moloch-v3-context';
+import {
+  useDaoData,
+  useMembersData,
+  useProposalsData,
+} from '@daohaus/moloch-v3-context';
 import { Button } from '@daohaus/ui';
 
 export function Yolo() {
   const { dao, refreshDao } = useDaoData();
-  const { proposals, filter, filterProposals, paging } = useProposalData();
+  const { proposals, filter, filterProposals } = useProposalsData();
+  const { members } = useMembersData();
 
   console.log('proposals', proposals, filter);
-
-  console.log('paging', paging);
+  console.log('members', members);
+  console.log('dao', dao);
 
   const handleFilterProps = () => {
     filterProposals({ proposalId: '2' });

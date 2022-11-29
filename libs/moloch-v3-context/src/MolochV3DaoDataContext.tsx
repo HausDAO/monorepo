@@ -7,15 +7,15 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { fetchAllDaoData, InitialDaoData } from './utils';
+import { fetchAllDaoData, MolochV3DaoData } from './utils';
 
 export type MolochV3DaoDataContextType = {
   address: string | null | undefined;
   daoid: string | null | undefined;
   daochain: string | null | undefined;
   graphApiKeys: Keychain | undefined;
-  daoData?: InitialDaoData;
-  setDaoData: Dispatch<SetStateAction<InitialDaoData>>;
+  daoData?: MolochV3DaoData;
+  setDaoData: Dispatch<SetStateAction<MolochV3DaoData>>;
 };
 
 const defaultDaoData = {
@@ -47,10 +47,10 @@ export const MolochV3DaoDataProvider = ({
   graphApiKeys,
   children,
 }: MolochV3DaoDataProps) => {
-  const [daoData, setDaoData] = useState<InitialDaoData>({});
+  const [daoData, setDaoData] = useState<MolochV3DaoData>({});
 
   useEffect(() => {
-    // TODO: firing twice in dev - shouldUpdate
+    // TODO: shouldUpdate
     const fetchDaoData = async () => {
       if (daoid && daochain) {
         const res = await fetchAllDaoData({

@@ -12,14 +12,17 @@ import {
 } from '@daohaus/moloch-v3-data';
 import { Dispatch, SetStateAction } from 'react';
 
-export type InitialDaoData = {
+export type MolochV3DaoData = {
   dao?: MolochV3Dao;
-
-  // proposals?: MolochV3Proposal[];
   proposals?: IListQueryResults<
     Proposal_OrderBy,
     Proposal_Filter,
     MolochV3Proposal[]
+  >;
+  members?: IListQueryResults<
+    Member_OrderBy,
+    Member_Filter,
+    ListMembersQuery['members']
   >;
 };
 

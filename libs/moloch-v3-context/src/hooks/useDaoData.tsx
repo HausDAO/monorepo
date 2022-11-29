@@ -7,12 +7,12 @@ import { ValidNetwork } from '@daohaus/keychain-utils';
 type MolochV3DaoDataContextDaoType = {
   dao: MolochV3Dao | undefined;
   refreshDao: () => Promise<void>;
+  refreshAll: () => Promise<void>;
 };
 
 export const useDaoData = (): MolochV3DaoDataContextDaoType => {
-  const { daoData, daoid, daochain, graphApiKeys, setDaoData } = useContext(
-    MolochV3DaoDataContext
-  );
+  const { daoData, daoid, daochain, graphApiKeys, setDaoData, refreshAll } =
+    useContext(MolochV3DaoDataContext);
 
   const refreshDao = async () => {
     if (daoid && daochain) {
@@ -31,5 +31,6 @@ export const useDaoData = (): MolochV3DaoDataContextDaoType => {
   return {
     dao: daoData?.dao,
     refreshDao,
+    refreshAll,
   };
 };

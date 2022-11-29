@@ -9,6 +9,7 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
   MolochV3Proposal,
+  MolochV3Member,
 } from '@daohaus/moloch-v3-data';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -19,11 +20,11 @@ export type MolochV3DaoData = {
     Proposal_Filter,
     MolochV3Proposal[]
   >;
-  members?: IListQueryResults<
-    Member_OrderBy,
-    Member_Filter,
-    ListMembersQuery['members']
-  >;
+  members?: IListQueryResults<Member_OrderBy, Member_Filter, MolochV3Member[]>;
+};
+
+export type MolochV3MemberData = {
+  connectedMembership?: MolochV3Member;
 };
 
 // PRE 11/28

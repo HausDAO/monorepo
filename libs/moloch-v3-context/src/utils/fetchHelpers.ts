@@ -48,6 +48,35 @@ export const fetchDao = async ({
   }
 };
 
+export const fetchMember = async ({
+  daoid,
+  daochain,
+  address,
+  graphApiKeys,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  address: string;
+  graphApiKeys?: Keychain;
+}) => {
+  try {
+    const res = await findMember({
+      networkId: daochain,
+      dao: daoid,
+      memberAddress: address.toLowerCase(),
+      graphApiKeys,
+    });
+
+    if (res?.data?.member) {
+      return res.data.member;
+    } else {
+      console.error('no member found');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchProposalsList = async ({
   filter,
   ordering,
@@ -141,6 +170,31 @@ export const fetchAllDaoData = async ({
     dao: daoRes,
     proposals: proposalsRes,
     members: membersRes,
+  };
+};
+
+export const fetchAllMemberData = async ({
+  daoid,
+  daochain,
+  address,
+  graphApiKeys,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  address: string;
+  graphApiKeys?: Keychain;
+}) => {
+  //need some proposal info here... or can we use default?
+
+  const memberRes = await fetchMember({
+    daoid,
+    daochain,
+    address,
+    graphApiKeys,
+  });
+
+  return {
+    connectedMembership: memberRes,
   };
 };
 

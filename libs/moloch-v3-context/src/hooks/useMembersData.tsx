@@ -3,14 +3,14 @@ import { MolochV3DaoDataContext } from '../MolochV3DaoDataContext';
 import {
   Member_Filter,
   Member_OrderBy,
-  ListMembersQuery,
+  MolochV3Member,
 } from '@daohaus/moloch-v3-data';
 import { fetchMembersList } from '../utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
 type MolochV3DaoDataContextMembersType = {
-  members: ListMembersQuery['members'] | undefined;
+  members: MolochV3Member[] | undefined;
   filter: Member_Filter | undefined;
   filterMembers: (filter: Member_Filter) => Promise<void>;
   sort: Ordering<Member_OrderBy> | undefined;

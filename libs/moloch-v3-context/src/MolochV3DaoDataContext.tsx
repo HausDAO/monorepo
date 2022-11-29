@@ -7,30 +7,45 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { fetchAllDaoData, MolochV3DaoData } from './utils';
+import {
+  fetchAllDaoData,
+  fetchAllMemberData,
+  MolochV3DaoData,
+  MolochV3MemberData,
+} from './utils';
 
 export type MolochV3DaoDataContextType = {
   address: string | null | undefined;
   daoid: string | null | undefined;
   daochain: string | null | undefined;
   graphApiKeys: Keychain | undefined;
-  daoData?: MolochV3DaoData;
+  daoData: MolochV3DaoData | undefined;
   setDaoData: Dispatch<SetStateAction<MolochV3DaoData>>;
+  memberData: MolochV3MemberData | undefined;
+  setMemberData: Dispatch<SetStateAction<MolochV3MemberData>>;
+  refreshAll: () => Promise<void>;
 };
 
-const defaultDaoData = {
+const defaultData = {
   address: undefined,
   daoid: undefined,
   daochain: undefined,
   graphApiKeys: undefined,
-  dao: undefined,
+  daoData: undefined,
   setDaoData: async () => {
+    return;
+  },
+  memberData: undefined,
+  setMemberData: async () => {
+    return;
+  },
+  refreshAll: async () => {
     return;
   },
 };
 
 export const MolochV3DaoDataContext =
-  createContext<MolochV3DaoDataContextType>(defaultDaoData);
+  createContext<MolochV3DaoDataContextType>(defaultData);
 
 type MolochV3DaoDataProps = {
   address: string | null | undefined;
@@ -48,6 +63,7 @@ export const MolochV3DaoDataProvider = ({
   children,
 }: MolochV3DaoDataProps) => {
   const [daoData, setDaoData] = useState<MolochV3DaoData>({});
+  const [memberData, setMemberData] = useState<MolochV3MemberData>({});
 
   useEffect(() => {
     // TODO: shouldUpdate
@@ -59,7 +75,6 @@ export const MolochV3DaoDataProvider = ({
           graphApiKeys,
         });
 
-        console.log('res', res);
         setDaoData(res);
       }
     };
@@ -70,14 +85,60 @@ export const MolochV3DaoDataProvider = ({
   }, [daoid, daochain, graphApiKeys]);
 
   useEffect(() => {
-    if (address) {
-      console.log('fetch address related elements');
+    const fetchMemberData = async () => {
+      // TODO: shouldUpdate
+      if (daoid && daochain && address) {
+        const res = await fetchAllMemberData({
+          daoid,
+          daochain: daochain as ValidNetwork,
+          address,
+          graphApiKeys,
+        });
+
+        setMemberData(res);
+      }
+    };
+
+    if (daoid && daochain && address) {
+      fetchMemberData();
     }
   }, [daoid, daochain, graphApiKeys, address]);
 
+  const refreshAll = async () => {
+    if (daoid && daochain) {
+      const res = await fetchAllDaoData({
+        daoid,
+        daochain: daochain as ValidNetwork,
+        graphApiKeys,
+      });
+
+      setDaoData(res);
+    }
+    if (daoid && daochain && address) {
+      const res = await fetchAllMemberData({
+        daoid,
+        daochain: daochain as ValidNetwork,
+        address,
+        graphApiKeys,
+      });
+
+      setMemberData(res);
+    }
+  };
+
   return (
     <MolochV3DaoDataContext.Provider
-      value={{ address, daoid, daochain, graphApiKeys, daoData, setDaoData }}
+      value={{
+        address,
+        daoid,
+        daochain,
+        graphApiKeys,
+        daoData,
+        setDaoData,
+        memberData,
+        setMemberData,
+        refreshAll,
+      }}
     >
       {children}
     </MolochV3DaoDataContext.Provider>

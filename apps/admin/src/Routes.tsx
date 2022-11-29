@@ -75,9 +75,6 @@ const Routes = () => {
         </Route>
         <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />
-
-          <Route path="yolo" element={<Yolo />} />
-
           <Route path="formtest" element={<FormTest />} />
           <Route path="proposals" element={<Proposals />} />
           <Route path="new-proposal" element={<NewProposal />} />

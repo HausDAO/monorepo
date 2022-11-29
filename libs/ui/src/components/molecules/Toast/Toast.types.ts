@@ -1,5 +1,5 @@
 import {
-  ToastProps,
+  ToastProps as RadixToastProps,
   ToastProviderProps,
   ToastViewportProps,
 } from '@radix-ui/react-toast';
@@ -18,7 +18,7 @@ export type ToastLinksProps = {
 
 export type ToastType = 'default' | 'success' | 'warning' | 'error';
 
-export type CustomToastProps = ToastProps &
+export type ToastProps = RadixToastProps &
   ToastProviderProps &
   ToastViewportProps & {
     title: string;

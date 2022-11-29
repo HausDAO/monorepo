@@ -1,1 +1,1 @@
-export * from './WrappedCheckbox';
+export { WrappedCheckbox } from './WrappedCheckbox';

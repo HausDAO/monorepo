@@ -1,6 +1,7 @@
 import React from 'react';
-import { CollapsibleProps } from '@radix-ui/react-collapsible';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
+import { CollapsibleCardProps } from './CollapsibleCard.types';
 import {
   StyledCollapsibleCard,
   StyledCollapsibleCardTrigger,
@@ -8,13 +9,6 @@ import {
   StyledCollapsibleContent,
   InnerCard,
 } from './CollapsibleCard.styles';
-import { RiArrowDropDownLine } from 'react-icons/ri';
-
-export type CardProps = CollapsibleProps & {
-  collapsibleContent?: React.ReactNode;
-  triggerLabel: string;
-  width: string;
-};
 
 export const CollapsibleContent = StyledCollapsibleContent;
 
@@ -25,7 +19,7 @@ export const CollapsibleCard = ({
   children,
   collapsibleContent,
   triggerLabel = 'Show More',
-}: CardProps) => {
+}: CollapsibleCardProps) => {
   return (
     <StyledCollapsibleCard open={open} onChange={onChange} width={width}>
       <InnerCard>

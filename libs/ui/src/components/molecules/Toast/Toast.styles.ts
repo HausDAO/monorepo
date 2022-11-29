@@ -2,7 +2,7 @@ import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { ToastType } from '../../../types/toast.types';
+import { ToastType } from './Toast.types';
 
 export const ToastProvider = ToastPrimitive.Provider;
 export const ToastTitle = ToastPrimitive.Title;

@@ -1,13 +1,10 @@
 import React from 'react';
 import { RiDiscordFill, RiToolsLine } from 'react-icons/ri';
+
 import { Link, ParMd } from '../../atoms';
 
+import { BannerProps } from './Banner.types';
 import { StyledBanner } from './Banner.styles';
-
-export type BannerProps = {
-  bannerText?: string;
-  className?: string;
-};
 
 export const Banner = ({
   className,

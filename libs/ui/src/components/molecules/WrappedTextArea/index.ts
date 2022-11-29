@@ -1,1 +1,1 @@
-export * from './WrappedTextArea';
+export { WrappedTextArea } from './WrappedTextArea';

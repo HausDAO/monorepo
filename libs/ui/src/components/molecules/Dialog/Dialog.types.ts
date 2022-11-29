@@ -1,5 +1,5 @@
 import { DialogContentProps } from '@radix-ui/react-dialog';
-import { ButtonProps } from '../components/atoms';
+import { ButtonProps } from '../../atoms';
 
 export type DialogProps = DialogContentProps & {
   title: string;

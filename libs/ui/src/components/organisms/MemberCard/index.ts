@@ -1,2 +1,2 @@
-export * from './MemberCard';
-export * from './MemberCard.styles';
+export { MemberCard } from './MemberCard';
+export type { MemberCardProps } from './MemberCard.types';

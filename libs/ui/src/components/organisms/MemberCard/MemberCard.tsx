@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
-import { generateExplorerLink, ValidNetwork } from '@daohaus/keychain-utils';
-import { AccountProfile, truncateAddress } from '@daohaus/utils';
+import { generateExplorerLink } from '@daohaus/keychain-utils';
+import { truncateAddress } from '@daohaus/utils';
+
+import { MemberCardProps } from './MemberCard.types';
 
 import { ParMd } from '../../atoms';
 
@@ -15,15 +17,6 @@ import {
 } from '../../molecules';
 import { MemberCardTrigger } from './MemberCard.styles';
 import { useCopyToClipboard } from '../../../hooks';
-
-type MemberCardProps = {
-  profile: AccountProfile;
-  explorerNetworkId: ValidNetwork;
-  customProfileURI?: string;
-  minWidth?: string;
-  menuBg?: string;
-  className?: string;
-};
 
 export const MemberCard = ({
   className,

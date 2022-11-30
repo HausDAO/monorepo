@@ -71,7 +71,7 @@ export const DaoHausNavMenu = (props: DaoHausNavProps) => {
     const mobileLinks = dropdownLinks
       ? [...navLinks, ...dropdownLinks]
       : [...navLinks];
-
+    // Return mobile dropdown
     return (
       <Dropdown
         menuBg={theme.secondary.step2}
@@ -96,7 +96,7 @@ export const DaoHausNavMenu = (props: DaoHausNavProps) => {
       </Dropdown>
     );
   }
-
+  // Return Navigation menu
   return (
     <NavMenu>
       <NavMenuList>

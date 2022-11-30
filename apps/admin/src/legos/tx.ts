@@ -577,6 +577,22 @@ export const TX: Record<string, TXLego> = {
     method: 'summonVault',
     args: ['.daoId', '.formValues.name'],
   },
+  MULTICALL: buildMultiCallTX({
+    id: 'MULTICALL',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: { type: 'static', value: ProposalTypeIds.Multicall },
+      },
+    },
+    actions: [],
+    formActions: true,
+  }),
 };
 
 export const TABULA_TX: Record<string, TXLego> = {

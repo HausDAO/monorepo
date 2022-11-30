@@ -23,31 +23,29 @@ import {
   Link,
   Viewport,
   ViewportPosition,
+  Indicator,
 } from './NavigationMenu.styles';
 
-export const NavViewport = Viewport;
-export const NavViewportPosition = ViewportPosition;
+export const NavMenuViewport = Viewport;
+export const NavMenuViewportPosition = ViewportPosition;
+export const NavMenuIndicator = Indicator;
 
 export const NavMenu = ({ children, ...props }: NavMenuProps) => (
   <Root {...props}>{children}</Root>
 );
 
-export const NavMenuList = ({
-  color = 'secondary',
-  children,
-  ...props
-}: NavMenuListProps) => {
+export const NavMenuList = ({ children, ...props }: NavMenuListProps) => {
   return <List {...props}>{children}</List>;
 };
 
 export const NavMenuItem = ({
-  color = 'secondary',
+  active = false,
   className,
   children,
   ...props
 }: NavMenuItemProps) => {
   return (
-    <Item color={color} className={` ${className}`} {...props}>
+    <Item active={active} className={` ${className}`} {...props}>
       {children}
     </Item>
   );

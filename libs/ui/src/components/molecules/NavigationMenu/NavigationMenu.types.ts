@@ -7,26 +7,16 @@ import {
   NavigationMenuLinkProps,
 } from '@radix-ui/react-navigation-menu';
 
-export type NavMenuProps = NavigationMenuProps & {
-  customProp?: string;
-};
+export type NavMenuProps = NavigationMenuProps;
 
-export type NavMenuListProps = NavigationMenuListProps & {
-  customProp?: string;
-};
+export type NavMenuListProps = NavigationMenuListProps;
 
 export type NavMenuItemProps = NavigationMenuItemProps & {
-  customProp?: string;
+  active?: boolean;
 };
 
-export type NavMenuTriggerProps = NavigationMenuTriggerProps & {
-  customProp?: string;
-};
+export type NavMenuTriggerProps = NavigationMenuTriggerProps;
 
-export type NavMenuContentProps = NavigationMenuContentProps & {
-  customProp?: string;
-};
+export type NavMenuContentProps = NavigationMenuContentProps;
 
-export type NavMenuLinkProps = NavigationMenuLinkProps & {
-  customProp?: string;
-};
+export type NavMenuLinkProps = NavigationMenuLinkProps;

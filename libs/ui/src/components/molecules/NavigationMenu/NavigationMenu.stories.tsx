@@ -1,3 +1,4 @@
+import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useTheme } from 'styled-components';
 
@@ -8,10 +9,10 @@ import {
   NavMenuTrigger,
   NavMenuContent,
   NavMenuLink,
-  NavViewport,
-  NavViewportPosition,
+  NavMenuViewport,
+  NavMenuViewportPosition,
+  NavMenuIndicator,
 } from './NavigationMenu';
-import React from 'react';
 
 export default {
   title: 'Molecules/NavigationMenu',
@@ -41,7 +42,14 @@ const Template: ComponentStory<typeof NavMenu> = (args) => {
         <NavMenuItem>
           <NavMenuTrigger>Dropdown One</NavMenuTrigger>
           <NavMenuContent>
-            <ul>
+            <ul
+              style={{
+                position: 'relative',
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+              }}
+            >
               <li>
                 <NavMenuItem>
                   <NavMenuLink>List Item One Content</NavMenuLink>
@@ -60,10 +68,38 @@ const Template: ComponentStory<typeof NavMenu> = (args) => {
             </ul>
           </NavMenuContent>
         </NavMenuItem>
+        <NavMenuItem>
+          <NavMenuTrigger>Dropdown Two</NavMenuTrigger>
+          <NavMenuContent>
+            <ul
+              style={{
+                position: 'relative',
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+              }}
+            >
+              <li>
+                <NavMenuItem>
+                  <NavMenuLink>Dropdown 2 List Item One Content</NavMenuLink>
+                </NavMenuItem>
+              </li>
+              <li>
+                <NavMenuItem>
+                  <NavMenuLink>Dropdown 2 List Item Two Content</NavMenuLink>
+                </NavMenuItem>
+              </li>
+              <li>
+                <NavMenuItem>
+                  <NavMenuLink>Dropdown 2 List Item Three Content</NavMenuLink>
+                </NavMenuItem>
+              </li>
+            </ul>
+          </NavMenuContent>
+        </NavMenuItem>
       </NavMenuList>
-      <NavViewportPosition>
-        <NavViewport />
-      </NavViewportPosition>
+      <NavMenuIndicator />
+      <NavMenuViewport />
     </NavMenu>
   );
 };

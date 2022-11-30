@@ -3,6 +3,7 @@ import * as RadixNavMenu from '@radix-ui/react-navigation-menu';
 
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
+import { border } from '../../../theme/global/border';
 
 const BaseItemStyles = css`
   padding: 8px 12px;
@@ -20,26 +21,18 @@ const BaseItemStyles = css`
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px purple;
+    color: ${(props) => props.theme.secondary.step11};
   }
 `;
 
-// * Nav Menu implementation
-export const Root = styled(RadixNavMenu.Root)`
-  position: relative;
-  display: flex;
-  justify-content: start;
-  width: 100vw;
-  z-index: 1;
-`;
+export const Root = styled(RadixNavMenu.Root)``;
 
 export const List = styled(RadixNavMenu.List)`
-  /* background-color: ${(props) => props.theme.secondary.step2}; */
-  width: 100vw;
+  background-color: ${(props) => props.theme.secondary.step2};
   display: flex;
-  justify-content: start;
   list-style: none;
   margin: 0;
+  padding: 0;
 `;
 
 export const Trigger = styled(RadixNavMenu.Trigger)`
@@ -51,9 +44,7 @@ export const Trigger = styled(RadixNavMenu.Trigger)`
   gap: 2;
 `;
 
-export const Item = styled(RadixNavMenu.Item)`
-  /* ${BaseItemStyles} */
-`;
+export const Item = styled(RadixNavMenu.Item)<{ active: boolean }>``;
 
 export const Link = styled(RadixNavMenu.Link)`
   ${BaseItemStyles}
@@ -62,45 +53,29 @@ export const Link = styled(RadixNavMenu.Link)`
 `;
 
 export const Content = styled(RadixNavMenu.Content)`
-  position: absolute;
-  z-index: 20;
-  background-color: ${(props) => props.theme.secondary.step2};
-  top: 0;
-  left: 0;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
+  border-radius: ${border.cardRadius};
+  height: 100%;
   width: fit-content;
 `;
 
 export const Indicator = styled(RadixNavMenu.Indicator)`
+  bottom: 0;
+  height: 2px;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+  transition: all 0.5s ease;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 10px;
-  top: 100%;
   overflow: hidden;
-  z-index: 1;
 `;
 
 export const Sub = styled(RadixNavMenu.Sub)``;
 
-export const ViewportPosition = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  width: 50%;
-  height: 100%;
-  top: 100%;
-  left: 20px;
-  perspective: 2000px;
-`;
+export const ViewportPosition = styled.div``;
 
 export const Viewport = styled(RadixNavMenu.Viewport)`
-  position: relative;
-  transform-origin: top center;
-  margin-top: 10px;
-  width: 100%;
-  background-color: white;
-  border-radius: 6px;
-  overflow: hidden;
+  /* width: var(--radix-navigation-menu-viewport-width); */
 `;
 
 export const Dropdown = styled.ul`

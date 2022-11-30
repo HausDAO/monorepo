@@ -4,7 +4,7 @@ type DaoHausNavLinkType = {
 };
 
 export type DaoHausNavProps = {
-  navLinks?: DaoHausNavLinkType[];
+  navLinks: DaoHausNavLinkType[];
   pathname: string;
   dropdownTriggerLabel?: string;
   dropdownLinks?: DaoHausNavLinkType[];

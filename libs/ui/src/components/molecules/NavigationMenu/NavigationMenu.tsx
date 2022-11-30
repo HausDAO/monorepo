@@ -18,6 +18,7 @@ import {
   Viewport,
   Indicator,
 } from './NavigationMenu.styles';
+import classNames from 'classnames';
 
 export const NavMenuViewport = Viewport;
 export const NavMenuIndicator = Indicator;
@@ -36,8 +37,9 @@ export const NavMenuItem = ({
   children,
   ...props
 }: NavMenuItemProps) => {
+  const classes = classNames({ active });
   return (
-    <Item active={active} className={` ${className}`} {...props}>
+    <Item className={`${className} ${classes}`} {...props}>
       {children}
     </Item>
   );

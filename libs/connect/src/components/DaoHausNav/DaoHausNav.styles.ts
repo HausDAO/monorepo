@@ -7,6 +7,9 @@ export const NavRouterLink = styled(RouterLink)`
   ${NavMenuBaseItemStyles}
   display: block;
   text-decoration: none;
+  &.active {
+    color: white;
+  }
 `;
 
 export const CaretDown = styled(RiArrowDropDownLine)`

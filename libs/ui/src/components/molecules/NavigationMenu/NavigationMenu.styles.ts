@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import * as RadixNavMenu from '@radix-ui/react-navigation-menu';
 
 import { Theme } from '../../../types/theming';
@@ -24,6 +24,12 @@ export const NavMenuBaseItemStyles = css`
   &:focus {
     color: ${(props) => props.theme.secondary.step11};
   }
+
+  &.active {
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+    border-bottom: 2px ${({ theme }: { theme: Theme }) => theme.secondary.step9}
+      solid;
+  }
 `;
 
 export const Root = styled(RadixNavMenu.Root)`
@@ -47,7 +53,7 @@ export const Trigger = styled(RadixNavMenu.Trigger)`
   justify-content: space-between;
 `;
 
-export const Item = styled(RadixNavMenu.Item)<{ active: boolean }>``;
+export const Item = styled(RadixNavMenu.Item)``;
 
 export const Link = styled(RadixNavMenu.Link)`
   ${NavMenuBaseItemStyles}
@@ -75,8 +81,25 @@ export const Indicator = styled(RadixNavMenu.Indicator)`
 
 export const Sub = styled(RadixNavMenu.Sub)``;
 
+const scaleIn = keyframes({
+  from: { transform: 'rotateX(-30deg) scale(0.9)', opacity: 0 },
+  to: { transform: 'rotateX(0deg) scale(1)', opacity: 1 },
+});
+
+const scaleOut = keyframes({
+  from: { transform: 'rotateX(0deg) scale(1)', opacity: 1 },
+  to: { transform: 'rotateX(-10deg) scale(0.95)', opacity: 0 },
+});
+
 export const Viewport = styled(RadixNavMenu.Viewport)`
   /* width: var(--radix-navigation-menu-viewport-width); */
+  transition: width, height, 300ms ease;
+  &[data-state='open'] {
+    animation: ${scaleIn} 200ms ease;
+  }
+  &[data-state='closed'] {
+    animation: ${scaleOut} 200ms ease;
+  }
 `;
 
 export const Dropdown = styled.ul`

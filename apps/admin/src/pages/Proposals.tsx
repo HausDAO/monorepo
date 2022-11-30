@@ -97,7 +97,7 @@ export function Proposals() {
   };
 
   useEffect(() => {
-    filterProposals(filter);
+    filterProposals(filter || {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -111,7 +111,7 @@ export function Proposals() {
             totalItems={Number(dao?.proposalCount) || 0}
           />
 
-          <FilterDropdown filter={filter} toggleFilter={toggleFilter} />
+          <FilterDropdown filter={localFilter} toggleFilter={toggleFilter} />
         </SearchFilterContainer>
         <Dialog>
           <DialogTrigger asChild>

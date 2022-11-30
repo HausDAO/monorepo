@@ -31,11 +31,9 @@ export const CollapsibleFormSegment = ({
       collapsibleActions={actionButton}
       collapsibleContent={
         <div>
-          <div>
-            {formArea}
-            {infoArea}
-            {error}
-          </div>
+          {formArea}
+          {infoArea}
+          {error}
         </div>
       }
       defaultOpen={defaultOpen}

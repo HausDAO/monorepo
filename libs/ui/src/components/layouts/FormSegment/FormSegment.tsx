@@ -1,6 +1,3 @@
-import React from 'react';
-import styled from 'styled-components';
-
 import { Divider, H5, ParMd } from '../../atoms';
 import { FormSegmentProps } from './FormSegment.types';
 import { StyledDivider, StyledFormSegment } from './FormSegment.styles';

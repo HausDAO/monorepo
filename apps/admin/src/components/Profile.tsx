@@ -13,7 +13,7 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile, MolochV3Membership } from '@daohaus/utils';
+import { AccountProfile } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {

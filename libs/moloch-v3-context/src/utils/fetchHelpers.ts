@@ -1,4 +1,3 @@
-import { ReactSetter } from '@daohaus/utils';
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import {

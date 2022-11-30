@@ -43,10 +43,11 @@ const SearchFilterContainer = styled.div`
 
 export function Proposals() {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { proposals, paging, loadNextPage, filterProposals } = useProposals();
+  const { proposals, paging, loadNextPage, filterProposals, filter } =
+    useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filter, setFilter] = useState<string>('');
+  const [localFilter, setLocalFilter] = useState<string>('');
 
   const prepareProposals = (proposals: Record<string, CustomFormLego>) => {
     return Object.keys(proposals).map((key) => proposals[key]);
@@ -58,9 +59,9 @@ export function Proposals() {
   const handleSearchFilter = (term: string) => {
     setSearchTerm(term);
     const filterQuery =
-      filter !== ''
+      localFilter !== ''
         ? statusFilter(
-            PROPOSAL_STATUS[filter],
+            PROPOSAL_STATUS[localFilter],
             Number(dao?.votingPeriod) + Number(dao?.gracePeriod)
           )
         : undefined;
@@ -78,7 +79,7 @@ export function Proposals() {
   const toggleFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const searchQuery =
       searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
-    setFilter((prevState) => {
+    setLocalFilter((prevState) => {
       if (prevState === event.currentTarget.value) {
         filterProposals(searchQuery || {});
         return '';
@@ -96,7 +97,7 @@ export function Proposals() {
   };
 
   useEffect(() => {
-    filterProposals({});
+    filterProposals(filter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

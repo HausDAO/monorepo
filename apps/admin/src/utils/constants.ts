@@ -20,6 +20,7 @@ export enum ProposalTypeIds {
   TokensForShares = 'TOKENS_FOR_SHARES',
   GuildKick = 'GUILDKICK',
   WalletConnect = 'WALLETCONNECT',
+  Multicall = 'MULTICALL',
 }
 
 export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
@@ -33,6 +34,7 @@ export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
   TOKENS_FOR_SHARES: 'Token Proposal',
   GUILDKICK: 'Token Proposal',
   WALLETCONNECT: 'WalletConnect Proposal',
+  MULTICALL: 'Multicall Proposal',
 };
 
 export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
@@ -49,6 +51,7 @@ export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
     'Proposal issues voting or non-voting tokens from the DAO.',
   GUILDKICK: 'Proposal transfers DAO voting tokens into non-voting tokens.',
   WALLETCONNECT: 'Proposal interacts with external contracts and applications.',
+  MULTICALL: 'TODO: Proposal description', // TOOD:
   ERROR_CANNOT_DECODE:
     'Cannot decode contract details for this proposal. Please proceed with extreme caution!',
   ERROR_UNKOWN:

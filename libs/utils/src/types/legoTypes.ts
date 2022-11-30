@@ -53,6 +53,7 @@ export type MulticallAction = {
 export type MulticallArg = {
   type: 'multicall';
   actions: MulticallAction[];
+  formActions?: boolean;
 };
 export type EncodeCallArg = {
   type: 'encodeCall';

@@ -73,7 +73,7 @@ export const cacheABI = async ({
   const newStore = addABI({
     abiStore,
     chainId,
-    address,
+    address: address.toLowerCase(),
     abi,
   });
   try {

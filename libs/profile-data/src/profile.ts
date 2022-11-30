@@ -11,7 +11,7 @@ import {
   ListProfileQueryVariables,
 } from './subgraph/queries-lens/profiles.generated';
 import { ENSDomain, LensProfile } from './types';
-import { transformProfile } from './utils/transformers';
+import { transformProfile } from './utils';
 
 export const getProfileForAddress = async (
   address: string

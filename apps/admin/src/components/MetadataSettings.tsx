@@ -14,7 +14,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { useConnectedMembership } from '@daohaus/moloch-v3-context';
+import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import {
@@ -83,14 +83,14 @@ type MetadataSettingsProps = {
 
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <>
       <MetaCardHeader>
         <H3>Metadata</H3>
-        {connectedMembership && Number(connectedMembership.shares) && (
+        {connectedMember && Number(connectedMember.shares) && (
           <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
             <Button color="secondary">Update Settings</Button>
           </Link>

@@ -58,7 +58,7 @@ moloch-v3-context exposes several useful hooks that can be used throughout your 
 ```jsx
 import {
   useDao,
-  useConnectedMembership,
+  useConnectedMember,
   useMembers,
   useProposals,
 } from '@daohaus/moloch-v3-context';
@@ -66,7 +66,7 @@ import {
 const { dao } = useDao();
 const { members, membersNextPaging, loadMoreMembers, sortMembers } =
   useMembers();
-const { connectedMembership } = useConnectedMembership();
+const { connectedMember } = useConnectedMember();
 const {
   isProposalsLoading,
   proposals,

@@ -1,5 +1,4 @@
-import { TMembers } from '@daohaus/moloch-v3-context';
-import { MolochV3Dao } from '@daohaus/moloch-v3-data';
+import { MolochV3Dao, MolochV3Members } from '@daohaus/moloch-v3-data';
 import { TXLifeCycleFns } from '@daohaus/tx-builder';
 import { PROPOSAL_TYPE_LABELS } from './constants';
 
@@ -13,9 +12,9 @@ export const missingDaoProfileData = (dao: MolochV3Dao): boolean => {
 };
 
 export const getMemberFromMemberList = (
-  members: TMembers,
+  members: MolochV3Members,
   memberAddress: string
-): TMembers[number] | undefined => {
+): MolochV3Members[number] | undefined => {
   const res = members.find(
     (member) =>
       member.memberAddress.toLowerCase() === memberAddress.toLowerCase()

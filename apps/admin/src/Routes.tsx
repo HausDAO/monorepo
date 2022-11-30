@@ -40,6 +40,7 @@ const HomeContainer = () => {
       window.location.href = `#/${address}`;
     }
   }, [isConnected, address, profile, navigate]);
+
   return (
     <DHLayout
       pathname={location.pathname}
@@ -49,17 +50,7 @@ const HomeContainer = () => {
     </DHLayout>
   );
 };
-// const customNetworks = {
-//   '0x1': {
-//     chainId: '0x1',
-//     networkId: 1,
-//     name: 'Ethereum Mainnet',
-//     symbol: 'ETH',
-//     explorer: 'https://etherscan.io',
-//     tokenDecimals: 18,
-//     rpc: HAUS_RPC['0x1'],
-//   },
-// };
+
 const Routes = () => {
   const [daoChainId, setDaoChainId] = useState<string | undefined>();
   const location = useLocation();

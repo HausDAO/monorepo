@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   Button,
@@ -43,16 +43,11 @@ const SearchFilterContainer = styled.div`
 
 export function Proposals() {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const {
-    isProposalsLoading,
-    proposals,
-    proposalsNextPaging,
-    loadMoreProposals,
-    filterProposals,
-  } = useProposals();
+  const { proposals, paging, loadNextPage, filterProposals, filter } =
+    useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filter, setFilter] = useState<string>('');
+  const [localFilter, setLocalFilter] = useState<string>('');
 
   const prepareProposals = (proposals: Record<string, CustomFormLego>) => {
     return Object.keys(proposals).map((key) => proposals[key]);
@@ -64,9 +59,9 @@ export function Proposals() {
   const handleSearchFilter = (term: string) => {
     setSearchTerm(term);
     const filterQuery =
-      filter !== ''
+      localFilter !== ''
         ? statusFilter(
-            PROPOSAL_STATUS[filter],
+            PROPOSAL_STATUS[localFilter],
             Number(dao?.votingPeriod) + Number(dao?.gracePeriod)
           )
         : undefined;
@@ -77,16 +72,16 @@ export function Proposals() {
         title_contains_nocase: term,
       });
     } else {
-      filterProposals(filterQuery);
+      filterProposals(filterQuery || {});
     }
   };
 
   const toggleFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const searchQuery =
       searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
-    setFilter((prevState) => {
+    setLocalFilter((prevState) => {
       if (prevState === event.currentTarget.value) {
-        filterProposals(searchQuery);
+        filterProposals(searchQuery || {});
         return '';
       } else {
         const votingPlusGraceDuration =
@@ -102,7 +97,7 @@ export function Proposals() {
   };
 
   useEffect(() => {
-    filterProposals();
+    filterProposals(filter || {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -116,7 +111,7 @@ export function Proposals() {
             totalItems={Number(dao?.proposalCount) || 0}
           />
 
-          <FilterDropdown filter={filter} toggleFilter={toggleFilter} />
+          <FilterDropdown filter={localFilter} toggleFilter={toggleFilter} />
         </SearchFilterContainer>
         <Dialog>
           <DialogTrigger asChild>
@@ -130,20 +125,18 @@ export function Proposals() {
           </DialogContent>
         </Dialog>
       </ActionsContainer>
-      {(!proposals || isProposalsLoading) && (
-        <Spinner size={isMobile ? '8rem' : '16rem'} />
-      )}
+      {!proposals && <Spinner size={isMobile ? '8rem' : '16rem'} />}
       {proposals &&
         proposals.map((proposal) => (
           <BaseProposalCard proposal={proposal} key={proposal.id} />
         ))}
 
-      {proposals && proposalsNextPaging && (
+      {proposals && paging.next && (
         <Button
           color="secondary"
           variant="outline"
           size="sm"
-          onClick={loadMoreProposals}
+          onClick={loadNextPage}
         >
           Show More Proposals
         </Button>

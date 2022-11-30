@@ -34,13 +34,14 @@ export const useMembers = (): MolochV3DaoContextMembersType => {
       });
 
       setDaoData((prevState) => {
-        return { ...prevState, Members: res };
+        return { ...prevState, members: res };
       });
     }
   };
 
   const sortMembers = async (ordering: Ordering<Member_OrderBy>) => {
     if (daoid && daochain) {
+      console.log('ordering', ordering);
       const res = await fetchMembersList({
         filter: daoData?.members?.filter || { dao: daoid },
         ordering: ordering,
@@ -49,7 +50,7 @@ export const useMembers = (): MolochV3DaoContextMembersType => {
       });
 
       setDaoData((prevState) => {
-        return { ...prevState, Members: res };
+        return { ...prevState, members: res };
       });
     }
   };
@@ -69,7 +70,7 @@ export const useMembers = (): MolochV3DaoContextMembersType => {
 
         return {
           ...prevState,
-          Members: {
+          members: {
             ...res,
             items: res ? [...prevItems, ...res.items] : [],
           },
@@ -87,7 +88,7 @@ export const useMembers = (): MolochV3DaoContextMembersType => {
       });
 
       setDaoData((prevState) => {
-        return { ...prevState, Members: res };
+        return { ...prevState, members: res };
       });
     }
   };

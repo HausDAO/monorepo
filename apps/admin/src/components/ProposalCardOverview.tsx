@@ -76,7 +76,6 @@ export const ProposalCardOverview = ({
   const { daochain, daoid } = useParams();
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
-  const isTablet = useBreakpoint(widthQuery.md);
   const isMd = useBreakpoint(widthQuery.md);
   const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
 

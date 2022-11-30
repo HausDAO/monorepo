@@ -7,7 +7,6 @@ import {
   H5,
   ParLg,
   ParMd,
-  Avatar,
   DataXs,
   AddressDisplay,
   DataIndicator,

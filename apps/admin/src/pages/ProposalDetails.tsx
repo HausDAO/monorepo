@@ -9,7 +9,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import { charLimit, MulticallArg } from '@daohaus/utils';
+import { MulticallArg } from '@daohaus/utils';
 import {
   isValidNetwork,
   ValidNetwork,

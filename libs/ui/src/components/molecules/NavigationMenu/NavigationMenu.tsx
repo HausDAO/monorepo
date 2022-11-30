@@ -1,10 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
-import {
-  RiArrowDropDownLine,
-  RiCheckLine,
-  RiRadioButtonFill,
-} from 'react-icons/ri';
 
 import {
   NavMenuProps,
@@ -22,12 +16,10 @@ import {
   Content,
   Link,
   Viewport,
-  ViewportPosition,
   Indicator,
 } from './NavigationMenu.styles';
 
 export const NavMenuViewport = Viewport;
-export const NavMenuViewportPosition = ViewportPosition;
 export const NavMenuIndicator = Indicator;
 
 export const NavMenu = ({ children, ...props }: NavMenuProps) => (
@@ -65,11 +57,7 @@ export const NavMenuContent = ({
   children,
   ...props
 }: NavMenuContentProps) => {
-  return (
-    <Content color={color} {...props}>
-      {children}
-    </Content>
-  );
+  return <Content {...props}>{children}</Content>;
 };
 
 export const NavMenuLink = ({ children, ...props }: NavMenuLinkProps) => {

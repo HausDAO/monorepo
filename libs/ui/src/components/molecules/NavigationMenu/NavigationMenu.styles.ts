@@ -5,14 +5,15 @@ import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 import { border } from '../../../theme/global/border';
 
-const BaseItemStyles = css`
+export const NavMenuBaseItemStyles = css`
   padding: 8px 12px;
+  cursor: pointer;
   outline: none;
   user-select: none;
   font-weight: ${font.weight.reg};
   line-height: ${font.lineHeight};
   letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.md};
+  font-size: ${font.size.lg};
   border-radius: 4px;
   color: ${(props) => props.theme.secondary.step9};
 
@@ -25,29 +26,31 @@ const BaseItemStyles = css`
   }
 `;
 
-export const Root = styled(RadixNavMenu.Root)``;
+export const Root = styled(RadixNavMenu.Root)`
+  background-color: ${(props) => props.theme.secondary.step2};
+  padding: 2.8rem;
+`;
 
 export const List = styled(RadixNavMenu.List)`
-  background-color: ${(props) => props.theme.secondary.step2};
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 30px;
 `;
 
 export const Trigger = styled(RadixNavMenu.Trigger)`
   all: unset;
-  ${BaseItemStyles}
+  ${NavMenuBaseItemStyles}
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2;
 `;
 
 export const Item = styled(RadixNavMenu.Item)<{ active: boolean }>``;
 
 export const Link = styled(RadixNavMenu.Link)`
-  ${BaseItemStyles}
+  ${NavMenuBaseItemStyles}
   display: block;
   text-decoration: none;
 `;
@@ -71,8 +74,6 @@ export const Indicator = styled(RadixNavMenu.Indicator)`
 `;
 
 export const Sub = styled(RadixNavMenu.Sub)``;
-
-export const ViewportPosition = styled.div``;
 
 export const Viewport = styled(RadixNavMenu.Viewport)`
   /* width: var(--radix-navigation-menu-viewport-width); */

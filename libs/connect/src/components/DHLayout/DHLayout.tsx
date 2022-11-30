@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react';
 
-import { DaoHausNav } from '../DaoHausNav/DaoHausNav';
+import { DaoHausNav, DaoHausNavMenu } from '../DaoHausNav/DaoHausNav';
 import {
   AppSwitcher,
   Footer,
@@ -51,6 +51,12 @@ export const DHLayout = ({
         <DaoHausNav />
       </Header>
       <NavigationTabs
+        navLinks={navLinks}
+        dropdownLinks={dropdownLinks}
+        pathname={pathname}
+      />
+      <br />
+      <DaoHausNavMenu
         navLinks={navLinks}
         dropdownLinks={dropdownLinks}
         pathname={pathname}

@@ -3,11 +3,12 @@ import { useDao } from '@daohaus/moloch-v3-context';
 
 import { COMMON_FORMS } from '../legos/form';
 
-export const AddSafeForm = () => {
+export const AddSafeForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const { refreshAll } = useDao();
 
   const onFormComplete = () => {
     refreshAll?.();
+    onSuccess();
   };
 
   return (

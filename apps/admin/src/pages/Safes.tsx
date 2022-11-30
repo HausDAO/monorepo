@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -29,14 +30,20 @@ export function Safes() {
   const { dao } = useDao();
   const { connectedMember } = useConnectedMember();
 
+  const [open, setOpen] = useState(false);
+
   const isMobile = useBreakpoint(widthQuery.sm);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <SingleColumnLayout
       title="Safes"
       actions={
         connectedMember && (
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button color="secondary" fullWidth={isMobile}>
                 New Safe
@@ -44,7 +51,7 @@ export function Safes() {
             </DialogTrigger>
 
             <DialogContent title="Add Safe">
-              <AddSafeForm />
+              <AddSafeForm onSuccess={handleClose} />
             </DialogContent>
           </Dialog>
         )

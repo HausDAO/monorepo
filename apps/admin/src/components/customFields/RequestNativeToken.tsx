@@ -39,6 +39,8 @@ export const RequestNativeToken = (
     ? `Request ${networkTokenData.name}`
     : `Request Network Token`;
 
+  console.log('networkTokenData', networkTokenData);
+
   const setMax = () => {
     setValue(
       id,

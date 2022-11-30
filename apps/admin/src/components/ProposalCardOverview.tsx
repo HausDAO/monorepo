@@ -76,6 +76,7 @@ export const ProposalCardOverview = ({
   const { daochain, daoid } = useParams();
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
+  const isTablet = useBreakpoint(widthQuery.md);
   const isMd = useBreakpoint(widthQuery.md);
   const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
 
@@ -167,6 +168,10 @@ const WarningIcon = styled(RiErrorWarningLine)`
   margin-right: 0.5rem;
 `;
 
+const PropIdText = styled(ParSm)`
+  margin-right: 0.5rem;
+`;
+
 export const OverviewHeader = ({
   loading,
   proposal,
@@ -183,6 +188,9 @@ export const OverviewHeader = ({
       {isMobile ? (
         <>
           <HeaderContainer>
+            <PropIdText color={theme.secondary.step11}>
+              {proposal.proposalId} |
+            </PropIdText>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
@@ -208,6 +216,9 @@ export const OverviewHeader = ({
       ) : (
         <>
           <HeaderContainer>
+            <PropIdText color={theme.secondary.step11}>
+              {proposal.proposalId} |
+            </PropIdText>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />

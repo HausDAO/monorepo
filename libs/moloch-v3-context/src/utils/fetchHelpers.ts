@@ -13,6 +13,8 @@ import {
 } from '@daohaus/moloch-v3-data';
 import { Ordering, Paging } from '@daohaus/data-fetch-utils';
 
+const DEFAULT_PROPOSAL_RECORDS_PER_PAGE = 5;
+
 export const fetchDao = async ({
   daoid,
   daochain,
@@ -87,7 +89,10 @@ export const fetchProposalsList = async ({
       networkId: daochain,
       filter,
       ordering,
-      paging,
+      paging: paging || {
+        pageSize: DEFAULT_PROPOSAL_RECORDS_PER_PAGE,
+        offset: 0,
+      },
       graphApiKeys,
     });
     if (!res) {

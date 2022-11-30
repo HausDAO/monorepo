@@ -9,7 +9,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import { MulticallArg } from '@daohaus/utils';
+import { charLimit, MulticallArg } from '@daohaus/utils';
 import {
   isValidNetwork,
   ValidNetwork,
@@ -137,7 +137,9 @@ export function ProposalDetails() {
   return (
     <BiColumnLayout
       title={proposal?.title}
-      subtitle={getProposalTypeLabel(proposal?.proposalType)}
+      subtitle={`${proposal?.proposalId} | ${getProposalTypeLabel(
+        proposal?.proposalType
+      )}`}
       actions={
         proposal && (
           <CancelProposal proposal={proposal} onSuccess={fetchProposal} />

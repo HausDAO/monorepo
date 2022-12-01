@@ -7,11 +7,11 @@ import {
   H5,
   ParLg,
   ParMd,
-  Avatar,
   DataXs,
   AddressDisplay,
   DataIndicator,
   widthQuery,
+  ProfileAvatar,
 } from '@daohaus/ui';
 import { AccountProfile } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
@@ -28,7 +28,7 @@ import { MemberProfileMenu } from './MemberProfileMenu';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { MolochV3Member } from '@daohaus/moloch-v3-data';
 
-const AvatarLarge = styled(Avatar)`
+const AvatarLarge = styled(ProfileAvatar)`
   height: 12rem;
   width: 12rem;
 `;
@@ -116,6 +116,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             src={profile?.image || ''}
             size="lg"
             alt="profile image"
+            address={profile.address}
           />
           <Container>
             <ProfileNameContainer>

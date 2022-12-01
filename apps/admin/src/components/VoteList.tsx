@@ -27,7 +27,7 @@ const VotesContainer = styled.div`
   @media ${widthQuery.sm} {
     min-width: 100%;
   }
-  overflow: scroll;
+  overflow: auto;
   padding-right: 1rem;
 `;
 

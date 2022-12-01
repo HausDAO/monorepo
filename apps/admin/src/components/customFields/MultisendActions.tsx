@@ -72,6 +72,9 @@ const createActionField = (
     const dimensions = input.type?.match(REGEX_ARRAY_TYPE);
     return {
       ...fieldBase,
+      info: dimensions && dimensions.length > 1
+        ? 'Multidimensional arguments should be separated by carriage return (Rows) and commaas (Columns)'
+        : 'Arguments should be separated by carriage return (Enter)',
       rules: {
         ...newRules,
         setValueAs: (response: string | Array<unknown> | undefined) => {

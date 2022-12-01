@@ -6,10 +6,12 @@ import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from '@daohaus/utils';
 import { sortTokensForRageQuit } from '../utils/general';
+import { useParams } from 'react-router-dom';
 
 export function RageQuit() {
   const { dao, refreshAll } = useDao();
   const { connectedMember } = useConnectedMember();
+  const { daochain } = useParams();
 
   const defaultFields = useMemo(() => {
     if (connectedMember && dao) {
@@ -47,6 +49,7 @@ export function RageQuit() {
       form={{ ...COMMON_FORMS.RAGEQUIT, log: true, devtool: true }}
       customFields={CustomFields}
       onSuccess={onFormComplete}
+      targetNetwork={daochain}
     />
   );
 }

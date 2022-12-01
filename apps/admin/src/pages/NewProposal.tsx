@@ -44,6 +44,7 @@ export function NewProposal() {
       customFields={CustomFields}
       onSuccess={onFormComplete}
       defaultValues={defaults}
+      targetNetwork={daochain}
     />
   );
 }

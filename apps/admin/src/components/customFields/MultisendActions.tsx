@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FieldValues, RegisterOptions } from 'react-hook-form';
+// import { HiOutlineTrash } from 'react-icons/hi'; // TODO: Enable `Delete Action Button`
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -20,7 +21,7 @@ import {
   ErrorMessage,
   ErrorText,
   Field,
-  IconButton,
+  // IconButton, // TODO: Enable `Delete Action Button`
   OptionType,
   WarningMessage,
 } from '@daohaus/ui';
@@ -136,7 +137,7 @@ const createActionField = (
 const Action = ({
   actionId,
   index,
-  onDelete,
+  // onDelete, // TODO: Enable `Delete Action Button`
 }: {
   actionId: string;
   index: number;
@@ -147,9 +148,14 @@ const Action = ({
   const valueFieldId = `tx.${actionId}.value`;
   const dataFieldId = `tx.${actionId}.data`;
   const contractMethodFieldId = `tx.${actionId}.contractMethod`;
-  const deletedFlagId = `tx.${actionId}.deleted`;
+  // const deletedFlagId = `tx.${actionId}.deleted`; // TODO: Enable `Delete Action Button`
 
-  const { setValue, reset, resetField, watch } = useFormBuilder();
+  const {
+    setValue,
+    // reset, // TODO: Enable `Delete Action Button`
+    resetField,
+    watch,
+  } = useFormBuilder();
   const { daochain } = useParams();
   const [loading, setLoading] = useState(false);
   const [actionTitle, setActionTitle] = useState(`Action ${index}`);
@@ -267,7 +273,7 @@ const Action = ({
   }, [actionId, dataFieldId, values, setValue]);
 
   const encodeAction = useCallback(
-    (argValues?: FieldValues) => {
+    (argValues?: FieldValues, oldData?: string) => {
       setActionError('');
       try {
         const argFields = argFieldsIds.map((id) =>
@@ -288,8 +294,10 @@ const Action = ({
               value: actionValue,
               operation: 0,
             });
-        setValue(dataFieldId, metaTx.data);
-        setValue(`tx.${actionId}.operation`, metaTx.operation);
+        if (oldData !== metaTx.data) {
+          setValue(dataFieldId, metaTx.data);
+          setValue(`tx.${actionId}.operation`, metaTx.operation);
+        }
       } catch (error) {
         setActionError((error as Error).message);
       }
@@ -306,15 +314,16 @@ const Action = ({
     ]
   );
 
-  const removeAction = useCallback(() => {
-    reset({
-      tx: {
-        [actionId]: values.tx[actionId],
-      },
-    });
-    setValue(deletedFlagId, true);
-    onDelete?.(actionId);
-  }, [actionId, deletedFlagId, onDelete, reset, setValue, values]);
+  // TODO: Enable `Delete Action Button`
+  // const removeAction = useCallback(() => {
+  //   reset({
+  //     tx: {
+  //       [actionId]: values.tx[actionId],
+  //     },
+  //   });
+  //   setValue(deletedFlagId, true);
+  //   onDelete?.(actionId);
+  // }, [actionId, deletedFlagId, onDelete, reset, setValue, values]);
 
   useEffect(() => {
     setActionTitle(`Action ${index}`);
@@ -378,10 +387,9 @@ const Action = ({
       argFieldsIds.length &&
       argFieldsIds
         .map((id) => id.split('.').reduce((data, curr) => data[curr], values))
-        .every((arg: unknown) => (arg as string)?.length > 0) &&
-      [undefined, '', '0x'].includes(values.tx?.[actionId]?.data)
+        .every((arg: unknown) => (arg as string)?.length > 0)
     ) {
-      encodeAction({ ...values.tx?.[actionId]?.fields });
+      encodeAction({ ...values.tx?.[actionId]?.fields }, values.tx?.[actionId]?.data);
     }
   }, [encodeAction, values]); // eslint-disable-line react-hooks/exhaustive-deps
 

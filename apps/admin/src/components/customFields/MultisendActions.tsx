@@ -452,16 +452,17 @@ const Action = ({
       collapsible
       defaultOpen
       title={actionTitle}
-      actionButton={
-        <IconButton
-          Icon={HiOutlineTrash}
-          color="secondary"
-          variant="solid"
-          size="md"
-          disabled={!onDelete}
-          onClick={() => removeAction()}
-        />
-      }
+      // TODO: Enable `Delete Action Button`
+      // actionButton={
+      //   <IconButton
+      //     Icon={HiOutlineTrash}
+      //     color="secondary"
+      //     variant="solid"
+      //     size="md"
+      //     disabled={!onDelete}
+      //     onClick={() => removeAction()}
+      //   />
+      // }
       formArea={txFields.map((field) => (
         <FormBuilderFactory key={field.id} field={field} />
       ))}

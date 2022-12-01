@@ -14,7 +14,10 @@ import {
   DropdownLink,
   NavLink,
 } from './NavigationTabs.styles';
-
+/*
+ * DEPRECIATED
+ * Will delete this component after merge of new Navigation Menu
+ */
 const isSelected = (pathname: string, href: string) => pathname === href;
 
 export const NavigationTabs = (props: NavigationTabsProps) => {

@@ -238,7 +238,6 @@ export const Members = () => {
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
             color="secondary"
             fullWidth={isMd}
-            // centerAlign={isMd}
           >
             Add Member
           </ButtonLink>

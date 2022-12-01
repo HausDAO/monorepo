@@ -1,15 +1,17 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './global/globalStyles';
 
 import { ReactSetter } from '@daohaus/utils';
 
+import { GlobalStyles } from './global/globalStyles';
 import { defaultDarkTheme, defaultLightTheme } from './theme';
 import { Theme } from '../types/theming';
 import './global/fonts.css';
-import { Toast } from '../components';
-import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
-import { ToastProps } from '../components/molecules';
+import {
+  Toast,
+  ToastProps,
+  ToastProvider,
+} from '../components/molecules/Toast';
 
 type HausUI = {
   theme: Theme;

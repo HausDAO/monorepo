@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FieldValues, RegisterOptions } from 'react-hook-form';
-import { HiOutlineTrash } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -127,7 +126,7 @@ const createActionField = (
   return {
     ...fieldBase,
     expectType: input.type?.includes('address')
-      ? 'address'
+      ? 'ethAddress'
       : input.type?.includes('int') || input.type === 'bool'
       ? 'number'
       : undefined, // plain string for other cases

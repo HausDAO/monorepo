@@ -1,4 +1,4 @@
-import { IconType } from 'react-icons/lib/esm';
+import { IconType } from 'react-icons/';
 
 export type HelperTextType = {
   color?: string;

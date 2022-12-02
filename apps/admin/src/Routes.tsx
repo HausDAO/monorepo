@@ -20,7 +20,6 @@ import NewProposal from './pages/NewProposal';
 import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
-import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
 import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
 import { useEffect, useLayoutEffect, useState } from 'react';
@@ -67,7 +66,6 @@ const Routes = () => {
 
   return (
     <DHConnectProvider daoChainId={daoChainId}>
-      <Banner />
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>
           <Route path="/:profile" element={<Home />} />

@@ -1,4 +1,4 @@
-import { RiCloseFill } from 'react-icons/ri/index.js';
+import { RiCloseFill } from 'react-icons/ri';
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';

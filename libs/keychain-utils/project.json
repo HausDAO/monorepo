@@ -6,23 +6,14 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:rollup",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/keychain-utils",
+        "main": "libs/keychain-utils/src/index.ts",
         "tsConfig": "libs/keychain-utils/tsconfig.lib.json",
-        "project": "libs/keychain-utils/package.json",
-        "entryFile": "libs/keychain-utils/src/index.ts",
-        "external": ["react/jsx-runtime"],
-        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-        "compiler": "babel",
-        "assets": [
-          {
-            "glob": "libs/keychain-utils/README.md",
-            "input": ".",
-            "output": "."
-          }
-        ]
+        "assets": ["libs/keychain-utils/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
 
 import type { SelectProps } from './Select.types';

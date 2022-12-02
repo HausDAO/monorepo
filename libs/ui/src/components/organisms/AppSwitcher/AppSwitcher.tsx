@@ -1,5 +1,5 @@
 import React from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import { widthQuery } from '../../../theme/global/breakpoints';
 import { useBreakpoint } from '../../../hooks/useMediaQuery';

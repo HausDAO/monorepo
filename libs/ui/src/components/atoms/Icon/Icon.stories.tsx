@@ -1,4 +1,4 @@
-import { RiAsterisk } from 'react-icons/ri/index.js';
+import { RiAsterisk } from 'react-icons/ri';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Icon } from './Icon';

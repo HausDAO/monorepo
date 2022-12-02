@@ -1,5 +1,5 @@
 import React from 'react';
-import { RiDiscordFill, RiToolsLine } from 'react-icons/ri/index.js';
+import { RiDiscordFill, RiToolsLine } from 'react-icons/ri';
 
 import { Link, ParMd } from '../../atoms';
 

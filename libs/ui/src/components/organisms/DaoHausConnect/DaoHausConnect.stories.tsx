@@ -2,7 +2,7 @@ import { violet } from '@radix-ui/colors';
 import styled from 'styled-components';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiUserAddLine, RiAlertLine } from 'react-icons/ri/index.js';
+import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
 import { BiError } from 'react-icons/bi/index.js';
 
 import { ButtonProps, Button } from '../../atoms/Button/';

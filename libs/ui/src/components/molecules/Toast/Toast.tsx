@@ -4,7 +4,7 @@ import {
   RiCheckboxCircleFill,
   RiErrorWarningFill,
   RiCloseCircleFill,
-} from 'react-icons/ri/index.js';
+} from 'react-icons/ri';
 
 import { ParSm, Link } from '../../atoms';
 import { ToastProps, ToastLinksProps, ToastType } from './Toast.types';

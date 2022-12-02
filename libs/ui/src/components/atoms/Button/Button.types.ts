@@ -1,5 +1,5 @@
-import React, { ButtonHTMLAttributes } from 'react';
-import { IconType } from 'react-icons/lib/esm';
+import React from 'react';
+import { IconType } from 'react-icons/';
 
 export type ButtonColor =
   | 'primary'

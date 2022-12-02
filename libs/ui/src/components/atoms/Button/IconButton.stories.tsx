@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiBugLine } from 'react-icons/ri/index.js';
+import { RiBugLine } from 'react-icons/ri';
 import { IconButton } from './IconButton';
 
 export default {

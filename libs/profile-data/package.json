@@ -1,8 +1,8 @@
 {
   "name": "@daohaus/profile-data",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "commonjs",
   "peerDependencies": {
-    "@ethersproject/address": "^5.7.2"
+    "ethers": "^5.7.2"
   }
 }

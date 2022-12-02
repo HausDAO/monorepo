@@ -4,7 +4,7 @@ import {
   isNumberish,
   TXLego,
 } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import {
@@ -18,7 +18,7 @@ import {
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme } from 'styled-components';
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { PROP_CARD_HELP } from '../../data/copy';
 import { ACTION_TX } from '../../legos/tx';
 import { VotingBar } from '../VotingBar';
@@ -31,11 +31,11 @@ export const Unsponsored = ({
   proposal,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const { daochain } = useParams();
   const { fireTransaction } = useTxBuilder();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const { chainId } = useDHConnect();
   const { errorToast, defaultToast, successToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
@@ -92,18 +92,17 @@ export const Unsponsored = ({
   const hasShares = useMemo(() => {
     if (
       dao &&
-      isNumberish(connectedMembership?.shares) &&
+      isNumberish(connectedMember?.shares) &&
       isNumberish(dao.sponsorThreshold)
     ) {
-      return Number(connectedMembership?.shares) >=
-        Number(dao?.sponsorThreshold)
+      return Number(connectedMember?.shares) >= Number(dao?.sponsorThreshold)
         ? true
         : `${fromWei(
             dao.sponsorThreshold
           )} voting stake tokens are required to sponsor this proposal.`;
     }
     return 'Subgraph data not loading or is not in sync';
-  }, [dao, connectedMembership]);
+  }, [dao, connectedMember]);
 
   const isConnectedToDao =
     chainId === daochain

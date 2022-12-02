@@ -1,17 +1,21 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
-import { RiAsterisk } from 'react-icons/ri';
+import { RiAsterisk } from 'react-icons/ri/index.js';
+import { useFormContext } from 'react-hook-form';
 
-import { Label } from '../../atoms/Label';
-import { Tooltip } from '../../atoms/Tooltip';
-import { Icon } from '../../atoms/Icon';
+import { Buildable } from '../../../types/formAndField';
 import {
+  Label,
+  Tooltip,
+  Icon,
+  Spinner,
   ErrorText,
   HelperText,
   SuccessText,
   WarningText,
-} from '../../atoms/HelperTexts';
-import { Spinner } from '../../atoms/Spinner';
+} from '../../atoms/';
+
+import { FieldWrapperHelperTextFactoryProps } from './FieldWrapper.types';
 import {
   BottomContainer,
   FieldWrapperBase,
@@ -20,23 +24,8 @@ import {
   RequiredAsterisk,
   RightAddonContainer,
 } from './FieldWrapper.styles';
-import { Buildable } from '../../../types/formAndField';
-import {
-  ErrorMessage,
-  WarningMessage,
-  SuccessMessage,
-} from '../../../types/formAndField';
-import { FieldError, useFormContext } from 'react-hook-form';
 
 // type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
-
-type HelperTextFactoryProps = {
-  error?: ErrorMessage | FieldError;
-  warning?: WarningMessage;
-  success?: SuccessMessage;
-  helperText?: string;
-};
-
 export const FieldWrapper = ({
   children,
   label,
@@ -89,14 +78,12 @@ export const FieldWrapper = ({
   );
 };
 
-export default FieldWrapper;
-
 const HelperTextFactory = ({
   error,
   success,
   warning,
   helperText,
-}: HelperTextFactoryProps) => {
+}: FieldWrapperHelperTextFactoryProps) => {
   if (!error && !success && !warning && !helperText) return null;
 
   if (error) return <ErrorText>{error.message}</ErrorText>;

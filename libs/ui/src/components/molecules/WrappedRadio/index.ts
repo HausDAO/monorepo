@@ -1,1 +1,1 @@
-export * from './WrappedRadio';
+export { WrappedRadio } from './WrappedRadio';

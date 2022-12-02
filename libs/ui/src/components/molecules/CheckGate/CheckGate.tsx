@@ -1,15 +1,12 @@
-import { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { FieldWrapper } from '../FieldWrapper';
-import { Checkbox } from '../../atoms/Checkbox';
-import { Buildable } from '../../../types/formAndField';
-import { CheckGateBox } from './CheckGate.styles';
 
-type CheckGateProps = {
-  gateLabel: string;
-  fields: Array<ReactNode>;
-  onUnchecked?: () => void;
-};
+import { Checkbox } from '../../atoms/Checkbox';
+import { FieldWrapper } from '../FieldWrapper';
+import { Buildable } from '../../../types/formAndField';
+
+import { CheckGateProps } from './CheckGate.types';
+import { CheckGateBox } from './CheckGate.styles';
 
 export const CheckGate = ({
   id,

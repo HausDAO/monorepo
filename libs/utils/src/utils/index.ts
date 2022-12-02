@@ -4,7 +4,6 @@ export * from './gas';
 export * from './general';
 export * from './formatting';
 export * from './gnosis';
-export * from './ipfs';
 export * from './typeguards';
 export * from './encoding';
 export * from './units';

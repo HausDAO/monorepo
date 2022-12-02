@@ -1,9 +1,5 @@
-import {
-  ABI,
-  ArbitraryState,
-  IPFSPinata,
-  pinataPostJSON,
-} from '@daohaus/utils';
+import { ABI, ArbitraryState, IPFSPinata } from '@daohaus/utils';
+import { pinataPostJSON } from '@daohaus/data-fetch-utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 
 import { processArg } from './args';

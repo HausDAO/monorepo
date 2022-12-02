@@ -2,12 +2,13 @@ import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { ToastType } from '../../../types/toast.types';
+import { ToastType } from './Toast.types';
 
-export const ToastProvider = ToastPrimitive.Provider;
-export const ToastTitle = ToastPrimitive.Title;
-export const ToastDescription = ToastPrimitive.Description;
-export const ToastClose = ToastPrimitive.Close;
+// TODO Rename to follow pattern established in Dropdown & Navigation Menu
+export const Provider = ToastPrimitive.Provider;
+export const Title = ToastPrimitive.Title;
+export const Description = ToastPrimitive.Description;
+export const Close = ToastPrimitive.Close;
 
 const VIEWPORT_PADDING = 25;
 
@@ -26,7 +27,7 @@ const swipeOut = keyframes({
   to: { transform: `translateX(calc(100% + ${VIEWPORT_PADDING}px))` },
 });
 
-export const ToastViewport = styled(ToastPrimitive.Viewport)`
+export const Viewport = styled(ToastPrimitive.Viewport)`
   position: fixed;
   bottom: 0;
   right: 0;
@@ -42,7 +43,7 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
   outline: none;
 `;
 
-export const ToastRoot = styled(ToastPrimitive.Root)`
+export const Root = styled(ToastPrimitive.Root)`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
@@ -87,11 +88,11 @@ export const ToastRoot = styled(ToastPrimitive.Root)`
   } ;
 `;
 
-export const ToastHeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
 `;
 
-export const ToastIcon = styled.span<{
+export const Icon = styled.span<{
   iconType: ToastType;
 }>`
   color: ${(props) => props.theme.toast.icon[props.iconType]};
@@ -99,12 +100,12 @@ export const ToastIcon = styled.span<{
   margin-right: 1rem;
 `;
 
-export const ToastCopyContainer = styled.div`
+export const CopyContainer = styled.div`
   display: block;
   width: 100%;
 `;
 
-export const ToastAction = styled(ToastPrimitive.Action)`
+export const Action = styled(ToastPrimitive.Action)`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;

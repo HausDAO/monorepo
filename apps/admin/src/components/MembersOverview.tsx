@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/moloch-v3-context';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   charLimit,
   formatValueTo,
@@ -32,7 +32,7 @@ const DataGrid = styled.div`
 `;
 
 type MembersOverviewProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const MembersOverview = ({ dao }: MembersOverviewProps) => {

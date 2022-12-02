@@ -3,6 +3,7 @@ import {
   ArbitraryState,
   ArgEncode,
   ArgType,
+  EncodeCallArg,
   encodeFunction,
   encodeValues,
   EstmimateGas,
@@ -106,6 +107,71 @@ export const txActionToMetaTx = ({
   };
 };
 
+export const handleEncodeCallArg = async ({
+  arg,
+  chainId,
+  localABIs,
+  appState,
+}: {
+  arg: EncodeCallArg;
+  chainId: ValidNetwork;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+}) => {
+  const { contract, method, args } = arg.action;
+  const processedContract = await processContractLego({
+    contract,
+    chainId,
+    localABIs,
+    appState,
+  });
+
+  const processedArgs = await Promise.all(
+    args.map(
+      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+    )
+  );
+
+  const encodedData = encodeFunction(
+    processedContract.abi,
+    method,
+    processedArgs
+  );
+
+  if (typeof encodedData !== 'string') {
+    throw new Error(encodedData.message);
+  }
+
+  return encodedData;
+};
+
+const handleMulticallFormActions = ({
+  appState,
+}: {
+  appState: ArbitraryState;
+}): MetaTransaction[] => {
+  const validTxs = appState.formValues.tx
+    ? Object.keys(appState.formValues.tx).filter((actionId: string) => {
+        const action = appState.formValues.tx[actionId];
+        return !action.deleted;
+      })
+    : [];
+  if (!validTxs.length) {
+    throw new Error('No actions found');
+  }
+  // TODO: sort by tx.actionId.index
+  return validTxs.map((actionId: string) => {
+    const action = appState.formValues.tx[actionId];
+    const { to, data, value, operation } = action;
+    return {
+      to,
+      data,
+      value,
+      operation,
+    };
+  });
+};
+
 export const handleMulticallArg = async ({
   arg,
   chainId,
@@ -171,8 +237,11 @@ export const handleMulticallArg = async ({
       });
     })
   );
+  const encodedFormActions = arg.formActions
+    ? handleMulticallFormActions({ appState })
+    : [];
 
-  const result = encodeMultiAction(encodedActions);
+  const result = encodeMultiAction([...encodedActions, ...encodedFormActions]);
 
   if (typeof result !== 'string') {
     throw new Error(result.message);
@@ -202,6 +271,7 @@ export const handleGasEstimate = async ({
     arg: {
       type: 'multicall',
       actions: arg.actions,
+      formActions: arg.formActions,
     },
   });
 
@@ -233,11 +303,13 @@ export const buildMultiCallTX = ({
   baalAddress = CURRENT_DAO,
   actions,
   JSONDetails = basicDetails,
+  formActions = false,
 }: {
   id: string;
   baalAddress?: StringSearch | Keychain | EthAddress;
   JSONDetails?: JSONDetailsSearch;
   actions: MulticallAction[];
+  formActions?: boolean;
 }): TXLego => {
   return {
     id,
@@ -251,6 +323,7 @@ export const buildMultiCallTX = ({
       {
         type: 'multicall',
         actions,
+        formActions,
       },
       {
         type: 'proposalExpiry',
@@ -260,6 +333,7 @@ export const buildMultiCallTX = ({
       {
         type: 'estimateGas',
         actions,
+        formActions,
       },
       JSONDetails,
     ],

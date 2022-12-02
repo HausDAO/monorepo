@@ -1,15 +1,35 @@
 import { Divider, H5, ParMd } from '../../atoms';
-import { StyledFormSegment } from './FormSegment.styles';
+import { FormSegmentProps } from './FormSegment.types';
+import { StyledDivider, StyledFormSegment } from './FormSegment.styles';
+import { CollapsibleCard } from '../../molecules/CollapsibleCard';
 
 // REVIEW: No stories until there's a solid form sub-layout
-
-type SegmentType = {
-  title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
-  formArea: React.ReactNode;
-};
-
-export const FormSegment = ({ title, description, formArea }: SegmentType) => {
+export const FormSegment = ({
+  collapsible,
+  defaultOpen,
+  title,
+  description,
+  formArea,
+}: FormSegmentProps) => {
+  if (collapsible) {
+    return (
+      <>
+        <CollapsibleCard
+          children={
+            <div>
+              <H5 className="segment-title">{title}</H5>
+              <ParMd className="segment-description">{description}</ParMd>
+            </div>
+          }
+          collapsibleContent={<div>{formArea}</div>}
+          defaultOpen={defaultOpen}
+          triggerLabel={''}
+          width="100%"
+        />
+        <StyledDivider />
+      </>
+    );
+  }
   return (
     <StyledFormSegment>
       <H5 className="segment-title">{title}</H5>

@@ -10,7 +10,7 @@ import {
   Link,
 } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/moloch-v3-context';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   charLimit,
   formatPeriods,
@@ -86,7 +86,7 @@ const StyledButtonLink = styled(Link)`
 `;
 
 type GovernanceSettingsProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {

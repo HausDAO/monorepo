@@ -7,9 +7,9 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/moloch-v3-context';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/keychain-utils';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const MetaContent = styled.div`
 `;
 
 type ContractSettingsProps = {
-  dao: TDao;
+  dao: MolochV3Dao;
 };
 
 export const ContractSettings = ({ dao }: ContractSettingsProps) => {

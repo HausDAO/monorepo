@@ -7,10 +7,10 @@ import {
 } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { TProposals } from '@daohaus/moloch-v3-context';
 import { DataMd, ParMd, widthQuery } from '@daohaus/ui';
 
 import { MemberProfileAvatar } from './MemberProfileAvatar';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 
 const MainContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const VotesContainer = styled.div`
   @media ${widthQuery.sm} {
     min-width: 100%;
   }
-  overflow: scroll;
+  overflow: auto;
   padding-right: 1rem;
 `;
 
@@ -42,8 +42,8 @@ const VoteContainer = styled.div`
 `;
 
 type VoteListProps = {
-  proposal: TProposals[number];
-  votes: TProposals[number]['votes'];
+  proposal: MolochV3Proposal;
+  votes: MolochV3Proposal['votes'];
 };
 
 export const VoteList = ({ votes, proposal }: VoteListProps) => {

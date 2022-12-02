@@ -7,10 +7,10 @@ import {
   RiGasStationLine,
   RiThumbDownLine,
   RiThumbUpLine,
-} from 'react-icons/ri';
+} from 'react-icons/ri/index.js';
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   checkHasQuorum,
   getGasCostEstimate,
@@ -136,7 +136,7 @@ export const VotingResults = ({
   proposal,
 }: {
   isVoting: boolean;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const hasQuorum = checkHasQuorum({
     yesVotes: Number(proposal.yesBalance),
@@ -161,7 +161,7 @@ export const ActionTemplate = ({
   helperDisplay?: string | React.ReactNode;
   statusDisplay?: string | React.ReactNode;
   main?: React.ReactNode;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);

@@ -1,81 +1,39 @@
+import { Dispatch, SetStateAction } from 'react';
+import { IListQueryResults } from '@daohaus/data-fetch-utils';
+import { Keychain } from '@daohaus/keychain-utils';
 import {
-  DaoWithTokenDataQuery,
-  FindMemberQuery,
-  ITransformedProposalListQuery,
-  ListConnectedMemberProposalsQuery,
-  ListMembersQuery,
+  MolochV3Dao,
   Member_Filter,
   Member_OrderBy,
-  Ordering,
-  Paging,
   Proposal_Filter,
   Proposal_OrderBy,
+  MolochV3Proposal,
+  MolochV3Members,
+  MolochV3Member,
 } from '@daohaus/moloch-v3-data';
-import { Dispatch, SetStateAction } from 'react';
 
-export type TDao = DaoWithTokenDataQuery['dao'];
-export type TMembers = ListMembersQuery['members'];
-export type TProposals = ITransformedProposalListQuery['proposals'];
-export type TMembership = FindMemberQuery['member'];
-
-export type MolochV3ContextDaoType = {
-  dao: DaoWithTokenDataQuery['dao'] | null | undefined;
-  isDaoLoading: boolean;
-  refreshDao: () => Promise<void>;
+export type MolochV3DaoContextType = {
+  address: string | null | undefined;
+  daoid: string | null | undefined;
+  daochain: string | null | undefined;
+  graphApiKeys: Keychain | undefined;
+  daoData: MolochV3DaoData | undefined;
+  setDaoData: Dispatch<SetStateAction<MolochV3DaoData>>;
+  connectedMemberData: MolochV3ConnectedMemberData | undefined;
+  setConnectedMemberData: Dispatch<SetStateAction<MolochV3ConnectedMemberData>>;
   refreshAll: () => Promise<void>;
 };
 
-export type MolochV3ContextConnectedMembershipType = {
-  connectedMembership: FindMemberQuery['member'] | null | undefined;
-  isConnectedMembershipLoading: boolean;
-  refreshConnectedMembership: () => Promise<void>;
-  connectedMembershipProposalVotes:
-    | ListConnectedMemberProposalsQuery['proposals']
-    | null
-    | undefined;
-  isConnectedMembershipProposalVotesLoading: boolean;
-  refreshConnectedMembershipProposalVotes: () => Promise<void>;
+export type MolochV3DaoData = {
+  dao?: MolochV3Dao;
+  proposals?: IListQueryResults<
+    Proposal_OrderBy,
+    Proposal_Filter,
+    MolochV3Proposal[]
+  >;
+  members?: IListQueryResults<Member_OrderBy, Member_Filter, MolochV3Members>;
 };
 
-export type MolochV3ContextMembersType = {
-  members: ListMembersQuery['members'] | null | undefined;
-  setMembers: Dispatch<SetStateAction<ListMembersQuery['members'] | undefined>>;
-  isMembersLoading: boolean;
-  refreshMembers: () => Promise<void>;
-  membersFilter: Member_Filter | undefined;
-  setMembersFilter: Dispatch<SetStateAction<Member_Filter | undefined>>;
-  membersSort: Ordering<Member_OrderBy> | undefined;
-  setMembersSort: Dispatch<
-    SetStateAction<Ordering<Member_OrderBy> | undefined>
-  >;
-  membersPaging: Paging | undefined;
-  membersNextPaging: Paging | undefined;
-  setMembersPaging: Dispatch<SetStateAction<Paging | undefined>>;
-  getNextPage: (entity: string) => Promise<void>;
-  // loadMoreMembers: () => Promise<void>;
+export type MolochV3ConnectedMemberData = {
+  connectedMember?: MolochV3Member;
 };
-
-export type MolochV3ContextProposalsType = {
-  proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
-  setProposals: Dispatch<
-    SetStateAction<ITransformedProposalListQuery['proposals'] | undefined>
-  >;
-  isProposalsLoading: boolean;
-  refreshProposals: () => Promise<void>;
-  proposalsFilter: Proposal_Filter | undefined;
-  setProposalsFilter: Dispatch<SetStateAction<Proposal_Filter | undefined>>;
-  proposalsSort: Ordering<Proposal_OrderBy> | undefined;
-  setProposalsSort: Dispatch<
-    SetStateAction<Ordering<Proposal_OrderBy> | undefined>
-  >;
-  proposalsPaging: Paging | undefined;
-  proposalsNextPaging: Paging | undefined;
-  setProposalsPaging: Dispatch<SetStateAction<Paging | undefined>>;
-  getNextPage: (entity: string) => Promise<void>;
-};
-
-export interface MolochV3ContextType
-  extends MolochV3ContextDaoType,
-    MolochV3ContextConnectedMembershipType,
-    MolochV3ContextMembersType,
-    MolochV3ContextProposalsType {}

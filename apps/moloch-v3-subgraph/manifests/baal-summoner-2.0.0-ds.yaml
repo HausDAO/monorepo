@@ -1,0 +1,22 @@
+kind: ethereum/contract
+name: BaalSummonerV2
+network:
+source:
+  address: ''
+  abi: BaalSummonerV2
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Dao
+  abis:
+    - name: BaalSummonerV2
+      file: ./abis/BaalSummoner2.0.0.json
+  eventHandlers:
+    - event: SummonBaal(indexed address,indexed address,indexed address,address,address,uint256)
+      handler: handleSummonBaalV2
+    - event: DaoReferral(bytes32,address)
+      handler: handleDaoReferral
+  file: ./src/baal-summoner-mapping.ts

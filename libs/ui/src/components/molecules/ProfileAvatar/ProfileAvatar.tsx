@@ -1,12 +1,9 @@
 import { useMemo } from 'react';
-import { Avatar } from '../../atoms';
-import makeBlockie from 'ethereum-blockies-base64';
 import styled from 'styled-components';
+import makeBlockie from 'ethereum-blockies-base64';
 
-export type ProfileAvatarProps = Parameters<typeof Avatar>[0] & {
-  address?: string;
-  image?: string;
-};
+import { Avatar } from '../../atoms';
+import { ProfileAvatarProps } from './ProfileAvatar.types';
 
 export const ProfileAvatar = ({
   address,

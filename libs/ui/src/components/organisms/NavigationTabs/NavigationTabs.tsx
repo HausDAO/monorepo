@@ -1,34 +1,23 @@
+import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
-import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri';
-import { Align } from '@radix-ui/react-popper';
+import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri/index.js';
 
+import { useBreakpoint } from '../../../hooks/useMediaQuery';
+import { widthQuery } from '../../../theme/global/breakpoints';
+import { Button } from '../../atoms';
+import { Dropdown } from '../../molecules';
+
+import { NavigationTabsProps } from './NavigationTabs.types';
 import {
   NavigationTabsContainer,
   DropdownLinkTrigger,
   DropdownLink,
   NavLink,
 } from './NavigationTabs.styles';
-import { useBreakpoint } from '../../../hooks/useMediaQuery';
-import { widthQuery } from '../../../theme/global/breakpoints';
-import { Button } from '../../atoms';
-import { Dropdown } from '../../molecules';
-import { useMemo } from 'react';
-
-type NavLinkType = {
-  label: string;
-  href: string;
-};
-
-export type NavigationTabsProps = {
-  className?: string;
-  navLinks?: NavLinkType[];
-  pathname: string;
-  dropdownTriggerText?: string;
-  dropdownMenuSpacing?: string;
-  dropdownMenuAlign?: Align;
-  dropdownLinks?: NavLinkType[];
-};
-
+/*
+ * DEPRECIATED
+ * Will delete this component after merge of new Navigation Menu
+ */
 const isSelected = (pathname: string, href: string) => pathname === href;
 
 export const NavigationTabs = (props: NavigationTabsProps) => {

@@ -46,7 +46,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     subtitle: 'Signal Proposal',
     description: 'Request an on-chain member vote.',
     requiredFields: { title: true, description: true },
-    log: true,
     tx: TX.POST_SIGNAL,
     fields: [
       FIELD.TITLE,
@@ -59,7 +58,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'ISSUE',
     title: 'DAO Token Request',
     subtitle: 'Token Proposal',
-    log: true,
     description: 'Request voting or non-voting tokens from the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
@@ -119,7 +117,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'ERC-20 Token Transfer',
     subtitle: 'Funding Proposal',
     description: 'Request ERC-20 tokens from the DAO treasury.',
-    log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {
       title: true,
@@ -142,12 +139,40 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  TRANSFER_ERC20_SIDECAR: {
+    id: 'TRANSFER_ERC20_SIDECAR',
+    title: 'Transfer ERC-20',
+    subtitle: 'Transfer Proposal',
+    description:
+      'Create a proposal to transfer ERC-20 tokens from the DAO safe',
+    tx: TX.ISSUE_ERC20_SIDECAR,
+    requiredFields: {
+      title: true,
+      description: true,
+      payment: true,
+      recipient: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SAFE_SELECT,
+      {
+        id: 'recipient',
+        type: 'input',
+        label: 'Recipient',
+        info: 'Address to receive the tokens',
+        placeholder: '0x...',
+      },
+      FIELD.REQUEST_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
     title: 'Network Token Transfer',
     subtitle: 'Funding Proposal',
     description: "Request network's native token from the DAO treasury.",
-    log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
       title: true,
@@ -170,11 +195,38 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  TRANSFER_NETWORK_TOKEN_SIDECAR: {
+    id: 'TRANSFER_NETWORK_TOKEN_SIDECAR',
+    title: 'Network Token Transfer',
+    subtitle: 'Funding Proposal',
+    description: "Request network's native token from the DAO safe.",
+    tx: TX.ISSUE_NETWORK_TOKEN_SIDECAR,
+    requiredFields: {
+      title: true,
+      description: true,
+      payment: true,
+      recipient: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SAFE_SELECT,
+      {
+        id: 'recipient',
+        type: 'input',
+        label: 'Recipient',
+        info: 'Address to receive the tokens',
+        placeholder: '0x...',
+      },
+      FIELD.REQUEST_NATIVE_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
   UPDATE_GOV_SETTINGS: {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Proposal',
-    log: true,
     description: 'Change proposal timing or advanced governance settings.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
@@ -278,7 +330,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
     title: 'Update Token Settings',
-    log: true,
     subtitle: 'Token Proposal',
     description: 'Change transferability of voting or non-voting tokens.',
     tx: TX.TOKEN_SETTINGS,
@@ -413,6 +464,35 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  MULTICALL_BUILDER: {
+    id: 'MULTICALL',
+    title: 'Multicall Proposal Builder',
+    subtitle: 'Multicall Proposal', // TODO:
+    description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
+    tx: TX.MULTICALL,
+    requiredFields: {
+      title: true,
+    },
+    fields: [
+      {
+        id: 'details',
+        type: 'formSegment',
+        collapsible: true,
+        defaultOpen: true,
+        title: 'Proposal Overview', // TODO:
+        fields: [
+          FIELD.TITLE,
+          FIELD.DESCRIPTION,
+          FIELD.LINK,
+          ...PROPOSAL_SETTINGS_FIELDS,
+        ],
+      },
+      {
+        id: 'multisendActions',
+        type: 'multisendActions',
+      },
+    ],
+  },
 };
 
 export const TABULA_FORMS: Record<string, CustomFormLego> = {
@@ -471,7 +551,6 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     title: 'Write an Article',
     subtitle: 'Tabula Article Proposal',
     description: 'Write an article on Tabula.gg',
-    log: true,
     tx: TABULA_TX.CREATE_ARTICLE,
     requiredFields: {
       title: true,
@@ -510,7 +589,6 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
     title: 'Update Metadata Settings',
     subtitle: 'Settings',
     requiredFields: { name: true },
-    log: true,
     tx: TX.UPDATE_METADATA_SETTINGS,
     fields: [
       FIELD.NAME,
@@ -542,9 +620,9 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
   },
   UPDATE_SHAMAN: {
     id: 'UPDATE_SHAMAN',
-    title: 'Manage Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Manange Shaman Proposal',
+    title: 'Update Shaman Settings',
+    description: 'Reduce shaman permissions level.',
+    subtitle: 'Shaman Proposal',
     requiredFields: {
       title: true,
       description: true,
@@ -611,4 +689,39 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
     ],
     tx: TX.RAGEQUIT,
   },
+  ADD_SAFE: {
+    id: 'ADD_SAFE',
+    description:
+      'Create a new Gnosis Safe and attach to your DAO as a non-ragequittable vault.',
+    requiredFields: {
+      name: true,
+    },
+    tx: TX.ADD_SAFE,
+    fields: [
+      {
+        id: 'name',
+        type: 'input',
+        label: 'Safe Name',
+        placeholder: 'Enter name',
+      },
+    ],
+    submitButtonText: 'Create',
+  },
+};
+
+export const BASIC_PROPOSAL_FORMS = {
+  SIGNAL: PROPOSAL_FORMS.SIGNAL,
+  ISSUE: PROPOSAL_FORMS.ISSUE,
+  TOKENS_FOR_SHARES: PROPOSAL_FORMS.TOKENS_FOR_SHARES,
+  TRANSFER_ERC20: PROPOSAL_FORMS.TRANSFER_ERC20,
+  TRANSFER_NETWORK_TOKEN: PROPOSAL_FORMS.TRANSFER_NETWORK_TOKEN,
+};
+
+export const ADVANCED_PROPOSAL_FORMS = {
+  WALLETCONNECT: PROPOSAL_FORMS.WALLETCONNECT,
+  UPDATE_GOV_SETTINGS: PROPOSAL_FORMS.UPDATE_GOV_SETTINGS,
+  TOKEN_SETTINGS: PROPOSAL_FORMS.TOKEN_SETTINGS,
+  ADD_SHAMAN: PROPOSAL_FORMS.ADD_SHAMAN,
+  GUILDKICK: PROPOSAL_FORMS.GUILDKICK,
+  MULTICALL_BUILDER: PROPOSAL_FORMS.MULTICALL_BUILDER,
 };

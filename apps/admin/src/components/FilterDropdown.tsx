@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
-import { RiFilterFill } from 'react-icons/ri';
+import { RiFilterFill } from 'react-icons/ri/index.js';
 
 import { Button, Dropdown, DropdownMenuItem, Theme } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';

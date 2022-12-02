@@ -1,1 +1,3 @@
-export * from './FormSegment';
+import { FormSegment } from './FormSegment';
+
+export { FormSegment };

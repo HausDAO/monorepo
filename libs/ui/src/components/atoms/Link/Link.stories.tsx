@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiArrowDropDownLine, RiAlertLine } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiAlertLine } from 'react-icons/ri/index.js';
 
 import { Link } from './Link';
 
@@ -26,17 +26,4 @@ ExternalLinkWithIcon.args = {
   linkType: 'external',
   children: 'External Link',
   Icon: RiAlertLine,
-};
-
-export const InternalLink = Template.bind({});
-InternalLink.args = {
-  href: '/Home',
-  children: 'Internal Link',
-};
-
-export const InternalLinkWithIcon = Template.bind({});
-InternalLinkWithIcon.args = {
-  href: '/Home',
-  children: 'Internal Link',
-  Icon: RiArrowDropDownLine,
 };

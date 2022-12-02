@@ -1,1 +1,3 @@
-export * from './SplitColumn';
+import { SplitColumn } from './SplitColumn';
+
+export { SplitColumn };

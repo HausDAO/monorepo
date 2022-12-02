@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { charLimit, readableNumbers } from '@daohaus/utils';
 import { getNetworkName } from '@daohaus/keychain-utils';
 
-import { ITransformedMembership } from '@daohaus/utils';
+import { MolochV3Membership } from '@daohaus/utils';
 import {
   Badge,
   Bold,
@@ -15,7 +15,7 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 
-import { ButtonLink } from './ButtonLink';
+import { ButtonRouterLink } from './ButtonRouterLink';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.secondary.step2};
@@ -65,7 +65,7 @@ export const DaoCard = ({
   name,
   networkId,
   contractType,
-}: ITransformedMembership) => {
+}: MolochV3Membership) => {
   return (
     <StyledDaoCard className="dao-card">
       <div className="top-box">
@@ -103,17 +103,6 @@ export const DaoCard = ({
               : 'Members'}
           </ParMd>
         )}
-        {fiatTotal != null && (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toDollars({
-                value: fiatTotal,
-                unit: 'USD',
-                separator: ' ',
-              })}
-            </Bold>
-          </ParMd>
-        )}
         {totalProposalCount && (
           <ParMd>
             <Bold>
@@ -144,16 +133,16 @@ export const DaoCard = ({
         <Tag tagColor="red">{getNetworkName(networkId)}</Tag>
         <Tag tagColor="blue">{contractType}</Tag>
       </div>
-      <ButtonLink
+      <ButtonRouterLink
         color="secondary"
         fullWidth
-        // centerAlign
-        href={`/molochv3/${networkId}/${dao}`}
+        linkType="no-icon-external"
+        to={`/molochv3/${networkId}/${dao}`}
         target="_blank"
         rel="noreferrer"
       >
         Go
-      </ButtonLink>
+      </ButtonRouterLink>
     </StyledDaoCard>
   );
 };

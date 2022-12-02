@@ -1,21 +1,23 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './global/globalStyles';
 
 import { ReactSetter } from '@daohaus/utils';
 
+import { GlobalStyles } from './global/globalStyles';
 import { defaultDarkTheme, defaultLightTheme } from './theme';
 import { Theme } from '../types/theming';
 import './global/fonts.css';
-import { Toast } from '../components';
-import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
-import { CustomToastProps } from '../types/toast.types';
+import {
+  Toast,
+  ToastProps,
+  ToastProvider,
+} from '../components/molecules/Toast';
 
 type HausUI = {
   theme: Theme;
   setTheme: ReactSetter<Theme>;
   toggleLightDark: () => void;
-  setToast: (toast: CustomToastProps) => void;
+  setToast: (toast: ToastProps) => void;
 };
 
 type ProviderProps = {
@@ -41,8 +43,7 @@ export const HausThemeProvider = ({
   startDark = true,
 }: ProviderProps) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
-  const [toast, setToast] = useState<CustomToastProps | null>(null);
-  console.log('defaultDarkTheme', defaultDarkTheme);
+  const [toast, setToast] = useState<ToastProps | null>(null);
   useEffect(() => {
     setTheme(startDark ? defaultDark : defaultLight);
   }, [startDark, defaultDark, defaultLight]);

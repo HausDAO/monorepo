@@ -1,6 +1,6 @@
 import { Keychain } from '@daohaus/keychain-utils';
 
-export interface ITransformedMembership {
+export interface MolochV3Membership {
   dao: string;
   name?: string;
   safeAddress: string;
@@ -17,17 +17,15 @@ export interface ITransformedMembership {
   contractType: string;
   tokenBalances?: TokenBalance[];
 }
-export interface ITransformedMembershipsQuery {
-  daos: ITransformedMembership[];
+export interface MolochV3MembershipQuery {
+  daos: MolochV3Membership[];
 }
-
 export type TokenInfo = {
   decimals: number;
   symbol: string;
   name: string;
   logoUri: string | null;
 };
-
 export type TokenBalance = {
   token: TokenInfo | null;
   tokenAddress: string | null;
@@ -43,7 +41,6 @@ export type DaoTokenBalances = {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
 };
-
 export type AccountProfile = {
   address: string;
   ens?: string;
@@ -53,5 +50,5 @@ export type AccountProfile = {
   emoji?: string;
   lensHandle?: string;
   lensId?: string;
-  daos?: ITransformedMembershipsQuery['daos'];
+  daos?: MolochV3MembershipQuery['daos'];
 };

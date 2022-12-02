@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
-import { RiMore2Fill } from 'react-icons/ri';
+import { RiMore2Fill } from 'react-icons/ri/index.js';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useConnectedMembership } from '@daohaus/moloch-v3-context';
+import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
   Dropdown,
   DropdownMenuItem,
-  DropdownButton,
   font,
   Theme,
   Dialog,
@@ -14,11 +13,12 @@ import {
   DialogContent,
   DropdownLink,
   DropdownText,
+  Button,
 } from '@daohaus/ui';
 
 import ManageDelegate from './ManageDelegate';
 
-export const ProfileMenuTrigger = styled(DropdownButton)`
+export const ProfileMenuTrigger = styled(Button)`
   padding: 0 4px 0 4px;
 
   &[data-state='open'] {
@@ -73,76 +73,81 @@ export const MemberProfileMenu = ({
   memberAddress,
 }: MemberProfileMenuProps) => {
   const { daoid, daochain } = useParams();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
 
   const enableActions = useMemo(() => {
     return (
-      connectedMembership &&
-      connectedMembership?.memberAddress !== memberAddress &&
-      Number(connectedMembership.shares) > 0
+      connectedMember &&
+      connectedMember?.memberAddress !== memberAddress &&
+      Number(connectedMember.shares) > 0
     );
-  }, [connectedMembership, memberAddress]);
+  }, [connectedMember, memberAddress]);
 
   const isMenuForConnectedMember = useMemo(() => {
-    return connectedMembership?.memberAddress === memberAddress;
-  }, [connectedMembership, memberAddress]);
+    return connectedMember?.memberAddress === memberAddress;
+  }, [connectedMember, memberAddress]);
+
+  if (!connectedMember) return null;
 
   return (
-    <Dropdown
-      menuMinWidth="17.8rem"
-      trigger={<ProfileMenuTrigger IconLeft={RiMore2Fill} size="sm" />}
-      side="left"
-    >
-      {isMenuForConnectedMember && (
-        <>
-          <DropdownMenuItem key="delegate" asChild>
-            <Dialog>
+    <Dialog>
+      <Dropdown
+        menuMinWidth="17.8rem"
+        trigger={
+          <ProfileMenuTrigger
+            IconLeft={RiMore2Fill}
+            size="sm"
+            variant="ghost"
+          />
+        }
+        side="left"
+      >
+        {isMenuForConnectedMember && (
+          <>
+            <DropdownMenuItem key="delegate" asChild>
               <DialogTrigger asChild>
                 <ProfileMenuText>Delegate</ProfileMenuText>
               </DialogTrigger>
-              <DialogContent title="Manage Delegate">
-                <ManageDelegate />
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuItem>
-          <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink
-              href={`/molochv3/${daochain}/${daoid}/members/ragequit`}
-            >
-              Rage Quit
-            </ProfileMenuLink>
-          </DropdownMenuItem>
-        </>
-      )}
+            </DropdownMenuItem>
+            <DropdownMenuItem key="ragequit" asChild>
+              <ProfileMenuLink
+                href={`/molochv3/${daochain}/${daoid}/members/ragequit`}
+              >
+                Rage Quit
+              </ProfileMenuLink>
+            </DropdownMenuItem>
+          </>
+        )}
 
-      {!isMenuForConnectedMember && (
-        <>
-          <DropdownMenuItem key="delegateTo" asChild>
-            <Dialog>
+        {!isMenuForConnectedMember && (
+          <>
+            <DropdownMenuItem key="delegateTo" asChild>
               <DialogTrigger asChild>
                 <ProfileMenuText className={enableActions ? '' : 'disabled'}>
                   Delegate To
                 </ProfileMenuText>
               </DialogTrigger>
-              <DialogContent title="Manage Delegate">
-                <ManageDelegate defaultMember={memberAddress} />
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuItem>
-          <DropdownMenuItem key="guildkick" asChild>
-            <ProfileMenuLink
-              className={enableActions ? '' : 'disabled'}
-              href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
-                {
-                  memberAddress: memberAddress,
-                }
-              )}`}
-            >
-              Guild Kick
-            </ProfileMenuLink>
-          </DropdownMenuItem>
-        </>
-      )}
-    </Dropdown>
+            </DropdownMenuItem>
+            <DropdownMenuItem key="guildkick" asChild>
+              <ProfileMenuLink
+                className={enableActions ? '' : 'disabled'}
+                href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
+                  {
+                    memberAddress: memberAddress,
+                  }
+                )}`}
+              >
+                Guild Kick
+              </ProfileMenuLink>
+            </DropdownMenuItem>
+          </>
+        )}
+      </Dropdown>
+      <DialogContent title="Manage Delegate">
+        <ManageDelegate
+          defaultMember={!isMenuForConnectedMember ? memberAddress : undefined}
+        />
+      </DialogContent>
+    </Dialog>
   );
 };

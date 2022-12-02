@@ -1,13 +1,10 @@
-import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
 
 const SorterContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  div {
-    height: 0.65rem;
-  }
+  margin-left: 0.5rem;
 `;
 
 type ColumnSortIconsProps = {
@@ -21,12 +18,9 @@ export const ColumnSortIcons = ({
 }: ColumnSortIconsProps) => {
   return (
     <SorterContainer>
-      <div className="up-arrow">
-        <RiArrowUpSFill onClick={() => handleColumnSort(orderBy, 'asc')} />
-      </div>
-      <div className="down-arrow">
-        <RiArrowDownSFill onClick={() => handleColumnSort(orderBy, 'desc')} />
-      </div>
+      <RiArrowUpSFill onClick={() => handleColumnSort(orderBy, 'asc')} />
+
+      <RiArrowDownSFill onClick={() => handleColumnSort(orderBy, 'desc')} />
     </SorterContainer>
   );
 };

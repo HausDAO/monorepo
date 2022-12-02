@@ -1,35 +1,35 @@
 import { useMemo } from 'react';
 import { FormBuilder } from '@daohaus/form-builder';
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
+import { useParams } from 'react-router-dom';
 
 type ManageDelegateProps = {
   defaultMember?: string;
 };
 
 export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const { refreshAll } = useDao();
+  const { daochain } = useParams();
 
   const defaultValues = useMemo(() => {
     if (defaultMember) {
       return { delegatingTo: defaultMember };
     }
     if (
-      connectedMembership &&
-      connectedMembership.delegatingTo !== connectedMembership.memberAddress
+      connectedMember &&
+      connectedMember.delegatingTo !== connectedMember.memberAddress
     ) {
-      return connectedMembership;
+      return connectedMember;
     }
-  }, [connectedMembership, defaultMember]);
+  }, [connectedMember, defaultMember]);
 
   const onFormComplete = () => {
     refreshAll?.();
   };
-
-  if (!connectedMembership) return null;
 
   return (
     <FormBuilder
@@ -37,6 +37,7 @@ export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
       form={COMMON_FORMS.MANAGE_DELEGATE}
       customFields={CustomFields}
       onSuccess={onFormComplete}
+      targetNetwork={daochain}
     />
   );
 };

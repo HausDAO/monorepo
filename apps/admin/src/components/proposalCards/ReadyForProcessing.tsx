@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useBreakpoint, useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
@@ -75,7 +75,7 @@ export const ReadyForProcessing = ({
   proposal,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const { daochain, daoid } = useParams();
   const { chainId } = useDHConnect();
@@ -94,6 +94,7 @@ export const ReadyForProcessing = ({
     // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to
     // be indexed by the Gnosis API (a DAO was recently summonned)
     // or when a proposal is submitted through a 3rd party contract with baalGas->0 (e.g. TributeMinion)
+
     if (!proposalId) return;
     setIsLoading(true);
     lifeCycleFnsOverride?.onActionTriggered?.();

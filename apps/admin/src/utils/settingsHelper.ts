@@ -1,6 +1,6 @@
-import { DaoProfileLink, DaoWithTokenData } from '@daohaus/moloch-v3-data';
+import { DaoProfileLink, MolochV3Dao } from '@daohaus/moloch-v3-data';
 
-export const formatDaoProfileForForm = (dao: DaoWithTokenData) => {
+export const formatDaoProfileForForm = (dao: MolochV3Dao) => {
   const links = dao?.links || [];
 
   return {
@@ -29,7 +29,7 @@ export const randFromArray = <T>(items: T[]) => {
 };
 
 export const daoProfileHasLinks = (
-  links: DaoWithTokenData['links']
+  links: MolochV3Dao['links']
 ): boolean | undefined => {
   return links?.some((link: DaoProfileLink) => link.url);
 };

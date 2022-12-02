@@ -119,6 +119,7 @@ export const processABI = async ({
       chainId,
       abi,
     });
+
     if (proxyAddress) {
       const newData = await fetchABI({
         contractAddress: proxyAddress,

@@ -1,16 +1,13 @@
+import React from 'react';
+
 import { DataMd, DataXl, Tooltip } from '../../atoms';
+
+import { DataIndicatorProps } from './DataIndicator.types';
 import {
   DataIndicatorContainer,
   DataIndicatorLabelSm,
   DataIndicatorLabelMd,
 } from './DataIndicator.styles';
-
-type DataIndicatorProps = {
-  label?: string;
-  data?: string | number;
-  size?: 'lg' | 'sm';
-  info?: string;
-};
 
 export const DataIndicator = ({
   label,

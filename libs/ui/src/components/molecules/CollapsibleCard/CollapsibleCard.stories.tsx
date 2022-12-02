@@ -1,6 +1,7 @@
+import { HiOutlineTrash } from 'react-icons/hi';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { H4, ParSm } from '../../atoms';
-import { Button } from '../../atoms/Button';
+import { Button, IconButton } from '../../atoms/Button';
 import { WrappedCheckbox } from '../WrappedCheckbox';
 import { WrappedInput } from '../WrappedInput';
 import { CollapsibleCard } from './CollapsibleCard';
@@ -19,9 +20,32 @@ export const CollapsibleCardMolecule = Template.bind({});
 CollapsibleCardMolecule.args = {
   children: (
     <div>
+      <h2>Card Title</h2>
       <p>Content in a Card</p>
     </div>
   ),
+};
+
+export const CollapsibleCardWithActionButtonExample = Template.bind({});
+
+CollapsibleCardWithActionButtonExample.args = {
+  children: (
+    <div>
+      <h2>Card Title</h2>
+      <p>Content in a Card</p>
+    </div>
+  ),
+  collapsibleActions: (
+    <IconButton
+      Icon={HiOutlineTrash}
+      color="secondary"
+      variant="solid"
+      size="sm"
+      onClick={() => console.log('Should do something')}
+    />
+  ),
+  triggerLabel: '',
+  width: '100%',
 };
 
 export const ProposalCardExample = Template.bind({});

@@ -1,1 +1,1 @@
-export * from './CSInput';
+export { CSInput } from './CSInput';

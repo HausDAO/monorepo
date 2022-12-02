@@ -121,4 +121,10 @@ export const FIELD: Record<string, CustomFieldLego> = {
     info: 'After connecting WalletConnect to another dApp, copy the link and paste it to this input field',
     placeholder: 'wc:',
   },
+  SAFE_SELECT: {
+    id: 'safeAddress',
+    type: 'safeSelect',
+    label: 'Safe Name',
+    placeholder: 'Select',
+  },
 };

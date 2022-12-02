@@ -4,8 +4,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 import { Button, Link } from '../../atoms';
-import { DropdownContentProps, DropdownColor } from './Dropdown.types';
-import { theme } from '@gnosis.pm/safe-react-components';
+import { DropdownColor } from './Dropdown.types';
 
 // * Start New Dropdown implementation
 export const Root = Dropdown.Root;

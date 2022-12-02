@@ -1,16 +1,12 @@
 import { baalTimeToNow, formatShares } from '@daohaus/utils';
-import { ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
 import { ParMd, TintSecondary } from '@daohaus/ui';
 import { useMemo } from 'react';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate, VotingResults } from './ActionPrimitives';
 
-export const GracePeriod = ({
-  proposal,
-}: {
-  proposal: ITransformedProposal;
-}) => {
+export const GracePeriod = ({ proposal }: { proposal: MolochV3Proposal }) => {
   const { address } = useDHConnect();
 
   const userVoteData = useMemo(() => {

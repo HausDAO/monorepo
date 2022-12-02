@@ -81,7 +81,6 @@ export const SelectApplicant = ({
 
   useEffect(() => {
     if (members) {
-      // TODO: WHat about pagination?
       setMemberList(
         members.map((m) => ({
           name: m.memberAddress,

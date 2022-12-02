@@ -8,7 +8,7 @@ import {
   Spinner,
   widthQuery,
 } from '@daohaus/ui';
-import { ITransformedProposalQuery } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { MulticallArg } from '@daohaus/utils';
 import {
   isValidNetwork,
@@ -68,9 +68,7 @@ export function ProposalDetails() {
   const { daoid, daochain, proposalId } = useParams();
   const { address } = useDHConnect();
 
-  const [proposal, setProposal] = useState<
-    ITransformedProposalQuery['proposal'] | undefined
-  >();
+  const [proposal, setProposal] = useState<MolochV3Proposal | undefined>();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
   const [decodeError, setDecodeError] = useState<boolean>(false);
   const [actionData, setActionData] = useState<DecodedMultiTX | null>();
@@ -139,7 +137,9 @@ export function ProposalDetails() {
   return (
     <BiColumnLayout
       title={proposal?.title}
-      subtitle={getProposalTypeLabel(proposal?.proposalType)}
+      subtitle={`${proposal?.proposalId} | ${getProposalTypeLabel(
+        proposal?.proposalType
+      )}`}
       actions={
         proposal && (
           <CancelProposal proposal={proposal} onSuccess={fetchProposal} />

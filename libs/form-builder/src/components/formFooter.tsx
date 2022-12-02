@@ -2,7 +2,7 @@ import { ExplorerLink } from '@daohaus/connect';
 import { border, Button, ParSm, Spinner, Theme } from '@daohaus/ui';
 
 import React from 'react';
-import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri';
+import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri/index.js';
 import styled, { useTheme } from 'styled-components';
 import { StatusMsg } from './FormBuilder';
 
@@ -32,13 +32,7 @@ export const FormFooter = ({
         </ExplorerLink>
       )}
       {status && <FormStatusDisplay status={status} />}
-      <Button
-        size="sm"
-        fullWidth
-        // centerAlign
-        type="submit"
-        disabled={submitDisabled}
-      >
+      <Button fullWidth type="submit" disabled={submitDisabled}>
         {submitButtonText || 'Submit'}
       </Button>
     </FooterBox>

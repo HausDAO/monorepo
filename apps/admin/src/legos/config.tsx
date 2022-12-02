@@ -14,6 +14,8 @@ import { RagequitToken } from '../components/customFields/RagequitToken';
 import { RagequitTokenList } from '../components/customFields/RagequitTokenList';
 import { WalletConnectLink } from '../components/customFields/WalletConnectLink';
 import { MetadataLink } from '../components/customFields/MetadataLink';
+import { SafeSelect } from '../components/customFields/SafeSelect';
+import { MultisendActions } from '../components/customFields/MultisendActions';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -31,6 +33,8 @@ export const CustomFields = {
   ragequitTokenList: RagequitTokenList,
   walletConnectLink: WalletConnectLink,
   metadataLink: MetadataLink,
+  safeSelect: SafeSelect,
+  multisendActions: MultisendActions,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

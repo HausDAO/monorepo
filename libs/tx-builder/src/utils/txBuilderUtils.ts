@@ -165,6 +165,7 @@ export async function prepareTX(args: {
       ...processedArgs,
       overrides
     );
+
     executeTx({ ...args, ethersTx });
   } catch (error) {
     console.log('**TX Error (Pre-Fire)**');

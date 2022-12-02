@@ -4,7 +4,11 @@ import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
 import { useDao } from '@daohaus/moloch-v3-context';
-import { FindMemberQuery, Haus } from '@daohaus/moloch-v3-data';
+import {
+  MolochV3Dao,
+  FindMemberQuery,
+  DaoVault,
+} from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
   Button,
@@ -29,7 +33,7 @@ import {
 
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { ButtonLink } from '../components/ButtonLink';
+import { ButtonRouterLink } from '../components/ButtonRouterLink';
 import { DaoTable } from '../components/DaohausTable';
 import { Profile } from '../components/Profile';
 import { fetchProfile } from '../utils/cacheProfile';
@@ -120,8 +124,7 @@ export function Member() {
   const fetchMemberProfile = useCallback(
     async (address: string, loadState: typeof setCurrentMemberLoading) => {
       loadState(true);
-      const haus = Haus.create();
-      const profile = await fetchProfile({ haus, address });
+      const profile = await fetchProfile(address);
       setCurrentProfile(profile);
       loadState(false);
     },
@@ -142,10 +145,19 @@ export function Member() {
     balance: string;
     fiatBalance: string;
   };
+  const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
+    if (dao) {
+      return (
+        dao.vaults.find((v: DaoVault) => v.safeAddress === dao.safeAddress) ||
+        undefined
+      );
+    }
+    return undefined;
+  }, [dao]);
 
   const tableData: TokenTableType[] | null = useMemo(() => {
-    if (dao && currentMember) {
-      return dao.tokenBalances
+    if (dao && currentMember && treasury) {
+      return treasury.tokenBalances
         .filter((bal) => Number(bal.balance))
         .map((bal) => {
           return {
@@ -180,7 +192,7 @@ export function Member() {
     } else {
       return null;
     }
-  }, [dao, currentMember]);
+  }, [dao, currentMember, treasury]);
 
   const columns = useMemo<Column<TokenTableType>[]>(
     () => [
@@ -234,10 +246,11 @@ export function Member() {
       {currentMember && (
         <>
           <ButtonsContainer>
-            <ButtonLink
-              href={`/molochv3/${daochain}/${daoid}/members`}
+            <ButtonRouterLink
+              to={`/molochv3/${daochain}/${daoid}/members`}
               IconLeft={StyledArrowLeft}
               color="secondary"
+              linkType="no-icon-external"
               variant="outline"
               fullWidth={isMobile}
               // was centerAlign={isMobile}
@@ -246,7 +259,7 @@ export function Member() {
               // justify={isMobile ? 'center' : 'flex-start'}
             >
               MEMBERS
-            </ButtonLink>
+            </ButtonRouterLink>
             <Button
               IconLeft={BsShareFill}
               onClick={handleOnClick}
@@ -280,7 +293,7 @@ export function Member() {
               </>
             )}
 
-            {dao?.tokenBalances && tableData && columns && (
+            {treasury && tableData && columns && (
               <DaoTable<TokenTableType>
                 tableData={tableData}
                 columns={columns}

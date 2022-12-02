@@ -109,6 +109,9 @@ fragment daoFields on Dao {
   proposalCount
   activeMemberCount
   existingSafe
+  delegatedVaultManager
+  forwarder
+  referrer
   name
   profile: records(
     first: 1
@@ -126,5 +129,13 @@ fragment daoFields on Dao {
     createdAt
     shamanAddress
     permissions
+  }
+  vaults (where: {active: true}){
+    id
+    createdAt
+    active
+    ragequittable
+    name
+    safeAddress
   }
 }

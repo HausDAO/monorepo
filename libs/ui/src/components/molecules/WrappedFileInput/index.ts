@@ -1,1 +1,1 @@
-export * from './WrappedFileInput';
+export { WrappedFileInput } from './WrappedFileInput';

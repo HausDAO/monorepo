@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useMemo, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   Button,
@@ -15,11 +15,12 @@ import { BsPlusLg } from 'react-icons/bs';
 
 import { useDao, useProposals } from '@daohaus/moloch-v3-context';
 import { NewProposalList } from '../components/NewProposalList';
-import { PROPOSAL_FORMS } from '../legos/form';
+import { ADVANCED_PROPOSAL_FORMS, BASIC_PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
 import { BaseProposalCard } from '../components/proposalCards/BaseProposalCard';
 import { PROPOSAL_STATUS } from '@daohaus/utils';
+import { CustomFormLego } from '../legos/config';
 
 const ActionsContainer = styled.div`
   width: 100%;
@@ -42,32 +43,25 @@ const SearchFilterContainer = styled.div`
 
 export function Proposals() {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const {
-    isProposalsLoading,
-    proposals,
-    proposalsNextPaging,
-    loadMoreProposals,
-    filterProposals,
-  } = useProposals();
+  const { proposals, paging, loadNextPage, filterProposals, filter } =
+    useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filter, setFilter] = useState<string>('');
+  const [localFilter, setLocalFilter] = useState<string>('');
 
-  useEffect(() => {
-    filterProposals();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const prepareProposals = (proposals: Record<string, CustomFormLego>) => {
+    return Object.keys(proposals).map((key) => proposals[key]);
+  };
 
-  const newProposals = useMemo(() => {
-    return Object.keys(PROPOSAL_FORMS).map((key) => PROPOSAL_FORMS[key]);
-  }, []);
+  const basicProposals = prepareProposals(BASIC_PROPOSAL_FORMS);
+  const advancedProposals = prepareProposals(ADVANCED_PROPOSAL_FORMS);
 
   const handleSearchFilter = (term: string) => {
     setSearchTerm(term);
     const filterQuery =
-      filter !== ''
+      localFilter !== ''
         ? statusFilter(
-            PROPOSAL_STATUS[filter],
+            PROPOSAL_STATUS[localFilter],
             Number(dao?.votingPeriod) + Number(dao?.gracePeriod)
           )
         : undefined;
@@ -78,16 +72,16 @@ export function Proposals() {
         title_contains_nocase: term,
       });
     } else {
-      filterProposals(filterQuery);
+      filterProposals(filterQuery || {});
     }
   };
 
   const toggleFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const searchQuery =
       searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
-    setFilter((prevState) => {
+    setLocalFilter((prevState) => {
       if (prevState === event.currentTarget.value) {
-        filterProposals(searchQuery);
+        filterProposals(searchQuery || {});
         return '';
       } else {
         const votingPlusGraceDuration =
@@ -102,6 +96,11 @@ export function Proposals() {
     });
   };
 
+  useEffect(() => {
+    filterProposals(filter || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SingleColumnLayout title="Proposals">
       <ActionsContainer>
@@ -112,31 +111,32 @@ export function Proposals() {
             totalItems={Number(dao?.proposalCount) || 0}
           />
 
-          <FilterDropdown filter={filter} toggleFilter={toggleFilter} />
+          <FilterDropdown filter={localFilter} toggleFilter={toggleFilter} />
         </SearchFilterContainer>
         <Dialog>
           <DialogTrigger asChild>
             <Button IconLeft={BsPlusLg}>New Proposal</Button>
           </DialogTrigger>
           <DialogContent title="Choose Proposal Type">
-            <NewProposalList proposalLegos={newProposals} />
+            <NewProposalList
+              basicProposals={basicProposals}
+              advancedProposals={advancedProposals}
+            />
           </DialogContent>
         </Dialog>
       </ActionsContainer>
-      {(!proposals || isProposalsLoading) && (
-        <Spinner size={isMobile ? '8rem' : '16rem'} />
-      )}
+      {!proposals && <Spinner size={isMobile ? '8rem' : '16rem'} />}
       {proposals &&
         proposals.map((proposal) => (
           <BaseProposalCard proposal={proposal} key={proposal.id} />
         ))}
 
-      {proposals && proposalsNextPaging && (
+      {proposals && paging.next && (
         <Button
           color="secondary"
           variant="outline"
           size="sm"
-          onClick={loadMoreProposals}
+          onClick={loadNextPage}
         >
           Show More Proposals
         </Button>

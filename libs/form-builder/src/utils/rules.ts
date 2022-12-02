@@ -17,7 +17,6 @@ export const createUpdaterFn =
 
 const updateRequired = createUpdaterFn('required');
 const updateValidate = createUpdaterFn('validate');
-
 export const isRequiredField = (
   field: FieldLego,
   requiredFields: Record<string, boolean>

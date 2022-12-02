@@ -1,0 +1,22 @@
+kind: ethereum/contract
+name: VaultSummoner
+network:
+source:
+  address: ''
+  abi: VaultSummoner
+  startBlock:
+mapping:
+  kind: ethereum/events
+  apiVersion: 0.0.5
+  language: wasm/assemblyscript
+  entities:
+    - Dao
+  abis:
+    - name: VaultSummoner
+      file: ./abis/VaultSummoner.json
+  eventHandlers:
+    - event: SetVault((uint256,bool,address,address,string))
+      handler: handleSetVault
+    - event: SetDelegate(address,address)
+      handler: 'handleSetVaultDelegate'
+  file: ./src/vault-summoner-mapping.ts

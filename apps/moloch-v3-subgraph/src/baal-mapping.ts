@@ -29,7 +29,7 @@ import { parser } from './util/parser';
 import { addTransaction } from './util/transactions';
 
 export function handleSetupComplete(event: SetupComplete): void {
-  let daoId = event.address.toHexString();
+  const daoId = event.address.toHexString();
 
   let dao = Dao.load(daoId);
   if (dao === null) {
@@ -54,7 +54,7 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.totalShares = event.params.totalShares;
   dao.totalLoot = event.params.totalLoot;
 
-  let daoProfile = Record.load(daoId.concat('-record-summon'));
+  const daoProfile = Record.load(daoId.concat('-record-summon'));
   if (daoProfile) {
     let result = parser.getResultFromJson(daoProfile.content);
     if (result.error != 'none') {

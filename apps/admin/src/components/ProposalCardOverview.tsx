@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri';
-import { useParams } from 'react-router-dom';
+import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import {
   AccountProfile,
@@ -9,8 +9,7 @@ import {
 } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { TProposals } from '@daohaus/moloch-v3-context';
-import { Haus, ITransformedProposal } from '@daohaus/moloch-v3-data';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   Button,
   ParLg,
@@ -59,7 +58,7 @@ const SubmittedContainer = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledRouterLink = styled(RouterLink)`
   :hover {
     text-decoration: none;
   }
@@ -67,7 +66,7 @@ const StyledLink = styled(Link)`
 
 type ProposalCardOverviewProps = {
   loading: boolean;
-  proposal: TProposals[number];
+  proposal: MolochV3Proposal;
 };
 
 export const ProposalCardOverview = ({
@@ -80,14 +79,12 @@ export const ProposalCardOverview = ({
   const isMd = useBreakpoint(widthQuery.md);
   const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
 
-  const haus = Haus.create();
-
   const fetchMemberProfile = useCallback(
     async (address: string, setter: typeof setSubmitterProfile) => {
-      const profile = await fetchProfile({ haus, address });
+      const profile = await fetchProfile(address);
       setter(profile);
     },
-    [haus]
+    []
   );
 
   useEffect(() => {
@@ -109,8 +106,8 @@ export const ProposalCardOverview = ({
         {charLimit(proposal.description, 145)}
       </ParMd>
       {isMd && (
-        <StyledLink
-          href={
+        <StyledRouterLink
+          to={
             !loading
               ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
               : '#'
@@ -124,7 +121,7 @@ export const ProposalCardOverview = ({
           >
             View Details
           </Button>
-        </StyledLink>
+        </StyledRouterLink>
       )}
       <SubmittedContainer>
         <ParMd color={theme.secondary.step11} className="submitted-by">
@@ -170,12 +167,16 @@ const WarningIcon = styled(RiErrorWarningLine)`
   margin-right: 0.5rem;
 `;
 
+const PropIdText = styled(ParSm)`
+  margin-right: 0.5rem;
+`;
+
 export const OverviewHeader = ({
   loading,
   proposal,
 }: {
   loading: boolean;
-  proposal: ITransformedProposal;
+  proposal: MolochV3Proposal;
 }) => {
   const { daochain, daoid } = useParams();
 
@@ -186,6 +187,9 @@ export const OverviewHeader = ({
       {isMobile ? (
         <>
           <HeaderContainer>
+            <PropIdText color={theme.secondary.step11}>
+              {proposal.proposalId} |
+            </PropIdText>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
@@ -211,6 +215,9 @@ export const OverviewHeader = ({
       ) : (
         <>
           <HeaderContainer>
+            <PropIdText color={theme.secondary.step11}>
+              {proposal.proposalId} |
+            </PropIdText>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
@@ -225,8 +232,8 @@ export const OverviewHeader = ({
               | {formatShortDateTimeFromSeconds(proposal.createdAt)}
             </ParSm>
           </HeaderContainer>
-          <StyledLink
-            href={
+          <StyledRouterLink
+            to={
               !loading
                 ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
                 : '#'
@@ -235,7 +242,7 @@ export const OverviewHeader = ({
             <Button color="secondary" size="sm" disabled={loading}>
               View Details
             </Button>
-          </StyledLink>
+          </StyledRouterLink>
         </>
       )}
     </OverviewContainer>

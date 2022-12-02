@@ -6,24 +6,41 @@ import { Card } from '../../atoms/Card/Card';
 import { DropdownTriggerLink } from '../Dropdown/Dropdown.styles';
 import { Theme } from '../../../types';
 
+type CardProps = {
+  noBackground?: boolean;
+  width: string;
+  theme: Theme;
+};
+
 export const StyledCollapsibleCard = styled(Collapsible.Root)`
   ${CardStyles}
+  background-color: ${({ noBackground, theme }: CardProps) =>
+    noBackground ? 'inherit' : theme.secondary.step2};
+  border: ${({ noBackground }: { noBackground?: boolean }) =>
+      noBackground ? '0' : '1'}px
+    solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
   width: ${(props) => props.width};
 `;
 
 export const InnerCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.secondaryA.step3};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
-  margin-bottom: 2rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: ${(props) => props.width};
+`;
+
+export const StyledCardActionsContainer = styled.div`
+  display: flex;
 `;
 
 export const StyledCollapsibleCardTrigger = Collapsible.Trigger;
 
 export const StyledCollapsibleCardButton = styled(DropdownTriggerLink)`
   color: ${({ theme }: { theme: Theme }) => theme.primary.step11};
-  margin-left: auto;
+  margin-left: 2rem;
   padding: 0;
   font-size: 14px;
 
@@ -58,6 +75,7 @@ const close = keyframes({
 });
 
 export const StyledCollapsibleContent = styled(Collapsible.Content)`
+  margin-top: 2rem;
   overflow: hidden;
   &[data-state='open'] {
     animation: ${open} 300ms ease-out;

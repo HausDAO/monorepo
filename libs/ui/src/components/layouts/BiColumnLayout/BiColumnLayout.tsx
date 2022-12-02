@@ -1,20 +1,12 @@
 import React, { useMemo } from 'react';
 
 import { DataMd, H2 } from '../../atoms';
+import { BiColumnLayoutProps } from './BiColumnLayout.types';
 import {
   ActionButtonContainer,
   BiColumnBox,
   TitleContainerWithActions,
 } from './BiColumn.styles';
-
-type BiColumnLayoutProps = {
-  title?: 'string' | React.ReactNode;
-  subtitle?: 'string' | React.ReactNode;
-  description?: 'string' | React.ReactNode;
-  actions?: React.ReactNode;
-  left: React.ReactNode;
-  right: React.ReactNode;
-};
 
 export const BiColumnLayout = ({
   left,

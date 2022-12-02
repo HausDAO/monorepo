@@ -1,5 +1,8 @@
 {
   "name": "@daohaus/moloch-v3-data",
-  "version": "0.0.6",
-  "type": "commonjs"
+  "version": "0.0.7",
+  "type": "commonjs",
+  "peerDependencies": {
+    "@ethersproject/address": "^5.7.2"
+  }
 }

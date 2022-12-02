@@ -1,4 +1,4 @@
-import { BiError } from 'react-icons/bi';
+import { BiError } from 'react-icons/bi/index.js';
 import styled from 'styled-components';
 
 import { Keychain, getNetworkName, NetworkType } from '@daohaus/keychain-utils';

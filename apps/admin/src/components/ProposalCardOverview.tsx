@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri';
+import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import {

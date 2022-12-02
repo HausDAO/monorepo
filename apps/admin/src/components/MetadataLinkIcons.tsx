@@ -5,7 +5,7 @@ import {
   RiLinksFill,
   RiTelegramFill,
   RiTwitterFill,
-} from 'react-icons/ri';
+} from 'react-icons/ri/index.js';
 
 export const MetadataLinkIcons: { [key: string]: React.ReactNode } = {
   Github: <RiGithubFill size={'2.5rem'} />,

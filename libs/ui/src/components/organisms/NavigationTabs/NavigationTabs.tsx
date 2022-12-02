@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
-import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri/index.js';
 
 import { useBreakpoint } from '../../../hooks/useMediaQuery';
 import { widthQuery } from '../../../theme/global/breakpoints';

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiAlertLine, RiArrowDropDownLine } from 'react-icons/ri';
+import { RiAlertLine, RiArrowDropDownLine } from 'react-icons/ri/index.js';
 import { Button } from './Button';
 
 export default {

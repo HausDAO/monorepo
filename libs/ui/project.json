@@ -19,7 +19,7 @@
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "generateExportsField": true,
         "extractCss": false,
-        "format": ["umd", "esm", "cjs"],
+        "format": ["esm"],
         "assets": [
           {
             "glob": "libs/ui/README.md",

@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { getAddress } from '@ethersproject/address';
 import {
   formatFetchError,
   IFindQueryResult,
@@ -24,7 +24,7 @@ export const listTokenBalances = async ({
 
   try {
     const res = await fetch.get<TokenBalance[]>(
-      `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd/`
+      `${url}/safes/${getAddress(safeAddress)}/balances/usd/`
     );
 
     return { data: transformTokenBalances(res, safeAddress) };

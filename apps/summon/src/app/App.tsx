@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { Banner, Footer, widthQuery } from '@daohaus/ui';
+import { Footer, widthQuery } from '@daohaus/ui';
 import { DaoHausNav, useDHConnect } from '@daohaus/connect';
 
 import { TXBuilder } from '@daohaus/tx-builder';
@@ -34,7 +34,6 @@ export const App = () => {
 
   return (
     <TXBuilder provider={provider} chainId={chainId} appState={{}}>
-      <Banner />
       <TemporaryLayout>
         <DaoHausNav />
         <CenterLayout>

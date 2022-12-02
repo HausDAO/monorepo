@@ -25,7 +25,7 @@ import {
 } from './DaoHausNav.styles';
 import { DaoHausNavProps } from './DaoHausNav.types';
 import { useMemo } from 'react';
-import { RiMenuLine } from 'react-icons/ri';
+import { RiMenuLine } from 'react-icons/ri/index.js';
 import classNames from 'classnames';
 
 const StyledNav = styled.nav`

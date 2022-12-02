@@ -1,7 +1,4 @@
 {
   "name": "@daohaus/utils",
-  "version": "0.0.13",
-  "peerDependencies": {
-    "ethers": "^5.7.2"
-  }
+  "version": "0.0.14"
 }

@@ -1,7 +1,4 @@
 {
   "name": "@daohaus/connect-context",
-  "version": "0.0.6",
-  "peerDependencies": {
-    "ethers": "^5.7.2"
-  }
+  "version": "0.0.7"
 }

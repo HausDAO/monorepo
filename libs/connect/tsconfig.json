@@ -10,7 +10,8 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true
   },
   "files": [],
   "include": [],

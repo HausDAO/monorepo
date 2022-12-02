@@ -1,5 +1,8 @@
 {
   "name": "@daohaus/contract-utils",
-  "version": "0.0.9",
-  "type": "commonjs"
+  "version": "0.0.10",
+  "type": "commonjs",
+  "peerDependencies": {
+    "ethers": "^5.7.2"
+  }
 }

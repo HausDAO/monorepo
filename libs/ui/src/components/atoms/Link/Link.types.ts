@@ -1,5 +1,4 @@
-import React from 'react';
-import { IconType } from 'react-icons';
+import { IconType } from 'react-icons/lib/esm';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href?: string;

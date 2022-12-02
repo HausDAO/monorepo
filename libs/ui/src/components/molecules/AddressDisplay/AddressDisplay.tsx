@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
-import { RiFileCopyLine } from 'react-icons/ri';
+import { RiFileCopyLine } from 'react-icons/ri/index.js';
 
 import { generateExplorerLink } from '@daohaus/keychain-utils';
 import { truncateAddress } from '@daohaus/utils';

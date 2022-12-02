@@ -7,7 +7,7 @@ import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
 
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { ACTION_TX } from '../../legos/tx';
 import {
   ActionTemplate,
@@ -34,7 +34,7 @@ export const HasNotVoted = ({
 }) => {
   const { daochain } = useParams();
   const { chainId } = useDHConnect();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
   const { refreshAll } = useDao();
@@ -90,11 +90,11 @@ export const HasNotVoted = ({
   };
 
   const readableVotePower =
-    connectedMembership && Number(connectedMembership?.delegateShares)
-      ? `Cast Your Vote (${formatShares(connectedMembership.delegateShares)})`
+    connectedMember && Number(connectedMember?.delegateShares)
+      ? `Cast Your Vote (${formatShares(connectedMember.delegateShares)})`
       : undefined;
 
-  const hasShares = Number(connectedMembership?.delegateShares)
+  const hasShares = Number(connectedMember?.delegateShares)
     ? true
     : 'You must have voting tokens to vote';
 

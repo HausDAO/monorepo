@@ -60,8 +60,8 @@ export const OverviewIconLinkList = ({ links }: LinkListsProps) => {
     <IconLinkContainer>
       {links
         .filter((link) => link.url && isPredefinedSettingsLink(link))
-        .map((link) => (
-          <Link linkType="no-icon-external" href={link.url}>
+        .map((link, i) => (
+          <Link linkType="no-icon-external" href={link.url} key={i}>
             <LinkContents>
               {(link.label && MetadataLinkIcons[link.label]) ||
                 MetadataLinkIcons['default']}
@@ -80,8 +80,8 @@ export const OverviewLinkList = ({ links }: LinkListsProps) => {
     <LinkContainer>
       {links
         .filter((link) => link.url && !isPredefinedSettingsLink(link))
-        .map((link) => (
-          <Link linkType="no-icon-external" href={link.url}>
+        .map((link, i) => (
+          <Link linkType="no-icon-external" href={link.url} key={i}>
             <LinkContents>
               {(link.label && MetadataLinkIcons[link.label]) ||
                 MetadataLinkIcons['default']}

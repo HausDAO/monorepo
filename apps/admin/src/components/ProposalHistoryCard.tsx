@@ -1,6 +1,6 @@
 import { MouseEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
+import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
 
 import { formatValueTo, fromWei } from '@daohaus/utils';

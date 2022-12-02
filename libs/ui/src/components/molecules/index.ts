@@ -23,3 +23,4 @@ export * from './WrappedSwitch';
 export * from './WrappedRadio';
 export * from './WrappedInputSelect';
 export * from './WrappedCheckbox';
+export * from './Tabs';

@@ -1,3 +1,3 @@
-export * from './MolochV3Context';
-export * from './utils';
+export * from './MolochV3DaoContext';
 export * from './hooks';
+export * from './utils';

@@ -37,7 +37,10 @@ export const MemberProfileAvatar = ({
   );
 
   useEffect(() => {
-    if (!memberProfile) {
+    if (
+      !memberProfile ||
+      memberProfile.address.toLowerCase() !== memberAddress.toLowerCase()
+    ) {
       fetchMemberProfile(memberAddress, setMemberProfile);
     }
   }, [fetchMemberProfile, memberAddress, memberProfile, setMemberProfile]);

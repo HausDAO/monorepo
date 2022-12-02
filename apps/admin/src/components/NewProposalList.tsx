@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { RiArrowRightSLine } from 'react-icons/ri';
+import { RiArrowRightSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
-import { Bold, border, DataSm, Link, ParMd, Theme } from '@daohaus/ui';
+import { Bold, border, DataSm, Link, ParMd, Tabs, Theme } from '@daohaus/ui';
 
 import { CustomFormLego } from '../legos/config';
 
 const ListContainer = styled.div`
-  margin-top: 5rem;
+  margin-top: 2.5rem;
 `;
 
 const ListItemContainer = styled.div`
@@ -51,14 +51,16 @@ const StyledIcon = styled(RiArrowRightSLine)`
 `;
 
 type NewProposalListProps = {
-  proposalLegos: CustomFormLego[];
+  basicProposals: CustomFormLego[];
+  advancedProposals: CustomFormLego[];
 };
 
-export const NewProposalList = ({ proposalLegos }: NewProposalListProps) => {
+const ProposalList = ({ proposals }: { proposals: CustomFormLego[] }) => {
   const { daochain, daoid } = useParams();
+
   return (
-    <ListContainer>
-      {proposalLegos.map((proposalLego: CustomFormLego) => (
+    <div>
+      {proposals.map((proposalLego: CustomFormLego) => (
         <ListItemContainer key={proposalLego.id}>
           <ListItemLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${proposalLego.id}`}
@@ -75,6 +77,28 @@ export const NewProposalList = ({ proposalLegos }: NewProposalListProps) => {
           </ListItemLink>
         </ListItemContainer>
       ))}
+    </div>
+  );
+};
+
+export const NewProposalList = ({
+  basicProposals,
+  advancedProposals,
+}: NewProposalListProps) => {
+  return (
+    <ListContainer>
+      <Tabs
+        tabList={[
+          {
+            label: 'Basics',
+            Component: () => <ProposalList proposals={basicProposals} />,
+          },
+          {
+            label: 'Advanced',
+            Component: () => <ProposalList proposals={advancedProposals} />,
+          },
+        ]}
+      />
     </ListContainer>
   );
 };

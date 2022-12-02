@@ -1,6 +1,9 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
-import { RiCheckboxCircleLine, RiErrorWarningLine } from 'react-icons/ri';
+import {
+  RiCheckboxCircleLine,
+  RiErrorWarningLine,
+} from 'react-icons/ri/index.js';
 
 import { Theme } from '../../../types/theming';
 import { WithIcon } from './HelperText.styles';

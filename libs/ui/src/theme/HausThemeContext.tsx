@@ -44,7 +44,6 @@ export const HausThemeProvider = ({
 }: ProviderProps) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
   const [toast, setToast] = useState<ToastProps | null>(null);
-  console.log('defaultDarkTheme', defaultDarkTheme);
   useEffect(() => {
     setTheme(startDark ? defaultDark : defaultLight);
   }, [startDark, defaultDark, defaultLight]);

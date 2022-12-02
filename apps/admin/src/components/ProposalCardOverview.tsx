@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri';
+import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import {
@@ -167,6 +167,10 @@ const WarningIcon = styled(RiErrorWarningLine)`
   margin-right: 0.5rem;
 `;
 
+const PropIdText = styled(ParSm)`
+  margin-right: 0.5rem;
+`;
+
 export const OverviewHeader = ({
   loading,
   proposal,
@@ -183,6 +187,9 @@ export const OverviewHeader = ({
       {isMobile ? (
         <>
           <HeaderContainer>
+            <PropIdText color={theme.secondary.step11}>
+              {proposal.proposalId} |
+            </PropIdText>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
@@ -208,6 +215,9 @@ export const OverviewHeader = ({
       ) : (
         <>
           <HeaderContainer>
+            <PropIdText color={theme.secondary.step11}>
+              {proposal.proposalId} |
+            </PropIdText>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />

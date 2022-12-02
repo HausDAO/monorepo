@@ -1,13 +1,35 @@
 import { useContext } from 'react';
-import { MolochV3Context } from '../MolochV3Context';
-import { MolochV3ContextDaoType } from '../utils/types';
+import { MolochV3DaoContext } from '../MolochV3DaoContext';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
+import { fetchDao } from '../utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
-export const useDao = (): MolochV3ContextDaoType => {
-  const { dao, isDaoLoading, refreshDao, refreshAll } =
-    useContext(MolochV3Context);
+type MolochV3DaoContextDaoType = {
+  dao: MolochV3Dao | undefined;
+  refreshDao: () => Promise<void>;
+  refreshAll: () => Promise<void>;
+};
+
+export const useDao = (): MolochV3DaoContextDaoType => {
+  const { daoData, daoid, daochain, graphApiKeys, setDaoData, refreshAll } =
+    useContext(MolochV3DaoContext);
+
+  const refreshDao = async () => {
+    if (daoid && daochain) {
+      const res = await fetchDao({
+        daoid,
+        daochain: daochain as ValidNetwork,
+        graphApiKeys,
+      });
+
+      setDaoData((prevState) => {
+        return { ...prevState, dao: res };
+      });
+    }
+  };
+
   return {
-    dao,
-    isDaoLoading,
+    dao: daoData?.dao,
     refreshDao,
     refreshAll,
   };

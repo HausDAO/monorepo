@@ -4,9 +4,11 @@ import { useDao } from '@daohaus/moloch-v3-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 import { formatDaoProfileForForm } from '../utils/settingsHelper';
+import { useParams } from 'react-router-dom';
 
 export function UpdateSettings() {
   const { dao } = useDao();
+  const { daochain } = useParams();
 
   const defaultFields = useMemo(() => {
     if (dao) {
@@ -24,6 +26,7 @@ export function UpdateSettings() {
       defaultValues={defaultFields}
       form={{ ...COMMON_FORMS.METADATA_SETTINGS, log: true }}
       customFields={CustomFields}
+      targetNetwork={daochain}
     />
   );
 }

@@ -14,7 +14,11 @@ export const MetadataLink = (props: Buildable<Field>) => {
   return (
     <>
       {!presetLabels[props.id] && (
-        <WrappedInput id={`${props.id}Label`} label={`${props.label} Label`} />
+        <WrappedInput
+          disabled={props.disabled}
+          id={`${props.id}Label`}
+          label={`${props.label} Label`}
+        />
       )}
       <WrappedInput {...props} />
     </>

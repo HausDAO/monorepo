@@ -27,7 +27,8 @@ const HeaderCellContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 1rem;
+  align-items: center;
+  /* gap: 1rem; */
 `;
 
 const Tr = styled.tr``;

@@ -137,7 +137,9 @@ export function ProposalDetails() {
   return (
     <BiColumnLayout
       title={proposal?.title}
-      subtitle={getProposalTypeLabel(proposal?.proposalType)}
+      subtitle={`${proposal?.proposalId} | ${getProposalTypeLabel(
+        proposal?.proposalType
+      )}`}
       actions={
         proposal && (
           <CancelProposal proposal={proposal} onSuccess={fetchProposal} />

@@ -10,7 +10,7 @@ import {
   Theme,
   Tooltip,
 } from '@daohaus/ui';
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { formatValueTo, fromWei, votingPowerPercentage } from '@daohaus/utils';
 import styled from 'styled-components';
 import { useFormContext } from 'react-hook-form';
@@ -24,24 +24,24 @@ const RemoveDelegate = styled(ParSm)`
 `;
 
 export const DelegateInput = (props: Buildable<Field>) => {
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const { dao } = useDao();
   const { setValue } = useFormContext();
 
   const hasCurrentDelegate =
-    connectedMembership?.delegatingTo !== connectedMembership?.memberAddress;
+    connectedMember?.delegatingTo !== connectedMember?.memberAddress;
 
   const handleRemoveDelegate = () => {
-    setValue(props.id, connectedMembership?.memberAddress);
+    setValue(props.id, connectedMember?.memberAddress);
   };
 
   const votingPowerMessage = `${formatValueTo({
-    value: fromWei(connectedMembership?.shares || '0'),
+    value: fromWei(connectedMember?.shares || '0'),
     decimals: 2,
     format: 'number',
   })} ${dao?.shareTokenName} (${votingPowerPercentage(
     dao?.totalShares || '0',
-    connectedMembership?.shares || '0'
+    connectedMember?.shares || '0'
   )}% voting power) `;
 
   return (

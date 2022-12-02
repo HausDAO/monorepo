@@ -14,10 +14,9 @@ import { Keychain } from '@daohaus/keychain-utils';
 import {
   useMembers,
   useDao,
-  TMembers,
-  useConnectedMembership,
+  useConnectedMember,
 } from '@daohaus/moloch-v3-context';
-import { Member_OrderBy } from '@daohaus/moloch-v3-data';
+import { Member_OrderBy, MolochV3Members } from '@daohaus/moloch-v3-data';
 import {
   SingleColumnLayout,
   Card,
@@ -80,19 +79,24 @@ const ActionContainer = styled.div`
   gap: 1rem;
 `;
 
-export type MembersTableType = TMembers[number];
+export type MembersTableType = MolochV3Members[number];
 
 export const Members = () => {
   const { dao } = useDao();
-  const { members, membersNextPaging, loadMoreMembers, sortMembers } =
-    useMembers();
-  const { connectedMembership } = useConnectedMembership();
+  const { members, paging, loadNextPage, sortMembers } = useMembers();
+  const { connectedMember } = useConnectedMember();
   const isMd = useBreakpoint(widthQuery.md);
   const { daoid, daochain } = useParams();
 
-  const tableData = useMemo(() => {
-    return members;
+  console.log('members', members);
+
+  const tableData: MolochV3Members | undefined = useMemo(() => {
+    if (members) {
+      return members.filter((member) => member !== undefined);
+    }
   }, [members]);
+
+  console.log('tableData', tableData);
 
   const columns = useMemo<Column<MembersTableType>[]>(
     () => [
@@ -226,7 +230,7 @@ export const Members = () => {
     orderBy: string,
     orderDirection: 'asc' | 'desc'
   ) => {
-    sortMembers(orderBy as Member_OrderBy, orderDirection);
+    sortMembers({ orderBy: orderBy as Member_OrderBy, orderDirection });
   };
 
   return (
@@ -241,9 +245,9 @@ export const Members = () => {
           >
             Add Member
           </ButtonLink>
-          {connectedMembership && (
+          {connectedMember && (
             <ButtonLink
-              href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
+              href={`/molochv3/${daochain}/${daoid}/members/${connectedMember.memberAddress}`}
               fullWidth={isMd}
               // centerAlign={isMd}
             >
@@ -259,8 +263,8 @@ export const Members = () => {
           <DaoTable<MembersTableType>
             tableData={tableData}
             columns={columns}
-            hasNextPaging={membersNextPaging !== undefined}
-            handleLoadMore={loadMoreMembers}
+            hasNextPaging={paging.next !== undefined}
+            handleLoadMore={loadNextPage}
             handleColumnSort={handleColumnSort}
             sortableColumns={
               isMd

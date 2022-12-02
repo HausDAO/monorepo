@@ -17,7 +17,7 @@ import {
   DataSm,
 } from '@daohaus/ui';
 
-import { useConnectedMembership, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
 import styled from 'styled-components';
 import { TokenBalance } from '@daohaus/utils';
@@ -50,7 +50,7 @@ type TokenTable = {
 export const RagequitTokenList = (props: Buildable<Field>) => {
   const { id } = props;
   const { dao } = useDao();
-  const { connectedMembership } = useConnectedMembership();
+  const { connectedMember } = useConnectedMember();
   const { daochain } = useParams();
   const { setValue, watch } = useFormContext();
 
@@ -75,7 +75,7 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
   }, [dao]);
 
   const tokenTable = useMemo((): TokenTable | null => {
-    if (!dao || !networkData || !connectedMembership || !treasury) return null;
+    if (!dao || !networkData || !connectedMember || !treasury) return null;
     return treasury.tokenBalances
       .filter((token) => Number(token.balance) > 0)
       .reduce(
@@ -159,7 +159,7 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
   }, [
     dao,
     networkData,
-    connectedMembership,
+    connectedMember,
     sharesToBurn,
     lootToBurn,
     id,

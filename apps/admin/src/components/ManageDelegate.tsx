@@ -4,6 +4,7 @@ import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
+import { useParams } from 'react-router-dom';
 
 type ManageDelegateProps = {
   defaultMember?: string;
@@ -12,6 +13,7 @@ type ManageDelegateProps = {
 export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
   const { connectedMember } = useConnectedMember();
   const { refreshAll } = useDao();
+  const { daochain } = useParams();
 
   const defaultValues = useMemo(() => {
     if (defaultMember) {
@@ -35,6 +37,7 @@ export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
       form={COMMON_FORMS.MANAGE_DELEGATE}
       customFields={CustomFields}
       onSuccess={onFormComplete}
+      targetNetwork={daochain}
     />
   );
 };

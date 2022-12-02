@@ -94,6 +94,7 @@ export const ReadyForProcessing = ({
     // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to
     // be indexed by the Gnosis API (a DAO was recently summonned)
     // or when a proposal is submitted through a 3rd party contract with baalGas->0 (e.g. TributeMinion)
+
     if (!proposalId) return;
     setIsLoading(true);
     lifeCycleFnsOverride?.onActionTriggered?.();

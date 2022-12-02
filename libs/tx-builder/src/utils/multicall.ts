@@ -271,6 +271,7 @@ export const handleGasEstimate = async ({
     arg: {
       type: 'multicall',
       actions: arg.actions,
+      formActions: arg.formActions,
     },
   });
 
@@ -332,6 +333,7 @@ export const buildMultiCallTX = ({
       {
         type: 'estimateGas',
         actions,
+        formActions,
       },
       JSONDetails,
     ],

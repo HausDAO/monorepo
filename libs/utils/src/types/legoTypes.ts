@@ -63,6 +63,7 @@ export type EstmimateGas = {
   type: 'estimateGas';
   actions: MulticallAction[];
   bufferPercentage?: number;
+  formActions?: boolean;
 };
 
 type ProposalExpiry = {

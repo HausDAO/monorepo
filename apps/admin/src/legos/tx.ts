@@ -590,7 +590,7 @@ export const TX: Record<string, TXLego> = {
         proposalType: { type: 'static', value: ProposalTypeIds.Multicall },
       },
     },
-    actions: [],
+    actions: [], // TODO: refactor: argtype
     formActions: true,
   }),
 };

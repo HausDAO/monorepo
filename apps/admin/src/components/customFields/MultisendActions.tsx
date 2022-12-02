@@ -22,7 +22,6 @@ import {
   ErrorMessage,
   ErrorText,
   Field,
-  IconButton,
   // IconButton, // TODO: Enable `Delete Action Button`
   OptionType,
   WarningMessage,
@@ -239,6 +238,7 @@ const Action = ({
         contractAddress: address,
         chainId: daochain as keyof Keychain,
       });
+
       if (!fetchedAbi) {
         setAbiError({
           type: 'warning',
@@ -541,7 +541,6 @@ export const MultisendActions = (props: Buildable<Field>) => {
           </ActionContainer>
         ))}
       </ActionsContainer>
-      {/* <Button onClick={addAction}>Add Another Action</Button> */}
       <Button onClick={addAction} IconLeft={RiAddCircleLine} variant="ghost">
         Add Another Action
       </Button>

@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Input } from './Input';
-import { RiSearchLine } from 'react-icons/ri/index.js';
+import { RiSearchLine } from 'react-icons/ri';
 
 export default {
   title: 'Atoms/Input',

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Divider } from '../../atoms';
+
 export const StyledFormSegment = styled.section`
   width: 100%;
   margin-bottom: 2.4rem;
@@ -11,4 +13,8 @@ export const StyledFormSegment = styled.section`
   .segment-description {
     margin-bottom: 3rem;
   }
+`;
+
+export const StyledDivider = styled(Divider)`
+  margin: 3.6rem 0 0 0;
 `;

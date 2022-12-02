@@ -464,6 +464,35 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  MULTICALL_BUILDER: {
+    id: 'MULTICALL',
+    title: 'Multicall Proposal Builder',
+    subtitle: 'Multicall Proposal', // TODO:
+    description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
+    tx: TX.MULTICALL,
+    requiredFields: {
+      title: true,
+    },
+    fields: [
+      {
+        id: 'details',
+        type: 'formSegment',
+        collapsible: true,
+        defaultOpen: true,
+        title: 'Proposal Overview', // TODO:
+        fields: [
+          FIELD.TITLE,
+          FIELD.DESCRIPTION,
+          FIELD.LINK,
+          ...PROPOSAL_SETTINGS_FIELDS,
+        ],
+      },
+      {
+        id: 'multisendActions',
+        type: 'multisendActions',
+      },
+    ],
+  },
 };
 
 export const TABULA_FORMS: Record<string, CustomFormLego> = {
@@ -694,4 +723,5 @@ export const ADVANCED_PROPOSAL_FORMS = {
   TOKEN_SETTINGS: PROPOSAL_FORMS.TOKEN_SETTINGS,
   ADD_SHAMAN: PROPOSAL_FORMS.ADD_SHAMAN,
   GUILDKICK: PROPOSAL_FORMS.GUILDKICK,
+  MULTICALL_BUILDER: PROPOSAL_FORMS.MULTICALL_BUILDER,
 };

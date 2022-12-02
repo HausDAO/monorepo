@@ -33,7 +33,7 @@ import {
 
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { ButtonLink } from '../components/ButtonLink';
+import { ButtonRouterLink } from '../components/ButtonRouterLink';
 import { DaoTable } from '../components/DaohausTable';
 import { Profile } from '../components/Profile';
 import { fetchProfile } from '../utils/cacheProfile';
@@ -246,10 +246,11 @@ export function Member() {
       {currentMember && (
         <>
           <ButtonsContainer>
-            <ButtonLink
-              href={`/molochv3/${daochain}/${daoid}/members`}
+            <ButtonRouterLink
+              to={`/molochv3/${daochain}/${daoid}/members`}
               IconLeft={StyledArrowLeft}
               color="secondary"
+              linkType="no-icon-external"
               variant="outline"
               fullWidth={isMobile}
               // was centerAlign={isMobile}
@@ -258,7 +259,7 @@ export function Member() {
               // justify={isMobile ? 'center' : 'flex-start'}
             >
               MEMBERS
-            </ButtonLink>
+            </ButtonRouterLink>
             <Button
               IconLeft={BsShareFill}
               onClick={handleOnClick}

@@ -15,7 +15,7 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 
-import { ButtonLink } from './ButtonLink';
+import { ButtonRouterLink } from './ButtonRouterLink';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.secondary.step2};
@@ -133,16 +133,16 @@ export const DaoCard = ({
         <Tag tagColor="red">{getNetworkName(networkId)}</Tag>
         <Tag tagColor="blue">{contractType}</Tag>
       </div>
-      <ButtonLink
+      <ButtonRouterLink
         color="secondary"
         fullWidth
-        // centerAlign
-        href={`/molochv3/${networkId}/${dao}`}
+        linkType="no-icon-external"
+        to={`/molochv3/${networkId}/${dao}`}
         target="_blank"
         rel="noreferrer"
       >
         Go
-      </ButtonLink>
+      </ButtonRouterLink>
     </StyledDaoCard>
   );
 };

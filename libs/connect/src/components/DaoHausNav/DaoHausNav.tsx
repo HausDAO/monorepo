@@ -113,30 +113,32 @@ export const DaoHausNavMenu = (props: DaoHausNavProps) => {
             </NavMenuItem>
           );
         })}
-        <NavMenuItem>
-          <NavMenuTrigger>
-            {dropdownTriggerLabel}
-            <CaretDown />
-          </NavMenuTrigger>
-          <NavMenuContent>
-            <DaoHausNavDropdownList>
-              {dropdownLinks &&
-                dropdownLinks.map((dropdownLink, index) => {
-                  const active = isActive(pathname, dropdownLink.href);
-                  return (
-                    <NavMenuItem key={`${dropdownLink.label}-${index}`}>
-                      <NavRouterLink
-                        className={classNames({ active })}
-                        to={dropdownLink.href}
-                      >
-                        {dropdownLink.label}
-                      </NavRouterLink>
-                    </NavMenuItem>
-                  );
-                })}
-            </DaoHausNavDropdownList>
-          </NavMenuContent>
-        </NavMenuItem>
+        {dropdownLinks && (
+          <NavMenuItem>
+            <NavMenuTrigger>
+              {dropdownTriggerLabel}
+              <CaretDown />
+            </NavMenuTrigger>
+            <NavMenuContent>
+              <DaoHausNavDropdownList>
+                {dropdownLinks &&
+                  dropdownLinks.map((dropdownLink, index) => {
+                    const active = isActive(pathname, dropdownLink.href);
+                    return (
+                      <NavMenuItem key={`${dropdownLink.label}-${index}`}>
+                        <NavRouterLink
+                          className={classNames({ active })}
+                          to={dropdownLink.href}
+                        >
+                          {dropdownLink.label}
+                        </NavRouterLink>
+                      </NavMenuItem>
+                    );
+                  })}
+              </DaoHausNavDropdownList>
+            </NavMenuContent>
+          </NavMenuItem>
+        )}
       </NavMenuList>
       {/* <NavMenuIndicator /> */}
       <ViewportPosition>

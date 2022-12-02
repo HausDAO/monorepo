@@ -12,7 +12,7 @@ type ProfileLinkProps = {
   rel?: string;
 } & Partial<ComponentProps<typeof Button>>;
 
-export const ButtonLink = ({
+export const ButtonRouterLink = ({
   href,
   to,
   selected,

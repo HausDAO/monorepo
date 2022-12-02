@@ -7,7 +7,7 @@ import {
   RiGasStationLine,
   RiThumbDownLine,
   RiThumbUpLine,
-} from 'react-icons/ri';
+} from 'react-icons/ri/index.js';
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';

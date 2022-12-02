@@ -2,8 +2,8 @@ import { violet } from '@radix-ui/colors';
 import styled from 'styled-components';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
-import { BiError } from 'react-icons/bi';
+import { RiUserAddLine, RiAlertLine } from 'react-icons/ri/index.js';
+import { BiError } from 'react-icons/bi/index.js';
 
 import { ButtonProps, Button } from '../../atoms/Button/';
 import { Bold, ParMd, ParXs } from '../../atoms/Typography';
@@ -147,12 +147,12 @@ UserConnectedDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownMenuLabel key={Math.random(10000)}>
+    <DropdownMenuLabel key={Math.random() * 10000}>
       <ParXs>
         Connected to <Bold>Ethereum</Bold>
       </ParXs>
     </DropdownMenuLabel>,
-    <DropdownMenuItem key={Math.random(10000)} spacing="0.7rem">
+    <DropdownMenuItem key={Math.random() * 10000} spacing="0.7rem">
       <ExitButton>Disconnect</ExitButton>
     </DropdownMenuItem>,
   ],

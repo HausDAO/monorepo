@@ -4,7 +4,7 @@ import {
   RiArrowDropDownLine,
   RiCheckLine,
   RiRadioButtonFill,
-} from 'react-icons/ri/index.js';
+} from 'react-icons/ri';
 import {
   DropdownMenuProps,
   DropdownMenuContentProps,

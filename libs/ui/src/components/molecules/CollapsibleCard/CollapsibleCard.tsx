@@ -1,5 +1,5 @@
 import React from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import { CollapsibleCardProps } from './CollapsibleCard.types';
 import {

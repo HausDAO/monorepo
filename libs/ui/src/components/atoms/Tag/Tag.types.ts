@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { IconType } from 'react-icons/lib/esm';
+import { IconType } from 'react-icons/';
 
 export type TagColors = 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
 

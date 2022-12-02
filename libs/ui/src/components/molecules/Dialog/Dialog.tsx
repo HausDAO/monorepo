@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import { RiCloseFill } from 'react-icons/ri/index.js';
+import { RiCloseFill } from 'react-icons/ri';
 
 import { DialogProps } from './Dialog.types';
 import { Button, H5 } from '../../atoms';

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import { generateExplorerLink } from '@daohaus/keychain-utils';
 import { truncateAddress } from '@daohaus/utils';

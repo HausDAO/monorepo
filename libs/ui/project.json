@@ -14,10 +14,12 @@
         "project": "libs/ui/package.json",
         "entryFile": "libs/ui/src/index.ts",
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-        "external": ["react/jsx-runtime"],
+        "external": ["react", "react-dom", "react/jsx-runtime"],
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
+        "generateExportsField": true,
         "extractCss": false,
+        "format": ["esm"],
         "assets": [
           {
             "glob": "libs/ui/README.md",

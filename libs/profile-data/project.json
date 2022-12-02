@@ -11,7 +11,8 @@
         "outputPath": "dist/libs/profile-data",
         "main": "libs/profile-data/src/index.ts",
         "tsConfig": "libs/profile-data/tsconfig.lib.json",
-        "assets": ["libs/profile-data/*.md"]
+        "assets": ["libs/profile-data/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {

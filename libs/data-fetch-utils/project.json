@@ -11,7 +11,8 @@
         "outputPath": "dist/libs/data-fetch-utils",
         "main": "libs/data-fetch-utils/src/index.ts",
         "tsConfig": "libs/data-fetch-utils/tsconfig.lib.json",
-        "assets": ["libs/data-fetch-utils/*.md"]
+        "assets": ["libs/data-fetch-utils/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {

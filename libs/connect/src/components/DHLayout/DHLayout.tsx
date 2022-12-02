@@ -1,16 +1,10 @@
 import { ComponentProps, ReactNode } from 'react';
 
-import { DaoHausNav } from '../DaoHausNav/DaoHausNav';
-import {
-  AppSwitcher,
-  Footer,
-  MainLayout,
-  NavigationTabs,
-  NavigationTabsProps,
-  widthQuery,
-} from '@daohaus/ui';
+import { DaoHausNav, DaoHausNavMenu } from '../DaoHausNav/DaoHausNav';
+import { AppSwitcher, Footer, MainLayout, widthQuery } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 import styled from 'styled-components';
+import { DaoHausNavProps } from '../DaoHausNav/DaoHausNav.types';
 
 const Header = styled.div`
   display: flex;
@@ -35,7 +29,7 @@ export const DHLayout = ({
   appNavLinks,
   leftNav,
   pathname,
-}: NavigationTabsProps & {
+}: DaoHausNavProps & {
   children: ReactNode;
   leftNav?: ReactNode;
   appNavLinks?: ComponentProps<typeof AppSwitcher>;
@@ -50,7 +44,7 @@ export const DHLayout = ({
         </div>
         <DaoHausNav />
       </Header>
-      <NavigationTabs
+      <DaoHausNavMenu
         navLinks={navLinks}
         dropdownLinks={dropdownLinks}
         pathname={pathname}

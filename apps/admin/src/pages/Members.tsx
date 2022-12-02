@@ -27,7 +27,7 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 
-import { ButtonLink } from '../components/ButtonLink';
+import { ButtonRouterLink } from '../components/ButtonRouterLink';
 import { DaoTable } from '../components/DaohausTable';
 import { MembersOverview } from '../components/MembersOverview';
 import { MemberProfileAvatar } from '../components/MemberProfileAvatar';
@@ -238,22 +238,23 @@ export const Members = () => {
       title="Members"
       actions={
         <Actions>
-          <ButtonLink
-            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+          <ButtonRouterLink
+            to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
             color="secondary"
             fullWidth={isMd}
-            // centerAlign={isMd}
+            linkType="no-icon-external"
           >
             Add Member
-          </ButtonLink>
+          </ButtonRouterLink>
           {connectedMember && (
-            <ButtonLink
-              href={`/molochv3/${daochain}/${daoid}/members/${connectedMember.memberAddress}`}
+            <ButtonRouterLink
+              to={`/molochv3/${daochain}/${daoid}/members/${connectedMember.memberAddress}`}
               fullWidth={isMd}
+              linkType="no-icon-external"
               // centerAlign={isMd}
             >
               My Profile
-            </ButtonLink>
+            </ButtonRouterLink>
           )}
         </Actions>
       }

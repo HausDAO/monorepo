@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import {
   AccountProfile,
@@ -58,7 +58,7 @@ const SubmittedContainer = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledRouterLink = styled(RouterLink)`
   :hover {
     text-decoration: none;
   }
@@ -106,8 +106,8 @@ export const ProposalCardOverview = ({
         {charLimit(proposal.description, 145)}
       </ParMd>
       {isMd && (
-        <StyledLink
-          href={
+        <StyledRouterLink
+          to={
             !loading
               ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
               : '#'
@@ -121,7 +121,7 @@ export const ProposalCardOverview = ({
           >
             View Details
           </Button>
-        </StyledLink>
+        </StyledRouterLink>
       )}
       <SubmittedContainer>
         <ParMd color={theme.secondary.step11} className="submitted-by">
@@ -232,8 +232,8 @@ export const OverviewHeader = ({
               | {formatShortDateTimeFromSeconds(proposal.createdAt)}
             </ParSm>
           </HeaderContainer>
-          <StyledLink
-            href={
+          <StyledRouterLink
+            to={
               !loading
                 ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
                 : '#'
@@ -242,7 +242,7 @@ export const OverviewHeader = ({
             <Button color="secondary" size="sm" disabled={loading}>
               View Details
             </Button>
-          </StyledLink>
+          </StyledRouterLink>
         </>
       )}
     </OverviewContainer>

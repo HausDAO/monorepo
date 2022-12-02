@@ -9,17 +9,20 @@ import {
 import { ParSm, Link } from '../../atoms';
 import { ToastProps, ToastLinksProps, ToastType } from './Toast.types';
 import {
-  ToastViewport,
-  ToastHeaderContainer,
-  ToastCopyContainer,
-  ToastRoot,
-  ToastIcon,
-  ToastTitle,
-  ToastDescription,
-  ToastAction,
-  ToastClose,
+  Provider,
+  Viewport,
+  HeaderContainer,
+  CopyContainer,
+  Root,
+  Icon,
+  Title,
+  Description,
+  Action,
+  Close,
   CloseIcon,
 } from './Toast.styles';
+
+export const ToastProvider = Provider;
 
 export const Toast = (props: ToastProps) => {
   const {
@@ -39,7 +42,7 @@ export const Toast = (props: ToastProps) => {
 
   return (
     <>
-      <ToastRoot
+      <Root
         type={type}
         open={open}
         duration={duration}
@@ -47,27 +50,27 @@ export const Toast = (props: ToastProps) => {
         defaultOpen={defaultOpen}
         className={toastType}
       >
-        <ToastHeaderContainer>
+        <HeaderContainer>
           {getEnumIcons(toastType)}
-          <ToastCopyContainer>
-            <ToastTitle asChild>
+          <CopyContainer>
+            <Title asChild>
               <ParSm>{title}</ParSm>
-            </ToastTitle>
+            </Title>
             {description && (
-              <ToastDescription asChild>
+              <Description asChild>
                 <ParSm>{description}</ParSm>
-              </ToastDescription>
+              </Description>
             )}
-          </ToastCopyContainer>
-          <ToastClose asChild aria-label={ariaLabelClose}>
+          </CopyContainer>
+          <Close asChild aria-label={ariaLabelClose}>
             <CloseIcon>
               <RiCloseFill aria-hidden />
             </CloseIcon>
-          </ToastClose>
-        </ToastHeaderContainer>
+          </Close>
+        </HeaderContainer>
         {toastLinks && <ToastLinks {...toastLinks} />}
-      </ToastRoot>
-      <ToastViewport label={label} hotkey={hotkey} />
+      </Root>
+      <Viewport label={label} hotkey={hotkey} />
     </>
   );
 };
@@ -79,12 +82,12 @@ const ToastLinks = ({
   actionAltText,
 }: ToastLinksProps) => {
   return (
-    <ToastAction asChild altText={actionAltText || 'Related Link(s)'}>
+    <Action asChild altText={actionAltText || 'Related Link(s)'}>
       <div>
         {leftLink && <Link href={leftLink.path}>{leftLink.text}</Link>}
         {rightLink && <Link href={rightLink.path}>{rightLink.text}</Link>}
       </div>
-    </ToastAction>
+    </Action>
   );
 };
 
@@ -97,7 +100,5 @@ const EnumIconsObject = {
 };
 
 function getEnumIcons(toastType: ToastType) {
-  return (
-    <ToastIcon iconType={toastType}>{EnumIconsObject[toastType]}</ToastIcon>
-  );
+  return <Icon iconType={toastType}>{EnumIconsObject[toastType]}</Icon>;
 }

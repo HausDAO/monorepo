@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { RiExternalLinkLine } from 'react-icons/ri/index.js';
 
-import { LinkProps } from './Link.types';
-import { InternalLink, ExternalLink } from './Link.styles';
+import { LinkProps, PolymorphicLinkProps } from './Link.types';
+import { StyledLink } from './Link.styles';
 
 // TODO Refactor React Router out
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
@@ -11,7 +11,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     {
       href = '/',
       target = '_blank',
-      linkType = 'internal',
+      linkType = 'external',
       selected,
       disabled,
       Icon,
@@ -22,31 +22,44 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref
   ) => {
     const classes = classNames({ selected, disabled });
-    if (linkType === 'external' || linkType === 'no-icon-external') {
-      return (
-        <ExternalLink
-          href={href}
-          className={`${classes} ${className}`}
-          target={target}
-          ref={ref}
-        >
-          {LeftIcon && <LeftIcon className="icon-left" />}
-          {children}
-          {linkType === 'external' ? (
-            Icon ? (
-              <Icon />
-            ) : (
-              <RiExternalLinkLine />
-            )
-          ) : null}
-        </ExternalLink>
-      );
-    }
     return (
-      <InternalLink to={href} className={`${classes} ${className}`} ref={ref}>
+      <StyledLink
+        href={href}
+        className={`${classes} ${className}`}
+        target={target}
+        ref={ref}
+        rel="noopener noreferrer"
+      >
+        {LeftIcon && <LeftIcon className="icon-left" />}
         {children}
-        {Icon && <Icon />}
-      </InternalLink>
+        {linkType === 'external' ? (
+          Icon ? (
+            <Icon />
+          ) : (
+            <RiExternalLinkLine />
+          )
+        ) : null}
+      </StyledLink>
     );
   }
 );
+
+export const UnstyledPolymorphicLink = <
+  Element extends React.ElementType = 'a'
+>({
+  as,
+  disabled,
+  children,
+  className,
+  ...restProps
+}: PolymorphicLinkProps<Element>) => {
+  const Component = as || 'a';
+
+  const classes = classNames({ disabled });
+
+  return (
+    <Component {...restProps} className={`${classes} ${className}`}>
+      {children}
+    </Component>
+  );
+};

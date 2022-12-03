@@ -1,7 +1,7 @@
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { RiArrowRightSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
-import { Bold, border, DataSm, Link, ParMd, Tabs, Theme } from '@daohaus/ui';
+import { Bold, border, DataSm, ParMd, Tabs, Theme } from '@daohaus/ui';
 
 import { CustomFormLego } from '../legos/config';
 

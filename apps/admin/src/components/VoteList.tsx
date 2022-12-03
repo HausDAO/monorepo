@@ -47,7 +47,7 @@ type VoteListProps = {
 };
 
 export const VoteList = ({ votes, proposal }: VoteListProps) => {
-  const { daochain } = useParams();
+  const { daochain, daoid } = useParams();
   return (
     <MainContainer>
       <VotesContainer>
@@ -56,6 +56,7 @@ export const VoteList = ({ votes, proposal }: VoteListProps) => {
             <ParMd>{formatShortDateTimeFromSeconds(vote.createdAt)}</ParMd>
             <VoteContainer>
               <MemberProfileAvatar
+                daoid={daoid}
                 daochain={daochain as keyof Keychain}
                 memberAddress={vote.member.memberAddress}
               />

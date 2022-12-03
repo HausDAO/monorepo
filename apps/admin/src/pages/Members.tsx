@@ -88,15 +88,11 @@ export const Members = () => {
   const isMd = useBreakpoint(widthQuery.md);
   const { daoid, daochain } = useParams();
 
-  console.log('members', members);
-
   const tableData: MolochV3Members | undefined = useMemo(() => {
     if (members) {
       return members.filter((member) => member !== undefined);
     }
   }, [members]);
-
-  console.log('tableData', tableData);
 
   const columns = useMemo<Column<MembersTableType>[]>(
     () => [
@@ -108,6 +104,7 @@ export const Members = () => {
             <MemberProfileAvatar
               daochain={daochain as keyof Keychain}
               memberAddress={value}
+              daoid={daoid}
             />
           );
         },

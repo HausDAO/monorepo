@@ -52,7 +52,7 @@ export const ProposalDetailsGuts = ({
   decodeError,
   proposal,
 }: ProposalDetailsGutsProps) => {
-  const { daochain } = useParams();
+  const { daochain, daoid } = useParams();
   const { networks } = useDHConnect();
   return (
     <OverviewContainer>
@@ -70,6 +70,7 @@ export const ProposalDetailsGuts = ({
         <div>
           <ParMd>Submitted by</ParMd>
           <MemberProfileAvatar
+            daoid={daoid}
             daochain={daochain as keyof Keychain}
             memberAddress={proposal.createdBy}
           />

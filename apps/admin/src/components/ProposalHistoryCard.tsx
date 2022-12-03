@@ -89,15 +89,18 @@ const VotesButton = styled(Button)`
 const DataPoint = ({
   data,
   daochain,
+  daoid,
 }: {
   data: ProposalHistoryElementData;
   daochain?: string;
+  daoid?: string;
 }) => {
   if (data.dataType === 'member') {
     return (
       <div>
         <ParMd>{data.label}</ParMd>
         <MemberProfileAvatar
+          daoid={daoid}
           daochain={daochain as keyof Keychain}
           memberAddress={data.data}
         />
@@ -122,7 +125,7 @@ export const ProposalHistoryCard = ({
   proposal,
 }: ProposalHistoryCardProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { daochain } = useParams();
+  const { daochain, daoid } = useParams();
   const [open, setOpen] = useState<boolean>(false);
 
   const handleToggle = (event: MouseEvent<HTMLDivElement>) => {
@@ -187,7 +190,12 @@ export const ProposalHistoryCard = ({
           <DataGrid>
             {element.dataElements &&
               element.dataElements.map((data) => (
-                <DataPoint data={data} daochain={daochain} key={data.label} />
+                <DataPoint
+                  data={data}
+                  daochain={daochain}
+                  daoid={daoid}
+                  key={data.label}
+                />
               ))}
           </DataGrid>
 

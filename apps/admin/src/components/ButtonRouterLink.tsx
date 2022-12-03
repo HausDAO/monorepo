@@ -1,21 +1,29 @@
-import { Button, Link } from '@daohaus/ui';
+import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentProps } from 'react';
+import styled from 'styled-components';
+import { Button } from '@daohaus/ui';
 
 type ProfileLinkProps = {
   href?: string;
-  to?: string;
+  to: string;
   selected?: boolean;
   disabled?: boolean;
-  linkType?: 'external' | 'no-icon-external';
+  linkType?: 'internal' | 'external' | 'no-icon-external';
   hideIcon?: boolean;
   target?: string;
   rel?: string;
 } & Partial<ComponentProps<typeof Button>>;
 
+const StyledRouterLink = styled(RouterLink)`
+  text-decoration: none;
+  color: unset;
+  :hover {
+    text-decoration: none;
+  }
+`;
+
 export const ButtonRouterLink = ({
-  href,
   to,
-  selected,
   target,
   disabled,
   children,
@@ -25,19 +33,10 @@ export const ButtonRouterLink = ({
   ...buttonProps
 }: ProfileLinkProps) => {
   return (
-    <Link
-      href={href}
-      selected={selected}
-      disabled={disabled}
-      linkType={linkType}
-      hideIcon={hideIcon}
-      target={target}
-      className="button-link"
-      rel={rel}
-    >
+    <StyledRouterLink to={to} target={target} className="button-link" rel={rel}>
       <Button disabled={disabled} {...buttonProps}>
         {children}
       </Button>
-    </Link>
+    </StyledRouterLink>
   );
 };

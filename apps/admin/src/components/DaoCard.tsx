@@ -137,8 +137,6 @@ export const DaoCard = ({
         color="secondary"
         fullWidth
         to={`/molochv3/${networkId}/${dao}`}
-        target="_blank"
-        rel="noreferrer"
       >
         Go
       </ButtonRouterLink>

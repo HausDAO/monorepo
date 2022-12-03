@@ -17,8 +17,6 @@
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
-        "generateExportsField": true,
-        "format": ["esm"],
         "assets": [
           {
             "glob": "libs/tx-builder/README.md",

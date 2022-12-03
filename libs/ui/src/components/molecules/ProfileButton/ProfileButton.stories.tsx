@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiStarHalfSFill } from 'react-icons/ri';
+import { RiStarHalfSFill } from 'react-icons/ri/index.js';
 
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
 import { ProfileButton } from './ProfileButton';

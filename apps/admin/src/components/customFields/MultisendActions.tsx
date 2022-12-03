@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FieldValues, RegisterOptions } from 'react-hook-form';
-// import { HiOutlineTrash } from 'react-icons/hi'; // TODO: Enable `Delete Action Button`
 import { RiAddCircleLine } from 'react-icons/ri/index.js';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiCheckLine, RiCloseLine } from 'react-icons/ri';
+import { RiCheckLine, RiCloseLine } from 'react-icons/ri/index.js';
 
 import { Tag } from './Tag';
 

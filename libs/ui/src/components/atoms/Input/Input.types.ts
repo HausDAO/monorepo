@@ -1,4 +1,4 @@
-import { IconType } from 'react-icons/';
+import { IconType } from 'react-icons/lib/cjs';
 
 import { Field } from '../../../types/formAndField';
 

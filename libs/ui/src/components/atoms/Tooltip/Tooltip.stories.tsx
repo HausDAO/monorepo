@@ -1,6 +1,6 @@
 import { grass } from '@radix-ui/colors';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiCheckboxCircleFill } from 'react-icons/ri';
+import { RiCheckboxCircleFill } from 'react-icons/ri/index.js';
 import { H1, ParLg } from '../Typography';
 import { Tooltip } from './Tooltip';
 import { LgTooltipIcon, SmTooltipIcon } from './TooltipTriggers';

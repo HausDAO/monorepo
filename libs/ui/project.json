@@ -17,9 +17,7 @@
         "external": ["react", "react-dom", "react/jsx-runtime"],
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
-        "generateExportsField": true,
         "extractCss": false,
-        "format": ["esm"],
         "assets": [
           {
             "glob": "libs/ui/README.md",

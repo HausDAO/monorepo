@@ -14,7 +14,6 @@ import {
   Button,
   ParLg,
   ParMd,
-  Link,
   useBreakpoint,
   widthQuery,
   Tooltip,
@@ -107,11 +106,7 @@ export const ProposalCardOverview = ({
       </ParMd>
       {isMd && (
         <StyledRouterLink
-          to={
-            !loading
-              ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
-              : '#'
-          }
+          to={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
         >
           <Button
             color="secondary"
@@ -233,11 +228,7 @@ export const OverviewHeader = ({
             </ParSm>
           </HeaderContainer>
           <StyledRouterLink
-            to={
-              !loading
-                ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
-                : '#'
-            }
+            to={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
           >
             <Button color="secondary" size="sm" disabled={loading}>
               View Details

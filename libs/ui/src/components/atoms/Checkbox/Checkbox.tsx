@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { RiCheckLine, RiAsterisk } from 'react-icons/ri';
+import { RiCheckLine, RiAsterisk } from 'react-icons/ri/index.js';
 
 import { Label } from '../Label/Label';
 import { Icon } from '../Icon';

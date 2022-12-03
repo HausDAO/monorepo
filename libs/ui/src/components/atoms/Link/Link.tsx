@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { RiExternalLinkLine } from 'react-icons/ri';
+import { RiExternalLinkLine } from 'react-icons/ri/index.js';
 
 import { LinkProps, PolymorphicLinkProps } from './Link.types';
 import { StyledLink } from './Link.styles';

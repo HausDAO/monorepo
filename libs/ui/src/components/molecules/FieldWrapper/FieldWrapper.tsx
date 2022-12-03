@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
-import { RiAsterisk } from 'react-icons/ri';
+import { RiAsterisk } from 'react-icons/ri/index.js';
 import { useFormContext } from 'react-hook-form';
 
 import { Buildable } from '../../../types/formAndField';

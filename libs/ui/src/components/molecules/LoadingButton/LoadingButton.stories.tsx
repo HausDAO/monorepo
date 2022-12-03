@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiUserAddLine } from 'react-icons/ri';
+import { RiUserAddLine } from 'react-icons/ri/index.js';
 
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
 import { LoadingButton } from './LoadingButton';

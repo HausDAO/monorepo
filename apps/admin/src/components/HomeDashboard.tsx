@@ -15,7 +15,6 @@ import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
 import { DEFAULT_SORT_KEY, getDelegateFilter, SORT_FIELDS } from '../utils/hub';
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
-import { useParams } from 'react-router-dom';
 import { useDHConnect } from '@daohaus/connect';
 
 export enum ListType {
@@ -24,9 +23,8 @@ export enum ListType {
 }
 
 export const HomeDashboard = () => {
-  const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { appNetworks } = useDHConnect();
+  const { appNetworks, address } = useDHConnect();
   const [daoData, setDaoData] = useState<MolochV3Membership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<string[]>(appNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
@@ -66,12 +64,12 @@ export const HomeDashboard = () => {
         setLoading(false);
       }
     };
-    if (!profile) return;
-    getDaos(profile);
+    if (!address) return;
+    getDaos(address);
     return () => {
       shouldUpdate = false;
     };
-  }, [profile, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
+  }, [address, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;

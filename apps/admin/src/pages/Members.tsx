@@ -220,7 +220,7 @@ export const Members = () => {
         },
       },
     ],
-    [dao, daochain]
+    [dao, daochain, daoid]
   );
 
   const handleColumnSort = (

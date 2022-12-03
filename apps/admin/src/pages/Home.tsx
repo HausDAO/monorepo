@@ -1,13 +1,11 @@
 import { useDHConnect } from '@daohaus/connect';
-import { useParams } from 'react-router-dom';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from '../components/HomeNotConnected';
 
 export function Home() {
-  const { isConnected } = useDHConnect();
-  const { profile } = useParams();
+  const { isConnected, address } = useDHConnect();
 
-  return profile && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
+  return address && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
 }
 
 export default Home;

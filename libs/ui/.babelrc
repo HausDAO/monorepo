@@ -8,5 +8,6 @@
       }
     ]
   ],
+  "sourceMaps": "both",
   "plugins": [["styled-components", { "pure": true, "ssr": true }]]
 }

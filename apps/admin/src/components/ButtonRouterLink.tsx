@@ -1,5 +1,6 @@
-import { Button, Link } from '@daohaus/ui';
 import React, { ComponentProps } from 'react';
+import second from 'first';
+import { Button, Link } from '@daohaus/ui';
 
 type ProfileLinkProps = {
   href?: string;

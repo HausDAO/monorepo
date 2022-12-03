@@ -24,7 +24,7 @@ export enum ListType {
 }
 
 export const HomeDashboard = () => {
-  const { profile } = useParams();
+  const { addressurl } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
   const { appNetworks } = useDHConnect();
   const [daoData, setDaoData] = useState<MolochV3Membership[]>([]);
@@ -66,12 +66,12 @@ export const HomeDashboard = () => {
         setLoading(false);
       }
     };
-    if (!profile) return;
-    getDaos(profile);
+    if (!addressurl) return;
+    getDaos(addressurl);
     return () => {
       shouldUpdate = false;
     };
-  }, [profile, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
+  }, [addressurl, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;

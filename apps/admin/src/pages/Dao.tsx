@@ -3,7 +3,6 @@ import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { useMemo } from 'react';
-import { H4 } from '@daohaus/ui';
 import { HeaderAvatar } from '../components/HeaderAvatar';
 
 export function Dao() {

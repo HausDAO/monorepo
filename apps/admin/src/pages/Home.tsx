@@ -5,9 +5,9 @@ import { HomeNotConnected } from '../components/HomeNotConnected';
 
 export function Home() {
   const { isConnected } = useDHConnect();
-  const { profile } = useParams();
+  const { addressurl } = useParams();
 
-  return profile && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
+  return addressurl && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
 }
 
 export default Home;

@@ -4,10 +4,9 @@ import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from '../components/HomeNotConnected';
 
 export function Home() {
-  const { isConnected } = useDHConnect();
-  const { addressurl } = useParams();
+  const { isConnected, address } = useDHConnect();
 
-  return addressurl && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
+  return address && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
 }
 
 export default Home;

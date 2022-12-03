@@ -3,8 +3,6 @@ import {
   Route,
   Outlet,
   useLocation,
-  useParams,
-  useNavigate,
   matchPath,
 } from 'react-router-dom';
 
@@ -22,28 +20,27 @@ import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import RageQuit from './pages/RageQuit';
 import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { HeaderAvatar } from './components/HeaderAvatar';
 
 const HomeContainer = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { isConnected, address } = useDHConnect();
-  const { profile } = useParams();
-
-  useLayoutEffect(() => {
-    if (isConnected && address && profile) {
-      return;
-    }
-    if (isConnected && !profile) {
-      navigate(`/${address}`);
-      window.location.href = `#/${address}`;
-    }
-  }, [isConnected, address, profile, navigate]);
+  const { address, profile } = useDHConnect();
 
   return (
     <DHLayout
+      leftNav={
+        profile?.displayName &&
+        address && (
+          <HeaderAvatar
+            name={profile?.displayName}
+            address={address}
+            imgUrl={profile?.image}
+          />
+        )
+      }
       pathname={location.pathname}
-      navLinks={[{ label: 'Hub', href: `/${address}` }]}
+      navLinks={[{ label: 'Hub', href: `/` }]}
     >
       <Outlet />
     </DHLayout>
@@ -68,7 +65,7 @@ const Routes = () => {
     <DHConnectProvider daoChainId={daoChainId}>
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>
-          <Route path="/:profile" element={<Home />} />
+          <Route path="/" element={<Home />} />
         </Route>
         <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />

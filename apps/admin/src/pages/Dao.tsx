@@ -8,7 +8,7 @@ import { HeaderAvatar } from '../components/HeaderAvatar';
 export function Dao() {
   const { daochain, daoid } = useParams();
   const location = useLocation();
-  const { provider, address } = useDHConnect();
+  const { provider } = useDHConnect();
   const { dao } = useDao();
   const { connectedMember } = useConnectedMember();
 
@@ -55,7 +55,7 @@ export function Dao() {
         }
         pathname={location.pathname}
         navLinks={[
-          { label: 'Hub', href: `/${address}` },
+          { label: 'Hub', href: `/` },
           {
             label: 'DAO',
             href: `/molochv3/${daochain}/${daoid}`,

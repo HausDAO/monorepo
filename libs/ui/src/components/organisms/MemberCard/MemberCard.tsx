@@ -21,7 +21,7 @@ import { useCopyToClipboard } from '../../../hooks';
 export const MemberCard = ({
   className,
   profile,
-  customProfileURI,
+  profileUrl,
   explorerNetworkId,
   minWidth = '17.8rem',
 }: MemberCardProps) => {
@@ -44,7 +44,7 @@ export const MemberCard = ({
   return (
     <Dropdown
       className={className}
-      align={'end'}
+      align="start"
       trigger={
         <MemberCardTrigger
           // avatar
@@ -63,11 +63,13 @@ export const MemberCard = ({
         </MemberCardTrigger>
       }
     >
-      <DropdownMenuItem>
-        <DropdownLink href={`${customProfileURI || profile.address}`}>
-          <ParMd>View Profile</ParMd>
-        </DropdownLink>
-      </DropdownMenuItem>
+      {profileUrl && (
+        <DropdownMenuItem>
+          <DropdownLink href={profileUrl}>
+            <ParMd>View Profile</ParMd>
+          </DropdownLink>
+        </DropdownMenuItem>
+      )}
       <DropdownMenuItem>
         <DropdownLink href={explorerLink} linkType="external">
           <ParMd>Block Explorer</ParMd>

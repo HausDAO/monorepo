@@ -124,6 +124,8 @@ export const ProposalCardOverview = ({
         </ParMd>
         <MemberCard
           explorerNetworkId={daochain as keyof Keychain}
+          minWidth="4rem"
+          profileUrl={`/molochv3/${daochain}/${daoid}/members/${proposal.createdBy}`}
           profile={
             submitterProfile || {
               address: proposal.createdBy,

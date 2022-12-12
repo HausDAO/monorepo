@@ -25,7 +25,7 @@ import {
   LockManager,
 } from '../generated/templates/BaalTemplate/Baal';
 import { constants } from './util/constants';
-import { parser } from './util/parser';
+import { getResultFromJson, getStringFromJson } from './util/parser';
 import { addTransaction } from './util/transactions';
 
 export function handleSetupComplete(event: SetupComplete): void {
@@ -56,14 +56,14 @@ export function handleSetupComplete(event: SetupComplete): void {
 
   const daoProfile = Record.load(daoId.concat('-record-summon'));
   if (daoProfile) {
-    let result = parser.getResultFromJson(daoProfile.content);
+    let result = getResultFromJson(daoProfile.content);
     if (result.error != 'none') {
       log.error('no content', []);
       return;
     }
     let object = result.object;
 
-    let name = parser.getStringFromJson(object, 'name');
+    let name = getStringFromJson(object, 'name');
 
     dao.name = name.data;
   }
@@ -214,36 +214,36 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     : constants.BIGINT_ZERO;
 
   proposal.details = event.params.details;
-  let result = parser.getResultFromJson(event.params.details);
+  let result = getResultFromJson(event.params.details);
   if (result.error != 'none') {
     log.error('details parse error prop: {}', [proposalId]);
     proposal.details = event.params.details;
   } else {
     let object = result.object;
 
-    let title = parser.getStringFromJson(object, 'title');
+    let title = getStringFromJson(object, 'title');
     if (title.error == 'none') {
       proposal.title = title.data;
     }
 
-    let description = parser.getStringFromJson(object, 'description');
+    let description = getStringFromJson(object, 'description');
     if (description.error == 'none') {
       proposal.description = description.data;
     }
 
-    let proposalType = parser.getStringFromJson(object, 'proposalType');
+    let proposalType = getStringFromJson(object, 'proposalType');
     if (proposalType.error == 'none') {
       proposal.proposalType = proposalType.data;
     } else {
       proposal.proposalType = 'unknown';
     }
 
-    let contentURI = parser.getStringFromJson(object, 'contentURI');
+    let contentURI = getStringFromJson(object, 'contentURI');
     if (contentURI.error == 'none') {
       proposal.contentURI = contentURI.data;
     }
 
-    let contentURIType = parser.getStringFromJson(object, 'contentURIType');
+    let contentURIType = getStringFromJson(object, 'contentURIType');
     if (contentURIType.error == 'none') {
       proposal.contentURIType = contentURIType.data;
     }

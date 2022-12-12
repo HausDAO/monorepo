@@ -1,4 +1,10 @@
-import { Address, JSONValue, log, TypedMap } from '@graphprotocol/graph-ts';
+import {
+  Address,
+  Bytes,
+  JSONValue,
+  log,
+  TypedMap,
+} from '@graphprotocol/graph-ts';
 import { Dao, Member } from '../../generated/schema';
 import { constants } from './constants';
 import { getStringFromJson } from './parser';
@@ -61,7 +67,7 @@ export function isMember(
 
 export function isDaoSafe(
   object: TypedMap<string, JSONValue>,
-  senderAddress: Address
+  senderAddress: Bytes
 ): boolean {
   const daoId = getStringFromJson(object, 'daoId');
   if (daoId.error != 'none') {
@@ -76,8 +82,11 @@ export function isDaoSafe(
     return false;
   }
 
-  if (dao.safeAddress !== senderAddress) {
-    log.info('not from the dao safe', []);
+  if (dao.safeAddress != senderAddress) {
+    log.info('not from the dao safe, dao.safeAddress: {}, senderAddress: {}', [
+      dao.safeAddress.toHexString(),
+      senderAddress.toHexString(),
+    ]);
 
     return false;
   }

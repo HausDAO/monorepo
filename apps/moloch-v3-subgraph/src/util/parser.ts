@@ -207,7 +207,7 @@ export namespace parser {
     entity.table = table.data;
     entity.contentType = 'json';
     entity.content = event.params.content;
-    entity.queryType = queryType;
+    entity.queryType = queryType.data;
 
     entity.save();
 

@@ -51,7 +51,7 @@ export const TX: Record<string, TXLego> = {
               link: `.formValues.link`,
             },
           },
-          { type: 'static', value: POSTER_TAGS.signalProposal },
+          { type: 'static', value: POSTER_TAGS.daoDatabaseProposal },
         ],
       },
     ],
@@ -379,7 +379,7 @@ export const TX: Record<string, TXLego> = {
           },
         },
       },
-      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+      { type: 'static', value: POSTER_TAGS.daoDatabaseShares },
     ],
   },
   UPDATE_GOV_SETTINGS: buildMultiCallTX({

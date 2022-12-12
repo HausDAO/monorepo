@@ -1,12 +1,10 @@
 import {
   Bytes,
-  log,
   JSONValue,
   JSONValueKind,
   TypedMap,
   json,
   ByteArray,
-  Address,
 } from '@graphprotocol/graph-ts';
 import { NewPost } from '../../generated/Poster/Poster';
 import { Dao, Record } from '../../generated/schema';
@@ -20,6 +18,7 @@ class JsonResult {
   error: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace parser {
   export function getResultFromJson(content: string): JsonResult {
     let result: JsonResult;
@@ -77,11 +76,11 @@ export namespace parser {
     if (daoAddress === null) {
       return false;
     }
-    let entityId = daoAddress.toHexString().concat('-record-summon');
+    const entityId = daoAddress.toHexString().concat('-record-summon');
 
-    let entity = new Record(entityId);
+    const entity = new Record(entityId);
 
-    let name = parser.getStringFromJson(object, 'name');
+    const name = parser.getStringFromJson(object, 'name');
     if (name.error != 'none') {
       return false;
     }
@@ -108,12 +107,12 @@ export namespace parser {
       return false;
     }
 
-    let dao = Dao.load(daoAddress);
+    const dao = Dao.load(daoAddress);
     if (!dao) {
       return false;
     }
 
-    let name = parser.getStringFromJson(object, 'name');
+    const name = parser.getStringFromJson(object, 'name');
     if (name.error != 'none') {
       return false;
     }
@@ -121,12 +120,12 @@ export namespace parser {
     dao.name = name.data;
     dao.save();
 
-    let entityId = daoAddress
+    const entityId = daoAddress
       .concat('-record-')
       .concat(event.block.timestamp.toString())
       .concat(event.logIndex.toString());
 
-    let entity = new Record(entityId);
+    const entity = new Record(entityId);
 
     entity.createdAt = event.block.timestamp;
     entity.createdBy = event.params.user;
@@ -146,17 +145,17 @@ export namespace parser {
       return false;
     }
 
-    let dao = Dao.load(daoAddress);
+    const dao = Dao.load(daoAddress);
     if (!dao) {
       return false;
     }
 
-    let entityId = daoAddress
+    const entityId = daoAddress
       .concat('-record-')
       .concat(event.block.timestamp.toString())
       .concat(event.logIndex.toString());
 
-    let entity = new Record(entityId);
+    const entity = new Record(entityId);
 
     entity.createdAt = event.block.timestamp;
     entity.createdBy = event.params.user;
@@ -165,6 +164,50 @@ export namespace parser {
     entity.table = 'signal';
     entity.contentType = 'json';
     entity.content = event.params.content;
+
+    entity.save();
+
+    return true;
+  }
+
+  export function createDaoDatabaseRecord(
+    object: TypedMap<string, JSONValue>,
+    daoAddress: string,
+    event: NewPost
+  ): boolean {
+    if (daoAddress === null) {
+      return false;
+    }
+
+    const dao = Dao.load(daoAddress);
+    if (!dao) {
+      return false;
+    }
+
+    const table = parser.getStringFromJson(object, 'table');
+    if (table.error != 'none') {
+      return false;
+    }
+    const queryType = parser.getStringFromJson(object, 'queryType');
+    if (queryType.error != 'none') {
+      return false;
+    }
+
+    const entityId = daoAddress
+      .concat('-record-')
+      .concat(event.block.timestamp.toString())
+      .concat(event.logIndex.toString());
+
+    const entity = new Record(entityId);
+
+    entity.createdAt = event.block.timestamp;
+    entity.createdBy = event.params.user;
+    entity.dao = daoAddress;
+    entity.tag = event.params.tag;
+    entity.table = table.data;
+    entity.contentType = 'json';
+    entity.content = event.params.content;
+    entity.queryType = queryType;
 
     entity.save();
 

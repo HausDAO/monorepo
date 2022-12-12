@@ -221,6 +221,7 @@ type Record @entity {
   table: String!
   contentType: String!
   content: String!
+  queryType: String
 }
 
 type Member @entity {

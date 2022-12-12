@@ -43,11 +43,12 @@ export const TX: Record<string, TXLego> = {
           {
             type: 'JSONDetails',
             jsonSchema: {
+              daoId: '.daoId',
+              table: { type: 'static', value: 'signal' },
+              queryType: { type: 'static', value: 'list' },
               title: `.formValues.title`,
               description: `.formValues.description`,
-              contentURI: `.formValues.link`,
-              contentURIType: { type: 'static', value: 'url' },
-              proposalType: { type: 'static', value: ProposalTypeIds.Signal },
+              link: `.formValues.link`,
             },
           },
           { type: 'static', value: POSTER_TAGS.signalProposal },
@@ -301,6 +302,8 @@ export const TX: Record<string, TXLego> = {
         type: 'JSONDetails',
         jsonSchema: {
           daoId: '.daoId',
+          table: { type: 'static', value: 'daoProfile' },
+          queryType: { type: 'static', value: 'latest' },
           name: '.formValues.name',
           description: '.formValues.description',
           longDescription: '.formValues.long_description',

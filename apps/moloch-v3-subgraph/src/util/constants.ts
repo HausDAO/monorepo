@@ -18,6 +18,16 @@ export namespace constants {
   //daohaus.shares.daoProfile
   export const DAOHAUS_SHARES_DAO_PROFILE_TAG =
     '0x7983ed9a7b186e99a3013717a3415e68a645a683afa103a308be273625b7f9d9';
+  //daohaus.proposal.signalProposal
   export const DAOHAUS_PROPOSAL_SIGNAL =
     '0x76cfe3c064b09ef30c85339b8c6afdc968c86e99f694cece7363eb9ddc05872f';
+  //daohaus.proposal.database
+  export const DAOHAUS_PROPOSAL_DATABASE =
+    '0xd9bba498212bc57154eee5bd001bd5a74a54c3adafcbd1bd3e7ec68de17f8b60';
+  //daohaus.shares.database
+  export const DAOHAUS_SHARES_DATABASE =
+    '0x6d4062f2b1b2d390580919ae04ffc5befdd846c103753a232d279704f025a21c';
+  //daohaus.member.database
+  export const DAOHAUS_MEMBER_DATABASE =
+    '0x3577aebf71d9bfbe235b0b98b53c9f1865b0f0dc68290b2b64c6251dc4de7800';
 }

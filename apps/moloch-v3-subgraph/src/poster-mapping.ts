@@ -58,8 +58,6 @@ export function handleNewPost(event: NewPost): void {
   }
 
   if (event.params.tag.toHexString() == constants.DAOHAUS_PROPOSAL_SIGNAL) {
-    // todo add proposal validator
-    // event .params.user is the safe for the dao
     log.info(
       'sig: event.address, {}, event.params.user: {}, event.transaction.from: {}',
       [
@@ -80,8 +78,29 @@ export function handleNewPost(event: NewPost): void {
     validators.isDaoSafe(event.params.user, daoId.data)
   ) {
     log.info('&&& creating database record', [event.params.content]);
+    parser.createDaoDatabaseRecord(object, daoId.data, event);
+    addTransaction(event.block, event.transaction, event.address);
+    return;
+  }
 
-    // parser.createDaoSignal(daoId.data, event);
+  if (
+    event.params.tag.toHexString() == constants.DAOHAUS_SHARES_DATABASE &&
+    validators.hasDaoDatabaseFields(object) &&
+    validators.isShareholder(event.params.user, daoId.data)
+  ) {
+    log.info('&&& creating database record', [event.params.content]);
+    parser.createDaoDatabaseRecord(object, daoId.data, event);
+    addTransaction(event.block, event.transaction, event.address);
+    return;
+  }
+
+  if (
+    event.params.tag.toHexString() == constants.DAOHAUS_MEMBER_DATABASE &&
+    validators.hasDaoDatabaseFields(object) &&
+    validators.isMember(event.params.user, daoId.data)
+  ) {
+    log.info('&&& creating database record', [event.params.content]);
+    parser.createDaoDatabaseRecord(object, daoId.data, event);
     addTransaction(event.block, event.transaction, event.address);
     return;
   }

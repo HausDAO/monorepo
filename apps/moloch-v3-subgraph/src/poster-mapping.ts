@@ -1,20 +1,35 @@
 import { NewPost } from '../generated/Poster/Poster';
 import { log } from '@graphprotocol/graph-ts';
-import { parser } from './util/parser';
+import {
+  createDaoDatabaseRecord,
+  createDaoProfile,
+  createDaoProfileSummoning,
+  createDaoSignal,
+  getResultFromJson,
+  getStringFromJson,
+} from './util/parser';
 import { constants } from './util/constants';
-import { validators } from './util/validators';
+import {
+  hasDaoDatabaseFields,
+  isDaoSafe,
+  isMember,
+  isShareholder,
+} from './util/validators';
 import { addTransaction } from './util/transactions';
 
 // event NewPost(address indexed user, string content, string indexed tag);
 export function handleNewPost(event: NewPost): void {
   log.info('^^^handleNewPost tag, {}', [event.params.tag.toHexString()]);
 
-  let validTags = [
+  const validTags = [
     constants.DAOHAUS_SUMMONER_DAO_PROFILE_TAG,
     constants.DAOHAUS_SHARES_DAO_PROFILE_TAG,
     constants.DAOHAUS_PROPOSAL_SIGNAL,
+    constants.DAOHAUS_PROPOSAL_DATABASE,
+    constants.DAOHAUS_SHARES_DATABASE,
+    constants.DAOHAUS_MEMBER_DATABASE,
   ];
-  let validTag = validTags.includes(event.params.tag.toHexString());
+  const validTag = validTags.includes(event.params.tag.toHexString());
   if (!validTag) {
     log.info('^^^invalidTag', []);
     return;
@@ -22,23 +37,23 @@ export function handleNewPost(event: NewPost): void {
 
   log.info('event.params.content, {}', [event.params.content]);
 
-  let result = parser.getResultFromJson(event.params.content);
+  const result = getResultFromJson(event.params.content);
   if (result.error != 'none') {
     log.error('no content', []);
     return;
   }
-  let object = result.object;
+  const object = result.object;
 
   if (
     event.params.tag.toHexString() == constants.DAOHAUS_SUMMONER_DAO_PROFILE_TAG
   ) {
     log.info('&&& creating summon record', [event.params.content]);
-    parser.createDaoProfileSummoning(object, event.params.user, event);
+    createDaoProfileSummoning(object, event.params.user, event);
     addTransaction(event.block, event.transaction, event.address);
     return;
   }
 
-  let daoId = parser.getStringFromJson(object, 'daoId');
+  const daoId = getStringFromJson(object, 'daoId');
   if (daoId.error != 'none') {
     log.error('no daoId', []);
     return;
@@ -47,16 +62,57 @@ export function handleNewPost(event: NewPost): void {
   if (
     event.params.tag.toHexString() ==
       constants.DAOHAUS_SHARES_DAO_PROFILE_TAG &&
-    validators.isShareholder(event.params.user, daoId.data)
+    isShareholder(object, event.params.user)
   ) {
-    parser.createDaoProfile(object, daoId.data, event);
+    createDaoProfile(object, event);
     addTransaction(event.block, event.transaction, event.address);
     return;
   }
 
   if (event.params.tag.toHexString() == constants.DAOHAUS_PROPOSAL_SIGNAL) {
-    log.info('&&& creating summon record', [event.params.content]);
-    parser.createDaoSignal(daoId.data, event);
+    log.info(
+      'sig: event.address, {}, event.params.user: {}, event.transaction.from: {}',
+      [
+        event.address.toHexString(),
+        event.params.user.toHexString(),
+        event.transaction.from.toHexString(),
+      ]
+    );
+
+    createDaoSignal(object, event);
+    addTransaction(event.block, event.transaction, event.address);
+    return;
+  }
+
+  if (
+    event.params.tag.toHexString() == constants.DAOHAUS_PROPOSAL_DATABASE &&
+    hasDaoDatabaseFields(object) &&
+    isDaoSafe(object, event.params.user)
+  ) {
+    log.info('&&& creating database record', [event.params.content]);
+    createDaoDatabaseRecord(object, event);
+    addTransaction(event.block, event.transaction, event.address);
+    return;
+  }
+
+  if (
+    event.params.tag.toHexString() == constants.DAOHAUS_SHARES_DATABASE &&
+    hasDaoDatabaseFields(object) &&
+    isShareholder(object, event.params.user)
+  ) {
+    log.info('&&& creating database record', [event.params.content]);
+    createDaoDatabaseRecord(object, event);
+    addTransaction(event.block, event.transaction, event.address);
+    return;
+  }
+
+  if (
+    event.params.tag.toHexString() == constants.DAOHAUS_MEMBER_DATABASE &&
+    hasDaoDatabaseFields(object) &&
+    isMember(object, event.params.user)
+  ) {
+    log.info('&&& creating database record', [event.params.content]);
+    createDaoDatabaseRecord(object, event);
     addTransaction(event.block, event.transaction, event.address);
     return;
   }

@@ -33,7 +33,7 @@ import {
   AccountProfile,
 } from '@daohaus/utils';
 
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain } from '@daohaus/keychain-utils';
 
 import { ButtonRouterLink } from '../components/ButtonRouterLink';
 import { DaoTable } from '../components/DaohausTable';

@@ -10,6 +10,16 @@
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{40}$"
     },
+    "table": {
+      "description": "Table field on the Record entity indexed in the DAOhaus subgraph",
+      "type": "string",
+      "enum": ["daoProfile"]
+    },
+    "queryType": {
+      "description": "Indicates if the Record entities indexed in the DAOhaus subgraph should be queried for latest or as a list",
+      "type": "string",
+      "enum": ["latest"]
+    },
     "name": {
       "description": "Name of the DAO",
       "type": "string"
@@ -50,7 +60,7 @@
       }
     }
   },
-  "required": ["daoId", "name"],
+  "required": ["daoId", "name", "table", "queryType"],
   "definitions": {
     "saneUrl": { "format": "uri", "pattern": "^https?://" }
   }

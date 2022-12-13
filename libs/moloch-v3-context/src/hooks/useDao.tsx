@@ -6,6 +6,8 @@ import { ValidNetwork } from '@daohaus/keychain-utils';
 
 type MolochV3DaoContextDaoType = {
   dao: MolochV3Dao | undefined;
+  daoid: string | undefined | null;
+  daochain: string | undefined | null;
   refreshDao: () => Promise<void>;
   refreshAll: () => Promise<void>;
 };
@@ -30,6 +32,8 @@ export const useDao = (): MolochV3DaoContextDaoType => {
 
   return {
     dao: daoData?.dao,
+    daoid,
+    daochain,
     refreshDao,
     refreshAll,
   };

@@ -172,7 +172,7 @@ type CanCommentResponse {
 
 type CanDecryptResponse {
   result: Boolean!
-  reasons: DecryptFailReason
+  reasons: [DecryptFailReason!]
 }
 
 type CanMirrorResponse {
@@ -212,22 +212,22 @@ enum ClaimStatus {
 Condition that signifies if address or profile has collected a publication
 """
 input CollectConditionInput {
-  """The collected publication id"""
-  publisherId: ProfileId!
+  """The publication id that has to be collected to unlock content"""
+  publicationId: InternalPublicationId
 
-  """The collected publication id"""
-  publicationId: PublicationId!
+  """True if the content will be unlocked for this specific publication"""
+  thisPublication: Boolean
 }
 
 """
 Condition that signifies if address or profile has collected a publication
 """
 type CollectConditionOutput {
-  """The collected publication id"""
-  publisherId: ProfileId!
+  """The publication id that has to be collected to unlock content"""
+  publicationId: InternalPublicationId
 
-  """The collected publication id"""
-  publicationId: PublicationId!
+  """True if the content will be unlocked for this specific publication"""
+  thisPublication: Boolean
 }
 
 type CollectedEvent {
@@ -320,6 +320,9 @@ type Comment {
   """Indicates if the publication is gated behind some access criteria"""
   isGated: Boolean!
 
+  """Indicates if the publication is data availability post"""
+  isDataAvailability: Boolean!
+
   """The top level post/mirror this comment lives on"""
   mainPost: MainPostReference!
 
@@ -342,6 +345,7 @@ type Comment {
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
   canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
+  dataAvailabilityProofs: String
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -931,6 +935,10 @@ type CreateUnfollowBroadcastItemResult {
   typedData: CreateBurnEIP712TypedData!
 }
 
+input CurRequest {
+  secret: String!
+}
+
 """Cursor custom scalar type"""
 scalar Cursor
 
@@ -953,6 +961,7 @@ enum DecryptFailReason {
   HAS_NOT_COLLECTED_PUBLICATION
   UNAUTHORIZED_BALANCE
   PROFILE_DOES_NOT_EXIST
+  MISSING_ENCRYPTION_PARAMS
   FOLLOW_NOT_FINALISED_ON_CHAIN
   COLLECT_NOT_FINALISED_ON_CHAIN
 }
@@ -1157,17 +1166,11 @@ type EnsOnChainIdentity {
 input EoaOwnershipInput {
   """The address that will have access to the content"""
   address: EthereumAddress!
-
-  """The chain ID of the address"""
-  chainID: ChainId!
 }
 
 type EoaOwnershipOutput {
   """The address that will have access to the content"""
   address: EthereumAddress!
-
-  """The chain ID of the address"""
-  chainID: ChainId!
 }
 
 """The erc20 type"""
@@ -1624,6 +1627,12 @@ input HasTxHashBeenIndexedRequest {
   txId: TxId
 }
 
+input HelRequest {
+  secret: String!
+  handle: Handle!
+  remove: Boolean!
+}
+
 input HidePublicationRequest {
   """Publication id"""
   publicationId: InternalPublicationId!
@@ -1932,6 +1941,9 @@ type Mirror {
   """Indicates if the publication is gated behind some access criteria"""
   isGated: Boolean!
 
+  """Indicates if the publication is data availability post"""
+  isDataAvailability: Boolean!
+
   """The mirror publication"""
   mirrorOf: MirrorablePublication!
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
@@ -1939,6 +1951,7 @@ type Mirror {
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
   canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
+  dataAvailabilityProofs: String
 }
 
 union MirrorablePublication = Post | Comment
@@ -2012,6 +2025,7 @@ type Mutation {
   removeReaction(request: ReactionRequest!): Void
   reportPublication(request: ReportPublicationRequest!): Void
   ach(request: AchRequest!): Void
+  hel(request: HelRequest!): Void
 }
 
 input MutualFollowersProfilesQueryRequest {
@@ -2193,7 +2207,7 @@ input NftOwnershipInput {
   contractType: ContractType!
 
   """The optional token ID(s) to check for ownership"""
-  tokenIds: TokenId
+  tokenIds: [TokenId!] = []
 }
 
 type NftOwnershipOutput {
@@ -2207,7 +2221,7 @@ type NftOwnershipOutput {
   contractType: ContractType!
 
   """The optional token ID(s) to check for ownership"""
-  tokenIds: TokenId
+  tokenIds: [TokenId!]
 }
 
 input NFTsRequest {
@@ -2440,6 +2454,9 @@ type Post {
   """Indicates if the publication is gated behind some access criteria"""
   isGated: Boolean!
 
+  """Indicates if the publication is data availability post"""
+  isDataAvailability: Boolean!
+
   """
   Who collected it, this is used for timeline results and like this for better caching for the client
   """
@@ -2449,6 +2466,7 @@ type Post {
   canComment(profileId: ProfileId): CanCommentResponse!
   canMirror(profileId: ProfileId): CanMirrorResponse!
   canDecrypt(profileId: ProfileId, address: EthereumAddress): CanDecryptResponse!
+  dataAvailabilityProofs: String
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -3148,6 +3166,7 @@ type Query {
   publicationRevenue(request: PublicationRevenueQueryRequest!): PublicationRevenue
   profileFollowRevenue(request: ProfileFollowRevenueQueryRequest!): FollowRevenueResult!
   rel(request: RelRequest!): Void
+  cur(request: CurRequest!): [String!]!
 }
 
 type ReactionEvent {

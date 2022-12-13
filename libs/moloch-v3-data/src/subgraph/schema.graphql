@@ -2145,6 +2145,7 @@ type Record {
   table: String!
   contentType: String!
   content: String!
+  queryType: String
 }
 
 input Record_filter {
@@ -2257,6 +2258,26 @@ input Record_filter {
   content_ends_with_nocase: String
   content_not_ends_with: String
   content_not_ends_with_nocase: String
+  queryType: String
+  queryType_not: String
+  queryType_gt: String
+  queryType_lt: String
+  queryType_gte: String
+  queryType_lte: String
+  queryType_in: [String!]
+  queryType_not_in: [String!]
+  queryType_contains: String
+  queryType_contains_nocase: String
+  queryType_not_contains: String
+  queryType_not_contains_nocase: String
+  queryType_starts_with: String
+  queryType_starts_with_nocase: String
+  queryType_not_starts_with: String
+  queryType_not_starts_with_nocase: String
+  queryType_ends_with: String
+  queryType_ends_with_nocase: String
+  queryType_not_ends_with: String
+  queryType_not_ends_with_nocase: String
 
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
@@ -2271,6 +2292,7 @@ enum Record_orderBy {
   table
   contentType
   content
+  queryType
 }
 
 type Shaman {

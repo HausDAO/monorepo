@@ -2,6 +2,7 @@ export * from './query.types';
 export * from './dao.types';
 export * from './proposal.types';
 export * from './member.types';
+export * from './record.types';
 
 export * from '../subgraph/schema.generated';
 export * from '../subgraph/queries/members.generated';

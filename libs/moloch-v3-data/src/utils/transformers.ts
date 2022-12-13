@@ -11,7 +11,9 @@ import {
   DaoProfile,
   ListDaosQuery,
   MolochV3Proposal,
+  FindRecordQuery,
 } from '../types';
+import { MolochV3Record } from '../types/record.types';
 import { getProposalStatus } from './proposalsStatus';
 
 export const transformProposal = (
@@ -118,4 +120,19 @@ export const addDaoProfileFields = (
     console.log('daoprofile parsing error', e);
     return;
   }
+};
+
+export const addParsedContent = (
+  record?: FindRecordQuery['record']
+): MolochV3Record | undefined => {
+  if (record?.contentType === 'json') {
+    try {
+      const obj = JSON.parse(record.content);
+      return { ...record, parsedContent: obj };
+    } catch (e) {
+      console.log('err', e);
+      return;
+    }
+  }
+  return record;
 };

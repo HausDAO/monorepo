@@ -7,8 +7,17 @@ import {
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
 import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
-import { createPaging, DEFAULT_RECORDS_PER_PAGE } from './utils';
-import { Record_Filter, Record_OrderBy } from './types';
+import {
+  addParsedContent,
+  createPaging,
+  DEFAULT_RECORDS_PER_PAGE,
+} from './utils';
+import {
+  FindRecordQueryRes,
+  ListRecordQueryRes,
+  Record_Filter,
+  Record_OrderBy,
+} from './types';
 import {
   FindRecordDocument,
   FindRecordQuery,
@@ -18,7 +27,7 @@ import {
   ListRecordsQueryVariables,
 } from './subgraph/queries/records.generated';
 
-export const findRecords = async ({
+export const findRecord = async ({
   networkId,
   recordId,
   graphApiKeys,
@@ -26,7 +35,7 @@ export const findRecords = async ({
   networkId: ValidNetwork;
   recordId: string;
   graphApiKeys?: Keychain;
-}): Promise<IFindQueryResult<FindRecordQuery>> => {
+}): Promise<IFindQueryResult<FindRecordQueryRes>> => {
   const url = getGraphUrl(networkId, graphApiKeys);
   if (!url) {
     return {
@@ -35,7 +44,7 @@ export const findRecords = async ({
   }
 
   try {
-    return await graphFetch<FindRecordQuery, FindRecordQueryVariables>(
+    const res = await graphFetch<FindRecordQuery, FindRecordQueryVariables>(
       FindRecordDocument,
       url,
       networkId,
@@ -43,6 +52,8 @@ export const findRecords = async ({
         id: recordId,
       }
     );
+
+    return { ...res, data: { record: addParsedContent(res?.data?.record) } };
   } catch (err) {
     return {
       error: formatFetchError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
@@ -63,7 +74,11 @@ export const listRecords = async ({
   },
   graphApiKeys,
 }: IListQueryArguments<Record_OrderBy, Record_Filter>): Promise<
-  IListQueryResults<Record_OrderBy, Record_Filter, ListRecordsQuery['records']>
+  IListQueryResults<
+    Record_OrderBy,
+    Record_Filter,
+    ListRecordQueryRes['records']
+  >
 > => {
   const url = getGraphUrl(networkId, graphApiKeys);
   if (!url) {
@@ -90,6 +105,8 @@ export const listRecords = async ({
     ordering,
     nextPaging: pagingUpdates.nextPaging,
     previousPaging: pagingUpdates.previousPaging,
-    items: pagingUpdates.pageItems,
+    items: pagingUpdates.pageItems.map((item) => {
+      return { ...item, ...addParsedContent(item) };
+    }),
   };
 };

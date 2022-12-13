@@ -5,3 +5,4 @@ export * from './transactions';
 export * from './types';
 export * from './utils';
 export * from './vaults';
+export * from './records';

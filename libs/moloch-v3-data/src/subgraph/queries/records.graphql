@@ -1,0 +1,38 @@
+query listRecords(
+  $where: Record_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Record_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
+) {
+  records: records(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...recordFields
+  }
+}
+
+query findRecord($id: ID!) {
+  record: record(id: $id) {
+    ...recordFields
+  }
+}
+
+fragment recordFields on Record {
+  id
+  createdAt
+  createdBy
+  tag
+  table
+  contentType
+  content
+  queryType
+  dao {
+    id
+  }
+}

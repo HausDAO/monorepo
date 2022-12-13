@@ -1845,6 +1845,7 @@ export interface Record {
   createdBy: Scalars['Bytes'];
   dao: Dao;
   id: Scalars['ID'];
+  queryType?: Maybe<Scalars['String']>;
   table: Scalars['String'];
   tag: Scalars['Bytes'];
 }
@@ -1935,6 +1936,26 @@ export interface Record_Filter {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  queryType?: InputMaybe<Scalars['String']>;
+  queryType_contains?: InputMaybe<Scalars['String']>;
+  queryType_contains_nocase?: InputMaybe<Scalars['String']>;
+  queryType_ends_with?: InputMaybe<Scalars['String']>;
+  queryType_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  queryType_gt?: InputMaybe<Scalars['String']>;
+  queryType_gte?: InputMaybe<Scalars['String']>;
+  queryType_in?: InputMaybe<Array<Scalars['String']>>;
+  queryType_lt?: InputMaybe<Scalars['String']>;
+  queryType_lte?: InputMaybe<Scalars['String']>;
+  queryType_not?: InputMaybe<Scalars['String']>;
+  queryType_not_contains?: InputMaybe<Scalars['String']>;
+  queryType_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  queryType_not_ends_with?: InputMaybe<Scalars['String']>;
+  queryType_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  queryType_not_in?: InputMaybe<Array<Scalars['String']>>;
+  queryType_not_starts_with?: InputMaybe<Scalars['String']>;
+  queryType_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  queryType_starts_with?: InputMaybe<Scalars['String']>;
+  queryType_starts_with_nocase?: InputMaybe<Scalars['String']>;
   table?: InputMaybe<Scalars['String']>;
   table_contains?: InputMaybe<Scalars['String']>;
   table_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -1970,6 +1991,7 @@ export type Record_OrderBy =
   | 'createdBy'
   | 'dao'
   | 'id'
+  | 'queryType'
   | 'table'
   | 'tag';
 

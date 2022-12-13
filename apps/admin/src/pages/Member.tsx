@@ -8,6 +8,8 @@ import {
   MolochV3Dao,
   FindMemberQuery,
   DaoVault,
+  listRecords,
+  findRecord,
 } from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,

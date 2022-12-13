@@ -239,7 +239,7 @@ export interface CanCommentResponse {
 
 export interface CanDecryptResponse {
   __typename?: 'CanDecryptResponse';
-  reasons?: Maybe<DecryptFailReason>;
+  reasons?: Maybe<Array<DecryptFailReason>>;
   result: Scalars['Boolean'];
 }
 
@@ -275,19 +275,19 @@ export interface ClaimableHandles {
 
 /** Condition that signifies if address or profile has collected a publication */
 export interface CollectConditionInput {
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId'];
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId'];
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>;
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: InputMaybe<Scalars['Boolean']>;
 }
 
 /** Condition that signifies if address or profile has collected a publication */
 export interface CollectConditionOutput {
   __typename?: 'CollectConditionOutput';
-  /** The collected publication id */
-  publicationId: Scalars['PublicationId'];
-  /** The collected publication id */
-  publisherId: Scalars['ProfileId'];
+  /** The publication id that has to be collected to unlock content */
+  publicationId?: Maybe<Scalars['InternalPublicationId']>;
+  /** True if the content will be unlocked for this specific publication */
+  thisPublication?: Maybe<Scalars['Boolean']>;
 }
 
 export type CollectModule = FeeCollectModuleSettings | FreeCollectModuleSettings | LimitedFeeCollectModuleSettings | LimitedTimedFeeCollectModuleSettings | RevertCollectModuleSettings | TimedFeeCollectModuleSettings | UnknownCollectModuleSettings;
@@ -347,6 +347,7 @@ export interface Comment {
   commentOn?: Maybe<Publication>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  dataAvailabilityProofs?: Maybe<Scalars['String']>;
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>;
   hasCollectedByMe: Scalars['Boolean'];
@@ -354,6 +355,8 @@ export interface Comment {
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean'];
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean'];
   /** The top level post/mirror this comment lives on */
@@ -965,6 +968,10 @@ export interface CreateUnfollowBroadcastItemResult {
   typedData: CreateBurnEip712TypedData;
 }
 
+export interface CurRequest {
+  secret: Scalars['String'];
+}
+
 /** The custom filters types */
 export type CustomFiltersTypes =
   | 'GARDENERS';
@@ -977,6 +984,7 @@ export type DecryptFailReason =
   | 'DOES_NOT_OWN_PROFILE'
   | 'FOLLOW_NOT_FINALISED_ON_CHAIN'
   | 'HAS_NOT_COLLECTED_PUBLICATION'
+  | 'MISSING_ENCRYPTION_PARAMS'
   | 'PROFILE_DOES_NOT_EXIST'
   | 'UNAUTHORIZED_ADDRESS'
   | 'UNAUTHORIZED_BALANCE';
@@ -1164,16 +1172,12 @@ export interface EnsOnChainIdentity {
 export interface EoaOwnershipInput {
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress'];
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId'];
 }
 
 export interface EoaOwnershipOutput {
   __typename?: 'EoaOwnershipOutput';
   /** The address that will have access to the content */
   address: Scalars['EthereumAddress'];
-  /** The chain ID of the address */
-  chainID: Scalars['ChainId'];
 }
 
 /** The erc20 type */
@@ -1568,6 +1572,12 @@ export interface HasTxHashBeenIndexedRequest {
   txId?: InputMaybe<Scalars['TxId']>;
 }
 
+export interface HelRequest {
+  handle: Scalars['Handle'];
+  remove: Scalars['Boolean'];
+  secret: Scalars['String'];
+}
+
 export interface HidePublicationRequest {
   /** Publication id */
   publicationId: Scalars['InternalPublicationId'];
@@ -1785,11 +1795,14 @@ export interface Mirror {
   collectNftAddress?: Maybe<Scalars['ContractAddress']>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  dataAvailabilityProofs?: Maybe<Scalars['String']>;
   hasCollectedByMe: Scalars['Boolean'];
   /** If the publication has been hidden if it has then the content and media is not available */
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean'];
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean'];
   /** The metadata for the post */
@@ -1902,6 +1915,7 @@ export interface Mutation {
   createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
+  hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
   proxyAction: Scalars['ProxyActionId'];
   refresh: AuthenticationResult;
@@ -2053,6 +2067,11 @@ export interface MutationCreateToggleFollowTypedDataArgs {
 export interface MutationCreateUnfollowTypedDataArgs {
   options?: InputMaybe<TypedDataOptions>;
   request: UnfollowRequest;
+}
+
+
+export interface MutationHelArgs {
+  request: HelRequest;
 }
 
 
@@ -2258,7 +2277,7 @@ export interface NftOwnershipInput {
   /** The unlocker contract type */
   contractType: ContractType;
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: InputMaybe<Scalars['TokenId']>;
+  tokenIds?: InputMaybe<Array<Scalars['TokenId']>>;
 }
 
 export interface NftOwnershipOutput {
@@ -2270,7 +2289,7 @@ export interface NftOwnershipOutput {
   /** The unlocker contract type */
   contractType: ContractType;
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: Maybe<Scalars['TokenId']>;
+  tokenIds?: Maybe<Array<Scalars['TokenId']>>;
 }
 
 export type Notification = NewCollectNotification | NewCommentNotification | NewFollowerNotification | NewMentionNotification | NewMirrorNotification | NewReactionNotification;
@@ -2456,11 +2475,14 @@ export interface Post {
   collectedBy?: Maybe<Wallet>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  dataAvailabilityProofs?: Maybe<Scalars['String']>;
   hasCollectedByMe: Scalars['Boolean'];
   /** If the publication has been hidden if it has then the content and media is not available */
   hidden: Scalars['Boolean'];
   /** The internal publication id */
   id: Scalars['InternalPublicationId'];
+  /** Indicates if the publication is data availability post */
+  isDataAvailability: Scalars['Boolean'];
   /** Indicates if the publication is gated behind some access criteria */
   isGated: Scalars['Boolean'];
   /** The metadata for the post */
@@ -3096,6 +3118,7 @@ export interface Query {
   challenge: AuthChallengeResult;
   claimableHandles: ClaimableHandles;
   claimableStatus: ClaimStatus;
+  cur: Array<Scalars['String']>;
   defaultProfile?: Maybe<Profile>;
   doesFollow: Array<DoesFollowResponse>;
   enabledModuleCurrencies: Array<Erc20>;
@@ -3158,6 +3181,11 @@ export interface QueryApprovedModuleAllowanceAmountArgs {
 
 export interface QueryChallengeArgs {
   request: ChallengeRequest;
+}
+
+
+export interface QueryCurArgs {
+  request: CurRequest;
 }
 
 

@@ -73,6 +73,8 @@ export function ProposalDetails() {
   const [decodeError, setDecodeError] = useState<boolean>(false);
   const [actionData, setActionData] = useState<DecodedMultiTX | null>();
 
+  console.log('proposal', proposal);
+
   const fetchProposal = useCallback(() => {
     const shouldUpdate = true;
     if (!daochain || !daoid || !proposalId) return;

@@ -11,6 +11,9 @@ import { constants } from './util/constants';
 import { addTransaction } from './util/transactions';
 
 function mintShares(event: Transfer, dao: Dao, memberId: string): void {
+  if (event.params.value == constants.BIGINT_ZERO) {
+    return;
+  }
   let member = Member.load(memberId);
 
   if (member === null) {
@@ -46,6 +49,9 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
 }
 
 export function burnShares(dao: Dao, memberId: string, amount: BigInt): void {
+  if (amount == constants.BIGINT_ZERO) {
+    return;
+  }
   const member = Member.load(memberId);
 
   if (member === null) {
@@ -67,6 +73,10 @@ export function burnShares(dao: Dao, memberId: string, amount: BigInt): void {
 }
 
 function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
+  if (event.params.value == constants.BIGINT_ZERO) {
+    return;
+  }
+
   let member = Member.load(memberId);
 
   if (member === null) {
@@ -102,6 +112,9 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
 }
 
 export function burnLoot(dao: Dao, memberId: string, amount: BigInt): void {
+  if (amount == constants.BIGINT_ZERO) {
+    return;
+  }
   const member = Member.load(memberId);
 
   if (member === null) {

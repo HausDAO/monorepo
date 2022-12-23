@@ -125,6 +125,7 @@ fragment proposalFields on Proposal {
   dao {
     totalShares
     quorumPercent
+    minRetentionPercent
   }
   votes {
     id

@@ -55,6 +55,34 @@ export const isProposalFailed = (proposal: QueryProposal): boolean =>
   (!passedQuorum(proposal) ||
     Number(proposal.yesBalance) <= Number(proposal.noBalance));
 
+const isMinRetentionFailure = (proposal: QueryProposal): boolean => {
+  return (
+    proposal.sponsored &&
+    !proposal.cancelled &&
+    proposal.processed &&
+    !proposal.passed &&
+    failedMinRetention(proposal)
+  );
+};
+
+const failedMinRetention = (proposal: QueryProposal): boolean => {
+  const propPercent =
+    (Number(proposal.maxTotalSharesAndLootAtYesVote) *
+      Number(proposal.dao.minRetentionPercent)) /
+    100;
+
+  return Number(proposal.dao.totalShares) < propPercent;
+};
+
+const isUnknownFailure = (proposal: QueryProposal): boolean => {
+  return (
+    proposal.sponsored &&
+    !proposal.cancelled &&
+    proposal.processed &&
+    !proposal.passed
+  );
+};
+
 export const passedQuorum = (proposal: QueryProposal): boolean => {
   return checkHasQuorum({
     yesVotes: Number(proposal.yesBalance),
@@ -92,6 +120,12 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   }
   if (isProposalExpired(proposal)) {
     return PROPOSAL_STATUS['expired'];
+  }
+  if (isMinRetentionFailure(proposal)) {
+    return PROPOSAL_STATUS['failed'];
+  }
+  if (isUnknownFailure(proposal)) {
+    return PROPOSAL_STATUS['failed'];
   }
   return PROPOSAL_STATUS['unknown'];
 };

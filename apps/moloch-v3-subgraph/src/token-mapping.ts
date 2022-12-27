@@ -11,6 +11,9 @@ import { constants } from './util/constants';
 import { addTransaction } from './util/transactions';
 
 function mintShares(event: Transfer, dao: Dao, memberId: string): void {
+  if (event.params.value == constants.BIGINT_ZERO) {
+    return;
+  }
   let member = Member.load(memberId);
 
   if (member === null) {
@@ -25,11 +28,11 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
     member.sharesLootDelegateShares = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
 
-    let daoMembers = dao.members;
+    const daoMembers = dao.members;
     daoMembers.push(memberId);
     dao.members = daoMembers;
   }
-  let memberInitialSharesAndLoot = member.shares.plus(member.loot);
+  const memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
   member.shares = member.shares.plus(event.params.value);
   member.sharesLootDelegateShares = member.sharesLootDelegateShares.plus(
@@ -46,7 +49,10 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
 }
 
 export function burnShares(dao: Dao, memberId: string, amount: BigInt): void {
-  let member = Member.load(memberId);
+  if (amount == constants.BIGINT_ZERO) {
+    return;
+  }
+  const member = Member.load(memberId);
 
   if (member === null) {
     log.info('burn member not found', []);
@@ -67,6 +73,10 @@ export function burnShares(dao: Dao, memberId: string, amount: BigInt): void {
 }
 
 function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
+  if (event.params.value == constants.BIGINT_ZERO) {
+    return;
+  }
+
   let member = Member.load(memberId);
 
   if (member === null) {
@@ -81,11 +91,11 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
     member.sharesLootDelegateShares = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
 
-    let daoMembers = dao.members;
+    const daoMembers = dao.members;
     daoMembers.push(memberId);
     dao.members = daoMembers;
   }
-  let memberInitialSharesAndLoot = member.shares.plus(member.loot);
+  const memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
   member.loot = member.loot.plus(event.params.value);
   member.sharesLootDelegateShares = member.sharesLootDelegateShares.plus(
@@ -102,7 +112,10 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
 }
 
 export function burnLoot(dao: Dao, memberId: string, amount: BigInt): void {
-  let member = Member.load(memberId);
+  if (amount == constants.BIGINT_ZERO) {
+    return;
+  }
+  const member = Member.load(memberId);
 
   if (member === null) {
     log.info('burn member not found, {}', [memberId]);
@@ -124,35 +137,35 @@ export function burnLoot(dao: Dao, memberId: string, amount: BigInt): void {
 
 // Transfer (index_topic_1 address from, index_topic_2 address to, uint256 value)
 export function handleSharesTransfer(event: Transfer): void {
-  let tokenLookup = TokenLookup.load(event.address.toHexString());
+  const tokenLookup = TokenLookup.load(event.address.toHexString());
   if (tokenLookup === null) {
     log.info('handleTransfer shares, no tokenlookup', []);
     return;
   }
 
-  let dao = Dao.load(tokenLookup.dao.toHexString());
+  const dao = Dao.load(tokenLookup.dao.toHexString());
   if (dao === null) {
     log.info('handleTransfer shares, no dao', []);
     return;
   }
   if (event.params.from.toHexString() == constants.ADDRESS_ZERO) {
-    let memberId = dao.id
+    const memberId = dao.id
       .concat('-member-')
       .concat(event.params.to.toHexString());
     mintShares(event, dao, memberId);
     return;
   }
   if (event.params.to.toHexString() == constants.ADDRESS_ZERO) {
-    let memberId = dao.id
+    const memberId = dao.id
       .concat('-member-')
       .concat(event.params.from.toHexString());
     burnShares(dao, memberId, event.params.value);
     return;
   }
-  let burnMemberId = dao.id
+  const burnMemberId = dao.id
     .concat('-member-')
     .concat(event.params.from.toHexString());
-  let mintMemberId = dao.id
+  const mintMemberId = dao.id
     .concat('-member-')
     .concat(event.params.to.toHexString());
 
@@ -163,18 +176,18 @@ export function handleSharesTransfer(event: Transfer): void {
 
 // // TransferLoot (index_topic_1 address from, index_topic_2 address to, uint256 amount)
 export function handleLootTransfer(event: LootTransfer): void {
-  let tokenLookup = TokenLookup.load(event.address.toHexString());
+  const tokenLookup = TokenLookup.load(event.address.toHexString());
   if (tokenLookup === null) {
     return;
   }
 
-  let dao = Dao.load(tokenLookup.dao.toHexString());
+  const dao = Dao.load(tokenLookup.dao.toHexString());
   if (dao === null) {
     return;
   }
 
   if (event.params.from.toHexString() == constants.ADDRESS_ZERO) {
-    let memberId = dao.id
+    const memberId = dao.id
       .concat('-member-')
       .concat(event.params.to.toHexString());
 
@@ -183,7 +196,7 @@ export function handleLootTransfer(event: LootTransfer): void {
   }
 
   if (event.params.to.toHexString() == constants.ADDRESS_ZERO) {
-    let memberId = dao.id
+    const memberId = dao.id
       .concat('-member-')
       .concat(event.params.from.toHexString());
 
@@ -191,11 +204,11 @@ export function handleLootTransfer(event: LootTransfer): void {
     return;
   }
 
-  let burnMemberId = dao.id
+  const burnMemberId = dao.id
     .concat('-member-')
     .concat(event.params.from.toHexString());
 
-  let mintMemberId = dao.id
+  const mintMemberId = dao.id
     .concat('-member-')
     .concat(event.params.to.toHexString());
 
@@ -206,27 +219,27 @@ export function handleLootTransfer(event: LootTransfer): void {
 }
 
 export function handleDelegateChanged(event: DelegateChanged): void {
-  let tokenLookup = TokenLookup.load(event.address.toHexString());
+  const tokenLookup = TokenLookup.load(event.address.toHexString());
   if (tokenLookup === null) {
     return;
   }
 
-  let dao = Dao.load(tokenLookup.dao.toHexString());
+  const dao = Dao.load(tokenLookup.dao.toHexString());
   if (dao === null) {
     return;
   }
 
-  let memberId = dao.id
+  const memberId = dao.id
     .concat('-member-')
     .concat(event.params.delegator.toHexString());
-  let member = Member.load(memberId);
+  const member = Member.load(memberId);
   if (member === null) {
     log.info('handleDelegateChanged no delegator member: {}', [memberId]);
     return;
   }
   member.delegatingTo = event.params.toDelegate;
 
-  let delegatingToMemberId = dao.id
+  const delegatingToMemberId = dao.id
     .concat('-member-')
     .concat(event.params.toDelegate.toHexString());
 
@@ -234,7 +247,7 @@ export function handleDelegateChanged(event: DelegateChanged): void {
   member.lastDelegateUpdateTxHash = event.transaction.hash;
   member.save();
 
-  let delegatingToMember = Member.load(delegatingToMemberId);
+  const delegatingToMember = Member.load(delegatingToMemberId);
   if (delegatingToMember === null) {
     log.info('handleDelegateChanged no delegatingToMember: {}', [
       delegatingToMemberId,
@@ -245,10 +258,10 @@ export function handleDelegateChanged(event: DelegateChanged): void {
     delegatingToMember.save();
   }
 
-  let delegatingFromMemberId = dao.id
+  const delegatingFromMemberId = dao.id
     .concat('-member-')
     .concat(event.params.fromDelegate.toHexString());
-  let delegatingFromMember = Member.load(delegatingFromMemberId);
+  const delegatingFromMember = Member.load(delegatingFromMemberId);
   if (delegatingFromMember === null) {
     log.info('handleDelegateChanged no delegatingFromMemberId: {}', [
       delegatingFromMemberId,
@@ -265,17 +278,17 @@ export function handleDelegateChanged(event: DelegateChanged): void {
 }
 
 export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
-  let tokenLookup = TokenLookup.load(event.address.toHexString());
+  const tokenLookup = TokenLookup.load(event.address.toHexString());
   if (tokenLookup === null) {
     return;
   }
 
-  let dao = Dao.load(tokenLookup.dao.toHexString());
+  const dao = Dao.load(tokenLookup.dao.toHexString());
   if (dao === null) {
     return;
   }
 
-  let memberId = dao.id
+  const memberId = dao.id
     .concat('-member-')
     .concat(event.params.delegate.toHexString());
   let member = Member.load(memberId);
@@ -291,7 +304,7 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
     member.sharesLootDelegateShares = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
 
-    let daoMembers = dao.members;
+    const daoMembers = dao.members;
     daoMembers.push(memberId);
     dao.members = daoMembers;
     dao.save();

@@ -42,16 +42,46 @@ export const isProposalExpired = (proposal: QueryProposal): boolean =>
       nowInSeconds();
 
 export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
+  !proposal.processed &&
+  proposal.sponsored &&
+  !proposal.cancelled &&
   nowInSeconds() > Number(proposal.graceEnds) &&
-  Number(proposal.yesBalance) > Number(proposal.noBalance) &&
-  !proposal.processed;
+  Number(proposal.yesBalance) > Number(proposal.noBalance);
 
 export const isProposalFailed = (proposal: QueryProposal): boolean =>
   proposal.sponsored &&
-  nowInSeconds() > Number(proposal.graceEnds) &&
   !proposal.cancelled &&
+  nowInSeconds() > Number(proposal.graceEnds) &&
   (!passedQuorum(proposal) ||
     Number(proposal.yesBalance) <= Number(proposal.noBalance));
+
+const isMinRetentionFailure = (proposal: QueryProposal): boolean => {
+  return (
+    proposal.sponsored &&
+    !proposal.cancelled &&
+    proposal.processed &&
+    !proposal.passed &&
+    failedMinRetention(proposal)
+  );
+};
+
+const failedMinRetention = (proposal: QueryProposal): boolean => {
+  const propPercent =
+    (Number(proposal.maxTotalSharesAndLootAtYesVote) *
+      Number(proposal.dao.minRetentionPercent)) /
+    100;
+
+  return Number(proposal.dao.totalShares) < propPercent;
+};
+
+const isUnknownFailure = (proposal: QueryProposal): boolean => {
+  return (
+    proposal.sponsored &&
+    !proposal.cancelled &&
+    proposal.processed &&
+    !proposal.passed
+  );
+};
 
 export const passedQuorum = (proposal: QueryProposal): boolean => {
   return checkHasQuorum({
@@ -80,14 +110,22 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalInGrace(proposal)) {
     return PROPOSAL_STATUS['grace'];
   }
-  if (isProposalFailed(proposal)) {
-    return PROPOSAL_STATUS['failed'];
-  }
+  // processing check needs to be before failed check
+  // a failed proposal doesn't need processing unless it failed due to quorum
   if (proposalNeedsProcessing(proposal)) {
     return PROPOSAL_STATUS['needsProcessing'];
   }
+  if (isProposalFailed(proposal)) {
+    return PROPOSAL_STATUS['failed'];
+  }
   if (isProposalExpired(proposal)) {
     return PROPOSAL_STATUS['expired'];
+  }
+  if (isMinRetentionFailure(proposal)) {
+    return PROPOSAL_STATUS['failed'];
+  }
+  if (isUnknownFailure(proposal)) {
+    return PROPOSAL_STATUS['failed'];
   }
   return PROPOSAL_STATUS['unknown'];
 };

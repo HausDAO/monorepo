@@ -9,6 +9,7 @@ import { useDHConnect } from '@daohaus/connect';
 import { useDao } from '@daohaus/moloch-v3-context';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
+  checkHasQuorum,
   getProcessingGasLimit,
   handleErrorMessage,
   ReactSetter,
@@ -165,6 +166,12 @@ export const ReadyForProcessing = ({
     Number(proposal.dao.totalShares)
   );
 
+  const failedQuroum = !checkHasQuorum({
+    yesVotes: Number(proposal.yesBalance),
+    quorumPercent: Number(proposal.dao.quorumPercent),
+    totalShares: Number(proposal.dao.totalShares),
+  });
+
   return (
     <ActionTemplate
       proposal={proposal}
@@ -172,7 +179,12 @@ export const ReadyForProcessing = ({
       main={
         <>
           <VotingBar proposal={proposal} />
-          <Verdict passed appendText={` - ${percentYes}% Yes`} />
+          <Verdict
+            passed={!failedQuroum}
+            appendText={
+              !failedQuroum ? ` - ${percentYes}% Yes` : ' - Quorum not met'
+            }
+          />
         </>
       }
       helperDisplay={

@@ -34,7 +34,7 @@ To generate subgraph code, run the following command:
 `cd apps/moloch-v3-subgraph`
 `graph deploy --studio daohaus-v3`
 
-todo: get this nx command running:
+todo: get this nx command running with a version:
 `nx run moloch-v3-subgraph:graph-deploy-studio --name=daohaus-v3 --network=mainnet`
 
 _These require installing the graph cli locally and auth tokens for deployment to the hosted service or studio subgraphs_

@@ -811,6 +811,11 @@
         "name": "maxTotalSharesAndLootAtVote",
         "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "maxTotalSharesAtSponsor",
+        "type": "uint256"
+      },
       { "internalType": "address", "name": "sponsor", "type": "address" },
       {
         "internalType": "bytes32",

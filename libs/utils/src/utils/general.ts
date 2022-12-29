@@ -58,8 +58,10 @@ export const memberUsdValueShare = (
 export const sharesDelegatedToMember = (
   delegateShares: string | number,
   memberShares: string | number
-): number => {
-  return Number(delegateShares) - Number(memberShares);
+) => {
+  const val = Number(delegateShares) - Number(memberShares);
+  if (!Number.isSafeInteger(val)) return BigInt(val).toString();
+  return val.toString();
 };
 
 export const lowerCaseLootToken = (tokenName?: string): string => {

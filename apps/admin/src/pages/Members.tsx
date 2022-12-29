@@ -138,10 +138,10 @@ export const Members = () => {
             <div className="hide-sm">
               {votingPowerPercentage(dao?.totalShares || '0', value)}
               {' %'}
-              {delegatedShares > 0 && (
+              {Number(delegatedShares) > 0 && (
                 <Tooltip
                   content={`${formatValueTo({
-                    value: fromWei(delegatedShares.toFixed()),
+                    value: fromWei(delegatedShares),
                     decimals: 2,
                     format: 'number',
                   })} voting tokens are delegated to this member`}

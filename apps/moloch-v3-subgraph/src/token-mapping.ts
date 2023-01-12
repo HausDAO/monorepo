@@ -253,9 +253,11 @@ export function handleDelegateChanged(event: DelegateChanged): void {
       delegatingToMemberId,
     ]);
   } else {
-    delegatingToMember.delegateOfCount =
-      delegatingToMember.delegateOfCount.plus(constants.BIGINT_ONE);
-    delegatingToMember.save();
+    if (delegatingToMember.memberAddress != member.memberAddress) {
+      delegatingToMember.delegateOfCount =
+        delegatingToMember.delegateOfCount.plus(constants.BIGINT_ONE);
+      delegatingToMember.save();
+    }
   }
 
   const delegatingFromMemberId = dao.id

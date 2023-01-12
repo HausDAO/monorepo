@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://raw.githubusercontent.com/HausDAO/daohaus-monorepo/develop/libs/moloch-v3-data/src/subgraph/json-schema/dao-profile.json",
+  "title": "Signal TCR Choice",
+  "description": "Description of a choice for the signal TCR shamans",
+  "type": "object",
+  "properties": {
+    "daoId": {
+      "description": "The unique identifier and contract address for a DAO",
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "table": {
+      "description": "Table field on the Record entity indexed in the DAOhaus subgraph",
+      "type": "string",
+      "enum": ["signalTcrChoice"]
+    },
+    "queryType": {
+      "description": "Indicates if the Record entities indexed in the DAOhaus subgraph should be queried for latest or as a list",
+      "type": "string",
+      "enum": ["list"]
+    },
+    "tcrId": {
+      "description": "Unique identifier and contract address fo the TCR contract",
+      "type": "string"
+    },
+    "choiceId": {
+      "description": "Unique identifier for the choice",
+      "type": "string"
+    },
+    "title": {
+      "description": "Title of the signal choice",
+      "type": "string"
+    },
+    "description": {
+      "description": "Short description of the singal choice",
+      "type": "string"
+    },
+    "link": {
+      "description": "Link to more content related to the signal choice",
+      "properties": {
+        "callbackUrl": { "$ref": "#/definitions/saneUrl" }
+      }
+    }
+  },
+  "required": ["daoId", "title", "table", "choiceId", "queryType"],
+  "definitions": {
+    "saneUrl": { "format": "uri", "pattern": "^https?://" }
+  }
+}

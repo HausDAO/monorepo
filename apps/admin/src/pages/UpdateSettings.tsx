@@ -4,11 +4,12 @@ import { useDao } from '@daohaus/moloch-v3-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 import { formatDaoProfileForForm } from '../utils/settingsHelper';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export function UpdateSettings() {
-  const { dao } = useDao();
-  const { daochain } = useParams();
+  const { dao, refreshAll } = useDao();
+  const { daochain, daoid } = useParams();
+  const navigate = useNavigate();
 
   const defaultFields = useMemo(() => {
     if (dao) {
@@ -16,6 +17,11 @@ export function UpdateSettings() {
     }
     return undefined;
   }, [dao]);
+
+  const onFormComplete = () => {
+    refreshAll?.();
+    navigate(`/molochV3/${daochain}/${daoid}/settings`);
+  };
 
   if (!dao) {
     return null;
@@ -27,6 +33,7 @@ export function UpdateSettings() {
       form={{ ...COMMON_FORMS.METADATA_SETTINGS, log: true }}
       customFields={CustomFields}
       targetNetwork={daochain}
+      onSuccess={onFormComplete}
     />
   );
 }

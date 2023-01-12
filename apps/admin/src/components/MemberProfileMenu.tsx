@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { RiMenuFill, RiMore2Fill } from 'react-icons/ri/index.js';
+import { RiMore2Fill } from 'react-icons/ri/index.js';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';

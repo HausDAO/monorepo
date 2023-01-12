@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { RiMore2Fill } from 'react-icons/ri/index.js';
+import { RiMenuFill, RiMore2Fill } from 'react-icons/ri/index.js';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';
@@ -32,6 +32,7 @@ export const ProfileMenuTrigger = styled(Button)`
 
   svg.icon-left {
     margin-right: 0;
+    width: 5rem;
   }
 `;
 

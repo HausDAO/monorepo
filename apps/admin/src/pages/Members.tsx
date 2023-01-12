@@ -88,6 +88,8 @@ export const Members = () => {
   const isMd = useBreakpoint(widthQuery.md);
   const { daoid, daochain } = useParams();
 
+  console.log('members', members);
+
   const tableData: MolochV3Members | undefined = useMemo(() => {
     if (members) {
       return members.filter((member) => member !== undefined);
@@ -154,6 +156,29 @@ export const Members = () => {
       },
       {
         Header: () => {
+          return <div className="hide-sm">Delegating To</div>;
+        },
+        accessor: 'delegatingTo',
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          return (
+            <div className="hide-sm">
+              {value === row.original.memberAddress ? (
+                '--'
+              ) : (
+                <AddressDisplay address={value} truncate />
+              )}
+            </div>
+          );
+        },
+      },
+      {
+        Header: () => {
           return <>Voting</>;
         },
         accessor: 'shares',
@@ -186,29 +211,7 @@ export const Members = () => {
           );
         },
       },
-      {
-        Header: () => {
-          return <div className="hide-sm">Delegated To</div>;
-        },
-        accessor: 'delegatingTo',
-        Cell: ({
-          value,
-          row,
-        }: {
-          value: string;
-          row: Row<MembersTableType>;
-        }) => {
-          return (
-            <div className="hide-sm">
-              {value === row.original.memberAddress ? (
-                '--'
-              ) : (
-                <AddressDisplay address={value} truncate />
-              )}
-            </div>
-          );
-        },
-      },
+
       {
         accessor: 'id',
         Cell: ({ row }: { row: Row<MembersTableType> }) => {

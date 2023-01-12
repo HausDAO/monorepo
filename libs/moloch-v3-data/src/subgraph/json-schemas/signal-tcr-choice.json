@@ -20,6 +20,10 @@
       "type": "string",
       "enum": ["list"]
     },
+    "tcrId": {
+      "description": "Unique identifier and contract address fo the TCR contract",
+      "type": "string"
+    },
     "choiceId": {
       "description": "Unique identifier for the choice",
       "type": "string"

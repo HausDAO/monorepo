@@ -379,7 +379,7 @@ export const TX: Record<string, TXLego> = {
           },
         },
       },
-      { type: 'static', value: POSTER_TAGS.daoDatabaseShares },
+      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
     ],
   },
   UPDATE_GOV_SETTINGS: buildMultiCallTX({

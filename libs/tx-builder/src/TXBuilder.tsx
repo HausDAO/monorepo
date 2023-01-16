@@ -1,7 +1,7 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
-import { isValidNetwork } from '@daohaus/keychain-utils';
+import { HAUS_RPC, isValidNetwork, Keychain } from '@daohaus/keychain-utils';
 
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery } from '@daohaus/moloch-v3-data';
@@ -60,6 +60,7 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   txLifeCycleFns?: TXLifeCycleFns;
   localABIs?: Record<string, ABI>;
   argCallbackRecord?: Record<string, (args: ArbitraryState) => ArgType[]>;
+  rpcs?: Keychain;
 };
 
 export const TXBuilder = ({
@@ -72,6 +73,7 @@ export const TXBuilder = ({
   localABIs = {},
   txLifeCycleFns = {},
   argCallbackRecord = {},
+  rpcs = HAUS_RPC,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -111,6 +113,7 @@ export const TXBuilder = ({
         componentEffects: lifeCycleFns,
       }),
       localABIs,
+      rpcs,
     });
   };
 

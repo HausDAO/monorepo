@@ -112,11 +112,13 @@ export const handleEncodeCallArg = async ({
   chainId,
   localABIs,
   appState,
+  rpcs,
 }: {
   arg: EncodeCallArg;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
 }) => {
   const { contract, method, args } = arg.action;
   const processedContract = await processContractLego({
@@ -124,11 +126,13 @@ export const handleEncodeCallArg = async ({
     chainId,
     localABIs,
     appState,
+    rpcs,
   });
 
   const processedArgs = await Promise.all(
     args.map(
-      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+      async (arg) =>
+        await processArg({ arg, chainId, localABIs, appState, rpcs })
     )
   );
 
@@ -177,11 +181,13 @@ export const handleMulticallArg = async ({
   chainId,
   localABIs,
   appState,
+  rpcs,
 }: {
   arg: MulticallArg;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
 }) => {
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
@@ -191,10 +197,11 @@ export const handleMulticallArg = async ({
         chainId,
         localABIs,
         appState,
+        rpcs,
       });
 
       const processValue = value
-        ? await processArg({ arg: value, chainId, localABIs, appState })
+        ? await processArg({ arg: value, chainId, localABIs, appState, rpcs })
         : 0;
 
       const processedOperations = operations
@@ -203,6 +210,7 @@ export const handleMulticallArg = async ({
             chainId,
             localABIs,
             appState,
+            rpcs,
           })
         : 0;
 
@@ -215,6 +223,7 @@ export const handleMulticallArg = async ({
             chainId,
             localABIs,
             appState,
+            rpcs,
           })) as string,
           value: processValue.toString(),
           operation: Number(processedOperations),
@@ -223,7 +232,8 @@ export const handleMulticallArg = async ({
 
       const processedArgs = await Promise.all(
         args.map(
-          async (arg) => await processArg({ arg, chainId, localABIs, appState })
+          async (arg) =>
+            await processArg({ arg, chainId, localABIs, appState, rpcs })
         )
       );
 
@@ -255,12 +265,14 @@ export const handleGasEstimate = async ({
   localABIs = {},
   appState,
   arg,
+  rpcs,
 }: {
   safeId?: string;
   chainId: ValidNetwork;
   arg: EstmimateGas;
   appState: ArbitraryState;
   localABIs?: Record<string, ABI>;
+  rpcs: Keychain;
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
@@ -273,6 +285,7 @@ export const handleGasEstimate = async ({
       actions: arg.actions,
       formActions: arg.formActions,
     },
+    rpcs,
   });
 
   const estimate = await estimateGas({
@@ -346,12 +359,14 @@ export const handleArgEncode = async ({
   safeId,
   localABIs,
   appState,
+  rpcs,
 }: {
   arg: ArgEncode;
   chainId: ValidNetwork;
   safeId?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
 }) => {
   const { args, solidityTypes } = arg;
   if (args.length !== solidityTypes.length) {
@@ -360,7 +375,8 @@ export const handleArgEncode = async ({
 
   const processedArgs = await Promise.all(
     args.map(
-      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+      async (arg) =>
+        await processArg({ arg, chainId, localABIs, appState, rpcs })
     )
   );
   console.log('processedArgs', processedArgs);

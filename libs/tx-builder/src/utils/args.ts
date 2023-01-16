@@ -67,12 +67,14 @@ export const processArg = async ({
   safeId,
   localABIs,
   appState,
+  rpcs,
 }: {
   arg: ValidArgType;
   chainId: ValidNetwork;
   safeId?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
 }): Promise<ArgType> => {
   if (isSearchArg(arg)) {
     return searchArg({ appState, searchString: arg, shouldThrow: true });
@@ -87,7 +89,7 @@ export const processArg = async ({
     return Promise.all(
       arg.args.map(
         async (arg) =>
-          await processArg({ arg, chainId, safeId, localABIs, appState })
+          await processArg({ arg, chainId, safeId, localABIs, appState, rpcs })
       )
     );
   }
@@ -97,6 +99,7 @@ export const processArg = async ({
       chainId,
       localABIs,
       appState,
+      rpcs,
     });
     return result;
   }
@@ -106,6 +109,7 @@ export const processArg = async ({
       chainId,
       localABIs,
       appState,
+      rpcs,
     });
     return result;
   }
@@ -116,6 +120,7 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
     });
     return result;
   }
@@ -126,6 +131,7 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
     });
     return result;
   }
@@ -137,6 +143,7 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
     });
     return result;
   }
@@ -161,6 +168,7 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
     });
     return result;
   }
@@ -176,6 +184,7 @@ export const processArgs = async ({
   localABIs,
   appState,
   argCallbackRecord,
+  rpcs,
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
@@ -183,6 +192,7 @@ export const processArgs = async ({
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
   argCallbackRecord: Record<string, ArgCallback>;
+  rpcs: Keychain;
 }) => {
   const { argCallback, args, staticArgs } = tx;
 
@@ -204,7 +214,7 @@ export const processArgs = async ({
     return await Promise.all(
       args?.map(
         async (arg) =>
-          await processArg({ arg, chainId, safeId, localABIs, appState })
+          await processArg({ arg, chainId, safeId, localABIs, appState, rpcs })
       )
     );
   }

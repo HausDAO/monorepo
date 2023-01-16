@@ -1,7 +1,7 @@
 import { ethers, providers } from 'ethers';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
-import { ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
@@ -111,6 +111,7 @@ export async function prepareTX(args: {
   lifeCycleFns: TXLifeCycleFns;
   localABIs: Record<string, ABI>;
   argCallbackRecord: Record<string, ArgCallback>;
+  rpcs: Keychain;
 }) {
   const {
     argCallbackRecord,
@@ -129,6 +130,7 @@ export async function prepareTX(args: {
       contract: tx.contract,
       chainId,
       appState,
+      rpcs: args.rpcs,
     });
     console.log('**PROCESSED CONTRACT**', processedContract);
 
@@ -142,6 +144,7 @@ export async function prepareTX(args: {
       safeId,
       appState,
       argCallbackRecord,
+      rpcs: args.rpcs,
     });
 
     console.log('**PROCESSED ARGS**', processedArgs);

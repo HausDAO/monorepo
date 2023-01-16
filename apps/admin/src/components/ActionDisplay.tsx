@@ -88,7 +88,10 @@ export const ActionDisplay = ({
       {actions.map((action, index) => {
         if (isActionError(action)) {
           return (
-            <div className="display-segment data" key={action.message}>
+            <div
+              className="display-segment data"
+              key={`${action.message}-${index}`}
+            >
               <H4 className="space">Action {index + 1}: Error</H4>
               <DataSm className="space">{action.message}</DataSm>
               <Divider className="space" />
@@ -100,10 +103,7 @@ export const ActionDisplay = ({
           );
         }
         return (
-          <div
-            className="display-segment"
-            key={action.name || `action_${index}`}
-          >
+          <div className="display-segment" key={`action_${index}`}>
             <div className="data">
               <H4 className="space">
                 Action {index + 1}: {action.name}
@@ -127,7 +127,7 @@ export const ActionDisplay = ({
             </div>
             {action.params?.map((arg, index) => {
               return (
-                <div className="data" key={arg.name}>
+                <div className="data" key={`${arg.name}-${index}`}>
                   <DataSm className="space">
                     <Bold>
                       PARAM

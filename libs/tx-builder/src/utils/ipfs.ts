@@ -1,6 +1,6 @@
 import { ABI, ArbitraryState, IPFSPinata } from '@daohaus/utils';
 import { pinataPostJSON } from '@daohaus/data-fetch-utils';
-import { ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { processArg } from './args';
 
@@ -10,12 +10,14 @@ export const handleIPFSPinata = async ({
   safeId,
   localABIs,
   appState,
+  rpcs,
 }: {
   arg: IPFSPinata;
   chainId: ValidNetwork;
   safeId?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
 }) => {
   const processedContent = await processArg({
     arg: arg?.content,
@@ -23,6 +25,7 @@ export const handleIPFSPinata = async ({
     safeId,
     localABIs,
     appState,
+    rpcs,
   });
 
   const pinata_api_key = process.env['NX_PINATA_API_KEY'];

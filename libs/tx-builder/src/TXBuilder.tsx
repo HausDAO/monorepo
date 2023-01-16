@@ -1,7 +1,14 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
-import { isValidNetwork } from '@daohaus/keychain-utils';
+import {
+  GRAPH_API_KEYS,
+  HAUS_RPC,
+  isValidNetwork,
+  Keychain,
+  PinataApiKeys,
+  PINATA_API_KEYS,
+} from '@daohaus/keychain-utils';
 
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery } from '@daohaus/moloch-v3-data';
@@ -60,6 +67,9 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   txLifeCycleFns?: TXLifeCycleFns;
   localABIs?: Record<string, ABI>;
   argCallbackRecord?: Record<string, (args: ArbitraryState) => ArgType[]>;
+  rpcs?: Keychain;
+  graphApiKeys?: Keychain;
+  pinataApiKeys?: PinataApiKeys;
 };
 
 export const TXBuilder = ({
@@ -72,6 +82,9 @@ export const TXBuilder = ({
   localABIs = {},
   txLifeCycleFns = {},
   argCallbackRecord = {},
+  rpcs = HAUS_RPC,
+  graphApiKeys = GRAPH_API_KEYS,
+  pinataApiKeys = PINATA_API_KEYS,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -111,6 +124,9 @@ export const TXBuilder = ({
         componentEffects: lifeCycleFns,
       }),
       localABIs,
+      rpcs,
+      graphApiKeys,
+      pinataApiKeys,
     });
   };
 

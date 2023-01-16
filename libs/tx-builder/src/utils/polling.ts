@@ -1,5 +1,5 @@
 import { findTransaction, FindTxQuery } from '@daohaus/moloch-v3-data';
-import { ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
 // TS Challenge
@@ -31,17 +31,17 @@ type Poll<T> = ({
 export const pollLastTX: PollFetch<FindTxQuery> = async ({
   chainId,
   txHash,
+  graphApiKeys,
 }: {
   chainId: ValidNetwork;
   txHash: string;
+  graphApiKeys: Keychain;
 }) => {
   try {
     const result = await findTransaction({
       networkId: chainId,
       txHash,
-      graphApiKeys: {
-        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-      },
+      graphApiKeys,
     });
     return result;
   } catch (error) {

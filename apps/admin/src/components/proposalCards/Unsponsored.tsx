@@ -116,11 +116,11 @@ export const Unsponsored = ({
     ) {
       return Number(connectedMember.delegateShares) > 0
         ? true
-        : 'You cannot sponsor a proposal as you have delegated your voting power'
+        : 'You cannot sponsor a proposal as you have delegated your voting power';
     }
     return 'Connect your wallet';
   }, [connectedMember]);
-  
+
   return (
     <ActionTemplate
       statusDisplay="Needs a Sponsor"

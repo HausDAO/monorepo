@@ -138,15 +138,38 @@ export const Members = () => {
             <div className="hide-sm">
               {votingPowerPercentage(dao?.totalShares || '0', value)}
               {' %'}
-              {delegatedShares > 0 && (
+              {Number(delegatedShares) > 0 && (
                 <Tooltip
                   content={`${formatValueTo({
-                    value: fromWei(delegatedShares.toFixed()),
+                    value: fromWei(delegatedShares),
                     decimals: 2,
                     format: 'number',
                   })} voting tokens are delegated to this member`}
                   side="bottom"
                 />
+              )}
+            </div>
+          );
+        },
+      },
+      {
+        Header: () => {
+          return <div className="hide-sm">Delegating To</div>;
+        },
+        accessor: 'delegatingTo',
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          return (
+            <div className="hide-sm">
+              {value === row.original.memberAddress ? (
+                '--'
+              ) : (
+                <AddressDisplay address={value} truncate />
               )}
             </div>
           );
@@ -186,29 +209,7 @@ export const Members = () => {
           );
         },
       },
-      {
-        Header: () => {
-          return <div className="hide-sm">Delegated To</div>;
-        },
-        accessor: 'delegatingTo',
-        Cell: ({
-          value,
-          row,
-        }: {
-          value: string;
-          row: Row<MembersTableType>;
-        }) => {
-          return (
-            <div className="hide-sm">
-              {value === row.original.memberAddress ? (
-                '--'
-              ) : (
-                <AddressDisplay address={value} truncate />
-              )}
-            </div>
-          );
-        },
-      },
+
       {
         accessor: 'id',
         Cell: ({ row }: { row: Row<MembersTableType> }) => {

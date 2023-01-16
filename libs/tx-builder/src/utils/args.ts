@@ -7,7 +7,7 @@ import {
   TXLego,
   ValidArgType,
 } from '@daohaus/utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { ArgCallback } from '../TXBuilder';
 import { handleIPFSPinata } from './ipfs';
@@ -67,12 +67,16 @@ export const processArg = async ({
   safeId,
   localABIs,
   appState,
+  rpcs,
+  pinataApiKeys,
 }: {
   arg: ValidArgType;
   chainId: ValidNetwork;
   safeId?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }): Promise<ArgType> => {
   if (isSearchArg(arg)) {
     return searchArg({ appState, searchString: arg, shouldThrow: true });
@@ -87,7 +91,15 @@ export const processArg = async ({
     return Promise.all(
       arg.args.map(
         async (arg) =>
-          await processArg({ arg, chainId, safeId, localABIs, appState })
+          await processArg({
+            arg,
+            chainId,
+            safeId,
+            localABIs,
+            appState,
+            rpcs,
+            pinataApiKeys,
+          })
       )
     );
   }
@@ -97,6 +109,8 @@ export const processArg = async ({
       chainId,
       localABIs,
       appState,
+      rpcs,
+      pinataApiKeys,
     });
     return result;
   }
@@ -106,6 +120,8 @@ export const processArg = async ({
       chainId,
       localABIs,
       appState,
+      rpcs,
+      pinataApiKeys,
     });
     return result;
   }
@@ -116,6 +132,8 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
+      pinataApiKeys,
     });
     return result;
   }
@@ -126,6 +144,8 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
+      pinataApiKeys,
     });
     return result;
   }
@@ -137,6 +157,8 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
+      pinataApiKeys,
     });
     return result;
   }
@@ -161,6 +183,8 @@ export const processArg = async ({
       safeId,
       localABIs,
       appState,
+      rpcs,
+      pinataApiKeys,
     });
     return result;
   }
@@ -176,6 +200,8 @@ export const processArgs = async ({
   localABIs,
   appState,
   argCallbackRecord,
+  rpcs,
+  pinataApiKeys,
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
@@ -183,6 +209,8 @@ export const processArgs = async ({
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
   argCallbackRecord: Record<string, ArgCallback>;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   const { argCallback, args, staticArgs } = tx;
 
@@ -204,7 +232,15 @@ export const processArgs = async ({
     return await Promise.all(
       args?.map(
         async (arg) =>
-          await processArg({ arg, chainId, safeId, localABIs, appState })
+          await processArg({
+            arg,
+            chainId,
+            safeId,
+            localABIs,
+            appState,
+            rpcs,
+            pinataApiKeys,
+          })
       )
     );
   }

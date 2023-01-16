@@ -18,6 +18,7 @@ import {
   CONTRACT_KEYCHAINS,
   ENDPOINTS,
   Keychain,
+  PinataApiKeys,
   ValidNetwork,
 } from '@daohaus/keychain-utils';
 
@@ -112,11 +113,15 @@ export const handleEncodeCallArg = async ({
   chainId,
   localABIs,
   appState,
+  rpcs,
+  pinataApiKeys,
 }: {
   arg: EncodeCallArg;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   const { contract, method, args } = arg.action;
   const processedContract = await processContractLego({
@@ -124,11 +129,20 @@ export const handleEncodeCallArg = async ({
     chainId,
     localABIs,
     appState,
+    rpcs,
   });
 
   const processedArgs = await Promise.all(
     args.map(
-      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+      async (arg) =>
+        await processArg({
+          arg,
+          chainId,
+          localABIs,
+          appState,
+          rpcs,
+          pinataApiKeys,
+        })
     )
   );
 
@@ -177,11 +191,15 @@ export const handleMulticallArg = async ({
   chainId,
   localABIs,
   appState,
+  rpcs,
+  pinataApiKeys,
 }: {
   arg: MulticallArg;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
@@ -191,10 +209,18 @@ export const handleMulticallArg = async ({
         chainId,
         localABIs,
         appState,
+        rpcs,
       });
 
       const processValue = value
-        ? await processArg({ arg: value, chainId, localABIs, appState })
+        ? await processArg({
+            arg: value,
+            chainId,
+            localABIs,
+            appState,
+            rpcs,
+            pinataApiKeys,
+          })
         : 0;
 
       const processedOperations = operations
@@ -203,6 +229,8 @@ export const handleMulticallArg = async ({
             chainId,
             localABIs,
             appState,
+            rpcs,
+            pinataApiKeys,
           })
         : 0;
 
@@ -215,6 +243,8 @@ export const handleMulticallArg = async ({
             chainId,
             localABIs,
             appState,
+            rpcs,
+            pinataApiKeys,
           })) as string,
           value: processValue.toString(),
           operation: Number(processedOperations),
@@ -223,7 +253,15 @@ export const handleMulticallArg = async ({
 
       const processedArgs = await Promise.all(
         args.map(
-          async (arg) => await processArg({ arg, chainId, localABIs, appState })
+          async (arg) =>
+            await processArg({
+              arg,
+              chainId,
+              localABIs,
+              appState,
+              rpcs,
+              pinataApiKeys,
+            })
         )
       );
 
@@ -255,12 +293,16 @@ export const handleGasEstimate = async ({
   localABIs = {},
   appState,
   arg,
+  rpcs,
+  pinataApiKeys,
 }: {
   safeId?: string;
   chainId: ValidNetwork;
   arg: EstmimateGas;
   appState: ArbitraryState;
   localABIs?: Record<string, ABI>;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
@@ -273,6 +315,8 @@ export const handleGasEstimate = async ({
       actions: arg.actions,
       formActions: arg.formActions,
     },
+    rpcs,
+    pinataApiKeys,
   });
 
   const estimate = await estimateGas({
@@ -346,12 +390,16 @@ export const handleArgEncode = async ({
   safeId,
   localABIs,
   appState,
+  rpcs,
+  pinataApiKeys,
 }: {
   arg: ArgEncode;
   chainId: ValidNetwork;
   safeId?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   const { args, solidityTypes } = arg;
   if (args.length !== solidityTypes.length) {
@@ -360,7 +408,15 @@ export const handleArgEncode = async ({
 
   const processedArgs = await Promise.all(
     args.map(
-      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+      async (arg) =>
+        await processArg({
+          arg,
+          chainId,
+          localABIs,
+          appState,
+          rpcs,
+          pinataApiKeys,
+        })
     )
   );
   console.log('processedArgs', processedArgs);

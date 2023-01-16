@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/connect",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "peerDependencies": {
     "react-router-dom": "^6.4.3"
   }

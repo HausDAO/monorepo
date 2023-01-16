@@ -27,6 +27,7 @@ export const VaultMenuTrigger = styled(Button)`
 
   svg.icon-left {
     margin-right: 0;
+    margin: 5rem;
   }
 `;
 

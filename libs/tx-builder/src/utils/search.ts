@@ -5,7 +5,7 @@ import {
   JSONDetailsSearch,
   StringSearch,
 } from '@daohaus/utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { processArg } from './args';
 
@@ -92,6 +92,7 @@ export const handleDetailsJSON = async ({
   chainId,
   safeId,
   rpcs,
+  pinataApiKeys,
 }: {
   arg: JSONDetailsSearch;
   appState: ArbitraryState;
@@ -99,6 +100,7 @@ export const handleDetailsJSON = async ({
   chainId: ValidNetwork;
   safeId?: string;
   rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   const detailsList = await Promise.all(
     Object.entries(arg.jsonSchema).map(async ([key, arg]) => {
@@ -111,6 +113,7 @@ export const handleDetailsJSON = async ({
           localABIs,
           appState,
           rpcs,
+          pinataApiKeys,
         }),
       };
     })

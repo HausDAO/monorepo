@@ -32,6 +32,7 @@ export const ProfileMenuTrigger = styled(Button)`
 
   svg.icon-left {
     margin-right: 0;
+    width: 5rem;
   }
 `;
 

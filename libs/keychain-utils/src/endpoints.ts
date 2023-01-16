@@ -73,3 +73,15 @@ export const HAUS_RPC = {
   '0xa4b1': 'https://arb1.arbitrum.io/rpc',
   '0xa4ec': 'https://forno.celo.org',
 };
+export const GRAPH_API_KEYS = {
+  '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+};
+
+export type PinataApiKeys = {
+  pinata_api_key?: string;
+  pinata_api_secret?: string;
+};
+export const PINATA_API_KEYS: PinataApiKeys = {
+  pinata_api_key: process.env['NX_PINATA_API_KEY'],
+  pinata_api_secret: process.env['NX_PINATA_API_SECRET'],
+};

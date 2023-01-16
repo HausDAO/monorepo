@@ -1,7 +1,7 @@
 import { ethers, providers } from 'ethers';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
@@ -27,12 +27,13 @@ export const executeTx = async (args: {
     hash: string;
     wait: () => Promise<ethers.providers.TransactionReceipt>;
   };
-
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
+  graphApiKeys: Keychain;
 }) => {
-  const { tx, ethersTx, setTransactions, chainId, lifeCycleFns } = args;
+  const { tx, ethersTx, setTransactions, chainId, lifeCycleFns, graphApiKeys } =
+    args;
   console.log('**Transaction Initatiated**');
   const txHash = ethersTx.hash;
   console.log('txHash', txHash);
@@ -63,6 +64,7 @@ export const executeTx = async (args: {
       variables: {
         chainId,
         txHash,
+        graphApiKeys,
       },
       onPollStart() {
         lifeCycleFns?.onPollStart?.();
@@ -112,6 +114,8 @@ export async function prepareTX(args: {
   localABIs: Record<string, ABI>;
   argCallbackRecord: Record<string, ArgCallback>;
   rpcs: Keychain;
+  graphApiKeys: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) {
   const {
     argCallbackRecord,
@@ -145,6 +149,7 @@ export async function prepareTX(args: {
       appState,
       argCallbackRecord,
       rpcs: args.rpcs,
+      pinataApiKeys: args.pinataApiKeys,
     });
 
     console.log('**PROCESSED ARGS**', processedArgs);
@@ -169,7 +174,7 @@ export async function prepareTX(args: {
       overrides
     );
 
-    executeTx({ ...args, ethersTx });
+    executeTx({ ...args, ethersTx, graphApiKeys: args.graphApiKeys });
   } catch (error) {
     console.log('**TX Error (Pre-Fire)**');
     console.error(error);

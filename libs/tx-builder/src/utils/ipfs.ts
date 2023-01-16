@@ -1,6 +1,6 @@
 import { ABI, ArbitraryState, IPFSPinata } from '@daohaus/utils';
 import { pinataPostJSON } from '@daohaus/data-fetch-utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { processArg } from './args';
 
@@ -11,6 +11,7 @@ export const handleIPFSPinata = async ({
   localABIs,
   appState,
   rpcs,
+  pinataApiKeys,
 }: {
   arg: IPFSPinata;
   chainId: ValidNetwork;
@@ -18,6 +19,7 @@ export const handleIPFSPinata = async ({
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
   rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
 }) => {
   const processedContent = await processArg({
     arg: arg?.content,
@@ -26,10 +28,11 @@ export const handleIPFSPinata = async ({
     localABIs,
     appState,
     rpcs,
+    pinataApiKeys,
   });
 
-  const pinata_api_key = process.env['NX_PINATA_API_KEY'];
-  const pinata_api_secret = process.env['NX_PINATA_API_SECRET'];
+  const pinata_api_key = pinataApiKeys.pinata_api_key;
+  const pinata_api_secret = pinataApiKeys.pinata_api_secret;
 
   if (!pinata_api_key || !pinata_api_secret) {
     throw new Error(

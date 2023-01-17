@@ -9,6 +9,8 @@ import {
 import {
   CONTRACT_KEYCHAINS,
   HAUS_NETWORK_DATA,
+  HAUS_RPC,
+  Keychain,
   ValidNetwork,
 } from '@daohaus/keychain-utils';
 
@@ -24,6 +26,7 @@ const DATA_LENGTH = 64;
 type MultisendArgs = {
   chainId: ValidNetwork;
   actionData: string;
+  rpcs: Keychain;
 };
 type EncodedAction = {
   to: string;
@@ -55,7 +58,7 @@ export const isActionError = (action: any): action is ActionError => {
   return action.error;
 };
 
-const getMultisendHex = ({ chainId, actionData }: MultisendArgs) => {
+const getMultisendHex = ({ chainId, actionData, rpcs }: MultisendArgs) => {
   const multisendAddr = CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId];
   if (!multisendAddr) throw new Error('Invalid chainId');
 
@@ -63,6 +66,7 @@ const getMultisendHex = ({ chainId, actionData }: MultisendArgs) => {
     chainId,
     address: multisendAddr,
     abi: LOCAL_ABI.GNOSIS_MULTISEND,
+    rpcs,
   });
 
   const decoded = multisendContract.interface['decodeFunctionData'](
@@ -87,8 +91,8 @@ const processAction = (actionsHex: string, txLength: number): EncodedAction => {
     operation: parseInt(actionsHex.slice(0, OPERATION_TYPE)),
   };
 };
-const decodeMultisend = ({ chainId, actionData }: MultisendArgs) => {
-  let actionsHex = getMultisendHex({ chainId, actionData });
+const decodeMultisend = ({ chainId, actionData, rpcs }: MultisendArgs) => {
+  let actionsHex = getMultisendHex({ chainId, actionData, rpcs });
   const transactions = [];
 
   while (actionsHex.length >= OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH) {
@@ -153,17 +157,19 @@ const decodeAction = async ({
   chainId,
   action,
   actionMeta,
+  rpcs,
 }: {
   chainId: ValidNetwork;
   action: EncodedAction;
   actionMeta?: MulticallAction;
+  rpcs: Keychain;
 }): Promise<DecodedAction | ActionError> => {
   if (await isEthTransfer(chainId, action))
     return buildEthTransferAction(chainId, action);
 
   const { to, data, value } = action;
 
-  const abi = await fetchABI({ chainId, contractAddress: to });
+  const abi = await fetchABI({ chainId, contractAddress: to, rpcs });
   if (!abi || !abi?.length) {
     return {
       error: true,
@@ -208,13 +214,15 @@ export const decodeProposalActions = async ({
   chainId,
   actionData,
   actionsMeta = [],
+  rpcs = HAUS_RPC,
 }: {
   chainId: ValidNetwork;
   actionData: string;
   actionsMeta?: MulticallAction[];
+  rpcs?: Keychain;
 }) => {
   return Promise.all(
-    decodeMultisend({ chainId, actionData })?.map(async (action, i) => {
+    decodeMultisend({ chainId, actionData, rpcs })?.map(async (action, i) => {
       return await decodeAction({
         chainId,
         action,

@@ -39,11 +39,16 @@ const getABIUrl = ({
   return TEMPORARY_ABI_EXPLORER[chainId]?.replace(ABI_ADDRESS, contractAddress);
 };
 
-const getGnosisMasterCopy = async (address: string, chainId: ValidNetwork) => {
+const getGnosisMasterCopy = async (
+  address: string,
+  chainId: ValidNetwork,
+  rpcs: Keychain
+) => {
   const gnosisProxyContract = createContract({
     address,
     abi: LOCAL_ABI.GNOSIS_PROXY,
     chainId,
+    rpcs,
   });
   const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
   return masterCopy;
@@ -152,7 +157,8 @@ export const processABI = async ({
   } else if (isGnosisProxy(abi)) {
     const gnosisProxyAddress = await getGnosisMasterCopy(
       contractAddress,
-      chainId
+      chainId,
+      rpcs
     );
     const newData = await fetchABI({
       contractAddress: gnosisProxyAddress,

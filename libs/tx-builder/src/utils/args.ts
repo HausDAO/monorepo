@@ -152,6 +152,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -192,6 +193,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }

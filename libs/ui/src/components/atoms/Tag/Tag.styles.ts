@@ -12,8 +12,8 @@ export const BaseTag = styled.div<{
   border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}3`]};
   border-radius: ${border.radius};
   color: ${({ theme, tagColor }) => theme[`${tagColor}11`]};
-  min-height: 2.6rem;
-  min-width: fit-content;
+  height: 2.6rem;
+  width: fit-content;
   padding: 0.2rem 0.5rem;
 
   :hover {

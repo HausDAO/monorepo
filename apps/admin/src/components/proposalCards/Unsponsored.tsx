@@ -76,13 +76,13 @@ export const Unsponsored = ({
           lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
-        onPollSuccess: () => {
+        onPollSuccess: (...args) => {
           successToast({
             title: 'Sponsor Success',
             description: 'Proposal sponsored',
           });
           refreshAll();
-          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
+          lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },
       },

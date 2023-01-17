@@ -53,7 +53,8 @@ export const executeTx = async (args: {
     }));
     console.log('**Transaction Pending**');
     const receipt = await ethersTx.wait();
-    console.log('txReciept', receipt);
+    console.log('**Transaction Mined**');
+    console.log('**Transaction Receipt**', receipt);
 
     if (receipt.status === 0) {
       throw new Error('CALL_EXCEPTION: txReceipt status 0');
@@ -79,7 +80,7 @@ export const executeTx = async (args: {
         console.log('**Polling**');
       },
       onPollSuccess(result) {
-        lifeCycleFns?.onPollSuccess?.(result);
+        lifeCycleFns?.onPollSuccess?.(result, receipt, appState);
         console.log('**Poll Successful**');
         setTransactions((prevState) => ({
           ...prevState,
@@ -191,7 +192,7 @@ export async function prepareTX(args: {
 
     executeTx({ ...args, ethersTx, graphApiKeys });
   } catch (error) {
-    console.log('**TX Error (Pre-Fire)**');
+    console.log('**TX Error**');
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
   }

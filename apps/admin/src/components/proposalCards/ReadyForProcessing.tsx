@@ -129,13 +129,13 @@ export const ReadyForProcessing = ({
           lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
-        onPollSuccess: () => {
+        onPollSuccess: (...args) => {
           successToast({
             title: 'Execution Success',
             description: 'Proposal executed',
           });
           refreshAll();
-          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
+          lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },
       },

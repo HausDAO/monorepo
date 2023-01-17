@@ -1,4 +1,4 @@
-import { providers } from 'ethers';
+import { ethers, providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
 import {
@@ -20,7 +20,11 @@ export type TXLifeCycleFns = {
   onRequestSign?: () => void;
   onTxHash?: (txHash: string) => void;
   onTxError?: (error: unknown) => void;
-  onTxSuccess?: (txHash: string) => void;
+  onTxSuccess?: (
+    txReceipt: ethers.providers.TransactionReceipt,
+    txHash: string,
+    appState: ArbitraryState
+  ) => void;
   onPollStart?: () => void;
   onPollError?: (error: unknown) => void;
   onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;

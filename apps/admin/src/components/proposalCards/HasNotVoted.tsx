@@ -61,12 +61,12 @@ export const HasNotVoted = ({
           lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: (txHash: string) => {
+        onTxSuccess: (...args) => {
           defaultToast({
             title: 'Vote Success',
             description: 'Please wait for subgraph to sync',
           });
-          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
+          lifeCycleFnsOverride?.onTxSuccess?.(...args);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({

@@ -227,6 +227,7 @@ export const decodeProposalActions = async ({
         chainId,
         action,
         actionMeta: actionsMeta[i],
+        rpcs,
       });
     })
   );

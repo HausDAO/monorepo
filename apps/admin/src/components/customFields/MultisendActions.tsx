@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { FormBuilderFactory, useFormBuilder } from '@daohaus/form-builder';
-import { Keychain } from '@daohaus/keychain-utils';
+import { HAUS_RPC, Keychain } from '@daohaus/keychain-utils';
 import {
   cacheABI,
   fetchABI,

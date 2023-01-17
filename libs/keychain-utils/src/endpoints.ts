@@ -85,3 +85,7 @@ export const PINATA_API_KEYS: PinataApiKeys = {
   pinata_api_key: process.env['NX_PINATA_API_KEY'],
   pinata_api_secret: process.env['NX_PINATA_API_SECRET'],
 };
+export const ABI_EXPLORER_KEYS: Keychain = {
+  '0x1': process.env['NX_ETHERSCAN_KEY'],
+  '0x5': process.env['NX_ETHERSCAN_KEY'],
+};

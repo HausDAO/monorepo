@@ -7,6 +7,7 @@ import {
   ValidArgType,
 } from '@daohaus/utils';
 import {
+  ABI_EXPLORER_KEYS,
   CONTRACT_KEYCHAINS,
   HAUS_NETWORK_DATA,
   HAUS_RPC,
@@ -112,10 +113,14 @@ const decodeMultisend = ({ chainId, actionData, rpcs }: MultisendArgs) => {
   return transactions;
 };
 
-const isEthTransfer = async (chainId: ValidNetwork, action: EncodedAction) =>
+const isEthTransfer = async (
+  chainId: ValidNetwork,
+  action: EncodedAction,
+  rpcs: Keychain
+) =>
   action?.data?.slice(2)?.length === 0 ||
   action?.data === ENCODED_0X0_DATA ||
-  (await getCode({ chainId, contractAddress: action.to })) === '0x';
+  (await getCode({ chainId, contractAddress: action.to, rpcs })) === '0x';
 
 const buildEthTransferAction = (
   chainId: ValidNetwork,
@@ -158,18 +163,25 @@ const decodeAction = async ({
   action,
   actionMeta,
   rpcs,
+  explorerKeys,
 }: {
   chainId: ValidNetwork;
   action: EncodedAction;
   actionMeta?: MulticallAction;
   rpcs: Keychain;
+  explorerKeys: Keychain;
 }): Promise<DecodedAction | ActionError> => {
-  if (await isEthTransfer(chainId, action))
+  if (await isEthTransfer(chainId, action, rpcs))
     return buildEthTransferAction(chainId, action);
 
   const { to, data, value } = action;
 
-  const abi = await fetchABI({ chainId, contractAddress: to, rpcs });
+  const abi = await fetchABI({
+    chainId,
+    contractAddress: to,
+    rpcs,
+    explorerKeys,
+  });
   if (!abi || !abi?.length) {
     return {
       error: true,
@@ -215,11 +227,13 @@ export const decodeProposalActions = async ({
   actionData,
   actionsMeta = [],
   rpcs = HAUS_RPC,
+  explorerKeys = ABI_EXPLORER_KEYS,
 }: {
   chainId: ValidNetwork;
   actionData: string;
   actionsMeta?: MulticallAction[];
   rpcs?: Keychain;
+  explorerKeys?: Keychain;
 }) => {
   return Promise.all(
     decodeMultisend({ chainId, actionData, rpcs })?.map(async (action, i) => {
@@ -228,6 +242,7 @@ export const decodeProposalActions = async ({
         action,
         actionMeta: actionsMeta[i],
         rpcs,
+        explorerKeys,
       });
     })
   );

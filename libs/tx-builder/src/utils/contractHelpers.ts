@@ -110,11 +110,13 @@ const processRemoteContract = async ({
   chainId,
   appState,
   rpcs,
+  explorerKeys,
 }: {
   remoteContract: RemoteContract;
   chainId: ValidNetwork;
   appState: ArbitraryState;
   rpcs: Keychain;
+  explorerKeys: Keychain;
 }): Promise<ProcessedContract> => {
   const { targetAddress, contractName } = remoteContract;
   const address = handleTargetAddress({ targetAddress, chainId, appState });
@@ -123,6 +125,7 @@ const processRemoteContract = async ({
     contractAddress: address,
     chainId,
     rpcs,
+    explorerKeys,
   });
 
   if (abi && address) {
@@ -146,12 +149,14 @@ export const processContractLego = async ({
   localABIs,
   appState,
   rpcs,
+  explorerKeys,
 }: {
   contract: ContractLego;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
   rpcs: Keychain;
+  explorerKeys: Keychain;
 }) => {
   if (contract.type === 'static') {
     return processStaticContract({
@@ -175,6 +180,7 @@ export const processContractLego = async ({
       chainId,
       appState,
       rpcs,
+      explorerKeys,
     });
     return processedContract;
   }

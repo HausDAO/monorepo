@@ -493,6 +493,42 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       },
     ],
   },
+  ADD_SIGNER_TO_SIDECAR: {
+    id: 'ADD_SIGNER_TO_SIDECAR',
+    title: 'Add Signer to Safe',
+    description: 'Create a proposal to tadd a signer to a DAO Safe',
+    tx: TX.ADD_SIGNER_TO_SIDECAR,
+    devtool: true,
+    log: true,
+    requiredFields: {
+      title: true,
+      description: true,
+      signer: true,
+      threshold: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SAFE_SELECT,
+      {
+        id: 'signer',
+        type: 'input',
+        label: 'Signer',
+        info: 'Signer Address',
+        expectType: 'ethAddress',
+        placeholder: '0x...',
+      },
+      {
+        id: 'threshold',
+        type: 'input',
+        label: 'Threshold (1 for 1/1 signers)',
+        expectType: 'number',
+        placeholder: '1',
+      },
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
 };
 
 export const TABULA_FORMS: Record<string, CustomFormLego> = {

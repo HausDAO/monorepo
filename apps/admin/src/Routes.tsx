@@ -5,6 +5,7 @@ import {
   useLocation,
   matchPath,
 } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import Home from './pages/Home';
 import DaoOverview from './pages/DaoOverview';
@@ -19,9 +20,50 @@ import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import RageQuit from './pages/RageQuit';
-import { DHConnectProvider, DHLayout, useDHConnect } from '@daohaus/connect';
-import { useEffect, useState } from 'react';
+import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { HeaderAvatar } from './components/HeaderAvatar';
+import { ReactSetter } from '@daohaus/utils';
+
+const Routes = ({
+  setDaoChainId,
+}: {
+  setDaoChainId: ReactSetter<string | undefined>;
+}) => {
+  const location = useLocation();
+  const pathMatch = matchPath('molochv3/:daochain/:daoid/*', location.pathname);
+
+  useEffect(() => {
+    if (pathMatch?.params?.daochain) {
+      setDaoChainId(pathMatch?.params?.daochain);
+    }
+    if (!pathMatch?.params?.daochain) {
+      setDaoChainId(undefined);
+    }
+  }, [pathMatch?.params?.daochain, setDaoChainId]);
+
+  return (
+    <RoutesDom>
+      <Route path="/" element={<HomeContainer />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+      <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
+        <Route index element={<DaoOverview />} />
+        <Route path="formtest" element={<FormTest />} />
+        <Route path="proposals" element={<Proposals />} />
+        <Route path="new-proposal" element={<NewProposal />} />
+        <Route path="proposals/:proposalId" element={<ProposalDetails />} />
+        <Route path="safes" element={<Safes />} />
+        <Route path="members" element={<Members />} />
+        <Route path="members/:memberAddress" element={<Member />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="settings/update" element={<UpdateSettings />} />
+        <Route path="members/ragequit" element={<RageQuit />} />
+      </Route>
+    </RoutesDom>
+  );
+};
+
+export default Routes;
 
 const HomeContainer = () => {
   const location = useLocation();
@@ -46,43 +88,3 @@ const HomeContainer = () => {
     </DHLayout>
   );
 };
-
-const Routes = () => {
-  const [daoChainId, setDaoChainId] = useState<string | undefined>();
-  const location = useLocation();
-  const pathMatch = matchPath('molochv3/:daochain/:daoid/*', location.pathname);
-
-  useEffect(() => {
-    if (pathMatch?.params?.daochain) {
-      setDaoChainId(pathMatch?.params?.daochain);
-    }
-    if (daoChainId && !pathMatch?.params?.daochain) {
-      setDaoChainId(undefined);
-    }
-  }, [pathMatch?.params?.daochain, setDaoChainId, daoChainId]);
-
-  return (
-    <DHConnectProvider daoChainId={daoChainId}>
-      <RoutesDom>
-        <Route path="/" element={<HomeContainer />}>
-          <Route path="/" element={<Home />} />
-        </Route>
-        <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
-          <Route index element={<DaoOverview />} />
-          <Route path="formtest" element={<FormTest />} />
-          <Route path="proposals" element={<Proposals />} />
-          <Route path="new-proposal" element={<NewProposal />} />
-          <Route path="proposals/:proposalId" element={<ProposalDetails />} />
-          <Route path="safes" element={<Safes />} />
-          <Route path="members" element={<Members />} />
-          <Route path="members/:memberAddress" element={<Member />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="settings/update" element={<UpdateSettings />} />
-          <Route path="members/ragequit" element={<RageQuit />} />
-        </Route>
-      </RoutesDom>
-    </DHConnectProvider>
-  );
-};
-
-export default Routes;

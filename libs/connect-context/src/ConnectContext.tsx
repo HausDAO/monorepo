@@ -105,7 +105,7 @@ export const ConnectProvider = ({
 
   useEffect(() => {
     let shouldUpdate = true;
-    if (address && isConnected) {
+    if (address && isConnected && address !== profile?.address) {
       loadProfile({
         address,
         setProfile,
@@ -118,7 +118,7 @@ export const ConnectProvider = ({
     return () => {
       shouldUpdate = false;
     };
-  }, [address, isConnected, networks, lifeCycleFns]);
+  }, [address, isConnected, networks, lifeCycleFns, profile]);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({

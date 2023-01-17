@@ -10,7 +10,7 @@ import { useToast } from '@daohaus/ui';
 
 export const DHConnectProvider = (props: ConnectProviderProps) => {
   const { defaultToast, errorToast } = useToast();
-  console.log('render');
+
   return (
     <ConnectProvider
       {...props}

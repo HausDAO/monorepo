@@ -109,6 +109,18 @@ export const Unsponsored = ({
       ? true
       : 'You are not connected to the same network as the DAO';
 
+  const notDelegating = useMemo(() => {
+    if (
+      connectedMember?.delegatingTo &&
+      isNumberish(connectedMember?.delegateShares)
+    ) {
+      return Number(connectedMember.delegateShares) > 0
+        ? true
+        : 'You cannot sponsor a proposal as you have delegated your voting power';
+    }
+    return 'Connect your wallet';
+  }, [connectedMember]);
+
   return (
     <ActionTemplate
       statusDisplay="Needs a Sponsor"
@@ -118,7 +130,7 @@ export const Unsponsored = ({
           <VotingBar proposal={proposal} />
           <GatedButton
             size="sm"
-            rules={[hasShares, isConnectedToDao]}
+            rules={[hasShares, isConnectedToDao, notDelegating]}
             onClick={handleSponsor}
             fullWidth={isMobile}
           >
@@ -133,6 +145,9 @@ export const Unsponsored = ({
       helperDisplay={
         <ParSm color={theme.secondary.step11}>
           <Italic>{PROP_CARD_HELP.UNSPONSORED}</Italic>
+          {typeof notDelegating === 'string' && (
+            <Italic> {notDelegating}</Italic>
+          )}
         </ParSm>
       }
     />

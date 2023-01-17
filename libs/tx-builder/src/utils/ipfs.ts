@@ -12,6 +12,7 @@ export const handleIPFSPinata = async ({
   appState,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   arg: IPFSPinata;
   chainId: ValidNetwork;
@@ -20,6 +21,7 @@ export const handleIPFSPinata = async ({
   appState: ArbitraryState;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   const processedContent = await processArg({
     arg: arg?.content,
@@ -29,6 +31,7 @@ export const handleIPFSPinata = async ({
     appState,
     rpcs,
     pinataApiKeys,
+    explorerKeys,
   });
 
   const pinata_api_key = pinataApiKeys.pinata_api_key;

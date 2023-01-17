@@ -1,6 +1,11 @@
 import { ethers } from 'ethers';
 import { ABI, isJSON } from '@daohaus/utils';
-import { Keychain, HAUS_RPC, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  Keychain,
+  HAUS_RPC,
+  ValidNetwork,
+  ABI_EXPLORER_KEYS,
+} from '@daohaus/keychain-utils';
 
 import { cacheABI, getCachedABI } from './cache';
 import { LOCAL_ABI } from '@daohaus/abis';
@@ -21,29 +26,35 @@ export const isProxyABI = (abi: ABI) => {
   return false;
 };
 
-const ABI_ADDRESS = '<<address>>';
-
-const TEMPORARY_ABI_EXPLORER: Keychain = {
-  '0x1': `https://api.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${process.env['NX_ETHERSCAN_KEY']}`,
-  '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${process.env['NX_ETHERSCAN_KEY']}`,
-  '0x64': `https://blockscout.com/xdai/mainnet/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
-};
-
 const getABIUrl = ({
   chainId,
   contractAddress,
+  explorerKeys = ABI_EXPLORER_KEYS,
 }: {
   chainId: ValidNetwork;
   contractAddress: string;
+  explorerKeys: Keychain;
 }) => {
+  const ABI_ADDRESS = '<<address>>';
+  const TEMPORARY_ABI_EXPLORER: Keychain = {
+    '0x1': `https://api.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
+    '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
+    '0x64': `https://blockscout.com/xdai/mainnet/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
+  };
+
   return TEMPORARY_ABI_EXPLORER[chainId]?.replace(ABI_ADDRESS, contractAddress);
 };
 
-const getGnosisMasterCopy = async (address: string, chainId: ValidNetwork) => {
+const getGnosisMasterCopy = async (
+  address: string,
+  chainId: ValidNetwork,
+  rpcs: Keychain
+) => {
   const gnosisProxyContract = createContract({
     address,
     abi: LOCAL_ABI.GNOSIS_PROXY,
     chainId,
+    rpcs,
   });
   const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
   return masterCopy;
@@ -98,20 +109,24 @@ export const processABI = async ({
   contractAddress,
   chainId,
   rpcs = HAUS_RPC,
+  explorerKeys = ABI_EXPLORER_KEYS,
 }: {
   abi: ABI;
   fetchABI: ({
     chainId,
     contractAddress,
     rpcs,
+    explorerKeys,
   }: {
     chainId: ValidNetwork;
     contractAddress: string;
-    rpcs?: Keychain;
+    rpcs: Keychain;
+    explorerKeys: Keychain;
   }) => Promise<ABI | undefined>;
   contractAddress: string;
   chainId: ValidNetwork;
-  rpcs?: Keychain;
+  rpcs: Keychain;
+  explorerKeys: Keychain;
 }) => {
   if (isProxyABI(abi)) {
     const proxyAddress = await getImplementation({
@@ -125,6 +140,7 @@ export const processABI = async ({
         contractAddress: proxyAddress,
         chainId,
         rpcs,
+        explorerKeys,
       });
       if (newData) {
         return newData;
@@ -143,6 +159,7 @@ export const processABI = async ({
       contractAddress: sfProxyAddr,
       chainId,
       rpcs,
+      explorerKeys,
     });
     if (newData) {
       return newData;
@@ -152,12 +169,14 @@ export const processABI = async ({
   } else if (isGnosisProxy(abi)) {
     const gnosisProxyAddress = await getGnosisMasterCopy(
       contractAddress,
-      chainId
+      chainId,
+      rpcs
     );
     const newData = await fetchABI({
       contractAddress: gnosisProxyAddress,
       chainId,
       rpcs,
+      explorerKeys,
     });
     return newData;
   }
@@ -168,10 +187,12 @@ export const fetchABI = async ({
   contractAddress,
   chainId,
   rpcs = HAUS_RPC,
+  explorerKeys = ABI_EXPLORER_KEYS,
 }: {
   contractAddress: string;
   chainId: ValidNetwork;
   rpcs?: Keychain;
+  explorerKeys?: Keychain;
 }): Promise<ABI | undefined> => {
   const cachedABI = await getCachedABI({ address: contractAddress, chainId });
 
@@ -182,12 +203,13 @@ export const fetchABI = async ({
       contractAddress,
       chainId,
       rpcs,
+      explorerKeys,
     });
 
     return processedABI;
   }
 
-  const url = getABIUrl({ contractAddress, chainId });
+  const url = getABIUrl({ contractAddress, chainId, explorerKeys });
 
   try {
     if (!url) {
@@ -206,6 +228,8 @@ export const fetchABI = async ({
         fetchABI,
         contractAddress,
         chainId,
+        rpcs,
+        explorerKeys,
       });
 
       return processedABI;

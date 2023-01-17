@@ -115,6 +115,7 @@ export const handleEncodeCallArg = async ({
   appState,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   arg: EncodeCallArg;
   chainId: ValidNetwork;
@@ -122,6 +123,7 @@ export const handleEncodeCallArg = async ({
   appState: ArbitraryState;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   const { contract, method, args } = arg.action;
   const processedContract = await processContractLego({
@@ -130,6 +132,7 @@ export const handleEncodeCallArg = async ({
     localABIs,
     appState,
     rpcs,
+    explorerKeys,
   });
 
   const processedArgs = await Promise.all(
@@ -142,6 +145,7 @@ export const handleEncodeCallArg = async ({
           appState,
           rpcs,
           pinataApiKeys,
+          explorerKeys,
         })
     )
   );
@@ -193,6 +197,7 @@ export const handleMulticallArg = async ({
   appState,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   arg: MulticallArg;
   chainId: ValidNetwork;
@@ -200,6 +205,7 @@ export const handleMulticallArg = async ({
   appState: ArbitraryState;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
@@ -210,6 +216,7 @@ export const handleMulticallArg = async ({
         localABIs,
         appState,
         rpcs,
+        explorerKeys,
       });
 
       const processValue = value
@@ -220,6 +227,7 @@ export const handleMulticallArg = async ({
             appState,
             rpcs,
             pinataApiKeys,
+            explorerKeys,
           })
         : 0;
 
@@ -231,6 +239,7 @@ export const handleMulticallArg = async ({
             appState,
             rpcs,
             pinataApiKeys,
+            explorerKeys,
           })
         : 0;
 
@@ -245,6 +254,7 @@ export const handleMulticallArg = async ({
             appState,
             rpcs,
             pinataApiKeys,
+            explorerKeys,
           })) as string,
           value: processValue.toString(),
           operation: Number(processedOperations),
@@ -261,6 +271,7 @@ export const handleMulticallArg = async ({
               appState,
               rpcs,
               pinataApiKeys,
+              explorerKeys,
             })
         )
       );
@@ -295,6 +306,7 @@ export const handleGasEstimate = async ({
   arg,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   safeId?: string;
   chainId: ValidNetwork;
@@ -303,6 +315,7 @@ export const handleGasEstimate = async ({
   localABIs?: Record<string, ABI>;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
@@ -317,6 +330,7 @@ export const handleGasEstimate = async ({
     },
     rpcs,
     pinataApiKeys,
+    explorerKeys,
   });
 
   const estimate = await estimateGas({
@@ -392,6 +406,7 @@ export const handleArgEncode = async ({
   appState,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   arg: ArgEncode;
   chainId: ValidNetwork;
@@ -400,6 +415,7 @@ export const handleArgEncode = async ({
   appState: ArbitraryState;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   const { args, solidityTypes } = arg;
   if (args.length !== solidityTypes.length) {
@@ -416,6 +432,7 @@ export const handleArgEncode = async ({
           appState,
           rpcs,
           pinataApiKeys,
+          explorerKeys,
         })
     )
   );

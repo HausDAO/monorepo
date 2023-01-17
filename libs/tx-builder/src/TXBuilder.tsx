@@ -2,6 +2,7 @@ import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
 import {
+  ABI_EXPLORER_KEYS,
   GRAPH_API_KEYS,
   HAUS_RPC,
   isValidNetwork,
@@ -70,6 +71,7 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   rpcs?: Keychain;
   graphApiKeys?: Keychain;
   pinataApiKeys?: PinataApiKeys;
+  explorerKeys?: Keychain;
 };
 
 export const TXBuilder = ({
@@ -85,6 +87,7 @@ export const TXBuilder = ({
   rpcs = HAUS_RPC,
   graphApiKeys = GRAPH_API_KEYS,
   pinataApiKeys = PINATA_API_KEYS,
+  explorerKeys = ABI_EXPLORER_KEYS,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -127,6 +130,7 @@ export const TXBuilder = ({
       rpcs,
       graphApiKeys,
       pinataApiKeys,
+      explorerKeys,
     });
   };
 

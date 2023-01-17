@@ -93,6 +93,7 @@ export const handleDetailsJSON = async ({
   safeId,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   arg: JSONDetailsSearch;
   appState: ArbitraryState;
@@ -101,6 +102,7 @@ export const handleDetailsJSON = async ({
   safeId?: string;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   const detailsList = await Promise.all(
     Object.entries(arg.jsonSchema).map(async ([key, arg]) => {
@@ -114,6 +116,7 @@ export const handleDetailsJSON = async ({
           appState,
           rpcs,
           pinataApiKeys,
+          explorerKeys,
         }),
       };
     })

@@ -63,6 +63,7 @@ export type Field = {
   address?: boolean;
   long?: boolean;
   full?: boolean;
+  value?: string;
 } & PrimitiveElement;
 
 // & PrimitiveWrapper &

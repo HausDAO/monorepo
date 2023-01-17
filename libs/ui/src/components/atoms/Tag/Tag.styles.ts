@@ -5,6 +5,7 @@ import { border } from '../../../theme/global/border';
 
 export const BaseTag = styled.div<{
   tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
+  fontSize?: string;
 }>`
   display: inline-flex;
   align-items: center;
@@ -12,10 +13,10 @@ export const BaseTag = styled.div<{
   border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}3`]};
   border-radius: ${border.radius};
   color: ${({ theme, tagColor }) => theme[`${tagColor}11`]};
-  min-height: 2.6rem;
-  min-width: fit-content;
-  padding: 0.2rem 0.5rem;
-
+  height: fit-content;
+  width: fit-content;
+  padding: 0.5rem 0.8rem;
+  font-size: ${({ fontSize }) => fontSize};
   :hover {
     background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
     border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}4`]};

@@ -69,6 +69,7 @@ export const processArg = async ({
   appState,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   arg: ValidArgType;
   chainId: ValidNetwork;
@@ -77,6 +78,7 @@ export const processArg = async ({
   appState: ArbitraryState;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }): Promise<ArgType> => {
   if (isSearchArg(arg)) {
     return searchArg({ appState, searchString: arg, shouldThrow: true });
@@ -99,6 +101,7 @@ export const processArg = async ({
             appState,
             rpcs,
             pinataApiKeys,
+            explorerKeys,
           })
       )
     );
@@ -111,6 +114,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -122,6 +126,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -134,6 +139,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -146,6 +152,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -159,6 +166,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -185,6 +193,7 @@ export const processArg = async ({
       appState,
       rpcs,
       pinataApiKeys,
+      explorerKeys,
     });
     return result;
   }
@@ -202,6 +211,7 @@ export const processArgs = async ({
   argCallbackRecord,
   rpcs,
   pinataApiKeys,
+  explorerKeys,
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
@@ -211,6 +221,7 @@ export const processArgs = async ({
   argCallbackRecord: Record<string, ArgCallback>;
   rpcs: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   const { argCallback, args, staticArgs } = tx;
 
@@ -240,6 +251,7 @@ export const processArgs = async ({
             appState,
             rpcs,
             pinataApiKeys,
+            explorerKeys,
           })
       )
     );

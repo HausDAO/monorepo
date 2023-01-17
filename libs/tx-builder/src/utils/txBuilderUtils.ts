@@ -116,6 +116,7 @@ export async function prepareTX(args: {
   rpcs: Keychain;
   graphApiKeys: Keychain;
   pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) {
   const {
     argCallbackRecord,
@@ -135,6 +136,7 @@ export async function prepareTX(args: {
       chainId,
       appState,
       rpcs: args.rpcs,
+      explorerKeys: args.explorerKeys,
     });
     console.log('**PROCESSED CONTRACT**', processedContract);
 
@@ -150,6 +152,7 @@ export async function prepareTX(args: {
       argCallbackRecord,
       rpcs: args.rpcs,
       pinataApiKeys: args.pinataApiKeys,
+      explorerKeys: args.explorerKeys,
     });
 
     console.log('**PROCESSED ARGS**', processedArgs);

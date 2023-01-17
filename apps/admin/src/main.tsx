@@ -5,7 +5,8 @@ import { Buffer } from 'buffer';
 
 import { HausThemeProvider } from '@daohaus/ui';
 
-import Routes from './Routes';
+import { DHConnectProvider } from '@daohaus/connect';
+import { App } from './App';
 
 // This solves an issue when using WalletConnect and intercept Txs to create dao proposals
 // Related open issue: https://github.com/WalletConnect/walletconnect-monorepo/issues/748
@@ -22,7 +23,9 @@ root.render(
   <StrictMode>
     <HashRouter>
       <HausThemeProvider>
-        <Routes />
+        <DHConnectProvider>
+          <App />
+        </DHConnectProvider>
       </HausThemeProvider>
     </HashRouter>
   </StrictMode>

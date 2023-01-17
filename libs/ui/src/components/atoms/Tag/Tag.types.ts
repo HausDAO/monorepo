@@ -10,4 +10,5 @@ export type TagProps = {
   className?: string;
   IconLeft?: IconType;
   IconRight?: IconType;
+  fontSize?: string;
 };

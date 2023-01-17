@@ -10,10 +10,15 @@ export const Tag = ({
   tagColor,
   IconLeft,
   IconRight,
+  fontSize = '1.2rem',
 }: TagProps) => {
   const iconClasses = classNames({ tagColor });
   return (
-    <BaseTag tagColor={tagColor || 'green'} className={className}>
+    <BaseTag
+      tagColor={tagColor || 'green'}
+      className={className}
+      fontSize={fontSize}
+    >
       {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
       {children}
       {IconRight && <IconRight className={`${iconClasses} icon-right`} />}

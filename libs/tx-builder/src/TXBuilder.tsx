@@ -27,7 +27,11 @@ export type TXLifeCycleFns = {
   ) => void;
   onPollStart?: () => void;
   onPollError?: (error: unknown) => void;
-  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
+  onPollSuccess?: (
+    result: IFindQueryResult<FindTxQuery> | undefined,
+    txReceipt: ethers.providers.TransactionReceipt,
+    appState: ArbitraryState
+  ) => void;
 };
 
 export type LifeCycleNames = keyof Required<TXLifeCycleFns>;

@@ -61,12 +61,12 @@ export const Unsponsored = ({
           lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: (txHash: string) => {
+        onTxSuccess: (...args) => {
           defaultToast({
             title: 'Sponsor Success',
             description: 'Please wait for subgraph to sync',
           });
-          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
+          lifeCycleFnsOverride?.onTxSuccess?.(...args);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({

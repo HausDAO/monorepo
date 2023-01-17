@@ -114,12 +114,12 @@ export const ReadyForProcessing = ({
           lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: (txHash: string) => {
+        onTxSuccess: (...args) => {
           defaultToast({
             title: 'Execution Success',
             description: 'Please wait for subgraph to sync',
           });
-          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
+          lifeCycleFnsOverride?.onTxSuccess?.(...args);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({

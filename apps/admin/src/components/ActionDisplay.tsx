@@ -1,4 +1,4 @@
-import { ArgType, isEthAddress } from '@daohaus/utils';
+import { ArgType, isEthAddress, isNumberish } from '@daohaus/utils';
 
 import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
 import {
@@ -145,6 +145,7 @@ export const ActionDisplay = ({
                   </DataSm>
                   <ValueDisplay
                     argValue={arg.value}
+                    argType={arg.type}
                     network={network}
                     isMobile={isMobile}
                   />
@@ -161,23 +162,29 @@ export const ActionDisplay = ({
 
 const ValueDisplay = ({
   argValue,
+  argType,
   network,
   isMobile,
 }: {
   argValue: ArgType;
+  argType?: string;
   network?: ValidNetwork;
   isMobile?: boolean;
 }) => {
   if (Array.isArray(argValue)) {
+    const displayValue = argType === 'tuple'
+      ? Object.entries(Object.assign({}, argValue)).filter(entry => !isNumberish(entry[0]))
+      : argValue;
     return (
       <>
-        {argValue.map((value, index) => {
+        {displayValue.map((value, index) => {
           return (
             <div className="space" key={`argValue${index}`}>
               <ValueDisplay
                 argValue={
                   Array.isArray(value) ? `${value[0]}: ${value[1]}` : value
                 }
+                argType={argType}
                 network={network}
               />
               {index + 1 < argValue?.length && <Divider />}

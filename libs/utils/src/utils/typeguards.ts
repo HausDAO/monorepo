@@ -16,11 +16,24 @@ export const isEthAddress = (item: unknown): item is EthAddress =>
   isString(item) && ethers.utils.isAddress(item);
 // general 'is' guards that help us verify shapes of data
 
+export const isObject = (item: unknown) => {
+  if (typeof item === 'object') return true;
+  try {
+    if (isString(item)) {
+      JSON.parse(item as string);
+      return true;
+    }
+    return false;
+  } catch(error) {
+    return false;
+  }
+};
+
 export const isArgType = (item: unknown): item is ArgType => {
   if (isArray(item)) {
     return item.every(isArgType);
   }
-  return isString(item) || isNumber(item) || isBoolean(item);
+  return isString(item) || isNumber(item) || isBoolean(item) || isObject(item);
 };
 
 export const isNumberString = (item: unknown) =>

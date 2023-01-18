@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { FormBuilderFactory, useFormBuilder } from '@daohaus/form-builder';
-import { HAUS_RPC, Keychain } from '@daohaus/keychain-utils';
+import { Keychain } from '@daohaus/keychain-utils';
 import {
   cacheABI,
   fetchABI,
@@ -28,12 +28,15 @@ import {
 import {
   ABI,
   FieldLegoBase,
+  ignoreEmptyVal,
   isEthAddress,
   isJSON,
   isNumberish,
+  isObject,
   isString,
   JsonFragmentType,
   LookupType,
+  ValidateField,
 } from '@daohaus/utils';
 import { JsonFragment } from '@ethersproject/abi';
 
@@ -56,10 +59,15 @@ const createActionField = (
   input: JsonFragmentType
 ): FieldLegoBase<LookupType> => {
   if (!input.name || !input.type) return;
-  const inputType = input.type?.match(REGEX_ARRAY_TYPE) ? 'textarea' : 'input';
+  const isArray = input.type?.match(REGEX_ARRAY_TYPE);
+  const inputType = input.type === 'tuple' || isArray ? 'textarea' : 'input';
   const newRules: RegisterOptions = {
     required: 'Value is required',
   };
+  if (input.type === 'tuple') {
+    newRules['setValueAs'] = (val: string) => isObject(val) && typeof val === 'string' ? JSON.parse(val) : val;
+    newRules['validate'] = (val) => ignoreEmptyVal(val, (val) => ValidateField.object(val));
+  }
   const fieldBase = {
     id: `tx.${actionId}.fields.${input.name}`,
     type: inputType,
@@ -68,7 +76,7 @@ const createActionField = (
     number: input.type.includes('int'),
     rules: newRules,
   };
-  if (inputType === 'textarea') {
+  if (isArray) {
     const dimensions = input.type?.match(REGEX_ARRAY_TYPE);
     return {
       ...fieldBase,
@@ -132,6 +140,8 @@ const createActionField = (
     ...fieldBase,
     expectType: input.type?.includes('address')
       ? 'ethAddress'
+      : input.type === 'tuple'
+      ? 'object'
       : input.type?.includes('int') || input.type === 'bool'
       ? 'number'
       : undefined, // plain string for other cases
@@ -315,6 +325,7 @@ const Action = ({
       actionValue,
       selectedMethod,
       argFieldsIds,
+      setActionError,
       setValue,
     ]
   );
@@ -392,7 +403,7 @@ const Action = ({
       argFieldsIds.length &&
       argFieldsIds
         .map((id) => id.split('.').reduce((data, curr) => data[curr], values))
-        .every((arg: unknown) => (arg as string)?.length > 0)
+        .every((arg: unknown) => (arg as string)?.length > 0 || typeof arg === 'object')
     ) {
       encodeAction(
         { ...values.tx?.[actionId]?.fields },

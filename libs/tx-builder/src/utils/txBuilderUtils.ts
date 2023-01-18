@@ -67,35 +67,37 @@ export const executeTx = async (args: {
     console.log('**Transaction Successful**');
     lifeCycleFns?.onTxSuccess?.(receipt, txHash, appState);
 
-    standardGraphPoll({
-      poll: pollLastTX,
-      test: testLastTX,
-      variables: {
-        chainId,
-        txHash,
-        graphApiKeys,
-      },
-      onPollStart() {
-        lifeCycleFns?.onPollStart?.();
-        console.log('**Polling**');
-      },
-      onPollSuccess(result) {
-        lifeCycleFns?.onPollSuccess?.(result, receipt, appState);
-        console.log('**Poll Successful**');
-        setTransactions((prevState) => ({
-          ...prevState,
-          [txHash]: { ...tx, status: 'success' },
-        }));
-      },
-      onPollError(error) {
-        lifeCycleFns?.onPollError?.(error);
-        console.log('**Poll Error**');
-        setTransactions((prevState) => ({
-          ...prevState,
-          [txHash]: { ...tx, status: 'pollFailed' },
-        }));
-      },
-    });
+    if (!tx.disablePoll) {
+      standardGraphPoll({
+        poll: tx?.customPoll?.fetch || pollLastTX,
+        test: tx?.customPoll?.test || testLastTX,
+        variables: {
+          chainId,
+          txHash,
+          graphApiKeys,
+        },
+        onPollStart() {
+          lifeCycleFns?.onPollStart?.();
+          console.log('**Polling**');
+        },
+        onPollSuccess(result) {
+          lifeCycleFns?.onPollSuccess?.(result, receipt, appState);
+          console.log('**Poll Successful**');
+          setTransactions((prevState) => ({
+            ...prevState,
+            [txHash]: { ...tx, status: 'success' },
+          }));
+        },
+        onPollError(error) {
+          lifeCycleFns?.onPollError?.(error);
+          console.log('**Poll Error**');
+          setTransactions((prevState) => ({
+            ...prevState,
+            [txHash]: { ...tx, status: 'pollFailed' },
+          }));
+        },
+      });
+    }
     return {
       receipt,
       txHash,

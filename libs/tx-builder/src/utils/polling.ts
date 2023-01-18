@@ -3,10 +3,6 @@ import { findTransaction } from '@daohaus/moloch-v3-data';
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
-// TS Challenge
-
-// Need to be able to have a generic poll
-// that we can pass in any shape of argume
 // eslint-disable-next-line
 type PollFetch = (...args: any) => Promise<any>;
 type PollTest = (result?: any) => boolean;

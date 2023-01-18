@@ -12,9 +12,7 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
-import { FindTxQuery } from '@daohaus/moloch-v3-data';
 import { bundleLifeCycleFns } from './utils/lifeCycleFns';
-import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
 export type TXLifeCycleFns = {
   onRequestSign?: () => void;
@@ -28,7 +26,8 @@ export type TXLifeCycleFns = {
   onPollStart?: () => void;
   onPollError?: (error: unknown) => void;
   onPollSuccess?: (
-    result: IFindQueryResult<FindTxQuery> | undefined,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result: any,
     txReceipt: ethers.providers.TransactionReceipt,
     appState: ArbitraryState
   ) => void;

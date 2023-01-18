@@ -37,7 +37,7 @@ export const ValidateField = {
     isNumberish(val) && Number(val) >= range[0] && Number(val) <= range[1]
       ? true
       : ValErrMsgs.percent,
-  object: (val: unknown) => isObject(val) ? true : ValErrMsgs.object,
+  object: (val: unknown) => (isObject(val) ? true : ValErrMsgs.object),
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

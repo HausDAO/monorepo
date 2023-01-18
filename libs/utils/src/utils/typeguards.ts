@@ -24,7 +24,7 @@ export const isObject = (item: unknown) => {
       return true;
     }
     return false;
-  } catch(error) {
+  } catch (error) {
     return false;
   }
 };

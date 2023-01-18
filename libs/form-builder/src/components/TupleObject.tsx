@@ -1,10 +1,6 @@
 import { RegisterOptions } from 'react-hook-form';
 import { Buildable, Field, WrappedTextArea } from '@daohaus/ui';
-import {
-  ignoreEmptyVal,
-  isObject,
-  ValidateField,
-} from '@daohaus/utils';
+import { ignoreEmptyVal, isObject, ValidateField } from '@daohaus/utils';
 
 export const TupleObject = (props: Buildable<Field>) => {
   const newRules: RegisterOptions = {

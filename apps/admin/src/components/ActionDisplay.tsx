@@ -172,9 +172,12 @@ const ValueDisplay = ({
   isMobile?: boolean;
 }) => {
   if (Array.isArray(argValue)) {
-    const displayValue = argType === 'tuple'
-      ? Object.entries(Object.assign({}, argValue)).filter(entry => !isNumberish(entry[0]))
-      : argValue;
+    const displayValue =
+      argType === 'tuple'
+        ? Object.entries(Object.assign({}, argValue)).filter(
+            (entry) => !isNumberish(entry[0])
+          )
+        : argValue;
     return (
       <>
         {displayValue.map((value, index) => {

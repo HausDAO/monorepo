@@ -65,8 +65,10 @@ const createActionField = (
     required: 'Value is required',
   };
   if (input.type === 'tuple') {
-    newRules['setValueAs'] = (val: string) => isObject(val) && typeof val === 'string' ? JSON.parse(val) : val;
-    newRules['validate'] = (val) => ignoreEmptyVal(val, (val) => ValidateField.object(val));
+    newRules['setValueAs'] = (val: string) =>
+      isObject(val) && typeof val === 'string' ? JSON.parse(val) : val;
+    newRules['validate'] = (val) =>
+      ignoreEmptyVal(val, (val) => ValidateField.object(val));
   }
   const fieldBase = {
     id: `tx.${actionId}.fields.${input.name}`,
@@ -403,7 +405,10 @@ const Action = ({
       argFieldsIds.length &&
       argFieldsIds
         .map((id) => id.split('.').reduce((data, curr) => data[curr], values))
-        .every((arg: unknown) => (arg as string)?.length > 0 || typeof arg === 'object')
+        .every(
+          (arg: unknown) =>
+            (arg as string)?.length > 0 || typeof arg === 'object'
+        )
     ) {
       encodeAction(
         { ...values.tx?.[actionId]?.fields },

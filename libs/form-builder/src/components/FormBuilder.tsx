@@ -17,7 +17,7 @@ import { FormLego } from '../types';
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
-import { useTxBuilder } from '@daohaus/tx-builder';
+import { TXLifeCycleFns, useTxBuilder } from '@daohaus/tx-builder';
 
 type FormContext<Lookup extends LookupType> = {
   form?: FormLego<Lookup>;
@@ -46,9 +46,7 @@ type BuilderProps<Lookup extends LookupType> = {
   onSubmit?: (
     formValues: FieldValues
   ) => void | Promise<(formValues: FieldValues) => void>;
-  onCancel?: () => void;
-  onSuccess?: () => void;
-  onError?: () => void;
+  lifeCycleFns?: TXLifeCycleFns;
   targetNetwork?: string;
 };
 
@@ -68,8 +66,7 @@ export function FormBuilder<Lookup extends LookupType>({
   onSubmit,
   defaultValues,
   customFields,
-  onSuccess,
-  onError,
+  lifeCycleFns,
   targetNetwork,
 }: BuilderProps<Lookup>) {
   const { chainId } = useDHConnect();
@@ -116,10 +113,12 @@ export function FormBuilder<Lookup extends LookupType>({
         lifeCycleFns: {
           onRequestSign() {
             setStatus(StatusMsg.Request);
+            lifeCycleFns?.onRequestSign?.();
           },
           onTxHash(txHash) {
             setTxHash(txHash);
             setStatus(StatusMsg.Await);
+            lifeCycleFns?.onTxHash?.(txHash);
           },
           onTxError(error) {
             setStatus(StatusMsg.TxErr);
@@ -128,11 +127,12 @@ export function FormBuilder<Lookup extends LookupType>({
               fallback: 'Could not decode error message',
             });
             setIsLoading(false);
-            onError?.();
+            lifeCycleFns?.onTxError?.(error);
             errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
-          onTxSuccess() {
+          onTxSuccess(...args) {
             setStatus(StatusMsg.TxSuccess);
+            lifeCycleFns?.onTxSuccess?.(...args);
             defaultToast({
               title: StatusMsg.TxSuccess,
               description: 'Please wait for subgraph to sync',
@@ -140,6 +140,7 @@ export function FormBuilder<Lookup extends LookupType>({
           },
           onPollStart() {
             setStatus(StatusMsg.PollStart);
+            lifeCycleFns?.onPollStart?.();
           },
           onPollError(error) {
             setStatus(StatusMsg.PollError);
@@ -148,17 +149,17 @@ export function FormBuilder<Lookup extends LookupType>({
               fallback: 'Could not decode poll error message',
             });
             setIsLoading(false);
-            onError?.();
+            lifeCycleFns?.onPollError?.(error);
             errorToast({ title: StatusMsg.PollError, description: errMsg });
           },
-          onPollSuccess() {
+          onPollSuccess(...args) {
             setStatus(StatusMsg.PollSuccess);
             setIsLoading(false);
             successToast({
               title: StatusMsg.PollSuccess,
               description: 'Transaction cycle complete.',
             });
-            onSuccess?.();
+            lifeCycleFns?.onPollSuccess?.(...args);
           },
         },
       });

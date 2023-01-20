@@ -55,6 +55,11 @@ export type MulticallArg = {
   actions: MulticallAction[];
   formActions?: boolean;
 };
+export type EncodeMulticall = {
+  type: 'encodeMulticall';
+  actions: MulticallAction[];
+  formActions?: boolean;
+};
 export type EncodeCallArg = {
   type: 'encodeCall';
   action: MulticallAction;
@@ -109,6 +114,7 @@ export type ValidArgType =
   | ProposalExpiry
   | StaticArg
   | IPFSPinata
+  | EncodeMulticall
   | ArgEncode;
 
 export type TxStates =

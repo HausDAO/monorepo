@@ -8,6 +8,7 @@ import {
   encodeValues,
   EstmimateGas,
   EthAddress,
+  EncodeMulticall,
   JSONDetailsSearch,
   MulticallAction,
   MulticallArg,
@@ -99,7 +100,7 @@ export const txActionToMetaTx = ({
   if (typeof encodedData !== 'string') {
     throw new Error(encodedData.message);
   }
-
+  console.log('operation', operation);
   return {
     to: address,
     data: encodedData,
@@ -199,7 +200,7 @@ export const handleMulticallArg = async ({
   pinataApiKeys,
   explorerKeys,
 }: {
-  arg: MulticallArg;
+  arg: MulticallArg | EncodeMulticall;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
@@ -242,7 +243,7 @@ export const handleMulticallArg = async ({
             explorerKeys,
           })
         : 0;
-
+      console.log('processedOperations', processedOperations);
       // Early return if encoded data is passed and args do not need processing
       if (data) {
         return {
@@ -289,6 +290,15 @@ export const handleMulticallArg = async ({
   const encodedFormActions = arg.formActions
     ? handleMulticallFormActions({ appState })
     : [];
+
+  if (arg.type === 'encodeMulticall') {
+    const result = encodeMultiSend([...encodedActions, ...encodedFormActions]);
+
+    if (typeof result !== 'string') {
+      throw new Error('Could not encode generic multicall');
+    }
+    return result;
+  }
 
   const result = encodeMultiAction([...encodedActions, ...encodedFormActions]);
 

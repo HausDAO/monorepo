@@ -39,6 +39,7 @@ export const TX: Record<string, TXLego> = {
       {
         contract: CONTRACT.POSTER,
         method: 'post',
+        operations: { type: 'static', value: 0 },
         args: [
           {
             type: 'JSONDetails',

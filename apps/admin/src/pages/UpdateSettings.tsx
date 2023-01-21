@@ -33,7 +33,11 @@ export function UpdateSettings() {
       form={{ ...COMMON_FORMS.METADATA_SETTINGS, log: true }}
       customFields={CustomFields}
       targetNetwork={daochain}
-      onSuccess={onFormComplete}
+      lifeCycleFns={{
+        onPollSuccess: () => {
+          onFormComplete();
+        },
+      }}
     />
   );
 }

@@ -42,7 +42,11 @@ export function NewProposal() {
     <FormBuilder
       form={formLego}
       customFields={CustomFields}
-      onSuccess={onFormComplete}
+      lifeCycleFns={{
+        onPollSuccess: () => {
+          onFormComplete();
+        },
+      }}
       defaultValues={defaults}
       targetNetwork={daochain}
     />

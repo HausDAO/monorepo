@@ -36,7 +36,11 @@ export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
       defaultValues={defaultValues}
       form={COMMON_FORMS.MANAGE_DELEGATE}
       customFields={CustomFields}
-      onSuccess={onFormComplete}
+      lifeCycleFns={{
+        onPollSuccess: () => {
+          onFormComplete();
+        },
+      }}
       targetNetwork={daochain}
     />
   );

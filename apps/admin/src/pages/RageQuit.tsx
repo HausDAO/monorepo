@@ -48,7 +48,11 @@ export function RageQuit() {
       defaultValues={defaultFields}
       form={{ ...COMMON_FORMS.RAGEQUIT, log: true, devtool: true }}
       customFields={CustomFields}
-      onSuccess={onFormComplete}
+      lifeCycleFns={{
+        onPollSuccess: () => {
+          onFormComplete();
+        },
+      }}
       targetNetwork={daochain}
     />
   );

@@ -16,7 +16,11 @@ export const AddSafeForm = ({ onSuccess }: { onSuccess: () => void }) => {
   return (
     <FormBuilder
       form={COMMON_FORMS.ADD_SAFE}
-      onSuccess={onFormComplete}
+      lifeCycleFns={{
+        onPollSuccess: () => {
+          onFormComplete();
+        },
+      }}
       targetNetwork={daochain}
     />
   );

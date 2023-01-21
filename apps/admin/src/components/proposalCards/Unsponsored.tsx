@@ -61,12 +61,12 @@ export const Unsponsored = ({
           lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: (txHash: string) => {
+        onTxSuccess: (...args) => {
           defaultToast({
             title: 'Sponsor Success',
             description: 'Please wait for subgraph to sync',
           });
-          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
+          lifeCycleFnsOverride?.onTxSuccess?.(...args);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({
@@ -76,13 +76,13 @@ export const Unsponsored = ({
           lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
-        onPollSuccess: () => {
+        onPollSuccess: (...args) => {
           successToast({
             title: 'Sponsor Success',
             description: 'Proposal sponsored',
           });
           refreshAll();
-          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
+          lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },
       },

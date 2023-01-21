@@ -243,7 +243,7 @@ export const handleMulticallArg = async ({
             explorerKeys,
           })
         : 0;
-      console.log('processedOperations', processedOperations);
+
       // Early return if encoded data is passed and args do not need processing
       if (data) {
         return {

@@ -23,6 +23,42 @@ const nestInArray = (arg: ValidArgType | ValidArgType[]): NestedArray => {
 };
 
 export const TX: Record<string, TXLego> = {
+  TEST: {
+    id: 'TEST',
+    contract: CONTRACT.GNOSIS_MULTISEND,
+    method: 'multiSend',
+    args: [
+      {
+        type: 'encodeMulticall',
+        actions: [
+          {
+            contract: CONTRACT.POSTER,
+            method: 'post',
+            operations: { type: 'static', value: 1 },
+            args: [
+              {
+                type: 'static',
+                value: 'Test',
+              },
+              { type: 'static', value: POSTER_TAGS.daoDatabaseProposal },
+            ],
+          },
+          {
+            contract: CONTRACT.POSTER,
+            method: 'post',
+            operations: { type: 'static', value: 1 },
+            args: [
+              {
+                type: 'static',
+                value: 'Test',
+              },
+              { type: 'static', value: POSTER_TAGS.daoDatabaseProposal },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   POST_SIGNAL: buildMultiCallTX({
     id: 'POST_SIGNAL',
     JSONDetails: {

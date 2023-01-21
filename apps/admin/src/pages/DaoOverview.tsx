@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import {
+  Button,
   Card,
   DataIndicator,
   H4,
@@ -15,6 +16,8 @@ import {
   fromWei,
   lowerCaseLootToken,
 } from '@daohaus/utils';
+import { TX } from '../legos/tx';
+import { useTxBuilder } from '@daohaus/tx-builder';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -44,9 +47,21 @@ const DataGrid = styled.div`
 
 export function DaoOverview() {
   const { dao } = useDao();
+  const { fireTransaction } = useTxBuilder();
+  const test = () => {
+    fireTransaction({
+      tx: TX.TEST,
+      lifeCycleFns: {
+        onTxSuccess: (txHash) => {
+          console.log('Success');
+        },
+      },
+    });
+  };
 
   return (
     <SingleColumnLayout>
+      <Button onClick={test}>Test</Button>
       {dao && (
         <>
           <OverviewCard>

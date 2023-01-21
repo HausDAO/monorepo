@@ -293,6 +293,8 @@ export const handleMulticallArg = async ({
 
   if (arg.type === 'encodeMulticall') {
     const result = encodeMultiSend([...encodedActions, ...encodedFormActions]);
+    console.log('arg.type', arg.type);
+    console.log('result', result);
 
     if (typeof result !== 'string') {
       throw new Error('Could not encode generic multicall');

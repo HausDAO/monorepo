@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: BaalSummonerV2
-    network: arbitrum-one
+    network: matic
     source:
-      address: '0xb08Cc8C343cF6dC20d8cf51Fb2D6C436c6390dAa'
+      address: '0x7e988A9db2F8597735fc68D21060Daed948a3e8C'
       abi: BaalSummonerV2
-      startBlock: 54971296
+      startBlock: 35941533
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -30,11 +30,11 @@ dataSources:
       file: ./src/baal-summoner-mapping.ts
   - kind: ethereum/contract
     name: Poster
-    network: arbitrum-one
+    network: matic
     source:
       address: '0x000000000000cd17345801aa8147b8d3950260ff'
       abi: Poster
-      startBlock: 54971296
+      startBlock: 35941533
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -51,11 +51,11 @@ dataSources:
       file: ./src/poster-mapping.ts
   - kind: ethereum/contract
     name: TributeMinion
-    network: arbitrum-one
+    network: matic
     source:
-      address: '0x7707964B4C24A6b8b7B747F7507F56818857A7C2'
+      address: '0x51498dDdd2A8cdeC82932E08A37eBaF346C38EFd'
       abi: TributeMinion
-      startBlock: 54972411
+      startBlock: 38445036
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -75,11 +75,11 @@ dataSources:
       file: ./src/tribute-minion-mapping.ts
   - kind: ethereum/contract
     name: VaultSummoner
-    network: arbitrum-one
+    network: matic
     source:
-      address: '0xC39E8D4DE75c6aC025a0C07dCd8Aeb0728C5DBF1'
+      address: '0x594E630efbe8dbd810c168e3878817a4094bB312'
       abi: VaultSummoner
-      startBlock: 54971346
+      startBlock: 35941539
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -98,7 +98,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
-    network: arbitrum-one
+    network: matic
     source:
       abi: Baal
     mapping:
@@ -147,7 +147,7 @@ templates:
           handler: handleLockManager
   - kind: ethereum/contract
     name: SharesTemplate
-    network: arbitrum-one
+    network: matic
     source:
       abi: Shares
     mapping:
@@ -170,7 +170,7 @@ templates:
           handler: handleSharesTransfer
   - kind: ethereum/contract
     name: LootTemplate
-    network: arbitrum-one
+    network: matic
     source:
       abi: Loot
     mapping:

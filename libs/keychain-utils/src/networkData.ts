@@ -27,7 +27,16 @@ export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {
     symbol: 'XDAI',
     tokenDecimals: 18,
     explorer: ENDPOINTS.EXPLORER['0x64'] as string,
-    rpc: HAUS_RPC['0x1'] as string,
+    rpc: HAUS_RPC['0x64'] as string,
+  },
+  '0x89': {
+    chainId: '0x89',
+    networkId: 137,
+    name: 'Polygon',
+    symbol: 'MATIC',
+    tokenDecimals: 18,
+    explorer: ENDPOINTS.EXPLORER['0x89'] as string,
+    rpc: HAUS_RPC['0x89'] as string,
   },
   '0xa': {
     chainId: '0xa',

@@ -94,14 +94,14 @@ module.exports.config = {
       {
         name: 'baalSummoner-v2.0.0',
         template: 'baal-summoner-2.0.0-ds.yaml',
-        address: '0xb08Cc8C343cF6dC20d8cf51Fb2D6C436c6390dAa',
-        startBlock: 69979728,
+        address: '0x3E0eAdE343Ddc556a6Cf0f858e4f685ba303ce71',
+        startBlock: 70002741,
       },
       {
         name: 'poster',
         template: 'poster-ds.yaml',
         address: '0x000000000000cd17345801aa8147b8d3950260ff',
-        startBlock: 69979728,
+        startBlock: 70002741,
       },
       {
         name: 'tributeMinion-v1.0.0',
@@ -112,8 +112,8 @@ module.exports.config = {
       {
         name: 'vaultSummoner',
         template: 'vault-summoner-ds.yaml',
-        address: '0xC39E8D4DE75c6aC025a0C07dCd8Aeb0728C5DBF1',
-        startBlock: 69979789,
+        address: '0xb04111e7b4576164145EF97EB81fd43DA0F2D675',
+        startBlock: 70002814,
       },
     ],
     templates: [
@@ -180,8 +180,46 @@ module.exports.config = {
     ],
   },
   matic: {
-    dataSources: [],
-    templates: [],
+    dataSources: [
+      {
+        name: 'baalSummoner-v2.0.0',
+        template: 'baal-summoner-2.0.0-ds.yaml',
+        address: '0x7e988A9db2F8597735fc68D21060Daed948a3e8C',
+        startBlock: 35941533,
+      },
+      {
+        name: 'poster',
+        template: 'poster-ds.yaml',
+        address: '0x000000000000cd17345801aa8147b8d3950260ff',
+        startBlock: 35941533,
+      },
+      {
+        name: 'tributeMinion-v1.0.0',
+        template: 'tribute-minion-ds.yaml',
+        address: '0x51498dDdd2A8cdeC82932E08A37eBaF346C38EFd',
+        startBlock: 38445036,
+      },
+      {
+        name: 'vaultSummoner',
+        template: 'vault-summoner-ds.yaml',
+        address: '0x594E630efbe8dbd810c168e3878817a4094bB312',
+        startBlock: 35941539,
+      },
+    ],
+    templates: [
+      {
+        name: 'baalTemplate',
+        template: 'baal-template.yaml',
+      },
+      {
+        name: 'sharesTemplate',
+        template: 'shares-template.yaml',
+      },
+      {
+        name: 'lootTemplate',
+        template: 'loot-template.yaml',
+      },
+    ],
   },
   goerli: {
     dataSources: [

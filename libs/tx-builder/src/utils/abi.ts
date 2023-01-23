@@ -40,6 +40,7 @@ const getABIUrl = ({
     '0x1': `https://api.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
     '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
     '0x64': `https://blockscout.com/xdai/mainnet/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
+    '0x89': `https://blockscout.com/optimism/mainnet/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
     '0xa': `https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
     '0xa4b1': `https://api.arbiscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
   };

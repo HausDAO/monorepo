@@ -158,7 +158,8 @@ export const TributeInput = (
     required: true,
     setValueAs: (val) => {
       if (val === '') return '';
-      return toBaseUnits(val);
+
+      return toBaseUnits(val, tokenData?.decimals);
     },
     ...props.rules,
   };

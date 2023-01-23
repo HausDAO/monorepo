@@ -17,7 +17,7 @@ export const isEthAddress = (item: unknown): item is EthAddress =>
 // general 'is' guards that help us verify shapes of data
 
 export const isObject = (item: unknown) => {
-  if (typeof item === 'object') return true;
+  if (item instanceof Object) return true;
   try {
     if (isString(item)) {
       JSON.parse(item as string);

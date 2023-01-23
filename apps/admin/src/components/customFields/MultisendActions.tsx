@@ -54,6 +54,13 @@ const ActionContainer = styled.div`
 
 const REGEX_ARRAY_TYPE = /\[(([1-9]*)([0-9]+))?\]/g;
 
+const mapFieldToArgType = (fieldType: string) => {
+  if (fieldType.includes('address')) return 'ethAddress';
+  if (fieldType.includes('int') || fieldType === 'bool') return 'number';
+  if (fieldType === 'tuple') return 'object';
+  return undefined; // means plain string for other cases
+};
+
 const createActionField = (
   actionId: string,
   input: JsonFragmentType
@@ -140,13 +147,7 @@ const createActionField = (
   }
   return {
     ...fieldBase,
-    expectType: input.type?.includes('address')
-      ? 'ethAddress'
-      : input.type === 'tuple'
-      ? 'object'
-      : input.type?.includes('int') || input.type === 'bool'
-      ? 'number'
-      : undefined, // plain string for other cases
+    expectType: mapFieldToArgType(input.type || ''),
   };
 };
 

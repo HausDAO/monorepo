@@ -114,12 +114,12 @@ export const ReadyForProcessing = ({
           lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: (txHash: string) => {
+        onTxSuccess: (...args) => {
           defaultToast({
             title: 'Execution Success',
             description: 'Please wait for subgraph to sync',
           });
-          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
+          lifeCycleFnsOverride?.onTxSuccess?.(...args);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({
@@ -129,13 +129,13 @@ export const ReadyForProcessing = ({
           lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
-        onPollSuccess: () => {
+        onPollSuccess: (...args) => {
           successToast({
             title: 'Execution Success',
             description: 'Proposal executed',
           });
           refreshAll();
-          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
+          lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },
       },

@@ -31,9 +31,17 @@ export const executeTx = async (args: {
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
   graphApiKeys: Keychain;
+  appState: ArbitraryState;
 }) => {
-  const { tx, ethersTx, setTransactions, chainId, lifeCycleFns, graphApiKeys } =
-    args;
+  const {
+    tx,
+    ethersTx,
+    setTransactions,
+    chainId,
+    lifeCycleFns,
+    graphApiKeys,
+    appState,
+  } = args;
   console.log('**Transaction Initatiated**');
   const txHash = ethersTx.hash;
   console.log('txHash', txHash);
@@ -44,10 +52,11 @@ export const executeTx = async (args: {
       [txHash]: { ...tx, status: 'idle' },
     }));
     console.log('**Transaction Pending**');
-    const reciept = await ethersTx.wait();
-    console.log('txReciept', reciept);
+    const receipt = await ethersTx.wait();
+    console.log('**Transaction Mined**');
+    console.log('**Transaction Receipt**', receipt);
 
-    if (reciept.status === 0) {
+    if (receipt.status === 0) {
       throw new Error('CALL_EXCEPTION: txReceipt status 0');
     }
 
@@ -56,39 +65,41 @@ export const executeTx = async (args: {
       [txHash]: { ...tx, status: 'polling' },
     }));
     console.log('**Transaction Successful**');
-    lifeCycleFns?.onTxSuccess?.(txHash);
+    lifeCycleFns?.onTxSuccess?.(receipt, txHash, appState);
 
-    standardGraphPoll({
-      poll: pollLastTX,
-      test: testLastTX,
-      variables: {
-        chainId,
-        txHash,
-        graphApiKeys,
-      },
-      onPollStart() {
-        lifeCycleFns?.onPollStart?.();
-        console.log('**Polling**');
-      },
-      onPollSuccess(result) {
-        lifeCycleFns?.onPollSuccess?.(result);
-        console.log('**Poll Successful**');
-        setTransactions((prevState) => ({
-          ...prevState,
-          [txHash]: { ...tx, status: 'success' },
-        }));
-      },
-      onPollError(error) {
-        lifeCycleFns?.onPollError?.(error);
-        console.log('**Poll Error**');
-        setTransactions((prevState) => ({
-          ...prevState,
-          [txHash]: { ...tx, status: 'pollFailed' },
-        }));
-      },
-    });
+    if (!tx.disablePoll) {
+      standardGraphPoll({
+        poll: tx?.customPoll?.fetch || pollLastTX,
+        test: tx?.customPoll?.test || testLastTX,
+        variables: {
+          chainId,
+          txHash,
+          graphApiKeys,
+        },
+        onPollStart() {
+          lifeCycleFns?.onPollStart?.();
+          console.log('**Polling**');
+        },
+        onPollSuccess(result) {
+          lifeCycleFns?.onPollSuccess?.(result, receipt, appState);
+          console.log('**Poll Successful**');
+          setTransactions((prevState) => ({
+            ...prevState,
+            [txHash]: { ...tx, status: 'success' },
+          }));
+        },
+        onPollError(error) {
+          lifeCycleFns?.onPollError?.(error);
+          console.log('**Poll Error**');
+          setTransactions((prevState) => ({
+            ...prevState,
+            [txHash]: { ...tx, status: 'pollFailed' },
+          }));
+        },
+      });
+    }
     return {
-      reciept,
+      receipt,
       txHash,
     };
   } catch (error) {
@@ -127,6 +138,10 @@ export async function prepareTX(args: {
     localABIs,
     lifeCycleFns,
     appState,
+    rpcs,
+    explorerKeys,
+    pinataApiKeys,
+    graphApiKeys,
   } = args;
   console.log('**APPLICATION STATE**', appState);
   try {
@@ -135,8 +150,8 @@ export async function prepareTX(args: {
       contract: tx.contract,
       chainId,
       appState,
-      rpcs: args.rpcs,
-      explorerKeys: args.explorerKeys,
+      rpcs,
+      explorerKeys,
     });
     console.log('**PROCESSED CONTRACT**', processedContract);
 
@@ -150,9 +165,9 @@ export async function prepareTX(args: {
       safeId,
       appState,
       argCallbackRecord,
-      rpcs: args.rpcs,
-      pinataApiKeys: args.pinataApiKeys,
-      explorerKeys: args.explorerKeys,
+      rpcs,
+      pinataApiKeys,
+      explorerKeys,
     });
 
     console.log('**PROCESSED ARGS**', processedArgs);
@@ -177,9 +192,9 @@ export async function prepareTX(args: {
       overrides
     );
 
-    executeTx({ ...args, ethersTx, graphApiKeys: args.graphApiKeys });
+    executeTx({ ...args, ethersTx, graphApiKeys });
   } catch (error) {
-    console.log('**TX Error (Pre-Fire)**');
+    console.log('**TX Error**');
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
   }

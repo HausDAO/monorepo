@@ -7,11 +7,7 @@ export const CONTRACT: Record<string, ContractLego> = {
     type: 'static',
     contractName: 'Poster',
     abi: LOCAL_ABI.POSTER,
-    targetAddress: {
-      '0x1': '0x000000000000cd17345801aa8147b8d3950260ff',
-      '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
-      '0x64': '0x000000000000cd17345801aa8147b8d3950260ff',
-    },
+    targetAddress: CONTRACT_KEYCHAINS.POSTER,
   },
   ERC_20: {
     type: 'static',

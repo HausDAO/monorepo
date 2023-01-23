@@ -11,6 +11,8 @@ TBD
 `nx run moloch-v3-subgraph:generate-config --network=goerli`
 `nx run moloch-v3-subgraph:generate-config --network=xdai`
 `nx run moloch-v3-subgraph:generate-config --network=mainnet`
+`nx run moloch-v3-subgraph:generate-config --network=optimism`
+`nx run moloch-v3-subgraph:generate-config --network=arbitrum-one`
 
 Supported Networks:
 
@@ -28,6 +30,8 @@ To generate subgraph code, run the following command:
 
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli --network=goerli`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-gnosis --network=xdai`
+`nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-optimism --network=optimism`
+`nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-arbitrum --network=arbitrum-one`
 
 ### mainnet deployment to studio
 
@@ -44,4 +48,6 @@ Supported names:
 
 - `hausdao/daohaus-v3-goerli`
 - `hausdao/daohaus-v3-gnosis`
+- `hausdao/daohaus-v3-optimism`
+- `hausdao/daohaus-v3-arbitrum`
 - `daohaus-v3`

@@ -6,16 +6,24 @@ export const ENDPOINTS: KeychainList = {
       'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP',
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
     '0x64': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-gnosis',
+    '0xa':
+      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-optimism',
+    '0xa4b1':
+      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-arbitrum',
   },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
     '0x5': 'https://goerli.etherscan.io',
     '0x64': 'https://gnosisscan.io/',
+    '0xa': 'https://optimistic.etherscan.io/',
+    '0xa4b1': 'https://arbiscan.io/',
   },
   GNOSIS_API: {
     '0x1': 'https://safe-transaction.mainnet.gnosis.io/api/v1',
     '0x5': 'https://safe-transaction.goerli.gnosis.io/api/v1',
     '0x64': 'https://safe-transaction.xdai.gnosis.io/api/v1',
+    '0xa': 'https://safe-transaction.optimism.io/api/v1',
+    '0xa4b1': 'https://safe-transaction.aribtrum.io/api/v1',
   },
   GAS_ESTIMATE: {
     '0x1':
@@ -24,11 +32,17 @@ export const ENDPOINTS: KeychainList = {
       'https://safe-transaction.goerli.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0x64':
       'https://safe-transaction.xdai.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+    '0xa':
+      'https://safe-transaction.optimism.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+    '0xa4b1':
+      'https://safe-transaction.aribtrum.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
   },
   GNOSIS_SAFE_UI: {
-    '0x1': 'https://gnosis-safe.io/app/eth',
-    '0x5': 'https://gnosis-safe.io/app/gor',
-    '0x64': 'https://gnosis-safe.io/app/gno',
+    '0x1': 'https://app.safe.global/eth',
+    '0x5': 'https://app.safe.global/gor',
+    '0x64': 'https://app.safe.global/gno',
+    '0xa': 'https://app.safe.global/opt',
+    '0xa4b1': 'https://app.safe.global/arb',
   },
   TABULA_GRAPH: {
     '0x5':
@@ -71,7 +85,6 @@ export const HAUS_RPC = {
   '0xa': 'https://mainnet.optimism.io',
   '0x89': 'https://polygon-rpc.com/',
   '0xa4b1': 'https://arb1.arbitrum.io/rpc',
-  '0xa4ec': 'https://forno.celo.org',
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],

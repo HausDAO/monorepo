@@ -29,4 +29,22 @@ export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {
     explorer: ENDPOINTS.EXPLORER['0x64'] as string,
     rpc: HAUS_RPC['0x1'] as string,
   },
+  '0xa': {
+    chainId: '0xa',
+    networkId: 10,
+    name: 'Optimism',
+    symbol: 'ETH',
+    tokenDecimals: 18,
+    explorer: ENDPOINTS.EXPLORER['0xa'] as string,
+    rpc: HAUS_RPC['0xa'] as string,
+  },
+  '0xa4b1': {
+    chainId: '0xa4b1',
+    networkId: 42161,
+    name: 'Arbitrum',
+    symbol: 'ETH',
+    tokenDecimals: 18,
+    explorer: ENDPOINTS.EXPLORER['0xa4b1'] as string,
+    rpc: HAUS_RPC['0xa4b1'] as string,
+  },
 };

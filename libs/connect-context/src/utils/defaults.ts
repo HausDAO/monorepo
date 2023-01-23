@@ -11,6 +11,8 @@ const providerOptions: IProviderOptions = {
         1: HAUS_RPC['0x1'],
         5: HAUS_RPC['0x5'],
         100: HAUS_RPC['0x64'],
+        10: HAUS_RPC['0xa'],
+        42161: HAUS_RPC['0xa4b1'],
       },
     },
   },

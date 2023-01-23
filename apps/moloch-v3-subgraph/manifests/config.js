@@ -48,12 +48,88 @@ module.exports.config = {
     ],
   },
   'arbitrum-one': {
-    dataSources: [],
-    templates: [],
+    dataSources: [
+      {
+        name: 'baalSummoner-v2.0.0',
+        template: 'baal-summoner-2.0.0-ds.yaml',
+        address: '0xb08Cc8C343cF6dC20d8cf51Fb2D6C436c6390dAa',
+        startBlock: 54971296,
+      },
+      {
+        name: 'poster',
+        template: 'poster-ds.yaml',
+        address: '0x000000000000cd17345801aa8147b8d3950260ff',
+        startBlock: 54971296,
+      },
+      {
+        name: 'tributeMinion-v1.0.0',
+        template: 'tribute-minion-ds.yaml',
+        address: '0x7707964B4C24A6b8b7B747F7507F56818857A7C2',
+        startBlock: 54972411,
+      },
+      {
+        name: 'vaultSummoner',
+        template: 'vault-summoner-ds.yaml',
+        address: '0xC39E8D4DE75c6aC025a0C07dCd8Aeb0728C5DBF1',
+        startBlock: 54971346,
+      },
+    ],
+    templates: [
+      {
+        name: 'baalTemplate',
+        template: 'baal-template.yaml',
+      },
+      {
+        name: 'sharesTemplate',
+        template: 'shares-template.yaml',
+      },
+      {
+        name: 'lootTemplate',
+        template: 'loot-template.yaml',
+      },
+    ],
   },
   optimism: {
-    dataSources: [],
-    templates: [],
+    dataSources: [
+      {
+        name: 'baalSummoner-v2.0.0',
+        template: 'baal-summoner-2.0.0-ds.yaml',
+        address: '0xb08Cc8C343cF6dC20d8cf51Fb2D6C436c6390dAa',
+        startBlock: 69979728,
+      },
+      {
+        name: 'poster',
+        template: 'poster-ds.yaml',
+        address: '0x000000000000cd17345801aa8147b8d3950260ff',
+        startBlock: 69979728,
+      },
+      {
+        name: 'tributeMinion-v1.0.0',
+        template: 'tribute-minion-ds.yaml',
+        address: '0x7707964B4C24A6b8b7B747F7507F56818857A7C2',
+        startBlock: 69980091,
+      },
+      {
+        name: 'vaultSummoner',
+        template: 'vault-summoner-ds.yaml',
+        address: '0xC39E8D4DE75c6aC025a0C07dCd8Aeb0728C5DBF1',
+        startBlock: 69979789,
+      },
+    ],
+    templates: [
+      {
+        name: 'baalTemplate',
+        template: 'baal-template.yaml',
+      },
+      {
+        name: 'sharesTemplate',
+        template: 'shares-template.yaml',
+      },
+      {
+        name: 'lootTemplate',
+        template: 'loot-template.yaml',
+      },
+    ],
   },
   xdai: {
     dataSources: [

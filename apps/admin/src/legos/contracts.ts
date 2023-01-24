@@ -61,4 +61,10 @@ export const CONTRACT: Record<string, ContractLego> = {
     abi: LOCAL_ABI.GNOSIS_MODULE,
     targetAddress: '.formValues.safeAddress',
   },
+  GNOSIS_MULTISEND: {
+    type: 'static',
+    contractName: 'GNOSIS_MULTISEND',
+    abi: LOCAL_ABI.GNOSIS_MULTISEND,
+    targetAddress: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND,
+  },
 };

@@ -106,7 +106,7 @@ export const processArg = async ({
       )
     );
   }
-  if (arg?.type === 'multicall') {
+  if (arg?.type === 'multicall' || arg.type === 'encodeMulticall') {
     const result = await handleMulticallArg({
       arg,
       chainId,

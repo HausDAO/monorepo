@@ -16,10 +16,10 @@ export const ENDPOINTS: KeychainList = {
   EXPLORER: {
     '0x1': 'https://etherscan.io',
     '0x5': 'https://goerli.etherscan.io',
-    '0x64': 'https://gnosisscan.io/',
-    '0x89': 'https://polygonscan.com/',
-    '0xa': 'https://optimistic.etherscan.io/',
-    '0xa4b1': 'https://arbiscan.io/',
+    '0x64': 'https://gnosisscan.io',
+    '0x89': 'https://polygonscan.com',
+    '0xa': 'https://optimistic.etherscan.io',
+    '0xa4b1': 'https://arbiscan.io',
   },
   GNOSIS_API: {
     '0x1': 'https://safe-transaction.mainnet.gnosis.io/api/v1',

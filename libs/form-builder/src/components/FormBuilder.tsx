@@ -9,7 +9,6 @@ import { DevTool } from '@hookform/devtools';
 
 import { FormLayout, useToast } from '@daohaus/ui';
 import { handleErrorMessage, LookupType, RequiredFields } from '@daohaus/utils';
-import { isValidNetwork } from '@daohaus/keychain-utils';
 
 import { useDHConnect } from '@daohaus/connect';
 
@@ -96,8 +95,7 @@ export function FormBuilder<Lookup extends LookupType>({
   const [txHash, setTxHash] = useState<null | string>(null);
 
   const isSameNetwork = targetNetwork ? targetNetwork === chainId : true;
-  const submitDisabled =
-    !isValid || isLoading || !isValidNetwork(chainId) || !isSameNetwork;
+  const submitDisabled = !isValid || isLoading || !isSameNetwork;
   const formDisabled = isLoading;
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {

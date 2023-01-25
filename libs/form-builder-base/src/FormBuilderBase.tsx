@@ -1,16 +1,14 @@
 import { ArbitraryState, LookupType } from '@daohaus/utils';
 import { DevTool } from '@hookform/devtools';
-import React, { ReactNode, useContext, useMemo } from 'react';
+import React, { ReactNode } from 'react';
 import {
   useForm,
   ValidationMode,
   FormProvider as RHFProvider,
-  useFormContext,
 } from 'react-hook-form';
-import styled from 'styled-components';
+import { FormBuilderFactory } from './components/FormBuilderFactory';
 import { Logger } from './components/Logger';
-import { generateRules } from './utils/rules';
-import { FieldLego, FormLego } from './utils/types';
+import { FormLego } from './utils/types';
 
 type BaseContext = {
   form: FormLego;
@@ -28,7 +26,7 @@ const FAKE_FORM: FormLego = {
   fields: [],
 };
 
-const FormBaseContext = React.createContext<BaseContext>({
+export const FormBaseContext = React.createContext<BaseContext>({
   form: FAKE_FORM,
   requiredFields: {},
   formDisabled: false,
@@ -72,7 +70,7 @@ export const FormBuilderBase = ({
   const handleTopLevelSubmit = async (formValues: ArbitraryState) => {
     await onSubmit(formValues);
   };
-
+  const isSubmitDisabled = !isValid || submitDisabled;
   return (
     <RHFProvider {...methods}>
       {log && <Logger />}
@@ -82,7 +80,7 @@ export const FormBuilderBase = ({
           form,
           requiredFields,
           formDisabled,
-          submitDisabled,
+          submitDisabled: isSubmitDisabled,
           fieldObj,
         }}
       >
@@ -104,55 +102,3 @@ export const FormBuilderBase = ({
     </RHFProvider>
   );
 };
-
-const useFormBuilder = () => {
-  const methods = useFormContext();
-  const builderFeatures = useContext(FormBaseContext);
-
-  return { ...methods, ...builderFeatures };
-};
-
-const FormBuilderFactory = ({
-  field,
-  fieldSpacing,
-}: {
-  field: FieldLego;
-  fieldSpacing: string;
-}) => {
-  const { type } = field;
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const formState = errors;
-  const { formDisabled, requiredFields, fieldObj } = useFormBuilder();
-
-  const GeneratedField = useMemo(
-    () => {
-      const Field = fieldObj[type];
-
-      // somehow, generarte rules will need to be become extendable as well
-      const newRules = generateRules({
-        field: field,
-        requiredFields: requiredFields || {},
-      });
-      return (
-        <Field
-          {...field}
-          rules={newRules}
-          disabled={formDisabled || field.disabled}
-        />
-      );
-    },
-    // Ignoring exhaustive deps here so that I can update this component
-    // formState change
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [type, formDisabled, field, requiredFields, fieldObj, formState]
-  );
-
-  return <Spacer fieldSpacing={fieldSpacing}>{GeneratedField}</Spacer>;
-};
-
-const Spacer = styled.div<{ fieldSpacing: string }>`
-  margin-bottom: ${({ fieldSpacing }) => fieldSpacing};
-`;

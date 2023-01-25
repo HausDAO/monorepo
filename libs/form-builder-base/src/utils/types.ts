@@ -8,6 +8,7 @@ type FieldBase = Record<
     id: string;
     disabled?: boolean;
     rules?: RegisterOptions;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [property: string]: any;
   }>
 >;

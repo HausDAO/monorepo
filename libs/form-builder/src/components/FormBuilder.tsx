@@ -190,7 +190,6 @@ export function FormBuilder<Lookup extends LookupType>({
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}
-
             <FormFooter
               submitDisabled={submitDisabled}
               submitButtonText={submitButtonText}

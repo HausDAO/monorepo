@@ -1,1 +1,4 @@
-export * from './lib/form-builder-base';
+export * from './FormBuilderBase';
+export * from './components';
+export * from './hooks';
+export * from './utils';

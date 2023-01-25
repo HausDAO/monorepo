@@ -1,3 +1,4 @@
+import { ArbitraryState } from '@daohaus/utils';
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
@@ -8,9 +9,11 @@ import { FieldLego } from '../utils/types';
 export const FormBuilderFactory = ({
   field,
   fieldSpacing,
+  applyToEach,
 }: {
   field: FieldLego;
   fieldSpacing: string;
+  applyToEach?: ArbitraryState;
 }) => {
   const { type } = field;
   const {
@@ -33,6 +36,7 @@ export const FormBuilderFactory = ({
           {...field}
           rules={newRules}
           disabled={formDisabled || field.disabled}
+          {...applyToEach}
         />
       );
     },

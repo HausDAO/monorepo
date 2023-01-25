@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FormBuilder } from '@daohaus/form-builder';
+import { FormBuilder2 } from '@daohaus/form-builder';
 
 import { getFormLegoById } from '../legos/form';
 import { CustomFields } from '../legos/config';
@@ -39,17 +39,28 @@ export function NewProposal() {
   if (!formLego) return null;
 
   return (
-    <FormBuilder
+    <FormBuilder2
       form={formLego}
+      defaultValues={defaults}
       customFields={CustomFields}
       lifeCycleFns={{
         onPollSuccess: () => {
           onFormComplete();
         },
       }}
-      defaultValues={defaults}
       targetNetwork={daochain}
     />
+    // <FormBuilder
+    //   form={formLego}
+    //   customFields={CustomFields}
+    //   lifeCycleFns={{
+    //     onPollSuccess: () => {
+    //       onFormComplete();
+    //     },
+    //   }}
+    //   defaultValues={defaults}
+    //   targetNetwork={daochain}
+    // />
   );
 }
 

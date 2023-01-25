@@ -5,6 +5,7 @@ import {
   useForm,
   ValidationMode,
   FormProvider as RHFProvider,
+  FieldValues,
 } from 'react-hook-form';
 import { FormBuilderFactory } from './components/FormBuilderFactory';
 import { Logger } from './components/Logger';
@@ -15,6 +16,7 @@ type BaseContext = {
   requiredFields: Record<string, boolean>;
   formDisabled: boolean;
   submitDisabled: boolean;
+  isLoading: boolean;
   fieldObj: LookupType;
 };
 
@@ -31,6 +33,7 @@ export const FormBaseContext = React.createContext<BaseContext>({
   requiredFields: {},
   formDisabled: false,
   submitDisabled: false,
+  isLoading: false,
   fieldObj: {},
 });
 
@@ -38,26 +41,30 @@ type FormBaseProps = {
   form: FormLego;
   fieldObj: LookupType;
   defaultValues?: ArbitraryState;
+  applyToEach?: ArbitraryState;
   formValidationMode?: keyof ValidationMode;
-  formStatus: string;
-  isLoading: boolean;
-  formDisabled: boolean;
-  submitDisabled: boolean;
-  onSubmit: (formValues: ArbitraryState) => Promise<void>;
-  footer: ReactNode;
+  formStatus?: string;
+  isLoading?: boolean;
+  formDisabled?: boolean;
+  submitDisabled?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSubmit?: (formValues: FieldValues) => any | Promise<any>;
+  footer?: ReactNode;
   fieldSpacing?: string;
 };
 
 export const FormBuilderBase = ({
   form,
-  formDisabled,
+  formDisabled = false,
   fieldObj,
   defaultValues,
   formValidationMode = 'onChange',
-  submitDisabled,
+  submitDisabled = false,
   onSubmit,
   footer,
   fieldSpacing = '0',
+  isLoading = false,
+  applyToEach = {},
 }: FormBaseProps) => {
   const methods = useForm({ mode: formValidationMode, defaultValues });
   const {
@@ -68,7 +75,7 @@ export const FormBuilderBase = ({
   const { fields, log, devtool, requiredFields = {} } = form;
 
   const handleTopLevelSubmit = async (formValues: ArbitraryState) => {
-    await onSubmit(formValues);
+    await onSubmit?.(formValues);
   };
   const isSubmitDisabled = !isValid || submitDisabled;
   return (
@@ -82,6 +89,7 @@ export const FormBuilderBase = ({
           formDisabled,
           submitDisabled: isSubmitDisabled,
           fieldObj,
+          isLoading,
         }}
       >
         <form
@@ -94,6 +102,7 @@ export const FormBuilderBase = ({
               key={field.id}
               field={field}
               fieldSpacing={fieldSpacing}
+              applyToEach={applyToEach}
             />
           ))}
           {footer}

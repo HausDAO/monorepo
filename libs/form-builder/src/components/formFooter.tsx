@@ -1,4 +1,5 @@
 import { ExplorerLink } from '@daohaus/connect';
+import { useFormBuilder } from '@daohaus/form-builder-base';
 import { border, Button, ParSm, Spinner, Theme } from '@daohaus/ui';
 
 import React from 'react';
@@ -13,7 +14,7 @@ const FooterBox = styled.div`
 `;
 
 export const FormFooter = ({
-  submitDisabled,
+  // submitDisabled,
   submitButtonText,
   status,
   txHash,
@@ -24,6 +25,8 @@ export const FormFooter = ({
   txHash: string | null;
 }) => {
   /*Form Alert Component goes here*/
+  const { submitDisabled } = useFormBuilder() || {};
+
   return (
     <FooterBox>
       {txHash && (

@@ -18,6 +18,8 @@ type BaseContext = {
   submitDisabled: boolean;
   isLoading: boolean;
   fieldObj: LookupType;
+  fieldSpacing?: string;
+  applyToEach?: ArbitraryState;
 };
 
 const FAKE_FORM: FormLego = {
@@ -90,6 +92,8 @@ export const FormBuilderBase = ({
           submitDisabled: isSubmitDisabled,
           fieldObj,
           isLoading,
+          fieldSpacing,
+          applyToEach,
         }}
       >
         <form
@@ -98,12 +102,7 @@ export const FormBuilderBase = ({
           noValidate
         >
           {fields?.map((field) => (
-            <FormBuilderFactory
-              key={field.id}
-              field={field}
-              fieldSpacing={fieldSpacing}
-              applyToEach={applyToEach}
-            />
+            <FormBuilderFactory key={field.id} field={field} />
           ))}
           {footer}
         </form>

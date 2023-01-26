@@ -31,7 +31,7 @@ enum StatusMsg {
   PollError = 'Sync Error (Subgraph)',
 }
 
-export const FormBuilder2 = ({
+export const FormBuilder = ({
   form,
   defaultValues,
   customFields = CoreFieldLookup,

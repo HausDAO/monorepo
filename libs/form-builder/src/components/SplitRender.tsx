@@ -1,7 +1,7 @@
 import { Buildable, SplitColumn } from '@daohaus/ui';
 
 import { FieldLego } from '../types';
-import { FormBuilderFactory } from './FormBuilderFactory';
+import { FormBuilderFactory } from '@daohaus/form-builder-base';
 
 type SplitColumnProps = {
   id: string;
@@ -17,10 +17,8 @@ export const SplitColumnLayout = ({
       rows={rows.map(({ left, right, rowId }) => {
         return {
           rowId,
-          left: <FormBuilderFactory {...props} field={left} spacing={false} />,
-          right: (
-            <FormBuilderFactory {...props} field={right} spacing={false} />
-          ),
+          left: <FormBuilderFactory {...props} field={left} />,
+          right: <FormBuilderFactory {...props} field={right} />,
         };
       })}
     />

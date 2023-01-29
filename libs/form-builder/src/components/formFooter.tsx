@@ -5,7 +5,7 @@ import { border, Button, ParSm, Spinner, Theme } from '@daohaus/ui';
 import React from 'react';
 import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri/index.js';
 import styled, { useTheme } from 'styled-components';
-import { StatusMsg } from './FormBuilder';
+import { StatusMsg } from '../FormBuilder';
 
 const FooterBox = styled.div`
   a {

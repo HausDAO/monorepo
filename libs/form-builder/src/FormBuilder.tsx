@@ -20,7 +20,7 @@ type BuilderProps = {
   submitButtonText?: string;
 };
 
-enum StatusMsg {
+export enum StatusMsg {
   Compile = 'Compiling Transaction Data',
   Request = 'Requesting Signature',
   Await = 'Transaction Submitted',

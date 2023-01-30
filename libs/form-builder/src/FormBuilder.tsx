@@ -1,46 +1,17 @@
-import { createContext, useContext, useState } from 'react';
-import {
-  FieldValues,
-  FormProvider as RHFProvider,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
+import { useState } from 'react';
+import { FieldValues } from 'react-hook-form';
 
-import { FormLayout, useToast } from '@daohaus/ui';
-import { handleErrorMessage, LookupType, RequiredFields } from '@daohaus/utils';
-import { isValidNetwork } from '@daohaus/keychain-utils';
-
-import { useDHConnect } from '@daohaus/connect';
-
-import { FormLego } from '../types';
-import { Logger } from './Logger';
-import { FormFooter } from './formFooter';
-import { FormBuilderFactory } from './FormBuilderFactory';
 import { TXLifeCycleFns, useTxBuilder } from '@daohaus/tx-builder';
+import { FormBuilderBase, FormLego } from '@daohaus/form-builder-base';
+import { FormLayout, useToast } from '@daohaus/ui';
+import { useDHConnect } from '@daohaus/connect';
+import { handleErrorMessage, LookupType } from '@daohaus/utils';
 
-type FormContext<Lookup extends LookupType> = {
-  form?: FormLego<Lookup>;
-  requiredFields: RequiredFields;
-  formDisabled: boolean;
-  submitDisabled: boolean;
-  customFields?: LookupType;
-};
+import { CoreFieldLookup } from '.';
+import { FormFooter } from './components/formFooter';
 
-// TS CHALLENGE
-// Very difficult to type this properly.
-// Contexts have trouble with generics.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FormBuilderContext = createContext<FormContext<any>>({
-  form: undefined,
-  requiredFields: {},
-  formDisabled: false,
-  submitDisabled: false,
-  customFields: undefined,
-});
-
-type BuilderProps<Lookup extends LookupType> = {
-  form: FormLego<Lookup>;
+type BuilderProps = {
+  form: FormLego;
   defaultValues?: FieldValues;
   customFields?: LookupType;
   onSubmit?: (
@@ -48,6 +19,7 @@ type BuilderProps<Lookup extends LookupType> = {
   ) => void | Promise<(formValues: FieldValues) => void>;
   lifeCycleFns?: TXLifeCycleFns;
   targetNetwork?: string;
+  submitButtonText?: string;
 };
 
 export enum StatusMsg {
@@ -61,46 +33,28 @@ export enum StatusMsg {
   PollError = 'Sync Error (Subgraph)',
 }
 
-export function FormBuilder<Lookup extends LookupType>({
+export const FormBuilder = ({
   form,
-  onSubmit,
   defaultValues,
-  customFields,
-  lifeCycleFns,
+  customFields = CoreFieldLookup,
+  submitButtonText = 'Submit',
   targetNetwork,
-}: BuilderProps<Lookup>) {
+  lifeCycleFns,
+  onSubmit,
+}: BuilderProps) => {
   const { chainId } = useDHConnect();
-
-  const methods = useForm({ mode: 'onChange', defaultValues });
-  const {
-    formState: { isValid },
-    control,
-  } = methods;
-  const {
-    title,
-    subtitle,
-    description,
-    fields,
-    log,
-    devtool,
-    submitButtonText,
-    requiredFields = {},
-  } = form;
-
-  const { fireTransaction } = useTxBuilder?.() || {};
-
+  const { fireTransaction } = useTxBuilder();
   const { defaultToast, errorToast, successToast } = useToast();
+  const { title, description, subtitle } = form;
 
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<null | StatusMsg>(null);
   const [txHash, setTxHash] = useState<null | string>(null);
 
   const isSameNetwork = targetNetwork ? targetNetwork === chainId : true;
-  const submitDisabled =
-    !isValid || isLoading || !isValidNetwork(chainId) || !isSameNetwork;
-  const formDisabled = isLoading;
+  const submitDisabled = isLoading || !isSameNetwork;
 
-  const handleTopLevelSubmit = async (formValues: FieldValues) => {
+  const handleSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
       setIsLoading(true);
       setTxHash(null);
@@ -171,44 +125,23 @@ export function FormBuilder<Lookup extends LookupType>({
   };
 
   return (
-    <RHFProvider {...methods}>
-      <FormBuilderContext.Provider
-        value={{
-          requiredFields,
-          form,
-          formDisabled,
-          submitDisabled,
-          customFields,
-        }}
-      >
-        <FormLayout title={title} subtitle={subtitle} description={description}>
-          <form
-            onSubmit={methods.handleSubmit(handleTopLevelSubmit)}
-            className="builder-inner-form"
-            noValidate
-          >
-            {fields?.map((field) => (
-              <FormBuilderFactory key={field?.id} field={field} />
-            ))}
-            {log && <Logger />}
-            {devtool && <DevTool control={control} />}
-
-            <FormFooter
-              submitDisabled={submitDisabled}
-              submitButtonText={submitButtonText}
-              status={status}
-              txHash={txHash}
-            />
-          </form>
-        </FormLayout>
-      </FormBuilderContext.Provider>
-    </RHFProvider>
+    <FormLayout title={title} description={description} subtitle={subtitle}>
+      <FormBuilderBase
+        form={form}
+        fieldObj={customFields}
+        defaultValues={defaultValues}
+        fieldSpacing="3.6rem"
+        applyToEach={{ full: true }}
+        submitDisabled={submitDisabled}
+        onSubmit={handleSubmit}
+        footer={
+          <FormFooter
+            submitButtonText={submitButtonText}
+            status={status}
+            txHash={txHash}
+          />
+        }
+      />
+    </FormLayout>
   );
-}
-
-export const useFormBuilder = () => {
-  const methods = useFormContext();
-  const builderFeatures = useContext(FormBuilderContext);
-
-  return { ...methods, ...builderFeatures };
 };

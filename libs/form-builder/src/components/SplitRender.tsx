@@ -1,7 +1,8 @@
 import { Buildable, SplitColumn } from '@daohaus/ui';
 
-import { FieldLego } from '../types';
 import { FormBuilderFactory } from '@daohaus/form-builder-base';
+
+import { FieldLego } from '../types';
 
 type SplitColumnProps = {
   id: string;

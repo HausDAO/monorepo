@@ -1,11 +1,20 @@
+import styled, { useTheme } from 'styled-components';
+import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri/index.js';
+
 import { ExplorerLink } from '@daohaus/connect';
 import { useFormBuilder } from '@daohaus/form-builder-base';
 import { border, Button, ParSm, Spinner, Theme } from '@daohaus/ui';
 
-import React from 'react';
-import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri/index.js';
-import styled, { useTheme } from 'styled-components';
-import { StatusMsg } from '../FormBuilder';
+enum StatusMsg {
+  Compile = 'Compiling Transaction Data',
+  Request = 'Requesting Signature',
+  Await = 'Transaction Submitted',
+  TxErr = 'Transaction Error',
+  TxSuccess = 'Transaction Success',
+  PollStart = 'Syncing TX (Subgraph)',
+  PollSuccess = 'Success: TX Confirmed!',
+  PollError = 'Sync Error (Subgraph)',
+}
 
 const FooterBox = styled.div`
   a {
@@ -14,7 +23,6 @@ const FooterBox = styled.div`
 `;
 
 export const FormFooter = ({
-  // submitDisabled,
   submitButtonText,
   status,
   txHash,

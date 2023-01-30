@@ -1,10 +1,12 @@
-import { useDHConnect } from '@daohaus/connect';
-import { FormBuilderBase, FormLego } from '@daohaus/form-builder-base';
-import { TXLifeCycleFns, useTxBuilder } from '@daohaus/tx-builder';
-import { FormLayout, useToast } from '@daohaus/ui';
-import { handleErrorMessage, LookupType } from '@daohaus/utils';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
+
+import { TXLifeCycleFns, useTxBuilder } from '@daohaus/tx-builder';
+import { FormBuilderBase, FormLego } from '@daohaus/form-builder-base';
+import { FormLayout, useToast } from '@daohaus/ui';
+import { useDHConnect } from '@daohaus/connect';
+
+import { handleErrorMessage, LookupType } from '@daohaus/utils';
 import { CoreFieldLookup } from '.';
 import { FormFooter } from './components/formFooter';
 

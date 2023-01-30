@@ -1,5 +1,3 @@
-import { ArbitraryState, LookupType } from '@daohaus/utils';
-import { DevTool } from '@hookform/devtools';
 import React, { ReactNode } from 'react';
 import {
   useForm,
@@ -8,7 +6,11 @@ import {
   FieldValues,
 } from 'react-hook-form';
 import { FormBuilderFactory } from './components/FormBuilderFactory';
+
 import { Logger } from './components/Logger';
+import { DevTool } from '@hookform/devtools';
+import { ArbitraryState, LookupType } from '@daohaus/utils';
+
 import { FormLego } from './utils/types';
 
 type BaseContext = {

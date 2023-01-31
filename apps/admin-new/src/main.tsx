@@ -1,13 +1,33 @@
+import { DHConnectProvider } from '@daohaus/connect';
+import { HausThemeProvider } from '@daohaus/ui';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-
-import App from './app/app';
+import { HashRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { App } from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      cacheTime: 1000 * 60 * 20,
+      staleTime: 1000 * 60 * 20,
+    },
+  },
+});
+
 root.render(
   <StrictMode>
-    <App />
+    <HashRouter>
+      <HausThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </HausThemeProvider>
+    </HashRouter>
   </StrictMode>
 );

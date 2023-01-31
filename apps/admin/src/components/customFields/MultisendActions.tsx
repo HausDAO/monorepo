@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldValues, RegisterOptions } from 'react-hook-form';
-import { RiAddCircleLine } from 'react-icons/ri/index.js';
-import { useParams } from 'react-router-dom';
+import { RiAddCircleLine, RiErrorWarningLine } from 'react-icons/ri';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { FormBuilderFactory, useFormBuilder } from '@daohaus/form-builder';
 import { Keychain } from '@daohaus/keychain-utils';
+import { useDao } from '@daohaus/moloch-v3-context';
 import {
   cacheABI,
   fetchABI,
@@ -17,12 +18,17 @@ import {
   Bold,
   Buildable,
   Button,
+  Card,
   DataSm,
   ErrorMessage,
   ErrorText,
   Field,
+  Icon,
+  Link,
   // IconButton, // TODO: Enable `Delete Action Button`
   OptionType,
+  ParXs,
+  Theme,
   WarningMessage,
 } from '@daohaus/ui';
 import {
@@ -44,6 +50,27 @@ import { CollapsibleFormSegment } from '../customLayouts/CollapsibleFormSegment'
 
 const MainContainer = styled.div`
   display: block;
+`;
+
+const WarningContainer = styled(Card)`
+  display: flex;
+  width: 100%;
+  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
+  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+`;
+
+const StyledParXs = styled(ParXs)`
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step12};
+`;
+
+const WarningIcon = styled(RiErrorWarningLine)`
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  height: 2.5rem;
+  width: 2.5rem;
+`;
+
+const IconContainer = styled.div`
+  margin-right: 1rem;
 `;
 
 const ActionsContainer = styled.div``;
@@ -524,11 +551,32 @@ type IAction = {
 };
 
 export const MultisendActions = (props: Buildable<Field>) => {
+  const location = useLocation();
+  const { dao } = useDao();
   const [actions, setActions] = useState<Array<IAction>>([
     {
       id: uuidv4().substring(0, 8),
     },
   ]);
+
+  const sidecarSafeAddress = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    const legoId = params.get('formLego');
+    if (legoId !== 'MULTICALL_SIDECAR') return;
+    const defaultValues = params.get('defaultValues');
+    if (!defaultValues) return;
+    const data = JSON.parse(defaultValues);
+    return data.safeAddress;
+  }, [location]);
+
+  const vaultMessage = useMemo(() => {
+    const vault = dao?.vaults.find((v) => v.safeAddress === sidecarSafeAddress);
+    console.log('vaultMessage', vault);
+    if (vault) {
+      return `Proposal Actions will interact with ${vault.name} Vault: ${sidecarSafeAddress}`;
+    }
+    return `Vault ${sidecarSafeAddress} is not registered for this DAO. Proceed with caution as transaction may fail.`;
+  }, [dao, sidecarSafeAddress]);
 
   const addAction = () => {
     setActions([
@@ -546,6 +594,18 @@ export const MultisendActions = (props: Buildable<Field>) => {
 
   return (
     <MainContainer>
+      {dao && sidecarSafeAddress && (
+        <WarningContainer className="container">
+          <IconContainer>
+            <Icon label="Warning">
+              <WarningIcon />
+            </Icon>
+          </IconContainer>
+          <div>
+            <StyledParXs>{vaultMessage}</StyledParXs>
+          </div>
+        </WarningContainer>
+      )}
       <ActionsContainer>
         {actions.map((action: IAction, index: number) => (
           <ActionContainer key={action.id}>

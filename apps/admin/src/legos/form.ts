@@ -493,6 +493,35 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       },
     ],
   },
+  MULTICALL_BUILDER_SIDECAR: {
+    id: 'MULTICALL_SIDECAR',
+    title: 'Multicall Proposal Builder',
+    subtitle: 'Multicall Proposal', // TODO:
+    description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
+    tx: TX.MULTICALL_SIDECAR,
+    requiredFields: {
+      title: true,
+    },
+    fields: [
+      {
+        id: 'details',
+        type: 'formSegment',
+        collapsible: true,
+        defaultOpen: true,
+        title: 'Proposal Overview', // TODO:
+        fields: [
+          FIELD.TITLE,
+          FIELD.DESCRIPTION,
+          FIELD.LINK,
+          ...PROPOSAL_SETTINGS_FIELDS,
+        ],
+      },
+      {
+        id: 'multisendActions',
+        type: 'multisendActions',
+      },
+    ],
+  },
   ADD_SIGNER_TO_SIDECAR: {
     id: 'ADD_SIGNER_TO_SIDECAR',
     title: 'Add Signer to Safe',

@@ -88,6 +88,17 @@ export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
             Transfer {networkData?.symbol}
           </VaultMenuLink>
         </DropdownMenuItem>
+        <DropdownMenuItem key="txbuilder" asChild>
+          <VaultMenuLink
+            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
+              ragequittable
+                ? 'MULTICALL'
+                : `MULTICALL_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
+            }`}
+          >
+            Tx Builder
+          </VaultMenuLink>
+        </DropdownMenuItem>
       </>
     </Dropdown>
   );

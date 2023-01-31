@@ -111,7 +111,7 @@ export function ProposalDetails() {
       if (shouldUpdate) {
         setActionData(proposalActions);
         setDecodeError(
-          proposalActions.length == 0 ||
+          proposalActions.length === 0 ||
             proposalActions.some((action) => isActionError(action))
         );
       }

@@ -104,11 +104,10 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       votingPeriodUnits: 'seconds',
       gracePeriodUnits: 'seconds',
       gracePeriod: dao.gracePeriod,
-      proposalOffering: toWholeUnits(dao.proposalOffering),
       quorum: dao.quorumPercent,
       minRetention: dao.minRetentionPercent,
       sponsorThreshold: toWholeUnits(dao.sponsorThreshold),
-      newOffering: dao.proposalOffering,
+      newOffering: toWholeUnits(dao.proposalOffering),
       vStake: dao.sharesPaused,
       nvStake: dao.lootPaused,
     };

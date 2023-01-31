@@ -40,7 +40,7 @@ const getENSReverseResolver = async ({
   chainId: ValidNetwork;
 }) => {
   // Workaround when poiting to a network where ENS is not deployed
-  const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId; 
+  const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId;
   try {
     const provider = new providers.JsonRpcProvider(HAUS_RPC[daochain]);
     const domainName = await provider.lookupAddress(address);

@@ -1,8 +1,8 @@
 export type ENSDomain =
   | {
-      id: string;
-      registrationDate: string;
-      expiryDate: string;
+      id?: string;
+      registrationDate?: string;
+      expiryDate?: string;
       domain?: {
         name?: string;
       };

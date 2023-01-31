@@ -1,4 +1,6 @@
+import { providers } from 'ethers';
 import { graphFetchList } from '@daohaus/data-fetch-utils';
+import { HAUS_RPC, ValidNetwork } from '@daohaus/keychain-utils';
 import { AccountProfile } from '@daohaus/utils';
 import {
   ListActiveDomainsDocument,
@@ -14,16 +16,44 @@ import { ENSDomain, LensProfile } from './types';
 import { transformProfile } from './utils';
 
 export const getProfileForAddress = async (
-  address: string
+  address: string,
+  chainId: ValidNetwork
 ): Promise<AccountProfile> => {
-  const ensDomain = await getENSDomain({
-    address,
-  });
+  const reverseEnsRecord = await getENSReverseResolver({ address, chainId });
+  const ensDomain = reverseEnsRecord
+    ? reverseEnsRecord
+    : await getENSDomain({
+        address,
+      });
   const lensProfile = await getLensProfile({
     memberAddress: address,
   } as ListProfileQueryVariables);
 
   return transformProfile({ address, lensProfile, ensDomain });
+};
+
+const getENSReverseResolver = async ({
+  address,
+  chainId,
+}: {
+  address: string;
+  chainId: ValidNetwork;
+}) => {
+  // Workaround when poiting to a network where ENS is not deployed
+  const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId; 
+  try {
+    const provider = new providers.JsonRpcProvider(HAUS_RPC[daochain]);
+    const domainName = await provider.lookupAddress(address);
+    if (domainName) {
+      return {
+        domain: {
+          name: domainName,
+        },
+      };
+    }
+  } catch (error) {
+    console.error('Unable to fetch ENS reverse record', error);
+  }
 };
 
 const getENSDomain = async ({

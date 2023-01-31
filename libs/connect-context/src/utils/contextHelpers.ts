@@ -135,12 +135,14 @@ export const loadWallet = async ({
 
 export const loadProfile = async ({
   address,
+  chainId,
   setProfile,
   setProfileLoading,
   shouldUpdate,
   lifeCycleFns,
 }: {
   address: string;
+  chainId: ValidNetwork;
   setProfile: Dispatch<SetStateAction<UserProfile>>;
   setProfileLoading: Dispatch<SetStateAction<boolean>>;
   shouldUpdate: boolean;
@@ -149,7 +151,7 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const profile = await getProfileForAddress(address);
+    const profile = await getProfileForAddress(address, chainId);
 
     if (profile && shouldUpdate) {
       const displayName =

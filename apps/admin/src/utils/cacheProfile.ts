@@ -7,6 +7,7 @@ import {
   getlocalForage,
 } from '@daohaus/utils';
 import { getProfileForAddress } from '@daohaus/profile-data';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 export const getProfileStore = async () =>
   (await getlocalForage(CacheStoreName.MEMBERS_PROFILE)) as ArbitraryState;
@@ -60,11 +61,12 @@ export const cacheProfile = async ({
 };
 
 export const fetchProfile = async (
-  address: string
+  address: string,
+  chainId: ValidNetwork
 ): Promise<AccountProfile> => {
   const cachedProfile = await getCachedProfile({ address });
   if (cachedProfile) return cachedProfile;
-  const profile = await getProfileForAddress(address);
+  const profile = await getProfileForAddress(address, chainId);
   cacheProfile({
     address,
     profile,

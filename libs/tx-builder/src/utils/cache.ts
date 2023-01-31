@@ -1,12 +1,16 @@
-import localforage from 'localforage';
 import {
   ABI,
   ArbitraryState,
   CACHE_CONFIG,
   CacheStoreName,
-  getlocalForage,
 } from '@daohaus/utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
+
+const localforage = import('localforage').then(async (localforage) => {
+  // workaround for https://github.com/localForage/localForage/issues/1038
+  if (typeof window === 'object') await localforage.default.ready();
+  return localforage.default;
+});
 
 const defaultABIStore = {
   '0x1': {},
@@ -20,8 +24,10 @@ const defaultABIStore = {
   '0xa4ec': {},
 };
 
-export const getABIstore = async () =>
-  (await getlocalForage(CacheStoreName.ABI)) as ArbitraryState;
+export const getABIstore = async () => {
+  const local = await localforage;
+  return (await local.getItem(CacheStoreName.ABI)) as ArbitraryState;
+};
 
 export const getCachedABI = async ({
   address,
@@ -76,8 +82,11 @@ export const cacheABI = async ({
     address: address.toLowerCase(),
     abi,
   });
+
+  const local = await localforage;
+
   try {
-    await localforage.setItem(CacheStoreName.ABI, newStore);
+    await local.setItem(CacheStoreName.ABI, newStore);
     return true;
   } catch (error) {
     console.error(error);
@@ -86,10 +95,11 @@ export const cacheABI = async ({
 };
 
 const initABIs = async () => {
-  localforage.config(CACHE_CONFIG);
+  const local = await localforage;
+  local.config(CACHE_CONFIG);
   const store = await getABIstore();
   if (!store) {
-    localforage.setItem(CacheStoreName.ABI, defaultABIStore);
+    local.setItem(CacheStoreName.ABI, defaultABIStore);
   }
 };
 

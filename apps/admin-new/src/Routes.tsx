@@ -1,6 +1,19 @@
 import { ReactSetter } from '@daohaus/utils';
-import React, { useEffect } from 'react';
-import { matchPath, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+  matchPath,
+  useLocation,
+  Routes as RoutesDom,
+  Route,
+} from 'react-router-dom';
+import { DaoContainer } from './layout/DaoContainer';
+import { HomeContainer } from './layout/HomeContainer';
+import { DaoOverview } from './pages/DaoOverview';
+import { Home } from './pages/Home';
+import { Members } from './pages/Members';
+import { Proposals } from './pages/Proposals';
+import { Safes } from './pages/Safes';
+import { Settings } from './pages/Settings';
 
 export const Routes = ({
   setDaoChainId,
@@ -18,4 +31,19 @@ export const Routes = ({
       setDaoChainId(undefined);
     }
   }, [pathMatch?.params?.daochain, setDaoChainId]);
+
+  return (
+    <RoutesDom>
+      <Route path="/" element={<HomeContainer />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+      <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
+        <Route index element={<DaoOverview />} />
+        <Route path="proposals" element={<Proposals />} />
+        <Route path="members" element={<Members />} />
+        <Route path="safes" element={<Safes />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+    </RoutesDom>
+  );
 };

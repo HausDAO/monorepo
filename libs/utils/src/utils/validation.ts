@@ -3,6 +3,7 @@ import {
   isArray,
   isBoolean,
   isEthAddress,
+  isObject,
   isNumberish,
   isString,
 } from './typeguards';
@@ -15,6 +16,7 @@ export const ValErrMsgs = {
   url: 'Field must be a valid URL',
   email: 'Field must be a valid email',
   percent: 'Field must be a valid percentage',
+  object: 'Field must be a valid JSON Object',
 };
 export const ValidateField = {
   number: (val: unknown) => (isNumberish(val) ? true : ValErrMsgs.number),
@@ -35,6 +37,7 @@ export const ValidateField = {
     isNumberish(val) && Number(val) >= range[0] && Number(val) <= range[1]
       ? true
       : ValErrMsgs.percent,
+  object: (val: unknown) => (isObject(val) ? true : ValErrMsgs.object),
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -12,8 +12,7 @@
         "main": "libs/utils/src/index.ts",
         "tsConfig": "libs/utils/tsconfig.lib.json",
         "assets": ["libs/utils/*.md"],
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "rootDir": "libs/utils/src"
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {

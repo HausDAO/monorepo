@@ -135,12 +135,15 @@ export const loadWallet = async ({
 
 export const loadProfile = async ({
   address,
+  chainId,
   setProfile,
   setProfileLoading,
   shouldUpdate,
   lifeCycleFns,
+  networks,
 }: {
   address: string;
+  chainId: ValidNetwork;
   setProfile: Dispatch<SetStateAction<UserProfile>>;
   setProfileLoading: Dispatch<SetStateAction<boolean>>;
   shouldUpdate: boolean;
@@ -149,7 +152,12 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const profile = await getProfileForAddress(address);
+    // Workaround when poiting to a network where ENS is not deployed
+    const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId;
+    const profile = await getProfileForAddress(
+      address,
+      networks[daochain]?.rpc
+    );
 
     if (profile && shouldUpdate) {
       const displayName =

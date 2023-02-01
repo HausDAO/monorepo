@@ -1,3 +1,4 @@
+import { providers } from 'ethers';
 import { graphFetchList } from '@daohaus/data-fetch-utils';
 import { AccountProfile } from '@daohaus/utils';
 import {
@@ -14,16 +15,43 @@ import { ENSDomain, LensProfile } from './types';
 import { transformProfile } from './utils';
 
 export const getProfileForAddress = async (
-  address: string
+  address: string,
+  rpcUri?: string
 ): Promise<AccountProfile> => {
-  const ensDomain = await getENSDomain({
-    address,
-  });
+  const reverseEnsRecord =
+    rpcUri && (await getENSReverseResolver({ address, rpcUri }));
+  const ensDomain = reverseEnsRecord
+    ? reverseEnsRecord
+    : await getENSDomain({
+        address,
+      });
   const lensProfile = await getLensProfile({
     memberAddress: address,
   } as ListProfileQueryVariables);
 
   return transformProfile({ address, lensProfile, ensDomain });
+};
+
+const getENSReverseResolver = async ({
+  address,
+  rpcUri,
+}: {
+  address: string;
+  rpcUri: string;
+}) => {
+  try {
+    const provider = new providers.JsonRpcProvider(rpcUri);
+    const domainName = await provider.lookupAddress(address);
+    if (domainName) {
+      return {
+        domain: {
+          name: domainName,
+        },
+      };
+    }
+  } catch (error) {
+    console.error('Unable to fetch ENS reverse record', error);
+  }
 };
 
 const getENSDomain = async ({

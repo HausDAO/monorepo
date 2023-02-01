@@ -33,7 +33,7 @@ import {
   AccountProfile,
 } from '@daohaus/utils';
 
-import { Keychain } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { ButtonRouterLink } from '../components/ButtonRouterLink';
 import { DaoTable } from '../components/DaohausTable';
@@ -126,7 +126,7 @@ export function Member() {
   const fetchMemberProfile = useCallback(
     async (address: string, loadState: typeof setCurrentMemberLoading) => {
       loadState(true);
-      const profile = await fetchProfile(address);
+      const profile = await fetchProfile(address, daochain as ValidNetwork);
       setCurrentProfile(profile);
       loadState(false);
     },

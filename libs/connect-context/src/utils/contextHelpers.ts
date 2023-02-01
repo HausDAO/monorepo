@@ -140,6 +140,7 @@ export const loadProfile = async ({
   setProfileLoading,
   shouldUpdate,
   lifeCycleFns,
+  networks,
 }: {
   address: string;
   chainId: ValidNetwork;
@@ -151,7 +152,12 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const profile = await getProfileForAddress(address, chainId);
+    // Workaround when poiting to a network where ENS is not deployed
+    const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId;
+    const profile = await getProfileForAddress(
+      address,
+      networks[daochain]?.rpc
+    );
 
     if (profile && shouldUpdate) {
       const displayName =

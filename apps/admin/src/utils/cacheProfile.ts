@@ -7,7 +7,7 @@ import {
   getlocalForage,
 } from '@daohaus/utils';
 import { getProfileForAddress } from '@daohaus/profile-data';
-import { ValidNetwork } from '@daohaus/keychain-utils';
+import { HAUS_NETWORK_DATA, ValidNetwork } from '@daohaus/keychain-utils';
 
 export const getProfileStore = async () =>
   (await getlocalForage(CacheStoreName.MEMBERS_PROFILE)) as ArbitraryState;
@@ -66,7 +66,12 @@ export const fetchProfile = async (
 ): Promise<AccountProfile> => {
   const cachedProfile = await getCachedProfile({ address });
   if (cachedProfile) return cachedProfile;
-  const profile = await getProfileForAddress(address, chainId);
+  // Workaround when poiting to a network where ENS is not deployed
+  const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId;
+  const profile = await getProfileForAddress(
+    address,
+    HAUS_NETWORK_DATA[daochain]?.rpc
+  );
   cacheProfile({
     address,
     profile,

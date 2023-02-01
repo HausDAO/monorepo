@@ -1,5 +1,9 @@
 import { Ordering } from '@daohaus/data-fetch-utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  CONTRACT_KEYCHAINS,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 import {
   Dao_Filter,
   Dao_OrderBy,
@@ -13,9 +17,11 @@ export const HAUS_GRAPH_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
 };
 
+const allNetworks = Object.keys(CONTRACT_KEYCHAINS.V3_FACTORY);
+
 export const useDaosByUser = ({
   userAddress,
-  networkIds,
+  networkIds = allNetworks as ValidNetwork[],
   daoFilter,
   memberFilter,
   graphApiKeys = HAUS_GRAPH_KEYS,
@@ -25,7 +31,7 @@ export const useDaosByUser = ({
   },
 }: {
   userAddress: string;
-  networkIds: ValidNetwork[];
+  networkIds?: ValidNetwork[];
   daoFilter?: Dao_Filter;
   memberFilter?: Member_Filter;
   graphApiKeys?: Keychain<string>;

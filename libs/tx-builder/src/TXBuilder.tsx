@@ -1,4 +1,4 @@
-import { providers } from 'ethers';
+import { ethers, providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
 import {
@@ -12,18 +12,25 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
-import { FindTxQuery } from '@daohaus/moloch-v3-data';
 import { bundleLifeCycleFns } from './utils/lifeCycleFns';
-import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
 export type TXLifeCycleFns = {
   onRequestSign?: () => void;
   onTxHash?: (txHash: string) => void;
   onTxError?: (error: unknown) => void;
-  onTxSuccess?: (txHash: string) => void;
+  onTxSuccess?: (
+    txReceipt: ethers.providers.TransactionReceipt,
+    txHash: string,
+    appState: ArbitraryState
+  ) => void;
   onPollStart?: () => void;
   onPollError?: (error: unknown) => void;
-  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
+  onPollSuccess?: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result: any,
+    txReceipt: ethers.providers.TransactionReceipt,
+    appState: ArbitraryState
+  ) => void;
 };
 
 export type LifeCycleNames = keyof Required<TXLifeCycleFns>;

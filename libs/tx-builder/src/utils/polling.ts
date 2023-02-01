@@ -1,34 +1,31 @@
-import { findTransaction, FindTxQuery } from '@daohaus/moloch-v3-data';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { findTransaction } from '@daohaus/moloch-v3-data';
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 
-// TS Challenge
-
-// Need to be able to have a generic poll
-// that we can pass in any shape of argume
 // eslint-disable-next-line
-type PollFetch<T> = (...args: any) => Promise<IFindQueryResult<T> | undefined>;
-type PollTest<T> = (result?: IFindQueryResult<T>) => boolean;
+type PollFetch = (...args: any) => Promise<any>;
+type PollTest = (result?: any) => boolean;
 
-type Poll<T> = ({
+type Poll = ({
   poll,
   test,
   interval,
   variables,
   maxTries,
 }: {
-  poll: PollFetch<T>;
-  test: PollTest<T>;
+  poll: PollFetch;
+  test: PollTest;
   interval?: number;
   variables: Parameters<typeof poll>;
   onPollStart?: () => void;
-  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
+  onPollSuccess?: (result: any) => void;
   onPollError?: (error: unknown) => void;
   onPollTimeout?: (error: unknown) => void;
   maxTries?: number;
 }) => void;
 
-export const pollLastTX: PollFetch<FindTxQuery> = async ({
+export const pollLastTX: PollFetch = async ({
   chainId,
   txHash,
   graphApiKeys,
@@ -50,16 +47,14 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
   }
 };
 
-export const testLastTX = (
-  result: IFindQueryResult<FindTxQuery> | undefined
-) => {
+export const testLastTX = (result: IFindQueryResult<any> | undefined) => {
   if (result?.data?.transaction) {
     return true;
   }
   return false;
 };
 
-export const standardGraphPoll: Poll<FindTxQuery> = async ({
+export const standardGraphPoll: Poll = async ({
   poll,
   test,
   interval = 5000,
@@ -72,6 +67,7 @@ export const standardGraphPoll: Poll<FindTxQuery> = async ({
 }) => {
   onPollStart?.();
   let count = 0;
+
   const pollId = setInterval(async () => {
     if (count < maxTries) {
       try {

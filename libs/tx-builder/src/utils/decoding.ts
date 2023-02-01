@@ -93,24 +93,32 @@ const processAction = (actionsHex: string, txLength: number): EncodedAction => {
   };
 };
 const decodeMultisend = ({ chainId, actionData, rpcs }: MultisendArgs) => {
-  let actionsHex = getMultisendHex({ chainId, actionData, rpcs });
-  const transactions = [];
+  try {
+    let actionsHex = getMultisendHex({ chainId, actionData, rpcs });
+    const transactions = [];
 
-  while (actionsHex.length >= OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH) {
-    const thisTxLength = BigNumber.from(
-      `0x${actionsHex.slice(
-        OPERATION_TYPE + ADDRESS + VALUE,
-        OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
-      )}`
-    ).toNumber();
+    while (
+      actionsHex.length >=
+      OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
+    ) {
+      const thisTxLength = BigNumber.from(
+        `0x${actionsHex.slice(
+          OPERATION_TYPE + ADDRESS + VALUE,
+          OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
+        )}`
+      ).toNumber();
 
-    transactions.push(processAction(actionsHex, thisTxLength));
-    actionsHex = actionsHex.slice(
-      OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH + thisTxLength * 2
-    );
+      transactions.push(processAction(actionsHex, thisTxLength));
+      actionsHex = actionsHex.slice(
+        OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH + thisTxLength * 2
+      );
+    }
+
+    return transactions;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-
-  return transactions;
 };
 
 const isEthTransfer = async (

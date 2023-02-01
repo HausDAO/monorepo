@@ -21,6 +21,7 @@ export enum ProposalTypeIds {
   GuildKick = 'GUILDKICK',
   WalletConnect = 'WALLETCONNECT',
   Multicall = 'MULTICALL',
+  AddSigner = 'ADD_SIGNER',
 }
 
 export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
@@ -35,6 +36,7 @@ export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
   GUILDKICK: 'Token Proposal',
   WALLETCONNECT: 'WalletConnect Proposal',
   MULTICALL: 'Multicall Proposal',
+  ADD_SIGNER: 'Add Safe Signer Proposal',
 };
 
 export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
@@ -51,6 +53,8 @@ export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
     'Proposal issues voting or non-voting tokens from the DAO.',
   GUILDKICK: 'Proposal transfers DAO voting tokens into non-voting tokens.',
   WALLETCONNECT: 'Proposal interacts with external contracts and applications.',
+  ADD_SIGNER:
+    'Proposal adds a signer to one of the DAO non-ragequittable safes',
   MULTICALL: 'TODO: Proposal description', // TOOD:
   ERROR_CANNOT_DECODE:
     'Cannot decode contract details for this proposal. Please proceed with extreme caution!',

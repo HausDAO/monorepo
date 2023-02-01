@@ -110,7 +110,10 @@ export function ProposalDetails() {
       });
       if (shouldUpdate) {
         setActionData(proposalActions);
-        setDecodeError(proposalActions.some((action) => isActionError(action)));
+        setDecodeError(
+          proposalActions.length === 0 ||
+            proposalActions.some((action) => isActionError(action))
+        );
       }
     };
 

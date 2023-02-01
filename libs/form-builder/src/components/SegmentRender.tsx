@@ -1,7 +1,7 @@
 import { Buildable, FormSegment } from '@daohaus/ui';
 import { FieldLegoBase, LookupType } from '@daohaus/utils';
 import { ComponentProps } from 'react';
-import { FormBuilderFactory } from './FormBuilderFactory';
+import { FormBuilderFactory } from '@daohaus/form-builder-base';
 
 type Props = Omit<
   Buildable<

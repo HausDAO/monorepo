@@ -55,6 +55,11 @@ export type MulticallArg = {
   actions: MulticallAction[];
   formActions?: boolean;
 };
+export type EncodeMulticall = {
+  type: 'encodeMulticall';
+  actions: MulticallAction[];
+  formActions?: boolean;
+};
 export type EncodeCallArg = {
   type: 'encodeCall';
   action: MulticallAction;
@@ -109,6 +114,7 @@ export type ValidArgType =
   | ProposalExpiry
   | StaticArg
   | IPFSPinata
+  | EncodeMulticall
   | ArgEncode;
 
 export type TxStates =
@@ -131,11 +137,17 @@ export type TXLegoBase = {
   id: string;
   contract: ContractLego;
   method: string;
-  customPoll?: string;
   args?: ValidArgType[];
   argCallback?: string;
   staticArgs?: ArgType[];
   overrides?: TXOverrides;
+  disablePoll?: boolean;
+  customPoll?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    fetch: (...args: any) => Promise<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    test: (result?: any) => boolean;
+  };
 };
 
 export type TXLego = RequireOnlyOne<

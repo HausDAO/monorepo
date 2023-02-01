@@ -7,11 +7,7 @@ export const CONTRACT: Record<string, ContractLego> = {
     type: 'static',
     contractName: 'Poster',
     abi: LOCAL_ABI.POSTER,
-    targetAddress: {
-      '0x1': '0x000000000000cd17345801aa8147b8d3950260ff',
-      '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
-      '0x64': '0x000000000000cd17345801aa8147b8d3950260ff',
-    },
+    targetAddress: CONTRACT_KEYCHAINS.POSTER,
   },
   ERC_20: {
     type: 'static',
@@ -60,5 +56,11 @@ export const CONTRACT: Record<string, ContractLego> = {
     contractName: 'GNOSIS_MODULE',
     abi: LOCAL_ABI.GNOSIS_MODULE,
     targetAddress: '.formValues.safeAddress',
+  },
+  GNOSIS_MULTISEND: {
+    type: 'static',
+    contractName: 'GNOSIS_MULTISEND',
+    abi: LOCAL_ABI.GNOSIS_MULTISEND,
+    targetAddress: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND,
   },
 };

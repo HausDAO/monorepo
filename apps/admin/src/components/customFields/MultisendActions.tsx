@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldValues, RegisterOptions } from 'react-hook-form';
-import { RiAddCircleLine } from 'react-icons/ri/index.js';
-import { useParams } from 'react-router-dom';
+import { RiAddCircleLine, RiErrorWarningLine } from 'react-icons/ri';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { FormBuilderFactory, useFormBuilder } from '@daohaus/form-builder';
-import { HAUS_RPC, Keychain } from '@daohaus/keychain-utils';
+import { Keychain } from '@daohaus/keychain-utils';
+import { useDao } from '@daohaus/moloch-v3-context';
 import {
   cacheABI,
   fetchABI,
@@ -17,23 +18,31 @@ import {
   Bold,
   Buildable,
   Button,
+  Card,
   DataSm,
   ErrorMessage,
   ErrorText,
   Field,
+  Icon,
+  Link,
   // IconButton, // TODO: Enable `Delete Action Button`
   OptionType,
+  ParXs,
+  Theme,
   WarningMessage,
 } from '@daohaus/ui';
 import {
   ABI,
   FieldLegoBase,
+  ignoreEmptyVal,
   isEthAddress,
   isJSON,
   isNumberish,
+  isObject,
   isString,
   JsonFragmentType,
   LookupType,
+  ValidateField,
 } from '@daohaus/utils';
 import { JsonFragment } from '@ethersproject/abi';
 
@@ -41,6 +50,27 @@ import { CollapsibleFormSegment } from '../customLayouts/CollapsibleFormSegment'
 
 const MainContainer = styled.div`
   display: block;
+`;
+
+const WarningContainer = styled(Card)`
+  display: flex;
+  width: 100%;
+  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
+  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+`;
+
+const StyledParXs = styled(ParXs)`
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step12};
+`;
+
+const WarningIcon = styled(RiErrorWarningLine)`
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  height: 2.5rem;
+  width: 2.5rem;
+`;
+
+const IconContainer = styled.div`
+  margin-right: 1rem;
 `;
 
 const ActionsContainer = styled.div``;
@@ -51,15 +81,29 @@ const ActionContainer = styled.div`
 
 const REGEX_ARRAY_TYPE = /\[(([1-9]*)([0-9]+))?\]/g;
 
+const mapFieldToArgType = (fieldType: string) => {
+  if (fieldType.includes('address')) return 'ethAddress';
+  if (fieldType.includes('int') || fieldType === 'bool') return 'number';
+  if (fieldType === 'tuple') return 'object';
+  return undefined; // means plain string for other cases
+};
+
 const createActionField = (
   actionId: string,
   input: JsonFragmentType
 ): FieldLegoBase<LookupType> => {
   if (!input.name || !input.type) return;
-  const inputType = input.type?.match(REGEX_ARRAY_TYPE) ? 'textarea' : 'input';
+  const isArray = input.type?.match(REGEX_ARRAY_TYPE);
+  const inputType = input.type === 'tuple' || isArray ? 'textarea' : 'input';
   const newRules: RegisterOptions = {
     required: 'Value is required',
   };
+  if (input.type === 'tuple') {
+    newRules['setValueAs'] = (val: string) =>
+      isObject(val) && typeof val === 'string' ? JSON.parse(val) : val;
+    newRules['validate'] = (val) =>
+      ignoreEmptyVal(val, (val) => ValidateField.object(val));
+  }
   const fieldBase = {
     id: `tx.${actionId}.fields.${input.name}`,
     type: inputType,
@@ -68,7 +112,7 @@ const createActionField = (
     number: input.type.includes('int'),
     rules: newRules,
   };
-  if (inputType === 'textarea') {
+  if (isArray) {
     const dimensions = input.type?.match(REGEX_ARRAY_TYPE);
     return {
       ...fieldBase,
@@ -130,11 +174,7 @@ const createActionField = (
   }
   return {
     ...fieldBase,
-    expectType: input.type?.includes('address')
-      ? 'ethAddress'
-      : input.type?.includes('int') || input.type === 'bool'
-      ? 'number'
-      : undefined, // plain string for other cases
+    expectType: mapFieldToArgType(input.type || ''),
   };
 };
 
@@ -315,6 +355,7 @@ const Action = ({
       actionValue,
       selectedMethod,
       argFieldsIds,
+      setActionError,
       setValue,
     ]
   );
@@ -392,7 +433,10 @@ const Action = ({
       argFieldsIds.length &&
       argFieldsIds
         .map((id) => id.split('.').reduce((data, curr) => data[curr], values))
-        .every((arg: unknown) => (arg as string)?.length > 0)
+        .every(
+          (arg: unknown) =>
+            (arg as string)?.length > 0 || typeof arg === 'object'
+        )
     ) {
       encodeAction(
         { ...values.tx?.[actionId]?.fields },
@@ -507,11 +551,32 @@ type IAction = {
 };
 
 export const MultisendActions = (props: Buildable<Field>) => {
+  const location = useLocation();
+  const { dao } = useDao();
   const [actions, setActions] = useState<Array<IAction>>([
     {
       id: uuidv4().substring(0, 8),
     },
   ]);
+
+  const sidecarSafeAddress = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    const legoId = params.get('formLego');
+    if (legoId !== 'MULTICALL_SIDECAR') return;
+    const defaultValues = params.get('defaultValues');
+    if (!defaultValues) return;
+    const data = JSON.parse(defaultValues);
+    return data.safeAddress;
+  }, [location]);
+
+  const vaultMessage = useMemo(() => {
+    const vault = dao?.vaults.find((v) => v.safeAddress === sidecarSafeAddress);
+    console.log('vaultMessage', vault);
+    if (vault) {
+      return `Proposal Actions will interact with ${vault.name} Vault: ${sidecarSafeAddress}`;
+    }
+    return `Vault ${sidecarSafeAddress} is not registered for this DAO. Proceed with caution as transaction may fail.`;
+  }, [dao, sidecarSafeAddress]);
 
   const addAction = () => {
     setActions([
@@ -529,6 +594,18 @@ export const MultisendActions = (props: Buildable<Field>) => {
 
   return (
     <MainContainer>
+      {dao && sidecarSafeAddress && (
+        <WarningContainer className="container">
+          <IconContainer>
+            <Icon label="Warning">
+              <WarningIcon />
+            </Icon>
+          </IconContainer>
+          <div>
+            <StyledParXs>{vaultMessage}</StyledParXs>
+          </div>
+        </WarningContainer>
+      )}
       <ActionsContainer>
         {actions.map((action: IAction, index: number) => (
           <ActionContainer key={action.id}>

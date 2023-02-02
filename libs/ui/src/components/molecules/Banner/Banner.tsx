@@ -19,12 +19,12 @@ export const Banner = ({
       <div className="banner--link-container">
         <Link
           href="https://github.com/HausDAO/daohaus-monorepo/issues/new/choose"
-          linkType="no-icon-external"
+          external={false}
           className="banner--link-item"
         >
           Give Feedback
         </Link>
-        <Link linkType="no-icon-external" href="https://discord.gg/daohaus">
+        <Link external={false} href="https://discord.gg/daohaus">
           <RiDiscordFill />
           Support
         </Link>

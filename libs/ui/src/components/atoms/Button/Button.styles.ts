@@ -17,6 +17,7 @@ export const StyledButton = styled.button<{
   letter-spacing: 1.8px;
   outline: none;
   padding: 1.2rem;
+  text-decoration: none;
   transition: 0.2s all;
   width: fit-content;
 

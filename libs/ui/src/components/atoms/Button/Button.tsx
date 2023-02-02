@@ -38,6 +38,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         as={href ? 'a' : 'button'}
         href={href ? href : undefined}
+        target={href ? '_blank' : undefined}
+        rel={href ? 'noopener noreferrer' : undefined}
       >
         {IconLeft && <IconLeft className={`${className} icon-left`} />}
         {children}

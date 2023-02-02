@@ -2,12 +2,12 @@ import { IconType } from 'react-icons/';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href?: string;
-  Icon?: IconType;
+  target?: string;
+  RightIcon?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   LeftIcon?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   selected?: boolean;
+  external?: boolean;
   disabled?: boolean;
-  linkType?: 'internal' | 'external' | 'no-icon-external';
-  hideIcon?: boolean;
 }
 
 type NewElementProps<Element extends React.ElementType> = {

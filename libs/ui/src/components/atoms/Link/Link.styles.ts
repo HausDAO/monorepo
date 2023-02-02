@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
@@ -33,10 +32,6 @@ export const LinkStyles = css`
   }
 `;
 
-export const ExternalLink = styled.a`
-  ${LinkStyles}
-`;
-
-export const InternalLink = styled(Link)`
+export const StyledLink = styled.a`
   ${LinkStyles}
 `;

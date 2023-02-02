@@ -16,14 +16,13 @@ const Template: ComponentStory<typeof Link> = (args) => {
 export const ExternalLink = Template.bind({});
 ExternalLink.args = {
   href: 'https://daohaus.club/',
-  linkType: 'external',
   children: 'External Link',
 };
 
 export const ExternalLinkWithIcon = Template.bind({});
 ExternalLinkWithIcon.args = {
   href: 'https://daohaus.club/',
-  linkType: 'external',
+  external: false,
   children: 'External Link',
-  Icon: RiAlertLine,
+  RightIcon: RiAlertLine,
 };

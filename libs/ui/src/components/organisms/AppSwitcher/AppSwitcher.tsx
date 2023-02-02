@@ -3,52 +3,53 @@ import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
 
 import { widthQuery } from '../../../theme/global/breakpoints';
 import { useBreakpoint } from '../../../hooks/useMediaQuery';
-import { Dropdown, DropdownMenuItem } from '../../molecules';
+import {
+  DropdownCheckbox,
+  DropdownContent,
+  DropdownItem,
+  DropdownLabel,
+  DropdownMenu,
+  DropdownSeparator,
+  DropdownTrigger,
+} from '../../molecules/Dropdown';
 
 import { IApp, AppSwitcherProps } from './AppSwitcher.types';
-import { AppSwitcherLink, AppSwitcherTrigger } from './AppSwitcher.styles';
+import { ReactComponent as Hub } from '../../../assets/Hub.svg';
+import { ReactComponent as Daohaus } from '../../../assets/Daohaus.svg';
+import { ReactComponent as Summoner } from '../../../assets/Summoner.svg';
+import { ReactComponent as Docs } from '../../../assets/Docs.svg';
+import { AppSwitcherLink } from './AppSwitcher.styles';
+import { Button } from '../../atoms/Button';
+import { Link } from '../../atoms';
 
-function getDropdownApps(apps: IApp[]) {
+function makeDropdownList(apps: IApp[]) {
   return apps.map((app, index) => (
-    <DropdownMenuItem key={index} asChild>
-      <AppSwitcherLink
-        href={app.url}
-        LeftIcon={app.icon}
-        linkType="no-icon-external"
-      >
-        {app.name}
-      </AppSwitcherLink>
-    </DropdownMenuItem>
+    <DropdownItem asChild IconLeft={app.Icon}>
+      <Link href={app.url}>{app.name}</Link>
+    </DropdownItem>
   ));
 }
 
-export const AppSwitcher = ({
-  className,
-  trigger,
-  apps,
-  width,
-}: AppSwitcherProps) => {
-  const dropdownApps = getDropdownApps(apps);
-  const isMobile = useBreakpoint(widthQuery.sm);
-
-  const buttonWidth = width || isMobile ? '100%' : '17.4rem';
-
+export const AppSwitcher = ({ className }: AppSwitcherProps) => {
   return (
-    <Dropdown
-      className={className}
-      menuMinWidth={width}
-      trigger={
-        <AppSwitcherTrigger
-          width={buttonWidth}
-          size={isMobile ? 'sm' : 'md'}
-          IconLeft={trigger.icon}
-          IconRight={RiArrowDropDownLine}
+    <DropdownMenu>
+      <DropdownTrigger IconLeft={Hub}>Hub</DropdownTrigger>
+      <DropdownContent align="end">
+        <DropdownItem asChild>
+          <Link external={false} href="https://storybook.daohaus.fun/?">
+            Storybook
+          </Link>
+        </DropdownItem>
+        <DropdownItem onClick={() => alert('changing to Home')} IconLeft={Docs}>
+          Docs
+        </DropdownItem>
+        <DropdownItem
+          onClick={() => alert('changing to Home')}
+          IconLeft={Daohaus}
         >
-          {trigger.name}
-        </AppSwitcherTrigger>
-      }
-    >
-      {dropdownApps}
-    </Dropdown>
+          DAOHaus
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };

@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import {
-  Dropdown,
   DropdownContent,
   DropdownMenu,
   DropdownTrigger,
@@ -16,7 +15,7 @@ import React from 'react';
 
 export default {
   title: 'Molecules/Dropdown',
-  component: Dropdown,
+  component: DropdownMenu,
   subcomponents: {
     DropdownLabel,
     DropdownItem,
@@ -25,9 +24,9 @@ export default {
     DropdownRadioGroup,
     DropdownRadio,
   },
-} as ComponentMeta<typeof Dropdown>;
+} as ComponentMeta<typeof DropdownMenu>;
 
-const Template: ComponentStory<typeof Dropdown> = (args) => {
+const Template: ComponentStory<typeof DropdownMenu> = (args) => {
   const [color, setColor] = React.useState('blue');
   return (
     <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
@@ -60,5 +59,4 @@ export const BaseDropdown = Template.bind({});
 
 BaseDropdown.args = {
   children: 'Button',
-  color: 'primary',
 };

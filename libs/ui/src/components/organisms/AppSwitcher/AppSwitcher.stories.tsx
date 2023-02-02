@@ -11,35 +11,12 @@ export default {
   component: AppSwitcher,
 } as ComponentMeta<typeof AppSwitcher>;
 
-const Template: ComponentStory<typeof AppSwitcher> = (args) => (
+const Template: ComponentStory<typeof AppSwitcher> = () => (
   <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-    <AppSwitcher {...args} />
+    <AppSwitcher />
   </div>
 );
 
 export const DaoHausAppSwitcher = Template.bind({});
 
-DaoHausAppSwitcher.args = {
-  trigger: {
-    name: 'Hub',
-    url: 'https://hub.daohaus.fun/',
-    icon: Hub,
-  },
-  apps: [
-    {
-      name: 'Summoner',
-      url: 'https://summon.daohaus.fun/',
-      icon: Summoner,
-    },
-    {
-      name: 'Docs',
-      url: 'https://storybook.daohaus.fun/',
-      icon: Docs,
-    },
-    {
-      name: 'DAOHaus',
-      url: 'https://daohaus.club/',
-      icon: Daohaus,
-    },
-  ],
-};
+DaoHausAppSwitcher.args = {};

@@ -4,6 +4,7 @@ import {
   DropdownMenuCheckboxItemProps,
   DropdownMenuRadioItemProps,
 } from '@radix-ui/react-dropdown-menu';
+import { IconType } from 'react-icons';
 
 import { ButtonProps } from '../../atoms';
 import { ProfileButtonProps } from '../ProfileButton';
@@ -35,7 +36,17 @@ export interface BaseItemProps {
   size?: DropdownSize;
 }
 
-export type DropdownItemProps = BaseItemProps & DropdownMenuItemProps;
+export type DropdownItemProps = BaseItemProps &
+  DropdownMenuItemProps & {
+    /* Adds icon before button label */
+    IconLeft?:
+      | IconType
+      | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+    /* Adds icon after button label */
+    IconRight?:
+      | IconType
+      | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  };
 
 export type DropdownCheckboxProps = BaseItemProps &
   DropdownMenuCheckboxItemProps;

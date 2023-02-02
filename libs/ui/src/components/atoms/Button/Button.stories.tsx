@@ -57,29 +57,34 @@ BaseButton.args = {
   disabled: false,
   fullWidth: false,
   justify: 'flex-start',
+  asLink: true,
 };
 
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = {
   children: 'Button',
+  asLink: false,
 };
 
 export const PrimaryButtonOutline = Template.bind({});
 PrimaryButtonOutline.args = {
   children: 'Button',
   variant: 'outline',
+  asLink: false,
 };
 
 export const PrimaryButtonAsLink = Template.bind({});
 PrimaryButtonAsLink.args = {
   children: 'Button',
   variant: 'link',
+  asLink: false,
 };
 
 export const SecondaryButton = Template.bind({});
 SecondaryButton.args = {
   children: 'Button',
   color: 'secondary',
+  asLink: false,
 };
 
 export const SecondaryButtonOutline = Template.bind({});
@@ -87,6 +92,7 @@ SecondaryButtonOutline.args = {
   children: 'Button',
   color: 'secondary',
   variant: 'outline',
+  asLink: false,
 };
 
 export const SecondaryButtonAsLink = Template.bind({});
@@ -100,6 +106,7 @@ export const ButtonLeftIcon = Template.bind({});
 ButtonLeftIcon.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
+  asLink: false,
 };
 
 export const ButtonRightIcon = Template.bind({});
@@ -114,4 +121,5 @@ ButtonWithLeftAndRightIcons.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
   IconRight: RiArrowDropDownLine,
+  asLink: false,
 };

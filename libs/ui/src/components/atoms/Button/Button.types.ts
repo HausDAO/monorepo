@@ -25,6 +25,8 @@ export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
   variant?: 'solid' | 'outline' | 'ghost' | 'link';
   /* Toggle from fit-content to width 100% of the button element */
   fullWidth?: boolean;
+  /* render as a link */
+  asLink?: boolean;
   /* Add justify-content as prop for button content */
   justify?: ButtonJustifyContent;
   /* Adds icon before button label */

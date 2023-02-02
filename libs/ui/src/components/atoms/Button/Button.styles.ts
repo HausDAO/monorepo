@@ -15,9 +15,10 @@ export const StyledButton = styled.button<{
   height: 4.8rem;
   justify-content: ${({ justify }) => justify};
   letter-spacing: 1.8px;
+  outline: none;
   padding: 1.2rem;
   transition: 0.2s all;
-  outline: none;
+  width: fit-content;
 
   svg {
     width: 2.2rem;

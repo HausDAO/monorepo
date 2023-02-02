@@ -17,6 +17,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       justify = 'center',
       className,
       children,
+      asLink,
       ...rest
     },
     ref
@@ -35,6 +36,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={`${classes} ${className}`}
         ref={ref}
         type={type}
+        as={asLink ? 'a' : 'button'}
       >
         {IconLeft && <IconLeft className={`${className} icon-left`} />}
         {children}

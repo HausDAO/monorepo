@@ -119,7 +119,7 @@ const BaseItemStyles = css`
 
 export const Item = styled(Dropdown.Item)`
   ${BaseItemStyles}
-  
+
   svg {
     width: 2.2rem;
     height: 2.2rem;
@@ -131,6 +131,7 @@ export const Item = styled(Dropdown.Item)`
     &.icon-right {
       margin-left: 0.5rem;
     }
+  }
 `;
 
 export const CheckboxItem = styled(Dropdown.CheckboxItem)`

@@ -36,9 +36,9 @@ export const AppSwitcher = ({ className }: AppSwitcherProps) => {
       <DropdownTrigger IconLeft={Hub}>Hub</DropdownTrigger>
       <DropdownContent align="end">
         <DropdownItem asChild>
-          <Link external={false} href="https://storybook.daohaus.fun/?">
+          <Button size="sm" href="https://storybook.daohaus.fun/?">
             Storybook
-          </Link>
+          </Button>
         </DropdownItem>
         <DropdownItem onClick={() => alert('changing to Home')} IconLeft={Docs}>
           Docs

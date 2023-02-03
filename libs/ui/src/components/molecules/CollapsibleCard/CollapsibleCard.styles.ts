@@ -3,8 +3,8 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 
 import { CardStyles } from '../../atoms/Card/Card.styles';
 import { Card } from '../../atoms/Card/Card';
-import { DropdownTriggerLink } from '../Dropdown/Dropdown.styles';
 import { Theme } from '../../../types';
+import { Button } from '../../atoms/Button';
 
 type CardProps = {
   noBackground?: boolean;
@@ -38,7 +38,32 @@ export const StyledCardActionsContainer = styled.div`
 
 export const StyledCollapsibleCardTrigger = Collapsible.Trigger;
 
-export const StyledCollapsibleCardButton = styled(DropdownTriggerLink)`
+export const StyledCollapsibleCardButton = styled.button`
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px transparent solid;
+  /* color: ${(props) => props.theme.secondary.step12}; */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  letter-spacing: 1.5px;
+  /* padding-bottom: 1rem; */
+  transition: 0.2s all;
+  /* svg {
+    margin-left: 0.3rem;
+  } */
+  /* :hover {
+    color: ${(props) => props.theme.secondary.step10};
+    text-decoration: none;
+  } */
+  /* &.selected {
+    color: white;
+    border-bottom: 2px ${(props) => props.theme.secondary.step9} solid;
+  }
+  &.navTabs {
+    padding-bottom: 1rem;
+  } */
+
   color: ${({ theme }: { theme: Theme }) => theme.primary.step11};
   margin-left: 2rem;
   padding: 0;
@@ -46,6 +71,7 @@ export const StyledCollapsibleCardButton = styled(DropdownTriggerLink)`
 
   :hover {
     color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+    text-decoration: none;
   }
 
   :focus {

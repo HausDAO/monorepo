@@ -138,6 +138,18 @@ export const StyledButton = styled.button<{
     }
   }
 
+  &.lg {
+    font-size: ${font.size.lg};
+    height: 6rem;
+    min-width: 10.7rem;
+    padding: 1.5rem;
+
+    svg {
+      height: 3.2rem;
+      width: 3.2rem;
+    }
+  }
+
   &.sm {
     font-size: ${font.size.xs};
     height: 3.6rem;
@@ -150,17 +162,6 @@ export const StyledButton = styled.button<{
     }
   }
 
-  &.lg {
-    font-size: ${font.size.lg};
-    height: 6rem;
-    min-width: 10.7rem;
-    padding: 1.5rem;
-
-    svg {
-      height: 3.2rem;
-      width: 3.2rem;
-    }
-  }
   /*
     Could add a prop that allows for configueration of all possible
     jusify-content props at the base button level.

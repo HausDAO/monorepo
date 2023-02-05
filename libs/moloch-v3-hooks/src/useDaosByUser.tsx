@@ -1,6 +1,7 @@
 import { Ordering } from '@daohaus/data-fetch-utils';
 import {
   CONTRACT_KEYCHAINS,
+  GRAPH_API_KEYS,
   Keychain,
   ValidNetwork,
 } from '@daohaus/keychain-utils';
@@ -13,10 +14,6 @@ import {
 import { MolochV3Membership } from '@daohaus/utils';
 import { useQuery } from 'react-query';
 
-export const HAUS_GRAPH_KEYS = {
-  '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-};
-
 const allNetworks = Object.keys(CONTRACT_KEYCHAINS.V3_FACTORY);
 
 export const useDaosByUser = ({
@@ -24,7 +21,7 @@ export const useDaosByUser = ({
   networkIds = allNetworks as ValidNetwork[],
   daoFilter,
   memberFilter,
-  graphApiKeys = HAUS_GRAPH_KEYS,
+  graphApiKeys = GRAPH_API_KEYS,
   ordering = {
     orderBy: 'createdAt',
     orderDirection: 'desc',

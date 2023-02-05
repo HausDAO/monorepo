@@ -1,1 +1,1 @@
-export * from './lib/moloch-v3-hooks';
+export * from './useDaosByUser';

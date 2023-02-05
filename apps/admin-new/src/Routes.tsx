@@ -14,6 +14,7 @@ import { Members } from './pages/Members';
 import { Proposals } from './pages/Proposals';
 import { Safes } from './pages/Safes';
 import { Settings } from './pages/Settings';
+import { MULTI_DAO_ROUTER } from './rage/multiDaoConstants';
 
 export const Routes = ({
   setDaoChainId,
@@ -37,7 +38,7 @@ export const Routes = ({
       <Route path="/" element={<HomeContainer />}>
         <Route path="/" element={<Home />} />
       </Route>
-      <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
+      <Route path={MULTI_DAO_ROUTER} element={<DaoContainer />}>
         <Route index element={<DaoOverview />} />
         <Route path="proposals" element={<Proposals />} />
         <Route path="members" element={<Members />} />

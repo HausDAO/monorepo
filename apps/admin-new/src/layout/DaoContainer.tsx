@@ -1,5 +1,6 @@
 import { DHLayout } from '@daohaus/connect';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { MultiDaoProvider } from '../rage/MultiDaoContext';
 
 export const DaoContainer = () => {
   const { daochain, daoid } = useParams();
@@ -25,7 +26,9 @@ export const DaoContainer = () => {
       navLinks={navLinks}
       dropdownLinks={moreLinks}
     >
-      <Outlet />
+      <MultiDaoProvider>
+        <Outlet />
+      </MultiDaoProvider>
     </DHLayout>
   );
 };

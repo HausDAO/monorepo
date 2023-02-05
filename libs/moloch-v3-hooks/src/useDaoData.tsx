@@ -4,18 +4,19 @@ import { useQuery } from 'react-query';
 import { handleErrorMessage } from '@daohaus/utils';
 
 export const fetchDao = async ({
-  daoid,
-  daochain,
+  daoId,
+  daoChain,
   graphApiKeys,
 }: {
-  daoid: string;
-  daochain: keyof Keychain;
+  daoId?: string;
+  daoChain?: keyof Keychain;
   graphApiKeys: Keychain;
 }) => {
+  if (!daoId || !daoChain) return;
   try {
     const daoRes = await findDao({
-      networkId: daochain,
-      dao: daoid,
+      networkId: daoChain,
+      dao: daoId,
       includeTokens: true,
       graphApiKeys,
     });
@@ -29,19 +30,19 @@ export const fetchDao = async ({
 };
 
 export const useDaoData = ({
-  daoid,
-  daochain,
+  daoId,
+  daoChain,
   graphApiKeys = GRAPH_API_KEYS,
 }: {
-  daoid: string;
-  daochain: keyof Keychain;
+  daoId?: string;
+  daoChain?: keyof Keychain;
   graphApiKeys?: Keychain;
 }) => {
   const { data, error, ...rest } = useQuery(
-    ['MolochV3DAO', { daoid, daochain }],
-    () => fetchDao({ daoid, daochain, graphApiKeys }),
-    { enabled: !!daoid && !!daochain }
+    ['MolochV3DAO', { daoId, daoChain }],
+    () => fetchDao({ daoId, daoChain, graphApiKeys }),
+    { enabled: !!daoId && !!daoChain }
   );
 
-  return { dao: data, error: error as Error | undefined, ...rest };
+  return { dao: data, error: error as Error, ...rest };
 };

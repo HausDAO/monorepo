@@ -1,11 +1,5 @@
-import React from 'react';
-
 import { MolochV3Dao, findDao } from '@daohaus/moloch-v3-data';
-import {
-  GRAPH_API_KEYS,
-  Keychain,
-  ValidNetwork,
-} from '@daohaus/keychain-utils';
+import { GRAPH_API_KEYS, Keychain } from '@daohaus/keychain-utils';
 import { useQuery } from 'react-query';
 import { handleErrorMessage } from '@daohaus/utils';
 
@@ -25,12 +19,7 @@ export const fetchDao = async ({
       includeTokens: true,
       graphApiKeys,
     });
-
-    if (daoRes?.data?.dao) {
-      return daoRes.data.dao as MolochV3Dao;
-    } else {
-      console.error('no dao found');
-    }
+    return daoRes?.data?.dao as MolochV3Dao;
   } catch (error) {
     console.error(error);
     throw new Error(
@@ -54,5 +43,5 @@ export const useDaoData = ({
     { enabled: !!daoid && !!daochain }
   );
 
-  return { dao: data, error: error as Error, ...rest };
+  return { dao: data, error: error as Error | undefined, ...rest };
 };

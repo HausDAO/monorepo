@@ -34,6 +34,7 @@ const fetchRecords = async ({
     });
     if (credentialType) {
       return data.items.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (item: any) =>
           item?.parsedContent?.credentialIdentifier === credentialType
       );

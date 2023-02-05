@@ -6,7 +6,7 @@ import {
 } from '@daohaus/keychain-utils';
 import { useQuery } from 'react-query';
 import { MolochV3Member } from '@daohaus/moloch-v3-data';
-import { AccountProfile, handleErrorMessage } from '@daohaus/utils';
+import { handleErrorMessage } from '@daohaus/utils';
 
 const fetchMember = async ({
   chainId,

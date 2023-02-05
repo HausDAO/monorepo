@@ -14,7 +14,7 @@ import { Members } from './pages/Members';
 import { Proposals } from './pages/Proposals';
 import { Safes } from './pages/Safes';
 import { Settings } from './pages/Settings';
-import { MULTI_DAO_ROUTER } from './rage/multiDaoConstants';
+import { MULTI_DAO_ROUTER } from '@daohaus/moloch-v3-hooks';
 
 export const Routes = ({
   setDaoChainId,

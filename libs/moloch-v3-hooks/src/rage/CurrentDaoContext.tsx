@@ -15,9 +15,9 @@ export const CurrentDaoContext = React.createContext<CurrentDaoContextType>({
 
 type CurrentContextProps = {
   children: ReactNode;
-  targetDao: {
-    daoId?: EthAddress;
-    daoChain?: ValidNetwork;
+  targetDao?: {
+    daoId: EthAddress;
+    daoChain: ValidNetwork;
   };
 };
 

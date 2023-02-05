@@ -6,6 +6,8 @@ import {
 } from '@daohaus/keychain-utils';
 import { useQuery } from 'react-query';
 import { EthAddress, handleErrorMessage } from '@daohaus/utils';
+import { useCurrentDao } from '../rage/CurrentDaoContext';
+import { DaoQueryKeys, daoScopedQueryId } from '../rage';
 
 export const fetchDao = async ({
   daoId,
@@ -24,6 +26,7 @@ export const fetchDao = async ({
       includeTokens: true,
       graphApiKeys,
     });
+
     return daoRes?.data?.dao as MolochV3Dao;
   } catch (error) {
     console.error(error);
@@ -33,19 +36,39 @@ export const fetchDao = async ({
   }
 };
 
-export const useDaoData = ({
-  daoId,
-  daoChain,
-  graphApiKeys = GRAPH_API_KEYS,
-}: {
-  daoId?: EthAddress;
-  daoChain?: ValidNetwork;
-  graphApiKeys?: Keychain;
-}) => {
+type DaoDataProps =
+  | {
+      daoId?: EthAddress;
+      daoChain?: ValidNetwork;
+      graphApiKeys?: Keychain;
+    }
+  | undefined;
+
+export const useDaoData = (props?: DaoDataProps | undefined) => {
+  const {
+    daoId: daoIdOverride,
+    daoChain: daoChainOverride,
+    graphApiKeys = GRAPH_API_KEYS,
+  } = props || {};
+
+  const { daoId: idFromRouter, daoChain: networkFromRouter } =
+    useCurrentDao?.() || {};
+  const daoId = daoIdOverride || idFromRouter;
+  const daoChain = daoChainOverride || networkFromRouter;
+
   const { data, error, ...rest } = useQuery(
-    ['MolochV3DAO', { daoId, daoChain }],
+    [
+      daoScopedQueryId({
+        daoChain,
+        daoId,
+        domain: DaoQueryKeys.Dao,
+      }),
+      { daoId, daoChain },
+    ],
     () => fetchDao({ daoId, daoChain, graphApiKeys }),
-    { enabled: !!daoId && !!daoChain }
+    {
+      enabled: !!daoId && !!daoChain,
+    }
   );
 
   return { dao: data, error: error as Error, ...rest };

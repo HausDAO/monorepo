@@ -15,6 +15,7 @@ import {
   Member_Filter,
 } from '@daohaus/moloch-v3-data';
 import ReactJson from 'react-json-view';
+import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Home = () => {
   const { address } = useDHConnect();
@@ -63,17 +64,7 @@ export const Home = () => {
           <div>No daos</div>
         )}
         <H4>Data</H4>
-        {daos && (
-          <div style={{ width: '100%' }}>
-            <ReactJson
-              src={daos}
-              collapsed={true}
-              theme="ashes"
-              displayDataTypes={false}
-              style={{ fontSize: '1.4rem', background: 'none' }}
-            />
-          </div>
-        )}
+        {daos && <JSONDisplay data={daos} />}
       </div>
     </SingleColumnLayout>
   );

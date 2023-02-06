@@ -85,6 +85,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     daoId: idFromRouter,
     daoChain: networkFromRouter,
     getFilter,
+    updateFilter,
   } = useCurrentDao?.() || {};
   const daoId = daoIdOverride || idFromRouter;
   const daoChain = daoChainOverride || networkFromRouter;
@@ -100,6 +101,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
       getFilter
     )
   );
+  console.log('filter', filter);
 
   const { data, error, ...rest } = useInfiniteQuery(
     [{ daoId, daoChain, filter, ordering, paging }],
@@ -127,11 +129,18 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     }, [] as MolochV3Proposal[]) || [];
 
   const filterProposals = (filter: Proposal_Filter) => {
-    setFilter((prevState) => ({ ...prevState, ...filter }));
+    if (typeof updateFilter === 'function') {
+      updateFilter(queryId, filter);
+      setFilter(filter);
+    } else {
+      setFilter(filter);
+    }
   };
+  console.log('data', data);
   return {
     proposals: allProposals,
     error,
+    filter: data?.pageParams,
     ...rest,
     filterProposals,
   };

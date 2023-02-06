@@ -8,7 +8,8 @@ export const Proposals = () => {
   // const [pageSize, setPageSize] = React.useState(5);
   const { daoId, daoChain } = useCurrentDao();
   // const [filter, setFilter] = React.useState<Proposal_Filter>();
-  const { proposals, fetchNextPage, filterProposals } = useDaoProposals();
+  const { proposals, fetchNextPage, filterProposals, filter } =
+    useDaoProposals();
 
   const handleChange = (e: any) => {
     if (e.target.value === 'all') {
@@ -18,6 +19,7 @@ export const Proposals = () => {
     }
     if (e.target.value === 'passed') {
       filterProposals({
+        ...filter,
         passed: true,
       });
     }

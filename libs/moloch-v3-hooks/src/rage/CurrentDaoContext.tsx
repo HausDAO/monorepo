@@ -37,6 +37,8 @@ export const CurrentDaoProvider = ({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateFilter = (filterKey: string, filter: any) => {
+    console.log('In Context');
+    console.log('filter', filter);
     setFilter((prevState) => ({ ...prevState, [filterKey]: filter }));
   };
 

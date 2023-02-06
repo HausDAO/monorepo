@@ -9,14 +9,19 @@ import { MemberCardProps } from './MemberCard.types';
 import { ParMd } from '../../atoms';
 
 import {
-  Dropdown,
-  DropdownLink,
-  DropdownText,
-  DropdownMenuItem,
-  ProfileAvatar,
-} from '../../molecules';
+  DropdownMenu,
+  DropdownTrigger,
+  DropdownContent,
+  DropdownItem,
+} from '../../molecules/Dropdown';
 import { MemberCardTrigger } from './MemberCard.styles';
 import { useCopyToClipboard } from '../../../hooks';
+
+const TestProfile = {
+  name: 'DAO Guy',
+  ens: 'daoguy.eth',
+  address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
+};
 
 export const MemberCard = ({
   className,
@@ -42,44 +47,12 @@ export const MemberCard = ({
   };
 
   return (
-    <Dropdown
-      className={className}
-      align="start"
-      trigger={
-        <MemberCardTrigger
-          // avatar
-          variant="ghost"
-          color="secondary"
-          minWidth={minWidth}
-          IconRight={RiArrowDropDownLine}
-        >
-          <ProfileAvatar address={profile.address} image={profile.image} />
-          {(profile.name || profile.ens) && (
-            <ParMd>{profile.name ? profile.name : profile.ens}</ParMd>
-          )}
-          {!profile.name && !profile.ens && (
-            <ParMd>{truncateAddress(profile.address)}</ParMd>
-          )}
-        </MemberCardTrigger>
-      }
-    >
-      {profileUrl && (
-        <DropdownMenuItem>
-          <DropdownLink href={profileUrl}>
-            <ParMd>View Profile</ParMd>
-          </DropdownLink>
-        </DropdownMenuItem>
-      )}
-      <DropdownMenuItem>
-        <DropdownLink href={explorerLink} linkType="external">
-          <ParMd>Block Explorer</ParMd>
-        </DropdownLink>
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <DropdownText onClick={handleCopy}>
-          <ParMd>Copy Address</ParMd>
-        </DropdownText>
-      </DropdownMenuItem>
-    </Dropdown>
+    <DropdownMenu>
+      <DropdownTrigger profile={TestProfile}></DropdownTrigger>
+      <DropdownContent align="end">
+        <DropdownItem>Click Me</DropdownItem>
+        <DropdownItem disabled>I'm Disabled</DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };

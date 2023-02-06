@@ -13,9 +13,16 @@ export const Group = Dropdown.Group;
 export const RadioGroup = Dropdown.RadioGroup;
 
 export const Trigger = styled(Dropdown.Trigger)`
+  transition: 0.2s all;
   svg {
     &.icon-right {
       margin-left: auto;
+    }
+  }
+
+  &[data-state='open'] {
+    svg {
+      transform: rotate(180deg);
     }
   }
 `;

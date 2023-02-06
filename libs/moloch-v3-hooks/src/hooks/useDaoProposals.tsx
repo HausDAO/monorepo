@@ -6,13 +6,24 @@ import {
 } from '@daohaus/keychain-utils';
 import {
   listProposals,
+  MolochV3Proposal,
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/moloch-v3-data';
-import { EthAddress } from '@daohaus/utils';
-import React from 'react';
-import { useQuery } from 'react-query';
+import { useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
 import { DaoQueryKeys, daoScopedQueryId, useCurrentDao } from '../rage';
+
+const handleDefaultFilter = <T,>(
+  key: string,
+  defaultFilter: T,
+  getFilter?: (key: string) => T
+) => {
+  if (!getFilter) return defaultFilter;
+  const filter = getFilter(key) as T | undefined;
+
+  return filter || defaultFilter;
+};
 
 const fetchProposals = async ({
   daoId,
@@ -21,6 +32,7 @@ const fetchProposals = async ({
   filter,
   ordering,
   paging,
+  pageParam,
 }: {
   daoId?: string;
   daoChain?: ValidNetwork;
@@ -28,6 +40,7 @@ const fetchProposals = async ({
   filter: Proposal_Filter;
   ordering: Ordering<Proposal_OrderBy>;
   paging: Paging;
+  pageParam?: Paging;
 }) => {
   if (!daoChain || !daoId) return;
 
@@ -35,11 +48,11 @@ const fetchProposals = async ({
     filter,
     networkId: daoChain,
     ordering,
-    paging,
+    paging: pageParam || paging,
     graphApiKeys,
   });
 
-  console.log('res', res);
+  return res;
 };
 
 type DaoProposalsProps =
@@ -49,7 +62,7 @@ type DaoProposalsProps =
       graphApiKeys?: Keychain;
       filter?: Proposal_Filter;
       ordering?: Ordering<Proposal_OrderBy>;
-      paging: Paging;
+      paging?: Paging;
     }
   | undefined;
 
@@ -58,7 +71,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     daoId: daoIdOverride,
     daoChain: daoChainOverride,
     graphApiKeys = GRAPH_API_KEYS,
-    filter,
+    filter: filterFromProps,
     ordering = {
       orderBy: 'createdAt',
       orderDirection: 'desc',
@@ -68,36 +81,58 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
       offset: 0,
     },
   } = props || {};
-
-  const { daoId: idFromRouter, daoChain: networkFromRouter } =
-    useCurrentDao?.() || {};
+  const {
+    daoId: idFromRouter,
+    daoChain: networkFromRouter,
+    getFilter,
+  } = useCurrentDao?.() || {};
   const daoId = daoIdOverride || idFromRouter;
   const daoChain = daoChainOverride || networkFromRouter;
-  const { data, error, ...rest } = useQuery(
-    [
-      daoScopedQueryId({
-        daoChain,
-        daoId,
-        domain: DaoQueryKeys.Dao,
-      }),
-      { daoId, daoChain, filter, ordering, paging },
-    ],
-    () =>
+  const queryId = daoScopedQueryId({
+    daoChain,
+    daoId,
+    domain: DaoQueryKeys.Proposals,
+  });
+  const [filter, setFilter] = useState<Proposal_Filter>(
+    handleDefaultFilter<Proposal_Filter>(
+      queryId,
+      filterFromProps || { dao: daoId },
+      getFilter
+    )
+  );
+
+  const { data, error, ...rest } = useInfiniteQuery(
+    [{ daoId, daoChain, filter, ordering, paging }],
+    ({ pageParam }) =>
       fetchProposals({
         daoId,
         daoChain,
         graphApiKeys,
-        filter: filter || { dao: daoId },
+        filter,
         ordering,
         paging,
+        pageParam,
       }),
     {
-      enabled: !!daoId && !!daoChain && !!filter && !!paging,
+      enabled: !!daoId && !!daoChain && !!paging,
+      getNextPageParam: (lastPage) => lastPage?.nextPaging,
     }
   );
+  const allProposals =
+    data?.pages?.reduce((acc, page) => {
+      if (page?.items) {
+        return [...acc, ...page.items];
+      }
+      return [];
+    }, [] as MolochV3Proposal[]) || [];
+
+  const filterProposals = (filter: Proposal_Filter) => {
+    setFilter((prevState) => ({ ...prevState, ...filter }));
+  };
   return {
-    data,
+    proposals: allProposals,
     error,
     ...rest,
+    filterProposals,
   };
 };

@@ -3,21 +3,21 @@ import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { CurrentDaoProvider } from '@daohaus/moloch-v3-hooks';
 
 export const DaoContainer = () => {
-  const { daochain, daoid } = useParams();
+  const { daoChain, daoId } = useParams();
 
   const location = useLocation();
 
   const navLinks = [
     { label: 'Hub', href: `/` },
-    { label: 'DAO', href: `/molochv3/${daochain}/${daoid}` },
-    { label: 'Proposals', href: `/molochv3/${daochain}/${daoid}/proposals` },
-    { label: 'Safes', href: `/molochv3/${daochain}/${daoid}/safes` },
-    { label: 'Members', href: `/molochv3/${daochain}/${daoid}/members` },
+    { label: 'DAO', href: `/molochv3/${daoChain}/${daoId}` },
+    { label: 'Proposals', href: `/molochv3/${daoChain}/${daoId}/proposals` },
+    { label: 'Safes', href: `/molochv3/${daoChain}/${daoId}/safes` },
+    { label: 'Members', href: `/molochv3/${daoChain}/${daoId}/members` },
   ];
 
   const moreLinks = [
-    { label: 'Settings', href: `/molochv3/${daochain}/${daoid}/settings` },
-    { label: 'Profile', href: `/molochv3/${daochain}/${daoid}/members/0x0` },
+    { label: 'Settings', href: `/molochv3/${daoChain}/${daoId}/settings` },
+    { label: 'Profile', href: `/molochv3/${daoChain}/${daoId}/members/0x0` },
   ];
 
   return (

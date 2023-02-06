@@ -54,6 +54,7 @@ export const useDaoData = (props?: DaoDataProps | undefined) => {
   const { daoId: idFromRouter, daoChain: networkFromRouter } =
     useCurrentDao?.() || {};
   const daoId = daoIdOverride || idFromRouter;
+  console.log('daoId', daoId);
   const daoChain = daoChainOverride || networkFromRouter;
 
   const { data, error, ...rest } = useQuery(

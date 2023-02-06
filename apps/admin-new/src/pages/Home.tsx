@@ -14,7 +14,6 @@ import {
   Dao_OrderBy,
   Member_Filter,
 } from '@daohaus/moloch-v3-data';
-import ReactJson from 'react-json-view';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Home = () => {

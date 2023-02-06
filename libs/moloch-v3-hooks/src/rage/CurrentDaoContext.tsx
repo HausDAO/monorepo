@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { ArbitraryState, EthAddress } from '@daohaus/utils';
 import React, { ReactNode, useContext, useState } from 'react';
@@ -7,6 +8,8 @@ type CurrentDaoContextType = {
   daoId?: EthAddress;
   daoChain?: ValidNetwork;
   updateFilter: (filterKey: string, filter: any) => void;
+  updateOrder: (filterKey: string, filter: any) => void;
+  getOrder: (filterKey: string) => any;
   getFilter: (filterKey: string) => any;
 };
 
@@ -15,6 +18,8 @@ export const CurrentDaoContext = React.createContext<CurrentDaoContextType>({
   daoChain: undefined,
   updateFilter: () => undefined,
   getFilter: () => undefined,
+  updateOrder: () => undefined,
+  getOrder: () => undefined,
 });
 
 type CurrentContextProps = {
@@ -34,16 +39,21 @@ export const CurrentDaoProvider = ({
     daoChain: ValidNetwork;
   }>();
   const [currentFilters, setFilter] = useState<ArbitraryState>({});
-
+  const [currentOrders, setOrder] = useState<ArbitraryState>({});
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateFilter = (filterKey: string, filter: any) => {
-    console.log('In Context');
-    console.log('filter', filter);
     setFilter((prevState) => ({ ...prevState, [filterKey]: filter }));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const updateOrder = (orderKey: string, order: any) => {
+    setOrder((prevState) => ({ ...prevState, [orderKey]: order }));
+  };
   const getFilter = (filterKey: string) => {
     return currentFilters?.[filterKey];
+  };
+  const getOrder = (orderKey: string) => {
+    return currentOrders?.[orderKey];
   };
   return (
     <CurrentDaoContext.Provider
@@ -52,6 +62,8 @@ export const CurrentDaoProvider = ({
         daoId: targetDao?.daoId || daoId,
         updateFilter,
         getFilter,
+        updateOrder,
+        getOrder,
       }}
     >
       {children}

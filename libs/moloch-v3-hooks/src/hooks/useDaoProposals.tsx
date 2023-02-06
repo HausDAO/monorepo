@@ -25,6 +25,16 @@ const handleDefaultFilter = <T,>(
   return filter || defaultFilter;
 };
 
+const handleDefaultOrdering = <T,>(
+  key: string,
+  defaultOrdering: T,
+  getOrdering?: (key: string) => T
+) => {
+  if (!getOrdering) return defaultOrdering;
+  const ordering = getOrdering(key) as T | undefined;
+  return ordering || defaultOrdering;
+};
+
 const fetchProposals = async ({
   daoId,
   daoChain,
@@ -72,7 +82,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     daoChain: daoChainOverride,
     graphApiKeys = GRAPH_API_KEYS,
     filter: filterFromProps,
-    ordering = {
+    ordering: orderFromProps = {
       orderBy: 'createdAt',
       orderDirection: 'desc',
     },
@@ -86,6 +96,8 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     daoChain: networkFromRouter,
     getFilter,
     updateFilter,
+    getOrder,
+    updateOrder,
   } = useCurrentDao?.() || {};
   const daoId = daoIdOverride || idFromRouter;
   const daoChain = daoChainOverride || networkFromRouter;
@@ -94,6 +106,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     daoId,
     domain: DaoQueryKeys.Proposals,
   });
+
   const [filter, setFilter] = useState<Proposal_Filter>(
     handleDefaultFilter<Proposal_Filter>(
       queryId,
@@ -101,7 +114,13 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
       getFilter
     )
   );
-  console.log('filter', filter);
+  const [ordering, setOrdering] = useState<Ordering<Proposal_OrderBy>>(
+    handleDefaultOrdering<Ordering<Proposal_OrderBy>>(
+      queryId,
+      orderFromProps,
+      getOrder
+    )
+  );
 
   const { data, error, ...rest } = useInfiniteQuery(
     [{ daoId, daoChain, filter, ordering, paging }],
@@ -136,12 +155,24 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
       setFilter(filter);
     }
   };
-  console.log('data', data);
+
+  const orderProposals = (ordering: Ordering<Proposal_OrderBy>) => {
+    if (typeof updateOrder === 'function') {
+      updateOrder(queryId, ordering);
+      setOrdering(ordering);
+    } else {
+      setOrdering(ordering);
+    }
+  };
+
   return {
     proposals: allProposals,
     error,
-    filter: data?.pageParams,
-    ...rest,
+    filter,
     filterProposals,
+    data,
+    ordering,
+    orderProposals,
+    ...rest,
   };
 };

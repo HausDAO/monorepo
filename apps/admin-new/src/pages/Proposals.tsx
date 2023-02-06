@@ -1,14 +1,12 @@
-import { Proposal_Filter } from '@daohaus/moloch-v3-data';
 import { useCurrentDao, useDaoProposals } from '@daohaus/moloch-v3-hooks';
 import { Button, Select, SingleColumnLayout } from '@daohaus/ui';
-import React from 'react';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Proposals = () => {
   // const [pageSize, setPageSize] = React.useState(5);
   const { daoId, daoChain } = useCurrentDao();
   // const [filter, setFilter] = React.useState<Proposal_Filter>();
-  const { proposals, fetchNextPage, filterProposals, filter } =
+  const { proposals, fetchNextPage, filterProposals, filter, hasNextPage } =
     useDaoProposals();
 
   const handleChange = (e: any) => {
@@ -35,7 +33,9 @@ export const Proposals = () => {
           { name: 'Has Passed', value: 'passed' },
         ]}
       />
-      <Button onClick={() => fetchNextPage()}>More</Button>
+      <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
+        More
+      </Button>
       <JSONDisplay data={proposals} />
     </SingleColumnLayout>
   );

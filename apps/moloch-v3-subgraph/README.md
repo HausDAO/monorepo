@@ -4,7 +4,7 @@ The v3 subgraph currently supports goerli. It's deployed here: https://api.thegr
 
 ## Local Development
 
-* Install Graph CLI v0.22.0
+- Install Graph CLI v0.22.0
 
 `yarn global add @graphprotocol/graph-cli@0.22.0`
 

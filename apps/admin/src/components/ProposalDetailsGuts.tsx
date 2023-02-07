@@ -83,7 +83,7 @@ export const ProposalDetailsGuts = ({
       </DataContainer>
 
       {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
-        <DataContainer style={{'marginTop': '0'}}>
+        <DataContainer style={{ marginTop: '0' }}>
           <div>
             <ParMd>Through Contract</ParMd>
             <MemberProfileAvatar

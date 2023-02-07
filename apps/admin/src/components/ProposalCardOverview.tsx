@@ -141,11 +141,9 @@ export const ProposalCardOverview = ({
               explorerNetworkId={daochain as keyof Keychain}
               minWidth="4rem"
               profileUrl={`/molochv3/${daochain}/${daoid}/members/${proposal.proposedBy}`}
-              profile={
-                {
-                  address: proposal.proposedBy,
-                }
-              }
+              profile={{
+                address: proposal.proposedBy,
+              }}
             />
           </>
         )}

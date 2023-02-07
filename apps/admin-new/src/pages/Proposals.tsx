@@ -1,15 +1,19 @@
 import { useCurrentDao, useDaoProposals } from '@daohaus/moloch-v3-hooks';
-import { Button, Select, SingleColumnLayout } from '@daohaus/ui';
+import { Button, Link, Select, SingleColumnLayout } from '@daohaus/ui';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Proposals = () => {
-  // const [pageSize, setPageSize] = React.useState(5);
   const { daoId, daoChain } = useCurrentDao();
-  // const [filter, setFilter] = React.useState<Proposal_Filter>();
-  const { proposals, fetchNextPage, filterProposals, filter, hasNextPage } =
-    useDaoProposals();
+  const {
+    proposals,
+    fetchNextPage,
+    filterProposals,
+    hasNextPage,
+    orderProposals,
+  } = useDaoProposals();
 
-  const handleChange = (e: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleFilter = (e: any) => {
     if (e.target.value === 'all') {
       filterProposals({
         dao: daoId,
@@ -17,8 +21,24 @@ export const Proposals = () => {
     }
     if (e.target.value === 'passed') {
       filterProposals({
-        ...filter,
+        dao: daoId,
         passed: true,
+      });
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleOrder = (e: any) => {
+    if (e.target.value === 'desc') {
+      orderProposals({
+        orderBy: 'createdAt',
+        orderDirection: 'desc',
+      });
+    }
+    if (e.target.value === 'asc') {
+      orderProposals({
+        orderBy: 'createdAt',
+        orderDirection: 'asc',
       });
     }
   };
@@ -26,13 +46,32 @@ export const Proposals = () => {
   return (
     <SingleColumnLayout>
       <Select
-        onChange={handleChange}
-        id="test"
+        onChange={handleFilter}
+        id="testFilter"
         options={[
           { name: 'All', value: 'all' },
           { name: 'Has Passed', value: 'passed' },
         ]}
       />
+      <Select
+        onChange={handleOrder}
+        id="testOrder"
+        options={[
+          { name: 'Newest', value: 'desc' },
+          { name: 'Oldest', value: 'asc' },
+        ]}
+      />
+      {proposals?.map((proposal) => {
+        return (
+          <Link
+            key={proposal.proposalId}
+            href={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
+          >
+            {proposal?.title}
+          </Link>
+        );
+      })}
+
       <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
         More
       </Button>

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 type CurrentDaoContextType = {
   daoId?: EthAddress;
   daoChain?: ValidNetwork;
+  proposalId?: string;
   updateFilter: (filterKey: string, filter: any) => void;
   updateOrder: (filterKey: string, filter: any) => void;
   getOrder: (filterKey: string) => any;
@@ -27,6 +28,7 @@ type CurrentContextProps = {
   targetDao?: {
     daoId: EthAddress;
     daoChain: ValidNetwork;
+    proposalId?: string;
   };
 };
 
@@ -34,9 +36,10 @@ export const CurrentDaoProvider = ({
   children,
   targetDao,
 }: CurrentContextProps) => {
-  const { daoChain, daoId } = useParams<{
+  const { daoChain, daoId, proposalId } = useParams<{
     daoId: EthAddress;
     daoChain: ValidNetwork;
+    proposalId?: string;
   }>();
   const [currentFilters, setFilter] = useState<ArbitraryState>({});
   const [currentOrders, setOrder] = useState<ArbitraryState>({});
@@ -60,6 +63,7 @@ export const CurrentDaoProvider = ({
       value={{
         daoChain: targetDao?.daoChain || daoChain,
         daoId: targetDao?.daoId || daoId,
+        proposalId: targetDao?.proposalId || proposalId,
         updateFilter,
         getFilter,
         updateOrder,

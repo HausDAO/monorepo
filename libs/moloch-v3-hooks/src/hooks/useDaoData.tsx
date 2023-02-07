@@ -7,7 +7,7 @@ import {
 import { useQuery } from 'react-query';
 import { EthAddress, handleErrorMessage } from '@daohaus/utils';
 import { useCurrentDao } from '../rage/CurrentDaoContext';
-import { DaoQueryKeys, daoScopedQueryId } from '../rage';
+import { DaoQueryKeys, daoScopedQueryId } from '../utils';
 
 export const fetchDao = async ({
   daoId,

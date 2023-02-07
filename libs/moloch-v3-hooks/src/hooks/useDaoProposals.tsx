@@ -12,28 +12,8 @@ import {
 } from '@daohaus/moloch-v3-data';
 import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { DaoQueryKeys, daoScopedQueryId, useCurrentDao } from '../rage';
-
-const handleDefaultFilter = <T,>(
-  key: string,
-  defaultFilter: T,
-  getFilter?: (key: string) => T
-) => {
-  if (!getFilter) return defaultFilter;
-  const filter = getFilter(key) as T | undefined;
-
-  return filter || defaultFilter;
-};
-
-const handleDefaultOrdering = <T,>(
-  key: string,
-  defaultOrdering: T,
-  getOrdering?: (key: string) => T
-) => {
-  if (!getOrdering) return defaultOrdering;
-  const ordering = getOrdering(key) as T | undefined;
-  return ordering || defaultOrdering;
-};
+import { useCurrentDao } from '../rage';
+import { checkContextDefault, DaoQueryKeys, daoScopedQueryId } from '../utils';
 
 const fetchProposals = async ({
   daoId,
@@ -52,8 +32,8 @@ const fetchProposals = async ({
   paging: Paging;
   pageParam?: Paging;
 }) => {
+  console.log('ordering');
   if (!daoChain || !daoId) return;
-
   const res = await listProposals({
     filter,
     networkId: daoChain,
@@ -65,16 +45,14 @@ const fetchProposals = async ({
   return res;
 };
 
-type DaoProposalsProps =
-  | {
-      daoId?: string;
-      daoChain?: ValidNetwork;
-      graphApiKeys?: Keychain;
-      filter?: Proposal_Filter;
-      ordering?: Ordering<Proposal_OrderBy>;
-      paging?: Paging;
-    }
-  | undefined;
+type DaoProposalsProps = {
+  daoId: string;
+  daoChain: ValidNetwork;
+  graphApiKeys?: Keychain;
+  filter?: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
+};
 
 export const useDaoProposals = (props?: DaoProposalsProps) => {
   const {
@@ -99,6 +77,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     getOrder,
     updateOrder,
   } = useCurrentDao?.() || {};
+
   const daoId = daoIdOverride || idFromRouter;
   const daoChain = daoChainOverride || networkFromRouter;
   const queryId = daoScopedQueryId({
@@ -108,18 +87,14 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
   });
 
   const [filter, setFilter] = useState<Proposal_Filter>(
-    handleDefaultFilter<Proposal_Filter>(
+    checkContextDefault<Proposal_Filter>(
       queryId,
       filterFromProps || { dao: daoId },
       getFilter
     )
   );
   const [ordering, setOrdering] = useState<Ordering<Proposal_OrderBy>>(
-    handleDefaultOrdering<Ordering<Proposal_OrderBy>>(
-      queryId,
-      orderFromProps,
-      getOrder
-    )
+    checkContextDefault(queryId, orderFromProps, getOrder)
   );
 
   const { data, error, ...rest } = useInfiniteQuery(
@@ -135,7 +110,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
         pageParam,
       }),
     {
-      enabled: !!daoId && !!daoChain && !!paging,
+      enabled: !!daoId && !!daoChain && !!paging && !!ordering,
       getNextPageParam: (lastPage) => lastPage?.nextPaging,
     }
   );

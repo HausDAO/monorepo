@@ -132,6 +132,23 @@ export const ProposalCardOverview = ({
             }
           }
         />
+        {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
+          <>
+            <ParMd color={theme.secondary.step11} className="submitted-by">
+              through
+            </ParMd>
+            <MemberCard
+              explorerNetworkId={daochain as keyof Keychain}
+              minWidth="4rem"
+              profileUrl={`/molochv3/${daochain}/${daoid}/members/${proposal.proposedBy}`}
+              profile={
+                {
+                  address: proposal.proposedBy,
+                }
+              }
+            />
+          </>
+        )}
       </SubmittedContainer>
     </OverviewBox>
   );

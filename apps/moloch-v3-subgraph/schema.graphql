@@ -87,8 +87,10 @@ type Proposal @entity {
   id: ID!
   "block timestamp when the proposal was submitted"
   createdAt: BigInt!
-  "address that submitted the proposal"
+  "address that triggered the proposal tx"
   createdBy: Bytes!
+  "address that submitted the proposal to the dao"
+  proposedBy: Bytes
   "member entity of proposer if applicable"
   proposerMembership: Member
   "related DAO entity"

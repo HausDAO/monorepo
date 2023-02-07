@@ -82,6 +82,19 @@ export const ProposalDetailsGuts = ({
         />
       </DataContainer>
 
+      {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
+        <DataContainer style={{'marginTop': '0'}}>
+          <div>
+            <ParMd>Through Contract</ParMd>
+            <MemberProfileAvatar
+              daoid={daoid}
+              daochain={daochain as keyof Keychain}
+              memberAddress={proposal.proposedBy}
+            />
+          </div>
+        </DataContainer>
+      )}
+
       {Number(proposal.proposalOffering) > 0 && (
         <DataIndicator
           label="Proposal Offering"

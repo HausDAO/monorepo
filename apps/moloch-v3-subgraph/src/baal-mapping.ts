@@ -1,4 +1,4 @@
-import { Bytes, log } from '@graphprotocol/graph-ts';
+import { Address, ByteArray, Bytes, log } from '@graphprotocol/graph-ts';
 import {
   Dao,
   Proposal,
@@ -164,6 +164,12 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   let proposal = new Proposal(proposalId);
   proposal.createdAt = event.block.timestamp;
   proposal.createdBy = event.transaction.from;
+  proposal.proposedBy = (
+      event.transaction.to === null ||
+      event.address.toHexString() == (event.transaction.to as Address).toHexString()
+  )
+    ? event.transaction.from
+    : event.transaction.to;
   proposal.proposerMembership = proposerId;
   proposal.txHash = event.transaction.hash;
   proposal.dao = event.address.toHexString();

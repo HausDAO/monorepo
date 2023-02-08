@@ -6,7 +6,7 @@ import {
 } from '@daohaus/keychain-utils';
 import { useQuery } from 'react-query';
 import { handleErrorMessage } from '@daohaus/utils';
-import { useCurrentDao } from '../rage/CurrentDaoContext';
+import { useCurrentDao } from '../contexts/CurrentDaoContext';
 import { DaoQueryKeys, daoScopedQueryId } from '../utils';
 
 export const fetchDao = async ({

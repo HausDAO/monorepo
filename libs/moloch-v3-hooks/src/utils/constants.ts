@@ -5,6 +5,7 @@ export enum DaoQueryKeys {
   Proposals = 'proposals',
   SingleProposal = 'singleProposal',
   Members = 'members',
+  SingleMember = 'singleMember',
   Tokens = 'tokens',
   UserDaos = 'userDaos',
 }

@@ -92,7 +92,7 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
   const queryId = daoScopedQueryId({
     daoChain,
     daoId,
-    domain: DaoQueryKeys.Proposals,
+    domain: DaoQueryKeys.Members,
   });
 
   const [filter, setFilter] = useState<Member_Filter>(

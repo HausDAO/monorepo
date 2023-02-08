@@ -1,45 +1,25 @@
 import { useDHConnect } from '@daohaus/connect';
-import {
-  H2,
-  H4,
-  Input,
-  Link,
-  SingleColumnLayout,
-  useDebounce,
-} from '@daohaus/ui';
+import { H4, Input, Link, SingleColumnLayout, useDebounce } from '@daohaus/ui';
 import React from 'react';
 import { useDaosByUser } from '@daohaus/moloch-v3-hooks';
-import {
-  Dao_Filter,
-  Dao_OrderBy,
-  Member_Filter,
-} from '@daohaus/moloch-v3-data';
+import { Dao_Filter } from '@daohaus/moloch-v3-data';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Home = () => {
   const { address } = useDHConnect();
   const [daoFilter, setDaoFilter] = React.useState<Dao_Filter | undefined>();
-  const [sort, setSort] = React.useState<Dao_OrderBy | undefined>();
-  const [memberFilter, setMemberFilter] = React.useState<
-    Member_Filter | undefined
-  >();
 
   const debouncedSearchTerm = useDebounce(daoFilter, 500);
 
   const { daos, isLoading, error } = useDaosByUser({
     userAddress: address as string,
     daoFilter: debouncedSearchTerm,
-    ordering: sort && {
-      orderBy: sort,
-      orderDirection: 'desc',
-    },
-    memberFilter,
   });
   if (!address) return <div>Not connected</div>;
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>error</div>;
-  // if (daos?.length === 0) return <div>No daos</div>;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearch = (e: any) => {
     setDaoFilter({
       name_contains_nocase: e.target.value,

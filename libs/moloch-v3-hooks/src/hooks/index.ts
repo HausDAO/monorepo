@@ -5,7 +5,6 @@ export * from './useDaoMembers';
 export * from './useDaoProposals';
 export * from './useDaoRecords';
 export * from './useDaosByUser';
-export * from './useDaoSettings';
 export * from './useERC20';
 // export * from './useMemberProfile'
 export * from './useDaoProposal';

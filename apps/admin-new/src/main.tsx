@@ -1,4 +1,3 @@
-import { DHConnectProvider } from '@daohaus/connect';
 import { HausThemeProvider } from '@daohaus/ui';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';

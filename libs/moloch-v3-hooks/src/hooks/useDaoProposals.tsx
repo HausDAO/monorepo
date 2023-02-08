@@ -10,6 +10,7 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/moloch-v3-data';
+import { handleErrorMessage } from '@daohaus/utils';
 import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useCurrentDao } from '../rage';
@@ -33,15 +34,23 @@ const fetchProposals = async ({
   pageParam?: Paging;
 }) => {
   if (!daoChain || !daoId) return;
-  const res = await listProposals({
-    filter,
-    networkId: daoChain,
-    ordering,
-    paging: pageParam || paging,
-    graphApiKeys,
-  });
-
-  return res;
+  try {
+    const res = await listProposals({
+      filter,
+      networkId: daoChain,
+      ordering,
+      paging: pageParam || paging,
+      graphApiKeys,
+    });
+    return res;
+  } catch (error) {
+    throw new Error(
+      handleErrorMessage({
+        error,
+        fallback: 'Error fetching proposals',
+      })
+    );
+  }
 };
 
 type DaoProposalsProps = {

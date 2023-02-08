@@ -7,6 +7,8 @@ import { truncateAddress } from '@daohaus/utils';
 import {
   MemberCardProps,
   MemberCardExplorerLinkProps,
+  MemberCardItemProps,
+  MemberCardCopyAddressProps,
 } from './MemberCard.types';
 
 import { ParMd } from '../../atoms';
@@ -21,21 +23,24 @@ import {
 import { MemberCardTrigger } from './MemberCard.styles';
 import { useCopyToClipboard } from '../../../hooks';
 
-const TestProfile = {
-  name: 'DAO Guy',
-  ens: 'daoguy.eth',
-  address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
-};
-
 export const MemberCard = ({
   align = 'end',
-  color,
+  size,
+  variant,
+  profile,
+  profileButtonColor,
+  dropdownColor,
   children,
 }: PropsWithChildren<MemberCardProps>) => {
   return (
     <DropdownMenu>
-      <DropdownTrigger color={color} profile={TestProfile}></DropdownTrigger>
-      <DropdownContent color={color} align={align}>
+      <DropdownTrigger
+        size={size}
+        variant={variant}
+        color={profileButtonColor}
+        profile={profile}
+      ></DropdownTrigger>
+      <DropdownContent color={dropdownColor} align={align}>
         {children}
       </DropdownContent>
     </DropdownMenu>
@@ -66,11 +71,27 @@ export const MemberCardExplorerLink = ({
 export const MemberCardCopyAddress = ({
   profileAddress,
   children,
-}: PropsWithChildren<{ profileAddress: string }>) => {
+  ...props
+}: PropsWithChildren<MemberCardCopyAddressProps>) => {
   const copy = useCopyToClipboard();
 
   const handleCopy = () => {
     copy(profileAddress, 'Success!');
   };
-  return <DropdownItem onClick={handleCopy}>{children}</DropdownItem>;
+  return (
+    <DropdownItem onClick={handleCopy} {...props}>
+      {children}
+    </DropdownItem>
+  );
+};
+
+export const MemberCardItem = ({
+  children,
+  ...props
+}: PropsWithChildren<MemberCardItemProps>) => {
+  return (
+    <DropdownItem asChild {...props}>
+      {children}
+    </DropdownItem>
+  );
 };

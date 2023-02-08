@@ -3,7 +3,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
-import { Button, Link } from '../../atoms';
+import { Button, Link, LinkStyles } from '../../atoms';
 import { DropdownColor } from './Dropdown.types';
 
 // * Start New Dropdown implementation
@@ -22,7 +22,9 @@ export const Trigger = styled(Dropdown.Trigger)`
 
   &[data-state='open'] {
     svg {
-      transform: rotate(180deg);
+      &.icon-right {
+        transform: rotate(180deg);
+      }
     }
   }
 `;
@@ -72,17 +74,11 @@ const BaseItemStyles = css`
   border-radius: 4px;
   cursor: pointer;
   display: flex;
+  font-weight: 400;
+  height: 48px;
+  outline: none;
   padding: 0 12px;
   width: 100%;
-  outline: none;
-
-  &.md {
-    height: 36px;
-  }
-
-  &.lg {
-    height: 48px;
-  }
 
   &:focus-visible {
     background-color: ${({
@@ -167,7 +163,8 @@ export const ItemIndicator = styled(Dropdown.ItemIndicator)`
   justify-content: center;
 `;
 
-export const DropdownLink = styled(Link)`
+export const DropdownLinkStyles = css`
+  ${LinkStyles}
   color: ${(props) => props.theme.secondary.step12};
 
   :hover {
@@ -179,4 +176,8 @@ export const DropdownLink = styled(Link)`
   &.disabled {
     color: ${(props) => props.theme.secondary.step11};
   }
+`;
+
+export const DropdownLink = styled(Link)`
+  ${DropdownLinkStyles}
 `;

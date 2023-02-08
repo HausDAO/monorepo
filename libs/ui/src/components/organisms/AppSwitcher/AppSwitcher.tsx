@@ -1,15 +1,9 @@
 import React from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
 
-import { widthQuery } from '../../../theme/global/breakpoints';
-import { useBreakpoint } from '../../../hooks/useMediaQuery';
 import {
-  DropdownCheckbox,
   DropdownContent,
   DropdownItem,
-  DropdownLabel,
   DropdownMenu,
-  DropdownSeparator,
   DropdownTrigger,
 } from '../../molecules/Dropdown';
 
@@ -18,36 +12,34 @@ import { ReactComponent as Hub } from '../../../assets/Hub.svg';
 import { ReactComponent as Daohaus } from '../../../assets/Daohaus.svg';
 import { ReactComponent as Summoner } from '../../../assets/Summoner.svg';
 import { ReactComponent as Docs } from '../../../assets/Docs.svg';
-import { AppSwitcherLink } from './AppSwitcher.styles';
 import { Button } from '../../atoms/Button';
-import { Link } from '../../atoms';
 
-function makeDropdownList(apps: IApp[]) {
+function makeAppList(apps: IApp[]) {
   return apps.map((app, index) => (
-    <DropdownItem asChild IconLeft={app.Icon}>
-      <Link href={app.url}>{app.name}</Link>
+    <DropdownItem key={index} asChild>
+      <Button href={app.url} IconLeft={app.Icon}>
+        {app.name}
+      </Button>
     </DropdownItem>
   ));
 }
 
-export const AppSwitcher = ({ className }: AppSwitcherProps) => {
+export const AppSwitcher = ({
+  currentApp,
+  apps,
+  className,
+}: AppSwitcherProps) => {
+  const appList = makeAppList(apps);
   return (
     <DropdownMenu>
-      <DropdownTrigger IconLeft={Hub}>Hub</DropdownTrigger>
+      <DropdownTrigger IconLeft={currentApp.Icon}>
+        {currentApp.name}
+      </DropdownTrigger>
       <DropdownContent align="end">
         <DropdownItem asChild>
-          <Button size="sm" href="https://storybook.daohaus.fun/?">
-            Storybook
+          <Button IconLeft={currentApp.Icon} href="https://hub.daohaus.club/">
+            Hub
           </Button>
-        </DropdownItem>
-        <DropdownItem onClick={() => alert('changing to Home')} IconLeft={Docs}>
-          Docs
-        </DropdownItem>
-        <DropdownItem
-          onClick={() => alert('changing to Home')}
-          IconLeft={Daohaus}
-        >
-          DAOHaus
         </DropdownItem>
       </DropdownContent>
     </DropdownMenu>

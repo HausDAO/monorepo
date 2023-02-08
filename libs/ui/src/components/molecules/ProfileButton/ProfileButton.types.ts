@@ -1,10 +1,8 @@
 import { AccountProfile } from '@daohaus/utils';
 
 import { ButtonProps } from '../../atoms/Button/Button.types';
-import { ProfileAvatarProps } from '../ProfileAvatar/';
 
-type OmittedProps = 'IconLeft';
+type OmittedProps = 'IconLeft' | 'href';
 export interface ProfileButtonProps extends Omit<ButtonProps, OmittedProps> {
-  /* Profile Avatar stils on the left of button */
   profile: AccountProfile;
 }

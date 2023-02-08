@@ -1,10 +1,20 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { MemberCard } from './MemberCard';
+import {
+  MemberCard,
+  MemberCardCopyAddress,
+  MemberCardExplorerLink,
+  MemberCardItem,
+} from './MemberCard';
 
 export default {
   title: 'Organisms/MemberCard',
   component: MemberCard,
+  subcomponents: {
+    MemberCardExplorerLink,
+    MemberCardCopyAddress,
+    MemberCardItem,
+  },
 } as ComponentMeta<typeof MemberCard>;
 
 const Template: ComponentStory<typeof MemberCard> = (args) => (
@@ -15,30 +25,62 @@ const Template: ComponentStory<typeof MemberCard> = (args) => (
 
 export const MemberCardWithName = Template.bind({});
 
-MemberCardWithName.args = {
-  profile: {
-    name: 'DAO Guy',
-    ens: 'daoguy.eth',
-    address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
-  },
-  explorerNetworkId: '0x5',
+const sampleProfile = {
+  name: 'DAO Guy',
+  ens: 'daoguy.eth',
+  address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
 };
 
-// export const MemberCardWithEns = Template.bind({});
+MemberCardWithName.args = {
+  profile: sampleProfile,
+  children: [
+    <MemberCardExplorerLink
+      profileAddress={sampleProfile.address}
+      explorerNetworkId="0x1"
+    >
+      View on Etherscan
+    </MemberCardExplorerLink>,
+    <MemberCardCopyAddress profileAddress={sampleProfile.address}>
+      Copy Me!
+    </MemberCardCopyAddress>,
+  ],
+};
 
-// MemberCardWithEns.args = {
-//   profile: {
-//     ens: 'daoguy.eth',
-//     address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
-//   },
-//   explorerNetworkId: '0x5',
-// };
+export const MemberCardWithEns = Template.bind({});
 
-// export const MemberCardWithAddress = Template.bind({});
+const sampleEnsProfile = {
+  ens: 'daoguy.eth',
+  address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
+};
 
-// MemberCardWithAddress.args = {
-//   profile: {
-//     address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
-//   },
-//   explorerNetworkId: '0x5',
-// };
+MemberCardWithEns.args = {
+  profile: sampleEnsProfile,
+  children: [
+    <MemberCardExplorerLink
+      profileAddress={sampleProfile.address}
+      explorerNetworkId="0x1"
+    >
+      View on Etherscan
+    </MemberCardExplorerLink>,
+    <MemberCardCopyAddress profileAddress={sampleProfile.address}>
+      Copy Me!
+    </MemberCardCopyAddress>,
+  ],
+};
+
+export const MemberCardWithRouterLink = Template.bind({});
+
+MemberCardWithRouterLink.args = {
+  profile: sampleEnsProfile,
+  children: [
+    <MemberCardExplorerLink
+      profileAddress={sampleProfile.address}
+      explorerNetworkId="0x1"
+    >
+      View on Etherscan
+    </MemberCardExplorerLink>,
+    <MemberCardCopyAddress profileAddress={sampleProfile.address}>
+      Copy Me!
+    </MemberCardCopyAddress>,
+  ],
+};

@@ -4,13 +4,11 @@ import {
   DropdownMenuCheckboxItemProps,
   DropdownMenuRadioItemProps,
 } from '@radix-ui/react-dropdown-menu';
-import { IconType } from 'react-icons';
 
 import { ButtonProps } from '../../atoms';
 import { ProfileButtonProps } from '../ProfileButton';
 
 export type DropdownColor = 'primary' | 'secondary';
-export type DropdownSize = 'md' | 'lg';
 
 /* Types for Dropdown Trigger leveraging Button & Profile Button */
 type OmittedTriggerButtonProps = 'IconRight';
@@ -33,20 +31,9 @@ export interface DropdownContentProps extends DropdownMenuContentProps {
 
 export interface BaseItemProps {
   color?: DropdownColor;
-  size?: DropdownSize;
 }
 
-export type DropdownItemProps = BaseItemProps &
-  DropdownMenuItemProps & {
-    /* Adds icon before button label */
-    IconLeft?:
-      | IconType
-      | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-    /* Adds icon after button label */
-    IconRight?:
-      | IconType
-      | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  };
+export type DropdownItemProps = BaseItemProps & DropdownMenuItemProps;
 
 export type DropdownCheckboxProps = BaseItemProps &
   DropdownMenuCheckboxItemProps;

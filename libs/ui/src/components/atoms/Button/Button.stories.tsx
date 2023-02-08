@@ -101,6 +101,7 @@ export const ButtonLeftIcon = Template.bind({});
 ButtonLeftIcon.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
+  href: 'https://daohaus.club',
 };
 
 export const ButtonRightIcon = Template.bind({});

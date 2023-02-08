@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import {
   RiArrowDropDownLine,
   RiCheckLine,
@@ -77,18 +76,12 @@ export const DropdownContent = React.forwardRef<
 
 export const DropdownItem = ({
   color = 'secondary',
-  size = 'lg',
   className,
   children,
-  IconLeft,
-  IconRight,
   ...props
 }: DropdownItemProps) => {
-  const classes = classNames({
-    [size]: size,
-  });
   return (
-    <Item color={color} className={`${classes} ${className}`} {...props}>
+    <Item color={color} className={`${className}`} {...props}>
       {children}
     </Item>
   );
@@ -97,62 +90,28 @@ export const DropdownItem = ({
 export const DropdownCheckbox = React.forwardRef<
   HTMLDivElement,
   DropdownCheckboxProps
->(
-  (
-    {
-      color = 'secondary',
-      size = 'lg',
-      checked,
-      className,
-      children,
-      ...props
-    },
-    forwardedRef
-  ) => {
-    const classes = classNames({
-      [size]: size,
-    });
-    return (
-      <CheckboxItem
-        color={color}
-        checked={checked}
-        className={`${classes} ${className}`}
-        ref={forwardedRef}
-        {...props}
-      >
-        {children}
-        {/* <RiCheckLine /> */}
-        <ItemIndicator>
-          <RiCheckLine />
-        </ItemIndicator>
-      </CheckboxItem>
-    );
-  }
-);
+>(({ color = 'secondary', checked, children, ...props }, forwardedRef) => {
+  return (
+    <CheckboxItem color={color} checked={checked} ref={forwardedRef} {...props}>
+      {children}
+      {/* <RiCheckLine /> */}
+      <ItemIndicator>
+        <RiCheckLine />
+      </ItemIndicator>
+    </CheckboxItem>
+  );
+});
 
 export const DropdownRadio = React.forwardRef<
   HTMLDivElement,
   DropdownRadioProps
->(
-  (
-    { color = 'secondary', size = 'lg', className, children, ...props },
-    forwardedRef
-  ) => {
-    const classes = classNames({
-      [size]: size,
-    });
-    return (
-      <RadioItem
-        color={color}
-        className={`${classes} ${className}`}
-        ref={forwardedRef}
-        {...props}
-      >
-        {children}
-        <ItemIndicator>
-          <RiRadioButtonFill />
-        </ItemIndicator>
-      </RadioItem>
-    );
-  }
-);
+>(({ color = 'secondary', className, children, ...props }, forwardedRef) => {
+  return (
+    <RadioItem color={color} ref={forwardedRef} {...props}>
+      {children}
+      <ItemIndicator>
+        <RiRadioButtonFill />
+      </ItemIndicator>
+    </RadioItem>
+  );
+});

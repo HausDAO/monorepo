@@ -1,4 +1,9 @@
-export { MemberCard, MemberCardExplorerLink } from './MemberCard';
+export {
+  MemberCard,
+  MemberCardExplorerLink,
+  MemberCardCopyAddress,
+} from './MemberCard';
+
 export type {
   MemberCardProps,
   MemberCardExplorerLinkProps,

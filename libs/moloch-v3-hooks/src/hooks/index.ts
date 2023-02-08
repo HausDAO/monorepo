@@ -8,3 +8,4 @@ export * from './useDaosByUser';
 export * from './useDaoSettings';
 export * from './useERC20';
 // export * from './useMemberProfile'
+export * from './useDaoProposal';

@@ -32,7 +32,6 @@ const fetchProposals = async ({
   paging: Paging;
   pageParam?: Paging;
 }) => {
-  console.log('ordering');
   if (!daoChain || !daoId) return;
   const res = await listProposals({
     filter,

@@ -1,11 +1,11 @@
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { AccountProfile } from '@daohaus/utils';
+import { DropdownContentProps } from '../../molecules/Dropdown/Dropdown.types';
 
-export type MemberCardProps = {
-  profile: AccountProfile;
+import { ProfileButtonProps } from '../../molecules/ProfileButton/ProfileButton.types';
+
+export type MemberCardProps = ProfileButtonProps & DropdownContentProps;
+
+export type MemberCardExplorerLinkProps = {
+  profileAddress: string;
   explorerNetworkId: ValidNetwork;
-  profileUrl?: string;
-  minWidth?: string;
-  menuBg?: string;
-  className?: string;
 };

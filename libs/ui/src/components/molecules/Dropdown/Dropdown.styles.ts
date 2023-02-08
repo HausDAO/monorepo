@@ -166,3 +166,17 @@ export const ItemIndicator = styled(Dropdown.ItemIndicator)`
   align-items: center;
   justify-content: center;
 `;
+
+export const DropdownLink = styled(Link)`
+  color: ${(props) => props.theme.secondary.step12};
+
+  :hover {
+    background-color: ${(props) => props.theme.secondary.step4};
+    border-color: ${(props) => props.theme.secondary.step8};
+    text-decoration: none;
+  }
+
+  &.disabled {
+    color: ${(props) => props.theme.secondary.step11};
+  }
+`;

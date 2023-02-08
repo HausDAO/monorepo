@@ -1,10 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
 
 import { generateExplorerLink } from '@daohaus/keychain-utils';
 import { truncateAddress } from '@daohaus/utils';
 
-import { MemberCardProps } from './MemberCard.types';
+import {
+  MemberCardProps,
+  MemberCardExplorerLinkProps,
+} from './MemberCard.types';
 
 import { ParMd } from '../../atoms';
 
@@ -13,6 +16,7 @@ import {
   DropdownTrigger,
   DropdownContent,
   DropdownItem,
+  DropdownLink,
 } from '../../molecules/Dropdown';
 import { MemberCardTrigger } from './MemberCard.styles';
 import { useCopyToClipboard } from '../../../hooks';
@@ -24,35 +28,49 @@ const TestProfile = {
 };
 
 export const MemberCard = ({
-  className,
-  profile,
-  profileUrl,
-  explorerNetworkId,
-  minWidth = '17.8rem',
-}: MemberCardProps) => {
-  const copy = useCopyToClipboard();
+  align = 'end',
+  color,
+  children,
+}: PropsWithChildren<MemberCardProps>) => {
+  return (
+    <DropdownMenu>
+      <DropdownTrigger color={color} profile={TestProfile}></DropdownTrigger>
+      <DropdownContent color={color} align={align}>
+        {children}
+      </DropdownContent>
+    </DropdownMenu>
+  );
+};
 
+export const MemberCardExplorerLink = ({
+  explorerNetworkId,
+  profileAddress,
+  children,
+}: PropsWithChildren<MemberCardExplorerLinkProps>) => {
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {
       return generateExplorerLink({
         chainId: explorerNetworkId,
-        address: profile.address,
+        address: profileAddress,
         type: 'address',
       });
     }
-  }, [profile, explorerNetworkId]);
+  }, [profileAddress, explorerNetworkId]);
+  return (
+    <DropdownItem asChild>
+      <DropdownLink href={explorerLink}>{children}</DropdownLink>
+    </DropdownItem>
+  );
+};
+
+export const MemberCardCopyAddress = ({
+  profileAddress,
+  children,
+}: PropsWithChildren<{ profileAddress: string }>) => {
+  const copy = useCopyToClipboard();
 
   const handleCopy = () => {
-    copy(profile.address, 'Success!');
+    copy(profileAddress, 'Success!');
   };
-
-  return (
-    <DropdownMenu>
-      <DropdownTrigger profile={TestProfile}></DropdownTrigger>
-      <DropdownContent align="end">
-        <DropdownItem>Click Me</DropdownItem>
-        <DropdownItem disabled>I'm Disabled</DropdownItem>
-      </DropdownContent>
-    </DropdownMenu>
-  );
+  return <DropdownItem onClick={handleCopy}>{children}</DropdownItem>;
 };

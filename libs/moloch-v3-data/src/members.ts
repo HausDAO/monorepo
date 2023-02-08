@@ -59,7 +59,7 @@ export const findMember = async ({
       url,
       networkId,
       {
-        id: `${dao}-member-${memberAddress}`,
+        id: `${dao.toLowerCase()}-member-${memberAddress.toLowerCase()}`,
       }
     );
   } catch (err) {

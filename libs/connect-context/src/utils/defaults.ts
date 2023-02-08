@@ -25,7 +25,7 @@ export const web3modalDefaults = {
   theme: 'dark',
 };
 
-export const defaultWalletValues = {
+export const defaultConnectValues = {
   provider: null,
   chainId: null,
   address: null,
@@ -45,4 +45,6 @@ export const defaultWalletValues = {
   validNetwork: false,
   isAppNetwork: () => false,
   appNetworks: [],
+  daoId: undefined,
+  daoChain: undefined,
 };

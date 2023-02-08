@@ -5,5 +5,4 @@ export const VALID_NETWORKS = {
   '0xa': true,
   '0x89': true,
   '0xa4b1': true,
-  '0xa4ec': true,
 };

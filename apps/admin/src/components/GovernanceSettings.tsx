@@ -18,6 +18,7 @@ import {
   fromWei,
   INFO_COPY,
   lowerCaseLootToken,
+  toWholeUnits,
 } from '@daohaus/utils';
 
 import { getNetwork } from '@daohaus/keychain-utils';
@@ -103,11 +104,10 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       votingPeriodUnits: 'seconds',
       gracePeriodUnits: 'seconds',
       gracePeriod: dao.gracePeriod,
-      proposalOffering: dao.proposalOffering,
       quorum: dao.quorumPercent,
       minRetention: dao.minRetentionPercent,
-      sponsorThreshold: dao.sponsorThreshold,
-      newOffering: dao.proposalOffering,
+      sponsorThreshold: toWholeUnits(dao.sponsorThreshold),
+      newOffering: toWholeUnits(dao.proposalOffering),
       vStake: dao.sharesPaused,
       nvStake: dao.lootPaused,
     };

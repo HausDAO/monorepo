@@ -6,7 +6,7 @@ export const isValidNetwork = (
   str: unknown,
   networks?: Keychain<unknown>
 ): str is ValidNetwork =>
-  typeof str === 'string' && networks
+  networks
     ? networks[str as ValidNetwork] !== undefined
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 

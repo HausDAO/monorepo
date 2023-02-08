@@ -1,5 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
+  formatValueTo,
   handleErrorMessage,
   isEthAddress,
   ReactSetter,
@@ -177,7 +178,11 @@ export const TributeInput = (
 
   const maxButton = tokenData?.balance && tokenData?.decimals && (
     <Button color="secondary" size="sm" onClick={handleMax} type="button">
-      Max: {toWholeUnits(tokenData?.balance, tokenData?.decimals)}
+      Max:{' '}
+      {formatValueTo({
+        value: toWholeUnits(tokenData?.balance, tokenData?.decimals),
+        decimals: 6,
+      })}
     </Button>
   );
 

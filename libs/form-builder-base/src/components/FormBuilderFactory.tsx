@@ -18,18 +18,12 @@ export const FormBuilderFactory = ({ field }: { field: FieldLego }) => {
   const GeneratedField = useMemo(
     () => {
       const Field = fieldObj[type];
-      console.log('Field', Field);
-      console.log('fieldObj', fieldObj);
-      console.log('type', type);
-      console.log('field', field);
 
       // somehow, generarte rules will need to be become extendable as well
       const newRules = generateRules({
         field: field,
         requiredFields: requiredFields || {},
       });
-      console.log('newRules', newRules);
-      console.log('applyToEach', applyToEach);
       return (
         <Field
           {...field}

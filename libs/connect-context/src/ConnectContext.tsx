@@ -111,9 +111,10 @@ export const ConnectProvider = ({
 
   useEffect(() => {
     let shouldUpdate = true;
-    if (address && isConnected && address !== profile?.address) {
+    if (address && chainId && isConnected && address !== profile?.address) {
       loadProfile({
         address,
+        chainId,
         setProfile,
         setProfileLoading,
         shouldUpdate,
@@ -124,7 +125,7 @@ export const ConnectProvider = ({
     return () => {
       shouldUpdate = false;
     };
-  }, [address, isConnected, networks, lifeCycleFns, profile]);
+  }, [address, chainId, isConnected, networks, lifeCycleFns, profile]);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({

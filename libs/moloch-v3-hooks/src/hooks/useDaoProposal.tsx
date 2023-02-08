@@ -5,7 +5,7 @@ import {
 } from '@daohaus/keychain-utils';
 import { findProposal } from '@daohaus/moloch-v3-data';
 import { useQuery } from 'react-query';
-import { useCurrentDao } from '../rage';
+import { useCurrentDao } from '../contexts';
 import { DaoQueryKeys, daoScopedQueryId } from '../utils';
 
 const fetchProposal = async ({

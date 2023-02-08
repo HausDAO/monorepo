@@ -1,3 +1,3 @@
 export * from './hooks';
-export * from './rage';
+export * from './contexts';
 export * from './utils';

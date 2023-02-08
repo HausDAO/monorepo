@@ -78,18 +78,6 @@
         "jestConfig": "apps/admin-new/jest.config.ts",
         "passWithNoTests": true
       }
-    },
-    "cloudflareStaging": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=admin-new-staging --directory=dist/apps/admin-new"
-      }
-    },
-    "cloudflareProduction": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node tools/scripts/cloudflarePublish.mjs --projectName=admin-new --directory=dist/apps/admin-new"
-      }
     }
   },
   "tags": []

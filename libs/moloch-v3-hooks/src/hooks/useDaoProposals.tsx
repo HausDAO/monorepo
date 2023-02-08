@@ -13,7 +13,7 @@ import {
 import { handleErrorMessage } from '@daohaus/utils';
 import { useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { useCurrentDao } from '../rage';
+import { useCurrentDao } from '../contexts';
 import { checkContextDefault, DaoQueryKeys, daoScopedQueryId } from '../utils';
 
 const fetchProposals = async ({

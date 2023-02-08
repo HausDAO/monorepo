@@ -1,9 +1,14 @@
 import { DHLayout } from '@daohaus/connect';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { CurrentDaoProvider } from '@daohaus/moloch-v3-hooks';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 export const DaoContainer = () => {
-  const { daoChain, daoId } = useParams();
+  const { daoChain, daoId, proposalId } = useParams<{
+    daoChain: ValidNetwork;
+    daoId: string;
+    proposalId: string;
+  }>();
 
   const location = useLocation();
 
@@ -26,7 +31,13 @@ export const DaoContainer = () => {
       navLinks={navLinks}
       dropdownLinks={moreLinks}
     >
-      <CurrentDaoProvider>
+      <CurrentDaoProvider
+        targetDao={{
+          daoChain,
+          daoId,
+          proposalId,
+        }}
+      >
         <Outlet />
       </CurrentDaoProvider>
     </DHLayout>

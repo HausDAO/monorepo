@@ -5,7 +5,7 @@ import {
   ValidNetwork,
 } from '@daohaus/keychain-utils';
 import { useQuery } from 'react-query';
-import { EthAddress, handleErrorMessage } from '@daohaus/utils';
+import { handleErrorMessage } from '@daohaus/utils';
 import { useCurrentDao } from '../rage/CurrentDaoContext';
 import { DaoQueryKeys, daoScopedQueryId } from '../utils';
 
@@ -14,7 +14,7 @@ export const fetchDao = async ({
   daoChain,
   graphApiKeys,
 }: {
-  daoId?: EthAddress;
+  daoId?: string;
   daoChain?: ValidNetwork;
   graphApiKeys: Keychain;
 }) => {
@@ -36,13 +36,11 @@ export const fetchDao = async ({
   }
 };
 
-type DaoDataProps =
-  | {
-      daoId?: EthAddress;
-      daoChain?: ValidNetwork;
-      graphApiKeys?: Keychain;
-    }
-  | undefined;
+type DaoDataProps = {
+  daoId: string;
+  daoChain: ValidNetwork;
+  graphApiKeys?: Keychain;
+};
 
 export const useDaoData = (props?: DaoDataProps | undefined) => {
   const {

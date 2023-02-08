@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { ArbitraryState, EthAddress } from '@daohaus/utils';
+import { ArbitraryState } from '@daohaus/utils';
 import React, { ReactNode, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 type CurrentDaoContextType = {
-  daoId?: EthAddress;
+  daoId?: string;
   daoChain?: ValidNetwork;
   proposalId?: string;
   updateFilter: (filterKey: string, filter: any) => void;
@@ -23,32 +22,28 @@ export const CurrentDaoContext = React.createContext<CurrentDaoContextType>({
   getOrder: () => undefined,
 });
 
+type TargetDao = {
+  daoId?: string;
+  daoChain?: ValidNetwork;
+  proposalId?: string;
+};
+
 type CurrentContextProps = {
   children: ReactNode;
-  targetDao?: {
-    daoId: EthAddress;
-    daoChain: ValidNetwork;
-    proposalId?: string;
-  };
+  targetDao: TargetDao;
 };
 
 export const CurrentDaoProvider = ({
   children,
   targetDao,
 }: CurrentContextProps) => {
-  const { daoChain, daoId, proposalId } = useParams<{
-    daoId: EthAddress;
-    daoChain: ValidNetwork;
-    proposalId?: string;
-  }>();
   const [currentFilters, setFilter] = useState<ArbitraryState>({});
   const [currentOrders, setOrder] = useState<ArbitraryState>({});
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const updateFilter = (filterKey: string, filter: any) => {
     setFilter((prevState) => ({ ...prevState, [filterKey]: filter }));
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateOrder = (orderKey: string, order: any) => {
     setOrder((prevState) => ({ ...prevState, [orderKey]: order }));
   };
@@ -61,9 +56,9 @@ export const CurrentDaoProvider = ({
   return (
     <CurrentDaoContext.Provider
       value={{
-        daoChain: targetDao?.daoChain || daoChain,
-        daoId: targetDao?.daoId || daoId,
-        proposalId: targetDao?.proposalId || proposalId,
+        daoChain: targetDao?.daoChain,
+        daoId: targetDao?.daoId,
+        proposalId: targetDao?.proposalId,
         updateFilter,
         getFilter,
         updateOrder,

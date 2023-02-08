@@ -7,6 +7,7 @@ type CurrentDaoContextType = {
   daoId?: string;
   daoChain?: ValidNetwork;
   proposalId?: string;
+  memberAddress?: string;
   updateFilter: (filterKey: string, filter: any) => void;
   updateOrder: (filterKey: string, filter: any) => void;
   getOrder: (filterKey: string) => any;
@@ -26,6 +27,7 @@ type TargetDao = {
   daoId?: string;
   daoChain?: ValidNetwork;
   proposalId?: string;
+  memberAddress?: string;
 };
 
 type CurrentContextProps = {
@@ -59,6 +61,7 @@ export const CurrentDaoProvider = ({
         daoChain: targetDao?.daoChain,
         daoId: targetDao?.daoId,
         proposalId: targetDao?.proposalId,
+        memberAddress: targetDao?.memberAddress,
         updateFilter,
         getFilter,
         updateOrder,

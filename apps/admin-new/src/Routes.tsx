@@ -16,6 +16,7 @@ import { Safes } from './pages/Safes';
 import { Settings } from './pages/Settings';
 import { MULTI_DAO_ROUTER } from '@daohaus/moloch-v3-hooks';
 import { Proposal } from './pages/Proposal';
+import { Member } from './pages/Member';
 
 export const Routes = ({
   setDaoChainId,
@@ -46,6 +47,7 @@ export const Routes = ({
         <Route path="safes" element={<Safes />} />
         <Route path="settings" element={<Settings />} />
         <Route path="proposal/:proposalId" element={<Proposal />} />
+        <Route path="member/:memberAddress" element={<Member />} />
       </Route>
     </RoutesDom>
   );

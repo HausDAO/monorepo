@@ -1,13 +1,15 @@
-import { DHLayout } from '@daohaus/connect';
+import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { CurrentDaoProvider } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 
 export const DaoContainer = () => {
-  const { daoChain, daoId, proposalId } = useParams<{
+  const { address } = useDHConnect();
+  const { daoChain, daoId, proposalId, memberAddress } = useParams<{
     daoChain: ValidNetwork;
     daoId: string;
     proposalId: string;
+    memberAddress: string;
   }>();
 
   const location = useLocation();
@@ -22,7 +24,10 @@ export const DaoContainer = () => {
 
   const moreLinks = [
     { label: 'Settings', href: `/molochv3/${daoChain}/${daoId}/settings` },
-    { label: 'Profile', href: `/molochv3/${daoChain}/${daoId}/members/0x0` },
+    {
+      label: 'Profile',
+      href: `/molochv3/${daoChain}/${daoId}/member/${address}`,
+    },
   ];
 
   return (
@@ -36,6 +41,7 @@ export const DaoContainer = () => {
           daoChain,
           daoId,
           proposalId,
+          memberAddress,
         }}
       >
         <Outlet />

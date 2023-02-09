@@ -24,7 +24,7 @@ import {
   loadWallet,
 } from './utils/contextHelpers';
 
-import { defaultWalletValues, web3modalDefaults } from './utils/defaults';
+import { defaultConnectValues, web3modalDefaults } from './utils/defaults';
 
 import {
   ConnectLifecycleFns,
@@ -51,10 +51,12 @@ export type UserConnectType = {
   validNetwork: boolean;
   isAppNetwork: (chainId: string) => boolean;
   appNetworks: string[];
+  daoId?: string;
+  daoChain?: string;
 };
 
 export const ConnectContext =
-  createContext<UserConnectType>(defaultWalletValues);
+  createContext<UserConnectType>(defaultConnectValues);
 
 export type ConnectProviderProps = {
   web3modalOptions?: ModalOptions;
@@ -62,6 +64,8 @@ export type ConnectProviderProps = {
   children: ReactNode;
   daoChainId?: string;
   lifeCycleFns?: ConnectLifecycleFns;
+  daoId?: string;
+  daoChain?: string;
 };
 
 export const ConnectProvider = ({
@@ -70,6 +74,8 @@ export const ConnectProvider = ({
   networks = HAUS_NETWORK_DATA,
   lifeCycleFns,
   daoChainId,
+  daoId,
+  daoChain,
 }: ConnectProviderProps) => {
   const [isConnecting, setConnecting] = useState(true);
   const [{ provider, chainId, address }, setWalletState] =
@@ -105,9 +111,10 @@ export const ConnectProvider = ({
 
   useEffect(() => {
     let shouldUpdate = true;
-    if (address && isConnected && address !== profile?.address) {
+    if (address && chainId && isConnected && address !== profile?.address) {
       loadProfile({
         address,
+        chainId,
         setProfile,
         setProfileLoading,
         shouldUpdate,
@@ -118,7 +125,7 @@ export const ConnectProvider = ({
     return () => {
       shouldUpdate = false;
     };
-  }, [address, isConnected, networks, lifeCycleFns, profile]);
+  }, [address, chainId, isConnected, networks, lifeCycleFns, profile]);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
@@ -160,6 +167,8 @@ export const ConnectProvider = ({
         validNetwork,
         isAppNetwork,
         appNetworks,
+        daoId,
+        daoChain,
       }}
     >
       {children}

@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
 
-import { formatValueTo, fromWei } from '@daohaus/utils';
-import { Keychain } from '@daohaus/keychain-utils';
-
 import { ExplorerLink } from '@daohaus/connect';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   Bold,
   Button,
@@ -20,6 +19,7 @@ import {
   widthQuery,
   useBreakpoint,
 } from '@daohaus/ui';
+import { formatValueTo, fromWei } from '@daohaus/utils';
 
 import {
   ProposalHistoryElement,
@@ -27,7 +27,6 @@ import {
 } from '../utils/historyHelpers';
 import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { VoteList } from './VoteList';
-import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 
 const ElementContainer = styled.div`
   display: flex;
@@ -201,7 +200,11 @@ export const ProposalHistoryCard = ({
 
           {element.txHash && (
             <LinkContainer>
-              <ExplorerLink address={element.txHash} type="tx">
+              <ExplorerLink
+                address={element.txHash}
+                chainId={daochain as ValidNetwork}
+                type="tx"
+              >
                 View Transaction
               </ExplorerLink>
             </LinkContainer>

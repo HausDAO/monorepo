@@ -30,7 +30,7 @@ export const MemberProfileAvatar = ({
 
   const fetchMemberProfile = useCallback(
     async (address: string, setter: typeof setMemberProfile) => {
-      const profile = await fetchProfile(address);
+      const profile = await fetchProfile(address, daochain);
       setter(profile);
     },
     []

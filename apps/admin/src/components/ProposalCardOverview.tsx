@@ -7,7 +7,7 @@ import {
   charLimit,
   formatShortDateTimeFromSeconds,
 } from '@daohaus/utils';
-import { Keychain } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
@@ -80,7 +80,7 @@ export const ProposalCardOverview = ({
 
   const fetchMemberProfile = useCallback(
     async (address: string, setter: typeof setSubmitterProfile) => {
-      const profile = await fetchProfile(address);
+      const profile = await fetchProfile(address, daochain as ValidNetwork);
       setter(profile);
     },
     []

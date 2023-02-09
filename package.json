@@ -50,6 +50,8 @@
     "react-hook-form": "^7.38.0",
     "react-icons": "^4.7.1",
     "react-is": "18.2.0",
+    "react-json-view": "^1.21.3",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.4.3",
     "react-table": "^7.8.0",
     "regenerator-runtime": "0.13.7",

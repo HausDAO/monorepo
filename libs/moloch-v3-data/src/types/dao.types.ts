@@ -18,7 +18,7 @@ type DaoWithProfile = FindDaoQuery['dao'] & DaoProfile;
 type DaoWithProfileQuery = {
   dao: DaoWithProfile | undefined;
 };
-export type DaoVault = DaoWithProfile['vaults'][number] & {
+export type DaoSafe = DaoWithProfile['vaults'][number] & {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
 };
@@ -26,7 +26,7 @@ type MolochV3DaoQuery = {
   dao: MolochV3Dao;
 };
 export type MolochV3Dao = Omit<DaoWithProfile, 'vaults'> & {
-  vaults: DaoVault[];
+  vaults: DaoSafe[];
   fiatTotal: number;
 };
 export type FindDaoQueryRes =

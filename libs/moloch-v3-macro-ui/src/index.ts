@@ -1,1 +1,1 @@
-export * from './macros';
+export * from './components';

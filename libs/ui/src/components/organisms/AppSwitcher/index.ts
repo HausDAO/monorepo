@@ -1,2 +1,3 @@
-export * from './AppSwitcher';
-export * from './AppSwitcher.styles';
+export { AppSwitcher } from './AppSwitcher';
+
+export type { AppSwitcherProps } from './AppSwitcher.types';

@@ -1,4 +1,5 @@
 import {
+  DropdownMenuProps,
   DropdownMenuContentProps,
   DropdownMenuItemProps,
   DropdownMenuCheckboxItemProps,
@@ -7,6 +8,8 @@ import {
 
 import { ButtonProps } from '../../atoms';
 import { ProfileButtonProps } from '../ProfileButton';
+
+export type DropdownProps = DropdownMenuProps;
 
 export type DropdownColor = 'primary' | 'secondary';
 

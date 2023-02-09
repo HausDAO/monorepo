@@ -1,8 +1,6 @@
 import React, { PropsWithChildren, useMemo } from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
 
 import { generateExplorerLink } from '@daohaus/keychain-utils';
-import { truncateAddress } from '@daohaus/utils';
 
 import {
   MemberCardProps,
@@ -11,8 +9,6 @@ import {
   MemberCardCopyAddressProps,
 } from './MemberCard.types';
 
-import { ParMd } from '../../atoms';
-
 import {
   DropdownMenu,
   DropdownTrigger,
@@ -20,7 +16,6 @@ import {
   DropdownItem,
   DropdownLink,
 } from '../../molecules/Dropdown';
-import { MemberCardTrigger } from './MemberCard.styles';
 import { useCopyToClipboard } from '../../../hooks';
 
 export const MemberCard = ({

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Button } from '../../atoms/Button';
 import {
   DropdownContent,
   DropdownItem,
@@ -8,11 +9,6 @@ import {
 } from '../../molecules/Dropdown';
 
 import { IApp, AppSwitcherProps } from './AppSwitcher.types';
-import { ReactComponent as Hub } from '../../../assets/Hub.svg';
-import { ReactComponent as Daohaus } from '../../../assets/Daohaus.svg';
-import { ReactComponent as Summoner } from '../../../assets/Summoner.svg';
-import { ReactComponent as Docs } from '../../../assets/Docs.svg';
-import { Button } from '../../atoms/Button';
 
 function makeAppList(apps: IApp[]) {
   return apps.map((app, index) => (
@@ -24,11 +20,7 @@ function makeAppList(apps: IApp[]) {
   ));
 }
 
-export const AppSwitcher = ({
-  currentApp,
-  apps,
-  className,
-}: AppSwitcherProps) => {
+export const AppSwitcher = ({ currentApp, apps }: AppSwitcherProps) => {
   const appList = makeAppList(apps);
   return (
     <DropdownMenu>

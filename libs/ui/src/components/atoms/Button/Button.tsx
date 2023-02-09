@@ -35,15 +35,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         justify={justify}
         className={`${classes} ${className}`}
         ref={ref}
-        type={type}
+        type={!href ? type : undefined}
         as={href ? 'a' : 'button'}
         href={href ? href : undefined}
         target={href ? '_blank' : undefined}
         rel={href ? 'noopener noreferrer' : undefined}
       >
-        {IconLeft && <IconLeft className={`${className} icon-left`} />}
+        {IconLeft && <IconLeft className={`icon-left`} />}
         {children}
-        {IconRight && <IconRight className={`${className} icon-right`} />}
+        {IconRight && <IconRight className={`icon-right`} />}
       </StyledButton>
     );
   }

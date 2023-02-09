@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { font } from '../../../theme/global/font';
 import { Theme } from '../../../types/theming';
-import { DropdownButton, DropdownLink } from '../../molecules';
+import { DropdownButton } from '../../molecules';
 
 export const AppSwitcherTrigger = styled(DropdownButton)`
   width: ${({ width }: { width: string }) => width};

@@ -32,7 +32,7 @@ const Template: ComponentStory<typeof DropdownMenu> = (args) => {
     <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
       {/* <Dropdown {...args} /> */}
       <DropdownMenu>
-        <DropdownTrigger fullWidth>Button</DropdownTrigger>
+        <DropdownTrigger>Button</DropdownTrigger>
         <DropdownContent align="end">
           <DropdownLabel>Switch to available network</DropdownLabel>
           <DropdownItem>Click Me</DropdownItem>

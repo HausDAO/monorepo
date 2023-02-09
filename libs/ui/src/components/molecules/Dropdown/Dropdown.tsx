@@ -94,7 +94,6 @@ export const DropdownCheckbox = React.forwardRef<
   return (
     <CheckboxItem color={color} checked={checked} ref={forwardedRef} {...props}>
       {children}
-      {/* <RiCheckLine /> */}
       <ItemIndicator>
         <RiCheckLine />
       </ItemIndicator>

@@ -35,13 +35,7 @@ export const AppSwitcher = ({
       <DropdownTrigger IconLeft={currentApp.Icon}>
         {currentApp.name}
       </DropdownTrigger>
-      <DropdownContent align="end">
-        <DropdownItem asChild>
-          <Button IconLeft={currentApp.Icon} href="https://hub.daohaus.club/">
-            Hub
-          </Button>
-        </DropdownItem>
-      </DropdownContent>
+      <DropdownContent align="end">{appList}</DropdownContent>
     </DropdownMenu>
   );
 };

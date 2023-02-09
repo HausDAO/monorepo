@@ -1,4 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Link as RouterLink, BrowserRouter as Router } from 'react-router-dom';
+import styled from 'styled-components';
+import { withRouter } from 'storybook-addon-react-router-v6';
+
+import { DropdownLinkStyles } from '../../molecules/Dropdown/Dropdown.styles';
 
 import {
   MemberCard,
@@ -14,6 +19,13 @@ export default {
     MemberCardExplorerLink,
     MemberCardCopyAddress,
     MemberCardItem,
+  },
+  decorators: [withRouter],
+  parameters: {
+    reactRouter: {
+      routePath: '/users/:userId',
+      routeParams: { userId: '42' },
+    },
   },
 } as ComponentMeta<typeof MemberCard>;
 
@@ -35,12 +47,13 @@ MemberCardWithName.args = {
   profile: sampleProfile,
   children: [
     <MemberCardExplorerLink
+      key={'00001'}
       profileAddress={sampleProfile.address}
       explorerNetworkId="0x1"
     >
       View on Etherscan
     </MemberCardExplorerLink>,
-    <MemberCardCopyAddress profileAddress={sampleProfile.address}>
+    <MemberCardCopyAddress key={'00002'} profileAddress={sampleProfile.address}>
       Copy Me!
     </MemberCardCopyAddress>,
   ],
@@ -57,12 +70,13 @@ MemberCardWithEns.args = {
   profile: sampleEnsProfile,
   children: [
     <MemberCardExplorerLink
+      key={'00001'}
       profileAddress={sampleProfile.address}
       explorerNetworkId="0x1"
     >
       View on Etherscan
     </MemberCardExplorerLink>,
-    <MemberCardCopyAddress profileAddress={sampleProfile.address}>
+    <MemberCardCopyAddress key={'00002'} profileAddress={sampleProfile.address}>
       Copy Me!
     </MemberCardCopyAddress>,
   ],
@@ -70,17 +84,36 @@ MemberCardWithEns.args = {
 
 export const MemberCardWithRouterLink = Template.bind({});
 
+const StyledRouterLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
+`;
+
+MemberCardWithRouterLink.story = {
+  parameters: {
+    reactRouter: {
+      routePath: '/profile/:profileId',
+      routeParams: { profileId: '42' },
+      searchParams: { tab: 'activityLog' },
+      routeState: { fromPage: 'homePage' },
+    },
+  },
+};
+
 MemberCardWithRouterLink.args = {
   profile: sampleEnsProfile,
   children: [
     <MemberCardExplorerLink
+      key={'00001'}
       profileAddress={sampleProfile.address}
       explorerNetworkId="0x1"
     >
       View on Etherscan
     </MemberCardExplorerLink>,
-    <MemberCardCopyAddress profileAddress={sampleProfile.address}>
+    <MemberCardCopyAddress key="00002" profileAddress={sampleProfile.address}>
       Copy Me!
     </MemberCardCopyAddress>,
+    <MemberCardItem key={'00003'}>
+      <StyledRouterLink to="/profile">View Profile</StyledRouterLink>
+    </MemberCardItem>,
   ],
 };

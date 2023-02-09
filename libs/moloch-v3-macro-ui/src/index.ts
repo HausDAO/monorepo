@@ -1,1 +1,1 @@
-export { VaultCard } from './macros';
+export * from './macros';

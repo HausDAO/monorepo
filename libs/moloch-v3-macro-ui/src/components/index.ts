@@ -1,1 +1,1 @@
-export * from './VaultOverview';
+export * from './Layout';

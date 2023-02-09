@@ -1,8 +1,9 @@
+import React from 'react';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { Link, ParLg, SingleColumnLayout } from '@daohaus/ui';
 import { generateGnosisUiLink } from '@daohaus/utils';
-import React from 'react';
+import { VaultCard } from '@daohaus/moloch-v3-macro-ui';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Safes = () => {
@@ -24,7 +25,9 @@ export const Safes = () => {
       <ParLg>Safes</ParLg>
       <JSONDisplay data={dao?.vaults} />
 
-      {/* <VaultCard */}
+      {dao && daoChain && (
+        <VaultCard dao={dao} vault={dao.vaults[0]} daochain={daoChain} />
+      )}
     </SingleColumnLayout>
   );
 };

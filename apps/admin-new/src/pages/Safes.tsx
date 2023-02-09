@@ -23,6 +23,8 @@ export const Safes = () => {
       </Link>
       <ParLg>Safes</ParLg>
       <JSONDisplay data={dao?.vaults} />
+
+      {/* <VaultCard */}
     </SingleColumnLayout>
   );
 };

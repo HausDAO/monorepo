@@ -57,7 +57,7 @@ export const findProposal = async ({
       FindProposalQuery,
       FindProposalQueryVariables
     >(FindProposalDocument, url, networkId, {
-      id: `${dao}-proposal-${proposalId}`,
+      id: `${dao.toLowerCase()}-proposal-${proposalId}`,
       connectedAddress,
     });
 

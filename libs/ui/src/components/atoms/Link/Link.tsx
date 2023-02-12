@@ -10,7 +10,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     {
       href = '/',
       target = '_blank',
-      externalLinkIcon = true,
+      showExternalIcon = true,
       selected,
       disabled,
       RightIcon,
@@ -30,7 +30,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       >
         {LeftIcon && <LeftIcon className="icon-left" />}
         {children}
-        {(externalLinkIcon && <RiExternalLinkLine />) ||
+        {(showExternalIcon && <RiExternalLinkLine />) ||
           (RightIcon && <RightIcon className="icon-right" />)}
       </StyledLink>
     );

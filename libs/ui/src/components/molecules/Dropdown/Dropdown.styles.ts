@@ -3,7 +3,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
-import { Button, Link, LinkStyles } from '../../atoms';
+import { Link, LinkStyles } from '../../atoms';
 import { DropdownColor } from './Dropdown.types';
 
 // * Start New Dropdown implementation
@@ -172,6 +172,6 @@ export const DropdownLinkStyles = css`
   }
 `;
 
-export const DropdownLink = styled(Link)`
+export const StyledDropdownLink = styled(Link)`
   ${DropdownLinkStyles}
 `;

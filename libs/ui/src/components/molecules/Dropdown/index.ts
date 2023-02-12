@@ -9,6 +9,7 @@ export {
   DropdownCheckbox,
   DropdownRadio,
   DropdownRadioGroup,
+  DropdownLink,
 } from './Dropdown';
 
 export type {
@@ -19,4 +20,4 @@ export type {
   DropdownRadioProps,
 } from './Dropdown.types';
 
-export { DropdownLink } from './Dropdown.styles';
+export { DropdownLinkStyles } from './Dropdown.styles';

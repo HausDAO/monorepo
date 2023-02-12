@@ -23,9 +23,13 @@ export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
   variant?: 'solid' | 'outline' | 'ghost' | 'link';
+  /* Shows loading spinner */
+  isLoading?: boolean;
+  /* The label to show in the button when loading is true */
+  loadingText?: string;
   /* Toggle from fit-content to width 100% of the button element */
   fullWidth?: boolean;
-  /* href for link */
+  /* Passing in the href prop changes to dom element from a button to a link */
   href?: string;
   /* Add justify-content as prop for button content */
   justify?: ButtonJustifyContent;

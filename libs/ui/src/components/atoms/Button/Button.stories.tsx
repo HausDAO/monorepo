@@ -54,6 +54,7 @@ BaseButton.args = {
   color: 'primary',
   variant: 'solid',
   size: 'md',
+  isLoading: false,
   disabled: false,
   fullWidth: false,
   justify: 'flex-start',
@@ -107,6 +108,7 @@ ButtonLeftIcon.args = {
 export const ButtonRightIcon = Template.bind({});
 ButtonRightIcon.args = {
   children: 'Button',
+  isLoading: false,
   disabled: false,
   IconRight: RiArrowDropDownLine,
 };

@@ -7,17 +7,22 @@ import { getNetworkName } from '@daohaus/keychain-utils';
 
 import {
   Button,
-  Dropdown,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  ParMd,
+  DropdownMenu,
+  DropdownTrigger,
+  DropdownContent,
+  DropdownItem,
+  DropdownLabel,
   ParXs,
-  ProfileAvatar,
-  widthQuery,
 } from '@daohaus/ui';
 
 import { useDHConnect } from '../../HausConnectContext';
 import { ExplorerLink } from '../ExplorerLink';
+
+const AddressContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+`;
 
 export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const { disconnect, address, chainId, profile, validNetwork } =
@@ -28,50 +33,21 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
 
   const networkName = getNetworkName(chainId as string);
 
-  const chevron = open ? BiChevronUp : BiChevronDown;
   return (
-    <Dropdown
-      spacing="0.7rem"
-      menuMinWidth={isSm ? 'fit-content' : '25rem'}
-      align="end"
-      open={open}
-      onOpenChange={setOpen}
-      trigger={
-        <Button
-          size={isSm ? 'sm' : 'md'}
-          IconRight={isSm ? undefined : chevron}
-          // width={!isSm ? '25rem' : ''}
-        >
-          <Container>
-            <ProfileAvatar
-              image={profile?.image}
-              address={profile?.address}
-              size="sm"
-              className="user-avatar"
-            />
-            <div className="interior">
-              {!isSm && (
-                <ParMd color={theme.button.primary.solid.text}>
-                  {profile?.displayName ||
-                    (address && truncateAddress(address.toLowerCase()))}
-                </ParMd>
-              )}
-              {!isSm && (
-                <ParXs color={theme.button.primary.solid.text}>
-                  {(networkName && `@${networkName}`) || 'Wrong Network'}
-                </ParXs>
-              )}
-            </div>
-          </Container>
-        </Button>
-      }
-    >
-      <DropdownMenuLabel>
-        <div
-          style={{
-            padding: '.8rem',
-          }}
-        >
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownTrigger
+        color="primary"
+        profile={profile}
+        size={isSm ? 'sm' : 'md'}
+      >
+        {!isSm && (
+          <ParXs color={theme.button.primary.solid.text}>
+            {(networkName && `@${networkName}`) || 'Wrong Network'}
+          </ParXs>
+        )}
+      </DropdownTrigger>
+      <DropdownContent align="end">
+        <DropdownLabel>
           <AddressContainer className="address-container">
             <ExplorerLink
               className="explorer-link"
@@ -85,48 +61,19 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
               ? `Connected To ${getNetworkName(chainId)}`
               : 'Unsupported Network'}
           </ParXs>
-        </div>
-      </DropdownMenuLabel>
-      <DropdownMenuItem>
-        <Button
-          color="secondary"
-          variant="outline"
-          size="sm"
-          fullWidth
-          // centerAlign
-          onClick={disconnect}
-        >
-          Disconnect
-        </Button>
-      </DropdownMenuItem>
-    </Dropdown>
+        </DropdownLabel>
+        <DropdownItem asChild>
+          <Button
+            color="secondary"
+            variant="outline"
+            size={isSm ? 'sm' : 'md'}
+            fullWidth
+            onClick={disconnect}
+          >
+            Disconnect
+          </Button>
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  p {
-    text-align: left;
-  }
-  .interior {
-    display: flex;
-    flex-direction: column;
-  }
-  .user-avatar {
-    margin-right: 0.75rem;
-  }
-  @media ${widthQuery.sm} {
-    width: auto;
-    .user-avatar {
-      margin-right: 0rem;
-    }
-  }
-`;
-
-const AddressContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-`;

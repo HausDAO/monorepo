@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { font } from '../../../theme/global/font';
+import { Loading } from '../Loading';
 import { ButtonJustifyContent, ButtonColor } from './Button.types';
 
 export const StyledButton = styled.button<{
@@ -162,16 +163,22 @@ export const StyledButton = styled.button<{
     }
   }
 
-  /*
-    Could add a prop that allows for configueration of all possible
-    jusify-content props at the base button level.
-    Doing this to fix breaking changes for now
-  */
-  &.left-align {
-    justify-content: flex-start;
+  &.loading {
+    .icon-left,
+    .icon-right {
+      visibility: hidden;
+    }
   }
 
   &.full-width {
     min-width: 100%;
   }
+`;
+
+export const LoadingAbsolute = styled(Loading)`
+  position: fixed;
+`;
+
+export const StyledInvisibleSpan = styled.span`
+  visibility: hidden;
 `;

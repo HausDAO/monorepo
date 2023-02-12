@@ -42,12 +42,15 @@ export const ProfileButton = React.forwardRef<
         image={profile.image}
         size={size}
       />
-      {(profile.name || profile.ens) && (
-        <ParMd>{profile.name ? profile.name : profile.ens}</ParMd>
-      )}
-      {!profile.name && !profile.ens && (
-        <ParMd>{truncateAddress(profile.address)}</ParMd>
-      )}
+      <div className="interior">
+        {profile.name && profile.name}
+        {!profile.name && profile.ens && profile.ens}
+        {!profile.name &&
+          !profile.ens &&
+          profile.address &&
+          truncateAddress(profile.address)}
+        {children}
+      </div>
     </StyledProfileButton>
   );
 });

@@ -50,6 +50,7 @@ BaseDropdownButton.args = {
       'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
     address: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
     ens: 'DAOGuy.eth',
+    name: 'DAO Masta',
   },
 };
 

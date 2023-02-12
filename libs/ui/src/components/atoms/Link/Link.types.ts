@@ -6,7 +6,7 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   RightIcon?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   LeftIcon?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   selected?: boolean;
-  externalLinkIcon?: boolean;
+  showExternalIcon?: boolean;
   disabled?: boolean;
 }
 

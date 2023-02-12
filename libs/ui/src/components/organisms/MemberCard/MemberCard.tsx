@@ -15,7 +15,7 @@ import {
   DropdownContent,
   DropdownItem,
   DropdownLink,
-} from '../../molecules/Dropdown';
+} from '../../molecules/Dropdown/Dropdown';
 import { useCopyToClipboard } from '../../../hooks';
 
 export const MemberCard = ({

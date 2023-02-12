@@ -1,7 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { StyledButton } from './Button.styles';
+import {
+  LoadingAbsolute,
+  StyledButton,
+  StyledInvisibleSpan,
+} from './Button.styles';
 import type { ButtonProps } from './Button.types';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -13,6 +17,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color = 'primary',
       variant = 'solid',
       size = 'md',
+      isLoading = false,
+      loadingText,
       fullWidth,
       justify = 'center',
       className,
@@ -42,7 +48,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         rel={href ? 'noopener noreferrer' : undefined}
       >
         {IconLeft && <IconLeft className={`icon-left`} />}
-        {children}
+        {isLoading && <LoadingAbsolute color={color} />}
+        {isLoading ? (
+          <StyledInvisibleSpan>{children}</StyledInvisibleSpan>
+        ) : (
+          children
+        )}
         {IconRight && <IconRight className={`icon-right`} />}
       </StyledButton>
     );

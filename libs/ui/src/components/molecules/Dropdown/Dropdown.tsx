@@ -21,6 +21,7 @@ import {
   Group,
   RadioItem,
   RadioGroup,
+  StyledDropdownLink,
 } from './Dropdown.styles';
 import {
   DropdownTriggerProps,
@@ -37,6 +38,7 @@ export const DropdownLabel = Label;
 export const DropdownGroup = Group;
 export const DropdownRadioGroup = RadioGroup;
 export const DropdownSeparator = Separator;
+export const DropdownLink = StyledDropdownLink;
 
 export const DropdownTrigger = ({
   color = 'secondary',

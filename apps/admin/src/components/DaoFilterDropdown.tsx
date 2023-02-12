@@ -1,11 +1,12 @@
 import {
   Button,
-  Dropdown,
-  DropdownButton,
-  DropdownMenuItem,
-  DropdownMenuLabel,
+  DropdownMenu,
+  DropdownContent,
+  DropdownLabel,
+  DropdownItem,
   ParSm,
   Theme,
+  DropdownTrigger,
 } from '@daohaus/ui';
 import { MouseEvent, useMemo } from 'react';
 import { RiCheckLine, RiFilterFill } from 'react-icons/ri/index.js';
@@ -46,8 +47,8 @@ export const DAOFilterDropdown = ({
       const isActive = filterNetworks.includes(network.chainId);
 
       return (
-        <DropdownMenuItem key={network.chainId} asChild>
-          <DropdownButton
+        <DropdownItem key={network.chainId} asChild>
+          <Button
             value={network.chainId}
             onClick={toggleNetworkFilter}
             className={isActive ? 'selected' : ''}
@@ -57,67 +58,66 @@ export const DAOFilterDropdown = ({
             IconRight={isActive ? RiCheckLine : undefined}
           >
             <div style={{ width: '100%' }}>{network.name}</div>
-          </DropdownButton>
-        </DropdownMenuItem>
+          </Button>
+        </DropdownItem>
       );
     });
   }, [networks, toggleNetworkFilter, filterNetworks]);
 
   return (
-    <Dropdown
-      align="end"
-      menuBg={theme.secondary.step6}
-      menuMinWidth="25rem"
-      spacing=".6rem"
-      trigger={
-        <Button color="secondary" IconLeft={IconFilter}>
-          Filters
-        </Button>
-      }
-    >
-      <DropdownMenuLabel>
-        <ParSm>Networks</ParSm>
-      </DropdownMenuLabel>
-      {networkButtons}
-      <DropdownMenuLabel>
-        <ParSm>Delegation</ParSm>
-      </DropdownMenuLabel>
-      <DropdownMenuItem asChild>
-        <DropdownButton
-          color="secondary"
-          justify="flex-start"
-          fullWidth
-          value={FILTER_TYPE.DELEGATING}
-          onClick={toggleDelegateFilter}
-          IconRight={
-            filterDelegate === FILTER_TYPE.DELEGATING ? RiCheckLine : undefined
-          }
-          className={
-            filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
-          }
-        >
-          <div style={{ width: '100%' }}>I am a Delegate</div>
-        </DropdownButton>
-      </DropdownMenuItem>
-      <DropdownMenuItem asChild>
-        <DropdownButton
-          color="secondary"
-          justify="flex-start"
-          fullWidth
-          value={FILTER_TYPE.DELEGATING_TO}
-          onClick={toggleDelegateFilter}
-          IconRight={
-            filterDelegate === FILTER_TYPE.DELEGATING_TO
-              ? RiCheckLine
-              : undefined
-          }
-          className={
-            filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
-          }
-        >
-          <div style={{ width: '100%' }}>I have a Delegate</div>
-        </DropdownButton>
-      </DropdownMenuItem>
-    </Dropdown>
+    <DropdownMenu>
+      {/* !MARK Update Trigger to allow whatever */}
+      <DropdownTrigger color="secondary" IconLeft={IconFilter}>
+        Filters
+      </DropdownTrigger>
+      <DropdownContent align="end">
+        <DropdownLabel>
+          <ParSm>Networks</ParSm>
+        </DropdownLabel>
+        {networkButtons}
+        <DropdownLabel>
+          <ParSm>Delegation</ParSm>
+        </DropdownLabel>
+        {/* !Mark These should be Dropdown Checkboxes I believe but just getting it working first */}
+        <DropdownItem asChild>
+          <Button
+            color="secondary"
+            justify="flex-start"
+            fullWidth
+            value={FILTER_TYPE.DELEGATING}
+            onClick={toggleDelegateFilter}
+            IconRight={
+              filterDelegate === FILTER_TYPE.DELEGATING
+                ? RiCheckLine
+                : undefined
+            }
+            className={
+              filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
+            }
+          >
+            <div style={{ width: '100%' }}>I am a Delegate</div>
+          </Button>
+        </DropdownItem>
+        <DropdownItem asChild>
+          <Button
+            color="secondary"
+            justify="flex-start"
+            fullWidth
+            value={FILTER_TYPE.DELEGATING_TO}
+            onClick={toggleDelegateFilter}
+            IconRight={
+              filterDelegate === FILTER_TYPE.DELEGATING_TO
+                ? RiCheckLine
+                : undefined
+            }
+            className={
+              filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
+            }
+          >
+            <div style={{ width: '100%' }}>I have a Delegate</div>
+          </Button>
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };

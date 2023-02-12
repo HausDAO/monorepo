@@ -4,8 +4,9 @@ import { Button } from '../../atoms/Button';
 import { Loading } from '../../atoms/Loading';
 
 export const StyledLoadingButton = styled(Button)`
-  svg {
-    &.loading {
+  &.loading {
+    .icon-left,
+    .icon-right {
       visibility: hidden;
     }
   }

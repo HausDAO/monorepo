@@ -4,13 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Column } from 'react-table';
 import styled from 'styled-components';
 import { useDao } from '@daohaus/moloch-v3-context';
-import {
-  MolochV3Dao,
-  FindMemberQuery,
-  DaoVault,
-  listRecords,
-  findRecord,
-} from '@daohaus/moloch-v3-data';
+import { MolochV3Dao, FindMemberQuery, DaoSafe } from '@daohaus/moloch-v3-data';
 import {
   AddressDisplay,
   Button,
@@ -130,7 +124,7 @@ export function Member() {
       setCurrentProfile(profile);
       loadState(false);
     },
-    [setCurrentProfile]
+    [setCurrentProfile, daochain]
   );
 
   useEffect(() => {
@@ -150,7 +144,7 @@ export function Member() {
   const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
     if (dao) {
       return (
-        dao.vaults.find((v: DaoVault) => v.safeAddress === dao.safeAddress) ||
+        dao.vaults.find((v: DaoSafe) => v.safeAddress === dao.safeAddress) ||
         undefined
       );
     }

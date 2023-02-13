@@ -11,7 +11,7 @@ export const BaseInput = styled.input`
   color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
-  font-family: ${field.fontFamily};
+  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   height: 4.8rem;
   line-height: 150%;
   letter-spacing: 1.5px;
@@ -48,7 +48,7 @@ export const BaseInput = styled.input`
   }
 
   &.number {
-    font-family: ${font.family.data};
+    font-family: ${({ theme }: { theme: Theme }) => theme.font.family.data};
     font-weight: ${font.weight.reg};
     letter-spacing: 1px;
   }

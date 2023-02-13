@@ -9,7 +9,7 @@ export const LinkStyles = css`
   color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
   cursor: pointer;
   display: inline-flex;
-  font-family: ${font.family.body};
+  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   font-weight: ${font.weight.reg};
   font-size: ${font.size.md};
   text-decoration: none;

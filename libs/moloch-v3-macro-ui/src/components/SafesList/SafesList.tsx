@@ -26,7 +26,7 @@ export const SafesList = ({ daoChain, daoId, graphApiKeys }: SafesProps) => {
         .map(
           (vault) =>
             dao &&
-            vault && <SafeCard dao={dao} daoChain={daoChain} safe={vault} />
+            vault && <SafeCard dao={dao} daoChain={daoChain} safe={vault} key={vault.id} />
         )}
     </>
   );

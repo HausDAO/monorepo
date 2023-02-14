@@ -1,9 +1,19 @@
-import { useCurrentDao, useDaoProposals } from '@daohaus/moloch-v3-hooks';
+import { useDHConnect } from '@daohaus/connect';
+import {
+  useCurrentDao,
+  useDaoProposals,
+  useProfile,
+} from '@daohaus/moloch-v3-hooks';
 import { ProposalCard } from '@daohaus/moloch-v3-macro-ui';
 import { Button, Link, Select, SingleColumnLayout } from '@daohaus/ui';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Proposals = () => {
+  const { address } = useDHConnect();
+  const { profile } = useProfile({
+    address: address as string,
+  });
+  console.log('profile', profile);
   const { daoId, daoChain } = useCurrentDao();
   const {
     proposals,

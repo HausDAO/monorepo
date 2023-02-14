@@ -106,7 +106,7 @@ export const LabelContainer = styled.label`
 
 export const StyledLabel = styled.label`
   color: white;
-  font-family: ${font.family.body};
+  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   font-weight: ${font.weight.reg};
   font-size: ${font.size.md};
 

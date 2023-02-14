@@ -1,13 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
-import {
-  AccountProfile,
-  charLimit,
-  formatShortDateTimeFromSeconds,
-} from '@daohaus/utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { charLimit, formatShortDateTimeFromSeconds } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
@@ -23,9 +18,9 @@ import {
   MemberCard,
 } from '@daohaus/ui';
 
-import { fetchProfile } from '../utils/cacheProfile';
 import { getProposalTypeLabel } from '../utils/general';
 import { SENSITIVE_PROPOSAL_TYPES } from '../utils/constants';
+import { useProfile } from '@daohaus/moloch-v3-hooks';
 
 const OverviewBox = styled.div`
   display: flex;
@@ -76,26 +71,9 @@ export const ProposalCardOverview = ({
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
   const isMd = useBreakpoint(widthQuery.md);
-  const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
-
-  const fetchMemberProfile = useCallback(
-    async (address: string, setter: typeof setSubmitterProfile) => {
-      const profile = await fetchProfile(address, daochain as ValidNetwork);
-      setter(profile);
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (!submitterProfile) {
-      fetchMemberProfile(proposal.createdBy, setSubmitterProfile);
-    }
-  }, [
-    fetchMemberProfile,
-    proposal.createdBy,
-    submitterProfile,
-    setSubmitterProfile,
-  ]);
+  const { profile: submitterProfile } = useProfile({
+    address: proposal.createdBy,
+  });
 
   return (
     <OverviewBox>

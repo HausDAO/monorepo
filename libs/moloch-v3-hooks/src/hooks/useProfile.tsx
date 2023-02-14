@@ -1,6 +1,5 @@
 import { HAUS_RPC } from '@daohaus/keychain-utils';
 import { getProfileForAddress } from '@daohaus/profile-data';
-import React from 'react';
 import { useQuery } from 'react-query';
 
 const fetchProfile = async ({

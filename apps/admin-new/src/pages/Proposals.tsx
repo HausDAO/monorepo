@@ -1,4 +1,5 @@
 import { useCurrentDao, useDaoProposals } from '@daohaus/moloch-v3-hooks';
+import { ProposalCard } from '@daohaus/moloch-v3-macro-ui';
 import { Button, Link, Select, SingleColumnLayout } from '@daohaus/ui';
 import { JSONDisplay } from '../components/JSONDisplay';
 
@@ -45,32 +46,7 @@ export const Proposals = () => {
 
   return (
     <SingleColumnLayout>
-      <Select
-        onChange={handleFilter}
-        id="testFilter"
-        options={[
-          { name: 'All', value: 'all' },
-          { name: 'Has Passed', value: 'passed' },
-        ]}
-      />
-      <Select
-        onChange={handleOrder}
-        id="testOrder"
-        options={[
-          { name: 'Newest', value: 'desc' },
-          { name: 'Oldest', value: 'asc' },
-        ]}
-      />
-      {proposals?.map((proposal) => {
-        return (
-          <Link
-            key={proposal.proposalId}
-            href={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
-          >
-            {proposal?.title}
-          </Link>
-        );
-      })}
+      <ProposalCard proposal={proposals[0]} />
 
       <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
         More

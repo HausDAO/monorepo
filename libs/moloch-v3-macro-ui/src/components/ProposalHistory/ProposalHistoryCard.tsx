@@ -40,10 +40,12 @@ const DataPoint = ({
   data,
   daoChain,
   daoId,
+  includeLinks,
 }: {
   data: ProposalHistoryElementData;
   daoChain?: string;
   daoId?: string;
+  includeLinks: boolean;
 }) => {
   if (data.dataType === 'member') {
     return (
@@ -53,6 +55,7 @@ const DataPoint = ({
           daoid={daoId}
           daochain={daoChain as keyof Keychain}
           memberAddress={data.data}
+          memberProfileLink={check this and it'll use: includeLinks}
         /> */}
         <AddressDisplay address={data.data} truncate />
       </div>
@@ -71,6 +74,7 @@ type ProposalHistoryCardProps = {
   proposal: MolochV3Proposal;
   daoChain: string;
   daoId: string;
+  includeLinks?: boolean;
 };
 
 export const ProposalHistoryCard = ({
@@ -78,6 +82,7 @@ export const ProposalHistoryCard = ({
   proposal,
   daoChain,
   daoId,
+  includeLinks = false,
 }: ProposalHistoryCardProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
   const [open, setOpen] = useState<boolean>(false);
@@ -139,6 +144,7 @@ export const ProposalHistoryCard = ({
                 proposal={proposal}
                 daoId={daoId}
                 daoChain={daoChain}
+                includeLinks={includeLinks}
               />
             </DialogContent>
           </Dialog>
@@ -153,6 +159,7 @@ export const ProposalHistoryCard = ({
                   data={data}
                   daoChain={daoChain}
                   daoId={daoId}
+                  includeLinks={includeLinks}
                   key={data.label}
                 />
               ))}

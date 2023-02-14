@@ -1,31 +1,34 @@
 import React, { useMemo } from 'react';
-import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import { useDaoProposal, useCurrentDao } from '@daohaus/moloch-v3-hooks';
+import { useDaoProposal } from '@daohaus/moloch-v3-hooks';
 import { buildProposalHistory, ProposalHistoryElement } from '../../utils';
-import { getNetwork } from '@daohaus/keychain-utils';
+import { getNetwork, Keychain } from '@daohaus/keychain-utils';
 import { ProposalHistoryCard } from './ProposalHistoryCard';
 import { HistoryListContainer } from './ProposalHistory.styles';
 
 type ProposalHistoryProps = {
-  proposal?: MolochV3Proposal;
-  daoId?: string;
-  daoChain?: string;
+  proposalId: string;
+  daoChain: string;
+  daoId: string;
+  includeLinks?: boolean;
+  graphApiKeys?: Keychain;
 };
 
 export const ProposalHistory = ({
-  proposal,
-  daoId,
+  proposalId,
   daoChain,
+  daoId,
+  includeLinks = false,
+  graphApiKeys,
 }: ProposalHistoryProps) => {
-  // need to discuss
+  // 1. react icons - manually add as assets?
+  // 2. member card profile fetch from jord's next pr
 
-  // 1. when/why to use these vs. props
-  // const { proposal } = useDaoProposal();
-  // const { daoChain } = useCurrentDao();
-
-  // 2. react icons - manually add as assets?
-
-  // 3. member card profile fetch from jord's next pr
+  const { proposal } = useDaoProposal({
+    proposalId,
+    daoChain: daoChain as keyof Keychain,
+    daoId,
+    graphApiKeys,
+  });
 
   const historyData: ProposalHistoryElement[] | null = useMemo(() => {
     if (!proposal || !daoChain) return null;
@@ -47,6 +50,7 @@ export const ProposalHistory = ({
             key={element.title}
             daoChain={daoChain}
             daoId={daoId}
+            includeLinks={includeLinks}
           />
         );
       })}

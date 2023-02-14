@@ -281,7 +281,8 @@ export const TX: Record<string, TXLego> = {
                       value: '.formValues.paymentAmount',
                       data: {
                         type: 'static',
-                        value: ENCODED_0X0_DATA,
+                        // value: ENCODED_0X0_DATA,
+                        value: '0x',
                       },
                     },
                   ],

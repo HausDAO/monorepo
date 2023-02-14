@@ -44,6 +44,7 @@ type VoteListProps = {
   votes: MolochV3Proposal['votes'];
   daoChain: string;
   daoId: string;
+  includeLinks?: boolean;
 };
 
 export const VoteList = ({
@@ -51,6 +52,7 @@ export const VoteList = ({
   proposal,
   daoChain,
   daoId,
+  includeLinks = false,
 }: VoteListProps) => {
   return (
     <VotesListContainer>
@@ -63,6 +65,7 @@ export const VoteList = ({
                 daoid={daoid}
                 daochain={daochain as keyof Keychain}
                 memberAddress={vote.member.memberAddress}
+                profile link on includeLinks
               />
                */}
               <AddressDisplay address={vote.member.memberAddress} truncate />

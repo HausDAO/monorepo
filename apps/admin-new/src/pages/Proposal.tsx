@@ -13,13 +13,16 @@ export const Proposal = () => {
       <ParLg>{proposal?.title}</ParLg>
       <JSONDisplay data={proposal} />
 
-      <div style={{ maxWidth: '45.7rem' }}>
-        <ProposalHistory
-          proposal={proposal}
-          daoChain={daoChain}
-          daoId={daoId}
-        />
-      </div>
+      {daoChain && daoId && proposal && (
+        <div>
+          <ProposalHistory
+            proposalId={proposal.proposalId}
+            daoChain={daoChain}
+            daoId={daoId}
+            includeLinks={true}
+          />
+        </div>
+      )}
     </SingleColumnLayout>
   );
 };

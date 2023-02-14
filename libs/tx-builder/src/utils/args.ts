@@ -86,6 +86,21 @@ export const processArg = async ({
   if (arg?.type === 'static') {
     return arg.value;
   }
+  if (arg?.type === 'template') {
+    // appState variables should be enclosed in curly braces e.g. `Send {.formValues.value} ETH`
+    const fragments = arg.value.split(/{|}/g);
+    return fragments
+      .map((f: string) =>
+        f[0] === '.'
+          ? searchArg({
+              appState,
+              searchString: f as StringSearch,
+              shouldThrow: true,
+            })
+          : f
+      )
+      .join('');
+  }
   if (arg?.type === 'singleton') {
     return handleKeychainArg({ chainId, keychain: arg.keychain });
   }

@@ -36,7 +36,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: ${font.family.body};
+    font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
     color: ${({ theme }: { theme: Theme }) => theme.rootFontColor}
   }
 

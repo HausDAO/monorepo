@@ -18,7 +18,7 @@ import {
   SafeContainer,
   SafeOverviewCard,
   TagSection,
-} from './SafeCardStyles';
+} from './SafeCard.styles';
 
 type SafeCardProps = {
   dao: MolochV3Dao;

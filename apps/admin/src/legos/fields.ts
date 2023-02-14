@@ -23,7 +23,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   METADATA_LINK: {
     id: 'metadataLink',
     type: 'metadataLink',
-    label: 'Link poopin',
+    label: 'Link',
     placeholder: 'http://',
     expectType: 'url',
   },

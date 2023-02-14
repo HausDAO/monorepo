@@ -19,14 +19,21 @@ import {
   SafeOverviewCard,
   TagSection,
 } from './SafeCard.styles';
+import { SafeActionMenu } from './SafeActionMenu';
 
 type SafeCardProps = {
   dao: MolochV3Dao;
   safe: DaoSafe;
   daoChain: string;
+  includeLinks?: boolean;
 };
 
-export const SafeCard = ({ dao, safe, daoChain }: SafeCardProps) => {
+export const SafeCard = ({
+  dao,
+  safe,
+  daoChain,
+  includeLinks = false,
+}: SafeCardProps) => {
   const isTreasury = useMemo(() => {
     return safe.safeAddress === dao.safeAddress;
   }, [safe, dao]);
@@ -61,6 +68,14 @@ export const SafeCard = ({ dao, safe, daoChain }: SafeCardProps) => {
                 </ParXs>
               </Link>
             </div>
+            {includeLinks && (
+              <SafeActionMenu
+                ragequittable={safe.ragequittable}
+                safeAddress={safe.safeAddress}
+                daoChain={daoChain}
+                daoId={dao.id}
+              />
+            )}
           </div>
         </SafeCardHeader>
         <DataGrid>

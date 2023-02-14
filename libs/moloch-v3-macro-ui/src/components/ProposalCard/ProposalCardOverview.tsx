@@ -1,13 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
-import {
-  AccountProfile,
-  charLimit,
-  formatShortDateTimeFromSeconds,
-} from '@daohaus/utils';
-import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import { charLimit, formatShortDateTimeFromSeconds } from '@daohaus/utils';
+import { Keychain } from '@daohaus/keychain-utils';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
@@ -23,11 +18,8 @@ import {
   MemberCard,
 } from '@daohaus/ui';
 
-//TODO: Figure out where cache lives and how we should serve it.
-// import { fetchProfile } from '../utils/cacheProfile';
-
 import { getProposalTypeLabel } from '../ProposalUtils/cardUtils';
-import { SENSITIVE_PROPOSAL_TYPES } from '../ProposalUtils/defaultModels';
+import { useProfile } from '@daohaus/moloch-v3-hooks';
 
 const OverviewBox = styled.div`
   display: flex;
@@ -69,37 +61,22 @@ type ProposalCardOverviewProps = {
   loading: boolean;
   proposal: MolochV3Proposal;
   proposalTypes: Record<string, string>;
+  sensitiveProposalTypes: Record<string, boolean>;
 };
 
 export const ProposalCardOverview = ({
   loading,
   proposal,
   proposalTypes,
+  sensitiveProposalTypes,
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
   const isMd = useBreakpoint(widthQuery.md);
-  const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
-
-  const fetchMemberProfile = useCallback(
-    async (address: string, setter: typeof setSubmitterProfile) => {
-      const profile = await fetchProfile(address, daochain as ValidNetwork);
-      setter(profile);
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (!submitterProfile) {
-      fetchMemberProfile(proposal.createdBy, setSubmitterProfile);
-    }
-  }, [
-    fetchMemberProfile,
-    proposal.createdBy,
-    submitterProfile,
-    setSubmitterProfile,
-  ]);
+  const { profile: submitterProfile } = useProfile({
+    address: proposal.createdBy,
+  });
 
   return (
     <OverviewBox>
@@ -107,6 +84,7 @@ export const ProposalCardOverview = ({
         loading={loading}
         proposal={proposal}
         proposalTypes={proposalTypes}
+        sensitiveProposalTypes={sensitiveProposalTypes}
       />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.secondary.step11}>
@@ -180,10 +158,12 @@ export const OverviewHeader = ({
   loading,
   proposal,
   proposalTypes,
+  sensitiveProposalTypes,
 }: {
   loading: boolean;
   proposal: MolochV3Proposal;
   proposalTypes: Record<string, string>;
+  sensitiveProposalTypes: Record<string, boolean>;
 }) => {
   const { daochain, daoid } = useParams();
 
@@ -197,19 +177,19 @@ export const OverviewHeader = ({
             <PropIdText color={theme.secondary.step11}>
               {proposal.proposalId} |
             </PropIdText>
-            {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
+            {sensitiveProposalTypes[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
               </Icon>
             )}
             <ParSm
               color={
-                SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]
+                sensitiveProposalTypes[proposal.proposalType]
                   ? theme.warning.step9
                   : theme.secondary.step11
               }
             >
-              {getProposalTypeLabel(proposal.proposalType)}
+              {getProposalTypeLabel(proposal.proposalType, proposalTypes)}
             </ParSm>
           </HeaderContainer>
           <Tooltip
@@ -225,14 +205,14 @@ export const OverviewHeader = ({
             <PropIdText color={theme.secondary.step11}>
               {proposal.proposalId} |
             </PropIdText>
-            {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
+            {sensitiveProposalTypes[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
               </Icon>
             )}
             <ParSm color={theme.secondary.step11}>
               <StyledPropType
-                warning={SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]}
+                warning={sensitiveProposalTypes[proposal.proposalType]}
               >
                 {getProposalTypeLabel(proposal.proposalType, proposalTypes)}
               </StyledPropType>{' '}

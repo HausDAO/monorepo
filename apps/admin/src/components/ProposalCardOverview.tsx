@@ -61,11 +61,13 @@ const StyledRouterLink = styled(RouterLink)`
 type ProposalCardOverviewProps = {
   loading: boolean;
   proposal: MolochV3Proposal;
+  sensitiveProposalTypes: Record<string, boolean>;
 };
 
 export const ProposalCardOverview = ({
   loading,
   proposal,
+  sensitiveProposalTypes,
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
   const theme = useTheme();
@@ -77,7 +79,11 @@ export const ProposalCardOverview = ({
 
   return (
     <OverviewBox>
-      <OverviewHeader loading={loading} proposal={proposal} />
+      <OverviewHeader
+        loading={loading}
+        proposal={proposal}
+        sensitiveProposalTypes={sensitiveProposalTypes}
+      />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.secondary.step11}>
         {charLimit(proposal.description, 145)}
@@ -149,7 +155,9 @@ const PropIdText = styled(ParSm)`
 export const OverviewHeader = ({
   loading,
   proposal,
+  sensitiveProposalTypes,
 }: {
+  sensitiveProposalTypes: Record<string, boolean>;
   loading: boolean;
   proposal: MolochV3Proposal;
 }) => {
@@ -165,14 +173,14 @@ export const OverviewHeader = ({
             <PropIdText color={theme.secondary.step11}>
               {proposal.proposalId} |
             </PropIdText>
-            {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
+            {sensitiveProposalTypes[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
               </Icon>
             )}
             <ParSm
               color={
-                SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]
+                sensitiveProposalTypes[proposal.proposalType]
                   ? theme.warning.step9
                   : theme.secondary.step11
               }
@@ -193,14 +201,14 @@ export const OverviewHeader = ({
             <PropIdText color={theme.secondary.step11}>
               {proposal.proposalId} |
             </PropIdText>
-            {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
+            {sensitiveProposalTypes[proposal.proposalType] && (
               <Icon label="Warning">
                 <WarningIcon />
               </Icon>
             )}
             <ParSm color={theme.secondary.step11}>
               <StyledPropType
-                warning={SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]}
+                warning={sensitiveProposalTypes[proposal.proposalType]}
               >
                 {getProposalTypeLabel(proposal.proposalType)}
               </StyledPropType>{' '}

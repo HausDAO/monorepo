@@ -13,7 +13,7 @@ export const Proposals = () => {
   const { profile } = useProfile({
     address: address as string,
   });
-  console.log('profile', profile);
+
   const { daoId, daoChain } = useCurrentDao();
   const {
     proposals,

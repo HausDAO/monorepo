@@ -25,3 +25,4 @@ export * from './WrappedRadio';
 export * from './WrappedInputSelect';
 export * from './WrappedCheckbox';
 export * from './Tabs';
+export * from './GatedButton';

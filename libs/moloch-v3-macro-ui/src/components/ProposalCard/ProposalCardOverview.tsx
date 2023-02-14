@@ -16,6 +16,7 @@ import {
   Theme,
   Icon,
   MemberCard,
+  H2,
 } from '@daohaus/ui';
 
 import { getProposalTypeLabel } from '../ProposalUtils/cardUtils';
@@ -86,6 +87,7 @@ export const ProposalCardOverview = ({
         proposalTypes={proposalTypes}
         sensitiveProposalTypes={sensitiveProposalTypes}
       />
+
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.secondary.step11}>
         {charLimit(proposal.description, 145)}

@@ -5,6 +5,12 @@ import { Card, widthQuery } from '@daohaus/ui';
 // import { ProposalCardOverview } from '../ProposalCardOverview';
 // import { ProposalActions } from './ProposalActions';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
+// import { useDaoProposal } from '@daohaus/moloch-v3-hooks';
+import { ProposalCardOverview } from './ProposalCardOverview';
+import {
+  PROPOSAL_TYPE_LABELS,
+  SENSITIVE_PROPOSAL_TYPES,
+} from '../ProposalUtils';
 // import { ActionLifeCycleFns } from '../../utils/general';
 
 const ProposalCardContainer = styled(Card)`
@@ -45,9 +51,15 @@ const RightCard = styled.div`
 
 type BaseProposalCardProps = {
   proposal: MolochV3Proposal;
+  sensitiveProposalTypes?: Record<string, boolean>;
+  proposalTypes?: Record<string, string>;
 };
 
-export const ProposalCard = ({ proposal }: BaseProposalCardProps) => {
+export const ProposalCard = ({
+  proposal,
+  sensitiveProposalTypes = SENSITIVE_PROPOSAL_TYPES,
+  proposalTypes = PROPOSAL_TYPE_LABELS,
+}: BaseProposalCardProps) => {
   const [actionLoading, setActionLoading] = useState<boolean>(false);
 
   // const lifeCycleFnsOverride: ActionLifeCycleFns = {
@@ -60,7 +72,12 @@ export const ProposalCard = ({ proposal }: BaseProposalCardProps) => {
   return (
     <ProposalCardContainer>
       <LeftCard>
-        {/* <ProposalCardOverview loading={actionLoading} proposal={proposal} /> */}
+        <ProposalCardOverview
+          loading={actionLoading}
+          proposal={proposal}
+          sensitiveProposalTypes={sensitiveProposalTypes}
+          proposalTypes={proposalTypes}
+        />
       </LeftCard>
       <RightCard>
         {/* <ProposalActions

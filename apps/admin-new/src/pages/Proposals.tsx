@@ -56,7 +56,7 @@ export const Proposals = () => {
 
   return (
     <SingleColumnLayout>
-      <ProposalCard proposal={proposals[0]} />
+      {proposals[0] && <ProposalCard proposal={proposals[0]} />}
 
       <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
         More

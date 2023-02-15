@@ -62,6 +62,8 @@ export const MemberProfileAvatar = ({
   return (
     <MemberContainer>
       <MemberCard
+        fullWidth={true}
+        variant="ghost"
         profile={
           memberProfile || {
             address: memberAddress,

@@ -23,6 +23,7 @@ export const MemberCard = ({
   size,
   variant,
   profile,
+  fullWidth,
   profileButtonColor,
   dropdownColor,
   children,
@@ -34,6 +35,7 @@ export const MemberCard = ({
         variant={variant}
         color={profileButtonColor}
         profile={profile}
+        fullWidth={fullWidth}
       ></DropdownProfileTrigger>
       <DropdownContent color={dropdownColor} align={align}>
         {children}

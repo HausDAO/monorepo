@@ -128,6 +128,7 @@ export const ProposalCardOverview = ({
           Submitted by
         </ParMd>
         <MemberCard
+          variant="ghost"
           profile={
             submitterProfile || {
               address: proposal.createdBy,

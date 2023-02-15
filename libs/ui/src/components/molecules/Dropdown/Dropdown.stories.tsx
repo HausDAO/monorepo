@@ -3,13 +3,13 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
   DropdownContent,
   DropdownMenu,
-  DropdownTrigger,
   DropdownItem,
   DropdownLabel,
   DropdownSeparator,
   DropdownCheckbox,
   DropdownRadioGroup,
   DropdownRadio,
+  DropdownButtonTrigger,
 } from './Dropdown';
 import React from 'react';
 
@@ -32,7 +32,7 @@ const Template: ComponentStory<typeof DropdownMenu> = (args) => {
     <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
       {/* <Dropdown {...args} /> */}
       <DropdownMenu>
-        <DropdownTrigger>Button</DropdownTrigger>
+        <DropdownButtonTrigger fullWidth={true}>Button</DropdownButtonTrigger>
         <DropdownContent align="end">
           <DropdownLabel>Switch to available network</DropdownLabel>
           <DropdownItem>Click Me</DropdownItem>

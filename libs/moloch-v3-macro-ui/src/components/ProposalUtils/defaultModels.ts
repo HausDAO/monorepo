@@ -15,3 +15,6 @@ export const PROPOSAL_TYPE_LABELS: Record<string, string> = {
 export const SENSITIVE_PROPOSAL_TYPES: { [key: string]: boolean } = {
   ADD_SHAMAN: true,
 };
+export const PROP_CARD_HELP = {
+  UNSPONSORED: 'A member of the DAO can sponsor this proposal.',
+};

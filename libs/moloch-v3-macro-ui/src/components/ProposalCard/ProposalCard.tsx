@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Card, widthQuery } from '@daohaus/ui';
 
-// import { ProposalCardOverview } from '../ProposalCardOverview';
 // import { ProposalActions } from './ProposalActions';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 // import { useDaoProposal } from '@daohaus/moloch-v3-hooks';
@@ -11,6 +10,8 @@ import {
   PROPOSAL_TYPE_LABELS,
   SENSITIVE_PROPOSAL_TYPES,
 } from '../ProposalUtils';
+import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ProposalActions } from './ProposalActions';
 // import { ActionLifeCycleFns } from '../../utils/general';
 
 const ProposalCardContainer = styled(Card)`
@@ -62,12 +63,12 @@ export const ProposalCard = ({
 }: BaseProposalCardProps) => {
   const [actionLoading, setActionLoading] = useState<boolean>(false);
 
-  // const lifeCycleFnsOverride: ActionLifeCycleFns = {
-  //   onActionTriggered: () => setActionLoading(true),
-  //   onPollError: () => setActionLoading(false),
-  //   onPollSuccess: () => setActionLoading(false),
-  //   onTxError: () => setActionLoading(false),
-  // };
+  const lifeCycleFnsOverride: ActionLifeCycleFns = {
+    onActionTriggered: () => setActionLoading(true),
+    onPollError: () => setActionLoading(false),
+    onPollSuccess: () => setActionLoading(false),
+    onTxError: () => setActionLoading(false),
+  };
 
   return (
     <ProposalCardContainer>
@@ -80,10 +81,10 @@ export const ProposalCard = ({
         />
       </LeftCard>
       <RightCard>
-        {/* <ProposalActions
+        <ProposalActions
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
-        /> */}
+        />
       </RightCard>
     </ProposalCardContainer>
   );

@@ -109,23 +109,32 @@ export const ConnectProvider = ({
     });
   }, [web3modalOptions, setWalletState]);
 
-  const loadAccountProfile = useCallback((
-    address: string | null | undefined,
-    chainId: ValidNetwork | null | undefined,
-    shouldUpdate: boolean,
-  ) => {
-    if (address && chainId && isConnected &&!isProfileLoading && address !== profile?.address) {
-      loadProfile({
-        address,
-        chainId,
-        setProfile,
-        setProfileLoading,
-        shouldUpdate,
-        networks,
-        lifeCycleFns,
-      });
-    }
-  }, [isConnected, isProfileLoading, networks, lifeCycleFns, profile]);
+  const loadAccountProfile = useCallback(
+    (
+      address: string | null | undefined,
+      chainId: ValidNetwork | null | undefined,
+      shouldUpdate: boolean
+    ) => {
+      if (
+        address &&
+        chainId &&
+        isConnected &&
+        !isProfileLoading &&
+        address !== profile?.address
+      ) {
+        loadProfile({
+          address,
+          chainId,
+          setProfile,
+          setProfileLoading,
+          shouldUpdate,
+          networks,
+          lifeCycleFns,
+        });
+      }
+    },
+    [isConnected, isProfileLoading, networks, lifeCycleFns, profile]
+  );
 
   useEffect(() => {
     let shouldUpdate = true;

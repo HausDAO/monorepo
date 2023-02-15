@@ -1,21 +1,15 @@
 import styled from 'styled-components';
-import { Bold, Button, Card, Theme, widthQuery } from '@daohaus/ui';
+import { Bold, Button, Theme, widthQuery } from '@daohaus/ui';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri/index.js';
 
 export const HistoryListContainer = styled.div`
-  max-width: 47.5rem;
-`;
-
-export const SafeContainer = styled(Card)`
-  padding: 3rem;
-  width: 100%;
-  border: none;
-  margin-bottom: 3rem;
-  @media ${widthQuery.lg} {
+  min-width: 47.5rem;
+  @media ${widthQuery.xs} {
     max-width: 100%;
     min-width: 0;
   }
 `;
+
 export const ElementContainer = styled.div`
   display: flex;
   flex-direction: column;

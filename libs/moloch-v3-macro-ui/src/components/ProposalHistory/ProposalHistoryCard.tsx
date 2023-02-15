@@ -33,6 +33,8 @@ import {
 } from './ProposalHistory.styles';
 import { VoteList } from './VoteList';
 
+import RiArrowDownSLine from '../../assets/arrow-down-s-line.svg';
+
 // import { MemberProfileAvatar } from './MemberProfileAvatar';
 // import { VoteList } from './VoteList';
 
@@ -117,6 +119,7 @@ export const ProposalHistoryCard = ({
         {element.canExpand && open && (
           <div onClick={handleToggle}>
             <StyledUpArrow />
+            {/* <img src={RiArrowDownSLine} /> */}
           </div>
         )}
         {element.canExpand && !open && (

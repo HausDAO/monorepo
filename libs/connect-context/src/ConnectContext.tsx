@@ -109,9 +109,12 @@ export const ConnectProvider = ({
     });
   }, [web3modalOptions, setWalletState]);
 
-  useEffect(() => {
-    let shouldUpdate = true;
-    if (address && chainId && isConnected && address !== profile?.address) {
+  const loadAccountProfile = useCallback((
+    address: string | null | undefined,
+    chainId: ValidNetwork | null | undefined,
+    shouldUpdate: boolean,
+  ) => {
+    if (address && chainId && isConnected &&!isProfileLoading && address !== profile?.address) {
       loadProfile({
         address,
         chainId,
@@ -122,10 +125,15 @@ export const ConnectProvider = ({
         lifeCycleFns,
       });
     }
+  }, [isConnected, isProfileLoading, networks, lifeCycleFns, profile]);
+
+  useEffect(() => {
+    let shouldUpdate = true;
+    loadAccountProfile(address, chainId, shouldUpdate);
     return () => {
       shouldUpdate = false;
     };
-  }, [address, chainId, isConnected, networks, lifeCycleFns, profile]);
+  }, [address, chainId]);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({

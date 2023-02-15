@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { font } from '../../../theme/global/font';
 import { Loading } from '../Loading';
+import { Theme } from '../../../types';
 import { ButtonJustifyContent, ButtonColor } from './Button.types';
 
 export const StyledButton = styled.button<{
@@ -114,7 +115,7 @@ export const StyledButton = styled.button<{
 
   &.link {
     height: auto;
-    font-family: ${font.family.body};
+    font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
     font-weight: ${font.weight.reg};
     font-size: ${font.size.md};
     text-decoration: none;

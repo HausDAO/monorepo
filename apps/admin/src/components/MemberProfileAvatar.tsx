@@ -47,7 +47,7 @@ export const MemberProfileAvatar = ({
       const profile = await fetchProfile(address, daochain);
       setter(profile);
     },
-    []
+    [daochain]
   );
 
   useEffect(() => {

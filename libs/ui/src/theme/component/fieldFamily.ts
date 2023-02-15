@@ -1,7 +1,6 @@
 import { font } from '../global';
 
 export const field = {
-  fontFamily: font.family.body,
   fontWeight: font.weight.reg,
   fontSize: font.size.md,
   size: {

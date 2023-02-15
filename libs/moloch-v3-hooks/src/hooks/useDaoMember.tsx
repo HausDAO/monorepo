@@ -22,8 +22,6 @@ const fetchMember = async ({
 }) => {
   if (!daoChain || !daoId || !memberAddress) return;
 
-  console.log('memberAddress', memberAddress);
-
   try {
     const res = await findMember({
       dao: daoId,

@@ -9,11 +9,10 @@ import {
   NavMenuTrigger,
   NavMenuContent,
   NavMenuViewport,
-  Button,
   DropdownMenu,
   DropdownLink,
   DropdownContent,
-  DropdownTrigger,
+  DropdownButtonTrigger,
 } from '@daohaus/ui';
 
 import { ConnectButton } from '../ConnectButton';
@@ -76,13 +75,13 @@ export const DaoHausNavMenu = (props: DaoHausNavProps) => {
     // Return mobile dropdown
     return (
       <DropdownMenu>
-        <DropdownTrigger
+        <DropdownButtonTrigger
           color="secondary"
           variant="outline"
           IconLeft={RiMenuLine}
         >
           {currentLabel}
-        </DropdownTrigger>
+        </DropdownButtonTrigger>
         <DropdownContent>
           {mobileLinks.map((mobileLink) => {
             const selected = isActive(pathname, mobileLink.href);

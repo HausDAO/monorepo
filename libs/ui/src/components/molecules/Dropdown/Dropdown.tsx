@@ -5,7 +5,7 @@ import {
   RiRadioButtonFill,
 } from 'react-icons/ri/index.js';
 
-import { Button } from '../../atoms/Button';
+import { Button, IconButton } from '../../atoms/Button';
 import { ProfileButton } from '../ProfileButton';
 
 import {
@@ -24,7 +24,9 @@ import {
   StyledDropdownLink,
 } from './Dropdown.styles';
 import {
-  DropdownTriggerProps,
+  DropdownProfileTriggerProps,
+  DropdownButtonTriggerProps,
+  DropdownIconTriggerProps,
   DropdownContentProps,
   DropdownItemProps,
   DropdownCheckboxProps,
@@ -39,26 +41,44 @@ export const DropdownGroup = Group;
 export const DropdownRadioGroup = RadioGroup;
 export const DropdownSeparator = Separator;
 export const DropdownLink = StyledDropdownLink;
+export const DropdownTrigger = Trigger;
 
-export const DropdownTrigger = ({
+export const DropdownButtonTrigger = ({
   color = 'secondary',
   children,
   ...props
-}: DropdownTriggerProps) => {
-  if ('profile' in props) {
-    return (
-      <Trigger asChild>
-        <ProfileButton color={color} IconRight={RiArrowDropDownLine} {...props}>
-          {children}
-        </ProfileButton>
-      </Trigger>
-    );
-  }
+}: DropdownButtonTriggerProps) => {
   return (
     <Trigger asChild>
       <Button color={color} IconRight={RiArrowDropDownLine} {...props}>
         {children}
       </Button>
+    </Trigger>
+  );
+};
+
+export const DropdownProfileTrigger = ({
+  color = 'secondary',
+  children,
+  ...props
+}: DropdownProfileTriggerProps) => {
+  return (
+    <Trigger asChild>
+      <ProfileButton color={color} IconRight={RiArrowDropDownLine} {...props}>
+        {children}
+      </ProfileButton>
+    </Trigger>
+  );
+};
+
+export const DropdownIconTrigger = ({
+  color = 'secondary',
+  children,
+  ...props
+}: DropdownIconTriggerProps) => {
+  return (
+    <Trigger asChild>
+      <IconButton color={color} {...props} />
     </Trigger>
   );
 };

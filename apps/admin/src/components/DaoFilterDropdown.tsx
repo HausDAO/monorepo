@@ -6,7 +6,7 @@ import {
   DropdownItem,
   ParSm,
   Theme,
-  DropdownTrigger,
+  DropdownButtonTrigger,
 } from '@daohaus/ui';
 import { MouseEvent, useMemo } from 'react';
 import { RiCheckLine, RiFilterFill } from 'react-icons/ri/index.js';
@@ -67,9 +67,9 @@ export const DAOFilterDropdown = ({
   return (
     <DropdownMenu>
       {/* !MARK Update Trigger to allow whatever */}
-      <DropdownTrigger color="secondary" IconLeft={IconFilter}>
+      <DropdownButtonTrigger color="secondary" IconLeft={IconFilter}>
         Filters
-      </DropdownTrigger>
+      </DropdownButtonTrigger>
       <DropdownContent align="end">
         <DropdownLabel>
           <ParSm>Networks</ParSm>

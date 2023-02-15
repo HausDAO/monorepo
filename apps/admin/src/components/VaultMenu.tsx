@@ -9,7 +9,7 @@ import {
   font,
   Theme,
   Button,
-  DropdownTrigger,
+  DropdownIconTrigger,
   DropdownContent,
   DropdownLinkStyles,
 } from '@daohaus/ui';
@@ -62,7 +62,7 @@ export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownTrigger IconLeft={RiMore2Fill} size="sm" variant="ghost" />
+      <DropdownIconTrigger Icon={RiMore2Fill} size="sm" variant="ghost" />
       <DropdownContent>
         <>
           <DropdownItem key="erc20" asChild>

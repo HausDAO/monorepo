@@ -8,7 +8,7 @@ import { getNetworkName } from '@daohaus/keychain-utils';
 import {
   Button,
   DropdownMenu,
-  DropdownTrigger,
+  DropdownProfileTrigger,
   DropdownContent,
   DropdownItem,
   DropdownLabel,
@@ -35,17 +35,18 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownTrigger
+      <DropdownProfileTrigger
         color="primary"
         profile={profile}
         size={isSm ? 'sm' : 'md'}
+        avatarOnly={isSm}
       >
         {!isSm && (
           <ParXs color={theme.button.primary.solid.text}>
             {(networkName && `@${networkName}`) || 'Wrong Network'}
           </ParXs>
         )}
-      </DropdownTrigger>
+      </DropdownProfileTrigger>
       <DropdownContent align="end">
         <DropdownLabel>
           <AddressContainer className="address-container">

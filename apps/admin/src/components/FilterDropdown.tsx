@@ -7,8 +7,7 @@ import {
   Button,
   DropdownMenu,
   DropdownItem,
-  Theme,
-  DropdownTrigger,
+  DropdownButtonTrigger,
   DropdownContent,
 } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
@@ -35,9 +34,9 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
   return (
     <DropdownMenu>
       {/* !MARK Update Trigger to allow whatever to be passed */}
-      <DropdownTrigger color="secondary" IconLeft={IconFilter}>
+      <DropdownButtonTrigger color="secondary" IconLeft={IconFilter}>
         {filter ? `${PROPOSAL_FILTERS[filter]}` : 'Filter'}
-      </DropdownTrigger>
+      </DropdownButtonTrigger>
       <DropdownContent align="start">
         {Object.keys(PROPOSAL_FILTERS).map((filterKey) => {
           return (

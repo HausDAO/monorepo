@@ -2,6 +2,9 @@ export {
   DropdownMenu,
   DropdownContent,
   DropdownTrigger,
+  DropdownButtonTrigger,
+  DropdownIconTrigger,
+  DropdownProfileTrigger,
   DropdownLabel,
   DropdownItem,
   DropdownGroup,
@@ -13,7 +16,9 @@ export {
 } from './Dropdown';
 
 export type {
-  DropdownTriggerProps,
+  DropdownProfileTriggerProps,
+  DropdownIconTriggerProps,
+  DropdownButtonTriggerProps,
   DropdownContentProps,
   DropdownItemProps,
   DropdownCheckboxProps,

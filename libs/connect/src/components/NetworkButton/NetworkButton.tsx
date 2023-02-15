@@ -11,7 +11,7 @@ import {
   ParXs,
   widthQuery,
   DropdownContent,
-  DropdownTrigger,
+  DropdownButtonTrigger,
 } from '@daohaus/ui';
 
 import { useDHConnect } from '../../HausConnectContext';
@@ -93,9 +93,13 @@ export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
 
   return (
     <DropdownMenu>
-      <DropdownTrigger color="primary" variant="outline" IconLeft={BiError}>
+      <DropdownButtonTrigger
+        color="primary"
+        variant="outline"
+        IconLeft={BiError}
+      >
         {innerButton}
-      </DropdownTrigger>
+      </DropdownButtonTrigger>
       <DropdownContent align="end">
         <DropdownLabel>
           <ParXs>Switch to available network</ParXs>

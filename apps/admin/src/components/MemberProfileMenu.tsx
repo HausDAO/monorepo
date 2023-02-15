@@ -11,7 +11,7 @@ import {
   DialogTrigger,
   DialogContent,
   DropdownMenu,
-  DropdownTrigger,
+  DropdownIconTrigger,
   DropdownContent,
   DropdownItem,
   DropdownLink,
@@ -96,7 +96,11 @@ export const MemberProfileMenu = ({
     <Dialog>
       <DropdownMenu>
         {/* !Mark Trigger should be configurable, Allow for us to use Icon buttons for Mobile dropdowns */}
-        <DropdownTrigger IconLeft={RiMore2Fill} size="sm" variant="ghost" />
+        <DropdownIconTrigger
+          Icon={RiMore2Fill}
+          color="primary"
+          variant="ghost"
+        />
         <DropdownContent side="left">
           {isMenuForConnectedMember && (
             <>

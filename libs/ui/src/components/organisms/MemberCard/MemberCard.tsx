@@ -11,7 +11,7 @@ import {
 
 import {
   DropdownMenu,
-  DropdownTrigger,
+  DropdownProfileTrigger,
   DropdownContent,
   DropdownItem,
   DropdownLink,
@@ -29,12 +29,12 @@ export const MemberCard = ({
 }: PropsWithChildren<MemberCardProps>) => {
   return (
     <DropdownMenu>
-      <DropdownTrigger
+      <DropdownProfileTrigger
         size={size}
         variant={variant}
         color={profileButtonColor}
         profile={profile}
-      ></DropdownTrigger>
+      ></DropdownProfileTrigger>
       <DropdownContent color={dropdownColor} align={align}>
         {children}
       </DropdownContent>

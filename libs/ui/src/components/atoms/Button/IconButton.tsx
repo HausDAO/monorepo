@@ -7,7 +7,6 @@ import {
   StyledInvisibleSpan,
 } from './Button.styles';
 import type { IconButtonProps } from './IconButton.types';
-import { is } from 'date-fns/locale';
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (

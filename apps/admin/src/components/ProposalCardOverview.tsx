@@ -83,7 +83,7 @@ export const ProposalCardOverview = ({
       const profile = await fetchProfile(address, daochain as ValidNetwork);
       setter(profile);
     },
-    []
+    [daochain]
   );
 
   useEffect(() => {

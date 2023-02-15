@@ -18,18 +18,22 @@ export const getProfileForAddress = async (
   address: string,
   rpcUri?: string
 ): Promise<AccountProfile> => {
-  const reverseEnsRecord =
-    rpcUri && (await getENSReverseResolver({ address, rpcUri }));
-  const ensDomain = reverseEnsRecord
-    ? reverseEnsRecord
-    : await getENSDomain({
-        address,
-      });
-  const lensProfile = await getLensProfile({
-    memberAddress: address,
-  } as ListProfileQueryVariables);
+  // const reverseEnsRecord =
+  //   rpcUri && (await getENSReverseResolver({ address, rpcUri }));
+  // const ensDomain = reverseEnsRecord
+  //   ? reverseEnsRecord
+  //   : await getENSDomain({
+  //       address,
+  //     });
+  // const lensProfile = await getLensProfile({
+  //   memberAddress: address,
+  // } as ListProfileQueryVariables);
 
-  return transformProfile({ address, lensProfile, ensDomain });
+  // return transformProfile({ address, lensProfile, ensDomain });
+
+  console.log('rpcUri', rpcUri);
+
+  return { address };
 };
 
 const getENSReverseResolver = async ({

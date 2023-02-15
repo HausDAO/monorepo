@@ -49,7 +49,7 @@ type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
     callerState?: CallerStateModel;
     lifeCycleFns?: TXLifeCycleFns;
     staticArgs?: ArgType[];
-  }) => Promise<void> | void;
+  }) => Promise<boolean> | undefined;
 
 type TxContext = {
   transactions: TxRecord;
@@ -110,7 +110,7 @@ export const TXBuilder = ({
       lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
       );
-      return;
+      return false;
     }
     const wholeState = {
       ...appState,
@@ -139,6 +139,8 @@ export const TXBuilder = ({
       pinataApiKeys,
       explorerKeys,
     });
+
+    return true;
   };
 
   return (

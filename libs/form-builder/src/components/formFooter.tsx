@@ -14,6 +14,7 @@ enum StatusMsg {
   PollStart = 'Syncing TX (Subgraph)',
   PollSuccess = 'Success: TX Confirmed!',
   PollError = 'Sync Error (Subgraph)',
+  NoContext = 'Missing TXBuilder Context',
 }
 
 const FooterBox = styled.div`
@@ -54,7 +55,11 @@ const getStatusColor = (status: StatusMsg, theme: Theme) => {
   if (status === StatusMsg.PollSuccess) {
     return theme.success.step9;
   }
-  if (status === StatusMsg.PollError || status === StatusMsg.TxErr) {
+  if (
+    status === StatusMsg.PollError ||
+    status === StatusMsg.TxErr ||
+    status === StatusMsg.NoContext
+  ) {
     return theme.danger.step9;
   } else {
     return theme.secondary.step9;
@@ -64,7 +69,11 @@ const getStatusElement = (status: StatusMsg, theme: Theme) => {
   if (status === StatusMsg.PollSuccess) {
     return <RiCheckLine color={theme.success.step9} size="2.25rem" />;
   }
-  if (status === StatusMsg.PollError || status === StatusMsg.TxErr) {
+  if (
+    status === StatusMsg.PollError ||
+    status === StatusMsg.TxErr ||
+    status === StatusMsg.NoContext
+  ) {
     return <RiErrorWarningLine color={theme.danger.step9} size="2.25rem" />;
   } else return <Spinner size="2.25rem" strokeWidth=".25rem" />;
 };

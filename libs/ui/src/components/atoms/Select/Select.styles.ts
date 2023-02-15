@@ -42,7 +42,7 @@ export const BaseSelect = styled.select`
   display: inline-flex;
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
-  font-family: ${field.fontFamily};
+  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   height: 4.8rem;
   justify-content: space-between;
   line-height: 150%;
@@ -91,7 +91,7 @@ export const BaseSelect = styled.select`
 export const StyledOption = styled.option`
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
-  font-family: ${field.fontFamily};
+  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   height: 4.8rem;

@@ -37,7 +37,7 @@ export const HausThemeContext = createContext<HausUI>({
 
 const DEFAULT_TOAST_DURATION = 6000;
 
-const mergeThemeProperties = (theme: Theme, overrides: ThemeOverrides) => ({
+const mergeThemeProperties = (theme: Theme, overrides?: ThemeOverrides) => ({
   ...theme,
   ...overrides,
 });
@@ -47,7 +47,7 @@ export const HausThemeProvider = ({
   defaultDark = defaultDarkTheme,
   defaultLight = defaultLightTheme,
   startDark = true,
-  themeOverrides = {},
+  themeOverrides,
 }: ProviderProps) => {
   const [theme, setTheme] = useState(
     mergeThemeProperties(startDark ? defaultDark : defaultLight, themeOverrides)

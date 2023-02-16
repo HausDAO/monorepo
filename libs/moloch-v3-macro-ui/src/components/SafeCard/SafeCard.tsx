@@ -57,7 +57,6 @@ export const SafeCard = ({
           <div className="right-section">
             <div className="safe-link">
               <Link
-                linkType="external"
                 href={generateGnosisUiLink({
                   chainId: daoChain as keyof Keychain,
                   address: safe.safeAddress,

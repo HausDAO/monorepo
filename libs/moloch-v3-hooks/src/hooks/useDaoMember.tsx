@@ -29,7 +29,6 @@ const fetchMember = async ({
       networkId: daoChain,
       graphApiKeys,
     });
-    console.log(res);
     return res?.data?.member;
   } catch (error) {
     console.error(error);
@@ -40,7 +39,7 @@ const fetchMember = async ({
 export const useDaoMember = (props?: {
   daoChain: ValidNetwork;
   daoId: string;
-  memberAddress: string;
+  memberAddress?: string | undefined | null;
   graphApiKeys?: Keychain;
 }) => {
   const {

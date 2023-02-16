@@ -1,8 +1,7 @@
 import { MouseEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { ExplorerLink } from '@daohaus/connect';
-import { ValidNetwork } from '@daohaus/keychain-utils';
+import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   DataIndicator,
@@ -13,7 +12,6 @@ import {
   ParMd,
   widthQuery,
   useBreakpoint,
-  AddressDisplay,
 } from '@daohaus/ui';
 import { formatValueTo, fromWei } from '@daohaus/utils';
 import {
@@ -32,11 +30,9 @@ import {
   ExpandedDataGrid,
 } from './ProposalHistory.styles';
 import { VoteList } from './VoteList';
-
-import RiArrowDownSLine from '../../assets/arrow-down-s-line.svg';
+import { MemberDisplay } from '../MemberDisplay';
 
 // import { MemberProfileAvatar } from './MemberProfileAvatar';
-// import { VoteList } from './VoteList';
 
 const DataPoint = ({
   data,
@@ -53,13 +49,12 @@ const DataPoint = ({
     return (
       <div>
         <ParMd>{data.label}</ParMd>
-        {/* <MemberProfileAvatar
-          daoid={daoId}
-          daochain={daoChain as keyof Keychain}
+        <MemberDisplay
+          daoId={daoId}
+          daoChain={daoChain as keyof Keychain}
           memberAddress={data.data}
-          memberProfileLink={check this and it'll use: includeLinks}
-        /> */}
-        <AddressDisplay address={data.data} truncate />
+          includeLinks={includeLinks}
+        />
       </div>
     );
   }
@@ -119,7 +114,6 @@ export const ProposalHistoryCard = ({
         {element.canExpand && open && (
           <div onClick={handleToggle}>
             <StyledUpArrow />
-            {/* <img src={RiArrowDownSLine} /> */}
           </div>
         )}
         {element.canExpand && !open && (

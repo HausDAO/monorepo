@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
-// import { useTheme } from 'styled-components';
 import {
   DropdownMenu,
   DropdownItem,
   DropdownTrigger,
   DropdownContent,
 } from '@daohaus/ui';
-import { getNetwork } from '@daohaus/keychain-utils';
+import { getNetwork, Keychain } from '@daohaus/keychain-utils';
 import { SafeActionMenuLink, SafeActionMenuTrigger } from './SafeCard.styles';
-// import { useDaoMember } from '@daohaus/moloch-v3-hooks';
+import { useDaoMember } from '@daohaus/moloch-v3-hooks';
+import { useDHConnect } from '@daohaus/connect';
 
 type SafeActionMenuProps = {
   ragequittable: boolean;
@@ -24,23 +24,23 @@ export const SafeActionMenu = ({
   daoChain,
   daoId,
 }: SafeActionMenuProps) => {
-  // const { member } = useDaoMember({
-  //   daoChain,
-  //   daoId,
-  //   memberAddress:
-  // });
-  // const theme = useTheme();
+  const { address } = useDHConnect();
+  const { member } = useDaoMember({
+    daoId,
+    daoChain: daoChain as keyof Keychain,
+    memberAddress: address,
+  });
 
-  // const enableActions = useMemo(() => {
-  //   return connectedMember && Number(connectedMember.shares) > 0;
-  // }, [connectedMember]);
+  const enableActions = useMemo(() => {
+    return member && Number(member.shares) > 0;
+  }, [member]);
 
   const networkData = useMemo(() => {
     if (!daoChain) return null;
     return getNetwork(daoChain);
   }, [daoChain]);
 
-  // if (!enableActions) return null;
+  if (!enableActions) return null;
 
   return (
     <DropdownMenu>

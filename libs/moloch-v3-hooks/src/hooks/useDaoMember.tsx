@@ -40,7 +40,7 @@ const fetchMember = async ({
 export const useDaoMember = (props?: {
   daoChain: ValidNetwork;
   daoId: string;
-  memberAddress: string;
+  memberAddress?: string | undefined | null;
   graphApiKeys?: Keychain;
 }) => {
   const {

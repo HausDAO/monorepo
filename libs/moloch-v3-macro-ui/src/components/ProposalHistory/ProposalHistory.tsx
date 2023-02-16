@@ -20,10 +20,6 @@ export const ProposalHistory = ({
   includeLinks = false,
   graphApiKeys,
 }: ProposalHistoryProps) => {
-  // 1. react icons - manually add as assets?
-  // 2. member card profile fetch from jord's next pr
-  // 3. safe card useConnectedDaoMember
-
   const { proposal } = useDaoProposal({
     proposalId,
     daoChain: daoChain as keyof Keychain,

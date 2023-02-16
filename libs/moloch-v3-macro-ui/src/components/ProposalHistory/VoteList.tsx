@@ -9,6 +9,8 @@ import { AddressDisplay, DataMd, ParMd, widthQuery } from '@daohaus/ui';
 
 // import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
+import { MemberDisplay } from '../MemberDisplay';
+import { Keychain } from '@daohaus/keychain-utils';
 
 const VotesListContainer = styled.div`
   display: flex;
@@ -61,14 +63,12 @@ export const VoteList = ({
           <div key={vote.id}>
             <ParMd>{formatShortDateTimeFromSeconds(vote.createdAt)}</ParMd>
             <VoteContainer>
-              {/* <MemberProfileAvatar
-                daoid={daoid}
-                daochain={daochain as keyof Keychain}
+              <MemberDisplay
+                daoId={daoId}
+                daoChain={daoChain as keyof Keychain}
                 memberAddress={vote.member.memberAddress}
-                profile link on includeLinks
+                includeLinks={includeLinks}
               />
-               */}
-              <AddressDisplay address={vote.member.memberAddress} truncate />
 
               <DataMd>
                 {vote.approved ? 'Yes' : 'No'} -{' '}

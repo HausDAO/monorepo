@@ -1,5 +1,4 @@
 import { MouseEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { ExplorerLink } from '@daohaus/connect';
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
@@ -13,7 +12,6 @@ import {
   ParMd,
   widthQuery,
   useBreakpoint,
-  AddressDisplay,
 } from '@daohaus/ui';
 import { formatValueTo, fromWei } from '@daohaus/utils';
 import {

@@ -24,7 +24,7 @@ import {
   loadWallet,
 } from './utils/contextHelpers';
 
-import { defaultWalletValues, web3modalDefaults } from './utils/defaults';
+import { defaultConnectValues, web3modalDefaults } from './utils/defaults';
 
 import {
   ConnectLifecycleFns,
@@ -51,10 +51,12 @@ export type UserConnectType = {
   validNetwork: boolean;
   isAppNetwork: (chainId: string) => boolean;
   appNetworks: string[];
+  daoId?: string;
+  daoChain?: string;
 };
 
 export const ConnectContext =
-  createContext<UserConnectType>(defaultWalletValues);
+  createContext<UserConnectType>(defaultConnectValues);
 
 export type ConnectProviderProps = {
   web3modalOptions?: ModalOptions;
@@ -62,6 +64,8 @@ export type ConnectProviderProps = {
   children: ReactNode;
   daoChainId?: string;
   lifeCycleFns?: ConnectLifecycleFns;
+  daoId?: string;
+  daoChain?: string;
 };
 
 export const ConnectProvider = ({
@@ -70,6 +74,8 @@ export const ConnectProvider = ({
   networks = HAUS_NETWORK_DATA,
   lifeCycleFns,
   daoChainId,
+  daoId,
+  daoChain,
 }: ConnectProviderProps) => {
   const [isConnecting, setConnecting] = useState(true);
   const [{ provider, chainId, address }, setWalletState] =
@@ -103,23 +109,40 @@ export const ConnectProvider = ({
     });
   }, [web3modalOptions, setWalletState]);
 
+  const loadAccountProfile = useCallback(
+    (
+      address: string | null | undefined,
+      chainId: ValidNetwork | null | undefined,
+      shouldUpdate: boolean
+    ) => {
+      if (
+        address &&
+        chainId &&
+        isConnected &&
+        !isProfileLoading &&
+        address !== profile?.address
+      ) {
+        loadProfile({
+          address,
+          chainId,
+          setProfile,
+          setProfileLoading,
+          shouldUpdate,
+          networks,
+          lifeCycleFns,
+        });
+      }
+    },
+    [isConnected, isProfileLoading, networks, lifeCycleFns, profile]
+  );
+
   useEffect(() => {
     let shouldUpdate = true;
-    if (address && chainId && isConnected && address !== profile?.address) {
-      loadProfile({
-        address,
-        chainId,
-        setProfile,
-        setProfileLoading,
-        shouldUpdate,
-        networks,
-        lifeCycleFns,
-      });
-    }
+    loadAccountProfile(address, chainId, shouldUpdate);
     return () => {
       shouldUpdate = false;
     };
-  }, [address, chainId, isConnected, networks, lifeCycleFns, profile]);
+  }, [address, chainId]);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
@@ -161,6 +184,8 @@ export const ConnectProvider = ({
         validNetwork,
         isAppNetwork,
         appNetworks,
+        daoId,
+        daoChain,
       }}
     >
       {children}

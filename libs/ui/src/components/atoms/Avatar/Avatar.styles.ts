@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { Theme } from '../../../types/theming';
 
 const sizes: Record<string, string> = {
-  sm: '3rem',
-  md: '4rem',
-  lg: '5rem',
-  xl: '6rem',
+  sm: '2.5rem',
+  md: '3.5rem',
+  lg: '4.5rem',
+  xl: '5.5rem',
 };
 const handleSizing = (size: string) => (sizes[size] ? sizes[size] : size);
 

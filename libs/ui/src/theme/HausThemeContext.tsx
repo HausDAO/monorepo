@@ -5,7 +5,7 @@ import { ReactSetter } from '@daohaus/utils';
 
 import { GlobalStyles } from './global/globalStyles';
 import { defaultDarkTheme, defaultLightTheme } from './theme';
-import { Theme } from '../types/theming';
+import { Theme, ThemeOverrides } from '../types/theming';
 import './global/fonts.css';
 import {
   Toast,
@@ -25,6 +25,7 @@ type ProviderProps = {
   defaultDark?: Theme;
   defaultLight?: Theme;
   startDark?: boolean;
+  themeOverrides?: ThemeOverrides;
 };
 
 export const HausThemeContext = createContext<HausUI>({
@@ -36,21 +37,39 @@ export const HausThemeContext = createContext<HausUI>({
 
 const DEFAULT_TOAST_DURATION = 6000;
 
+const mergeThemeProperties = (theme: Theme, overrides?: ThemeOverrides) => ({
+  ...theme,
+  ...overrides,
+});
+
 export const HausThemeProvider = ({
   children,
   defaultDark = defaultDarkTheme,
   defaultLight = defaultLightTheme,
   startDark = true,
+  themeOverrides,
 }: ProviderProps) => {
-  const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
+  const [theme, setTheme] = useState(
+    mergeThemeProperties(startDark ? defaultDark : defaultLight, themeOverrides)
+  );
   const [toast, setToast] = useState<ToastProps | null>(null);
   useEffect(() => {
-    setTheme(startDark ? defaultDark : defaultLight);
-  }, [startDark, defaultDark, defaultLight]);
+    setTheme(
+      mergeThemeProperties(
+        startDark ? defaultDark : defaultLight,
+        themeOverrides
+      )
+    );
+  }, [startDark, defaultDark, defaultLight, themeOverrides]);
 
   const toggleLightDark = () => {
     setTheme((prevState) =>
-      prevState.themeName === defaultDark.themeName ? defaultLight : defaultDark
+      mergeThemeProperties(
+        prevState.themeName === defaultDark.themeName
+          ? defaultLight
+          : defaultDark,
+        themeOverrides
+      )
     );
   };
 

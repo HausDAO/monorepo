@@ -1,4 +1,4 @@
-specVersion: 0.0.4
+specVersion: 0.0.2
 description: DAOHaus V3 Subgraph
 repository: https://github.com/hausdao/daohaus-v3-subgraph-sandbox
 schema:
@@ -13,7 +13,7 @@ dataSources:
       startBlock: 7798375
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Dao
@@ -35,7 +35,7 @@ dataSources:
       startBlock: 8001257
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Dao
@@ -59,7 +59,7 @@ dataSources:
       startBlock: 8001258
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Dao
@@ -81,7 +81,7 @@ dataSources:
       startBlock: 7798375
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Post
@@ -102,7 +102,7 @@ dataSources:
       startBlock: 7798495
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - Proposal
@@ -125,7 +125,7 @@ templates:
       abi: Baal
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/baal-mapping.ts
       entities:
@@ -174,7 +174,7 @@ templates:
       abi: Shares
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/token-mapping.ts
       entities:
@@ -197,7 +197,7 @@ templates:
       abi: Loot
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/token-mapping.ts
       entities:

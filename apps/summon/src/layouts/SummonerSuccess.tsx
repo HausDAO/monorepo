@@ -70,10 +70,7 @@ export const SummonerSuccess = ({
       </H1>
       <ParMd>
         Learn more about{' '}
-        <Link
-          href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc"
-          linkType="external"
-        >
+        <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
           Moloch v3
         </Link>
       </ParMd>
@@ -97,8 +94,8 @@ export const SummonerSuccess = ({
           <Bold>Summon Another DAO</Bold>
         </Button>
         <Link
-          linkType="no-icon-external"
           href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}
+          showExternalIcon={false}
         >
           <Button
             // centerAlign={isMobile}

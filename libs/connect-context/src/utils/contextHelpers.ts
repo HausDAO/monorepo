@@ -41,7 +41,9 @@ export const handleSetProvider = async ({
   const signerAddress = await ethersProvider.getSigner().getAddress();
   setWalletState({
     provider: ethersProvider,
-    chainId: provider.chainId as ValidNetwork,
+    chainId: (typeof provider.chainId === 'number'
+      ? `0x${Number(provider.chainId).toString(16)}`
+      : provider.chainId) as ValidNetwork,
     address: signerAddress,
   });
 };

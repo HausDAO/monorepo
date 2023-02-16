@@ -34,6 +34,7 @@ import {
   primaryA,
   secondaryA,
 } from './global/colors';
+import { font } from './global/font';
 
 import {
   primaryDarkBtn,
@@ -85,6 +86,9 @@ export const defaultDarkTheme: Theme = {
       error: dangerDark.step9,
     },
   },
+  font: {
+    family: font.family,
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -123,5 +127,8 @@ export const defaultLightTheme: Theme = {
       warning: warning.step9,
       error: danger.step9,
     },
+  },
+  font: {
+    family: font.family,
   },
 };

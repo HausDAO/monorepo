@@ -64,7 +64,7 @@ export const AddressDisplay = ({
           </Icon>
         </AddressCopyIcon>
       )}
-      {explorerLink && <Link href={explorerLink} linkType="external"></Link>}
+      {explorerLink && <Link href={explorerLink}></Link>}
     </AddressContainer>
   );
 };

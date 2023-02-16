@@ -15,7 +15,7 @@ import {
 import { formatValueTo, generateGnosisUiLink } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
-import { DaoVault, MolochV3Dao } from '@daohaus/moloch-v3-data';
+import { DaoSafe, MolochV3Dao } from '@daohaus/moloch-v3-data';
 import { VaultMenu } from './VaultMenu';
 
 const VaultOverviewCard = styled(Card)`
@@ -66,7 +66,7 @@ const TagSection = styled.div`
 
 type VaultOverviewProps = {
   dao: MolochV3Dao;
-  vault: DaoVault;
+  vault: DaoSafe;
 };
 
 export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
@@ -90,7 +90,6 @@ export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
         <div className="right-section">
           <div className="safe-link">
             <Link
-              linkType="external"
               href={generateGnosisUiLink({
                 chainId: daochain as keyof Keychain,
                 address: vault.safeAddress,

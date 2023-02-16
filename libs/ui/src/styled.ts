@@ -49,6 +49,15 @@ export interface BtnTargets {
   };
 }
 
+export interface DefaultThemeOverrides {
+  font?: {
+    family: {
+      body: string;
+      data: string;
+    };
+  };
+}
+
 type ColorSteps = {
   step1: string;
   step2: string;
@@ -163,6 +172,12 @@ declare module 'styled-components' {
         success: string;
         warning: string;
         error: string;
+      };
+    };
+    font: {
+      family: {
+        body: string;
+        data: string;
       };
     };
   }

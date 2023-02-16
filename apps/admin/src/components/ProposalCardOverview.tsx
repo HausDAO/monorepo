@@ -21,6 +21,10 @@ import {
   Theme,
   Icon,
   MemberCard,
+  MemberCardExplorerLink,
+  DropdownLinkStyles,
+  MemberCardItem,
+  MemberCardCopyAddress,
 } from '@daohaus/ui';
 
 import { fetchProfile } from '../utils/cacheProfile';
@@ -58,6 +62,7 @@ const SubmittedContainer = styled.div`
 `;
 
 const StyledRouterLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
   :hover {
     text-decoration: none;
   }
@@ -83,7 +88,7 @@ export const ProposalCardOverview = ({
       const profile = await fetchProfile(address, daochain as ValidNetwork);
       setter(profile);
     },
-    []
+    [daochain]
   );
 
   useEffect(() => {
@@ -123,28 +128,60 @@ export const ProposalCardOverview = ({
           Submitted by
         </ParMd>
         <MemberCard
-          explorerNetworkId={daochain as keyof Keychain}
-          minWidth="4rem"
-          profileUrl={`/molochv3/${daochain}/${daoid}/members/${proposal.createdBy}`}
+          variant="ghost"
           profile={
             submitterProfile || {
               address: proposal.createdBy,
             }
           }
-        />
+        >
+          <MemberCardItem asChild>
+            <StyledRouterLink
+              to={`/molochv3/${daochain}/${daoid}/members/${proposal.createdBy}`}
+            >
+              View Profile
+            </StyledRouterLink>
+          </MemberCardItem>
+          <MemberCardExplorerLink
+            explorerNetworkId={daochain as keyof Keychain}
+            profileAddress={submitterProfile?.address || proposal.createdBy}
+          >
+            View on Etherscan
+          </MemberCardExplorerLink>
+          <MemberCardCopyAddress
+            profileAddress={submitterProfile?.address || proposal.createdBy}
+          >
+            Copy Address
+          </MemberCardCopyAddress>
+        </MemberCard>
         {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
           <>
             <ParMd color={theme.secondary.step11} className="submitted-by">
               through
             </ParMd>
             <MemberCard
-              explorerNetworkId={daochain as keyof Keychain}
-              minWidth="4rem"
-              profileUrl={`/molochv3/${daochain}/${daoid}/members/${proposal.proposedBy}`}
+              variant="ghost"
               profile={{
                 address: proposal.proposedBy,
               }}
-            />
+            >
+              <MemberCardItem asChild>
+                <StyledRouterLink
+                  to={`/molochv3/${daochain}/${daoid}/members/${proposal.proposedBy}`}
+                >
+                  View Profile
+                </StyledRouterLink>
+              </MemberCardItem>
+              <MemberCardExplorerLink
+                explorerNetworkId={daochain as keyof Keychain}
+                profileAddress={proposal.proposedBy}
+              >
+                View on Etherscan
+              </MemberCardExplorerLink>
+              <MemberCardCopyAddress profileAddress={proposal.proposedBy}>
+                Copy Address
+              </MemberCardCopyAddress>
+            </MemberCard>
           </>
         )}
       </SubmittedContainer>

@@ -31,6 +31,7 @@ export enum StatusMsg {
   PollStart = 'Syncing TX (Subgraph)',
   PollSuccess = 'Success: TX Confirmed!',
   PollError = 'Sync Error (Subgraph)',
+  NoContext = 'Missing TXBuilder Context',
 }
 
 export const FormBuilder = ({
@@ -59,7 +60,7 @@ export const FormBuilder = ({
       setIsLoading(true);
       setTxHash(null);
       setStatus(StatusMsg.Compile);
-      return await fireTransaction({
+      const executed = await fireTransaction({
         tx: form.tx,
         callerState: {
           formValues,
@@ -117,6 +118,11 @@ export const FormBuilder = ({
           },
         },
       });
+      if (executed === undefined) {
+        setStatus(StatusMsg.NoContext);
+        return;
+      }
+      return executed;
     }
     if (onSubmit) {
       return await onSubmit?.(formValues);

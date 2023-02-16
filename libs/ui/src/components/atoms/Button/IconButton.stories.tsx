@@ -43,5 +43,6 @@ BaseIconButton.args = {
   color: 'primary',
   variant: 'solid',
   size: 'md',
+  isLoading: false,
   disabled: false,
 };

@@ -58,11 +58,7 @@ export const ProposalDetailsGuts = ({
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>
       {proposal.contentURI && (
-        <Link
-          href={proposal.contentURI}
-          linkType="external"
-          className="proposal-link"
-        >
+        <Link href={proposal.contentURI} className="proposal-link">
           Link
         </Link>
       )}

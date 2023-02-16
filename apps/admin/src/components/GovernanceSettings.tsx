@@ -25,6 +25,7 @@ import { getNetwork } from '@daohaus/keychain-utils';
 
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { ButtonRouterLink } from './ButtonRouterLink';
 
 const GovernanceContainer = styled.div`
   .tokens {
@@ -117,13 +118,14 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
     <GovernanceContainer>
       <GovernanceCardHeader>
         <H3>Governance Settings</H3>
-        <StyledButtonLink
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_GOV_SETTINGS&defaultValues=${JSON.stringify(
+        <ButtonRouterLink
+          color="secondary"
+          to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_GOV_SETTINGS&defaultValues=${JSON.stringify(
             defaultValues
           )}`}
         >
-          <Button color="secondary">Update DAO Settings</Button>
-        </StyledButtonLink>
+          Update DAO Settings
+        </ButtonRouterLink>
       </GovernanceCardHeader>
       <div className="description">
         <ParSm>
@@ -183,13 +185,14 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       </DataGrid>
       <TokensHeader>
         <H3 className="tokens">DAO Tokens</H3>
-        <StyledButtonLink
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TOKEN_SETTINGS&defaultValues=${JSON.stringify(
+        <ButtonRouterLink
+          color="secondary"
+          to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TOKEN_SETTINGS&defaultValues=${JSON.stringify(
             defaultValues
           )}`}
         >
           <Button color="secondary">Update Token Settings</Button>
-        </StyledButtonLink>
+        </ButtonRouterLink>
       </TokensHeader>
       <H4>Voting</H4>
       <TokenDataGrid>

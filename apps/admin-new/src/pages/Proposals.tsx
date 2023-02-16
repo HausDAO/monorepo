@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { useCurrentDao, useDaoProposals } from '@daohaus/moloch-v3-hooks';
-import { Button, Link, Select, SingleColumnLayout } from '@daohaus/ui';
+import { Button, ParSm, Select, SingleColumnLayout } from '@daohaus/ui';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Proposals = () => {
@@ -65,9 +66,9 @@ export const Proposals = () => {
         return (
           <Link
             key={proposal.proposalId}
-            href={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
+            to={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
           >
-            {proposal?.title}
+            <ParSm>{proposal?.title}</ParSm>
           </Link>
         );
       })}

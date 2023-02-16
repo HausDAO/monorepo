@@ -1,85 +1,94 @@
-import React, { useMemo } from 'react';
-import { RiArrowDropDownLine } from 'react-icons/ri/index.js';
+import React, { PropsWithChildren, useMemo } from 'react';
 
 import { generateExplorerLink } from '@daohaus/keychain-utils';
-import { truncateAddress } from '@daohaus/utils';
-
-import { MemberCardProps } from './MemberCard.types';
-
-import { ParMd } from '../../atoms';
 
 import {
-  Dropdown,
+  MemberCardProps,
+  MemberCardExplorerLinkProps,
+  MemberCardItemProps,
+  MemberCardCopyAddressProps,
+} from './MemberCard.types';
+
+import {
+  DropdownMenu,
+  DropdownProfileTrigger,
+  DropdownContent,
+  DropdownItem,
   DropdownLink,
-  DropdownText,
-  DropdownMenuItem,
-  ProfileAvatar,
-} from '../../molecules';
-import { MemberCardTrigger } from './MemberCard.styles';
+} from '../../molecules/Dropdown/Dropdown';
 import { useCopyToClipboard } from '../../../hooks';
 
 export const MemberCard = ({
-  className,
+  align = 'end',
+  size,
+  variant,
   profile,
-  profileUrl,
-  explorerNetworkId,
-  minWidth = '17.8rem',
-}: MemberCardProps) => {
-  const copy = useCopyToClipboard();
+  fullWidth,
+  profileButtonColor,
+  dropdownColor,
+  children,
+}: PropsWithChildren<MemberCardProps>) => {
+  return (
+    <DropdownMenu>
+      <DropdownProfileTrigger
+        size={size}
+        variant={variant}
+        color={profileButtonColor}
+        profile={profile}
+        fullWidth={fullWidth}
+      ></DropdownProfileTrigger>
+      <DropdownContent color={dropdownColor} align={align}>
+        {children}
+      </DropdownContent>
+    </DropdownMenu>
+  );
+};
 
+export const MemberCardExplorerLink = ({
+  explorerNetworkId,
+  profileAddress,
+  children,
+}: PropsWithChildren<MemberCardExplorerLinkProps>) => {
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {
       return generateExplorerLink({
         chainId: explorerNetworkId,
-        address: profile.address,
+        address: profileAddress,
         type: 'address',
       });
     }
-  }, [profile, explorerNetworkId]);
+  }, [profileAddress, explorerNetworkId]);
+  return (
+    <DropdownItem asChild>
+      <DropdownLink href={explorerLink}>{children}</DropdownLink>
+    </DropdownItem>
+  );
+};
+
+export const MemberCardCopyAddress = ({
+  profileAddress,
+  children,
+  ...props
+}: PropsWithChildren<MemberCardCopyAddressProps>) => {
+  const copy = useCopyToClipboard();
 
   const handleCopy = () => {
-    copy(profile.address, 'Success!');
+    copy(profileAddress, 'Success!');
   };
-
   return (
-    <Dropdown
-      className={className}
-      align="start"
-      trigger={
-        <MemberCardTrigger
-          // avatar
-          variant="ghost"
-          color="secondary"
-          minWidth={minWidth}
-          IconRight={RiArrowDropDownLine}
-        >
-          <ProfileAvatar address={profile.address} image={profile.image} />
-          {(profile.name || profile.ens) && (
-            <ParMd>{profile.name ? profile.name : profile.ens}</ParMd>
-          )}
-          {!profile.name && !profile.ens && (
-            <ParMd>{truncateAddress(profile.address)}</ParMd>
-          )}
-        </MemberCardTrigger>
-      }
-    >
-      {profileUrl && (
-        <DropdownMenuItem>
-          <DropdownLink href={profileUrl}>
-            <ParMd>View Profile</ParMd>
-          </DropdownLink>
-        </DropdownMenuItem>
-      )}
-      <DropdownMenuItem>
-        <DropdownLink href={explorerLink} linkType="external">
-          <ParMd>Block Explorer</ParMd>
-        </DropdownLink>
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <DropdownText onClick={handleCopy}>
-          <ParMd>Copy Address</ParMd>
-        </DropdownText>
-      </DropdownMenuItem>
-    </Dropdown>
+    <DropdownItem onClick={handleCopy} {...props}>
+      {children}
+    </DropdownItem>
+  );
+};
+
+export const MemberCardItem = ({
+  children,
+  ...props
+}: PropsWithChildren<MemberCardItemProps>) => {
+  return (
+    <DropdownItem asChild {...props}>
+      {children}
+    </DropdownItem>
   );
 };

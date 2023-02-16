@@ -10,7 +10,6 @@ import {
   NavMenuContent,
   NavMenuLink,
   NavMenuViewport,
-  NavMenuViewportPosition,
   NavMenuIndicator,
 } from './NavigationMenu';
 

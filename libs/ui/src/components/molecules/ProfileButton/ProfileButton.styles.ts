@@ -9,6 +9,12 @@ export const StyledProfileButton = styled(Button)`
       margin-left: auto;
     }
   }
+
+  .interior {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const ProfileBtnAvatar = styled(ProfileAvatar)`

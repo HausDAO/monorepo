@@ -5,11 +5,13 @@ import { Keychain, getNetworkName, NetworkType } from '@daohaus/keychain-utils';
 
 import {
   Button,
-  Dropdown,
-  DropdownMenuItem,
-  DropdownMenuLabel,
+  DropdownMenu,
+  DropdownItem,
+  DropdownLabel,
   ParXs,
   widthQuery,
+  DropdownContent,
+  DropdownButtonTrigger,
 } from '@daohaus/ui';
 
 import { useDHConnect } from '../../HausConnectContext';
@@ -37,7 +39,7 @@ export const getNetworkPanels = (
       switchNetwork(network.chainId);
     };
     return (
-      <DropdownMenuItem key={i} asChild>
+      <DropdownItem key={i} asChild>
         <WarningButton
           color="secondary"
           fullWidth
@@ -46,7 +48,7 @@ export const getNetworkPanels = (
         >
           {network.name}
         </WarningButton>
-      </DropdownMenuItem>
+      </DropdownItem>
     );
   });
 
@@ -75,6 +77,7 @@ export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
 export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
   const { switchNetwork, networks } = useDHConnect();
 
+  // Mobile should be handled in the UI component
   const innerButton = isSm ? (
     <WarningButton
       color="primary"
@@ -89,17 +92,21 @@ export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
   );
 
   return (
-    <Dropdown
-      align="end"
-      spacing="0.7rem"
-      menuMinWidth="25.25rem"
-      trigger={innerButton}
-    >
-      <DropdownMenuLabel>
-        <ParXs>Switch to available network</ParXs>
-      </DropdownMenuLabel>
-      {getNetworkPanels(networks, switchNetwork)}
-    </Dropdown>
+    <DropdownMenu>
+      <DropdownButtonTrigger
+        color="primary"
+        variant="outline"
+        IconLeft={BiError}
+      >
+        {innerButton}
+      </DropdownButtonTrigger>
+      <DropdownContent align="end">
+        <DropdownLabel>
+          <ParXs>Switch to available network</ParXs>
+        </DropdownLabel>
+        {getNetworkPanels(networks, switchNetwork)}
+      </DropdownContent>
+    </DropdownMenu>
   );
 };
 

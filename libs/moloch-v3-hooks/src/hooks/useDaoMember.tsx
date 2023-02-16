@@ -29,7 +29,6 @@ const fetchMember = async ({
       networkId: daoChain,
       graphApiKeys,
     });
-    console.log(res);
     return res?.data?.member;
   } catch (error) {
     console.error(error);

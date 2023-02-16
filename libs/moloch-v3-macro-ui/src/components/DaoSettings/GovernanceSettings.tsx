@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { H3, H4, DataIndicator, ParSm, Button } from '@daohaus/ui';
-
+import { H3, H4, DataIndicator, ParSm } from '@daohaus/ui';
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   charLimit,
@@ -139,7 +138,7 @@ export const GovernanceSettings = ({
               defaultValues
             )}`}
           >
-            <Button color="secondary">Update Token Settings</Button>
+            Update Token Settings
           </ButtonRouterLink>
         )}
       </TokensHeader>

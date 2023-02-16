@@ -66,3 +66,31 @@ export const ExpandedDataGrid = styled.div`
   justify-content: space-between;
   margin-top: 2.4rem;
 `;
+export const VotesListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const VotesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-top: 3rem;
+  min-width: 50rem;
+  max-height: 50rem;
+  @media ${widthQuery.sm} {
+    min-width: 100%;
+  }
+  overflow: auto;
+  padding-right: 1rem;
+`;
+
+export const VoteContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 3rem 0;
+  @media ${widthQuery.sm} {
+    margin: 1.2rem 0;
+  }
+`;

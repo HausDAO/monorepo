@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import { AccountProfile } from '@daohaus/utils';
+import React from 'react';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {

@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
-import { useTheme } from 'styled-components';
-import { useConnectedMember } from '@daohaus/moloch-v3-context';
+// import { useTheme } from 'styled-components';
 import {
   DropdownMenu,
   DropdownItem,
@@ -10,7 +9,7 @@ import {
 } from '@daohaus/ui';
 import { getNetwork } from '@daohaus/keychain-utils';
 import { SafeActionMenuLink, SafeActionMenuTrigger } from './SafeCard.styles';
-import { useDaoMember } from '@daohaus/moloch-v3-hooks';
+// import { useDaoMember } from '@daohaus/moloch-v3-hooks';
 
 type SafeActionMenuProps = {
   ragequittable: boolean;
@@ -30,7 +29,7 @@ export const SafeActionMenu = ({
   //   daoId,
   //   memberAddress:
   // });
-  const theme = useTheme();
+  // const theme = useTheme();
 
   // const enableActions = useMemo(() => {
   //   return connectedMember && Number(connectedMember.shares) > 0;
@@ -55,7 +54,7 @@ export const SafeActionMenu = ({
       <DropdownContent>
         <DropdownItem key="erc20" asChild>
           <SafeActionMenuLink
-            href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
                 ? 'TRANSFER_ERC20'
                 : `TRANSFER_ERC20_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
@@ -66,7 +65,7 @@ export const SafeActionMenu = ({
         </DropdownItem>
         <DropdownItem key="eth" asChild>
           <SafeActionMenuLink
-            href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
                 ? 'TRANSFER_NETWORK_TOKEN'
                 : `TRANSFER_NETWORK_TOKEN_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
@@ -77,7 +76,7 @@ export const SafeActionMenu = ({
         </DropdownItem>
         <DropdownItem key="txbuilder" asChild>
           <SafeActionMenuLink
-            href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
                 ? 'MULTICALL'
                 : `MULTICALL_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`

@@ -1,5 +1,6 @@
 import { useDHConnect } from '@daohaus/connect';
-import { H4, Input, Link, SingleColumnLayout, useDebounce } from '@daohaus/ui';
+import { Link } from 'react-router-dom';
+import { H4, Input, ParSm, SingleColumnLayout, useDebounce } from '@daohaus/ui';
 import React from 'react';
 import { useDaosByUser } from '@daohaus/moloch-v3-hooks';
 import { Dao_Filter } from '@daohaus/moloch-v3-data';
@@ -34,8 +35,8 @@ export const Home = () => {
         {daos?.length ? (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {daos.map((dao) => (
-              <Link key={dao.dao} href={`molochv3/${dao.networkId}/${dao.dao}`}>
-                {dao.name}
+              <Link key={dao.dao} to={`/molochv3/${dao.networkId}/${dao.dao}`}>
+                <ParSm>{dao.name}</ParSm>
               </Link>
             ))}
           </div>

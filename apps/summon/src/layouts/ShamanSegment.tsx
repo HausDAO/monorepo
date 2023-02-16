@@ -36,11 +36,7 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       description="Shamans are powerful and have control over key components of the DAO. Use caution in the spirit world."
       formArea={
         <TextAreaSection>
-          <Link
-            className="link"
-            href="https://moloch.daohaus.fun/tools/shaman"
-            linkType="external"
-          >
+          <Link className="link" href="https://moloch.daohaus.fun/tools/shaman">
             How to add a Shaman
           </Link>
           <ParSm className="number-display">{amtShamans} Shamans</ParSm>

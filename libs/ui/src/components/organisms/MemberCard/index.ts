@@ -1,2 +1,13 @@
-export { MemberCard } from './MemberCard';
-export type { MemberCardProps } from './MemberCard.types';
+export {
+  MemberCard,
+  MemberCardExplorerLink,
+  MemberCardCopyAddress,
+  MemberCardItem,
+} from './MemberCard';
+
+export type {
+  MemberCardProps,
+  MemberCardExplorerLinkProps,
+  MemberCardCopyAddressProps,
+  MemberCardItemProps,
+} from './MemberCard.types';

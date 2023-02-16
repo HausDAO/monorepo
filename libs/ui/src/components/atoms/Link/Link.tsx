@@ -3,18 +3,17 @@ import classNames from 'classnames';
 import { RiExternalLinkLine } from 'react-icons/ri/index.js';
 
 import { LinkProps, PolymorphicLinkProps } from './Link.types';
-import { InternalLink, ExternalLink } from './Link.styles';
+import { StyledLink } from './Link.styles';
 
-// TODO Refactor React Router out
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
       href = '/',
       target = '_blank',
-      linkType = 'internal',
+      showExternalIcon = true,
       selected,
       disabled,
-      Icon,
+      RightIcon,
       LeftIcon,
       className,
       children,
@@ -22,31 +21,18 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref
   ) => {
     const classes = classNames({ selected, disabled });
-    if (linkType === 'external' || linkType === 'no-icon-external') {
-      return (
-        <ExternalLink
-          href={href}
-          className={`${classes} ${className}`}
-          target={target}
-          ref={ref}
-        >
-          {LeftIcon && <LeftIcon className="icon-left" />}
-          {children}
-          {linkType === 'external' ? (
-            Icon ? (
-              <Icon />
-            ) : (
-              <RiExternalLinkLine />
-            )
-          ) : null}
-        </ExternalLink>
-      );
-    }
     return (
-      <InternalLink to={href} className={`${classes} ${className}`} ref={ref}>
+      <StyledLink
+        href={href}
+        className={`${classes} ${className}`}
+        target={target}
+        ref={ref}
+      >
+        {LeftIcon && <LeftIcon className="icon-left" />}
         {children}
-        {Icon && <Icon />}
-      </InternalLink>
+        {(showExternalIcon && <RiExternalLinkLine />) ||
+          (RightIcon && <RightIcon className="icon-right" />)}
+      </StyledLink>
     );
   }
 );

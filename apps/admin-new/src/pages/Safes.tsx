@@ -14,7 +14,6 @@ export const Safes = () => {
     <SingleColumnLayout>
       <ParLg>Treasury</ParLg>
       <Link
-        linkType="external"
         href={generateGnosisUiLink({
           chainId: daoChain as ValidNetwork,
           address: dao?.safeAddress,
@@ -34,7 +33,7 @@ export const Safes = () => {
             dao={dao}
             safe={dao.vaults[0]}
             daoChain={daoChain}
-            includeLinks={true}
+            includeLinks={false}
           />
 
           <hr />

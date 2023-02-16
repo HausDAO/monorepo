@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { font } from '../../../theme/global/font';
+import { Loading } from '../Loading';
 import { Theme } from '../../../types';
 import { ButtonJustifyContent, ButtonColor } from './Button.types';
 
@@ -16,9 +17,11 @@ export const StyledButton = styled.button<{
   height: 4.8rem;
   justify-content: ${({ justify }) => justify};
   letter-spacing: 1.8px;
-  padding: 1.2rem;
-  transition: 0.2s all;
   outline: none;
+  padding: 1.2rem;
+  text-decoration: none;
+  transition: 0.2s all;
+  width: fit-content;
 
   svg {
     width: 2.2rem;
@@ -137,6 +140,18 @@ export const StyledButton = styled.button<{
     }
   }
 
+  &.lg {
+    font-size: ${font.size.lg};
+    height: 6rem;
+    min-width: 10.7rem;
+    padding: 1.5rem;
+
+    svg {
+      height: 3.2rem;
+      width: 3.2rem;
+    }
+  }
+
   &.sm {
     font-size: ${font.size.xs};
     height: 3.6rem;
@@ -149,27 +164,22 @@ export const StyledButton = styled.button<{
     }
   }
 
-  &.lg {
-    font-size: ${font.size.lg};
-    height: 6rem;
-    min-width: 10.7rem;
-    padding: 1.5rem;
-
-    svg {
-      height: 3.2rem;
-      width: 3.2rem;
+  &.loading {
+    .icon-left,
+    .icon-right {
+      visibility: hidden;
     }
-  }
-  /*
-    Could add a prop that allows for configueration of all possible
-    jusify-content props at the base button level.
-    Doing this to fix breaking changes for now
-  */
-  &.left-align {
-    justify-content: flex-start;
   }
 
   &.full-width {
     min-width: 100%;
   }
+`;
+
+export const LoadingAbsolute = styled(Loading)`
+  position: fixed;
+`;
+
+export const StyledInvisibleSpan = styled.span`
+  visibility: hidden;
 `;

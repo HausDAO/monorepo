@@ -4,10 +4,6 @@ The v3 subgraph currently supports goerli. It's deployed here: https://api.thegr
 
 ## Local Development
 
-- Install Graph CLI v0.22.0
-
-`yarn global add @graphprotocol/graph-cli@0.22.0`
-
 ### Subgraph yaml Generation
 
 `nx run moloch-v3-subgraph:generate-config --network=goerli`
@@ -40,13 +36,14 @@ To generate subgraph code, run the following command:
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-arbitrum --network=arbitrum-one`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-polygon --network=matic`
 
-### mainnet deployment to studio
+### mainnet and gnosis chain deployment to studio
 
 `cd apps/moloch-v3-subgraph`
 `graph deploy --studio daohaus-v3`
 
 todo: get this nx command running with a version:
 `nx run moloch-v3-subgraph:graph-deploy-studio --name=daohaus-v3 --network=mainnet`
+`nx run moloch-v3-subgraph:graph-deploy-studio --name=daohaus-v3-gnosis --network=gnosis`
 
 _These require installing the graph cli locally and auth tokens for deployment to the hosted service or studio subgraphs_
 `npm install -g @graphprotocol/graph-cli`
@@ -59,3 +56,4 @@ Supported names:
 - `hausdao/daohaus-v3-arbitrum`
 - `hausdao/daohaus-v3-polygon`
 - `daohaus-v3`
+- `daohaus-v3-gnosis`

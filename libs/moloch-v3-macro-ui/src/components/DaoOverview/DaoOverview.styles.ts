@@ -63,10 +63,3 @@ export const MissingProfileCard = styled(Card)`
 export const TagListContainer = styled.div`
   margin-top: 2.8rem;
 `;
-
-export const TagContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 1rem;
-`;

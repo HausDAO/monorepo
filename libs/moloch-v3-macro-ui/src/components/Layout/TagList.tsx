@@ -1,5 +1,16 @@
+import styled from 'styled-components';
 import { Tag, TagColors } from '@daohaus/ui';
-import { TagContainer } from './DaoOverview.styles';
+
+export const TagListContainer = styled.div`
+  margin-top: 2.8rem;
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+`;
 
 const tagColors: TagColors[] = [
   'violet',

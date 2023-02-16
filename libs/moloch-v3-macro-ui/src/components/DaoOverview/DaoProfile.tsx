@@ -5,29 +5,18 @@ import { Keychain } from '@daohaus/keychain-utils';
 
 import { AddressDisplay, H4, ParMd, ParXs, Button, Link } from '@daohaus/ui';
 
-import { TagList } from './TagList';
-import {
-  OverviewIconLinkList,
-  OverviewLinkList,
-} from '../Layout/MetadataLinkLists';
-import { MolochV3Dao, DaoProfileLink } from '@daohaus/moloch-v3-data';
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   DaoProfileAvatar,
   DaoProfileContainer,
   MissingProfileCard,
   TagListContainer,
 } from './DaoOverview.styles';
-
-export const missingDaoProfileData = (dao: MolochV3Dao): boolean => {
-  if (!dao?.profile || !dao.profile.length) return true;
-  return dao.description === '' && dao.avatarImg === '';
-};
-
-export const daoProfileHasLinks = (
-  links: MolochV3Dao['links']
-): boolean | undefined => {
-  return links?.some((link: DaoProfileLink) => link.url);
-};
+import {
+  daoProfileHasLinks,
+  missingDaoProfileData,
+} from '../../utils/daoDataDisplayHelpers';
+import { OverviewIconLinkList, OverviewLinkList, TagList } from '../Layout';
 
 type DaoProfileProps = {
   dao: MolochV3Dao;

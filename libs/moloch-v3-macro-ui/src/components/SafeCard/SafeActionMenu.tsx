@@ -2,7 +2,12 @@ import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
 import { useTheme } from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';
-import { Dropdown, DropdownMenuItem } from '@daohaus/ui';
+import {
+  DropdownMenu,
+  DropdownItem,
+  DropdownTrigger,
+  DropdownContent,
+} from '@daohaus/ui';
 import { getNetwork } from '@daohaus/keychain-utils';
 import { SafeActionMenuLink, SafeActionMenuTrigger } from './SafeCard.styles';
 import { useDaoMember } from '@daohaus/moloch-v3-hooks';
@@ -39,20 +44,16 @@ export const SafeActionMenu = ({
   // if (!enableActions) return null;
 
   return (
-    <Dropdown
-      menuMinWidth="17.8rem"
-      trigger={
+    <DropdownMenu>
+      <DropdownTrigger asChild>
         <SafeActionMenuTrigger
           IconRight={RiMore2Fill}
           size="sm"
           variant="ghost"
         />
-      }
-      side="left"
-      menuBg={theme.secondary.step6}
-    >
-      <>
-        <DropdownMenuItem key="erc20" asChild>
+      </DropdownTrigger>
+      <DropdownContent>
+        <DropdownItem key="erc20" asChild>
           <SafeActionMenuLink
             href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
@@ -62,8 +63,8 @@ export const SafeActionMenu = ({
           >
             Transfer ERC-20
           </SafeActionMenuLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="eth" asChild>
+        </DropdownItem>
+        <DropdownItem key="eth" asChild>
           <SafeActionMenuLink
             href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
@@ -73,8 +74,8 @@ export const SafeActionMenu = ({
           >
             Transfer {networkData?.symbol}
           </SafeActionMenuLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="txbuilder" asChild>
+        </DropdownItem>
+        <DropdownItem key="txbuilder" asChild>
           <SafeActionMenuLink
             href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
@@ -84,8 +85,8 @@ export const SafeActionMenu = ({
           >
             Tx Builder
           </SafeActionMenuLink>
-        </DropdownMenuItem>
-      </>
-    </Dropdown>
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };

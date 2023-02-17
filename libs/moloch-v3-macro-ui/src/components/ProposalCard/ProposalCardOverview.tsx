@@ -1,5 +1,5 @@
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import {  Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import { charLimit, formatShortDateTimeFromSeconds } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
@@ -16,7 +16,7 @@ import {
   Theme,
   Icon,
   MemberCard,
-  H2,
+
 } from '@daohaus/ui';
 
 import { getProposalTypeLabel } from '../ProposalUtils/cardUtils';
@@ -63,6 +63,8 @@ type ProposalCardOverviewProps = {
   proposal: MolochV3Proposal;
   proposalTypes: Record<string, string>;
   sensitiveProposalTypes: Record<string, boolean>;
+  daoChain: string;
+  daoId: string;
 };
 
 export const ProposalCardOverview = ({
@@ -70,8 +72,9 @@ export const ProposalCardOverview = ({
   proposal,
   proposalTypes,
   sensitiveProposalTypes,
+  daoChain, daoId
 }: ProposalCardOverviewProps) => {
-  const { daochain, daoid } = useParams();
+  
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
   const isMd = useBreakpoint(widthQuery.md);
@@ -86,6 +89,8 @@ export const ProposalCardOverview = ({
         proposal={proposal}
         proposalTypes={proposalTypes}
         sensitiveProposalTypes={sensitiveProposalTypes}
+        daoChain={daoChain}
+        daoId={daoId}
       />
 
       <ParLg className="title">{proposal.title}</ParLg>
@@ -94,7 +99,7 @@ export const ProposalCardOverview = ({
       </ParMd>
       {isMd && (
         <StyledRouterLink
-          to={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+          to={`/molochV3/${daoChain}/${daoId}/proposals/${proposal.proposalId}`}
         >
           <Button
             color="secondary"
@@ -111,9 +116,9 @@ export const ProposalCardOverview = ({
           Submitted by
         </ParMd>
         <MemberCard
-          explorerNetworkId={daochain as keyof Keychain}
+          explorerNetworkId={daoChain as keyof Keychain}
           minWidth="4rem"
-          profileUrl={`/molochv3/${daochain}/${daoid}/members/${proposal.createdBy}`}
+          profileUrl={`/molochv3/${daoChain}/${daoId}/members/${proposal.createdBy}`}
           profile={
             submitterProfile || {
               address: proposal.createdBy,
@@ -161,13 +166,15 @@ export const OverviewHeader = ({
   proposal,
   proposalTypes,
   sensitiveProposalTypes,
+  daoChain, daoId
 }: {
+  daoChain: string;
+  daoId: string;
   loading: boolean;
   proposal: MolochV3Proposal;
   proposalTypes: Record<string, string>;
   sensitiveProposalTypes: Record<string, boolean>;
 }) => {
-  const { daochain, daoid } = useParams();
 
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.md);
@@ -222,7 +229,7 @@ export const OverviewHeader = ({
             </ParSm>
           </HeaderContainer>
           <StyledRouterLink
-            to={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+            to={`/molochV3/${daoChain}/${daoId}/proposals/${proposal.proposalId}`}
           >
             <Button color="secondary" size="sm" disabled={loading}>
               View Details

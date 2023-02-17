@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { useParams } from 'react-router-dom';
+
 
 import { formatShares, handleErrorMessage, TXLego } from '@daohaus/utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
@@ -27,12 +27,14 @@ export const HasNotVoted = ({
   lifeCycleFnsOverride,
   proposal,
   readableTime,
+  daoChain,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
+  daoChain: string;
   readableTime?: string;
 }) => {
-  const { daochain } = useParams();
+  
   const { chainId } = useDHConnect();
   const { connectedMember } = useConnectedMember();
   const { fireTransaction } = useTxBuilder();
@@ -99,7 +101,7 @@ export const HasNotVoted = ({
     : 'You must have voting tokens to vote';
 
   const isConnectedToDao =
-    chainId === daochain
+    chainId === daoChain
       ? true
       : 'You are not connected to the same network as the DAO';
   const isNotLoading = !isLoading

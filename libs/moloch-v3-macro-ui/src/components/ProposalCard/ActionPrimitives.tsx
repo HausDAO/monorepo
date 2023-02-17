@@ -19,7 +19,6 @@ import {
 } from '@daohaus/utils';
 import { ValidNetwork, HAUS_RPC } from '@daohaus/keychain-utils';
 
-import { useParams } from 'react-router-dom';
 import { useDHConnect } from '@daohaus/connect';
 
 const TemplateBox = styled.div`
@@ -215,9 +214,9 @@ const GasBox = styled.div`
   }
 `;
 
-export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
+export const GasDisplay = ({ gasAmt, daoChain }: { gasAmt: string | number, daoChain: string }) => {
   const theme = useTheme();
-  const { daochain } = useParams();
+ 
   const [estimate, setEstimate] = useState<string | undefined>();
   const { networks } = useDHConnect();
 
@@ -226,17 +225,17 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
       if (gasAmt) {
         const est = await getGasCostEstimate(
           gasAmt,
-          HAUS_RPC[daochain as ValidNetwork]
+          HAUS_RPC[daoChain as ValidNetwork]
         );
         const estEth = toWholeUnits(est.toFixed());
         setEstimate(Number(estEth).toFixed(6));
       }
     };
 
-    if (daochain && gasAmt) {
+    if (daoChain && gasAmt) {
       getGasEst();
     }
-  }, [daochain, gasAmt]);
+  }, [daoChain, gasAmt]);
 
   return (
     <Tooltip
@@ -247,7 +246,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
         </GasBox>
       }
       content={`If gas is less than ${estimate} ${
-        daochain && networks?.[daochain as ValidNetwork]?.symbol
+        daoChain && networks?.[daoChain as ValidNetwork]?.symbol
       }, the proposal will likely fail.`}
       side="bottom"
     />

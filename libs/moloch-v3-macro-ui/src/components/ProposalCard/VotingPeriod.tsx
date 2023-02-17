@@ -11,7 +11,9 @@ import { ActionLifeCycleFns } from '../ProposalUtils/types';
 export const VotingPeriod = ({
   lifeCycleFnsOverride,
   proposal,
+  daoChain
 }: {
+  daoChain: string;
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
 }) => {
@@ -39,6 +41,7 @@ export const VotingPeriod = ({
     />
   ) : (
     <HasNotVoted
+      daoChain={daoChain}
       lifeCycleFnsOverride={lifeCycleFnsOverride}
       proposal={proposal}
       readableTime={readableTime}

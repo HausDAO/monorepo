@@ -4,7 +4,7 @@ import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useBreakpoint, useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
-import { useParams } from 'react-router-dom';
+
 import { useDHConnect } from '@daohaus/connect';
 import { useDao } from '@daohaus/moloch-v3-context';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
@@ -44,21 +44,21 @@ const ProcessBox = styled.div`
 const eligibableStatuses = [0, 6, 7, 3];
 
 const checkCanProcess = async ({
-  daoid,
-  daochain,
+  daoId,
+  daoChain,
   prevProposalId,
   setCanProcess,
 }: {
-  daoid: string;
-  daochain: ValidNetwork;
+  daoId: string;
+  daoChain: ValidNetwork;
   prevProposalId: string;
   setCanProcess: ReactSetter<string | true>;
 }) => {
   try {
     const state = await createContract({
-      address: daoid,
+      address: daoId,
       abi: LOCAL_ABI.BAAL,
-      chainId: daochain,
+      chainId: daoChain,
     })['state'](prevProposalId);
 
     setCanProcess(
@@ -74,11 +74,15 @@ const checkCanProcess = async ({
 export const ReadyForProcessing = ({
   lifeCycleFnsOverride,
   proposal,
+  daoChain, 
+  daoId
 }: {
+  daoId: string, 
+  daoChain: string;
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
 }) => {
-  const { daochain, daoid } = useParams();
+
   const { chainId } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
@@ -143,18 +147,18 @@ export const ReadyForProcessing = ({
   };
 
   useEffect(() => {
-    if (daoid && isValidNetwork(daochain)) {
+    if (daoId && isValidNetwork(daoChain)) {
       checkCanProcess({
-        daochain,
-        daoid,
+        daoChain,
+        daoId,
         prevProposalId: proposal.prevProposalId,
         setCanProcess,
       });
     }
-  }, [proposal, daoid, daochain]);
+  }, [proposal, daoId, daoChain]);
 
   const isConnectedToDao =
-    chainId === daochain
+    chainId === daoChain
       ? true
       : 'You are not connected to the same network as the DAO';
   const isNotLoading = !isLoading
@@ -190,7 +194,7 @@ export const ReadyForProcessing = ({
       helperDisplay={
         <ProcessBox>
           {Number(proposal.actionGasEstimate) > 0 && (
-            <GasDisplay gasAmt={proposal.actionGasEstimate} />
+            <GasDisplay gasAmt={proposal.actionGasEstimate} daoChain={daoChain} />
           )}
           <GatedButton
             size="sm"

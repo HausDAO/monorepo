@@ -16,7 +16,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+
 import { useTheme } from 'styled-components';
 import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { PROP_CARD_HELP } from '../ProposalUtils/defaultModels';
@@ -29,11 +29,13 @@ import { ActionLifeCycleFns } from '../ProposalUtils/types';
 export const Unsponsored = ({
   lifeCycleFnsOverride,
   proposal,
+  daoChain,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
+  daoChain: string;
 }) => {
-  const { daochain } = useParams();
+
   const { fireTransaction } = useTxBuilder();
   const { connectedMember } = useConnectedMember();
   const { chainId } = useDHConnect();
@@ -105,7 +107,7 @@ export const Unsponsored = ({
   }, [dao, connectedMember]);
 
   const isConnectedToDao =
-    chainId === daochain
+    chainId === daoChain
       ? true
       : 'You are not connected to the same network as the DAO';
 

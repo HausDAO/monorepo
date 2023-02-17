@@ -28,7 +28,11 @@ const ActionBox = styled.div`
 export const ProposalActions = ({
   lifeCycleFnsOverride,
   proposal,
+  daoChain,
+  daoId,
 }: {
+  daoChain: string;
+  daoId: string;
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
 }) => {
@@ -45,6 +49,7 @@ export const ProposalActions = ({
         <Unsponsored
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
+          daoChain={daoChain}
         />
       </ActionBox>
     );
@@ -55,6 +60,7 @@ export const ProposalActions = ({
         <VotingPeriod
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
+          daoChain={daoChain}
         />
       </ActionBox>
     );
@@ -72,6 +78,8 @@ export const ProposalActions = ({
         <ReadyForProcessing
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
+          daoChain={daoChain}
+          daoId={daoId}
         />
       </ActionBox>
     );

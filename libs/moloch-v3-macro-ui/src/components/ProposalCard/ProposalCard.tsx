@@ -54,12 +54,16 @@ type BaseProposalCardProps = {
   proposal: MolochV3Proposal;
   sensitiveProposalTypes?: Record<string, boolean>;
   proposalTypes?: Record<string, string>;
+  daoChain: string;
+  daoId: string;
 };
 
 export const ProposalCard = ({
   proposal,
   sensitiveProposalTypes = SENSITIVE_PROPOSAL_TYPES,
   proposalTypes = PROPOSAL_TYPE_LABELS,
+  daoChain, 
+  daoId,
 }: BaseProposalCardProps) => {
   const [actionLoading, setActionLoading] = useState<boolean>(false);
 
@@ -78,12 +82,16 @@ export const ProposalCard = ({
           proposal={proposal}
           sensitiveProposalTypes={sensitiveProposalTypes}
           proposalTypes={proposalTypes}
+          daoChain={daoChain}
+          daoId={daoId}
         />
       </LeftCard>
       <RightCard>
         <ProposalActions
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
+          daoChain={daoChain}
+          daoId={daoId}
         />
       </RightCard>
     </ProposalCardContainer>

@@ -1,6 +1,5 @@
 import React, { MouseEvent } from 'react';
 
-
 import { formatShares, handleErrorMessage, TXLego } from '@daohaus/utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
@@ -34,7 +33,6 @@ export const HasNotVoted = ({
   daoChain: string;
   readableTime?: string;
 }) => {
-  
   const { chainId } = useDHConnect();
   const { connectedMember } = useConnectedMember();
   const { fireTransaction } = useTxBuilder();

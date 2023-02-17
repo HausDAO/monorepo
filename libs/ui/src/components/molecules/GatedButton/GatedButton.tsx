@@ -1,6 +1,6 @@
 import { Button, Tooltip } from '../../atoms';
 
-import  { ComponentProps, useMemo } from 'react';
+import { ComponentProps, useMemo } from 'react';
 
 type Rule = true | string;
 

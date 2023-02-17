@@ -35,7 +35,6 @@ export const Unsponsored = ({
   proposal: MolochV3Proposal;
   daoChain: string;
 }) => {
-
   const { fireTransaction } = useTxBuilder();
   const { connectedMember } = useConnectedMember();
   const { chainId } = useDHConnect();

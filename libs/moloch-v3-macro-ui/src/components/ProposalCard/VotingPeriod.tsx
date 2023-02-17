@@ -11,7 +11,7 @@ import { ActionLifeCycleFns } from '../ProposalUtils/types';
 export const VotingPeriod = ({
   lifeCycleFnsOverride,
   proposal,
-  daoChain
+  daoChain,
 }: {
   daoChain: string;
   lifeCycleFnsOverride?: ActionLifeCycleFns;

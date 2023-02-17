@@ -214,9 +214,15 @@ const GasBox = styled.div`
   }
 `;
 
-export const GasDisplay = ({ gasAmt, daoChain }: { gasAmt: string | number, daoChain: string }) => {
+export const GasDisplay = ({
+  gasAmt,
+  daoChain,
+}: {
+  gasAmt: string | number;
+  daoChain: string;
+}) => {
   const theme = useTheme();
- 
+
   const [estimate, setEstimate] = useState<string | undefined>();
   const { networks } = useDHConnect();
 

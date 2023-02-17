@@ -74,15 +74,14 @@ const checkCanProcess = async ({
 export const ReadyForProcessing = ({
   lifeCycleFnsOverride,
   proposal,
-  daoChain, 
-  daoId
+  daoChain,
+  daoId,
 }: {
-  daoId: string, 
+  daoId: string;
   daoChain: string;
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
 }) => {
-
   const { chainId } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
@@ -194,7 +193,10 @@ export const ReadyForProcessing = ({
       helperDisplay={
         <ProcessBox>
           {Number(proposal.actionGasEstimate) > 0 && (
-            <GasDisplay gasAmt={proposal.actionGasEstimate} daoChain={daoChain} />
+            <GasDisplay
+              gasAmt={proposal.actionGasEstimate}
+              daoChain={daoChain}
+            />
           )}
           <GatedButton
             size="sm"

@@ -62,7 +62,7 @@ export const ProposalCard = ({
   proposal,
   sensitiveProposalTypes = SENSITIVE_PROPOSAL_TYPES,
   proposalTypes = PROPOSAL_TYPE_LABELS,
-  daoChain, 
+  daoChain,
   daoId,
 }: BaseProposalCardProps) => {
   const [actionLoading, setActionLoading] = useState<boolean>(false);

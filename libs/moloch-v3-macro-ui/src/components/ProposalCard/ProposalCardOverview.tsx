@@ -1,5 +1,5 @@
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri/index.js';
-import {  Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import { charLimit, formatShortDateTimeFromSeconds } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
@@ -16,7 +16,6 @@ import {
   Theme,
   Icon,
   MemberCard,
-
 } from '@daohaus/ui';
 
 import { getProposalTypeLabel } from '../ProposalUtils/cardUtils';
@@ -72,9 +71,9 @@ export const ProposalCardOverview = ({
   proposal,
   proposalTypes,
   sensitiveProposalTypes,
-  daoChain, daoId
+  daoChain,
+  daoId,
 }: ProposalCardOverviewProps) => {
-  
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
   const isMd = useBreakpoint(widthQuery.md);
@@ -166,7 +165,8 @@ export const OverviewHeader = ({
   proposal,
   proposalTypes,
   sensitiveProposalTypes,
-  daoChain, daoId
+  daoChain,
+  daoId,
 }: {
   daoChain: string;
   daoId: string;
@@ -175,7 +175,6 @@ export const OverviewHeader = ({
   proposalTypes: Record<string, string>;
   sensitiveProposalTypes: Record<string, boolean>;
 }) => {
-
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.md);
   return (

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { ProfileBtnAvatar, StyledProfileButton } from './ProfileButton.styles';
 import { ProfileButtonProps } from './ProfileButton.types';
 import { truncateAddress } from '@daohaus/utils';
+import { ParMd } from '../../atoms';
 
 export const ProfileButton = React.forwardRef<
   HTMLButtonElement,

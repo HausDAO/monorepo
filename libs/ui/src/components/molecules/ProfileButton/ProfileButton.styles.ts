@@ -4,6 +4,7 @@ import { Button } from '../../atoms/Button';
 import { ProfileAvatar } from '../ProfileAvatar';
 
 export const StyledProfileButton = styled(Button)`
+  font-weight: 400;
   svg {
     &.icon-right {
       margin-left: auto;

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
@@ -14,7 +14,7 @@ import {
   DropdownIconTrigger,
   DropdownContent,
   DropdownItem,
-  DropdownLink,
+  DropdownLinkStyles,
   DropdownLabel,
 } from '@daohaus/ui';
 
@@ -38,7 +38,8 @@ export const ProfileMenuTrigger = styled(Button)`
   }
 `;
 
-export const ProfileMenuLink = styled(DropdownLink)`
+export const ProfileMenuLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
   font-weight: ${font.weight.bold};
 `;
 
@@ -111,7 +112,7 @@ export const MemberProfileMenu = ({
               </DropdownItem>
               <DropdownItem key="ragequit" asChild>
                 <ProfileMenuLink
-                  href={`/molochv3/${daochain}/${daoid}/members/ragequit`}
+                  to={`/molochv3/${daochain}/${daoid}/members/ragequit`}
                 >
                   Rage Quit
                 </ProfileMenuLink>
@@ -131,7 +132,7 @@ export const MemberProfileMenu = ({
               <DropdownItem key="guildkick" asChild>
                 <ProfileMenuLink
                   className={enableActions ? '' : 'disabled'}
-                  href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
+                  to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
                     {
                       memberAddress: memberAddress,
                     }

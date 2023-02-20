@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi/index.js';
 import styled, { useTheme } from 'styled-components';
 
 import { truncateAddress } from '@daohaus/utils';

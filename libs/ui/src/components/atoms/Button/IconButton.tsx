@@ -1,13 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { StyledButton } from './Button.styles';
+import {
+  LoadingAbsolute,
+  StyledButton,
+  StyledInvisibleSpan,
+} from './Button.styles';
 import type { IconButtonProps } from './IconButton.types';
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
       type = 'button',
+      isLoading = false,
       Icon,
       color = 'primary',
       variant = 'solid',
@@ -31,7 +36,14 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         type={type}
       >
-        {Icon && <Icon />}
+        {isLoading && <LoadingAbsolute />}
+        {isLoading && Icon ? (
+          <StyledInvisibleSpan>
+            <Icon />
+          </StyledInvisibleSpan>
+        ) : (
+          <Icon />
+        )}
       </StyledButton>
     );
   }

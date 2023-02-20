@@ -87,8 +87,10 @@ type Proposal @entity {
   id: ID!
   "block timestamp when the proposal was submitted"
   createdAt: BigInt!
-  "address that submitted the proposal"
+  "address that triggered the proposal tx"
   createdBy: Bytes!
+  "address that submitted the proposal to the dao"
+  proposedBy: Bytes
   "member entity of proposer if applicable"
   proposerMembership: Member
   "related DAO entity"
@@ -180,7 +182,7 @@ type Proposal @entity {
   "applicant submitting the tribute proposal"
   tributeEscrowRecipient: Bytes
   "proposal type derived from the details field"
-  proposalType: String!
+  proposalType: String
   "proposal title derived from the details field"
   title: String
   "proposal description derived from the details field"

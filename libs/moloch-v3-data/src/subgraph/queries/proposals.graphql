@@ -73,6 +73,7 @@ fragment proposalFields on Proposal {
   id
   createdAt
   createdBy
+  proposedBy
   txHash
   proposalId
   prevProposalId

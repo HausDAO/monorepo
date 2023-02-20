@@ -1,3 +1,4 @@
+import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   H3,
@@ -5,7 +6,6 @@ import {
   ProfileAvatar,
   DataIndicator,
   Button,
-  Link,
   Card,
   Theme,
   Tooltip,
@@ -27,6 +27,7 @@ import { Keychain } from '@daohaus/keychain-utils';
 import { daoProfileHasLinks } from '../utils/settingsHelper';
 import { SettingsLinkList } from './MetadataLinkLists';
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
+import { ButtonRouterLink } from './ButtonRouterLink';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -91,9 +92,12 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
       <MetaCardHeader>
         <H3>Metadata</H3>
         {connectedMember && Number(connectedMember.shares) && (
-          <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
-            <Button color="secondary">Update Settings</Button>
-          </Link>
+          <ButtonRouterLink
+            color="secondary"
+            to={`/molochv3/${daochain}/${daoid}/settings/update`}
+          >
+            Update Settings
+          </ButtonRouterLink>
         )}
       </MetaCardHeader>
       <MetaContent>

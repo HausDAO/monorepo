@@ -1,11 +1,15 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
-import { useTheme } from 'styled-components';
-import { useConnectedMember } from '@daohaus/moloch-v3-context';
-import { Dropdown, DropdownMenuItem } from '@daohaus/ui';
-import { getNetwork } from '@daohaus/keychain-utils';
+import {
+  DropdownMenu,
+  DropdownItem,
+  DropdownTrigger,
+  DropdownContent,
+} from '@daohaus/ui';
+import { getNetwork, Keychain } from '@daohaus/keychain-utils';
 import { SafeActionMenuLink, SafeActionMenuTrigger } from './SafeCard.styles';
 import { useDaoMember } from '@daohaus/moloch-v3-hooks';
+import { useDHConnect } from '@daohaus/connect';
 
 type SafeActionMenuProps = {
   ragequittable: boolean;
@@ -20,41 +24,37 @@ export const SafeActionMenu = ({
   daoChain,
   daoId,
 }: SafeActionMenuProps) => {
-  // const { member } = useDaoMember({
-  //   daoChain,
-  //   daoId,
-  //   memberAddress:
-  // });
-  const theme = useTheme();
+  const { address } = useDHConnect();
+  const { member } = useDaoMember({
+    daoId,
+    daoChain: daoChain as keyof Keychain,
+    memberAddress: address,
+  });
 
-  // const enableActions = useMemo(() => {
-  //   return connectedMember && Number(connectedMember.shares) > 0;
-  // }, [connectedMember]);
+  const enableActions = useMemo(() => {
+    return member && Number(member.shares) > 0;
+  }, [member]);
 
   const networkData = useMemo(() => {
     if (!daoChain) return null;
     return getNetwork(daoChain);
   }, [daoChain]);
 
-  // if (!enableActions) return null;
+  if (!enableActions) return null;
 
   return (
-    <Dropdown
-      menuMinWidth="17.8rem"
-      trigger={
+    <DropdownMenu>
+      <DropdownTrigger asChild>
         <SafeActionMenuTrigger
           IconRight={RiMore2Fill}
           size="sm"
           variant="ghost"
         />
-      }
-      side="left"
-      menuBg={theme.secondary.step6}
-    >
-      <>
-        <DropdownMenuItem key="erc20" asChild>
+      </DropdownTrigger>
+      <DropdownContent>
+        <DropdownItem key="erc20" asChild>
           <SafeActionMenuLink
-            href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
                 ? 'TRANSFER_ERC20'
                 : `TRANSFER_ERC20_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
@@ -62,10 +62,10 @@ export const SafeActionMenu = ({
           >
             Transfer ERC-20
           </SafeActionMenuLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="eth" asChild>
+        </DropdownItem>
+        <DropdownItem key="eth" asChild>
           <SafeActionMenuLink
-            href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
                 ? 'TRANSFER_NETWORK_TOKEN'
                 : `TRANSFER_NETWORK_TOKEN_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
@@ -73,10 +73,10 @@ export const SafeActionMenu = ({
           >
             Transfer {networkData?.symbol}
           </SafeActionMenuLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="txbuilder" asChild>
+        </DropdownItem>
+        <DropdownItem key="txbuilder" asChild>
           <SafeActionMenuLink
-            href={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${
               ragequittable
                 ? 'MULTICALL'
                 : `MULTICALL_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
@@ -84,8 +84,8 @@ export const SafeActionMenu = ({
           >
             Tx Builder
           </SafeActionMenuLink>
-        </DropdownMenuItem>
-      </>
-    </Dropdown>
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };

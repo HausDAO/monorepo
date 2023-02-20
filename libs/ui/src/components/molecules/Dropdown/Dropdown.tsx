@@ -1,21 +1,15 @@
 import React from 'react';
-import classNames from 'classnames';
 import {
   RiArrowDropDownLine,
   RiCheckLine,
   RiRadioButtonFill,
 } from 'react-icons/ri/index.js';
-import {
-  DropdownMenuProps,
-  DropdownMenuContentProps,
-} from '@radix-ui/react-dropdown-menu';
 
-import { Button } from '../../atoms/Button';
+import { Button, IconButton } from '../../atoms/Button';
 import { ProfileButton } from '../ProfileButton';
 
 import {
   Root,
-  DropdownMenuContent,
   Trigger,
   Content,
   Item,
@@ -27,9 +21,12 @@ import {
   Group,
   RadioItem,
   RadioGroup,
+  StyledDropdownLink,
 } from './Dropdown.styles';
 import {
-  DropdownTriggerProps,
+  DropdownProfileTriggerProps,
+  DropdownButtonTriggerProps,
+  DropdownIconTriggerProps,
   DropdownContentProps,
   DropdownItemProps,
   DropdownCheckboxProps,
@@ -43,26 +40,45 @@ export const DropdownLabel = Label;
 export const DropdownGroup = Group;
 export const DropdownRadioGroup = RadioGroup;
 export const DropdownSeparator = Separator;
+export const DropdownLink = StyledDropdownLink;
+export const DropdownTrigger = Trigger;
 
-export const DropdownTrigger = ({
+export const DropdownButtonTrigger = ({
   color = 'secondary',
   children,
   ...props
-}: DropdownTriggerProps) => {
-  if ('profile' in props) {
-    return (
-      <Trigger asChild>
-        <ProfileButton color={color} IconRight={RiArrowDropDownLine} {...props}>
-          {children}
-        </ProfileButton>
-      </Trigger>
-    );
-  }
+}: DropdownButtonTriggerProps) => {
   return (
     <Trigger asChild>
       <Button color={color} IconRight={RiArrowDropDownLine} {...props}>
         {children}
       </Button>
+    </Trigger>
+  );
+};
+
+export const DropdownProfileTrigger = ({
+  color = 'secondary',
+  children,
+  ...props
+}: DropdownProfileTriggerProps) => {
+  return (
+    <Trigger asChild>
+      <ProfileButton color={color} IconRight={RiArrowDropDownLine} {...props}>
+        {children}
+      </ProfileButton>
+    </Trigger>
+  );
+};
+
+export const DropdownIconTrigger = ({
+  color = 'secondary',
+  children,
+  ...props
+}: DropdownIconTriggerProps) => {
+  return (
+    <Trigger asChild>
+      <IconButton color={color} {...props} />
     </Trigger>
   );
 };
@@ -82,16 +98,12 @@ export const DropdownContent = React.forwardRef<
 
 export const DropdownItem = ({
   color = 'secondary',
-  size = 'lg',
   className,
   children,
   ...props
 }: DropdownItemProps) => {
-  const classes = classNames({
-    [size]: size,
-  });
   return (
-    <Item color={color} className={`${classes} ${className}`} {...props}>
+    <Item color={color} className={`${className}`} {...props}>
       {children}
     </Item>
   );
@@ -100,120 +112,27 @@ export const DropdownItem = ({
 export const DropdownCheckbox = React.forwardRef<
   HTMLDivElement,
   DropdownCheckboxProps
->(
-  (
-    {
-      color = 'secondary',
-      size = 'lg',
-      checked,
-      className,
-      children,
-      ...props
-    },
-    forwardedRef
-  ) => {
-    const classes = classNames({
-      [size]: size,
-    });
-    return (
-      <CheckboxItem
-        color={color}
-        checked={checked}
-        className={`${classes} ${className}`}
-        ref={forwardedRef}
-        {...props}
-      >
-        {children}
-        {/* <RiCheckLine /> */}
-        <ItemIndicator>
-          <RiCheckLine />
-        </ItemIndicator>
-      </CheckboxItem>
-    );
-  }
-);
+>(({ color = 'secondary', checked, children, ...props }, forwardedRef) => {
+  return (
+    <CheckboxItem color={color} checked={checked} ref={forwardedRef} {...props}>
+      {children}
+      <ItemIndicator>
+        <RiCheckLine />
+      </ItemIndicator>
+    </CheckboxItem>
+  );
+});
 
 export const DropdownRadio = React.forwardRef<
   HTMLDivElement,
   DropdownRadioProps
->(
-  (
-    { color = 'secondary', size = 'lg', className, children, ...props },
-    forwardedRef
-  ) => {
-    const classes = classNames({
-      [size]: size,
-    });
-    return (
-      <RadioItem
-        color={color}
-        className={`${classes} ${className}`}
-        ref={forwardedRef}
-        {...props}
-      >
-        {children}
-        <ItemIndicator>
-          <RiRadioButtonFill />
-        </ItemIndicator>
-      </RadioItem>
-    );
-  }
-);
-
-// ! End new Dropdown Implementation
-
-export type DropdownItem = {
-  content: React.ReactNode;
-  key?: string;
-};
-
-type DropdownProps = DropdownMenuProps &
-  DropdownMenuContentProps & {
-    trigger: React.ReactNode;
-    spacing?: string;
-    menuMinWidth?: string;
-    menuBg?: string;
-    className?: string;
-  };
-
-export const Dropdown = ({
-  defaultOpen,
-  open,
-  onOpenChange,
-  modal,
-  dir,
-  trigger,
-  side,
-  sideOffset,
-  align = 'start',
-  alignOffset,
-  avoidCollisions,
-  className,
-  menuMinWidth = 'fit-content',
-  menuBg,
-  children,
-}: DropdownProps) => {
+>(({ color = 'secondary', className, children, ...props }, forwardedRef) => {
   return (
-    <Root
-      // open={open}
-      onOpenChange={onOpenChange}
-      defaultOpen={defaultOpen}
-      modal={modal}
-      dir={dir}
-    >
-      <Trigger asChild>{trigger}</Trigger>
-      <DropdownMenuContent
-        side={side}
-        sideOffset={sideOffset}
-        align={align}
-        alignOffset={alignOffset}
-        avoidCollisions={avoidCollisions}
-        className={className}
-        bgmenu={menuBg}
-        minwidth={menuMinWidth}
-      >
-        {children}
-      </DropdownMenuContent>
-    </Root>
+    <RadioItem color={color} ref={forwardedRef} {...props}>
+      {children}
+      <ItemIndicator>
+        <RiRadioButtonFill />
+      </ItemIndicator>
+    </RadioItem>
   );
-};
+});

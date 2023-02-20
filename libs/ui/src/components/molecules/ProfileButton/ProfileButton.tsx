@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import { ProfileBtnAvatar, StyledProfileButton } from './ProfileButton.styles';
 import { ProfileButtonProps } from './ProfileButton.types';
+import { truncateAddress } from '@daohaus/utils';
+import { ParMd } from '../../atoms';
 
 export const ProfileButton = React.forwardRef<
   HTMLButtonElement,
@@ -13,6 +15,7 @@ export const ProfileButton = React.forwardRef<
     variant = 'solid',
     size = 'md',
     profile,
+    avatarOnly = false,
     IconRight,
     children,
     className,
@@ -33,10 +36,24 @@ export const ProfileButton = React.forwardRef<
       variant={variant}
       className={`${classes} ${className}`}
       ref={ref}
-      IconRight={IconRight}
+      IconRight={!avatarOnly ? IconRight : undefined}
     >
-      <ProfileBtnAvatar {...profile} size={size} />
-      {children}
+      <ProfileBtnAvatar
+        address={profile.address}
+        image={profile.image}
+        size={size}
+      />
+      {!avatarOnly && (
+        <div className="interior">
+          {profile.name && profile.name}
+          {!profile.name && profile.ens && profile.ens}
+          {!profile.name &&
+            !profile.ens &&
+            profile.address &&
+            truncateAddress(profile.address)}
+          {children}
+        </div>
+      )}
     </StyledProfileButton>
   );
 });

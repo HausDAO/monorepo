@@ -1,6 +1,4 @@
 import React, { useMemo } from 'react';
-import { IconType } from 'react-icons/lib/esm';
-import { RiExternalLinkLine } from 'react-icons/ri/index.js';
 
 import {
   generateExplorerLink,
@@ -14,7 +12,6 @@ import { useDHConnect } from '../../HausConnectContext';
 type ExplorerLinkProps = {
   children?: React.ReactNode;
   chainId?: ValidNetwork;
-  Icon?: IconType;
   address?: string;
   className?: string;
   type?: string;
@@ -24,7 +21,6 @@ export const ExplorerLink = ({
   children,
   chainId,
   address,
-  Icon = RiExternalLinkLine,
   className,
   type,
 }: ExplorerLinkProps) => {
@@ -41,13 +37,7 @@ export const ExplorerLink = ({
   }, [contextChainId, chainId, address, type]);
 
   return (
-    <Link
-      href={explorerLink}
-      className={className}
-      Icon={Icon}
-      rel="noopener noreferrer"
-      linkType="external"
-    >
+    <Link href={explorerLink} className={className}>
       {children}
     </Link>
   );

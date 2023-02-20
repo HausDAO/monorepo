@@ -1,15 +1,17 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
-  Dropdown,
-  DropdownMenuItem,
+  DropdownMenu,
+  DropdownItem,
   font,
   Theme,
-  DropdownLink,
   Button,
+  DropdownIconTrigger,
+  DropdownContent,
+  DropdownLinkStyles,
 } from '@daohaus/ui';
 import { getNetwork } from '@daohaus/keychain-utils';
 
@@ -31,7 +33,9 @@ export const VaultMenuTrigger = styled(Button)`
   }
 `;
 
-export const VaultMenuLink = styled(DropdownLink)`
+// !Mark I believe this is supposed to be a RouterLink, but I'm not 100% sure
+export const VaultMenuLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
   font-weight: ${font.weight.bold};
 `;
 
@@ -57,49 +61,45 @@ export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
   if (!enableActions) return null;
 
   return (
-    <Dropdown
-      menuMinWidth="17.8rem"
-      trigger={
-        <VaultMenuTrigger IconLeft={RiMore2Fill} size="sm" variant="ghost" />
-      }
-      side="left"
-      menuBg={theme.secondary.step6}
-    >
-      <>
-        <DropdownMenuItem key="erc20" asChild>
-          <VaultMenuLink
-            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
-              ragequittable
-                ? 'TRANSFER_ERC20'
-                : `TRANSFER_ERC20_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
-            }`}
-          >
-            Transfer ERC-20
-          </VaultMenuLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="eth" asChild>
-          <VaultMenuLink
-            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
-              ragequittable
-                ? 'TRANSFER_NETWORK_TOKEN'
-                : `TRANSFER_NETWORK_TOKEN_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
-            }`}
-          >
-            Transfer {networkData?.symbol}
-          </VaultMenuLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="txbuilder" asChild>
-          <VaultMenuLink
-            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
-              ragequittable
-                ? 'MULTICALL'
-                : `MULTICALL_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
-            }`}
-          >
-            Tx Builder
-          </VaultMenuLink>
-        </DropdownMenuItem>
-      </>
-    </Dropdown>
+    <DropdownMenu>
+      <DropdownIconTrigger Icon={RiMore2Fill} size="sm" variant="ghost" />
+      <DropdownContent>
+        <>
+          <DropdownItem key="erc20" asChild>
+            <VaultMenuLink
+              to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
+                ragequittable
+                  ? 'TRANSFER_ERC20'
+                  : `TRANSFER_ERC20_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
+              }`}
+            >
+              Transfer ERC-20
+            </VaultMenuLink>
+          </DropdownItem>
+          <DropdownItem key="eth" asChild>
+            <VaultMenuLink
+              to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
+                ragequittable
+                  ? 'TRANSFER_NETWORK_TOKEN'
+                  : `TRANSFER_NETWORK_TOKEN_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
+              }`}
+            >
+              Transfer {networkData?.symbol}
+            </VaultMenuLink>
+          </DropdownItem>
+          <DropdownItem key="txbuilder" asChild>
+            <VaultMenuLink
+              to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${
+                ragequittable
+                  ? 'MULTICALL'
+                  : `MULTICALL_SIDECAR&defaultValues={"safeAddress":"${safeAddress}"}`
+              }`}
+            >
+              Tx Builder
+            </VaultMenuLink>
+          </DropdownItem>
+        </>
+      </DropdownContent>
+    </DropdownMenu>
   );
 };

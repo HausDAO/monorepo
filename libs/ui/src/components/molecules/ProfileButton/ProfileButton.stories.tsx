@@ -40,18 +40,23 @@ const Template: ComponentStory<typeof ProfileButton> = (args) => (
 export const BaseDropdownButton = Template.bind({});
 
 BaseDropdownButton.args = {
-  children: 'Button',
-  color: 'primary',
+  color: 'secondary',
   variant: 'solid',
   size: 'md',
   disabled: false,
   fullWidth: false,
+  profile: {
+    image:
+      'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
+    address: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
+    ens: 'DAOGuy.eth',
+    name: 'DAO Masta',
+  },
 };
 
 export const ProfileButtonWithIcon = Template.bind({});
 
 ProfileButtonWithIcon.args = {
-  children: 'Button',
   color: 'primary',
   variant: 'solid',
   size: 'md',

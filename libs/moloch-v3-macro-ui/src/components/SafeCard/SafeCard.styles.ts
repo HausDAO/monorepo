@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Card,
   Theme,
   widthQuery,
   Button,
-  DropdownLink,
   font,
+  DropdownLinkStyles,
 } from '@daohaus/ui';
 
 export const SafeContainer = styled(Card)`
@@ -65,6 +66,7 @@ export const SafeActionMenuTrigger = styled(Button)`
   }
 `;
 
-export const SafeActionMenuLink = styled(DropdownLink)`
+export const SafeActionMenuLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
   font-weight: ${font.weight.bold};
 `;

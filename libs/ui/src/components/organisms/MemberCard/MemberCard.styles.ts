@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { DropdownButton } from '../../molecules';
+// import { DropdownButton } from '../../molecules';
+import { Button } from '../../atoms/Button';
 
-export const MemberCardTrigger = styled(DropdownButton)`
+export const MemberCardTrigger = styled(Button)`
   min-width: ${({ minWidth }: { minWidth: string }) => minWidth};
 
   & > span {
@@ -20,7 +21,6 @@ export const MemberCardTrigger = styled(DropdownButton)`
   }
 
   svg.icon-left {
-    // TODO Need to know if colors are already applied to App SVGs
     color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   }
 `;

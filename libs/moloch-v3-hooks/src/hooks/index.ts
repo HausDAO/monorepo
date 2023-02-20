@@ -6,4 +6,6 @@ export * from './useDaoRecords';
 export * from './useDaosByUser';
 export * from './useERC20';
 export * from './useDaoProposal';
+export * from './useProfile';
 export * from './useTrace';
+export * from './useProfile';

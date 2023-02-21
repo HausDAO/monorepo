@@ -1,5 +1,4 @@
-import { DefaultTheme } from 'styled-components';
-import { DefaultThemeOverrides } from '../styled';
+import { DefaultTheme, DefaultThemeOverrides } from 'styled-components';
 
 export type Theme = DefaultTheme;
 

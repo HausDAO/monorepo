@@ -86,11 +86,15 @@ export const FormBuilder = ({
             errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
           onTxSuccess(...args) {
-            setStatus(StatusMsg.TxSuccess);
+            setStatus(
+              form.tx?.disablePoll ? StatusMsg.PollSuccess : StatusMsg.TxSuccess
+            );
             lifeCycleFns?.onTxSuccess?.(...args);
             defaultToast({
               title: StatusMsg.TxSuccess,
-              description: 'Please wait for subgraph to sync',
+              description: form.tx?.disablePoll
+                ? 'Transaction cycle complete.'
+                : 'Please wait for subgraph to sync',
             });
           },
           onPollStart() {

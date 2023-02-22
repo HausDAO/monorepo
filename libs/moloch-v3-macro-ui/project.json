@@ -13,7 +13,7 @@
         "tsConfig": "libs/moloch-v3-macro-ui/tsconfig.lib.json",
         "project": "libs/moloch-v3-macro-ui/package.json",
         "entryFile": "libs/moloch-v3-macro-ui/src/index.ts",
-        "external": ["react/jsx-runtime"],
+        "external": ["react", "react-dom", "react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",

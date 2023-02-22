@@ -1,14 +1,35 @@
+import { MolochV3Dao, statusFilter } from '@daohaus/moloch-v3-data';
 import {
   useCurrentDao,
   useDaoData,
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
 import { Button, SingleColumnLayout, widthQuery } from '@daohaus/ui';
-import { useState, MouseEvent, ReactNode } from 'react';
+import { PROPOSAL_STATUS } from '@daohaus/utils';
+import { useState, MouseEvent, ReactNode, useEffect } from 'react';
 import styled from 'styled-components';
 import { ProposalCard } from '../ProposalCard';
 import FilterDropdown from './FilterDropdown';
 import { SearchInput } from './SearchInput';
+
+const handleNewFilter = ({
+  filterTag,
+  dao,
+}: {
+  filterTag: string;
+  dao: MolochV3Dao;
+}) => {
+  if (!filterTag) return;
+  const votingPlusGraceDuration =
+    Number(dao?.votingPeriod) + Number(dao?.gracePeriod);
+  return statusFilter(PROPOSAL_STATUS[filterTag], votingPlusGraceDuration);
+};
+
+const handleSearchFilter = ({ term }: { term: string }) => {
+  return {
+    title_contains_nocase: term,
+  };
+};
 
 export const ProposalList = ({
   rightActionEl,
@@ -17,45 +38,40 @@ export const ProposalList = ({
 }) => {
   const {
     proposals,
+    isFetchedAfterMount,
     isLoading: isLoadingProposals,
     fetchNextPage,
     hasNextPage,
+    filterProposals,
     refetch,
   } = useDaoProposals();
   const { daoId, daoChain } = useCurrentDao();
   const { dao, isLoading: isLoadingDao } = useDaoData();
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('');
+  const [filterTag, setFilter] = useState('');
 
   const handleFilter = (e: MouseEvent<HTMLButtonElement>) => {
     setFilter((prevState) =>
       e.currentTarget.value === prevState ? '' : e.currentTarget.value
     );
-    // if (e.target.value === 'all') {
-    //   filterProposals({
-    //     dao: daoId,
-    //   });
-    // }
-    // if (e.target.value === 'passed') {
-    //   filterProposals({
-    //     dao: daoId,
-    //     passed: true,
-    //   });
-    // }
   };
+
+  useEffect(() => {
+    if (!dao || !daoId) return;
+    const statusFilter = handleNewFilter({ filterTag, dao });
+    const searchFilter = handleSearchFilter({ term: searchTerm });
+
+    filterProposals({ dao: daoId, ...statusFilter, ...searchFilter });
+  }, [searchTerm, filterTag, dao, daoId]);
 
   if (!daoChain || !daoId) {
     return <>Current DAO not found</>;
   }
 
-  if (isLoadingProposals || isLoadingDao) {
-    return <>Loading...</>;
-  }
-
   if (!proposals) {
     return <>No proposals found</>;
   }
-
+  console.log('proposals', proposals);
   return (
     <SingleColumnLayout>
       <ActionsContainer>
@@ -69,11 +85,11 @@ export const ProposalList = ({
               plural: 'proposals',
             }}
           />
-          <FilterDropdown filter={filter} toggleFilter={handleFilter} />
+          <FilterDropdown filter={filterTag} toggleFilter={handleFilter} />
         </SearchFilterContainer>
         {rightActionEl}
       </ActionsContainer>
-      {proposals.map((proposal) => (
+      {proposals?.map((proposal) => (
         <ProposalCard
           key={proposal.proposalId}
           proposal={proposal}

@@ -54,9 +54,17 @@ export const Proposals = () => {
     }
   };
 
+  if (!daoId || !daoChain) return <>Current DAO not found</>;
+
   return (
     <SingleColumnLayout>
-      {proposals[0] && <ProposalCard proposal={proposals[0]} />}
+      {proposals[0] && (
+        <ProposalCard
+          proposal={proposals[0]}
+          daoId={daoId}
+          daoChain={daoChain}
+        />
+      )}
 
       <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
         More

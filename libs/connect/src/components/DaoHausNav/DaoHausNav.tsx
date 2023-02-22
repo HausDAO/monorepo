@@ -1,4 +1,4 @@
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {
@@ -10,11 +10,6 @@ import {
   NavMenuTrigger,
   NavMenuContent,
   NavMenuViewport,
-  DropdownMenu,
-  DropdownLink,
-  DropdownContent,
-  DropdownButtonTrigger,
-  DropdownItem,
   NavMenuLink,
   Button,
 } from '@daohaus/ui';
@@ -28,10 +23,9 @@ import {
   MobileNavContainer,
   ViewportPosition,
 } from './DaoHausNav.styles';
-import { DaoHausNavProps } from './DaoHausNav.types';
+import { DaoHausNavLinkType, DaoHausNavProps } from './DaoHausNav.types';
 import { useMemo } from 'react';
 import { RiMenuLine } from 'react-icons/ri/index.js';
-import classNames from 'classnames';
 
 const StyledNav = styled.nav`
   display: flex;
@@ -66,48 +60,12 @@ export const DaoHausNavMenu = (props: DaoHausNavProps) => {
   } = props;
   const isSm = useBreakpoint(widthQuery.sm);
 
-  const currentLabel = useMemo(() => {
-    const currentLink = navLinks.find((link) => isActive(pathname, link.href));
-    return currentLink?.label;
-  }, [navLinks, pathname]);
-
   if (isSm) {
     const mobileLinks = dropdownLinks
       ? [...navLinks, ...dropdownLinks]
       : [...navLinks];
     // Return mobile dropdown
-    return (
-      <MobileNavContainer>
-        <NavMenu>
-          <NavMenuList>
-            <NavMenuItem>
-              <NavMenuTrigger asChild>
-                <Button
-                  color="secondary"
-                  variant="outline"
-                  IconLeft={RiMenuLine}
-                >
-                  {currentLabel}
-                </Button>
-              </NavMenuTrigger>
-              <NavMenuContent>
-                {mobileLinks.map((mobileLink) => {
-                  const selected = isActive(pathname, mobileLink.href);
-                  return (
-                    <NavMenuLink asChild active={selected}>
-                      <RouterLink key={mobileLink.label} to={mobileLink.href}>
-                        {mobileLink.label}
-                      </RouterLink>
-                    </NavMenuLink>
-                  );
-                })}
-              </NavMenuContent>
-            </NavMenuItem>
-          </NavMenuList>
-          <NavMenuViewport />
-        </NavMenu>
-      </MobileNavContainer>
-    );
+    return <DaoHausNavMobile mobileLinks={mobileLinks} pathname={pathname} />;
   }
   // Return Navigation menu
   return (
@@ -157,5 +115,48 @@ export const DaoHausNavMenu = (props: DaoHausNavProps) => {
         <NavMenuViewport />
       </ViewportPosition>
     </NavMenu>
+  );
+};
+
+const DaoHausNavMobile = ({
+  mobileLinks,
+  pathname,
+}: {
+  mobileLinks: DaoHausNavLinkType[];
+  pathname: string;
+}) => {
+  const currentLabel = useMemo(() => {
+    const currentLink = [...mobileLinks].find((link) =>
+      isActive(pathname, link.href)
+    );
+    return currentLink?.label;
+  }, [mobileLinks, pathname]);
+  return (
+    <MobileNavContainer>
+      <NavMenu>
+        <NavMenuList>
+          <NavMenuItem>
+            <NavMenuTrigger asChild>
+              <Button color="secondary" variant="outline" IconLeft={RiMenuLine}>
+                {currentLabel}
+              </Button>
+            </NavMenuTrigger>
+            <NavMenuContent>
+              {mobileLinks.map((mobileLink) => {
+                const selected = isActive(pathname, mobileLink.href);
+                return (
+                  <NavMenuLink asChild active={selected}>
+                    <RouterLink key={mobileLink.label} to={mobileLink.href}>
+                      {mobileLink.label}
+                    </RouterLink>
+                  </NavMenuLink>
+                );
+              })}
+            </NavMenuContent>
+          </NavMenuItem>
+        </NavMenuList>
+        <NavMenuViewport />
+      </NavMenu>
+    </MobileNavContainer>
   );
 };

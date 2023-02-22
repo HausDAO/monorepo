@@ -18,3 +18,13 @@ export const SENSITIVE_PROPOSAL_TYPES: { [key: string]: boolean } = {
 export const PROP_CARD_HELP = {
   UNSPONSORED: 'A member of the DAO can sponsor this proposal.',
 };
+export const PROPOSAL_FILTERS: Record<string, string> = {
+  unsponsored: 'Unsponsored',
+  voting: 'In Voting',
+  grace: 'In Grace',
+  needsProcessing: 'Ready to Execute',
+  passed: 'Passed',
+  actionFailed: 'Action Failed',
+  failed: 'Defeated',
+  expired: 'Expired',
+};

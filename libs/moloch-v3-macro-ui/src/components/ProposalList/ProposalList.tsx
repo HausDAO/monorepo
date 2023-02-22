@@ -3,11 +3,12 @@ import {
   useDaoData,
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
-import { Button, widthQuery } from '@daohaus/ui';
-import { useState } from 'react';
+import { Button, SingleColumnLayout, widthQuery } from '@daohaus/ui';
+import { useState, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { ProposalCard } from '../ProposalCard';
-import SearchInput from './SearchInput';
+import FilterDropdown from './FilterDropdown';
+import { SearchInput } from './SearchInput';
 
 type ProposalListProps = {
   daoId: string;
@@ -19,7 +20,6 @@ export const ProposalList = () => {
     proposals,
     isLoading: isLoadingProposals,
     fetchNextPage,
-    filterProposals,
     hasNextPage,
     orderProposals,
     refetch,
@@ -27,33 +27,23 @@ export const ProposalList = () => {
   const { daoId, daoChain } = useCurrentDao();
   const { dao, isLoading: isLoadingDao } = useDaoData();
   const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('');
 
-  const handleFilter = (e: any) => {
-    if (e.target.value === 'all') {
-      filterProposals({
-        dao: daoId,
-      });
-    }
-    if (e.target.value === 'passed') {
-      filterProposals({
-        dao: daoId,
-        passed: true,
-      });
-    }
-  };
-  const handleOrder = (e: any) => {
-    if (e.target.value === 'desc') {
-      orderProposals({
-        orderBy: 'createdAt',
-        orderDirection: 'desc',
-      });
-    }
-    if (e.target.value === 'asc') {
-      orderProposals({
-        orderBy: 'createdAt',
-        orderDirection: 'asc',
-      });
-    }
+  const handleFilter = (e: MouseEvent<HTMLButtonElement>) => {
+    setFilter((prevState) =>
+      e.currentTarget.value === prevState ? '' : e.currentTarget.value
+    );
+    // if (e.target.value === 'all') {
+    //   filterProposals({
+    //     dao: daoId,
+    //   });
+    // }
+    // if (e.target.value === 'passed') {
+    //   filterProposals({
+    //     dao: daoId,
+    //     passed: true,
+    //   });
+    // }
   };
 
   if (!daoChain || !daoId) {
@@ -69,7 +59,7 @@ export const ProposalList = () => {
   }
 
   return (
-    <>
+    <SingleColumnLayout>
       <ActionsContainer>
         <SearchFilterContainer>
           <SearchInput
@@ -81,6 +71,7 @@ export const ProposalList = () => {
               plural: 'proposals',
             }}
           />
+          <FilterDropdown filter={filter} toggleFilter={handleFilter} />
         </SearchFilterContainer>
       </ActionsContainer>
       {proposals.map((proposal) => (
@@ -96,7 +87,7 @@ export const ProposalList = () => {
         More
       </Button>
       <Button onClick={() => refetch()}>Refetch</Button>
-    </>
+    </SingleColumnLayout>
   );
 };
 

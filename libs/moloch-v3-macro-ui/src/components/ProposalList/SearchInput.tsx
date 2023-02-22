@@ -11,7 +11,7 @@ type SearchInputProps = {
   noun?: Noun;
 } & Partial<Field>;
 
-const SearchInput = ({
+export const SearchInput = ({
   searchTerm,
   setSearchTerm,
   totalItems,
@@ -52,5 +52,3 @@ const SearchInput = ({
     />
   );
 };
-
-export default SearchInput;

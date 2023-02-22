@@ -42,13 +42,13 @@ const findUserMember = async ({
   }
 };
 
-export const useUserMember = ({
+export const useConnectedMember = ({
   daoChain,
   daoId,
   memberAddress,
   graphApiKeys = GRAPH_API_KEYS,
 }: {
-  daoChain: ValidNetwork;
+  daoChain: string;
   daoId: string;
   memberAddress?: string | null;
   graphApiKeys?: Keychain;
@@ -60,7 +60,7 @@ export const useUserMember = ({
     ],
     () =>
       findUserMember({
-        daoChain: daoChain,
+        daoChain: daoChain as ValidNetwork,
         daoId,
         memberAddress: memberAddress as string,
         graphApiKeys,
@@ -69,7 +69,7 @@ export const useUserMember = ({
   );
 
   return {
-    user: data as MolochV3Member,
+    connectedMember: data as MolochV3Member,
     error: error as Error | undefined,
     ...rest,
     isMember: !!data,

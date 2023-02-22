@@ -12,7 +12,9 @@ export const VotingPeriod = ({
   lifeCycleFnsOverride,
   proposal,
   daoChain,
+  daoId,
 }: {
+  daoId: string;
   daoChain: string;
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
@@ -41,6 +43,7 @@ export const VotingPeriod = ({
     />
   ) : (
     <HasNotVoted
+      daoId={daoId}
       daoChain={daoChain}
       lifeCycleFnsOverride={lifeCycleFnsOverride}
       proposal={proposal}

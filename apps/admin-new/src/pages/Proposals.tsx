@@ -21,6 +21,7 @@ export const Proposals = () => {
     filterProposals,
     hasNextPage,
     orderProposals,
+    refetch,
   } = useDaoProposals();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,12 +64,14 @@ export const Proposals = () => {
           proposal={proposals[0]}
           daoId={daoId}
           daoChain={daoChain}
+          refetchProposals={refetch}
         />
       )}
 
       <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
         More
       </Button>
+      <Button onClick={() => refetch()}>Refetch</Button>
       <JSONDisplay data={proposals} />
     </SingleColumnLayout>
   );

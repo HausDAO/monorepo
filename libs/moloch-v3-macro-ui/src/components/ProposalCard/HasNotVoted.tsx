@@ -6,7 +6,6 @@ import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
 
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { ACTION_TX } from '../ProposalUtils/legos';
 import {
   ActionTemplate,
@@ -16,6 +15,7 @@ import {
 } from './ActionPrimitives';
 import { VotingBar } from './VotingBar';
 import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { useConnectedMember } from '@daohaus/moloch-v3-hooks';
 
 enum Vote {
   Yes = 'yes',
@@ -27,17 +27,23 @@ export const HasNotVoted = ({
   proposal,
   readableTime,
   daoChain,
+  daoId,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
   daoChain: string;
   readableTime?: string;
+  daoId: string;
 }) => {
   const { chainId } = useDHConnect();
-  const { connectedMember } = useConnectedMember();
+
+  const { connectedMember } = useConnectedMember({
+    daoChain,
+    daoId,
+  });
+  // const { connectedMember } = useConnectedMember();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
-  const { refreshAll } = useDao();
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -81,7 +87,6 @@ export const HasNotVoted = ({
             title: 'Vote Success',
             description: 'Proposal sponsored',
           });
-          refreshAll();
           lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },

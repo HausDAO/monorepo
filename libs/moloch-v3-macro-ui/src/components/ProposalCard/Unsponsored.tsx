@@ -18,29 +18,34 @@ import {
 import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components';
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { PROP_CARD_HELP } from '../ProposalUtils/defaultModels';
 import { ACTION_TX } from '../ProposalUtils/legos';
 import { VotingBar } from './VotingBar';
 import { ActionTemplate } from './ActionPrimitives';
 import { GatedButton } from '@daohaus/ui';
 import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { useConnectedMember, useDaoData } from '@daohaus/moloch-v3-hooks';
 
 export const Unsponsored = ({
   lifeCycleFnsOverride,
   proposal,
   daoChain,
+  daoId,
 }: {
   lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: MolochV3Proposal;
   daoChain: string;
+  daoId: string;
 }) => {
   const { fireTransaction } = useTxBuilder();
-  const { connectedMember } = useConnectedMember();
+  const { connectedMember } = useConnectedMember({
+    daoChain,
+    daoId,
+  });
   const { chainId } = useDHConnect();
   const { errorToast, defaultToast, successToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
-  const { dao, refreshAll } = useDao();
+  const { dao } = useDaoData();
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const theme = useTheme();
@@ -82,7 +87,7 @@ export const Unsponsored = ({
             title: 'Sponsor Success',
             description: 'Proposal sponsored',
           });
-          refreshAll();
+
           lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },

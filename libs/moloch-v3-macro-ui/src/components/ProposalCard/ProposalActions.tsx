@@ -50,6 +50,7 @@ export const ProposalActions = ({
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
           daoChain={daoChain}
+          daoId={daoId}
         />
       </ActionBox>
     );
@@ -61,6 +62,7 @@ export const ProposalActions = ({
           lifeCycleFnsOverride={lifeCycleFnsOverride}
           proposal={proposal}
           daoChain={daoChain}
+          daoId={daoId}
         />
       </ActionBox>
     );

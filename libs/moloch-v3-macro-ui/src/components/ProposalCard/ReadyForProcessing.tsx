@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 
 import { useDHConnect } from '@daohaus/connect';
-import { useDao } from '@daohaus/moloch-v3-context';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
@@ -85,7 +84,7 @@ export const ReadyForProcessing = ({
   const { chainId } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
-  const { refreshAll } = useDao();
+
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const [canProcess, setCanProcess] = React.useState<string | true>(
@@ -137,7 +136,6 @@ export const ReadyForProcessing = ({
             title: 'Execution Success',
             description: 'Proposal executed',
           });
-          refreshAll();
           lifeCycleFnsOverride?.onPollSuccess?.(...args);
           setIsLoading(false);
         },

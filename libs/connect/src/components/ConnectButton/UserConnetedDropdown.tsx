@@ -37,7 +37,6 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
       <DropdownProfileTrigger
         color="primary"
         profile={profile}
-        size={isSm ? 'sm' : 'md'}
         avatarOnly={isSm}
       >
         {!isSm && (

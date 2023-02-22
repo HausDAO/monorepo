@@ -4,24 +4,22 @@ import {
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
 import { Button, SingleColumnLayout, widthQuery } from '@daohaus/ui';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, ReactNode } from 'react';
 import styled from 'styled-components';
 import { ProposalCard } from '../ProposalCard';
 import FilterDropdown from './FilterDropdown';
 import { SearchInput } from './SearchInput';
 
-type ProposalListProps = {
-  daoId: string;
-  daoChain: string;
-};
-
-export const ProposalList = () => {
+export const ProposalList = ({
+  rightActionEl,
+}: {
+  rightActionEl?: ReactNode;
+}) => {
   const {
     proposals,
     isLoading: isLoadingProposals,
     fetchNextPage,
     hasNextPage,
-    orderProposals,
     refetch,
   } = useDaoProposals();
   const { daoId, daoChain } = useCurrentDao();
@@ -73,6 +71,7 @@ export const ProposalList = () => {
           />
           <FilterDropdown filter={filter} toggleFilter={handleFilter} />
         </SearchFilterContainer>
+        {rightActionEl}
       </ActionsContainer>
       {proposals.map((proposal) => (
         <ProposalCard
@@ -83,10 +82,16 @@ export const ProposalList = () => {
           daoId={daoId}
         />
       ))}
-      <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
-        More
-      </Button>
-      <Button onClick={() => refetch()}>Refetch</Button>
+      {hasNextPage && (
+        <Button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage}
+          variant="outline"
+          size="sm"
+        >
+          Show More Proposals
+        </Button>
+      )}
     </SingleColumnLayout>
   );
 };

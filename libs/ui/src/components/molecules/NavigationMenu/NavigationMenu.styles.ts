@@ -24,12 +24,6 @@ export const NavMenuBaseItemStyles = css`
   &:focus {
     color: ${(props) => props.theme.secondary.step11};
   }
-
-  &.active {
-    color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
-    border-bottom: 2px ${({ theme }: { theme: Theme }) => theme.secondary.step9}
-      solid;
-  }
 `;
 
 export const Root = styled(RadixNavMenu.Root)`
@@ -59,12 +53,28 @@ export const Link = styled(RadixNavMenu.Link)`
   ${NavMenuBaseItemStyles}
   display: block;
   text-decoration: none;
+
+  &[data-active] {
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+    border-bottom: 2px ${({ theme }: { theme: Theme }) => theme.secondary.step9}
+      solid;
+  }
 `;
 
 export const Content = styled(RadixNavMenu.Content)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
-  border-radius: ${border.cardRadius};
-  height: 100%;
+  position: absolute;
+  top: 100%;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border-radius: 4px;
+  font-weight: ${font.weight.reg};
+  line-height: ${font.lineHeight};
+  letter-spacing: ${font.letterSpacing};
+  font-size: ${font.size.md};
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   width: fit-content;
 `;
 
@@ -92,6 +102,8 @@ const scaleOut = keyframes({
 });
 
 export const Viewport = styled(RadixNavMenu.Viewport)`
+  position: relative;
+  transform-origin: top center;
   /* width: var(--radix-navigation-menu-viewport-width); */
   transition: width, height, 300ms ease;
   &[data-state='open'] {

@@ -98,7 +98,6 @@ const Template: ComponentStory<typeof NavMenu> = (args) => {
         </NavMenuItem>
       </NavMenuList>
       <NavMenuIndicator />
-      <NavMenuViewport />
     </NavMenu>
   );
 };

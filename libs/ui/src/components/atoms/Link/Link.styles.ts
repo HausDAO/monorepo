@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
@@ -9,7 +8,7 @@ export const LinkStyles = css`
   color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
   cursor: pointer;
   display: inline-flex;
-  font-family: ${font.family.body};
+  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   font-weight: ${font.weight.reg};
   font-size: ${font.size.md};
   text-decoration: none;
@@ -33,10 +32,6 @@ export const LinkStyles = css`
   }
 `;
 
-export const ExternalLink = styled.a`
-  ${LinkStyles}
-`;
-
-export const InternalLink = styled(Link)`
+export const StyledLink = styled.a`
   ${LinkStyles}
 `;

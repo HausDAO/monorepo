@@ -1,5 +1,13 @@
 import styled from 'styled-components';
-import { Card, Theme, widthQuery } from '@daohaus/ui';
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Card,
+  Theme,
+  widthQuery,
+  Button,
+  font,
+  DropdownLinkStyles,
+} from '@daohaus/ui';
 
 export const SafeContainer = styled(Card)`
   padding: 3rem;
@@ -41,4 +49,24 @@ export const TagSection = styled.div`
   display: flex;
   align-items: center;
   gap: 1.8rem;
+`;
+
+export const SafeActionMenuTrigger = styled(Button)`
+  width: 0.5rem;
+
+  &[data-state='open'] {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  svg.icon-left {
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    margin-right: 0;
+    margin: 5rem;
+  }
+`;
+
+export const SafeActionMenuLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
+  font-weight: ${font.weight.bold};
 `;

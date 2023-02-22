@@ -20,26 +20,26 @@ const Template: ComponentStory<typeof AppSwitcher> = (args) => (
 export const DaoHausAppSwitcher = Template.bind({});
 
 DaoHausAppSwitcher.args = {
-  trigger: {
+  currentApp: {
     name: 'Hub',
     url: 'https://hub.daohaus.fun/',
-    icon: Hub,
+    Icon: Hub,
   },
   apps: [
     {
       name: 'Summoner',
       url: 'https://summon.daohaus.fun/',
-      icon: Summoner,
+      Icon: Summoner,
     },
     {
       name: 'Docs',
       url: 'https://storybook.daohaus.fun/',
-      icon: Docs,
+      Icon: Docs,
     },
     {
       name: 'DAOHaus',
       url: 'https://daohaus.club/',
-      icon: Daohaus,
+      Icon: Daohaus,
     },
   ],
 };

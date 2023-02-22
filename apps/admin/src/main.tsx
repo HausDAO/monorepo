@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { Buffer } from 'buffer';
 
-import { HausThemeProvider } from '@daohaus/ui';
+import { font, HausThemeProvider, ThemeOverrides } from '@daohaus/ui';
 
 import { DHConnectProvider } from '@daohaus/connect';
 import { App } from './App';

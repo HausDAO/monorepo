@@ -1,7 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { StyledButton } from './Button.styles';
+import {
+  LoadingAbsolute,
+  StyledButton,
+  StyledInvisibleSpan,
+} from './Button.styles';
 import type { ButtonProps } from './Button.types';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -13,10 +17,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color = 'primary',
       variant = 'solid',
       size = 'md',
+      isLoading = false,
+      loadingText,
       fullWidth,
       justify = 'center',
       className,
       children,
+      href,
       ...rest
     },
     ref
@@ -34,11 +41,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         justify={justify}
         className={`${classes} ${className}`}
         ref={ref}
-        type={type}
+        type={!href ? type : undefined}
+        as={href ? 'a' : 'button'}
+        href={href ? href : undefined}
+        target={href ? '_blank' : undefined}
+        rel={href ? 'noopener noreferrer' : undefined}
       >
-        {IconLeft && <IconLeft className={`${className} icon-left`} />}
-        {children}
-        {IconRight && <IconRight className={`${className} icon-right`} />}
+        {IconLeft && <IconLeft className={`icon-left`} />}
+        {isLoading && <LoadingAbsolute color={color} />}
+        {isLoading ? (
+          <StyledInvisibleSpan>{children}</StyledInvisibleSpan>
+        ) : (
+          children
+        )}
+        {IconRight && <IconRight className={`icon-right`} />}
       </StyledButton>
     );
   }

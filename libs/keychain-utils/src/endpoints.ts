@@ -22,26 +22,26 @@ export const ENDPOINTS: KeychainList = {
     '0xa4b1': 'https://arbiscan.io',
   },
   GNOSIS_API: {
-    '0x1': 'https://safe-transaction.mainnet.gnosis.io/api/v1',
-    '0x5': 'https://safe-transaction.goerli.gnosis.io/api/v1',
-    '0x64': 'https://safe-transaction.xdai.gnosis.io/api/v1',
-    '0x89': 'https://safe-transaction.polygon.gnosis.io/api/v1',
-    '0xa': 'https://safe-transaction.optimism.io/api/v1',
-    '0xa4b1': 'https://safe-transaction.aribtrum.io/api/v1',
+    '0x1': 'https://safe-transaction-mainnet.safe.global/api/v1',
+    '0x5': 'https://safe-transaction-goerli.safe.global/api/v1',
+    '0x64': 'https://safe-transaction-gnosis-chain.safe.global/api/v1',
+    '0x89': 'https://safe-transaction-polygon.safe.global/api/v1',
+    '0xa': 'https://safe-transaction-optimism.safe.global/api/v1',
+    '0xa4b1': 'https://safe-transaction-arbitrum.safe.global/api/v1',
   },
   GAS_ESTIMATE: {
     '0x1':
-      'https://safe-transaction.mainnet.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction-mainnet.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0x5':
-      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction-goerli.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0x64':
-      'https://safe-transaction.xdai.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction-gnosis-chain.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0x89':
-      'https://safe-transaction.polygon.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction-polygon.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0xa':
-      'https://safe-transaction.optimism.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction-optimism.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0xa4b1':
-      'https://safe-transaction.aribtrum.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction-arbitrum.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://app.safe.global/eth',

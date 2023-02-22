@@ -58,11 +58,7 @@ export const ProposalDetailsGuts = ({
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>
       {proposal.contentURI && (
-        <Link
-          href={proposal.contentURI}
-          linkType="external"
-          className="proposal-link"
-        >
+        <Link href={proposal.contentURI} className="proposal-link">
           Link
         </Link>
       )}
@@ -85,6 +81,19 @@ export const ProposalDetailsGuts = ({
           size="sm"
         />
       </DataContainer>
+
+      {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
+        <DataContainer style={{ marginTop: '0' }}>
+          <div>
+            <ParMd>Through Contract</ParMd>
+            <MemberProfileAvatar
+              daoid={daoid}
+              daochain={daochain as keyof Keychain}
+              memberAddress={proposal.proposedBy}
+            />
+          </div>
+        </DataContainer>
+      )}
 
       {Number(proposal.proposalOffering) > 0 && (
         <DataIndicator

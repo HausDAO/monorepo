@@ -179,6 +179,7 @@ export interface Dao_Filter {
   adminLocked_in?: InputMaybe<Array<Scalars['Boolean']>>;
   adminLocked_not?: InputMaybe<Scalars['Boolean']>;
   adminLocked_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  and?: InputMaybe<Array<InputMaybe<Dao_Filter>>>;
   baalVersion?: InputMaybe<Scalars['String']>;
   baalVersion_contains?: InputMaybe<Scalars['String']>;
   baalVersion_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -209,13 +210,21 @@ export interface Dao_Filter {
   createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdBy?: InputMaybe<Scalars['Bytes']>;
   createdBy_contains?: InputMaybe<Scalars['Bytes']>;
+  createdBy_gt?: InputMaybe<Scalars['Bytes']>;
+  createdBy_gte?: InputMaybe<Scalars['Bytes']>;
   createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdBy_lt?: InputMaybe<Scalars['Bytes']>;
+  createdBy_lte?: InputMaybe<Scalars['Bytes']>;
   createdBy_not?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   delegatedVaultManager?: InputMaybe<Scalars['Bytes']>;
   delegatedVaultManager_contains?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_gt?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_gte?: InputMaybe<Scalars['Bytes']>;
   delegatedVaultManager_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  delegatedVaultManager_lt?: InputMaybe<Scalars['Bytes']>;
+  delegatedVaultManager_lte?: InputMaybe<Scalars['Bytes']>;
   delegatedVaultManager_not?: InputMaybe<Scalars['Bytes']>;
   delegatedVaultManager_not_contains?: InputMaybe<Scalars['Bytes']>;
   delegatedVaultManager_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -230,7 +239,11 @@ export interface Dao_Filter {
   existingSharesAndLoot_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   forwarder?: InputMaybe<Scalars['Bytes']>;
   forwarder_contains?: InputMaybe<Scalars['Bytes']>;
+  forwarder_gt?: InputMaybe<Scalars['Bytes']>;
+  forwarder_gte?: InputMaybe<Scalars['Bytes']>;
   forwarder_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  forwarder_lt?: InputMaybe<Scalars['Bytes']>;
+  forwarder_lte?: InputMaybe<Scalars['Bytes']>;
   forwarder_not?: InputMaybe<Scalars['Bytes']>;
   forwarder_not_contains?: InputMaybe<Scalars['Bytes']>;
   forwarder_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -264,7 +277,11 @@ export interface Dao_Filter {
   latestSponsoredProposalId_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   lootAddress?: InputMaybe<Scalars['Bytes']>;
   lootAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  lootAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  lootAddress_gte?: InputMaybe<Scalars['Bytes']>;
   lootAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  lootAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  lootAddress_lte?: InputMaybe<Scalars['Bytes']>;
   lootAddress_not?: InputMaybe<Scalars['Bytes']>;
   lootAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   lootAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -351,6 +368,7 @@ export interface Dao_Filter {
   name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   name_starts_with?: InputMaybe<Scalars['String']>;
   name_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  or?: InputMaybe<Array<InputMaybe<Dao_Filter>>>;
   proposalCount?: InputMaybe<Scalars['BigInt']>;
   proposalCount_gt?: InputMaybe<Scalars['BigInt']>;
   proposalCount_gte?: InputMaybe<Scalars['BigInt']>;
@@ -400,7 +418,11 @@ export interface Dao_Filter {
   referrer_starts_with_nocase?: InputMaybe<Scalars['String']>;
   safeAddress?: InputMaybe<Scalars['Bytes']>;
   safeAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_gte?: InputMaybe<Scalars['Bytes']>;
   safeAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  safeAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_lte?: InputMaybe<Scalars['Bytes']>;
   safeAddress_not?: InputMaybe<Scalars['Bytes']>;
   safeAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   safeAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -447,7 +469,11 @@ export interface Dao_Filter {
   shareTokenSymbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
   sharesAddress?: InputMaybe<Scalars['Bytes']>;
   sharesAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_gte?: InputMaybe<Scalars['Bytes']>;
   sharesAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sharesAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_lte?: InputMaybe<Scalars['Bytes']>;
   sharesAddress_not?: InputMaybe<Scalars['Bytes']>;
   sharesAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   sharesAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -481,7 +507,11 @@ export interface Dao_Filter {
   totalShares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   txHash?: InputMaybe<Scalars['Bytes']>;
   txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_gt?: InputMaybe<Scalars['Bytes']>;
+  txHash_gte?: InputMaybe<Scalars['Bytes']>;
   txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_lt?: InputMaybe<Scalars['Bytes']>;
+  txHash_lte?: InputMaybe<Scalars['Bytes']>;
   txHash_not?: InputMaybe<Scalars['Bytes']>;
   txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -562,6 +592,7 @@ export interface EventTransaction {
 export interface EventTransaction_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<EventTransaction_Filter>>>;
   createdAt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -573,7 +604,11 @@ export interface EventTransaction_Filter {
   dao?: InputMaybe<Scalars['String']>;
   daoAddress?: InputMaybe<Scalars['Bytes']>;
   daoAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_gte?: InputMaybe<Scalars['Bytes']>;
   daoAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  daoAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_lte?: InputMaybe<Scalars['Bytes']>;
   daoAddress_not?: InputMaybe<Scalars['Bytes']>;
   daoAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   daoAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -605,6 +640,7 @@ export interface EventTransaction_Filter {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<EventTransaction_Filter>>>;
 }
 
 export type EventTransaction_OrderBy =
@@ -667,6 +703,7 @@ export interface MemberVotesArgs {
 export interface Member_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Member_Filter>>>;
   createdAt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -736,7 +773,11 @@ export interface Member_Filter {
   delegatingToMember_starts_with?: InputMaybe<Scalars['String']>;
   delegatingToMember_starts_with_nocase?: InputMaybe<Scalars['String']>;
   delegatingTo_contains?: InputMaybe<Scalars['Bytes']>;
+  delegatingTo_gt?: InputMaybe<Scalars['Bytes']>;
+  delegatingTo_gte?: InputMaybe<Scalars['Bytes']>;
   delegatingTo_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  delegatingTo_lt?: InputMaybe<Scalars['Bytes']>;
+  delegatingTo_lte?: InputMaybe<Scalars['Bytes']>;
   delegatingTo_not?: InputMaybe<Scalars['Bytes']>;
   delegatingTo_not_contains?: InputMaybe<Scalars['Bytes']>;
   delegatingTo_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -750,7 +791,11 @@ export interface Member_Filter {
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
   lastDelegateUpdateTxHash?: InputMaybe<Scalars['Bytes']>;
   lastDelegateUpdateTxHash_contains?: InputMaybe<Scalars['Bytes']>;
+  lastDelegateUpdateTxHash_gt?: InputMaybe<Scalars['Bytes']>;
+  lastDelegateUpdateTxHash_gte?: InputMaybe<Scalars['Bytes']>;
   lastDelegateUpdateTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  lastDelegateUpdateTxHash_lt?: InputMaybe<Scalars['Bytes']>;
+  lastDelegateUpdateTxHash_lte?: InputMaybe<Scalars['Bytes']>;
   lastDelegateUpdateTxHash_not?: InputMaybe<Scalars['Bytes']>;
   lastDelegateUpdateTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   lastDelegateUpdateTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -764,10 +809,15 @@ export interface Member_Filter {
   loot_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   memberAddress?: InputMaybe<Scalars['Bytes']>;
   memberAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  memberAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  memberAddress_gte?: InputMaybe<Scalars['Bytes']>;
   memberAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  memberAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  memberAddress_lte?: InputMaybe<Scalars['Bytes']>;
   memberAddress_not?: InputMaybe<Scalars['Bytes']>;
   memberAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   memberAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  or?: InputMaybe<Array<InputMaybe<Member_Filter>>>;
   shares?: InputMaybe<Scalars['BigInt']>;
   sharesLootDelegateShares?: InputMaybe<Scalars['BigInt']>;
   sharesLootDelegateShares_gt?: InputMaybe<Scalars['BigInt']>;
@@ -786,7 +836,11 @@ export interface Member_Filter {
   shares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   txHash?: InputMaybe<Scalars['Bytes']>;
   txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_gt?: InputMaybe<Scalars['Bytes']>;
+  txHash_gte?: InputMaybe<Scalars['Bytes']>;
   txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_lt?: InputMaybe<Scalars['Bytes']>;
+  txHash_lte?: InputMaybe<Scalars['Bytes']>;
   txHash_not?: InputMaybe<Scalars['Bytes']>;
   txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -835,7 +889,7 @@ export interface Proposal {
   contentURIType?: Maybe<Scalars['String']>;
   /** block timestamp when the proposal was submitted */
   createdAt: Scalars['BigInt'];
-  /** address that submitted the proposal */
+  /** address that triggered the proposal tx */
   createdBy: Scalars['Bytes'];
   /** is currently paasing quorum and has more yes votes than no votes */
   currentlyPassing: Scalars['Boolean'];
@@ -883,6 +937,8 @@ export interface Proposal {
   proposalOffering: Scalars['BigInt'];
   /** proposal type derived from the details field */
   proposalType: Scalars['String'];
+  /** address that submitted the proposal to the dao */
+  proposedBy?: Maybe<Scalars['Bytes']>;
   /** member entity of proposer if applicable */
   proposerMembership?: Maybe<Member>;
   /** indicates if the proposal was automatically sponsored */
@@ -954,10 +1010,15 @@ export interface Proposal_Filter {
   actionGasEstimate_lte?: InputMaybe<Scalars['BigInt']>;
   actionGasEstimate_not?: InputMaybe<Scalars['BigInt']>;
   actionGasEstimate_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  and?: InputMaybe<Array<InputMaybe<Proposal_Filter>>>;
   cancelled?: InputMaybe<Scalars['Boolean']>;
   cancelledBy?: InputMaybe<Scalars['Bytes']>;
   cancelledBy_contains?: InputMaybe<Scalars['Bytes']>;
+  cancelledBy_gt?: InputMaybe<Scalars['Bytes']>;
+  cancelledBy_gte?: InputMaybe<Scalars['Bytes']>;
   cancelledBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  cancelledBy_lt?: InputMaybe<Scalars['Bytes']>;
+  cancelledBy_lte?: InputMaybe<Scalars['Bytes']>;
   cancelledBy_not?: InputMaybe<Scalars['Bytes']>;
   cancelledBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   cancelledBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -971,7 +1032,11 @@ export interface Proposal_Filter {
   cancelledTxAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   cancelledTxHash?: InputMaybe<Scalars['Bytes']>;
   cancelledTxHash_contains?: InputMaybe<Scalars['Bytes']>;
+  cancelledTxHash_gt?: InputMaybe<Scalars['Bytes']>;
+  cancelledTxHash_gte?: InputMaybe<Scalars['Bytes']>;
   cancelledTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  cancelledTxHash_lt?: InputMaybe<Scalars['Bytes']>;
+  cancelledTxHash_lte?: InputMaybe<Scalars['Bytes']>;
   cancelledTxHash_not?: InputMaybe<Scalars['Bytes']>;
   cancelledTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   cancelledTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1028,7 +1093,11 @@ export interface Proposal_Filter {
   createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdBy?: InputMaybe<Scalars['Bytes']>;
   createdBy_contains?: InputMaybe<Scalars['Bytes']>;
+  createdBy_gt?: InputMaybe<Scalars['Bytes']>;
+  createdBy_gte?: InputMaybe<Scalars['Bytes']>;
   createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdBy_lt?: InputMaybe<Scalars['Bytes']>;
+  createdBy_lte?: InputMaybe<Scalars['Bytes']>;
   createdBy_not?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1161,6 +1230,7 @@ export interface Proposal_Filter {
   noVotes_lte?: InputMaybe<Scalars['BigInt']>;
   noVotes_not?: InputMaybe<Scalars['BigInt']>;
   noVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  or?: InputMaybe<Array<InputMaybe<Proposal_Filter>>>;
   passed?: InputMaybe<Scalars['Boolean']>;
   passed_in?: InputMaybe<Array<Scalars['Boolean']>>;
   passed_not?: InputMaybe<Scalars['Boolean']>;
@@ -1183,14 +1253,22 @@ export interface Proposal_Filter {
   processTxAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   processTxHash?: InputMaybe<Scalars['Bytes']>;
   processTxHash_contains?: InputMaybe<Scalars['Bytes']>;
+  processTxHash_gt?: InputMaybe<Scalars['Bytes']>;
+  processTxHash_gte?: InputMaybe<Scalars['Bytes']>;
   processTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  processTxHash_lt?: InputMaybe<Scalars['Bytes']>;
+  processTxHash_lte?: InputMaybe<Scalars['Bytes']>;
   processTxHash_not?: InputMaybe<Scalars['Bytes']>;
   processTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   processTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   processed?: InputMaybe<Scalars['Boolean']>;
   processedBy?: InputMaybe<Scalars['Bytes']>;
   processedBy_contains?: InputMaybe<Scalars['Bytes']>;
+  processedBy_gt?: InputMaybe<Scalars['Bytes']>;
+  processedBy_gte?: InputMaybe<Scalars['Bytes']>;
   processedBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  processedBy_lt?: InputMaybe<Scalars['Bytes']>;
+  processedBy_lte?: InputMaybe<Scalars['Bytes']>;
   processedBy_not?: InputMaybe<Scalars['Bytes']>;
   processedBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   processedBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1200,12 +1278,20 @@ export interface Proposal_Filter {
   proposalData?: InputMaybe<Scalars['Bytes']>;
   proposalDataHash?: InputMaybe<Scalars['Bytes']>;
   proposalDataHash_contains?: InputMaybe<Scalars['Bytes']>;
+  proposalDataHash_gt?: InputMaybe<Scalars['Bytes']>;
+  proposalDataHash_gte?: InputMaybe<Scalars['Bytes']>;
   proposalDataHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  proposalDataHash_lt?: InputMaybe<Scalars['Bytes']>;
+  proposalDataHash_lte?: InputMaybe<Scalars['Bytes']>;
   proposalDataHash_not?: InputMaybe<Scalars['Bytes']>;
   proposalDataHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   proposalDataHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   proposalData_contains?: InputMaybe<Scalars['Bytes']>;
+  proposalData_gt?: InputMaybe<Scalars['Bytes']>;
+  proposalData_gte?: InputMaybe<Scalars['Bytes']>;
   proposalData_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  proposalData_lt?: InputMaybe<Scalars['Bytes']>;
+  proposalData_lte?: InputMaybe<Scalars['Bytes']>;
   proposalData_not?: InputMaybe<Scalars['Bytes']>;
   proposalData_not_contains?: InputMaybe<Scalars['Bytes']>;
   proposalData_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1245,6 +1331,16 @@ export interface Proposal_Filter {
   proposalType_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   proposalType_starts_with?: InputMaybe<Scalars['String']>;
   proposalType_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposedBy?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_contains?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_gt?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_gte?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  proposedBy_lt?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_lte?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_not?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_not_contains?: InputMaybe<Scalars['Bytes']>;
+  proposedBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   proposerMembership?: InputMaybe<Scalars['String']>;
   proposerMembership_?: InputMaybe<Member_Filter>;
   proposerMembership_contains?: InputMaybe<Scalars['String']>;
@@ -1302,12 +1398,20 @@ export interface Proposal_Filter {
   sponsorTxAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   sponsorTxHash?: InputMaybe<Scalars['Bytes']>;
   sponsorTxHash_contains?: InputMaybe<Scalars['Bytes']>;
+  sponsorTxHash_gt?: InputMaybe<Scalars['Bytes']>;
+  sponsorTxHash_gte?: InputMaybe<Scalars['Bytes']>;
   sponsorTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sponsorTxHash_lt?: InputMaybe<Scalars['Bytes']>;
+  sponsorTxHash_lte?: InputMaybe<Scalars['Bytes']>;
   sponsorTxHash_not?: InputMaybe<Scalars['Bytes']>;
   sponsorTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   sponsorTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sponsor_contains?: InputMaybe<Scalars['Bytes']>;
+  sponsor_gt?: InputMaybe<Scalars['Bytes']>;
+  sponsor_gte?: InputMaybe<Scalars['Bytes']>;
   sponsor_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sponsor_lt?: InputMaybe<Scalars['Bytes']>;
+  sponsor_lte?: InputMaybe<Scalars['Bytes']>;
   sponsor_not?: InputMaybe<Scalars['Bytes']>;
   sponsor_not_contains?: InputMaybe<Scalars['Bytes']>;
   sponsor_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1337,7 +1441,11 @@ export interface Proposal_Filter {
   title_starts_with_nocase?: InputMaybe<Scalars['String']>;
   tributeEscrowRecipient?: InputMaybe<Scalars['Bytes']>;
   tributeEscrowRecipient_contains?: InputMaybe<Scalars['Bytes']>;
+  tributeEscrowRecipient_gt?: InputMaybe<Scalars['Bytes']>;
+  tributeEscrowRecipient_gte?: InputMaybe<Scalars['Bytes']>;
   tributeEscrowRecipient_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  tributeEscrowRecipient_lt?: InputMaybe<Scalars['Bytes']>;
+  tributeEscrowRecipient_lte?: InputMaybe<Scalars['Bytes']>;
   tributeEscrowRecipient_not?: InputMaybe<Scalars['Bytes']>;
   tributeEscrowRecipient_not_contains?: InputMaybe<Scalars['Bytes']>;
   tributeEscrowRecipient_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1379,13 +1487,21 @@ export interface Proposal_Filter {
   tributeTokenSymbol_starts_with?: InputMaybe<Scalars['String']>;
   tributeTokenSymbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
   tributeToken_contains?: InputMaybe<Scalars['Bytes']>;
+  tributeToken_gt?: InputMaybe<Scalars['Bytes']>;
+  tributeToken_gte?: InputMaybe<Scalars['Bytes']>;
   tributeToken_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  tributeToken_lt?: InputMaybe<Scalars['Bytes']>;
+  tributeToken_lte?: InputMaybe<Scalars['Bytes']>;
   tributeToken_not?: InputMaybe<Scalars['Bytes']>;
   tributeToken_not_contains?: InputMaybe<Scalars['Bytes']>;
   tributeToken_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   txHash?: InputMaybe<Scalars['Bytes']>;
   txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_gt?: InputMaybe<Scalars['Bytes']>;
+  txHash_gte?: InputMaybe<Scalars['Bytes']>;
   txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_lt?: InputMaybe<Scalars['Bytes']>;
+  txHash_lte?: InputMaybe<Scalars['Bytes']>;
   txHash_not?: InputMaybe<Scalars['Bytes']>;
   txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1474,6 +1590,7 @@ export type Proposal_OrderBy =
   | 'proposalId'
   | 'proposalOffering'
   | 'proposalType'
+  | 'proposedBy'
   | 'proposerMembership'
   | 'selfSponsor'
   | 'sponsor'
@@ -1732,6 +1849,7 @@ export interface RageQuit {
 export interface RageQuit_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<RageQuit_Filter>>>;
   createdAt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -1798,6 +1916,7 @@ export interface RageQuit_Filter {
   member_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   member_starts_with?: InputMaybe<Scalars['String']>;
   member_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  or?: InputMaybe<Array<InputMaybe<RageQuit_Filter>>>;
   shares?: InputMaybe<Scalars['BigInt']>;
   shares_gt?: InputMaybe<Scalars['BigInt']>;
   shares_gte?: InputMaybe<Scalars['BigInt']>;
@@ -1808,7 +1927,11 @@ export interface RageQuit_Filter {
   shares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   to?: InputMaybe<Scalars['Bytes']>;
   to_contains?: InputMaybe<Scalars['Bytes']>;
+  to_gt?: InputMaybe<Scalars['Bytes']>;
+  to_gte?: InputMaybe<Scalars['Bytes']>;
   to_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  to_lt?: InputMaybe<Scalars['Bytes']>;
+  to_lte?: InputMaybe<Scalars['Bytes']>;
   to_not?: InputMaybe<Scalars['Bytes']>;
   to_not_contains?: InputMaybe<Scalars['Bytes']>;
   to_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1820,7 +1943,11 @@ export interface RageQuit_Filter {
   tokens_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
   txHash?: InputMaybe<Scalars['Bytes']>;
   txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_gt?: InputMaybe<Scalars['Bytes']>;
+  txHash_gte?: InputMaybe<Scalars['Bytes']>;
   txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_lt?: InputMaybe<Scalars['Bytes']>;
+  txHash_lte?: InputMaybe<Scalars['Bytes']>;
   txHash_not?: InputMaybe<Scalars['Bytes']>;
   txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1853,6 +1980,7 @@ export interface Record {
 export interface Record_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Record_Filter>>>;
   content?: InputMaybe<Scalars['String']>;
   contentType?: InputMaybe<Scalars['String']>;
   contentType_contains?: InputMaybe<Scalars['String']>;
@@ -1903,7 +2031,11 @@ export interface Record_Filter {
   createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdBy?: InputMaybe<Scalars['Bytes']>;
   createdBy_contains?: InputMaybe<Scalars['Bytes']>;
+  createdBy_gt?: InputMaybe<Scalars['Bytes']>;
+  createdBy_gte?: InputMaybe<Scalars['Bytes']>;
   createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdBy_lt?: InputMaybe<Scalars['Bytes']>;
+  createdBy_lte?: InputMaybe<Scalars['Bytes']>;
   createdBy_not?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1936,6 +2068,7 @@ export interface Record_Filter {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<Record_Filter>>>;
   queryType?: InputMaybe<Scalars['String']>;
   queryType_contains?: InputMaybe<Scalars['String']>;
   queryType_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -1978,7 +2111,11 @@ export interface Record_Filter {
   table_starts_with_nocase?: InputMaybe<Scalars['String']>;
   tag?: InputMaybe<Scalars['Bytes']>;
   tag_contains?: InputMaybe<Scalars['Bytes']>;
+  tag_gt?: InputMaybe<Scalars['Bytes']>;
+  tag_gte?: InputMaybe<Scalars['Bytes']>;
   tag_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  tag_lt?: InputMaybe<Scalars['Bytes']>;
+  tag_lte?: InputMaybe<Scalars['Bytes']>;
   tag_not?: InputMaybe<Scalars['Bytes']>;
   tag_not_contains?: InputMaybe<Scalars['Bytes']>;
   tag_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2012,6 +2149,7 @@ export interface Shaman {
 export interface Shaman_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Shaman_Filter>>>;
   createdAt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -2049,6 +2187,7 @@ export interface Shaman_Filter {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<Shaman_Filter>>>;
   permissions?: InputMaybe<Scalars['BigInt']>;
   permissions_gt?: InputMaybe<Scalars['BigInt']>;
   permissions_gte?: InputMaybe<Scalars['BigInt']>;
@@ -2059,7 +2198,11 @@ export interface Shaman_Filter {
   permissions_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   shamanAddress?: InputMaybe<Scalars['Bytes']>;
   shamanAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  shamanAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  shamanAddress_gte?: InputMaybe<Scalars['Bytes']>;
   shamanAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  shamanAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  shamanAddress_lte?: InputMaybe<Scalars['Bytes']>;
   shamanAddress_not?: InputMaybe<Scalars['Bytes']>;
   shamanAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   shamanAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2294,9 +2437,14 @@ export interface TokenLookup {
 export interface TokenLookup_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<TokenLookup_Filter>>>;
   dao?: InputMaybe<Scalars['Bytes']>;
   dao_contains?: InputMaybe<Scalars['Bytes']>;
+  dao_gt?: InputMaybe<Scalars['Bytes']>;
+  dao_gte?: InputMaybe<Scalars['Bytes']>;
   dao_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  dao_lt?: InputMaybe<Scalars['Bytes']>;
+  dao_lte?: InputMaybe<Scalars['Bytes']>;
   dao_not?: InputMaybe<Scalars['Bytes']>;
   dao_not_contains?: InputMaybe<Scalars['Bytes']>;
   dao_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2308,6 +2456,7 @@ export interface TokenLookup_Filter {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  or?: InputMaybe<Array<InputMaybe<TokenLookup_Filter>>>;
 }
 
 export type TokenLookup_OrderBy =
@@ -2339,6 +2488,7 @@ export interface Vault_Filter {
   active_in?: InputMaybe<Array<Scalars['Boolean']>>;
   active_not?: InputMaybe<Scalars['Boolean']>;
   active_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  and?: InputMaybe<Array<InputMaybe<Vault_Filter>>>;
   createdAt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gt?: InputMaybe<Scalars['BigInt']>;
   createdAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -2396,13 +2546,18 @@ export interface Vault_Filter {
   name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   name_starts_with?: InputMaybe<Scalars['String']>;
   name_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  or?: InputMaybe<Array<InputMaybe<Vault_Filter>>>;
   ragequittable?: InputMaybe<Scalars['Boolean']>;
   ragequittable_in?: InputMaybe<Array<Scalars['Boolean']>>;
   ragequittable_not?: InputMaybe<Scalars['Boolean']>;
   ragequittable_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   safeAddress?: InputMaybe<Scalars['Bytes']>;
   safeAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_gte?: InputMaybe<Scalars['Bytes']>;
   safeAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  safeAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  safeAddress_lte?: InputMaybe<Scalars['Bytes']>;
   safeAddress_not?: InputMaybe<Scalars['Bytes']>;
   safeAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   safeAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2440,6 +2595,7 @@ export interface Vote {
 export interface Vote_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Vote_Filter>>>;
   approved?: InputMaybe<Scalars['Boolean']>;
   approved_in?: InputMaybe<Array<Scalars['Boolean']>>;
   approved_not?: InputMaybe<Scalars['Boolean']>;
@@ -2462,7 +2618,11 @@ export interface Vote_Filter {
   createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   daoAddress?: InputMaybe<Scalars['Bytes']>;
   daoAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_gte?: InputMaybe<Scalars['Bytes']>;
   daoAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  daoAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_lte?: InputMaybe<Scalars['Bytes']>;
   daoAddress_not?: InputMaybe<Scalars['Bytes']>;
   daoAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   daoAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2495,6 +2655,7 @@ export interface Vote_Filter {
   member_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   member_starts_with?: InputMaybe<Scalars['String']>;
   member_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  or?: InputMaybe<Array<InputMaybe<Vote_Filter>>>;
   proposal?: InputMaybe<Scalars['String']>;
   proposal_?: InputMaybe<Proposal_Filter>;
   proposal_contains?: InputMaybe<Scalars['String']>;
@@ -2518,7 +2679,11 @@ export interface Vote_Filter {
   proposal_starts_with_nocase?: InputMaybe<Scalars['String']>;
   txHash?: InputMaybe<Scalars['Bytes']>;
   txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_gt?: InputMaybe<Scalars['Bytes']>;
+  txHash_gte?: InputMaybe<Scalars['Bytes']>;
   txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_lt?: InputMaybe<Scalars['Bytes']>;
+  txHash_lte?: InputMaybe<Scalars['Bytes']>;
   txHash_not?: InputMaybe<Scalars['Bytes']>;
   txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;

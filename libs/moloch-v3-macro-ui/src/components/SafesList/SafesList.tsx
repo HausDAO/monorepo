@@ -7,10 +7,16 @@ import { SafeCard } from '../SafeCard';
 type SafesProps = {
   daoChain: ValidNetwork;
   daoId: string;
+  includeLinks?: boolean;
   graphApiKeys?: Keychain;
 };
 
-export const SafesList = ({ daoChain, daoId, graphApiKeys }: SafesProps) => {
+export const SafesList = ({
+  daoChain,
+  daoId,
+  includeLinks = false,
+  graphApiKeys,
+}: SafesProps) => {
   const { dao } = useDaoData({
     daoChain,
     daoId,
@@ -26,7 +32,15 @@ export const SafesList = ({ daoChain, daoId, graphApiKeys }: SafesProps) => {
         .map(
           (vault) =>
             dao &&
-            vault && <SafeCard dao={dao} daoChain={daoChain} safe={vault} key={vault.id} />
+            vault && (
+              <SafeCard
+                dao={dao}
+                daoChain={daoChain}
+                safe={vault}
+                includeLinks={includeLinks}
+                key={vault.id}
+              />
+            )
         )}
     </>
   );

@@ -82,6 +82,11 @@ type StaticArg = {
   value: ArgType;
 };
 
+type TemplateArg = {
+  type: 'template';
+  value: string;
+};
+
 type SingletonSearch = {
   type: 'singleton';
   keychain: Keychain;
@@ -113,6 +118,7 @@ export type ValidArgType =
   | EncodeCallArg
   | ProposalExpiry
   | StaticArg
+  | TemplateArg
   | IPFSPinata
   | EncodeMulticall
   | ArgEncode;

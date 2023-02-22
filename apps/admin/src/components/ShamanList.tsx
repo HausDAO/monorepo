@@ -4,6 +4,7 @@ import { AddressDisplay, Button, DataSm, Link, widthQuery } from '@daohaus/ui';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/keychain-utils';
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
+import { ButtonRouterLink } from './ButtonRouterLink';
 
 const ShamanContainer = styled.div`
   display: flex;
@@ -61,18 +62,18 @@ export const ShamanList = ({ shamen }: ShamanListProps) => {
             </span>
             <div className="manage">
               <DataSm>{shaman.permissions}</DataSm>
-              <StyledLink
-                href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_SHAMAN&defaultValues=${JSON.stringify(
+              <ButtonRouterLink
+                size="sm"
+                color="secondary"
+                to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_SHAMAN&defaultValues=${JSON.stringify(
                   {
                     shamanAddress: shaman.shamanAddress,
                     shamanPermission: shaman.permissions,
                   }
                 )}`}
               >
-                <Button color="secondary" size="sm">
-                  Manage
-                </Button>
-              </StyledLink>
+                Manage
+              </ButtonRouterLink>
             </div>
           </ShamanContainer>
         ))}

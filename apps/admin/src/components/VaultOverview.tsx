@@ -90,7 +90,6 @@ export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
         <div className="right-section">
           <div className="safe-link">
             <Link
-              linkType="external"
               href={generateGnosisUiLink({
                 chainId: daochain as keyof Keychain,
                 address: vault.safeAddress,

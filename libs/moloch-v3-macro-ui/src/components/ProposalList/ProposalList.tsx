@@ -1,7 +1,13 @@
-import { useCurrentDao, useDaoProposals } from '@daohaus/moloch-v3-hooks';
-import { Button } from '@daohaus/ui';
-import React from 'react';
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoProposals,
+} from '@daohaus/moloch-v3-hooks';
+import { Button, widthQuery } from '@daohaus/ui';
+import { useState } from 'react';
+import styled from 'styled-components';
 import { ProposalCard } from '../ProposalCard';
+import SearchInput from './SearchInput';
 
 type ProposalListProps = {
   daoId: string;
@@ -11,7 +17,7 @@ type ProposalListProps = {
 export const ProposalList = () => {
   const {
     proposals,
-    isLoading,
+    isLoading: isLoadingProposals,
     fetchNextPage,
     filterProposals,
     hasNextPage,
@@ -19,6 +25,8 @@ export const ProposalList = () => {
     refetch,
   } = useDaoProposals();
   const { daoId, daoChain } = useCurrentDao();
+  const { dao, isLoading: isLoadingDao } = useDaoData();
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleFilter = (e: any) => {
     if (e.target.value === 'all') {
@@ -52,7 +60,7 @@ export const ProposalList = () => {
     return <>Current DAO not found</>;
   }
 
-  if (isLoading) {
+  if (isLoadingProposals || isLoadingDao) {
     return <>Loading...</>;
   }
 
@@ -62,6 +70,19 @@ export const ProposalList = () => {
 
   return (
     <>
+      <ActionsContainer>
+        <SearchFilterContainer>
+          <SearchInput
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            totalItems={Number(dao?.proposalCount) || 0}
+            noun={{
+              singular: 'proposal',
+              plural: 'proposals',
+            }}
+          />
+        </SearchFilterContainer>
+      </ActionsContainer>
       {proposals.map((proposal) => (
         <ProposalCard
           key={proposal.proposalId}
@@ -78,3 +99,21 @@ export const ProposalList = () => {
     </>
   );
 };
+
+const ActionsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+const SearchFilterContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+  }
+`;

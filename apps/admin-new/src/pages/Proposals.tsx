@@ -5,7 +5,7 @@ import {
   useProfile,
 } from '@daohaus/moloch-v3-hooks';
 import { ProposalCard } from '@daohaus/moloch-v3-macro-ui';
-import { Button, Link, Select, SingleColumnLayout } from '@daohaus/ui';
+import { Button, SingleColumnLayout } from '@daohaus/ui';
 import { JSONDisplay } from '../components/JSONDisplay';
 
 export const Proposals = () => {

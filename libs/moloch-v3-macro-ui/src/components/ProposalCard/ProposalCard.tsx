@@ -2,9 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Card, widthQuery } from '@daohaus/ui';
 
-// import { ProposalActions } from './ProposalActions';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-// import { useDaoProposal } from '@daohaus/moloch-v3-hooks';
 import { ProposalCardOverview } from './ProposalCardOverview';
 import {
   PROPOSAL_TYPE_LABELS,
@@ -12,7 +10,6 @@ import {
 } from '../ProposalUtils';
 import { ActionLifeCycleFns } from '../ProposalUtils/types';
 import { ProposalActions } from './ProposalActions';
-// import { ActionLifeCycleFns } from '../../utils/general';
 
 const ProposalCardContainer = styled(Card)`
   display: flex;
@@ -56,6 +53,7 @@ type BaseProposalCardProps = {
   proposalTypes?: Record<string, string>;
   daoChain: string;
   daoId: string;
+  allowLinks?: boolean;
 };
 
 export const ProposalCard = ({
@@ -64,6 +62,7 @@ export const ProposalCard = ({
   proposalTypes = PROPOSAL_TYPE_LABELS,
   daoChain,
   daoId,
+  allowLinks = true,
 }: BaseProposalCardProps) => {
   const [actionLoading, setActionLoading] = useState<boolean>(false);
 
@@ -84,6 +83,7 @@ export const ProposalCard = ({
           proposalTypes={proposalTypes}
           daoChain={daoChain}
           daoId={daoId}
+          allowLinks={allowLinks}
         />
       </LeftCard>
       <RightCard>

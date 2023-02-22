@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { App } from './App';
-import './fonts.css';
+// import './fonts.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -32,7 +32,7 @@ const themeOverrides: ThemeOverrides = {
 root.render(
   <StrictMode>
     <HashRouter>
-      <HausThemeProvider themeOverrides={themeOverrides}>
+      <HausThemeProvider>
         <QueryClientProvider client={queryClient}>
           <App />
         </QueryClientProvider>

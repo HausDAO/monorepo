@@ -26,6 +26,10 @@ const OverviewContainer = styled.div`
   border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
   background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
 
+  .description {
+    word-break: break-word;
+  }
+
   .proposal-link {
     margin-top: 1.2rem;
   }
@@ -56,7 +60,7 @@ export const ProposalDetailsGuts = ({
   const { networks } = useDHConnect();
   return (
     <OverviewContainer>
-      <ParMd>{proposal.description}</ParMd>
+      <ParMd className="description">{proposal.description}</ParMd>
       {proposal.contentURI && (
         <Link href={proposal.contentURI} className="proposal-link">
           Link

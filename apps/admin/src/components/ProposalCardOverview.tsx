@@ -40,6 +40,7 @@ const OverviewBox = styled.div`
     margin-bottom: 2rem;
   }
   .description {
+    word-break: break-word;
     margin-bottom: auto;
   }
   @media ${widthQuery.md} {

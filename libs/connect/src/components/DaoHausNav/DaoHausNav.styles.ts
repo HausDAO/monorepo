@@ -35,3 +35,7 @@ export const DaoHausNavDropdownList = styled.ul`
   padding: 6px;
   margin: 0;
 `;
+
+export const MobileNavContainer = styled.div`
+  padding: 0 2rem;
+`;

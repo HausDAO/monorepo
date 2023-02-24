@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 
 import { ExplorerLink } from '@daohaus/connect';
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
@@ -31,8 +31,6 @@ import {
 } from './ProposalHistory.styles';
 import { VoteList } from './VoteList';
 import { MemberDisplay } from '../MemberDisplay';
-
-// import { MemberProfileAvatar } from './MemberProfileAvatar';
 
 const DataPoint = ({
   data,
@@ -84,7 +82,7 @@ export const ProposalHistoryCard = ({
   const isMobile = useBreakpoint(widthQuery.sm);
   const [open, setOpen] = useState<boolean>(false);
 
-  const handleToggle = (event: MouseEvent<HTMLDivElement>) => {
+  const handleToggle = () => {
     setOpen((prevState) => !prevState);
   };
 

@@ -9,14 +9,14 @@ import {
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
 import { Button, SingleColumnLayout, Spinner, widthQuery } from '@daohaus/ui';
-import { PROPOSAL_STATUS } from '@daohaus/utils';
+import {
+  PROPOSAL_STATUS,
+  PROPOSAL_TYPE_LABELS,
+  SENSITIVE_PROPOSAL_TYPES,
+} from '@daohaus/utils';
 import { useState, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ProposalCard } from '../ProposalCard';
-import {
-  PROPOSAL_TYPE_LABELS,
-  SENSITIVE_PROPOSAL_TYPES,
-} from '../ProposalUtils';
 import FilterDropdown from './FilterDropdown';
 import { ListAlert } from './ListAlert';
 import { SearchInput } from './SearchInput';

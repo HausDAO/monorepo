@@ -10,7 +10,7 @@ import {
   DropdownButtonTrigger,
   DropdownContent,
 } from '@daohaus/ui';
-import { PROPOSAL_FILTERS } from '../ProposalUtils';
+import { PROPOSAL_FILTERS } from '@daohaus/utils';
 
 const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;

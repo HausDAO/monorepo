@@ -4,12 +4,9 @@ import { Card, widthQuery } from '@daohaus/ui';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { ProposalCardOverview } from './ProposalCardOverview';
-import {
-  PROPOSAL_TYPE_LABELS,
-  SENSITIVE_PROPOSAL_TYPES,
-} from '../ProposalUtils';
 import { ActionLifeCycleFns } from '../ProposalUtils/types';
 import { ProposalActions } from './ProposalActions';
+import { PROPOSAL_TYPE_LABELS, SENSITIVE_PROPOSAL_TYPES } from '@daohaus/utils';
 
 const ProposalCardContainer = styled(Card)`
   display: flex;

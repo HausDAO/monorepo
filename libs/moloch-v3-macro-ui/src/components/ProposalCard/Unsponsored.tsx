@@ -2,6 +2,7 @@ import {
   fromWei,
   handleErrorMessage,
   isNumberish,
+  PROP_CARD_HELP,
   TXLego,
 } from '@daohaus/utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
@@ -18,7 +19,6 @@ import {
 import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components';
-import { PROP_CARD_HELP } from '../ProposalUtils/defaultModels';
 import { ACTION_TX } from '../ProposalUtils/legos';
 import { VotingBar } from './VotingBar';
 import { ActionTemplate } from './ActionPrimitives';

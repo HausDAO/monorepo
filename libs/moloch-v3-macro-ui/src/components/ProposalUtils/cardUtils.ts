@@ -1,4 +1,4 @@
-import { PROPOSAL_TYPE_LABELS } from './defaultModels';
+import { PROPOSAL_TYPE_LABELS } from '@daohaus/utils';
 
 export const getProposalTypeLabel = (
   proposalType: string,

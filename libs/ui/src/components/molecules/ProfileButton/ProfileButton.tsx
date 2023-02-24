@@ -5,6 +5,7 @@ import { ProfileBtnAvatar, StyledProfileButton } from './ProfileButton.styles';
 import { ProfileButtonProps } from './ProfileButton.types';
 import { truncateAddress } from '@daohaus/utils';
 import { ParMd } from '../../atoms';
+import { ProfileAvatar } from '../ProfileAvatar';
 
 export const ProfileButton = React.forwardRef<
   HTMLButtonElement,
@@ -38,11 +39,19 @@ export const ProfileButton = React.forwardRef<
       ref={ref}
       IconRight={!avatarOnly ? IconRight : undefined}
     >
-      <ProfileBtnAvatar
-        address={profile.address}
-        image={profile.image}
-        size={size}
-      />
+      {!avatarOnly ? (
+        <ProfileBtnAvatar
+          address={profile.address}
+          image={profile.image}
+          size={size}
+        />
+      ) : (
+        <ProfileAvatar
+          address={profile.address}
+          image={profile.image}
+          size={size}
+        />
+      )}
       {!avatarOnly && (
         <div className="interior">
           {profile.name && profile.name}

@@ -1,4 +1,4 @@
-type DaoHausNavLinkType = {
+export type DaoHausNavLinkType = {
   label: string;
   href: string;
 };

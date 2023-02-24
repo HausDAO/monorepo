@@ -12,6 +12,7 @@ import {
   widthQuery,
   DropdownContent,
   DropdownButtonTrigger,
+  DropdownIconTrigger,
 } from '@daohaus/ui';
 
 import { useDHConnect } from '../../HausConnectContext';
@@ -77,29 +78,19 @@ export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
 export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
   const { switchNetwork, networks } = useDHConnect();
 
-  // Mobile should be handled in the UI component
-  const innerButton = isSm ? (
-    <WarningButton
-      color="primary"
-      variant="outline"
-      size="sm"
-      IconLeft={BiError}
-    />
-  ) : (
-    <WarningButton color="primary" variant="outline" IconLeft={BiError}>
-      Network Unavailable
-    </WarningButton>
-  );
-
   return (
     <DropdownMenu>
-      <DropdownButtonTrigger
-        color="primary"
-        variant="outline"
-        IconLeft={BiError}
-      >
-        {innerButton}
-      </DropdownButtonTrigger>
+      {isSm ? (
+        <DropdownIconTrigger color="primary" variant="outline" Icon={BiError} />
+      ) : (
+        <DropdownButtonTrigger
+          color="primary"
+          variant="outline"
+          IconLeft={BiError}
+        >
+          Network Unavailable
+        </DropdownButtonTrigger>
+      )}
       <DropdownContent align="end">
         <DropdownLabel>
           <ParXs>Switch to available network</ParXs>

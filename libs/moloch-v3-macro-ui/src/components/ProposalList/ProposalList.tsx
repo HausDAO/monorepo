@@ -8,9 +8,9 @@ import {
   useDaoData,
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
-import { Button, SingleColumnLayout, widthQuery } from '@daohaus/ui';
+import { Button, SingleColumnLayout, Spinner, widthQuery } from '@daohaus/ui';
 import { PROPOSAL_STATUS } from '@daohaus/utils';
-import { useState, MouseEvent, ReactNode, useEffect } from 'react';
+import { useState, MouseEvent, ReactNode, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ProposalCard } from '../ProposalCard';
 import {
@@ -18,6 +18,7 @@ import {
   SENSITIVE_PROPOSAL_TYPES,
 } from '../ProposalUtils';
 import FilterDropdown from './FilterDropdown';
+import { ListAlert } from './ListAlert';
 import { SearchInput } from './SearchInput';
 
 const handleNewFilter = ({
@@ -58,14 +59,39 @@ export const ProposalList = ({
     filterProposals,
     refetch,
   } = useDaoProposals();
+  const { dao, isLoading: isLoadingDao } = useDaoData();
   const { daoId, daoChain } = useCurrentDao();
 
-  if (!daoChain || !daoId) {
-    return <>Current DAO not found</>;
+  if (!daoId || !daoChain) {
+    return <ProposalControls>Current DAO not found</ProposalControls>;
   }
 
-  if (!proposals) {
-    return <>No proposals found</>;
+  if (isLoadingProposals || isLoadingDao)
+    return (
+      <ProposalControls header={header} rightActionEl={rightActionEl}>
+        <Spinner size="12rem" />
+      </ProposalControls>
+    );
+
+  // if (dao?.proposalCount === '0') {
+  //   return (
+  //     <ProposalControls header={header} rightActionEl={rightActionEl}>
+  //       <ListAlert>There are currently no Proposals for this DAO.</ListAlert>
+  //     </ProposalControls>
+  //   );
+  // }
+
+  if (!proposals || proposals.length === 0) {
+    return (
+      <ProposalControls
+        header={header}
+        rightActionEl={rightActionEl}
+        dao={dao}
+        filterProposals={filterProposals}
+      >
+        <ListAlert>No Proposals Found</ListAlert>
+      </ProposalControls>
+    );
   }
 
   return (
@@ -73,6 +99,7 @@ export const ProposalList = ({
       filterProposals={filterProposals}
       rightActionEl={rightActionEl}
       header={header}
+      dao={dao}
     >
       {proposals?.map((proposal) => (
         <ProposalCard
@@ -104,23 +131,35 @@ const ProposalControls = ({
   rightActionEl,
   header,
   children,
+  dao,
 }: {
+  dao?: MolochV3Dao;
   header?: string;
   children: ReactNode;
   rightActionEl?: ReactNode;
-  filterProposals: (filter: Proposal_Filter) => void;
+  filterProposals?: (filter: Proposal_Filter) => void;
 }) => {
-  const { daoId, daoChain } = useCurrentDao();
-  const { dao } = useDaoData();
+  const { daoId } = useCurrentDao();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [filterTag, setFilter] = useState('');
 
+  const lastFilter = useRef({
+    searchTerm,
+    filterTag,
+  });
+
   useEffect(() => {
-    if (!dao || !daoId) return;
+    if (!dao || !daoId || !filterProposals) return;
+    if (
+      lastFilter.current.searchTerm === searchTerm &&
+      lastFilter.current.filterTag === filterTag
+    )
+      return;
     const statusFilter = handleNewFilter({ filterTag, dao });
     const searchFilter = handleSearchFilter({ term: searchTerm });
-
     filterProposals({ dao: daoId, ...statusFilter, ...searchFilter });
+    lastFilter.current = { searchTerm, filterTag };
   }, [searchTerm, filterTag, dao, daoId]);
 
   const handleFilter = (e: MouseEvent<HTMLButtonElement>) => {
@@ -128,14 +167,6 @@ const ProposalControls = ({
       e.currentTarget.value === prevState ? '' : e.currentTarget.value
     );
   };
-
-  if (!daoChain || !daoId) {
-    return <>Current DAO not found</>;
-  }
-
-  if (!dao) {
-    return <>No proposals found</>;
-  }
 
   return (
     <SingleColumnLayout title={header}>

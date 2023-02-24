@@ -160,7 +160,7 @@ const ProposalControls = ({
     const searchFilter = handleSearchFilter({ term: searchTerm });
     filterProposals({ dao: daoId, ...statusFilter, ...searchFilter });
     lastFilter.current = { searchTerm, filterTag };
-  }, [searchTerm, filterTag, dao, daoId]);
+  }, [searchTerm, filterTag, dao, daoId, filterProposals]);
 
   const handleFilter = (e: MouseEvent<HTMLButtonElement>) => {
     setFilter((prevState) =>

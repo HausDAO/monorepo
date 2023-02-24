@@ -15,10 +15,15 @@ import {
   Theme,
   Icon,
   MemberCard,
+  MemberCardExplorerLink,
+  MemberCardCopyAddress,
+  MemberCardItem,
+  DropdownLinkStyles,
 } from '@daohaus/ui';
 
 import { getProposalTypeLabel } from '../ProposalUtils/cardUtils';
 import { useProfile } from '@daohaus/moloch-v3-hooks';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 const OverviewBox = styled.div<{ allowLinks?: boolean }>`
   display: flex;
@@ -52,6 +57,7 @@ const SubmittedContainer = styled.div`
 `;
 
 const StyledRouterLink = styled(RouterLink)`
+  ${DropdownLinkStyles}
   :hover {
     text-decoration: none;
   }
@@ -118,12 +124,34 @@ export const ProposalCardOverview = ({
           Submitted by
         </ParMd>
         <MemberCard
+          variant="ghost"
           profile={
             submitterProfile || {
               address: proposal.createdBy,
             }
           }
-        />
+        >
+          {allowLinks && (
+            <MemberCardItem asChild>
+              <StyledRouterLink
+                to={`/molochv3/${daoChain}/${daoId}/members/${proposal.createdBy}`}
+              >
+                View Profile
+              </StyledRouterLink>
+            </MemberCardItem>
+          )}
+          <MemberCardExplorerLink
+            explorerNetworkId={daoChain as ValidNetwork}
+            profileAddress={submitterProfile?.address || proposal.createdBy}
+          >
+            View On Etherscan
+          </MemberCardExplorerLink>
+          <MemberCardCopyAddress
+            profileAddress={submitterProfile?.address || proposal.createdBy}
+          >
+            Copy Address
+          </MemberCardCopyAddress>
+        </MemberCard>
       </SubmittedContainer>
     </OverviewBox>
   );

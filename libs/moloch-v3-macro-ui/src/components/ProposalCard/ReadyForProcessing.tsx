@@ -17,12 +17,12 @@ import {
 } from '@daohaus/utils';
 import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
 
-import { ACTION_TX } from '../ProposalUtils/legos';
+import { ACTION_TX } from './legos';
 import { GatedButton } from '@daohaus/ui';
 import { VotingBar } from './VotingBar';
 import { LOCAL_ABI } from '@daohaus/abis';
 
-import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ActionLifeCycleFns } from './types';
 
 const ProcessBox = styled.div`
   display: flex;

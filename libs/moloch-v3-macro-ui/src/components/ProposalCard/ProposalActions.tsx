@@ -2,7 +2,7 @@ import { PROPOSAL_STATUS } from '@daohaus/utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { ParMd, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
-import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ActionLifeCycleFns } from './types';
 import { ActionFailed } from './ActionFailed';
 import { ActionTemplate } from './ActionPrimitives';
 import { Cancelled } from './Cancelled';

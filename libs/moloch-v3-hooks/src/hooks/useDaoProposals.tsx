@@ -34,7 +34,6 @@ const fetchProposals = async ({
   pageParam?: Paging;
 }) => {
   if (!daoChain || !daoId) return;
-  console.log('FIRE PROPOSALS');
   try {
     const res = await listProposals({
       filter,

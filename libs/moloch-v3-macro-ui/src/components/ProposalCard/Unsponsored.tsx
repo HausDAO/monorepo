@@ -19,11 +19,11 @@ import {
 import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components';
-import { ACTION_TX } from '../ProposalUtils/legos';
+import { ACTION_TX } from './legos';
 import { VotingBar } from './VotingBar';
 import { ActionTemplate } from './ActionPrimitives';
 import { GatedButton } from '@daohaus/ui';
-import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ActionLifeCycleFns } from './types';
 import { useConnectedMember, useDaoData } from '@daohaus/moloch-v3-hooks';
 
 export const Unsponsored = ({

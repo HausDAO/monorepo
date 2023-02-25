@@ -6,7 +6,7 @@ import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
 
-import { ACTION_TX } from '../ProposalUtils/legos';
+import { ACTION_TX } from './legos';
 import {
   ActionTemplate,
   VoteBox,
@@ -14,7 +14,7 @@ import {
   VoteUpButton,
 } from './ActionPrimitives';
 import { VotingBar } from './VotingBar';
-import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ActionLifeCycleFns } from './types';
 import { useConnectedMember } from '@daohaus/moloch-v3-hooks';
 
 enum Vote {

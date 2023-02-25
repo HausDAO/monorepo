@@ -6,7 +6,7 @@ import { useDHConnect } from '@daohaus/connect';
 
 import { HasVoted } from './HasVoted';
 import { HasNotVoted } from './HasNotVoted';
-import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ActionLifeCycleFns } from './types';
 
 export const VotingPeriod = ({
   lifeCycleFnsOverride,

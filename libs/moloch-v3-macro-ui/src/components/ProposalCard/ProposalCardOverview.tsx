@@ -21,7 +21,7 @@ import {
   DropdownLinkStyles,
 } from '@daohaus/ui';
 
-import { getProposalTypeLabel } from '../ProposalUtils/cardUtils';
+import { getProposalTypeLabel } from './cardUtils';
 import { useProfile } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 

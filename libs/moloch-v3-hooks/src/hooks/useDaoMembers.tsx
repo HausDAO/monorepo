@@ -95,7 +95,7 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
     daoId,
     domain: DaoQueryKeys.Members,
   });
-  console.log('queryId', queryId);
+
   const [filter, setFilter] = useState<Member_Filter>(
     checkContextDefault<Member_Filter>(
       queryId,

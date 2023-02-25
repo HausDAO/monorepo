@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { ActionTemplate, Verdict } from './ActionPrimitives';

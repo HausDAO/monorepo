@@ -4,7 +4,7 @@ import { Card, widthQuery } from '@daohaus/ui';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { ProposalCardOverview } from './ProposalCardOverview';
-import { ActionLifeCycleFns } from '../ProposalUtils/types';
+import { ActionLifeCycleFns } from './types';
 import { ProposalActions } from './ProposalActions';
 import { PROPOSAL_TYPE_LABELS, SENSITIVE_PROPOSAL_TYPES } from '@daohaus/utils';
 

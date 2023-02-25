@@ -36,11 +36,15 @@ export const HasNotVoted = ({
   daoId: string;
 }) => {
   const { chainId } = useDHConnect();
+  const { address } = useDHConnect();
 
   const { connectedMember } = useConnectedMember({
     daoChain,
     daoId,
+    memberAddress: address as string,
   });
+
+  console.log(connectedMember);
   // const { connectedMember } = useConnectedMember();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();

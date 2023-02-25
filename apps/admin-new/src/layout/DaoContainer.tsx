@@ -42,7 +42,7 @@ export const DaoContainer = () => {
       daoId={daoId}
       safeId={dao?.safeAddress}
       provider={provider}
-      appState={{ dao }}
+      appState={{ dao, userAddress: address }}
     >
       <DHLayout
         pathname={location.pathname}

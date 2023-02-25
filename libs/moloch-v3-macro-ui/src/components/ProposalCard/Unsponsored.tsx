@@ -37,10 +37,12 @@ export const Unsponsored = ({
   daoChain: string;
   daoId: string;
 }) => {
+  const { address } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const { connectedMember } = useConnectedMember({
     daoChain,
     daoId,
+    memberAddress: address as string,
   });
   const { chainId } = useDHConnect();
   const { errorToast, defaultToast, successToast } = useToast();

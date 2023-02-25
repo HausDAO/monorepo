@@ -50,7 +50,7 @@ export const useConnectedMember = ({
 }: {
   daoChain: string;
   daoId: string;
-  memberAddress?: string | null;
+  memberAddress: string | null;
   graphApiKeys?: Keychain;
 }) => {
   const { data, error, ...rest } = useQuery(

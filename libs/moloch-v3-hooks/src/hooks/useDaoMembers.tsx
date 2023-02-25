@@ -43,6 +43,7 @@ const fetchMembers = async ({
       paging: pageParam || paging,
       graphApiKeys,
     });
+
     return res;
   } catch (error) {
     throw new Error(
@@ -94,7 +95,7 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
     daoId,
     domain: DaoQueryKeys.Members,
   });
-
+  console.log('queryId', queryId);
   const [filter, setFilter] = useState<Member_Filter>(
     checkContextDefault<Member_Filter>(
       queryId,
@@ -107,7 +108,7 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
   );
 
   const { data, error, ...rest } = useInfiniteQuery(
-    [{ daoId, daoChain, filter, ordering, paging }],
+    [queryId, { daoId, daoChain, filter, ordering, paging }],
     ({ pageParam }) =>
       fetchMembers({
         daoId,

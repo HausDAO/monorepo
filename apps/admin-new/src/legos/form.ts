@@ -51,7 +51,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.TITLE,
       FIELD.DESCRIPTION,
       FIELD.LINK,
-      ...PROPOSAL_SETTINGS_FIELDS,
+      // ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   ISSUE: {

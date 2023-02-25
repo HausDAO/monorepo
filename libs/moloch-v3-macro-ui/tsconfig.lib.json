@@ -24,6 +24,5 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/ProposalCard"
   ]
 }

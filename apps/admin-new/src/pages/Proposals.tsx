@@ -1,6 +1,5 @@
 import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
 import { ProposalList } from '@daohaus/moloch-v3-macro-ui';
-import { Button } from '@daohaus/ui';
 import { ButtonRouterLink } from '../components/ButtonRouterLink';
 
 export const Proposals = () => {

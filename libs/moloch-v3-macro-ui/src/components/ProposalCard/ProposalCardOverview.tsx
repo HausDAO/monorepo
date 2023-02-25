@@ -107,7 +107,7 @@ export const ProposalCardOverview = ({
       </ParMd>
       {isMd && allowLinks && (
         <StyledRouterLink
-          to={`/molochV3/${daoChain}/${daoId}/proposals/${proposal.proposalId}`}
+          to={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
         >
           <Button
             color="secondary"
@@ -134,7 +134,7 @@ export const ProposalCardOverview = ({
           {allowLinks && (
             <MemberCardItem asChild>
               <StyledRouterLink
-                to={`/molochv3/${daoChain}/${daoId}/members/${proposal.createdBy}`}
+                to={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
               >
                 View Profile
               </StyledRouterLink>
@@ -259,7 +259,7 @@ export const OverviewHeader = ({
           </HeaderContainer>
           {allowLinks && (
             <StyledRouterLink
-              to={`/molochV3/${daoChain}/${daoId}/proposals/${proposal.proposalId}`}
+              to={`/molochV3/${daoChain}/${daoId}/proposal/${proposal.proposalId}`}
             >
               <Button color="secondary" size="sm" disabled={loading}>
                 View Details

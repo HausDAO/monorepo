@@ -44,7 +44,6 @@ export const HasNotVoted = ({
     memberAddress: address as string,
   });
 
-  console.log(connectedMember);
   // const { connectedMember } = useConnectedMember();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();

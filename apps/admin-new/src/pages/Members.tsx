@@ -8,7 +8,6 @@ export const Members = () => {
 
   const { members, fetchNextPage, filterMembers, hasNextPage, orderMembers } =
     useDaoMembers();
-  console.log('members', members);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFilter = (e: any) => {
     if (e.target.value === 'all') {

@@ -23,9 +23,7 @@ root.render(
   <StrictMode>
     <HashRouter>
       <HausThemeProvider>
-        <DHConnectProvider>
-          <App />
-        </DHConnectProvider>
+        <App />
       </HausThemeProvider>
     </HashRouter>
   </StrictMode>

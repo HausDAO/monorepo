@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@daohaus/ui';
+import { Button, Tooltip } from '../../atoms';
 
 import { ComponentProps, useMemo } from 'react';
 

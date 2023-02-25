@@ -110,7 +110,6 @@ export function Proposals() {
             setSearchTerm={handleSearchFilter}
             totalItems={Number(dao?.proposalCount) || 0}
           />
-
           <FilterDropdown filter={localFilter} toggleFilter={toggleFilter} />
         </SearchFilterContainer>
         <Dialog>

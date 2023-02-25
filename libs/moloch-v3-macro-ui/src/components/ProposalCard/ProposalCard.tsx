@@ -51,7 +51,8 @@ type BaseProposalCardProps = {
   daoChain: string;
   daoId: string;
   allowLinks?: boolean;
-  refetchProposals?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 };
 
 export const ProposalCard = ({
@@ -61,18 +62,25 @@ export const ProposalCard = ({
   daoChain,
   daoId,
   allowLinks = true,
-  refetchProposals,
+  onSuccess,
+  onError,
 }: BaseProposalCardProps) => {
   const [actionLoading, setActionLoading] = useState<boolean>(false);
 
   const lifeCycleFnsOverride: ActionLifeCycleFns = {
     onActionTriggered: () => setActionLoading(true),
-    onPollError: () => setActionLoading(false),
-    onPollSuccess: () => {
-      refetchProposals?.();
+    onPollError: () => {
+      onError?.();
       setActionLoading(false);
     },
-    onTxError: () => setActionLoading(false),
+    onPollSuccess: () => {
+      onSuccess?.();
+      setActionLoading(false);
+    },
+    onTxError: () => {
+      onError?.();
+      setActionLoading(false);
+    },
   };
 
   return (

@@ -6,6 +6,7 @@ import {
 import {
   useCurrentDao,
   useDaoData,
+  useDaoMembers,
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
 import { Button, SingleColumnLayout, Spinner, widthQuery } from '@daohaus/ui';
@@ -45,7 +46,11 @@ export const ProposalList = ({
   sensitiveProposalTypes = SENSITIVE_PROPOSAL_TYPES,
   proposalTypes = PROPOSAL_TYPE_LABELS,
   header,
+  onSuccess: onSuccessFromProps,
+  onError,
 }: {
+  onSuccess?: () => void;
+  onError?: () => void;
   header?: string;
   rightActionEl?: ReactNode;
   sensitiveProposalTypes?: Record<string, boolean>;
@@ -57,10 +62,21 @@ export const ProposalList = ({
     fetchNextPage,
     hasNextPage,
     filterProposals,
-    refetch,
+    refetch: refetchProposals,
   } = useDaoProposals();
-  const { dao, isLoading: isLoadingDao } = useDaoData();
+  const { dao, isLoading: isLoadingDao, refetch: refetchDao } = useDaoData();
+  const { refetch: refetchMembers } = useDaoMembers();
   const { daoId, daoChain } = useCurrentDao();
+
+  const onSuccess = () => {
+    // Like MolochContext, this will refetch all on each proposal action
+    // we can make this more efficient as needed
+
+    refetchProposals?.();
+    refetchDao?.();
+    refetchMembers?.();
+    onSuccessFromProps?.();
+  };
 
   if (!daoId || !daoChain) {
     return <ProposalControls>Current DAO not found</ProposalControls>;
@@ -72,14 +88,6 @@ export const ProposalList = ({
         <Spinner size="12rem" />
       </ProposalControls>
     );
-
-  // if (dao?.proposalCount === '0') {
-  //   return (
-  //     <ProposalControls header={header} rightActionEl={rightActionEl}>
-  //       <ListAlert>There are currently no Proposals for this DAO.</ListAlert>
-  //     </ProposalControls>
-  //   );
-  // }
 
   if (!proposals || proposals.length === 0) {
     return (
@@ -105,7 +113,8 @@ export const ProposalList = ({
         <ProposalCard
           key={proposal.proposalId}
           proposal={proposal}
-          refetchProposals={refetch}
+          onSuccess={onSuccess}
+          onError={onError}
           daoChain={daoChain}
           daoId={daoId}
           sensitiveProposalTypes={sensitiveProposalTypes}

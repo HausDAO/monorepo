@@ -88,7 +88,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         label: 'Non-Voting Token Requested',
         id: 'lootRequested',
       },
-      ...PROPOSAL_SETTINGS_FIELDS,
+      // ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   ADD_SHAMAN: {

@@ -19,8 +19,11 @@ import {
 import {
   DAO_METHOD_TO_PROPOSAL_TYPE,
   MulticallAction,
+  MulticallArg,
   PROPOSAL_TYPE_WARNINGS,
   SENSITIVE_PROPOSAL_TYPES,
+  TXLego,
+  ValidArgType,
 } from '@daohaus/utils';
 
 import { ActionAlert } from './ActionAlert';
@@ -41,27 +44,37 @@ export type ProposalActionConfig = {
 type ProposalActionDataProps = {
   daoChain: string;
   daoId: string;
-  actionsMeta?: MulticallAction[];
   proposal: MolochV3Proposal;
   proposalActionConfig?: ProposalActionConfig;
+  txLegos?: Record<string, TXLego>;
 };
 
 export const ProposalActionData = ({
   daoChain,
   daoId,
-  actionsMeta,
   proposal,
   proposalActionConfig = {
     sensitiveProposalTypes: SENSITIVE_PROPOSAL_TYPES,
     actionToProposalType: DAO_METHOD_TO_PROPOSAL_TYPE,
     proposalTypeWarning: PROPOSAL_TYPE_WARNINGS,
   },
+  txLegos = {},
 }: ProposalActionDataProps) => {
   const [decodeError, setDecodeError] = useState<boolean>(false);
   const [actionData, setActionData] = useState<DecodedMultiTX | null>();
+  const [actionsMeta, setActionsMeta] = useState<MulticallAction[]>();
 
   const network = isValidNetwork(daoChain) ? daoChain : undefined;
   const isMobile = useBreakpoint(widthQuery.sm);
+
+  useEffect(() => {
+    if (proposal?.proposalType) {
+      const txLego = txLegos[proposal.proposalType]?.args?.find(
+        (tx) => (tx as MulticallArg).type === 'multicall'
+      );
+      setActionsMeta(txLego && (txLego as MulticallArg).actions);
+    }
+  }, [proposal?.proposalType, txLegos]);
 
   useEffect(() => {
     let shouldUpdate = true;

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useCurrentDao, useDaoProposal } from '@daohaus/moloch-v3-hooks';
 import {
@@ -10,10 +9,8 @@ import {
 import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from '@daohaus/ui';
 import {
   getProposalTypeLabel,
-  MulticallArg,
   PROPOSAL_TYPE_LABELS,
   TXLego,
-  ValidArgType,
 } from '@daohaus/utils';
 
 const LoadingContainer = styled.div`
@@ -52,17 +49,6 @@ const TX: Record<string, TXLego> = {};
 export const Proposal = () => {
   const { proposal } = useDaoProposal();
   const { daoChain, daoId } = useCurrentDao();
-  const [proposalMeta, setProposalMeta] = useState<ValidArgType>();
-
-  useEffect(() => {
-    if (proposal?.proposalType) {
-      setProposalMeta(
-        TX[proposal.proposalType]?.args?.find(
-          (tx) => (tx as MulticallArg).type === 'multicall'
-        )
-      );
-    }
-  }, [proposal?.proposalType]);
 
   if (!daoChain || !daoId)
     return (
@@ -104,8 +90,8 @@ export const Proposal = () => {
           <ProposalActionData
             daoChain={daoChain}
             daoId={daoId}
-            actionsMeta={proposalMeta && (proposalMeta as MulticallArg).actions}
             proposal={proposal}
+            txLegos={TX}
           />
         </OverviewCard>
       }

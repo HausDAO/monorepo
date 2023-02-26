@@ -558,6 +558,26 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  ISSUE_SHARES: {
+    id: 'ISSUE_SHARES',
+    title: 'DAO Token Request',
+    subtitle: 'Token Proposal',
+    description: 'Request voting tokens from the DAO for multiple addresses.',
+    tx: TX.ISSUE_SHARES,
+    log: true,
+    requiredFields: {
+      title: true,
+      description: true,
+      addressesAndAmounts: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.ADDRESSES_AMOUNTS,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
 };
 
 export const TABULA_FORMS: Record<string, CustomFormLego> = {

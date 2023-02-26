@@ -1,7 +1,3 @@
-import {
-  getSensitiveProposalTypes,
-  getActionToProposalTypeMapping,
-} from '@daohaus/utils';
 import { DecodedAction } from '@daohaus/tx-builder';
 
 import { AlertContainer } from './ProposalActionData.styles';
@@ -19,24 +15,20 @@ export const ActionAlert = ({
   proposalType?: string;
   proposalActionConfig?: ProposalActionConfig;
 }) => {
-  const actionType = getActionToProposalTypeMapping(
-    proposalActionConfig?.actionToProposalType
-  )[action.name];
+  const actionType = proposalActionConfig?.actionToProposalType?.[action.name];
   // Show Action Warning IFF action.to === daoId || actionType != proposal.proposalType
   // e.g. calling sensitive dao methods through tx builder proposal
   if (
     actionType &&
     proposalType &&
     (action.to === daoId || proposalType !== actionType) &&
-    getSensitiveProposalTypes(proposalActionConfig?.sensitiveProposalTypes)[
-      actionType
-    ]
+    proposalActionConfig?.sensitiveProposalTypes?.[actionType]
   ) {
     return (
       <AlertContainer>
         <ProposalWarning
-          proposalType={proposalType}
-          decodeError={false}
+          proposalActionConfig={proposalActionConfig}
+          proposalType={actionType}
           txHash={''}
         />
       </AlertContainer>

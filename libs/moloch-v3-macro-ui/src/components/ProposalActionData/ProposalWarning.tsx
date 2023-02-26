@@ -1,11 +1,7 @@
 import { useMemo } from 'react';
 import { ExplorerLink } from '@daohaus/connect';
 import { Icon } from '@daohaus/ui';
-import {
-  getProposalTypeWarningMapping,
-  getSensitiveProposalTypes,
-  PROPOSAL_TYPE_WARNINGS,
-} from '@daohaus/utils';
+import { PROPOSAL_TYPE_WARNINGS } from '@daohaus/utils';
 
 import {
   IconContainer,
@@ -18,15 +14,15 @@ import {
 import { ProposalActionConfig } from './ProposalActionData';
 
 type ProposalWarningProps = {
-  proposalType: string | undefined;
-  decodeError: boolean;
+  proposalType?: string;
+  decodeError?: boolean;
   txHash: string;
   proposalActionConfig?: ProposalActionConfig;
 };
 
 export const ProposalWarning = ({
   proposalType,
-  decodeError,
+  decodeError = false,
   txHash,
   proposalActionConfig,
 }: ProposalWarningProps) => {
@@ -36,9 +32,7 @@ export const ProposalWarning = ({
     } else {
       return (
         (proposalType &&
-          getProposalTypeWarningMapping(
-            proposalActionConfig?.proposalTypeWarning
-          )[proposalType]) ||
+          proposalActionConfig?.proposalTypeWarning?.[proposalType]) ||
         PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN
       );
     }
@@ -47,9 +41,7 @@ export const ProposalWarning = ({
   const hasWarning =
     decodeError ||
     (proposalType &&
-      getSensitiveProposalTypes(proposalActionConfig?.sensitiveProposalTypes)[
-        proposalType
-      ]) ||
+      proposalActionConfig?.sensitiveProposalTypes?.[proposalType]) ||
     warningMessage === PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN;
 
   // TODO: activate this feature when errors use cases arise

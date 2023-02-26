@@ -3,7 +3,12 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
-  padding: 0rem 3.6rem;
+  padding: 0rem 2.6rem;
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export const DisplayContainer = styled.div`

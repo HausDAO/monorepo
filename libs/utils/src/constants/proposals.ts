@@ -88,9 +88,7 @@ export const SENSITIVE_PROPOSAL_TYPES: Partial<
   ADD_SHAMAN: true,
 };
 
-export const DAO_METHOD_TO_PROPOSAL_TYPE: Partial<
-  Record<string, ProposalTypeIds>
-> = {
+export const DAO_METHOD_TO_PROPOSAL_TYPE: Record<string, ProposalTypeIds> = {
   setShamans: ProposalTypeIds.AddShaman,
 };
 

@@ -1,21 +1,30 @@
-import { isValidNetwork, ValidNetwork } from "@daohaus/keychain-utils";
-import { MolochV3Proposal } from "@daohaus/moloch-v3-data";
-import { DecodedMultiTX, decodeProposalActions, isActionError } from "@daohaus/tx-builder";
-import { AddressDisplay, Bold, DataSm, Divider, H4, useBreakpoint, widthQuery } from "@daohaus/ui";
-import { MulticallAction } from "@daohaus/utils";
-import { useEffect, useState } from "react";
-import { ActionAlert } from "./ActionAlert";
-
+import { useEffect, useState } from 'react';
+import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
-  DisplayContainer,
-  MainContainer,
-} from './ProposalActionData.styles';
-import { ProposalWarning } from "./ProposalWarning";
-import { ValueDisplay } from "./ValueDisplay";
+  DecodedMultiTX,
+  decodeProposalActions,
+  isActionError,
+} from '@daohaus/tx-builder';
+import {
+  AddressDisplay,
+  Bold,
+  DataSm,
+  Divider,
+  H4,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
+import { MulticallAction } from '@daohaus/utils';
+
+import { ActionAlert } from './ActionAlert';
+import { DisplayContainer, MainContainer } from './ProposalActionData.styles';
+import { ProposalWarning } from './ProposalWarning';
+import { ValueDisplay } from './ValueDisplay';
 
 export type ProposalActionConfig = {
   sensitiveProposalTypes?: { [key: string]: boolean };
-  actionToProposalType?: { [key: string]: string }
+  actionToProposalType?: { [key: string]: string };
   proposalTypeWarning?: { [key: string]: string };
 };
 
@@ -45,11 +54,12 @@ export const ProposalActionData = ({
     const fetchPropActions = async (
       chainId: ValidNetwork,
       actionData: string,
+      actionMeta?: MulticallAction[],
     ) => {
       const proposalActions = await decodeProposalActions({
         chainId,
         actionData,
-        actionsMeta,
+        actionsMeta: actionMeta,
       });
       if (shouldUpdate) {
         setActionData(proposalActions);
@@ -61,12 +71,12 @@ export const ProposalActionData = ({
     };
 
     if (!isValidNetwork(daoChain) || !proposal) return;
-    fetchPropActions(daoChain, proposal.proposalData);
+    fetchPropActions(daoChain, proposal.proposalData, actionsMeta);
 
     return () => {
       shouldUpdate = false;
     };
-  }, [daoChain, proposal]);
+  }, [daoChain, proposal, actionsMeta]);
 
   return (
     <MainContainer>
@@ -130,7 +140,6 @@ export const ProposalActionData = ({
                       <Bold>TYPE: </Bold>
                       {arg.type}
                     </DataSm>
-  
                     <DataSm className="space">
                       <Bold>VALUE: </Bold>
                     </DataSm>
@@ -157,5 +166,5 @@ export const ProposalActionData = ({
         />
       )}
     </MainContainer>
-  )
+  );
 };

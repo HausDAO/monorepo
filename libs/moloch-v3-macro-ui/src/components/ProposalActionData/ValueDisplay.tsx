@@ -1,6 +1,6 @@
-import { ValidNetwork } from "@daohaus/keychain-utils";
-import { AddressDisplay, DataSm, Divider } from "@daohaus/ui";
-import { ArgType, isEthAddress, isNumberish } from "@daohaus/utils";
+import { ValidNetwork } from '@daohaus/keychain-utils';
+import { AddressDisplay, DataSm, Divider } from '@daohaus/ui';
+import { ArgType, isEthAddress, isNumberish } from '@daohaus/utils';
 
 export const ValueDisplay = ({
   argValue,
@@ -17,8 +17,8 @@ export const ValueDisplay = ({
     const displayValue =
       argType === 'tuple'
         ? Object.entries(Object.assign({}, argValue)).filter(
-          (entry) => !isNumberish(entry[0])
-        )
+            (entry) => !isNumberish(entry[0])
+          )
         : argValue;
     return (
       <>

@@ -14,11 +14,6 @@ import {
   FindRecordQuery,
 } from '../types';
 import { MolochV3Record } from '../types/record.types';
-import {
-  DAO_METHOD_TO_PROPOSAL_TYPE,
-  PROPOSAL_TYPE_WARNINGS,
-  SENSITIVE_PROPOSAL_TYPES,
-} from './constants';
 import { getProposalStatus } from './proposalsStatus';
 
 export const transformProposal = (
@@ -140,31 +135,4 @@ export const addParsedContent = (
     }
   }
   return record;
-};
-
-export const getSensitiveProposalTypes = (proposalTypesOverride?: {
-  [key: string]: boolean;
-}) => {
-  return {
-    ...SENSITIVE_PROPOSAL_TYPES,
-    ...proposalTypesOverride,
-  };
-};
-
-export const getActionToProposalTypeMapping = (actionToProposalTypeOverride?: {
-  [key: string]: string;
-}) => {
-  return {
-    ...DAO_METHOD_TO_PROPOSAL_TYPE,
-    ...actionToProposalTypeOverride,
-  };
-};
-
-export const getProposalTypeWarningMapping = (proposalTypeWarningOverride?: {
-  [key: string]: string;
-}) => {
-  return {
-    ...PROPOSAL_TYPE_WARNINGS,
-    ...proposalTypeWarningOverride,
-  };
 };

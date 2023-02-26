@@ -1,7 +1,7 @@
 import {
   getSensitiveProposalTypes,
   getActionToProposalTypeMapping,
-} from '@daohaus/moloch-v3-data';
+} from '@daohaus/utils';
 import { DecodedAction } from '@daohaus/tx-builder';
 
 import { AlertContainer } from './ProposalActionData.styles';
@@ -25,6 +25,7 @@ export const ActionAlert = ({
   // Show Action Warning IFF action.to === daoId || actionType != proposal.proposalType
   // e.g. calling sensitive dao methods through tx builder proposal
   if (
+    actionType &&
     proposalType &&
     (action.to === daoId || proposalType !== actionType) &&
     getSensitiveProposalTypes(proposalActionConfig?.sensitiveProposalTypes)[

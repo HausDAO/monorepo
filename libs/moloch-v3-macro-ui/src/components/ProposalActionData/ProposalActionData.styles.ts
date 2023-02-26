@@ -35,35 +35,35 @@ export const WarningContainer = styled(Card)`
   display: flex;
   width: 100%;
   background-color: ${({
-  theme,
-  error,
-  warning,
-}: {
-  theme: Theme;
-  error: boolean;
-  warning: boolean;
-}) => (error && theme.danger.step3) || (warning && theme.warning.step3)};
+    theme,
+    error,
+    warning,
+  }: {
+    theme: Theme;
+    error: boolean;
+    warning: boolean;
+  }) => (error && theme.danger.step3) || (warning && theme.warning.step3)};
   border-color: ${({
-  theme,
-  error,
-  warning,
-}: {
-  theme: Theme;
-  error: boolean;
-  warning: boolean;
-}) => (error && theme.danger.step7) || (warning && theme.warning.step7)};
+    theme,
+    error,
+    warning,
+  }: {
+    theme: Theme;
+    error: boolean;
+    warning: boolean;
+  }) => (error && theme.danger.step7) || (warning && theme.warning.step7)};
 `;
 
 export const StyledParXs = styled(ParXs)`
   color: ${({
-  theme,
-  error,
-  warning,
-}: {
-  theme: Theme;
-  error: boolean;
-  warning: boolean;
-}) => (error && theme.danger.step12) || (warning && theme.warning.step12)};
+    theme,
+    error,
+    warning,
+  }: {
+    theme: Theme;
+    error: boolean;
+    warning: boolean;
+  }) => (error && theme.danger.step12) || (warning && theme.warning.step12)};
 `;
 
 export const Spacer = styled.div`

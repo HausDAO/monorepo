@@ -38,7 +38,7 @@ export const fetchDao = async ({
 
 type DaoDataProps = {
   daoId: string;
-  daoChain: ValidNetwork;
+  daoChain: string;
   graphApiKeys?: Keychain;
 };
 
@@ -63,7 +63,7 @@ export const useDaoData = (props?: DaoDataProps | undefined) => {
       }),
       { daoId, daoChain },
     ],
-    () => fetchDao({ daoId, daoChain, graphApiKeys }),
+    () => fetchDao({ daoId, daoChain: daoChain as ValidNetwork, graphApiKeys }),
     {
       enabled: !!daoId && !!daoChain,
     }

@@ -45,6 +45,7 @@ BaseDropdownButton.args = {
   size: 'md',
   disabled: false,
   fullWidth: false,
+  avatarOnly: false,
   profile: {
     image:
       'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',

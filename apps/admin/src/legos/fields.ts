@@ -127,4 +127,9 @@ export const FIELD: Record<string, CustomFieldLego> = {
     label: 'Safe Name',
     placeholder: 'Select',
   },
+  ADDRESSES_AMOUNTS: {
+    id: 'addressesAndAmounts',
+    type: 'addressesAndAmounts',
+    label: 'Addresses & Amounts',
+  },
 };

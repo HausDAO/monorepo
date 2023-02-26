@@ -100,6 +100,32 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ISSUE_SHARES: buildMultiCallTX({
+    id: 'ISSUE',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.IssueSharesLoot,
+        },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'mintShares',
+        args: [
+          '.formValues.addressesAndAmounts.recipients',
+          '.formValues.addressesAndAmounts.values',
+        ],
+      },
+    ],
+  }),
   ADD_SHAMAN: buildMultiCallTX({
     id: 'ADD_SHAMAN',
     JSONDetails: {

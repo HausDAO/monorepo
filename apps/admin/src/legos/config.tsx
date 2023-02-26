@@ -16,6 +16,7 @@ import { WalletConnectLink } from '../components/customFields/WalletConnectLink'
 import { MetadataLink } from '../components/customFields/MetadataLink';
 import { SafeSelect } from '../components/customFields/SafeSelect';
 import { MultisendActions } from '../components/customFields/MultisendActions';
+import { AddressesAndAmounts } from '../components/customFields/AddressesAndAmounts';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -35,6 +36,7 @@ export const CustomFields = {
   metadataLink: MetadataLink,
   safeSelect: SafeSelect,
   multisendActions: MultisendActions,
+  addressesAndAmounts: AddressesAndAmounts,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

@@ -1,6 +1,7 @@
 export * from './DaoOverview';
 export * from './DaoSettings';
 export * from './MemberDisplay';
+export * from './ProposalDetails';
 export * from './ProposalActionData';
 export * from './ProposalHistory';
 export * from './SafeCard';

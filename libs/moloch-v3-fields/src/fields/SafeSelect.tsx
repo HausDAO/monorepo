@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import { Buildable, Field, WrappedSelect } from '@daohaus/ui';
 import { useDaoData } from '@daohaus/moloch-v3-hooks';
 import { truncateAddress } from '@daohaus/utils';

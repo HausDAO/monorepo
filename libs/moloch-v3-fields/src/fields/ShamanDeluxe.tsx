@@ -8,7 +8,6 @@ import {
   SHAMAN_PERMISSIONS,
 } from '@daohaus/utils';
 import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
-
 import { useDaoData } from '@daohaus/moloch-v3-hooks';
 
 const Secondary = styled.span`

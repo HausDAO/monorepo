@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
+
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
   formatValueTo,
@@ -21,8 +24,6 @@ import {
   WrappedInput,
 } from '@daohaus/ui';
 
-import { useEffect, useState } from 'react';
-import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
 import { APPROVE_TX } from '../utils/approveToken';
 
 type TokenData = {

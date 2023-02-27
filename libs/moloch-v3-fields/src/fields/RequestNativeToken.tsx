@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-
 import { RegisterOptions, useFormContext } from 'react-hook-form';
+
 import { toWholeUnits, handleBaseUnits } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 import { isValidNetwork } from '@daohaus/keychain-utils';
-
 import { useDaoData, useCurrentDao } from '@daohaus/moloch-v3-hooks';
+
 import { getNetworkToken } from '../utils/fieldHelpers';
 
 export const RequestNativeToken = (

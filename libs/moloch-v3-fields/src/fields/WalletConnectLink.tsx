@@ -4,6 +4,7 @@ import { FaQrcode } from 'react-icons/fa';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { useDaoData } from '@daohaus/moloch-v3-hooks';
 import {
@@ -23,7 +24,6 @@ import {
 import { FieldSpacer } from '@daohaus/form-builder';
 
 import { useWalletConnect } from '../utils/walletConnect';
-
 import WalletConnectLogo from '../assets/wallet_connect.svg';
 
 enum Status {

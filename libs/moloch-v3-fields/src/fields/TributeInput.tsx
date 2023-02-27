@@ -23,7 +23,7 @@ import {
 
 import { useEffect, useState } from 'react';
 import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
-import { TX } from '../../legos/tx';
+import { APPROVE_TX } from '../utils/approveToken';
 
 type TokenData = {
   allowance: string;
@@ -246,7 +246,7 @@ const TemporaryWarning = ({
     setTxState(TxStates.Loading);
 
     await fireTransaction({
-      tx: TX.APPROVE_TOKEN,
+      tx: APPROVE_TX,
       callerState: {
         tokenAddress,
       },

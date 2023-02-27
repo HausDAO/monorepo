@@ -1,4 +1,4 @@
-import { MolochFields, MolochFieldLego } from '@daohaus/moloch-v3-fields';
+import { MolochFieldLego } from '@daohaus/moloch-v3-fields';
 
 export const FIELD: Record<string, MolochFieldLego> = {
   TITLE: {
@@ -88,7 +88,6 @@ export const FIELD: Record<string, MolochFieldLego> = {
     id: 'checkRender',
     type: 'checkRender',
     gateLabel: 'Add Expiration Date',
-    customFields: MolochFields,
     components: [
       {
         id: 'proposalExpiry',
@@ -98,11 +97,7 @@ export const FIELD: Record<string, MolochFieldLego> = {
       },
     ],
   },
-  FAKE_MD: {
-    id: 'article',
-    type: 'fakeMarkdown',
-    label: 'Real Fake MD Editor',
-  },
+
   APPLICANT: {
     id: 'applicantAddress',
     type: 'selectApplicant',

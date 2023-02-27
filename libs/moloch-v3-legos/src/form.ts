@@ -437,8 +437,8 @@ export const PROPOSAL_FORMS: Record<string, MolochFormLego> = {
       FIELD.DESCRIPTION,
       FIELD.LINK,
       {
-        ...FIELD.APPLICANT,
         id: 'memberAddress',
+        type: 'selectApplicant',
         label: 'Member',
         daoMemberOnly: true,
       },

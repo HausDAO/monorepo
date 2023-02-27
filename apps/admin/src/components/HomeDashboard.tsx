@@ -48,6 +48,7 @@ export const HomeDashboard = () => {
           ordering: SORT_FIELDS[sortBy].ordering,
           graphApiKeys: {
             '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+            '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
           },
         });
         if (query.data?.daos && shouldUpdate) {

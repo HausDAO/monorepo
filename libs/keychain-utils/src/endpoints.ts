@@ -5,7 +5,8 @@ export const ENDPOINTS: KeychainList = {
     '0x1':
       'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP',
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
-    '0x64': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-gnosis',
+    '0x64':
+      'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/5oXHJGgAWTSEXHK5FGf7mcxYtk6rSz7MJV5ccvGfoW6q',
     '0x89':
       'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-polygon',
     '0xa':
@@ -95,6 +96,7 @@ export const HAUS_RPC = {
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
 };
 
 export type PinataApiKeys = {

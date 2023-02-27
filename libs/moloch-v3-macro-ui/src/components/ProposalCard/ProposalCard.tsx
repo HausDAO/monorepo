@@ -61,7 +61,7 @@ export const ProposalCard = ({
   proposalTypes = PROPOSAL_TYPE_LABELS,
   daoChain,
   daoId,
-  allowLinks = true,
+  allowLinks = false,
   onSuccess,
   onError,
 }: BaseProposalCardProps) => {

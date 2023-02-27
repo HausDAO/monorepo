@@ -28,7 +28,6 @@ const fetchProposal = async ({
       networkId: daoChain,
       graphApiKeys,
     });
-    console.log(res);
     return res?.data?.proposal;
   } catch (error) {
     console.error(error);

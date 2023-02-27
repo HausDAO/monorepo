@@ -9,7 +9,7 @@ type CheckRenderProps = Omit<
   Buildable<
     ComponentProps<typeof CheckGate> & {
       gateLabel: string;
-      components: FieldLego[];
+      components: any[];
     }
   >,
   'fields'
@@ -23,17 +23,15 @@ export const CheckRender = ({
 
   return (
     <CheckGate
-      fields={props.components.map((field: FieldLego) => (
+      fields={props.components.map((field) => (
         <FormBuilderFactory key={field.id} field={field} />
       ))}
       {...props}
       gateLabel={gateLabel}
       onUnchecked={() => {
-        props.components.forEach(
-          (field: FieldLego & { defaultValue?: string }) => {
-            if (field.defaultValue) setValue(field.id, field.defaultValue);
-          }
-        );
+        props.components.forEach((field) => {
+          if (field.defaultValue) setValue(field.id, field.defaultValue);
+        });
       }}
     />
   );

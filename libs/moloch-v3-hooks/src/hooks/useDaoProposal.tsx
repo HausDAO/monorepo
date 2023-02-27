@@ -53,7 +53,7 @@ export const useDaoProposal = (props?: {
     proposalId: propIdFromRouter,
     daoChain: networkFromRouter,
     daoId: daoIdFromRouter,
-  } = useCurrentDao();
+  } = useCurrentDao?.() || {};
 
   const daoId = daoIdOverride || daoIdFromRouter;
   const daoChain = daoChainOverride || networkFromRouter;

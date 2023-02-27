@@ -1,23 +1,23 @@
 import { CoreFieldLookup } from '@daohaus/form-builder';
 import { FieldLegoBase, FormLegoBase } from '@daohaus/utils';
 
-import { ProposalExpiry } from './fields';
-import { TributeInput } from './fields';
-import { SelectApplicant } from './fields';
-import { RequestNativeToken } from './fields';
-import { RequestERC20 } from './fields';
-import { ShamanDeluxe } from './fields';
-import { TagsInput } from './fields';
+import { ProposalExpiry } from '../fields';
+import { TributeInput } from '../fields';
+import { SelectApplicant } from '../fields';
+import { RequestNativeToken } from '../fields';
+import { RequestERC20 } from '../fields';
+import { ShamanDeluxe } from '../fields';
+import { TagsInput } from '../fields';
 
-import { ProposalOffering } from './fields';
-import { DelegateInput } from './fields';
-import { RagequitToken } from './fields';
-import { RagequitTokenList } from './fields';
-import { WalletConnectLink } from './fields';
-import { MetadataLink } from './fields';
-import { SafeSelect } from './fields';
-import { MultisendActions } from './fields';
-import { AddressesAndAmounts } from './fields';
+import { ProposalOffering } from '../fields';
+import { DelegateInput } from '../fields';
+import { RagequitToken } from '../fields';
+import { RagequitTokenList } from '../fields';
+import { WalletConnectLink } from '../fields';
+import { MetadataLink } from '../fields';
+import { SafeSelect } from '../fields';
+import { MultisendActions } from '../fields';
+import { AddressesAndAmounts } from '../fields';
 
 export const MolochFields = {
   ...CoreFieldLookup,

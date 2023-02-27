@@ -35,9 +35,9 @@ import {
 } from './utils/types';
 
 export type UserConnectType = {
-  provider: ProviderType | null | undefined;
-  chainId: ValidNetwork | null | undefined;
-  address: string | null | undefined;
+  provider?: ProviderType;
+  chainId?: ValidNetwork;
+  address?: string;
   profile: UserProfile;
   connectWallet: () => Promise<void>;
   disconnect: () => void;

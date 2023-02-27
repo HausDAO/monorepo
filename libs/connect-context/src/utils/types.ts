@@ -16,9 +16,9 @@ export type ConnectLifecycleFns = {
 export type ProviderType = providers.Web3Provider;
 
 export type WalletStateType = {
-  provider?: providers.Web3Provider | null | undefined;
-  chainId?: ValidNetwork | null | undefined;
-  address?: string | null | undefined;
+  provider?: providers.Web3Provider;
+  chainId?: ValidNetwork;
+  address?: string;
 };
 export type UserProfile = AccountProfile & { displayName?: string };
 export type ModalOptions = Partial<ICoreOptions>;

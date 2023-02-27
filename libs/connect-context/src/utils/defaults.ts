@@ -26,9 +26,9 @@ export const web3modalDefaults = {
 };
 
 export const defaultConnectValues = {
-  provider: null,
-  chainId: null,
-  address: null,
+  provider: undefined,
+  chainId: undefined,
+  address: undefined,
   profile: {
     address: '',
     ens: undefined,

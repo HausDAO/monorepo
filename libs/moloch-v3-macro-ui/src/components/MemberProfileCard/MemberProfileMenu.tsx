@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
 
+import { useDHConnect } from '@daohaus/connect';
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { useConnectedMember } from '@daohaus/moloch-v3-context';
+import { useConnectedMember } from '@daohaus/moloch-v3-hooks';
 import {
   Dialog,
   DialogTrigger,
@@ -29,7 +30,12 @@ export const MemberProfileMenu = ({
   memberAddress,
   includeLinks = false,
 }: MemberProfileMenuProps) => {
-  const { connectedMember } = useConnectedMember();
+  const { address } = useDHConnect();
+  const { connectedMember } = useConnectedMember({
+    daoChain,
+    daoId,
+    memberAddress: address as string,
+  });
 
   const enableActions = useMemo(() => {
     return (
@@ -104,6 +110,7 @@ export const MemberProfileMenu = ({
       <DialogContent title="Manage Delegate">
         <ManageDelegate
           daoChain={daoChain}
+          daoId={daoId}
           defaultMember={!isMenuForConnectedMember ? memberAddress : undefined}
         />
       </DialogContent>

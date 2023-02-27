@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 
+import { useDHConnect } from '@daohaus/connect';
 import { FormBuilder } from '@daohaus/form-builder';
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
+import { useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember } from '@daohaus/moloch-v3-hooks';
 
 // TODO: import Custom Field legos from new moloch package
 // import { CustomFields } from '../legos/config';
@@ -11,15 +13,22 @@ import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 
 type ManageDelegateProps = {
   daoChain: ValidNetwork;
+  daoId: string;
   defaultMember?: string;
 };
 
 export const ManageDelegate = ({
   daoChain,
+  daoId,
   defaultMember,
 }: ManageDelegateProps) => {
-  const { connectedMember } = useConnectedMember();
   const { refreshAll } = useDao();
+  const { address } = useDHConnect();
+  const { connectedMember } = useConnectedMember({
+    daoChain,
+    daoId,
+    memberAddress: address as string,
+  });
 
   const defaultValues = useMemo(() => {
     if (defaultMember) {

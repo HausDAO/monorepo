@@ -1,6 +1,8 @@
 import styled from 'styled-components';
-import { useConnectedMember } from '@daohaus/moloch-v3-context';
-import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
+import { useDHConnect } from '@daohaus/connect';
+import { ValidNetwork } from '@daohaus/keychain-utils';
+import { useConnectedMember, useCurrentDao } from '@daohaus/moloch-v3-hooks';
+import { MemberList } from '@daohaus/moloch-v3-macro-ui';
 import {
   SingleColumnLayout,
   Spinner,
@@ -9,7 +11,6 @@ import {
 } from '@daohaus/ui';
 
 import { ButtonRouterLink } from '../components/ButtonRouterLink';
-import { MemberList } from '@daohaus/moloch-v3-macro-ui';
 
 const Actions = styled.div`
   display: flex;
@@ -26,9 +27,36 @@ const Actions = styled.div`
   }
 `;
 
+const MemberProfileButton = ({
+  daoChain,
+  daoId,
+}: {
+  daoChain: ValidNetwork;
+  daoId: string;
+}) => {
+  const { address } = useDHConnect();
+  const { connectedMember } = useConnectedMember({
+    daoChain,
+    daoId,
+    memberAddress: address as string,
+  });
+  const isMd = useBreakpoint(widthQuery.md);
+
+  if (connectedMember)
+    return (
+      <ButtonRouterLink
+        to={`/molochV3/${daoChain}/${daoId}/member/${connectedMember.memberAddress}`}
+        fullWidth={isMd}
+        linkType="no-icon-external"
+      >
+        My Profile
+      </ButtonRouterLink>
+    );
+  return null;
+};
+
 export const Members = () => {
   const { daoChain, daoId } = useCurrentDao();
-  const { connectedMember } = useConnectedMember();
   const isMd = useBreakpoint(widthQuery.md);
 
   return (
@@ -44,14 +72,8 @@ export const Members = () => {
           >
             Add Member
           </ButtonRouterLink>
-          {connectedMember && (
-            <ButtonRouterLink
-              to={`/molochV3/${daoChain}/${daoId}/member/${connectedMember.memberAddress}`}
-              fullWidth={isMd}
-              linkType="no-icon-external"
-            >
-              My Profile
-            </ButtonRouterLink>
+          {daoChain && daoId && (
+            <MemberProfileButton daoChain={daoChain} daoId={daoId} />
           )}
         </Actions>
       }

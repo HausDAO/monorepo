@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
+
 import { toWholeUnits, handleBaseUnits } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput, Field } from '@daohaus/ui';
-
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDaoData } from '@daohaus/moloch-v3-hooks';
 
 export const RagequitToken = (props: Buildable<Field>) => {
   const { id } = props;
   const { setValue } = useFormContext();
-  const { dao } = useDao();
+  const { dao } = useDaoData();
   const { connectedMember } = useConnectedMember();
 
   const daoTokenData = useMemo(() => {

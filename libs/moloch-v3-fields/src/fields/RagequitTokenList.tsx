@@ -17,11 +17,15 @@ import {
   DataSm,
 } from '@daohaus/ui';
 
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
+import {
+  useConnectedMember,
+  useCurrentDao,
+  useDaoData,
+} from '@daohaus/moloch-v3-hooks';
 import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
 import styled from 'styled-components';
 import { TokenBalance } from '@daohaus/utils';
-import { useParams } from 'react-router-dom';
+
 import { sortTokensForRageQuit } from '../utils/fieldHelpers';
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
@@ -49,9 +53,9 @@ type TokenTable = {
 
 export const RagequitTokenList = (props: Buildable<Field>) => {
   const { id } = props;
-  const { dao } = useDao();
+  const { dao } = useDaoData();
   const { connectedMember } = useConnectedMember();
-  const { daochain } = useParams();
+  const { daoChain } = useCurrentDao();
   const { setValue, watch } = useFormContext();
 
   const [sharesToBurn, lootToBurn, tokens] = watch([
@@ -61,9 +65,9 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
   ]);
 
   const networkData = useMemo(() => {
-    if (!daochain) return null;
-    return getNetwork(daochain);
-  }, [daochain]);
+    if (!daoChain) return null;
+    return getNetwork(daoChain);
+  }, [daoChain]);
 
   const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
     if (dao) {

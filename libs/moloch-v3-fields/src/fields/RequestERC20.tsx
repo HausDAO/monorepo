@@ -1,3 +1,6 @@
+import { useMemo } from 'react';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
+
 import {
   handleBaseUnits,
   ignoreEmptyVal,
@@ -5,12 +8,9 @@ import {
   ValidateField,
 } from '@daohaus/utils';
 import { isValidNetwork } from '@daohaus/keychain-utils';
-
 import { Buildable, Button, WrappedInputSelect } from '@daohaus/ui';
-import { useMemo } from 'react';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useDaoData, useCurrentDao } from '@daohaus/moloch-v3-hooks';
+
 import { getErc20s } from '../utils/fieldHelpers';
 
 export enum InputStates {
@@ -26,20 +26,20 @@ export const RequestERC20 = (
     safeAddressId?: string;
   }>
 ) => {
-  const { daochain } = useParams();
+  const { daoChain } = useCurrentDao();
   const {
     amtId = 'paymentTokenAmt',
     addressId = 'paymentTokenAddress',
     safeAddressId = 'safeAddress',
   } = props;
-  const { dao } = useDao();
+  const { dao } = useDaoData();
   const { watch, setValue } = useFormContext();
 
   const paymentTokenAddr = watch(addressId);
   const safeAddress = watch(safeAddressId);
 
   const erc20s = useMemo(() => {
-    if (dao && isValidNetwork(daochain)) {
+    if (dao && isValidNetwork(daoChain)) {
       const selectedSafe = dao.vaults.find((v) => {
         if (!safeAddress) return v.safeAddress === dao.safeAddress;
         return v.safeAddress === safeAddress;
@@ -49,7 +49,7 @@ export const RequestERC20 = (
       return selectedSafe && getErc20s(selectedSafe);
     }
     return null;
-  }, [dao, daochain, safeAddress]);
+  }, [dao, daoChain, safeAddress]);
 
   const selectOptions = useMemo(() => {
     if (!erc20s) return;

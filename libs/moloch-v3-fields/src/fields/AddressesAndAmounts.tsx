@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
 
 import { Buildable, Field, WrappedTextArea } from '@daohaus/ui';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
+
 import {
   transformAddressesAndAmountsData,
   validateAddressesAndAmountsData,

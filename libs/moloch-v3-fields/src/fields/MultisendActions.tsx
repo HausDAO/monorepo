@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { FieldValues, RegisterOptions } from 'react-hook-form';
-import { RiAddCircleLine, RiErrorWarningLine } from 'react-icons/ri';
-import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import { FieldValues, RegisterOptions } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
+import { JsonFragment } from '@ethersproject/abi';
+import { RiAddCircleLine, RiErrorWarningLine } from 'react-icons/ri';
+
 import { FormBuilderFactory, useFormBuilder } from '@daohaus/form-builder';
 import { Keychain } from '@daohaus/keychain-utils';
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useDaoData } from '@daohaus/moloch-v3-hooks';
 import {
   cacheABI,
   fetchABI,
@@ -24,7 +26,6 @@ import {
   ErrorText,
   Field,
   Icon,
-  // IconButton, // TODO: Enable `Delete Action Button`
   OptionType,
   ParXs,
   Theme,
@@ -43,7 +44,7 @@ import {
   LookupType,
   ValidateField,
 } from '@daohaus/utils';
-import { JsonFragment } from '@ethersproject/abi';
+import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
 
 import { CollapsibleFormSegment } from '../customLayouts/CollapsibleFormSegment';
 
@@ -199,7 +200,7 @@ const Action = ({
     resetField,
     watch,
   } = useFormBuilder();
-  const { daochain } = useParams();
+  const { daoChain } = useCurrentDao();
   const [loading, setLoading] = useState(false);
   const [actionTitle, setActionTitle] = useState(`Action ${index}`);
   const [isEOA, setEOA] = useState<boolean>(false);
@@ -258,7 +259,7 @@ const Action = ({
   const fetchContractAbi = useCallback(
     async (address: string, fallbackAbi?: ABI) => {
       setLoading(true);
-      const chainId = daochain as keyof Keychain;
+      const chainId = daoChain as keyof Keychain;
       const code = await getCode({
         contractAddress: address,
         chainId,
@@ -274,7 +275,7 @@ const Action = ({
       setEOA(false);
       const fetchedAbi = await fetchABI({
         contractAddress: address,
-        chainId: daochain as keyof Keychain,
+        chainId: daoChain as keyof Keychain,
       });
 
       if (!fetchedAbi) {
@@ -302,7 +303,7 @@ const Action = ({
     [
       abiFieldId,
       contractMethodFieldId,
-      daochain,
+      daoChain,
       extractContractMethods,
       setEOA,
       setValue,
@@ -551,7 +552,7 @@ type IAction = {
 
 export const MultisendActions = (props: Buildable<Field>) => {
   const location = useLocation();
-  const { dao } = useDao();
+  const { dao } = useDaoData();
   const [actions, setActions] = useState<Array<IAction>>([
     {
       id: uuidv4().substring(0, 8),

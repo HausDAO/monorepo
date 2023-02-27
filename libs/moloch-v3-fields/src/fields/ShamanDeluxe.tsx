@@ -9,7 +9,7 @@ import {
 } from '@daohaus/utils';
 import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
 
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useDaoData } from '@daohaus/moloch-v3-hooks';
 
 const Secondary = styled.span`
   color: ${(props) => props.theme.secondary.step9};
@@ -29,7 +29,7 @@ export const ShamanDeluxe = (
   const { id = 'shamanPermission', watchAddressField = 'shamanAddress' } =
     props;
   const { watch } = useFormContext();
-  const { dao } = useDao();
+  const { dao } = useDaoData();
 
   const [shamanPermission, shamanAddress] = watch([id, watchAddressField]);
 

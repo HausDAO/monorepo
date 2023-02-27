@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Buildable, Field, WrappedSelect } from '@daohaus/ui';
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useDaoData } from '@daohaus/moloch-v3-hooks';
 import { truncateAddress } from '@daohaus/utils';
 
 export const SafeSelect = (props: Buildable<Field>) => {
-  const { dao } = useDao();
+  const { dao } = useDaoData();
 
   const safeOptions = useMemo(() => {
     if (!dao) return null;

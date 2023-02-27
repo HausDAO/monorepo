@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import { useMembers } from '@daohaus/moloch-v3-context';
+
+import { useDaoMembers, useCurrentDao } from '@daohaus/moloch-v3-hooks';
 import { Keychain } from '@daohaus/keychain-utils';
 
 import {
@@ -30,9 +30,9 @@ export const SelectApplicant = ({
   const [memberList, setMemberList] = useState<Array<OptionType>>([]);
   const [memberLoading, setMemberLoading] = useState(false);
   const [valError, setValError] = useState<ErrorMessage | undefined>();
-  const { daochain, daoid } = useParams();
+  const { daoChain, daoId } = useCurrentDao();
   const { register, setValue, watch } = useFormContext();
-  const { members } = useMembers();
+  const { members } = useDaoMembers();
   const inputValue = watch(props.id);
 
   register('memberShares');
@@ -48,10 +48,10 @@ export const SelectApplicant = ({
 
   const fetchMember = useCallback(
     async (memberAddress: string, validateMember: boolean) => {
-      if (daochain && daoid) {
+      if (daoChain && daoId) {
         const rs = await isActiveMember({
-          daochain: daochain as keyof Keychain,
-          daoid,
+          daochain: daoChain as keyof Keychain,
+          daoid: daoId,
           address: memberAddress,
           setMemberLoading,
         });
@@ -60,7 +60,7 @@ export const SelectApplicant = ({
         if (validateMember && rs.error) setValError(rs.error);
       }
     },
-    [daochain, daoid, setValue]
+    [daoChain, daoId, setValue]
   );
 
   const ToggleButton = () => {
@@ -82,10 +82,17 @@ export const SelectApplicant = ({
   useEffect(() => {
     if (members) {
       setMemberList(
-        members.map((m) => ({
-          name: m.memberAddress,
-          value: m.memberAddress,
-        }))
+        members.map((m) =>
+          m
+            ? {
+                name: m.memberAddress,
+                value: m.memberAddress,
+              }
+            : {
+                name: 'Error',
+                value: 'Error',
+              }
+        )
       );
     }
   }, [members]);

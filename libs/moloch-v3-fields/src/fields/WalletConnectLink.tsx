@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useDaoData } from '@daohaus/moloch-v3-hooks';
 import {
   border,
   Buildable,
@@ -77,7 +77,7 @@ export const WalletConnectLink = ({
   rules,
   ...props
 }: Buildable<Field>) => {
-  const { dao } = useDao();
+  const { dao } = useDaoData();
   const { register, setValue, watch } = useFormContext();
   const { daochain } = useParams();
   const {

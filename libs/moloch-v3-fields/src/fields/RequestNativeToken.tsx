@@ -1,18 +1,12 @@
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { toWholeUnits, handleBaseUnits } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 import { isValidNetwork } from '@daohaus/keychain-utils';
 
-import { useDao } from '@daohaus/moloch-v3-context';
+import { useDaoData, useCurrentDao } from '@daohaus/moloch-v3-hooks';
 import { getNetworkToken } from '../utils/fieldHelpers';
-
-// enum InputStates {
-//   Loading,
-//   InvalidNetwork = 'Invalid Network',
-//   CorruptTokenData = 'Corrupt Token Data',
-// }
 
 export const RequestNativeToken = (
   props: Buildable<{
@@ -22,18 +16,18 @@ export const RequestNativeToken = (
   }>
 ) => {
   const { id = 'valueRequested', safeAddressId = 'safeAddress' } = props;
-  const { daochain } = useParams();
+  const { daoChain } = useCurrentDao();
   const { watch, setValue } = useFormContext();
-  const { dao } = useDao();
+  const { dao } = useDaoData();
 
   const safeAddress = watch(safeAddressId);
 
   // const [inputState, setInputState] = useState(InputStates.Loading);
 
   const networkTokenData = useMemo(() => {
-    if (!dao || !isValidNetwork(daochain)) return null;
-    return getNetworkToken(dao, daochain, safeAddress);
-  }, [dao, daochain, safeAddress]);
+    if (!dao || !isValidNetwork(daoChain)) return null;
+    return getNetworkToken(dao, daoChain, safeAddress);
+  }, [dao, daoChain, safeAddress]);
 
   const label = networkTokenData?.name
     ? `Request ${networkTokenData.name}`

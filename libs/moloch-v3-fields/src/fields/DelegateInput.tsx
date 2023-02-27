@@ -8,7 +8,7 @@ import {
   Theme,
   Tooltip,
 } from '@daohaus/ui';
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
+import { useConnectedMember, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { formatValueTo, fromWei, votingPowerPercentage } from '@daohaus/utils';
 import styled from 'styled-components';
 import { useFormContext } from 'react-hook-form';
@@ -23,7 +23,7 @@ const RemoveDelegate = styled(ParSm)`
 
 export const DelegateInput = (props: Buildable<Field>) => {
   const { connectedMember } = useConnectedMember();
-  const { dao } = useDao();
+  const { dao } = useDaoData();
   const { setValue } = useFormContext();
 
   const hasCurrentDelegate =

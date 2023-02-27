@@ -142,6 +142,7 @@ export const ConnectProvider = ({
     return () => {
       shouldUpdate = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chainId]);
 
   const connectWallet = useCallback(async () => {

@@ -32,6 +32,7 @@ export const loadMember = async ({
       memberAddress: address.toLowerCase(),
       graphApiKeys: {
         '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+        '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
       },
     });
 
@@ -76,6 +77,7 @@ export const loadProposal = async ({
       connectedAddress,
       graphApiKeys: {
         '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+        '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
       },
     });
 
@@ -113,6 +115,7 @@ export const isActiveMember = async ({
       memberAddress: address.toLowerCase(),
       graphApiKeys: {
         '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+        '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
       },
     });
 

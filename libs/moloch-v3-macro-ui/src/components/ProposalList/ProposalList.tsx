@@ -48,6 +48,7 @@ export const ProposalList = ({
   header,
   onSuccess: onSuccessFromProps,
   onError,
+  allowLinks = false,
 }: {
   onSuccess?: () => void;
   onError?: () => void;
@@ -55,6 +56,7 @@ export const ProposalList = ({
   rightActionEl?: ReactNode;
   sensitiveProposalTypes?: Record<string, boolean>;
   proposalTypes?: Record<string, string>;
+  allowLinks?: boolean;
 }) => {
   const {
     proposals,
@@ -119,6 +121,7 @@ export const ProposalList = ({
           daoId={daoId}
           sensitiveProposalTypes={sensitiveProposalTypes}
           proposalTypes={proposalTypes}
+          allowLinks={allowLinks}
         />
       ))}
       {hasNextPage && (

@@ -3,6 +3,9 @@ import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { CurrentDaoProvider, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { TXBuilder } from '@daohaus/tx-builder';
+import { MolochV3DaoProvider } from '@daohaus/moloch-v3-context';
+
+const graphApiKeys = { '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] };
 
 export const DaoContainer = () => {
   const { address, provider } = useDHConnect();
@@ -37,29 +40,36 @@ export const DaoContainer = () => {
   ];
 
   return (
-    <TXBuilder
-      chainId={daoChain}
-      daoId={daoId}
-      safeId={dao?.safeAddress}
-      provider={provider}
-      appState={{ dao, userAddress: address }}
+    <MolochV3DaoProvider
+      address={address}
+      daoid={daoId}
+      daochain={daoChain}
+      graphApiKeys={graphApiKeys}
     >
-      <DHLayout
-        pathname={location.pathname}
-        navLinks={navLinks}
-        dropdownLinks={moreLinks}
+      <TXBuilder
+        chainId={daoChain}
+        daoId={daoId}
+        safeId={dao?.safeAddress}
+        provider={provider}
+        appState={{ dao, userAddress: address }}
       >
-        <CurrentDaoProvider
-          targetDao={{
-            daoChain,
-            daoId,
-            proposalId,
-            memberAddress,
-          }}
+        <DHLayout
+          pathname={location.pathname}
+          navLinks={navLinks}
+          dropdownLinks={moreLinks}
         >
-          <Outlet />
-        </CurrentDaoProvider>
-      </DHLayout>
-    </TXBuilder>
+          <CurrentDaoProvider
+            targetDao={{
+              daoChain,
+              daoId,
+              proposalId,
+              memberAddress,
+            }}
+          >
+            <Outlet />
+          </CurrentDaoProvider>
+        </DHLayout>
+      </TXBuilder>
+    </MolochV3DaoProvider>
   );
 };

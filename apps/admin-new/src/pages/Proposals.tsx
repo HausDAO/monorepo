@@ -8,6 +8,7 @@ export const Proposals = () => {
   return (
     <ProposalList
       header="Proposals"
+      allowLinks={true}
       rightActionEl={
         <ButtonRouterLink to={`/molochv3/${daoChain}/${daoId}/formtest`}>
           New Proposal

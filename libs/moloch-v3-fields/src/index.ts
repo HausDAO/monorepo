@@ -1,1 +1,4 @@
-export * from './lib/moloch-v3-fields';
+export * from './customLayouts';
+export * from './fields';
+export * from './utils';
+export { MolochFieldLego, MolochFields, MolochFormLego } from './fieldConfig';

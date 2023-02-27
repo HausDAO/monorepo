@@ -1,11 +1,11 @@
-import { SUMMON_COPY } from '../data/copy';
-import { CustomFormLego } from './config';
+import { SUMMON_COPY } from '@daohaus/utils';
+import { MolochFormLego } from '@daohaus/moloch-v3-fields';
 import { FIELD } from './fields';
 import { TABULA_TX, TX } from './tx';
 
 export const getFormLegoById = (
-  id: CustomFormLego['id']
-): CustomFormLego | undefined => {
+  id: MolochFormLego['id']
+): MolochFormLego | undefined => {
   const allForms = { ...PROPOSAL_FORMS, ...COMMON_FORMS };
   const formKey = Object.keys(allForms).find((key) => {
     return allForms[key].id === id;
@@ -39,7 +39,7 @@ COMMON_FORMS KEYS
 - UPDATE_SHAMAN
 */
 
-export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
+export const PROPOSAL_FORMS: Record<string, MolochFormLego> = {
   SIGNAL: {
     id: 'SIGNAL',
     title: 'Signal Request',
@@ -440,7 +440,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         ...FIELD.APPLICANT,
         id: 'memberAddress',
         label: 'Member',
-        // @ts-expect-error: doing object spread, even if the field definition has the property
         daoMemberOnly: true,
       },
       ...PROPOSAL_SETTINGS_FIELDS,
@@ -580,7 +579,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
 };
 
-export const TABULA_FORMS: Record<string, CustomFormLego> = {
+export const TABULA_FORMS: Record<string, MolochFormLego> = {
   CREATE_PUBLICATION: {
     id: 'CREATE_PUBLICATION',
     title: 'Start Publication',
@@ -668,7 +667,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
   },
 };
 
-export const COMMON_FORMS: Record<string, CustomFormLego> = {
+export const COMMON_FORMS: Record<string, MolochFormLego> = {
   METADATA_SETTINGS: {
     id: 'METADATA_SETTINGS',
     title: 'Update Metadata Settings',

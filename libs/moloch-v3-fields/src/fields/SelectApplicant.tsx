@@ -14,7 +14,7 @@ import {
   WrappedSelect,
 } from '@daohaus/ui';
 
-import { isActiveMember } from '../../utils/dataFetchHelpers';
+import { isActiveMember } from '../utils/fieldHelpers';
 
 type SelectApplicantProps = Buildable<
   Field & {

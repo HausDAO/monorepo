@@ -1,1 +1,4 @@
-export * from './lib/moloch-v3-legos';
+export * from './contracts';
+export * from './fields';
+export * from './form';
+export * from './tx';

@@ -22,9 +22,9 @@ import {
 } from '@daohaus/ui';
 import { FieldSpacer } from '@daohaus/form-builder';
 
-import { useWalletConnect } from '../../hook/walletConnect';
+import { useWalletConnect } from '../utils/walletConnect';
 
-import WalletConnectLogo from '../../assets/wallet_connect.svg';
+import WalletConnectLogo from '../assets/wallet_connect.svg';
 
 enum Status {
   DISCONNECTED,

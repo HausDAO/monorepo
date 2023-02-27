@@ -1,10 +1,16 @@
 import { HAUS_NETWORK_DATA, ValidNetwork } from '@daohaus/keychain-utils';
-import { MolochV3Dao } from '@daohaus/moloch-v3-data';
+import {
+  findMember,
+  FindMemberQuery,
+  MolochV3Dao,
+} from '@daohaus/moloch-v3-data';
+import { ErrorMessage } from '@daohaus/ui';
 import {
   isArray,
   isNumberish,
   isNumberString,
   isString,
+  ReactSetter,
   toBaseUnits,
   TokenBalance,
 } from '@daohaus/utils';
@@ -131,4 +137,62 @@ export const getNetworkToken = (
     };
   }
   return null;
+};
+
+export const isActiveMember = async ({
+  daoid,
+  daochain,
+  address,
+  setMemberLoading,
+}: {
+  daoid: string;
+  daochain: ValidNetwork;
+  address: string;
+  setMemberLoading: ReactSetter<boolean>;
+}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
+  try {
+    setMemberLoading(true);
+    const memberRes = await findMember({
+      networkId: daochain,
+      dao: daoid,
+      memberAddress: address.toLowerCase(),
+      graphApiKeys: {
+        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+      },
+    });
+
+    if (
+      memberRes?.data?.member &&
+      Number(memberRes?.data?.member?.shares) > 0
+    ) {
+      return {
+        member: memberRes.data.member,
+      };
+    }
+    if (memberRes?.data?.member && Number(memberRes?.data?.member?.loot) > 0) {
+      return {
+        member: memberRes.data.member,
+        error: {
+          type: 'error',
+          message: `Member doesn't own any shares`,
+        },
+      };
+    }
+    return {
+      error: {
+        type: 'error',
+        message: `Member not found`,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      error: {
+        type: 'error',
+        message: `${error}`,
+      },
+    };
+  } finally {
+    setMemberLoading(false);
+  }
 };

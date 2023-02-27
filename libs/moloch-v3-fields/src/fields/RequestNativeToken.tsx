@@ -6,7 +6,7 @@ import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 import { isValidNetwork } from '@daohaus/keychain-utils';
 
 import { useDao } from '@daohaus/moloch-v3-context';
-import { getNetworkToken } from '../../utils/tokenData';
+import { getNetworkToken } from '../utils/fieldHelpers';
 
 // enum InputStates {
 //   Loading,

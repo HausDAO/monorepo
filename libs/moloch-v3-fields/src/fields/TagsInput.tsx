@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Buildable, WrappedInput, Field } from '@daohaus/ui';
 import { RegisterOptions } from 'react-hook-form';
 

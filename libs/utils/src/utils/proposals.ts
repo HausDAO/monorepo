@@ -1,4 +1,4 @@
-import { PROPOSAL_TYPE_LABELS } from '@daohaus/utils';
+import { PROPOSAL_TYPE_LABELS } from '../constants';
 
 export const getProposalTypeLabel = (
   proposalType: string,

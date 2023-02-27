@@ -40,6 +40,7 @@ export const PROPOSAL_STATUS: { [index: string]: ProposalStatus } = {
 
 export const ENCODED_0X0_DATA =
   '0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+
 export const PROPOSAL_TYPE_LABELS: Record<ProposalTypeIds, string> = {
   SIGNAL: 'Signal Proposal',
   ISSUE: 'Token Proposal',
@@ -54,14 +55,47 @@ export const PROPOSAL_TYPE_LABELS: Record<ProposalTypeIds, string> = {
   MULTICALL: 'Multicall Proposal',
   ADD_SIGNER: 'Add Safe Signer Proposal',
 };
+
+export const PROPOSAL_TYPE_WARNINGS: Record<ProposalTypeIds | string, string> =
+  {
+    SIGNAL: 'Proposal for DAO voting signal. No transactions are executed.',
+    ISSUE: 'Proposal issues voting or non-voting tokens from the DAO.',
+    TRANSFER_ERC20: 'Proposal transfers ERC-20 tokens from DAO treasury.',
+    TRANSFER_NETWORK_TOKEN:
+      'Proposal transfers native tokens from DAO treasury.',
+    ADD_SHAMAN: 'Proposal grants DAO permissions to an external contract.',
+    UPDATE_GOV_SETTINGS:
+      'Proposal updates DAO proposal timing or advanced governance settings.',
+    TOKEN_SETTINGS:
+      'Proposal updates DAO voting or non-voting token transferability settings.',
+    TOKENS_FOR_SHARES:
+      'Proposal issues voting or non-voting tokens from the DAO.',
+    GUILDKICK: 'Proposal transfers DAO voting tokens into non-voting tokens.',
+    WALLETCONNECT:
+      'Proposal interacts with external contracts and applications.',
+    ADD_SIGNER:
+      'Proposal adds a signer to one of the DAO non-ragequittable safes',
+    MULTICALL: 'Proposal bundles a multiple actions to be executed in batch',
+    ERROR_CANNOT_DECODE:
+      'Cannot decode contract details for this proposal. Please proceed with extreme caution!',
+    ERROR_UNKOWN:
+      'Cannot verify contract details for this proposal. Please proceed with extreme caution!',
+  };
+
 export const SENSITIVE_PROPOSAL_TYPES: Partial<
   Record<ProposalTypeIds, boolean>
 > = {
   ADD_SHAMAN: true,
 };
+
+export const DAO_METHOD_TO_PROPOSAL_TYPE: Record<string, ProposalTypeIds> = {
+  setShamans: ProposalTypeIds.AddShaman,
+};
+
 export const PROP_CARD_HELP = {
   UNSPONSORED: 'A member of the DAO can sponsor this proposal.',
 };
+
 export const PROPOSAL_FILTERS: Record<string, string> = {
   unsponsored: 'Unsponsored',
   voting: 'In Voting',

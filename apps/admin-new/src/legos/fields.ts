@@ -84,20 +84,20 @@ export const FIELD: Record<string, CustomFieldLego> = {
   //   label: 'Delegate to',
   //   placeholder: '0x0...',
   // },
-  PROPOSAL_EXPIRY: {
-    id: 'checkRender',
-    type: 'checkRender',
-    gateLabel: 'Add Expiration Date',
-    // customFields: CustomFields,
-    components: [
-      {
-        id: 'proposalExpiry',
-        type: 'proposalExpiry',
-        defaultValue: '0',
-        label: 'Expiration',
-      },
-    ],
-  },
+  // PROPOSAL_EXPIRY: {
+  //   id: 'checkRender',
+  //   type: 'checkRender',
+  //   gateLabel: 'Add Expiration Date',
+  //   // customFields: CustomFields,
+  //   components: [
+  //     {
+  //       id: 'proposalExpiry',
+  //       type: 'proposalExpiry',
+  //       defaultValue: '0',
+  //       label: 'Expiration',
+  //     },
+  //   ],
+  // },
   // FAKE_MD: {
   //   id: 'article',
   //   type: 'fakeMarkdown',

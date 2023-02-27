@@ -3,7 +3,7 @@ import { Bold, Button, Theme, widthQuery } from '@daohaus/ui';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri/index.js';
 
 export const HistoryListContainer = styled.div`
-  min-width: 47.5rem;
+  min-width: 40.5rem;
   @media ${widthQuery.xs} {
     max-width: 100%;
     min-width: 0;

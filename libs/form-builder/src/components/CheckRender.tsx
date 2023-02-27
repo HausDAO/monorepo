@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form';
 import { Buildable, CheckGate } from '@daohaus/ui';
 
 import { FormBuilderFactory } from '@daohaus/form-builder-base';
-import { FieldLego } from '../types';
 
 type CheckRenderProps = Omit<
   Buildable<
@@ -24,7 +23,7 @@ export const CheckRender = ({
   return (
     <CheckGate
       fields={props.components.map((field) => (
-        <FormBuilderFactory key={field.id} field={field} />
+        <FormBuilderFactory key={field?.id} field={field} />
       ))}
       {...props}
       gateLabel={gateLabel}

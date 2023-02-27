@@ -1,4 +1,4 @@
-import { CustomFields, CustomFieldLego } from './config';
+import { CustomFieldLego } from './config';
 
 export const FIELD: Record<string, CustomFieldLego> = {
   TITLE: {
@@ -88,11 +88,9 @@ export const FIELD: Record<string, CustomFieldLego> = {
     id: 'checkRender',
     type: 'checkRender',
     gateLabel: 'Add Expiration Date',
-    customFields: CustomFields,
     components: [
       {
         id: 'proposalExpiry',
-        // @ts-expect-error: cannot resolve type within checkRender using custom fields sent from the core-app
         type: 'proposalExpiry',
         defaultValue: '0',
         label: 'Expiration',

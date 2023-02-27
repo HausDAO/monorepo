@@ -12,7 +12,7 @@ import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 
 import { buildMultiCallTX } from '@daohaus/tx-builder';
 import { MaxUint256 } from '@ethersproject/constants';
-import { ProposalTypeIds } from '../utils/constants';
+import { ProposalTypeIds } from '@daohaus/utils';
 import { CONTRACT } from './contracts';
 
 const nestInArray = (arg: ValidArgType | ValidArgType[]): NestedArray => {

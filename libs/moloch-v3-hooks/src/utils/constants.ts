@@ -8,4 +8,5 @@ export enum DaoQueryKeys {
   SingleMember = 'singleMember',
   Tokens = 'tokens',
   UserDaos = 'userDaos',
+  ConnectedMember = 'connectedMember',
 }

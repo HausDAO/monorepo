@@ -9,6 +9,8 @@ import { MolochV3Member } from '@daohaus/moloch-v3-data';
 import { useQuery } from 'react-query';
 import { handleErrorMessage } from '@daohaus/utils';
 import { fetchMember } from '@daohaus/moloch-v3-context';
+import { DaoQueryKeys, daoScopedQueryId } from '../utils';
+import { useCurrentDao } from '../contexts';
 
 const findUserMember = async ({
   daoChain,
@@ -16,11 +18,16 @@ const findUserMember = async ({
   memberAddress,
   graphApiKeys,
 }: {
-  daoChain: ValidNetwork;
-  daoId: string;
-  memberAddress: string;
+  daoChain?: ValidNetwork;
+  daoId?: string;
+  memberAddress?: string;
   graphApiKeys: Keychain;
 }): Promise<MolochV3Member> => {
+  if (!daoChain || !daoId || !memberAddress)
+    throw new Error(
+      'useConnectedMember requires a daoChain, daoId, and memberAddress'
+    );
+
   const url = getGraphUrl(daoChain, graphApiKeys);
 
   if (!url) throw new Error('No graph url found for network: ' + daoChain);
@@ -42,22 +49,37 @@ const findUserMember = async ({
   }
 };
 
-export const useConnectedMember = ({
-  daoChain,
-  daoId,
-  memberAddress,
-  graphApiKeys = GRAPH_API_KEYS,
-}: {
+export const useConnectedMember = (props?: {
   daoChain: string;
   daoId: string;
   memberAddress: string | null;
   graphApiKeys?: Keychain;
 }) => {
+  const {
+    daoChain: daoChainOverride,
+    daoId: daoIdOverride,
+    memberAddress: memberAddressOverride,
+    graphApiKeys = GRAPH_API_KEYS,
+  } = props || {};
+
+  const {
+    memberAddress: memberAddressFromRouter,
+    daoChain: networkFromRouter,
+    daoId: daoIdFromRouter,
+  } = useCurrentDao?.() || {};
+
+  const daoId = daoIdOverride || daoIdFromRouter;
+  const daoChain = daoChainOverride || networkFromRouter;
+  const memberAddress = memberAddressOverride || memberAddressFromRouter;
+
+  const queryId = daoScopedQueryId({
+    daoId,
+    daoChain,
+    domain: DaoQueryKeys.ConnectedMember,
+  });
+
   const { data, error, ...rest } = useQuery(
-    [
-      `connectedMember/${daoChain}/${daoId}/${memberAddress}`,
-      { daoChain, daoId, memberAddress },
-    ],
+    [queryId, { daoChain, daoId, memberAddress }],
     () =>
       findUserMember({
         daoChain: daoChain as ValidNetwork,

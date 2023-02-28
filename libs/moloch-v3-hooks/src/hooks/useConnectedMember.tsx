@@ -63,14 +63,14 @@ export const useConnectedMember = (props?: {
   } = props || {};
 
   const {
-    memberAddress: memberAddressFromRouter,
-    daoChain: networkFromRouter,
-    daoId: daoIdFromRouter,
+    userAddress: memberAddressFromContext,
+    daoChain: networkFromContext,
+    daoId: daoIdFromContext,
   } = useCurrentDao?.() || {};
 
-  const daoId = daoIdOverride || daoIdFromRouter;
-  const daoChain = daoChainOverride || networkFromRouter;
-  const memberAddress = memberAddressOverride || memberAddressFromRouter;
+  const daoId = daoIdOverride || daoIdFromContext;
+  const daoChain = daoChainOverride || networkFromContext;
+  const memberAddress = memberAddressOverride || memberAddressFromContext;
 
   const queryId = daoScopedQueryId({
     daoId,

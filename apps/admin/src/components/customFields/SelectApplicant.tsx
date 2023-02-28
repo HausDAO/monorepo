@@ -45,7 +45,7 @@ export const SelectApplicant = ({
     setValue('memberLoot', '');
     setValError(undefined);
   }, [setValue]);
-
+  console.log('members', members);
   const fetchMember = useCallback(
     async (memberAddress: string, validateMember: boolean) => {
       if (daochain && daoid) {

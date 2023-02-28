@@ -8,7 +8,7 @@ export const FormTest = () => {
   const { daoChain } = useCurrentDao();
   return (
     <FormBuilder
-      form={PROPOSAL_FORMS.SIGNAL}
+      form={PROPOSAL_FORMS.GUILDKICK}
       targetNetwork={daoChain}
       customFields={MolochFields}
     />

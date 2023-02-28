@@ -33,6 +33,7 @@ export const SelectApplicant = ({
   const { daoChain, daoId } = useCurrentDao();
   const { register, setValue, watch } = useFormContext();
   const { members } = useDaoMembers();
+
   const inputValue = watch(props.id);
 
   register('memberShares');
@@ -82,17 +83,10 @@ export const SelectApplicant = ({
   useEffect(() => {
     if (members) {
       setMemberList(
-        members.map((m) =>
-          m
-            ? {
-                name: m.memberAddress,
-                value: m.memberAddress,
-              }
-            : {
-                name: 'Error',
-                value: 'Error',
-              }
-        )
+        members.map((m: any) => ({
+          name: m.memberAddress,
+          value: m.memberAddress,
+        }))
       );
     }
   }, [members]);
@@ -108,7 +102,7 @@ export const SelectApplicant = ({
     <Component
       {...props}
       error={valError}
-      loading={memberLoading}
+      // loading={memberLoading}
       options={!textMode ? memberList : []}
       placeholder={!textMode ? `Choose a Member` : `0x`}
       rightAddon={<ToggleButton />}

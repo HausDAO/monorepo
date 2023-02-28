@@ -19,7 +19,6 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   const { connectedMember } = useConnectedMember();
   const { register, setValue } = useFormContext();
   const [requiresOffering, setRequiresOffering] = useState(false);
-
   const networkTokenSymbol =
     isValidNetwork(daoChain) && networks?.[daoChain]?.symbol;
 

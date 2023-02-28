@@ -6,12 +6,11 @@ import {
   ProposalDetails,
   ProposalHistory,
 } from '@daohaus/moloch-v3-macro-ui';
+import { TX } from '@daohaus/moloch-v3-legos';
 import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from '@daohaus/ui';
-import {
-  getProposalTypeLabel,
-  PROPOSAL_TYPE_LABELS,
-  TXLego,
-} from '@daohaus/utils';
+import { getProposalTypeLabel, PROPOSAL_TYPE_LABELS } from '@daohaus/utils';
+
+import { CancelProposal } from '../components/CancelProposal';
 
 const LoadingContainer = styled.div`
   margin-top: 5rem;
@@ -43,11 +42,8 @@ const RightCard = styled(Card)`
   }
 `;
 
-// TODO: Import TxLegos
-const TX: Record<string, TXLego> = {};
-
 export const Proposal = () => {
-  const { proposal } = useDaoProposal();
+  const { proposal, refetch } = useDaoProposal();
   const { daoChain, daoId } = useCurrentDao();
 
   if (!daoChain || !daoId)
@@ -71,12 +67,11 @@ export const Proposal = () => {
         proposal?.proposalType,
         PROPOSAL_TYPE_LABELS
       )}`}
-      // TODO:
-      // actions={
-      //   proposal && (
-      //     <CancelProposal proposal={proposal} onSuccess={fetchProposal} />
-      //   )
-      // }
+      actions={
+        proposal && (
+          <CancelProposal proposal={proposal} onSuccess={() => refetch()} />
+        )
+      }
       left={
         <OverviewCard>
           {daoChain && daoId && proposal && (
@@ -101,6 +96,10 @@ export const Proposal = () => {
             proposal={proposal}
             daoChain={daoChain}
             daoId={daoId}
+            lifeCycleFnsOverride={{
+              onPollError: () => refetch(),
+              onPollSuccess: () => refetch(),
+            }}
           />
           <ProposalHistory
             proposalId={proposal.proposalId}

@@ -4,12 +4,9 @@ import { useDHConnect } from '@daohaus/connect';
 import { FormBuilder } from '@daohaus/form-builder';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { useDao } from '@daohaus/moloch-v3-context';
+import { MolochFields } from '@daohaus/moloch-v3-fields';
 import { useConnectedMember } from '@daohaus/moloch-v3-hooks';
-
-// TODO: import Custom Field legos from new moloch package
-// import { CustomFields } from '../legos/config';
-// TODO: enable manage delegate form lego
-// import { COMMON_FORMS } from '../legos/form';
+import { COMMON_FORMS } from '@daohaus/moloch-v3-legos';
 
 type ManageDelegateProps = {
   daoChain: ValidNetwork;
@@ -49,13 +46,8 @@ export const ManageDelegate = ({
   return (
     <FormBuilder
       defaultValues={defaultValues}
-      //   form={COMMON_FORMS.MANAGE_DELEGATE}
-      //   customFields={CustomFields}
-      form={{
-        id: 'TODO',
-        fields: [],
-      }}
-      // customFields={{}}
+      form={COMMON_FORMS.MANAGE_DELEGATE}
+      customFields={MolochFields}
       lifeCycleFns={{
         onPollSuccess: () => {
           onFormComplete();

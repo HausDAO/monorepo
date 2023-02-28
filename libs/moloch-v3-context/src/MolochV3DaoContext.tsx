@@ -91,6 +91,7 @@ export const MolochV3DaoProvider = ({
     if (daoid && daochain && address) {
       fetchMemberData();
     }
+    if (!address) setConnectedMemberData({});
     return () => {
       shouldUpdate = false;
     };

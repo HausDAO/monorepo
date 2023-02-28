@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import { border, DropdownLinkStyles, Theme } from "@daohaus/ui";
+import { border, DropdownLinkStyles, Theme } from '@daohaus/ui';
 
 export const OverviewContainer = styled.div`
   display: flex;
@@ -31,8 +31,8 @@ export const DataContainer = styled.div`
 `;
 
 export const StyledRouterLink = styled(RouterLink)`
-${DropdownLinkStyles}
-:hover {
-  text-decoration: none;
-}
+  ${DropdownLinkStyles}
+  :hover {
+    text-decoration: none;
+  }
 `;

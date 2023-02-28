@@ -4,7 +4,7 @@ import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useProfile } from '@daohaus/moloch-v3-hooks';
 import {
   DataIndicator,
-  Link,  
+  Link,
   MemberCard,
   MemberCardItem,
   MemberCardExplorerLink,
@@ -23,7 +23,6 @@ import {
   OverviewContainer,
   StyledRouterLink,
 } from './ProposalDetails.styles';
-
 
 type ProposalDetailsProps = {
   daoChain: string;

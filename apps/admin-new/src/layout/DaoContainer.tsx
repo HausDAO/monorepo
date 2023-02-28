@@ -50,6 +50,7 @@ export const DaoContainer = () => {
         dropdownLinks={moreLinks}
       >
         <CurrentDaoProvider
+          userAddress={address}
           targetDao={{
             daoChain,
             daoId,

@@ -3,7 +3,10 @@ import { useDHConnect } from '@daohaus/connect';
 import { MolochV3DaoProvider } from '@daohaus/moloch-v3-context';
 import Dao from './Dao';
 
-const graphApiKeys = { '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] };
+const graphApiKeys = {
+  '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
+};
 
 export function DaoContainer() {
   const { daochain, daoid } = useParams();

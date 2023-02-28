@@ -102,7 +102,7 @@ export const SelectApplicant = ({
     <Component
       {...props}
       error={valError}
-      // loading={memberLoading}
+      disabled={memberLoading}
       options={!textMode ? memberList : []}
       placeholder={!textMode ? `Choose a Member` : `0x`}
       rightAddon={<ToggleButton />}

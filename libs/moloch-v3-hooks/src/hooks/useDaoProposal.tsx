@@ -28,6 +28,7 @@ const fetchProposal = async ({
       networkId: daoChain,
       graphApiKeys,
     });
+
     return res?.data?.proposal;
   } catch (error) {
     console.error(error);
@@ -52,7 +53,7 @@ export const useDaoProposal = (props?: {
     proposalId: propIdFromRouter,
     daoChain: networkFromRouter,
     daoId: daoIdFromRouter,
-  } = useCurrentDao();
+  } = useCurrentDao?.() || {};
 
   const daoId = daoIdOverride || daoIdFromRouter;
   const daoChain = daoChainOverride || networkFromRouter;

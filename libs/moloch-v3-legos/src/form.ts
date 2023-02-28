@@ -1,11 +1,11 @@
 import { SUMMON_COPY } from '@daohaus/utils';
-import { CustomFormLego } from './config';
+import { MolochFormLego } from '@daohaus/moloch-v3-fields';
 import { FIELD } from './fields';
 import { TABULA_TX, TX } from './tx';
 
 export const getFormLegoById = (
-  id: CustomFormLego['id']
-): CustomFormLego | undefined => {
+  id: MolochFormLego['id']
+): MolochFormLego | undefined => {
   const allForms = { ...PROPOSAL_FORMS, ...COMMON_FORMS };
   const formKey = Object.keys(allForms).find((key) => {
     return allForms[key].id === id;
@@ -39,7 +39,7 @@ COMMON_FORMS KEYS
 - UPDATE_SHAMAN
 */
 
-export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
+export const PROPOSAL_FORMS: Record<string, MolochFormLego> = {
   SIGNAL: {
     id: 'SIGNAL',
     title: 'Signal Request',
@@ -51,7 +51,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.TITLE,
       FIELD.DESCRIPTION,
       FIELD.LINK,
-      // ...PROPOSAL_SETTINGS_FIELDS,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   ISSUE: {
@@ -88,7 +88,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         label: 'Non-Voting Token Requested',
         id: 'lootRequested',
       },
-      // ...PROPOSAL_SETTINGS_FIELDS,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   ADD_SHAMAN: {
@@ -437,10 +437,9 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.DESCRIPTION,
       FIELD.LINK,
       {
-        ...FIELD.APPLICANT,
         id: 'memberAddress',
+        type: 'selectApplicant',
         label: 'Member',
-        // @ts-expect-error: doing object spread, even if the field definition has the property
         daoMemberOnly: true,
       },
       ...PROPOSAL_SETTINGS_FIELDS,
@@ -464,64 +463,64 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
-  // MULTICALL_BUILDER: {
-  //   id: 'MULTICALL',
-  //   title: 'Multicall Proposal Builder',
-  //   subtitle: 'Multicall Proposal', // TODO:
-  //   description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
-  //   tx: TX.MULTICALL,
-  //   requiredFields: {
-  //     title: true,
-  //   },
-  //   fields: [
-  //     {
-  //       id: 'details',
-  //       type: 'formSegment',
-  //       collapsible: true,
-  //       defaultOpen: true,
-  //       title: 'Proposal Overview', // TODO:
-  //       fields: [
-  //         FIELD.TITLE,
-  //         FIELD.DESCRIPTION,
-  //         FIELD.LINK,
-  //         ...PROPOSAL_SETTINGS_FIELDS,
-  //       ],
-  //     },
-  //     {
-  //       id: 'multisendActions',
-  //       type: 'multisendActions',
-  //     },
-  //   ],
-  // },
-  // MULTICALL_BUILDER_SIDECAR: {
-  //   id: 'MULTICALL_SIDECAR',
-  //   title: 'Multicall Proposal Builder',
-  //   subtitle: 'Multicall Proposal', // TODO:
-  //   description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
-  //   tx: TX.MULTICALL_SIDECAR,
-  //   requiredFields: {
-  //     title: true,
-  //   },
-  //   fields: [
-  //     {
-  //       id: 'details',
-  //       type: 'formSegment',
-  //       collapsible: true,
-  //       defaultOpen: true,
-  //       title: 'Proposal Overview', // TODO:
-  //       fields: [
-  //         FIELD.TITLE,
-  //         FIELD.DESCRIPTION,
-  //         FIELD.LINK,
-  //         ...PROPOSAL_SETTINGS_FIELDS,
-  //       ],
-  //     },
-  //     {
-  //       id: 'multisendActions',
-  //       type: 'multisendActions',
-  //     },
-  //   ],
-  // },
+  MULTICALL_BUILDER: {
+    id: 'MULTICALL',
+    title: 'Multicall Proposal Builder',
+    subtitle: 'Multicall Proposal', // TODO:
+    description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
+    tx: TX.MULTICALL,
+    requiredFields: {
+      title: true,
+    },
+    fields: [
+      {
+        id: 'details',
+        type: 'formSegment',
+        collapsible: true,
+        defaultOpen: true,
+        title: 'Proposal Overview', // TODO:
+        fields: [
+          FIELD.TITLE,
+          FIELD.DESCRIPTION,
+          FIELD.LINK,
+          ...PROPOSAL_SETTINGS_FIELDS,
+        ],
+      },
+      {
+        id: 'multisendActions',
+        type: 'multisendActions',
+      },
+    ],
+  },
+  MULTICALL_BUILDER_SIDECAR: {
+    id: 'MULTICALL_SIDECAR',
+    title: 'Multicall Proposal Builder',
+    subtitle: 'Multicall Proposal', // TODO:
+    description: 'Use the transaction builder to propose a multicall proposal.', // TODO:
+    tx: TX.MULTICALL_SIDECAR,
+    requiredFields: {
+      title: true,
+    },
+    fields: [
+      {
+        id: 'details',
+        type: 'formSegment',
+        collapsible: true,
+        defaultOpen: true,
+        title: 'Proposal Overview', // TODO:
+        fields: [
+          FIELD.TITLE,
+          FIELD.DESCRIPTION,
+          FIELD.LINK,
+          ...PROPOSAL_SETTINGS_FIELDS,
+        ],
+      },
+      {
+        id: 'multisendActions',
+        type: 'multisendActions',
+      },
+    ],
+  },
   ADD_SIGNER_TO_SIDECAR: {
     id: 'ADD_SIGNER_TO_SIDECAR',
     title: 'Add Signer to Safe',
@@ -558,9 +557,29 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  ISSUE_SHARES: {
+    id: 'ISSUE_SHARES',
+    title: 'DAO Token Request',
+    subtitle: 'Token Proposal',
+    description: 'Request voting tokens from the DAO for multiple addresses.',
+    tx: TX.ISSUE_SHARES,
+    log: true,
+    requiredFields: {
+      title: true,
+      description: true,
+      addressesAndAmounts: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.ADDRESSES_AMOUNTS,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
 };
 
-export const TABULA_FORMS: Record<string, CustomFormLego> = {
+export const TABULA_FORMS: Record<string, MolochFormLego> = {
   CREATE_PUBLICATION: {
     id: 'CREATE_PUBLICATION',
     title: 'Start Publication',
@@ -648,7 +667,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
   },
 };
 
-export const COMMON_FORMS: Record<string, CustomFormLego> = {
+export const COMMON_FORMS: Record<string, MolochFormLego> = {
   METADATA_SETTINGS: {
     id: 'METADATA_SETTINGS',
     title: 'Update Metadata Settings',

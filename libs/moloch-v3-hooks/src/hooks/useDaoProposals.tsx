@@ -11,7 +11,7 @@ import {
   Proposal_OrderBy,
 } from '@daohaus/moloch-v3-data';
 import { handleErrorMessage } from '@daohaus/utils';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useCurrentDao } from '../contexts';
 import { checkContextDefault, DaoQueryKeys, daoScopedQueryId } from '../utils';
@@ -122,13 +122,16 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
       getNextPageParam: (lastPage) => lastPage?.nextPaging,
     }
   );
-  const allProposals =
-    data?.pages?.reduce((acc, page) => {
-      if (page?.items) {
-        return [...acc, ...page.items];
-      }
-      return [];
-    }, [] as MolochV3Proposal[]) || [];
+  const allProposals = useMemo(() => {
+    return (
+      data?.pages?.reduce((acc, page) => {
+        if (page?.items) {
+          return [...acc, ...page.items];
+        }
+        return [];
+      }, [] as MolochV3Proposal[]) || []
+    );
+  }, [data]);
 
   const filterProposals = (filter: Proposal_Filter) => {
     if (typeof updateFilter === 'function') {

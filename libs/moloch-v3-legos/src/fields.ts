@@ -1,6 +1,6 @@
-import { CustomFieldLego } from './config';
+import { MolochFieldLego } from '@daohaus/moloch-v3-fields';
 
-export const FIELD: Record<string, CustomFieldLego> = {
+export const FIELD: Record<string, MolochFieldLego> = {
   TITLE: {
     id: 'title',
     type: 'input',
@@ -97,11 +97,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
       },
     ],
   },
-  FAKE_MD: {
-    id: 'article',
-    type: 'fakeMarkdown',
-    label: 'Real Fake MD Editor',
-  },
+
   APPLICANT: {
     id: 'applicantAddress',
     type: 'selectApplicant',

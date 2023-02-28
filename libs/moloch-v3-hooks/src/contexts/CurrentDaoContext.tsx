@@ -8,6 +8,7 @@ type CurrentDaoContextType = {
   daoChain?: ValidNetwork;
   proposalId?: string;
   memberAddress?: string;
+  userAddress?: string;
   updateFilter: (filterKey: string, filter: any) => void;
   updateOrder: (filterKey: string, filter: any) => void;
   getOrder: (filterKey: string) => any;
@@ -17,6 +18,7 @@ type CurrentDaoContextType = {
 export const CurrentDaoContext = React.createContext<CurrentDaoContextType>({
   daoId: undefined,
   daoChain: undefined,
+  userAddress: undefined,
   updateFilter: () => undefined,
   getFilter: () => undefined,
   updateOrder: () => undefined,
@@ -33,11 +35,13 @@ type TargetDao = {
 type CurrentContextProps = {
   children: ReactNode;
   targetDao: TargetDao;
+  userAddress?: string;
 };
 
 export const CurrentDaoProvider = ({
   children,
   targetDao,
+  userAddress,
 }: CurrentContextProps) => {
   const [currentFilters, setFilter] = useState<ArbitraryState>({});
   const [currentOrders, setOrder] = useState<ArbitraryState>({});
@@ -66,6 +70,7 @@ export const CurrentDaoProvider = ({
         getFilter,
         updateOrder,
         getOrder,
+        userAddress,
       }}
     >
       {children}

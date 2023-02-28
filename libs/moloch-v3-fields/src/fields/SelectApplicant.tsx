@@ -83,7 +83,7 @@ export const SelectApplicant = ({
   useEffect(() => {
     if (members) {
       setMemberList(
-        members.map((m: any) => ({
+        members.map((m) => ({
           name: m.memberAddress,
           value: m.memberAddress,
         }))

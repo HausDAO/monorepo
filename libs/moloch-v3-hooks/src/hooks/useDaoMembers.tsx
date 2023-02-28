@@ -129,10 +129,11 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
     return (
       data?.pages?.reduce((acc, page) => {
         if (page?.items) {
-          return [...acc, ...page.items];
+          const truthyItems = page.items.filter((item) => !!item);
+          return [...acc, ...truthyItems];
         }
-        return [];
-      }, [] as MolochV3Member[]) || []
+        return acc;
+      }, [] as NonNullable<MolochV3Member>[]) || []
     );
   }, [data]);
 

@@ -8,7 +8,6 @@ import {
   DropdownLabel,
   DropdownLinkStyles,
   font,
-  ParMd,
   ProfileAvatar,
   Theme,
   widthQuery,
@@ -36,6 +35,24 @@ export const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const AlertContainer = styled(Card)`
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 2.3rem 2.5rem;
+  border: none;
+  min-height: 23.8rem;
+
+  @media ${widthQuery.sm} {
+    gap: 2rem;
+    height: auto;
+    margin-bottom: 2rem;
+  }
 `;
 
 export const AvatarLarge = styled(ProfileAvatar)`

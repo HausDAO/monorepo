@@ -5,6 +5,7 @@ import { DataIndicator, ParLg, Spinner } from '@daohaus/ui';
 import { formatValueTo, memberUsdValueShare } from '@daohaus/utils';
 
 import {
+  AlertContainer,
   LoadingContainer,
   MProfileCard,
   ValueRow,
@@ -23,20 +24,24 @@ export const MemberProfileCard = ({
   daoId,
   member,
 }: MemberProfileCardProps) => {
-  const { dao, isFetched: isDaoFetched } = useDaoData({
+  const { dao, isLoading: isLoadingDao } = useDaoData({
     daoChain,
     daoId,
   });
-  const { profile: currentProfile, isFetched: isProfileFetched } = useProfile({
+  const { profile: currentProfile, isLoading: isLoadingProfile } = useProfile({
     address: member?.memberAddress || '',
   });
 
   if (
     !member ||
-    (!dao && isDaoFetched) ||
-    (!currentProfile && isProfileFetched)
+    (!dao && !isLoadingDao) ||
+    (!currentProfile && !isLoadingProfile)
   )
-    return <ParLg>Member Profile Not Found</ParLg>;
+    return (
+      <AlertContainer>
+        <ParLg className="warn">Member Profile Not Found</ParLg>
+      </AlertContainer>
+    );
 
   return (
     <MProfileCard>

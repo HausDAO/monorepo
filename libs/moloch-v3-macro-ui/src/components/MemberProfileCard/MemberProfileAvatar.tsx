@@ -15,7 +15,7 @@ type MemberProfileProps = {
   memberProfile?: AccountProfile;
   daoChain: ValidNetwork;
   daoId?: string;
-  includeLinks?: boolean;
+  allowLinks?: boolean;
 };
 
 export const MemberProfileAvatar = ({
@@ -23,7 +23,7 @@ export const MemberProfileAvatar = ({
   memberProfile,
   daoChain,
   daoId,
-  includeLinks = false,
+  allowLinks = false,
 }: MemberProfileProps) => {
   const { profile: currentProfile } = useProfile({
     address: !memberProfile ? memberAddress : '',
@@ -41,7 +41,7 @@ export const MemberProfileAvatar = ({
           }
         }
       >
-        {includeLinks && (
+        {allowLinks && (
           <MemberCardItem asChild>
             <StyledRouterLink
               to={

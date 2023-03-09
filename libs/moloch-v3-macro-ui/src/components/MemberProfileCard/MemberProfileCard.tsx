@@ -17,12 +17,14 @@ type MemberProfileCardProps = {
   daoChain: ValidNetwork;
   daoId: string;
   member: MolochV3Member;
+  allowLinks?: boolean;
 };
 
 export const MemberProfileCard = ({
   daoChain,
   daoId,
   member,
+  allowLinks = false,
 }: MemberProfileCardProps) => {
   const { dao, isLoading: isLoadingDao } = useDaoData({
     daoChain,
@@ -57,6 +59,7 @@ export const MemberProfileCard = ({
             dao={dao}
             profile={currentProfile}
             membership={member}
+            allowLinks={allowLinks}
           />
           <ValueRow>
             <DataIndicator

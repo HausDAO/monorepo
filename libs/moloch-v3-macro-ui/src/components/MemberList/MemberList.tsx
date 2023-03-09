@@ -35,9 +35,14 @@ type MembersTableType = MolochV3Members[number];
 type MemberListProps = {
   daoChain: ValidNetwork;
   daoId: string;
+  allowLinks?: boolean;
 };
 
-export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
+export const MemberList = ({
+  daoChain,
+  daoId,
+  allowLinks = false,
+}: MemberListProps) => {
   const { dao, isLoading: isLoadingDao } = useDaoData();
 
   const {
@@ -70,7 +75,7 @@ export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
               daoChain={daoChain}
               daoId={daoId}
               memberAddress={value}
-              includeLinks
+              allowLinks={allowLinks}
             />
           );
         },
@@ -185,7 +190,7 @@ export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
                 daoChain={daoChain}
                 daoId={daoId}
                 memberAddress={row.original.memberAddress}
-                includeLinks
+                allowLinks={allowLinks}
               />
             </ActionContainer>
           );

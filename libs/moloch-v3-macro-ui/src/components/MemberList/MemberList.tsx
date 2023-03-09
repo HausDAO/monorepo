@@ -1,27 +1,17 @@
 import { useMemo } from 'react';
 import { Column, Row } from 'react-table';
-import {
-  Member_OrderBy,
-  MolochV3Dao,
-  MolochV3Member,
-  MolochV3Members,
-} from '@daohaus/moloch-v3-data';
+
+import { ValidNetwork } from '@daohaus/keychain-utils';
+import { Member_OrderBy, MolochV3Members } from '@daohaus/moloch-v3-data';
+import { useDaoData, useDaoMembers } from '@daohaus/moloch-v3-hooks';
 import {
   AddressDisplay,
-  ParMd,
+  ParLg,
   Spinner,
   Tooltip,
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-
-import { DaoTable } from '../DaohausTable';
-import {
-  ActionContainer,
-  LoadingContainer,
-  MemberContainer,
-} from './MemberList.styles';
-import { ValidNetwork } from '@daohaus/keychain-utils';
 import {
   formatDateFromSeconds,
   formatValueTo,
@@ -29,25 +19,36 @@ import {
   sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/utils';
+
+import { DaoTable } from '../DaohausTable';
+import {
+  ActionContainer,
+  AlertContainer,
+  LoadingContainer,
+  MemberContainer,
+} from './MemberList.styles';
 import { MembersOverview } from './MembersOverview';
 import { MemberProfileAvatar, MemberProfileMenu } from '../MemberProfileCard';
-import { useDaoData, useDaoMembers } from '@daohaus/moloch-v3-hooks';
 
 type MembersTableType = MolochV3Members[number];
 
 type MemberListProps = {
   daoChain: ValidNetwork;
   daoId: string;
+  allowLinks?: boolean;
 };
 
-export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
+export const MemberList = ({
+  daoChain,
+  daoId,
+  allowLinks = false,
+}: MemberListProps) => {
   const { dao, isLoading: isLoadingDao } = useDaoData();
 
   const {
     members,
-    isFetching: isLoadingMembers,
+    isLoading: isLoadingMembers,
     fetchNextPage,
-    filterMembers,
     hasNextPage,
     orderMembers,
   } = useDaoMembers();
@@ -74,7 +75,7 @@ export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
               daoChain={daoChain}
               daoId={daoId}
               memberAddress={value}
-              includeLinks
+              allowLinks={allowLinks}
             />
           );
         },
@@ -189,7 +190,7 @@ export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
                 daoChain={daoChain}
                 daoId={daoId}
                 memberAddress={row.original.memberAddress}
-                includeLinks
+                allowLinks={allowLinks}
               />
             </ActionContainer>
           );
@@ -205,6 +206,13 @@ export const MemberList = ({ daoChain, daoId }: MemberListProps) => {
   ) => {
     orderMembers({ orderBy: orderBy as Member_OrderBy, orderDirection });
   };
+
+  if ((!dao && !isLoadingDao) || (!members && !isLoadingMembers))
+    return (
+      <AlertContainer>
+        <ParLg className="warn">No Members Found</ParLg>
+      </AlertContainer>
+    );
 
   return (
     <MemberContainer>

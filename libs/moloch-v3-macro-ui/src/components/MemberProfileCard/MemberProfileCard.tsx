@@ -5,6 +5,7 @@ import { DataIndicator, ParLg, Spinner } from '@daohaus/ui';
 import { formatValueTo, memberUsdValueShare } from '@daohaus/utils';
 
 import {
+  AlertContainer,
   LoadingContainer,
   MProfileCard,
   ValueRow,
@@ -16,27 +17,33 @@ type MemberProfileCardProps = {
   daoChain: ValidNetwork;
   daoId: string;
   member: MolochV3Member;
+  allowLinks?: boolean;
 };
 
 export const MemberProfileCard = ({
   daoChain,
   daoId,
   member,
+  allowLinks = false,
 }: MemberProfileCardProps) => {
-  const { dao, isFetched: isDaoFetched } = useDaoData({
+  const { dao, isLoading: isLoadingDao } = useDaoData({
     daoChain,
     daoId,
   });
-  const { profile: currentProfile, isFetched: isProfileFetched } = useProfile({
+  const { profile: currentProfile, isLoading: isLoadingProfile } = useProfile({
     address: member?.memberAddress || '',
   });
 
   if (
     !member ||
-    (!dao && isDaoFetched) ||
-    (!currentProfile && isProfileFetched)
+    (!dao && !isLoadingDao) ||
+    (!currentProfile && !isLoadingProfile)
   )
-    return <ParLg>Member Profile Not Found</ParLg>;
+    return (
+      <AlertContainer>
+        <ParLg className="warn">Member Profile Not Found</ParLg>
+      </AlertContainer>
+    );
 
   return (
     <MProfileCard>
@@ -52,6 +59,7 @@ export const MemberProfileCard = ({
             dao={dao}
             profile={currentProfile}
             membership={member}
+            allowLinks={allowLinks}
           />
           <ValueRow>
             <DataIndicator

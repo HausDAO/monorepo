@@ -5,6 +5,7 @@ export const votingPowerPercentage = (
   daoTotalShares: string,
   memberShares: string
 ): number => {
+  if (Number(daoTotalShares) === 0) return 0;
   const perc =
     (Number(ethers.utils.formatEther(memberShares)) /
       Number(ethers.utils.formatEther(daoTotalShares))) *
@@ -46,6 +47,7 @@ export const memberUsdValueShare = (
   const daoSharesAndLoot =
     Number(ethers.utils.formatEther(daoTotalShares)) +
     Number(ethers.utils.formatEther(daoTotalLoot));
+  if (daoSharesAndLoot === 0) return 0;
   const sharesAndLoot =
     Number(ethers.utils.formatEther(memberShares)) +
     Number(ethers.utils.formatEther(memberLoot));

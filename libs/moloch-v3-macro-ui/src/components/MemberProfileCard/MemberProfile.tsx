@@ -50,6 +50,7 @@ type ProfileProps = {
   dao: MolochV3Dao;
   profile: AccountProfile;
   membership: MolochV3Member;
+  allowLinks?: boolean;
 };
 
 export const MemberProfile = ({
@@ -57,6 +58,7 @@ export const MemberProfile = ({
   dao,
   profile,
   membership,
+  allowLinks = false,
 }: ProfileProps) => {
   return (
     <ProfileContainer>
@@ -97,7 +99,7 @@ export const MemberProfile = ({
             daoChain={daoChain}
             daoId={dao.id}
             memberAddress={membership.memberAddress}
-            includeLinks
+            allowLinks={allowLinks}
           />
         )}
       </PSubContainer>
@@ -139,7 +141,7 @@ export const MemberProfile = ({
                 daoChain={daoChain}
                 daoId={dao.id}
                 memberAddress={membership.delegatingTo}
-                includeLinks
+                allowLinks={allowLinks}
               />
             </DataIndicatorContainer>
           )}

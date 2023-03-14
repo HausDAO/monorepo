@@ -21,14 +21,14 @@ type MemberProfileMenuProps = {
   daoChain: ValidNetwork;
   daoId: string;
   memberAddress: string;
-  includeLinks?: boolean;
+  allowLinks?: boolean;
 };
 
 export const MemberProfileMenu = ({
   daoChain,
   daoId,
   memberAddress,
-  includeLinks = false,
+  allowLinks = false,
 }: MemberProfileMenuProps) => {
   const { address } = useDHConnect();
   const { connectedMember } = useConnectedMember({
@@ -68,7 +68,7 @@ export const MemberProfileMenu = ({
                   <ProfileMenuText>Delegate</ProfileMenuText>
                 </DialogTrigger>
               </DropdownItem>
-              {includeLinks && (
+              {allowLinks && (
                 <DropdownItem key="ragequit" asChild>
                   <ProfileMenuLink
                     to={`/molochV3/${daoChain}/${daoId}/members/ragequit`}
@@ -89,7 +89,7 @@ export const MemberProfileMenu = ({
                   </ProfileMenuText>
                 </DialogTrigger>
               </DropdownItem>
-              {includeLinks && (
+              {allowLinks && (
                 <DropdownItem key="guildkick" asChild>
                   <ProfileMenuLink
                     className={enableActions ? '' : 'disabled'}

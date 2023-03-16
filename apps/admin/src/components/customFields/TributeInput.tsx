@@ -182,6 +182,7 @@ export const TributeInput = (
       {formatValueTo({
         value: toWholeUnits(tokenData?.balance, tokenData?.decimals),
         decimals: 6,
+        format: 'number',
       })}
     </Button>
   );

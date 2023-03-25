@@ -65,7 +65,7 @@ export const MemberProfile = ({
       <PSubContainer>
         <ProfileMetadataContainer>
           <AvatarLarge
-            src={profile?.image || ''}
+            image={profile?.image || ''}
             size="lg"
             alt="profile image"
             address={profile.address}

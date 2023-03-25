@@ -62,9 +62,10 @@ export const cacheProfile = async ({
 
 export const fetchProfile = async (
   address: string,
-  chainId: ValidNetwork
+  chainId: ValidNetwork,
+  forceUpdate?: boolean
 ): Promise<AccountProfile> => {
-  const cachedProfile = await getCachedProfile({ address });
+  const cachedProfile = !forceUpdate && (await getCachedProfile({ address }));
   if (cachedProfile) return cachedProfile;
   // Workaround when poiting to a network where ENS is not deployed
   const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId;

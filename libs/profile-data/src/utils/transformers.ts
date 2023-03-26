@@ -16,9 +16,11 @@ export const transformProfile = ({
     ens: ensDomain?.domain?.name || lensProfile?.onChainIdentity?.ens?.name,
     image:
       lensProfile?.picture?.__typename === 'MediaSet'
-        ? `https://daohaus.mypinata.cloud/ipfs/${lensProfile.picture.original.url.match(
-            /Qm[a-zA-Z0-9/.]+/
-          )}`
+        ? `https://daohaus.mypinata.cloud/ipfs/${
+            lensProfile.picture.original.url.match(
+              /(Qm[a-zA-Z0-9/.]+)|(bafy[a-zA-Z0-9/.]+)/ // CID-V0 or CID-V1
+            )?.[0]
+          }`
         : '',
     description: lensProfile?.bio,
     lensHandle: lensProfile?.handle,

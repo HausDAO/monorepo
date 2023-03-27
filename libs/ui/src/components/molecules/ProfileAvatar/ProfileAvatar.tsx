@@ -8,6 +8,7 @@ import { ProfileAvatarProps } from './ProfileAvatar.types';
 export const ProfileAvatar = ({
   address,
   image,
+  src,
   ...props
 }: ProfileAvatarProps) => {
   const blockie = useMemo(() => {
@@ -17,7 +18,7 @@ export const ProfileAvatar = ({
     return '?';
   }, [address]);
 
-  return <Avatar {...props} src={image} fallback={blockie} />;
+  return <Avatar {...props} src={image || src} fallback={blockie} />;
 };
 export const BlockieImg = styled.img`
   width: 100%;

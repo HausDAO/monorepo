@@ -20,6 +20,8 @@ dataSources:
       abis:
         - name: BaalSummoner
           file: ./abis/BaalSummoner.json
+        - name: Erc20
+          file: ./abis/Erc20.json
       eventHandlers:
         - event: >-
             SummonBaal(indexed address,indexed address,indexed
@@ -42,6 +44,8 @@ dataSources:
       abis:
         - name: BaalSummonerV2
           file: ./abis/BaalSummoner2.0.0.json
+        - name: Erc20
+          file: ./abis/Erc20.json
       eventHandlers:
         - event: >-
             SummonBaal(indexed address,indexed address,indexed

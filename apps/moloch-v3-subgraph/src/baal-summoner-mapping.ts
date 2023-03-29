@@ -12,6 +12,7 @@ import {
 import { Dao, TokenLookup, Vault } from '../generated/schema';
 import { constants } from './util/constants';
 import { Address } from '@graphprotocol/graph-ts';
+import { getErc20Name, getErc20Symbol } from './util/general';
 
 export function handleSummonBaalV2(event: SummonBaalV2): void {
   BaalTemplate.create(event.params.baal);
@@ -50,6 +51,9 @@ export function handleSummonBaalV2(event: SummonBaalV2): void {
 
   dao.safeAddress = event.params.safe;
   dao.delegatedVaultManager = Address.fromString(constants.ADDRESS_ZERO);
+
+  dao.lootTokenName = getErc20Name(event.params.loot);
+  dao.lootTokenSymbol = getErc20Symbol(event.params.loot);
 
   const vaultId = daoId
     .concat('-vault-')
@@ -130,6 +134,9 @@ export function handleSummonBaal(event: SummonBaal): void {
 
   dao.safeAddress = event.params.safe;
   dao.delegatedVaultManager = Address.fromString(constants.ADDRESS_ZERO);
+
+  dao.lootTokenName = getErc20Name(event.params.loot);
+  dao.lootTokenSymbol = getErc20Symbol(event.params.loot);
 
   const vaultId = daoId
     .concat('-vault-')

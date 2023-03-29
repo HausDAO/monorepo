@@ -188,7 +188,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             <Grid item xs={5}>
               <InputText
                 id="tokenName"
-                label="Name"
+                label="Voting Token Name"
                 placeholder="Voting Stake"
                 required
                 disabled={formDisabled}
@@ -199,8 +199,36 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             <Grid item xs={5}>
               <InputText
                 id="tokenSymbol"
-                label="Symbol"
+                label="Voting Token Symbol"
                 placeholder="vSTK"
+                required
+                disabled={formDisabled}
+                control={methods.control}
+                shouldUnregister={false}
+              />
+            </Grid>
+          </StyledPairInputContainer>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
+            <Grid item xs={5}>
+              <InputText
+                id="lootTokenName"
+                label="Non-Voting Token Name"
+                placeholder="Non-Voting Stake"
+                required
+                disabled={formDisabled}
+                control={methods.control}
+                shouldUnregister={false}
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <InputText
+                id="lootTokenSymbol"
+                label="Non-Voting Token Symbol"
+                placeholder="nvSTK"
                 required
                 disabled={formDisabled}
                 control={methods.control}

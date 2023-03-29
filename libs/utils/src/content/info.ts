@@ -3,6 +3,10 @@ export const INFO_COPY = {
     'What does your DAO want to name the tokens representing voting stake?',
   TOKEN_SYMBOL:
     'How would your DAO like to abbreviate the tokens representing voting stake?',
+  NON_VOTING_STK:
+    'What does your DAO want to name the tokens representing non-voting stake?',
+  LOOT_TOKEN_SYMBOL:
+    'How would your DAO like to abbreviate the tokens representing non-voting stake?',
   STAKE_TRANSFER:
     'Should DAO members be allowed to transfer voting stake to other accounts? After summoning, the DAO can change this with a proposal.',
   NV_STAKE_TRANSFER:

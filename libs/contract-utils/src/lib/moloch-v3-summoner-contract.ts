@@ -1,12 +1,7 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
 import { ContractNetworkConfig, SummonMolochV3Args } from './types';
-import {
-  DAOHAUS_CONTRACT_UTILS_REFERRER,
-  encodeValues,
-  getNonce,
-  ZERO_ADDRESS,
-} from '@daohaus/utils';
+import { encodeValues, getNonce, ZERO_ADDRESS } from '@daohaus/utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { getContractAddressesForChain } from './contract-meta';
 import { encodeInitializationParams } from './encoding-utils';
@@ -37,7 +32,7 @@ export class MolochV3SummonerContract {
 
   /**
    * Deploy dao and safe contracts
-   * @param initializationParams encoded share token name and symbol and forwarder, safeAddress, shareToken address (string, string, address, address, address)
+   * @param initializationParams encoded share and loot token names and symbols and forwarder, safeAddress, shareToken address (string, string, address, address, address)
    * @param initializationActions encoded functions with args called in summoning
    * * setAdminConfig(bool pauseShares, bool pauseLoot)
    * * setGovernanceConfig (
@@ -63,7 +58,16 @@ export class MolochV3SummonerContract {
   ): Promise<ethers.ContractTransaction> {
     return await this.summoner.summonBaalFromReferrer(
       encodeValues(
-        ['string', 'string', 'address', 'address', 'address', 'address'],
+        [
+          'string',
+          'string',
+          'address',
+          'address',
+          'address',
+          'address',
+          'string',
+          'string',
+        ],
         [
           args.sharesTokenName,
           args.sharesTokenSymbol,
@@ -71,11 +75,12 @@ export class MolochV3SummonerContract {
           args.forwarder || ZERO_ADDRESS,
           args.lootToken || ZERO_ADDRESS,
           args.sharesToken || ZERO_ADDRESS,
+          args.lootTokenName,
+          args.lootTokenSymbol,
         ]
       ),
       encodeInitializationParams(args, this.networkId),
-      getNonce(),
-      DAOHAUS_CONTRACT_UTILS_REFERRER
+      getNonce()
     );
   }
 }

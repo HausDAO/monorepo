@@ -15,7 +15,10 @@ export const calculateBaalAddress = async (
   saltNonce: string
 ) => {
   const { V3_FACTORY, ZODIAC_FACTORY } = handleKeychains(chainId);
-  const baalFactory = new Contract(V3_FACTORY, LOCAL_ABI.BAAL_SUMMONER);
+  const baalFactory = new Contract(
+    V3_FACTORY,
+    LOCAL_ABI.BAAL_ADV_TOKEN_SUMMONER
+  );
   const rs: string = await sdk.eth.call([
     {
       to: V3_FACTORY,
@@ -47,7 +50,7 @@ export const encodeAddModule = (moduleAddress: string) => {
 
 export const encodeSummonBaal = (params: Array<string>) => {
   const ifaceSummoner = new utils.Interface([
-    'function summonBaalFromReferrer(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce, bytes32 referrer) external returns (address)',
+    'function summonBaalFromReferrer(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce) external returns (address)',
   ]);
   return ifaceSummoner.encodeFunctionData('summonBaalFromReferrer', params);
 };

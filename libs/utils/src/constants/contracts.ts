@@ -1,6 +1,7 @@
 import { ValidNetwork } from '@daohaus/keychain-utils';
 
 export type ContractKey =
+  | 'V3_FACTORY_HARDCODED_LOOT'
   | 'V3_FACTORY'
   | 'LOOT_SINGLETON'
   | 'SHARES_SINGLETON'

@@ -2,6 +2,8 @@ export type FormValues = {
   daoName?: string;
   tokenName?: string;
   tokenSymbol?: string;
+  lootTokenName?: string;
+  lootTokenSymbol?: string;
   votingTransferable?: boolean;
   nvTransferable?: boolean;
   quorum?: string;

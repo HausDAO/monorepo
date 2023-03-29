@@ -1,7 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
   ArgType,
-  DAOHAUS_SAFE_SUMMONER_REFERRER,
   encodeFunction,
   encodeValues,
   getNonce,
@@ -207,8 +206,15 @@ export const assembleTxArgs = (
 ): ArgType[] => {
   const tokenName = formValues[FORM_KEYS.TOKEN_NAME];
   const tokenSymbol = formValues[FORM_KEYS.TOKEN_SYMBOL];
+  const lootTokenName = formValues[FORM_KEYS.LOOT_TOKEN_NAME];
+  const lootTokenSymbol = formValues[FORM_KEYS.LOOT_TOKEN_SYMBOL];
 
-  if (!isString(tokenName) || !isString(tokenSymbol)) {
+  if (
+    !isString(tokenName) ||
+    !isString(tokenSymbol) ||
+    !isString(lootTokenName) ||
+    !isString(lootTokenSymbol)
+  ) {
     console.error('ERROR: Form Values', formValues);
 
     throw new Error(
@@ -218,7 +224,16 @@ export const assembleTxArgs = (
 
   const { POSTER } = handleKeychains(chainId);
   const initParams = encodeValues(
-    ['string', 'string', 'address', 'address', 'address', 'address'],
+    [
+      'string',
+      'string',
+      'address',
+      'address',
+      'address',
+      'address',
+      'string',
+      'string',
+    ],
     [
       tokenName,
       tokenSymbol,
@@ -226,6 +241,8 @@ export const assembleTxArgs = (
       ZERO_ADDRESS,
       ZERO_ADDRESS,
       ZERO_ADDRESS,
+      lootTokenName,
+      lootTokenSymbol,
     ]
   );
   const initActions = [
@@ -236,12 +253,7 @@ export const assembleTxArgs = (
     lootConfigTX(formValues),
     metadataConfigTX(formValues, POSTER),
   ];
-  const args = [
-    initParams,
-    initActions,
-    getNonce(),
-    DAOHAUS_SAFE_SUMMONER_REFERRER,
-  ];
+  const args = [initParams, initActions, getNonce()];
 
   return args;
 };

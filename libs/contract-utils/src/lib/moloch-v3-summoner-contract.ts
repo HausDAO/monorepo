@@ -1,10 +1,14 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
 import { ContractNetworkConfig, SummonMolochV3Args } from './types';
-import { encodeValues, getNonce, ZERO_ADDRESS } from '@daohaus/utils';
+import { getNonce, ZERO_ADDRESS } from '@daohaus/utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { getContractAddressesForChain } from './contract-meta';
-import { encodeInitializationParams } from './encoding-utils';
+import {
+  encodeInitializationActions,
+  encodeInitializationMintParams,
+  initializationTokenParams,
+} from './encoding-utils';
 
 export class MolochV3SummonerContract {
   summoner: BaalSummoner;
@@ -30,6 +34,7 @@ export class MolochV3SummonerContract {
     return new MolochV3SummonerContract({ networkId, provider });
   }
 
+  // TODO: UPDATE THESE
   /**
    * Deploy dao and safe contracts
    * @param initializationParams encoded share and loot token names and symbols and forwarder, safeAddress, shareToken address (string, string, address, address, address)
@@ -56,31 +61,22 @@ export class MolochV3SummonerContract {
   public async summonMolochV3(
     args: SummonMolochV3Args
   ): Promise<ethers.ContractTransaction> {
+    // return await this.summoner.summonBaalFromReferrer(
+    //   args.safeAddress || ZERO_ADDRESS,
+    //   args.forwarder || ZERO_ADDRESS,
+    //   getNonce(),
+    //   encodeInitializationMintParams(args),
+    //   initializationTokenParams(args)
+    //   encodeInitializationActions(args, this.networkId)
+    // );
+
+    //TODO: Delete this
+
     return await this.summoner.summonBaalFromReferrer(
-      encodeValues(
-        [
-          'string',
-          'string',
-          'address',
-          'address',
-          'address',
-          'address',
-          'string',
-          'string',
-        ],
-        [
-          args.sharesTokenName,
-          args.sharesTokenSymbol,
-          args.safeAddress || ZERO_ADDRESS,
-          args.forwarder || ZERO_ADDRESS,
-          args.lootToken || ZERO_ADDRESS,
-          args.sharesToken || ZERO_ADDRESS,
-          args.lootTokenName,
-          args.lootTokenSymbol,
-        ]
-      ),
-      encodeInitializationParams(args, this.networkId),
-      getNonce()
+      encodeInitializationMintParams(args),
+      encodeInitializationActions(args, this.networkId),
+      getNonce(),
+      ZERO_ADDRESS
     );
   }
 }

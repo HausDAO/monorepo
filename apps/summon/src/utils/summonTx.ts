@@ -1,11 +1,11 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
   ArgType,
-  DAOHAUS_SUMMONER_REFERRER,
   encodeFunction,
   encodeValues,
   getNonce,
   isArray,
+  isBoolean,
   isNumberish,
   isString,
   POSTER_TAGS,
@@ -17,14 +17,76 @@ import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';
 
-const tokenConfigTX = (formValues: FormValues) => {
-  const pauseVoteToken = !formValues.votingTransferable;
-  const pauseNvToken = !formValues.nvTransferable;
+export const encodeMintParams = (formValues: FormValues) => {
+  const { members } = formValues;
 
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
-    pauseVoteToken,
-    pauseNvToken,
-  ]);
+  if (
+    !members ||
+    !isArray(members?.memberAddresses) ||
+    members.memberAddresses.some((addr) => !isString(addr)) ||
+    !isArray(members?.memberShares) ||
+    members.memberShares.some((shares) => !isNumberish(shares)) ||
+    !isArray(members?.memberLoot) ||
+    members.memberLoot.some((shares) => !isNumberish(shares))
+  ) {
+    console.log('ERROR: Form Values', formValues);
+    throw new Error(
+      'encodeMintParams recieved arguments in the wrong shape or type'
+    );
+  }
+
+  const wholeShareAmts = members.memberShares;
+  const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares));
+  const wholeLootAmts = members.memberLoot;
+  const lootInBaseUnits = wholeLootAmts.map((loot) =>
+    toBaseUnits(loot.toString())
+  );
+
+  const encoded = encodeValues(
+    ['address[]', 'uint256[]', 'uint256[]'],
+    [members.memberAddresses, sharesInBaseUnits, lootInBaseUnits]
+  );
+
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
+};
+
+export const encodeTokenParams = (formValues: FormValues) => {
+  const tokenName = formValues.tokenName;
+  const tokenSymbol = formValues.tokenSymbol;
+  const lootTokenName = formValues.lootTokenName;
+  const lootTokenSymbol = formValues.lootTokenSymbol;
+  const pauseVoteToken = formValues.votingTransferable;
+  const pauseNvToken = formValues.nvTransferable;
+
+  if (
+    !isString(tokenName) ||
+    !isString(tokenSymbol) ||
+    !isString(lootTokenName) ||
+    !isString(lootTokenSymbol) ||
+    !isBoolean(pauseVoteToken) ||
+    !isBoolean(pauseNvToken)
+  ) {
+    console.log('ERROR: Form Values', formValues);
+
+    throw new Error(
+      'encodeTokenParams recieved arguments in the wrong shape or type'
+    );
+  }
+
+  const encoded = encodeValues(
+    ['string', 'string', 'string', 'string', 'bool', 'bool'],
+    [
+      tokenName,
+      tokenSymbol,
+      lootTokenName,
+      lootTokenSymbol,
+      pauseVoteToken,
+      pauseNvToken,
+    ]
+  );
 
   if (isString(encoded)) {
     return encoded;
@@ -106,65 +168,6 @@ export const shamanConfigTX = (formValues: FormValues) => {
   throw new Error('Encoding Error');
 };
 
-export const shareConfigTX = (formValues: FormValues) => {
-  const { members } = formValues;
-
-  if (
-    !members ||
-    !isArray(members?.memberAddresses) ||
-    members.memberAddresses.some((addr) => !isString(addr)) ||
-    !isArray(members?.memberShares) ||
-    members.memberShares.some((shares) => !isNumberish(shares))
-  ) {
-    console.log('ERROR: Form Values', formValues);
-    throw new Error(
-      'shareConfigTX recieved arguments in the wrong shape or type'
-    );
-  }
-
-  const wholeShareAmts = members.memberShares;
-  const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares));
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintShares', [
-    members.memberAddresses,
-    sharesInBaseUnits,
-  ]);
-
-  if (isString(encoded)) {
-    return encoded;
-  }
-  throw new Error('Encoding Error');
-};
-
-export const lootConfigTX = (formValues: FormValues) => {
-  const { members } = formValues;
-
-  if (
-    !members ||
-    !isArray(members?.memberAddresses) ||
-    members.memberAddresses.some((addr) => !isString(addr)) ||
-    !isArray(members?.memberShares) ||
-    members.memberShares.some((shares) => !isNumberish(shares))
-  ) {
-    console.log('ERROR: Form Values', formValues);
-    throw new Error(
-      'shareConfigTX recieved arguments in the wrong shape or type'
-    );
-  }
-
-  const wholeLootAmts = members.memberLoot;
-  const lootInBaseUnits = wholeLootAmts.map((loot) =>
-    toBaseUnits(loot.toString())
-  );
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintLoot', [
-    members.memberAddresses,
-    lootInBaseUnits,
-  ]);
-  if (isString(encoded)) {
-    return encoded;
-  }
-  throw new Error('Encoding Error');
-};
-
 const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
   const { daoName } = formValues;
   if (!isString(daoName)) {
@@ -226,38 +229,23 @@ export const assembleTxArgs = (
 
   const { POSTER } = handleKeychains(chainId);
 
-  const initParams = encodeValues(
-    [
-      'string',
-      'string',
-      'address',
-      'address',
-      'address',
-      'address',
-      'string',
-      'string',
-    ],
-    [
-      tokenName,
-      tokenSymbol,
-      ZERO_ADDRESS,
-      ZERO_ADDRESS,
-      ZERO_ADDRESS,
-      ZERO_ADDRESS,
-      lootTokenName,
-      lootTokenSymbol,
-    ]
-  );
+  const mintParams = encodeMintParams(formValues);
+
+  const tokenParams = encodeTokenParams(formValues);
 
   const initActions = [
-    tokenConfigTX(formValues),
     governanceConfigTX(formValues),
     shamanConfigTX(formValues),
-    shareConfigTX(formValues),
-    lootConfigTX(formValues),
     metadataConfigTX(formValues, POSTER),
   ];
-  const args = [initParams, initActions, getNonce(), DAOHAUS_SUMMONER_REFERRER];
+  const args = [
+    ZERO_ADDRESS,
+    ZERO_ADDRESS,
+    getNonce(),
+    mintParams,
+    tokenParams,
+    initActions,
+  ];
   console.log('args', args);
 
   return args;

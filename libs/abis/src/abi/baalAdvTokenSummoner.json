@@ -123,10 +123,11 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "_name", "type": "string" },
-      { "internalType": "string", "name": "_symbol", "type": "string" },
-      { "internalType": "string", "name": "_lootName", "type": "string" },
-      { "internalType": "string", "name": "_lootSymbol", "type": "string" }
+      {
+        "internalType": "bytes",
+        "name": "initializationParams",
+        "type": "bytes"
+      }
     ],
     "name": "deployTokens",
     "outputs": [
@@ -139,6 +140,21 @@
   {
     "inputs": [],
     "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "initializationTokens",
+        "type": "bytes"
+      },
+      { "internalType": "address", "name": "_lootToken", "type": "address" },
+      { "internalType": "address", "name": "_sharesToken", "type": "address" }
+    ],
+    "name": "mintTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -175,22 +191,31 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_safeAddr", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "_forwarderAddr",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "_saltNonce", "type": "uint256" },
       {
         "internalType": "bytes",
-        "name": "initializationParams",
+        "name": "initializationMintParams",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "initializationTokenParams",
         "type": "bytes"
       },
       {
         "internalType": "bytes[]",
-        "name": "initializationActions",
+        "name": "postInitializationActions",
         "type": "bytes[]"
-      },
-      { "internalType": "uint256", "name": "saltNonce", "type": "uint256" }
+      }
     ],
     "name": "summonBaalFromReferrer",
-    "outputs": [
-      { "internalType": "address", "name": "_daoAddress", "type": "address" }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },

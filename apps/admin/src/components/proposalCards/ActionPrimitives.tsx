@@ -217,6 +217,7 @@ const GasBox = styled.div`
 
 export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
   const theme = useTheme();
+
   const { daochain } = useParams();
   const [estimate, setEstimate] = useState<string | undefined>();
   const { networks } = useDHConnect();
@@ -226,7 +227,8 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
       if (gasAmt) {
         const est = await getGasCostEstimate(
           gasAmt,
-          HAUS_RPC[daochain as ValidNetwork]
+          HAUS_RPC[daochain as ValidNetwork],
+          daochain as string
         );
         const estEth = toWholeUnits(est.toFixed());
         setEstimate(Number(estEth).toFixed(6));
@@ -238,6 +240,15 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
     }
   }, [daochain, gasAmt]);
 
+  const isArbitrum = daochain === '0xa4b1';
+  const content = isArbitrum
+    ? `Gas estimate: ${estimate} ${
+        daochain && networks?.[daochain as ValidNetwork]?.symbol
+      }. Due to the way Arbitrum handles gas prices the fee displayed in your wallet may be higher than the actual cost. In most cases the majority of gas is refunded`
+    : `If gas is less than ${estimate} ${
+        daochain && networks?.[daochain as ValidNetwork]?.symbol
+      }, the proposal will likely fail.`;
+
   return (
     <Tooltip
       triggerEl={
@@ -246,9 +257,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
           <ParMd color={theme.primary.step9}>Min. gas required</ParMd>
         </GasBox>
       }
-      content={`If gas is less than ${estimate} ${
-        daochain && networks?.[daochain as ValidNetwork]?.symbol
-      }, the proposal will likely fail.`}
+      content={content}
       side="bottom"
     />
   );

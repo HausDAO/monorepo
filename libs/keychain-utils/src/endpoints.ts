@@ -110,4 +110,5 @@ export const PINATA_API_KEYS: PinataApiKeys = {
 export const ABI_EXPLORER_KEYS: Keychain = {
   '0x1': process.env['NX_ETHERSCAN_KEY'],
   '0x5': process.env['NX_ETHERSCAN_KEY'],
+  '0xa4b1': process.env['NX_ARBISCAN_KEY'],
 };

@@ -120,7 +120,11 @@ export function Member() {
   const fetchMemberProfile = useCallback(
     async (address: string, loadState: typeof setCurrentMemberLoading) => {
       loadState(true);
-      const profile = await fetchProfile(address, daochain as ValidNetwork);
+      const profile = await fetchProfile(
+        address,
+        daochain as ValidNetwork,
+        true
+      );
       setCurrentProfile(profile);
       loadState(false);
     },

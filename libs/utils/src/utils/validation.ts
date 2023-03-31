@@ -26,7 +26,7 @@ export const ValidateField = {
     isEthAddress(val) ? true : ValErrMsgs.ethAddress,
   url: (val: unknown) =>
     isString(val) &&
-    /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+    /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,24}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
       val
     )
       ? true

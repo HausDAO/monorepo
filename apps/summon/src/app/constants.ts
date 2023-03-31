@@ -16,12 +16,4 @@ export const limitedNetworkTest = {
     rpc: `https://${process.env.NX_RIVET_KEY}.goerli.rpc.rivet.cloud/`,
     explorer: 'https://goerli.etherscan.io',
   },
-  '0x2a': {
-    chainId: '0x2a',
-    networkId: 42,
-    name: 'Kovan',
-    symbol: 'ETH',
-    rpc: `https://kovan.infura.io/v3/${process.env.NX_INFURA_PROJECT_ID}`,
-    explorer: 'https://kovan.etherscan.io',
-  },
 };

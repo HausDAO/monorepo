@@ -231,7 +231,8 @@ export const GasDisplay = ({
       if (gasAmt) {
         const est = await getGasCostEstimate(
           gasAmt,
-          HAUS_RPC[daoChain as ValidNetwork]
+          HAUS_RPC[daoChain as ValidNetwork],
+          daoChain as string
         );
         const estEth = toWholeUnits(est.toFixed());
         setEstimate(Number(estEth).toFixed(6));

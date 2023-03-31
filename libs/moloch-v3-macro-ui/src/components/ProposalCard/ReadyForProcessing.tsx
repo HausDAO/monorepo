@@ -105,7 +105,9 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
-        overrides: { gasLimit: getProcessingGasLimit(actionGasEstimate) },
+        overrides: {
+          gasLimit: getProcessingGasLimit(actionGasEstimate, chainId as string),
+        },
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

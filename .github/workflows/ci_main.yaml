@@ -32,7 +32,7 @@ jobs:
         run: |
           touch .env
           echo NX_RIVET_KEY=${{ secrets.NX_RIVET_KEY }}  >> .env
-          echo NX_INFURA_PROJECT_ID=${{ secrets.NX_INFURA_PROJECT_ID }}  >> .env
+          echo NX_ARBISCAN_KEY=${{ secrets.NX_ARBISCAN_KEY }}  >> .env
           echo NX_ETHERSCAN_KEY=${{ secrets.NX_ETHERSCAN_KEY }}  >> .env
           echo NX_GRAPH_API_KEY_MAINNET=${{ secrets.NX_GRAPH_API_KEY_MAINNET }}  >> .env
 

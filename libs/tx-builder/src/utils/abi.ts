@@ -42,7 +42,7 @@ const getABIUrl = ({
     '0x64': `https://blockscout.com/xdai/mainnet/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
     '0x89': `https://api.polygonscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
     '0xa': `https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
-    '0xa4b1': `https://api.arbiscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
+    '0xa4b1': `https://api.arbiscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apiKey=${explorerKeys[chainId]}`,
   };
 
   return TEMPORARY_ABI_EXPLORER[chainId]?.replace(ABI_ADDRESS, contractAddress);
@@ -222,7 +222,9 @@ export const fetchABI = async ({
       throw new Error('Could generate explorer url with the given arguments');
     }
     const scanResponse = await fetch(url);
+    console.log('scanResponse', scanResponse);
     const data = await scanResponse.json();
+    console.log('data', data);
     if (data.message === 'OK' && isJSON(data.result)) {
       const abi = JSON.parse(data.result);
       cacheABI({ address: contractAddress, chainId, abi });

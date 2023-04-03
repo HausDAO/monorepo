@@ -14,7 +14,7 @@ import {
 import { MolochV3Membership } from '@daohaus/utils';
 import { useQuery } from 'react-query';
 
-const allNetworks = Object.keys(CONTRACT_KEYCHAINS.V3_FACTORY);
+const allNetworks = Object.keys(CONTRACT_KEYCHAINS.V3_FACTORY_ADV);
 
 export const useDaosByUser = ({
   userAddress,

@@ -1293,10 +1293,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@daohaus/baal-contracts@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@daohaus/baal-contracts/-/baal-contracts-1.2.0.tgz#5b9c85687ffde9c844ecb5055587f5f10c7b6190"
-  integrity sha512-UX1EuUJ46UrD+a9ysxQQyV3Us3zNKYrHjRkBnJLMP3vEfxiNO3oZpD4ZqK/8wEcedsRX+Kdj2TIc7m2vvWFlwQ==
+"@daohaus/baal-contracts@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@daohaus/baal-contracts/-/baal-contracts-1.2.2.tgz#8e6702ac96f7d3a318536c56f2f038160cc913a8"
+  integrity sha512-mWGw+DnE+NuSCEGmz9MbteUZCgRJMBI8lWdkr2FrRwYmCY8YH4R4GMleovhlDzPAJLPGPwC2+FRqL0gHpYQefw==
   dependencies:
     "@gnosis.pm/zodiac" "^1.0.3"
     "@opengsn/contracts" "2.2.5"

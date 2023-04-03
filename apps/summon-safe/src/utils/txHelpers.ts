@@ -6,22 +6,21 @@ import SafeAppsSDK, {
 } from '@gnosis.pm/safe-apps-sdk';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
 import { calculateProxyAddress, CONTRACT_ABIS } from '@gnosis.pm/zodiac';
-
-import { handleKeychains } from './summonTx';
+import { handleKeychains } from '@daohaus/contract-utils';
 
 export const calculateBaalAddress = async (
   chainId: ValidNetwork,
   sdk: SafeAppsSDK,
   saltNonce: string
 ) => {
-  const { V3_FACTORY, ZODIAC_FACTORY } = handleKeychains(chainId);
+  const { V3_FACTORY_ADV, ZODIAC_FACTORY } = handleKeychains(chainId);
   const baalFactory = new Contract(
-    V3_FACTORY,
+    V3_FACTORY_ADV,
     LOCAL_ABI.BAAL_ADV_TOKEN_SUMMONER
   );
   const rs: string = await sdk.eth.call([
     {
-      to: V3_FACTORY,
+      to: V3_FACTORY_ADV,
       data: baalFactory.interface.encodeFunctionData('template'),
     },
     'latest',

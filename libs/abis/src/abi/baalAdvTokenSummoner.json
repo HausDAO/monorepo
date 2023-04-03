@@ -122,39 +122,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "initializationParams",
-        "type": "bytes"
-      }
-    ],
-    "name": "deployTokens",
-    "outputs": [
-      { "internalType": "address", "name": "lootToken", "type": "address" },
-      { "internalType": "address", "name": "sharesToken", "type": "address" }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "initializationTokens",
-        "type": "bytes"
-      },
-      { "internalType": "address", "name": "_lootToken", "type": "address" },
-      { "internalType": "address", "name": "_sharesToken", "type": "address" }
-    ],
-    "name": "mintTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

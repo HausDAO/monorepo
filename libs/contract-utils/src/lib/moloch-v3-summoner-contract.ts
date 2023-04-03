@@ -7,7 +7,6 @@ import { getContractAddressesForChain } from './contract-meta';
 import {
   encodeInitializationActions,
   encodeInitializationMintParams,
-  initializationTokenParams,
 } from './encoding-utils';
 
 export class MolochV3SummonerContract {
@@ -15,7 +14,7 @@ export class MolochV3SummonerContract {
   networkId: ValidNetwork;
   private constructor(contractConfig: ContractNetworkConfig) {
     const summonerAddress = getContractAddressesForChain(
-      'V3_FACTORY',
+      'V3_FACTORY_ADV',
       contractConfig.networkId
     );
 

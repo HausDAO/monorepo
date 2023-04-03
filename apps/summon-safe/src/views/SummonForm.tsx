@@ -20,7 +20,6 @@ import RecordsDataTable, { Column } from '../components/RecordsDataTable';
 import TimePicker from '../components/TimePicker';
 import Toggle from '../components/Toggle';
 
-import { FormValues } from '../types/form';
 import { VALID_NETWORKS } from '../utils/chain';
 import {
   transformMemberData,
@@ -28,13 +27,17 @@ import {
   validateMemberData,
   validateShamanData,
 } from '../utils/common';
-import { assembleTxArgs, handleKeychains } from '../utils/summonTx';
 import {
   calculateBaalAddress,
   encodeAddModule,
   encodeSummonBaal,
   pollSafeTx,
 } from '../utils/txHelpers';
+import {
+  assembleTxArgs,
+  handleKeychains,
+  SummonParams,
+} from '@daohaus/contract-utils';
 
 const SHAMAN_PROPS: Array<Column> = [
   {
@@ -96,7 +99,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
   // const submitDisabled = !isValid || isSubmitting || !connected
   const formDisabled = isSubmitting;
 
-  const handleFormSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {
     const { members } = formValues;
     if (members === '') {
       setError('You musty specify at least one dao member');
@@ -113,7 +116,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
         sdk,
         saltNonce as string
       );
-      const { V3_FACTORY } = handleKeychains(chainId);
+      const { V3_FACTORY_ADV } = handleKeychains(chainId);
 
       const { safeTxHash } = await sdk.txs.send({
         txs: [
@@ -123,7 +126,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             data: encodeAddModule(expectedBaalAddress),
           },
           {
-            to: V3_FACTORY,
+            to: V3_FACTORY_ADV,
             value: '0',
             data: encodeSummonBaal(summonArgs.map((a) => a as string)),
           },

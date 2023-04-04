@@ -38,6 +38,7 @@ import {
   handleKeychains,
   SummonParams,
 } from '@daohaus/contract-utils';
+import { toBaseUnits } from '@daohaus/utils';
 
 const SHAMAN_PROPS: Array<Column> = [
   {
@@ -109,7 +110,19 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
     try {
       setError('');
       const chainId = VALID_NETWORKS[safe.chainId];
-      const summonArgs = assembleTxArgs(formValues, chainId, safe.safeAddress);
+      const summonArgs = assembleTxArgs(
+        {
+          ...formValues,
+          sponsorThreshold: formValues.sponsorThreshold
+            ? toBaseUnits(formValues.sponsorThreshold)
+            : '0',
+          newOffering: formValues.newOffering
+            ? toBaseUnits(formValues.newOffering)
+            : '0',
+        },
+        chainId,
+        safe.safeAddress
+      );
       const [, , saltNonce] = summonArgs;
       const expectedBaalAddress = await calculateBaalAddress(
         chainId,
@@ -255,7 +268,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <Toggle
-                id="nonVotingTransferable"
+                id="nvTransferable"
                 label="Non-Voting Stake"
                 required
                 control={methods.control}

@@ -35,7 +35,7 @@ const contracts = {
     goerliNetworkId
   ),
   baalSummonerAddress: getContractAddressesForChain(
-    'V3_FACTORY_ADV',
+    'V3_FACTORY_ADV_TOKEN',
     goerliNetworkId
   ),
   tributeMinionAddress: getContractAddressesForChain(

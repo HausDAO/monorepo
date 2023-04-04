@@ -13,14 +13,14 @@ export const calculateBaalAddress = async (
   sdk: SafeAppsSDK,
   saltNonce: string
 ) => {
-  const { V3_FACTORY_ADV, ZODIAC_FACTORY } = handleKeychains(chainId);
+  const { V3_FACTORY_ADV_TOKEN, ZODIAC_FACTORY } = handleKeychains(chainId);
   const baalFactory = new Contract(
-    V3_FACTORY_ADV,
+    V3_FACTORY_ADV_TOKEN,
     LOCAL_ABI.BAAL_ADV_TOKEN_SUMMONER
   );
   const rs: string = await sdk.eth.call([
     {
-      to: V3_FACTORY_ADV,
+      to: V3_FACTORY_ADV_TOKEN,
       data: baalFactory.interface.encodeFunctionData('template'),
     },
     'latest',

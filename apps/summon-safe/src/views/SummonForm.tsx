@@ -116,7 +116,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
         sdk,
         saltNonce as string
       );
-      const { V3_FACTORY_ADV } = handleKeychains(chainId);
+      const { V3_FACTORY_ADV_TOKEN } = handleKeychains(chainId);
 
       const { safeTxHash } = await sdk.txs.send({
         txs: [
@@ -126,7 +126,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             data: encodeAddModule(expectedBaalAddress),
           },
           {
-            to: V3_FACTORY_ADV,
+            to: V3_FACTORY_ADV_TOKEN,
             value: '0',
             data: encodeSummonBaal(summonArgs.map((a) => a as string)),
           },

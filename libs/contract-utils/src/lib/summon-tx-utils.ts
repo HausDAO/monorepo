@@ -298,12 +298,12 @@ export const lootConfigTX = (formValues: SummonParams) => {
 };
 
 export const handleKeychains = (chainId: ValidNetwork) => {
-  const { V3_FACTORY_ADV, POSTER, ZODIAC_FACTORY } = CONTRACT_KEYCHAINS;
-  const v3Contracts = [V3_FACTORY_ADV, POSTER];
+  const { V3_FACTORY_ADV_TOKEN, POSTER, ZODIAC_FACTORY } = CONTRACT_KEYCHAINS;
+  const v3Contracts = [V3_FACTORY_ADV_TOKEN, POSTER];
 
   if (v3Contracts.every((contract) => contract[chainId])) {
     return {
-      V3_FACTORY_ADV: V3_FACTORY_ADV[chainId] || '',
+      V3_FACTORY_ADV_TOKEN: V3_FACTORY_ADV_TOKEN[chainId] || '',
       POSTER: POSTER[chainId] || '',
       ZODIAC_FACTORY: ZODIAC_FACTORY[chainId] || '',
     };

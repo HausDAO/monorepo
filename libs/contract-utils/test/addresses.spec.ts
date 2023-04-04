@@ -9,7 +9,7 @@ describe('baal contract loads', () => {
     contracts = {
       posterAddress: getContractAddressesForChain('POSTER', '0x5'),
       gnosisMultisendAddress: getContractAddressesForChain('GNOSIS_MULTISEND','0x5'),
-      baalSummonerAddress: getContractAddressesForChain('V3_FACTORY_ADV', '0x5'),
+      baalSummonerAddress: getContractAddressesForChain('V3_FACTORY_ADV_TOKEN', '0x5'),
       tributeMinionAddress: getContractAddressesForChain('TRIBUTE_MINION','0x5'),
     }
   });

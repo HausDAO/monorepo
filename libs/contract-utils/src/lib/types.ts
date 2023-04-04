@@ -23,8 +23,8 @@ type daoTokenConfigArgs = {
 export type SummonMolochV3Args = {
   sharesTokenName: string;
   sharesTokenSymbol: string;
-  lootTokenName: string;
-  lootTokenSymbol: string;
+  lootTokenName?: string;
+  lootTokenSymbol?: string;
   safeAddress?: string;
   forwarder?: string;
   lootToken?: string;

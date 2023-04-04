@@ -5,8 +5,8 @@ import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 const BaalSummonerContract: ContractLego = {
   contractName: 'BaalSummoner',
   type: 'static',
-  abi: LOCAL_ABI.BAAL_SUMMONER,
-  targetAddress: CONTRACT_KEYCHAINS.V3_FACTORY,
+  abi: LOCAL_ABI.BAAL_ADV_TOKEN_SUMMONER,
+  targetAddress: CONTRACT_KEYCHAINS.V3_FACTORY_ADV_TOKEN,
 };
 
 export const SummonTX = {

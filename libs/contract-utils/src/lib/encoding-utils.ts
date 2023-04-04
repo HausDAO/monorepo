@@ -92,3 +92,50 @@ export const encodeInitializationParams = (
     encodedMetadataConfig,
   ];
 };
+
+export const encodeInitializationParamsAdvToken = (
+  args: SummonMolochV3Args,
+  networkId: ValidNetwork
+): ethers.BytesLike[] => {
+  const baalAbi = getContractAbi('BAAL');
+  const posterAbi = getContractAbi('POSTER');
+  const posterAddress = getContractAddressesForChain('POSTER', networkId);
+
+  if (!baalAbi || !posterAbi || !posterAddress)
+    throw 'Missing Contract ABIs or address';
+
+  const encodedGovernanceValues = encodeValues(
+    ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
+    [
+      args.governanceConfig.voting,
+      args.governanceConfig.grace,
+      args.governanceConfig.newOffering,
+      args.governanceConfig.quorum,
+      args.governanceConfig.sponsor,
+      args.governanceConfig.minRetention,
+    ]
+  );
+  const encodedGovernanceConfig = encodeFunctionWrapper(
+    baalAbi,
+    'setGovernanceConfig',
+    [encodedGovernanceValues]
+  );
+
+  const encodedShamanConfig = encodeFunctionWrapper(baalAbi, 'setShamans', [
+    args.shamanConfig.shamans,
+    args.shamanConfig.permissions,
+  ]);
+
+  const METADATA = encodeFunctionWrapper(posterAbi, 'post', [
+    JSON.stringify({ name: args.daoName }),
+    POSTER_TAGS.summoner,
+  ]);
+
+  const encodedMetadataConfig = encodeFunctionWrapper(
+    baalAbi,
+    'executeAsBaal',
+    [posterAddress, 0, METADATA]
+  );
+
+  return [encodedGovernanceConfig, encodedShamanConfig, encodedMetadataConfig];
+};

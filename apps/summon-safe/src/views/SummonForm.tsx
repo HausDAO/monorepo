@@ -20,7 +20,6 @@ import RecordsDataTable, { Column } from '../components/RecordsDataTable';
 import TimePicker from '../components/TimePicker';
 import Toggle from '../components/Toggle';
 
-import { FormValues } from '../types/form';
 import { VALID_NETWORKS } from '../utils/chain';
 import {
   transformMemberData,
@@ -28,13 +27,18 @@ import {
   validateMemberData,
   validateShamanData,
 } from '../utils/common';
-import { assembleTxArgs, handleKeychains } from '../utils/summonTx';
 import {
   calculateBaalAddress,
   encodeAddModule,
   encodeSummonBaal,
   pollSafeTx,
 } from '../utils/txHelpers';
+import {
+  assembleTxArgs,
+  handleKeychains,
+  SummonParams,
+} from '@daohaus/contract-utils';
+import { toBaseUnits } from '@daohaus/utils';
 
 const SHAMAN_PROPS: Array<Column> = [
   {
@@ -96,7 +100,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
   // const submitDisabled = !isValid || isSubmitting || !connected
   const formDisabled = isSubmitting;
 
-  const handleFormSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {
     const { members } = formValues;
     if (members === '') {
       setError('You musty specify at least one dao member');
@@ -106,14 +110,26 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
     try {
       setError('');
       const chainId = VALID_NETWORKS[safe.chainId];
-      const summonArgs = assembleTxArgs(formValues, chainId, safe.safeAddress);
+      const summonArgs = assembleTxArgs(
+        {
+          ...formValues,
+          sponsorThreshold: formValues.sponsorThreshold
+            ? toBaseUnits(formValues.sponsorThreshold)
+            : '0',
+          newOffering: formValues.newOffering
+            ? toBaseUnits(formValues.newOffering)
+            : '0',
+        },
+        chainId,
+        safe.safeAddress
+      );
       const [, , saltNonce] = summonArgs;
       const expectedBaalAddress = await calculateBaalAddress(
         chainId,
         sdk,
         saltNonce as string
       );
-      const { V3_FACTORY } = handleKeychains(chainId);
+      const { V3_FACTORY_ADV_TOKEN } = handleKeychains(chainId);
 
       const { safeTxHash } = await sdk.txs.send({
         txs: [
@@ -123,7 +139,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             data: encodeAddModule(expectedBaalAddress),
           },
           {
-            to: V3_FACTORY,
+            to: V3_FACTORY_ADV_TOKEN,
             value: '0',
             data: encodeSummonBaal(summonArgs.map((a) => a as string)),
           },
@@ -188,7 +204,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             <Grid item xs={5}>
               <InputText
                 id="tokenName"
-                label="Name"
+                label="Voting Token Name"
                 placeholder="Voting Stake"
                 required
                 disabled={formDisabled}
@@ -199,8 +215,36 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             <Grid item xs={5}>
               <InputText
                 id="tokenSymbol"
-                label="Symbol"
+                label="Voting Token Symbol"
                 placeholder="vSTK"
+                required
+                disabled={formDisabled}
+                control={methods.control}
+                shouldUnregister={false}
+              />
+            </Grid>
+          </StyledPairInputContainer>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
+            <Grid item xs={5}>
+              <InputText
+                id="lootTokenName"
+                label="Non-Voting Token Name"
+                placeholder="Non-Voting Stake"
+                required
+                disabled={formDisabled}
+                control={methods.control}
+                shouldUnregister={false}
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <InputText
+                id="lootTokenSymbol"
+                label="Non-Voting Token Symbol"
+                placeholder="nvSTK"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -224,7 +268,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <Toggle
-                id="nonVotingTransferable"
+                id="nvTransferable"
                 label="Non-Voting Stake"
                 required
                 control={methods.control}

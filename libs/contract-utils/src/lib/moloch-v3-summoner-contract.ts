@@ -16,7 +16,7 @@ export class MolochV3SummonerContract {
   networkId: ValidNetwork;
   private constructor(contractConfig: ContractNetworkConfig) {
     const summonerAddress = getContractAddressesForChain(
-      'V3_FACTORY',
+      'V3_FACTORY_ORIGINAL',
       contractConfig.networkId
     );
 

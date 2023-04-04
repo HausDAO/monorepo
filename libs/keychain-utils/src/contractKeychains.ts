@@ -1,7 +1,15 @@
 import { Keychain } from './types';
 
 export const CONTRACT_KEYCHAINS: Record<string, Keychain> = {
-  V3_FACTORY: {
+  V3_FACTORY_ADV_TOKEN: {
+    '0x1': '0x0',
+    '0x5': '0xb0c5c96c3d21c1d58B98a5366dF0Af7AfcD94F95',
+    '0x64': '0x0',
+    '0x89': '0x0',
+    '0xa': '0x0',
+    '0xa4b1': '0x0',
+  },
+  V3_FACTORY_ORIGINAL: {
     '0x1': '0x7e988A9db2F8597735fc68D21060Daed948a3e8C',
     '0x5': '0x7e988A9db2F8597735fc68D21060Daed948a3e8C',
     '0x64': '0x7e988A9db2F8597735fc68D21060Daed948a3e8C',

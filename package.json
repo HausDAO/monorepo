@@ -7,7 +7,7 @@
   },
   "private": true,
   "dependencies": {
-    "@daohaus/baal-contracts": "^1.2.0",
+    "@daohaus/baal-contracts": "^1.2.4",
     "@gnosis.pm/safe-apps-react-sdk": "^4.6.2",
     "@gnosis.pm/safe-apps-web3modal": "^17.0.2",
     "@gnosis.pm/safe-react-components": "^1.2.0",

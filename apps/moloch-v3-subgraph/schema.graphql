@@ -171,6 +171,10 @@ type Proposal @entity {
   currentlyPassing: Boolean!
   "highest share+loot count during any individual yes vote"
   maxTotalSharesAndLootAtYesVote: BigInt!
+  "Snapshot of the quorum precent for the DAO when the proposal was executed"
+  quorumPercentAtExecution: BigInt
+  "Snapshot of the total shares for the DAO when the proposal was executed"
+  totalSharesAtExecution: BigInt
   "The following tribute fields will only have values if the proposal was submitted through the trbute minion contract. \n token address in tribute proposals."
   tributeToken: Bytes
   "amount of tribute token offered"

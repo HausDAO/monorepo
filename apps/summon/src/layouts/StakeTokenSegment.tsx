@@ -37,7 +37,7 @@ export const StakeTokensSegment = ({
               left: (
                 <WrappedInput
                   id={FORM_KEYS.TOKEN_NAME}
-                  label="Name"
+                  label="Voting Token Name"
                   placeholder="Voting Stake"
                   info={INFO_COPY.VOTING_STK}
                   full
@@ -54,9 +54,47 @@ export const StakeTokensSegment = ({
               right: (
                 <WrappedInput
                   id={FORM_KEYS.TOKEN_SYMBOL}
-                  label="Symbol"
+                  label="Voting Token Symbol"
                   placeholder="vSTK"
                   info={INFO_COPY.TOKEN_SYMBOL}
+                  full
+                  disabled={formDisabled}
+                  rules={{
+                    required: 'Token symbol is required',
+                    maxLength: {
+                      value: 5,
+                      message:
+                        'Token symbol cannot be longer than 5 characters',
+                    },
+                  }}
+                />
+              ),
+            },
+            {
+              rowId: 'lootTokenNaming',
+              left: (
+                <WrappedInput
+                  id={FORM_KEYS.LOOT_TOKEN_NAME}
+                  label="Non-Voting Token Name"
+                  placeholder="Non-Voting Stake"
+                  info={INFO_COPY.NON_VOTING_STK}
+                  full
+                  disabled={formDisabled}
+                  rules={{
+                    required: 'Token name is required',
+                    maxLength: {
+                      value: 50,
+                      message: 'Token name cannot be longer than 50 characters',
+                    },
+                  }}
+                />
+              ),
+              right: (
+                <WrappedInput
+                  id={FORM_KEYS.LOOT_TOKEN_SYMBOL}
+                  label="Non-Voting Token Symbol"
+                  placeholder="nvSTK"
+                  info={INFO_COPY.LOOT_TOKEN_SYMBOL}
                   full
                   disabled={formDisabled}
                   rules={{

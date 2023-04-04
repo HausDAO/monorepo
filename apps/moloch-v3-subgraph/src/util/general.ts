@@ -3,13 +3,13 @@ import { Erc20 } from '../../generated/TributeMinion/Erc20';
 import { Erc20Bytes32 } from '../../generated/TributeMinion/Erc20Bytes32';
 
 export function getErc20Symbol(tokenAddress: Address): string | null {
-  let contract = Erc20.bind(tokenAddress);
+  const contract = Erc20.bind(tokenAddress);
 
-  let symbol = contract.try_symbol();
+  const symbol = contract.try_symbol();
   if (symbol.reverted) {
-    let erc20Bytes32 = Erc20Bytes32.bind(tokenAddress);
+    const erc20Bytes32 = Erc20Bytes32.bind(tokenAddress);
 
-    let otherSymbol = erc20Bytes32.try_symbol();
+    const otherSymbol = erc20Bytes32.try_symbol();
     if (otherSymbol.reverted) {
       log.info('other symbol reverted token, {}', [tokenAddress.toHexString()]);
       return null;
@@ -21,10 +21,30 @@ export function getErc20Symbol(tokenAddress: Address): string | null {
   }
 }
 
-export function getErc20Decimals(tokenAddress: Address): BigInt | null {
-  let contract = Erc20.bind(tokenAddress);
+export function getErc20Name(tokenAddress: Address): string | null {
+  const contract = Erc20.bind(tokenAddress);
 
-  let decimals = contract.try_decimals();
+  const name = contract.try_name();
+  if (name.reverted) {
+    const erc20Bytes32 = Erc20Bytes32.bind(tokenAddress);
+
+    const otherName = erc20Bytes32.try_name();
+    if (otherName.reverted) {
+      log.info('other symbol reverted token, {}', [tokenAddress.toHexString()]);
+      return null;
+    } else {
+      return otherName.value.toString();
+    }
+  } else {
+    return name.value;
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function getErc20Decimals(tokenAddress: Address): BigInt | null {
+  const contract = Erc20.bind(tokenAddress);
+
+  const decimals = contract.try_decimals();
   if (decimals.reverted) {
     log.info('decimals reverted token, {}', [tokenAddress.toHexString()]);
     return null;

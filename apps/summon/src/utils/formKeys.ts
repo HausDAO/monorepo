@@ -2,6 +2,8 @@ export const FORM_KEYS = {
   DAO_NAME: 'daoName',
   TOKEN_NAME: 'tokenName',
   TOKEN_SYMBOL: 'tokenSymbol',
+  LOOT_TOKEN_NAME: 'lootTokenName',
+  LOOT_TOKEN_SYMBOL: 'lootTokenSymbol',
   VOTE_TOKEN_TRANSFER: 'votingTransferable',
   NV_TOKEN_TRANSFER: 'nvTransferable',
   QUORUM: 'quorum',

@@ -223,7 +223,7 @@ export const GasDisplay = ({
 }) => {
   const theme = useTheme();
 
-  const [estimate, setEstimate] = useState<string | undefined>();
+  const [estimate, setEstimate] = useState<string | 0 | undefined>();
   const { networks } = useDHConnect();
 
   useEffect(() => {
@@ -234,8 +234,8 @@ export const GasDisplay = ({
           HAUS_RPC[daoChain as ValidNetwork],
           daoChain as string
         );
-        const estEth = toWholeUnits(est.toFixed());
-        setEstimate(Number(estEth).toFixed(6));
+        const estEth = est && Number(toWholeUnits(est.toFixed())).toFixed(10);
+        setEstimate(estEth);
       }
     };
 
@@ -243,6 +243,20 @@ export const GasDisplay = ({
       getGasEst();
     }
   }, [daoChain, gasAmt]);
+
+  const isArbitrum = daoChain === '0xa4b1';
+  let content;
+  if (isArbitrum) {
+    content = `Gas estimate: ${estimate} ${
+      daoChain && networks?.[daoChain as ValidNetwork]?.symbol
+    }. Due to the way Arbitrum handles gas prices the fee displayed in your wallet may be higher than the actual cost. In most cases the majority of gas is refunded`;
+  } else if (!estimate) {
+    content = `Unable to estimate gas for this execution transaction. It might be best to manually set a high gas limit. In most cases the majority of gas is refunded`;
+  } else {
+    content = `If gas is less than ${estimate} ${
+      daoChain && networks?.[daoChain as ValidNetwork]?.symbol
+    }, the proposal will likely fail.`;
+  }
 
   return (
     <Tooltip
@@ -252,9 +266,7 @@ export const GasDisplay = ({
           <ParMd color={theme.primary.step9}>Min. gas required</ParMd>
         </GasBox>
       }
-      content={`If gas is less than ${estimate} ${
-        daoChain && networks?.[daoChain as ValidNetwork]?.symbol
-      }, the proposal will likely fail.`}
+      content={content}
       side="bottom"
     />
   );

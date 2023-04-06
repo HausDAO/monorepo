@@ -1,5 +1,6 @@
 import BAAL from '../abi/baal.json';
 import BAAL_SUMMONER from '../abi/baalSummoner.json';
+import BAAL_ADV_TOKEN_SUMMONER from '../abi/baalAdvTokenSummoner.json';
 import GNOSIS_MULTISEND from '../abi/gnosisMultisend.json';
 import GNOSIS_PROXY from '../abi/gnosisProxy.json';
 import GNOSIS_SIGNLIB from '../abi/gnosisSignLib.json';
@@ -15,6 +16,7 @@ import GNOSIS_MODULE from '../abi/gnosisModule.json';
 export const LOCAL_ABI = {
   BAAL,
   BAAL_SUMMONER,
+  BAAL_ADV_TOKEN_SUMMONER,
   GNOSIS_MULTISEND,
   GNOSIS_MODULE,
   GNOSIS_PROXY,

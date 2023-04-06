@@ -23,11 +23,10 @@ import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
 import { FORM_KEYS } from '../utils/formKeys';
-import { assembleTxArgs } from '../utils/summonTx';
-import { FormValues } from '../types/form';
 import { SummonStates } from '../app/App';
 import { ConnectBox } from '../components/ConnectBox/ConnectBox';
 import { SummonTX } from '../utils/summonlegos';
+import { assembleTxArgs, SummonParams } from '@daohaus/contract-utils';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -54,7 +53,7 @@ export const SummonerForm = ({
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
 
-  const handleFormSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {
     if (!chainId || !isValidNetwork(chainId)) {
       setSummonState('error');
       return;

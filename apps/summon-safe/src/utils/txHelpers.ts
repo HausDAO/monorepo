@@ -6,24 +6,36 @@ import SafeAppsSDK, {
 } from '@gnosis.pm/safe-apps-sdk';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
 import { calculateProxyAddress, CONTRACT_ABIS } from '@gnosis.pm/zodiac';
-
-import { handleKeychains } from './summonTx';
+import { handleKeychains } from '@daohaus/contract-utils';
 
 export const calculateBaalAddress = async (
   chainId: ValidNetwork,
   sdk: SafeAppsSDK,
   saltNonce: string
 ) => {
-  const { V3_FACTORY, ZODIAC_FACTORY } = handleKeychains(chainId);
-  const baalFactory = new Contract(V3_FACTORY, LOCAL_ABI.BAAL_SUMMONER);
+  const { V3_FACTORY_ADV_TOKEN, ZODIAC_FACTORY } = handleKeychains(chainId);
+  const advTokenBaalFactory = new Contract(
+    V3_FACTORY_ADV_TOKEN,
+    LOCAL_ABI.BAAL_ADV_TOKEN_SUMMONER
+  );
+  const summonerRs: string = await sdk.eth.call([
+    {
+      to: V3_FACTORY_ADV_TOKEN,
+      data: advTokenBaalFactory.interface.encodeFunctionData('_baalSummoner'),
+    },
+    'latest',
+  ]);
+  const baalSummonerAddr = `0x${summonerRs.substring(summonerRs.length - 40)}`;
+
+  const baalFactory = new Contract(baalSummonerAddr, LOCAL_ABI.BAAL_SUMMONER);
   const rs: string = await sdk.eth.call([
     {
-      to: V3_FACTORY,
+      to: baalSummonerAddr,
       data: baalFactory.interface.encodeFunctionData('template'),
     },
     'latest',
   ]);
-  const templateAddress = `0x${rs.substring(rs.length - 40, rs.length)}`;
+  const templateAddress = `0x${rs.substring(rs.length - 40)}`;
   const baalSingleton = new Contract(templateAddress, LOCAL_ABI.BAAL);
   const moduleProxyFactory = new Contract(
     ZODIAC_FACTORY,
@@ -47,7 +59,8 @@ export const encodeAddModule = (moduleAddress: string) => {
 
 export const encodeSummonBaal = (params: Array<string>) => {
   const ifaceSummoner = new utils.Interface([
-    'function summonBaalFromReferrer(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce, bytes32 referrer) external returns (address)',
+    'function summonBaalFromReferrer(address _safeAddr, address _forwarderAddr, uint256 _saltNonce, bytes calldata initializationMintParams, bytes calldata initializationTokenParams, bytes[] calldata postInitializationActions) external',
+    // 'function summonBaalFromReferrer(bytes calldata initializationParams, bytes[] calldata initializationActions, uint256 _saltNonce) external returns (address)',
   ]);
   return ifaceSummoner.encodeFunctionData('summonBaalFromReferrer', params);
 };

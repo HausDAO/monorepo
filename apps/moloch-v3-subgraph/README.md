@@ -31,7 +31,6 @@ To generate subgraph code, run the following command:
 ## Deployment
 
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli --network=goerli`
-`nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-gnosis --network=xdai`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-optimism --network=optimism`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-arbitrum --network=arbitrum-one`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-polygon --network=matic`
@@ -57,3 +56,12 @@ Supported names:
 - `hausdao/daohaus-v3-polygon`
 - `daohaus-v3`
 - `daohaus-v3-gnosis`
+
+Playgrounds:
+
+- https://thegraph.com/hosted-service/subgraph/hausdao/daohaus-v3-goerli
+- https://thegraph.com/hosted-service/subgraph/hausdao/daohaus-v3-optimism
+- https://thegraph.com/hosted-service/subgraph/hausdao/daohaus-v3-arbitrum
+- https://thegraph.com/hosted-service/subgraph/hausdao/daohaus-v3-polygon
+- https://thegraph.com/explorer/subgraph?id=GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP&view=Overview
+- https://thegraph.com/explorer/subgraphs/5oXHJGgAWTSEXHK5FGf7mcxYtk6rSz7MJV5ccvGfoW6q?view=Overview&chain=mainnet

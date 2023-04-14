@@ -7,7 +7,7 @@ export function FormTest() {
   const { daochain } = useParams();
   return (
     <FormBuilder
-      form={PROPOSAL_FORMS.ADD_SIGNER_TO_SIDECAR}
+      form={PROPOSAL_FORMS.SIGNAL}
       customFields={CustomFields}
       targetNetwork={daochain}
     />

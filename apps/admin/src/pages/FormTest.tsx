@@ -7,7 +7,7 @@ export function FormTest() {
   const { daochain } = useParams();
   return (
     <FormBuilder
-      form={PROPOSAL_FORMS.SIGNAL}
+      form={PROPOSAL_FORMS.ISSUE}
       customFields={CustomFields}
       targetNetwork={daochain}
     />

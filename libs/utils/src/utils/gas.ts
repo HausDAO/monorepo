@@ -2,19 +2,19 @@ import { ethers } from 'ethers';
 
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
-export const ARBITRUM_ADDITIONAL_GAS = 5000000;
+export const L2_ADDITIONAL_GAS = 5000000;
 
 export const getProcessingGasLimit = (
   actionGasEstimate: string | number,
   chainId: string
 ): string => {
-  if (chainId === '0xa4b1') {
+  if (chainId === '0xa4b1' || chainId === '0xa') {
     return (
       Number(actionGasEstimate) > 0
         ? Number(actionGasEstimate) +
           PROCESS_PROPOSAL_GAS_LIMIT_ADDITION +
-          ARBITRUM_ADDITIONAL_GAS
-        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6 + ARBITRUM_ADDITIONAL_GAS
+          L2_ADDITIONAL_GAS
+        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6 + L2_ADDITIONAL_GAS
     ).toFixed();
   }
   return (

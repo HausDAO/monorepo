@@ -12,12 +12,14 @@ import {
   WarningIcon,
 } from './ProposalActionData.styles';
 import { ProposalActionConfig } from './ProposalActionData';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 type ProposalWarningProps = {
   proposalType?: string;
   decodeError?: boolean;
   txHash: string;
   proposalActionConfig?: ProposalActionConfig;
+  daoChain: string;
 };
 
 export const ProposalWarning = ({
@@ -25,6 +27,7 @@ export const ProposalWarning = ({
   decodeError = false,
   txHash,
   proposalActionConfig,
+  daoChain,
 }: ProposalWarningProps) => {
   const warningMessage: string = useMemo(() => {
     if (decodeError) {
@@ -68,7 +71,11 @@ export const ProposalWarning = ({
           (hasError && (
             <>
               <Spacer />
-              <ExplorerLink address={txHash} type="tx">
+              <ExplorerLink
+                address={txHash}
+                type="tx"
+                chainId={daoChain as ValidNetwork}
+              >
                 View Details
               </ExplorerLink>
             </>

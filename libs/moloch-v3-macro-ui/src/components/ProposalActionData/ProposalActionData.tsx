@@ -139,6 +139,7 @@ export const ProposalActionData = ({
                 <ActionAlert
                   action={action}
                   daoId={daoId}
+                  daoChain={daoChain}
                   proposalType={proposal.proposalType}
                   proposalActionConfig={proposalActionConfig}
                 />
@@ -195,6 +196,7 @@ export const ProposalActionData = ({
           decodeError={decodeError}
           txHash={proposal.txHash}
           proposalActionConfig={proposalActionConfig}
+          daoChain={daoChain}
         />
       )}
     </MainContainer>

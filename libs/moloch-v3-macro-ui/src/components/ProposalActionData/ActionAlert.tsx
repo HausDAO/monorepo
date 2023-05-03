@@ -9,11 +9,13 @@ export const ActionAlert = ({
   daoId,
   proposalType,
   proposalActionConfig,
+  daoChain,
 }: {
   action: DecodedAction;
   daoId?: string;
   proposalType?: string;
   proposalActionConfig?: ProposalActionConfig;
+  daoChain: string;
 }) => {
   const actionType = proposalActionConfig?.actionToProposalType?.[action.name];
   // Show Action Warning IFF action.to === daoId || actionType != proposal.proposalType
@@ -30,6 +32,7 @@ export const ActionAlert = ({
           proposalActionConfig={proposalActionConfig}
           proposalType={actionType}
           txHash={''}
+          daoChain={daoChain}
         />
       </AlertContainer>
     );

@@ -192,6 +192,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.currentlyPassing = false;
   proposal.proposalOffering = event.transaction.value;
   proposal.maxTotalSharesAndLootAtYesVote = constants.BIGINT_ZERO;
+  proposal.maxTotalSharesAtYesVote = constants.BIGINT_ZERO;
   proposal.sponsored = event.params.selfSponsor;
   proposal.selfSponsor = event.params.selfSponsor;
   proposal.sponsorTxHash = event.params.selfSponsor
@@ -202,6 +203,9 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     : null;
   proposal.sponsor = event.params.selfSponsor ? event.transaction.from : null;
   proposal.sponsorMembership = event.params.selfSponsor ? proposerId : null;
+  proposal.quorumPercentAtSponsor = event.params.selfSponsor
+    ? dao.totalShares
+    : null;
   proposal.prevProposalId = event.params.selfSponsor
     ? dao.latestSponsoredProposalId
     : constants.BIGINT_ZERO;
@@ -330,8 +334,6 @@ export function handleProcessProposal(event: ProcessProposal): void {
   proposal.processed = true;
   proposal.passed = event.params.passed;
   proposal.actionFailed = event.params.actionFailed;
-  proposal.quorumPercentAtExecution = dao.quorumPercent;
-  proposal.totalSharesAtExecution = dao.totalShares;
 
   proposal.save();
 
@@ -403,6 +405,7 @@ export function handleSubmitVote(event: SubmitVote): void {
     proposal.maxTotalSharesAndLootAtYesVote = dao.totalShares.plus(
       dao.totalLoot
     );
+    proposal.maxTotalSharesAtYesVote = dao.totalShares;
   } else {
     proposal.noVotes = proposal.noVotes.plus(constants.BIGINT_ONE);
     proposal.noBalance = proposal.noBalance.plus(event.params.balance);

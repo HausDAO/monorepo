@@ -26,6 +26,8 @@ export const ExplorerLink = ({
 }: ExplorerLinkProps) => {
   const { chainId: contextChainId } = useDHConnect();
 
+  console.log('chainId', chainId);
+
   const explorerLink = useMemo(() => {
     if (chainId) {
       return generateExplorerLink({ chainId, address, type });

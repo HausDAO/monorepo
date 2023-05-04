@@ -334,6 +334,7 @@ export function handleProcessProposal(event: ProcessProposal): void {
   proposal.processed = true;
   proposal.passed = event.params.passed;
   proposal.actionFailed = event.params.actionFailed;
+  proposal.blockNumberAtExecution = event.block.number;
 
   proposal.save();
 

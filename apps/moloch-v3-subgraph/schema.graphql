@@ -175,6 +175,8 @@ type Proposal @entity {
   maxTotalSharesAtYesVote: BigInt!
   "Snapshot of the quorum precent for the DAO when the proposal was sponsored"
   quorumPercentAtSponsor: BigInt
+  "the block number when the proposal was executed"
+  blockNumberAtExecution: BigInt
   "The following tribute fields will only have values if the proposal was submitted through the trbute minion contract. \n token address in tribute proposals."
   tributeToken: Bytes
   "amount of tribute token offered"

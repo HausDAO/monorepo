@@ -82,6 +82,9 @@ export const FormBuilderBase = ({
     await onSubmit?.(formValues);
   };
   const isSubmitDisabled = !isValid || submitDisabled;
+
+  console.log('submitDisabled', submitDisabled, isSubmitDisabled);
+
   return (
     <RHFProvider {...methods}>
       {log && <Logger />}

@@ -143,6 +143,7 @@ export const FormBuilder = ({
         defaultValues={defaultValues}
         fieldSpacing="3.6rem"
         applyToEach={{ full: true }}
+        formDisabled={isLoading}
         submitDisabled={submitDisabled}
         onSubmit={handleSubmit}
         footer={

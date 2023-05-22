@@ -35,7 +35,7 @@ export const FormBuilderFactory = ({ field }: { field: FieldLego }) => {
         <Field
           {...field}
           rules={newRules}
-          disabled={formDisabled || field.disabled || submitDisabled}
+          disabled={formDisabled || field.disabled}
           {...applyToEach}
         />
       );

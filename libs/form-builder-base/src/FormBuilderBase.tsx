@@ -83,8 +83,6 @@ export const FormBuilderBase = ({
   };
   const isSubmitDisabled = !isValid || submitDisabled;
 
-  console.log('submitDisabled', submitDisabled, isSubmitDisabled);
-
   return (
     <RHFProvider {...methods}>
       {log && <Logger />}

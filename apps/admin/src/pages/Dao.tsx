@@ -4,6 +4,7 @@ import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { useMemo } from 'react';
 import { HeaderAvatar } from '../components/HeaderAvatar';
+import { Footer } from '@daohaus/ui';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
@@ -72,6 +73,7 @@ export function Dao() {
           },
         ]}
         dropdownLinks={moreLinks}
+        footer={<Footer />}
       >
         <Outlet />
       </DHLayout>

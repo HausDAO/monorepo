@@ -8,6 +8,8 @@ import {
   PROPOSAL_TYPE_WARNINGS,
   SENSITIVE_PROPOSAL_TYPES,
 } from '../utils/constants';
+import { useParams } from 'react-router-dom';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 
 const WarningContainer = styled(Card)`
   display: flex;
@@ -71,6 +73,7 @@ export const ProposalWarning = ({
   decodeError,
   txHash,
 }: ProposalWarningProps) => {
+  const { daochain } = useParams();
   const warningMessage: string = useMemo(() => {
     if (decodeError) {
       return PROPOSAL_TYPE_WARNINGS.ERROR_CANNOT_DECODE;
@@ -111,7 +114,11 @@ export const ProposalWarning = ({
           (hasError && (
             <>
               <Spacer />
-              <ExplorerLink address={txHash} type="tx">
+              <ExplorerLink
+                address={txHash}
+                type="tx"
+                chainId={daochain as ValidNetwork}
+              >
                 View Details
               </ExplorerLink>
             </>

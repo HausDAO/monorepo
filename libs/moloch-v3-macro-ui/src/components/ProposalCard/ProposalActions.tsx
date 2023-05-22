@@ -103,7 +103,7 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.actionFailed) {
     return (
       <ActionBox>
-        <ActionFailed proposal={proposal} />
+        <ActionFailed proposal={proposal} daoChain={daoChain} />
       </ActionBox>
     );
   }

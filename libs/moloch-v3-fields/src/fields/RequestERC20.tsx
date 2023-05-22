@@ -99,7 +99,6 @@ export const RequestERC20 = (
     <WrappedInputSelect
       {...props}
       id={amtId}
-      label="Request ERC-20"
       defaultValue="0"
       selectId={addressId}
       selectPlaceholder="--"

@@ -20,6 +20,7 @@ import {
   DaoProfileAvatar,
   MetaCardHeader,
   MetaContent,
+  SettingsContainer,
   WarningContainer,
 } from './DaoSettings.styles';
 import { useDHConnect } from '@daohaus/connect';
@@ -53,7 +54,7 @@ export const MetadataSettings = ({
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
-    <>
+    <SettingsContainer>
       <MetaCardHeader>
         <H3>Metadata</H3>
         {includeLinks && enableActions && (
@@ -61,7 +62,7 @@ export const MetadataSettings = ({
             color="secondary"
             to={`/molochv3/${daoChain}/${dao.id}/settings/update`}
           >
-            Update Settings
+            Update Metadata
           </ButtonRouterLink>
         )}
       </MetaCardHeader>
@@ -111,6 +112,6 @@ export const MetadataSettings = ({
           )}
         </div>
       </MetaContent>
-    </>
+    </SettingsContainer>
   );
 };

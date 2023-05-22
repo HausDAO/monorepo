@@ -193,7 +193,7 @@ export const TributeInput = (
       <FieldSpacer>
         <WrappedInput
           full
-          label="Token Address"
+          label="Tribute Token Address"
           id={addressId}
           helperText={fetchState}
           success={tokenName}
@@ -212,7 +212,7 @@ export const TributeInput = (
       <FieldSpacer>
         <WrappedInput
           full
-          label="Token Amount"
+          label="Tribute Token Amount"
           id={amtId}
           disabled={needsApproval}
           rules={tokenAmtRules}

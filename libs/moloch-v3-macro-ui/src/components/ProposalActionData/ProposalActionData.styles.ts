@@ -1,6 +1,10 @@
-import { Card, ParXs, Theme } from '@daohaus/ui';
-import { RiErrorWarningLine } from 'react-icons/ri';
 import styled from 'styled-components';
+import { Card, ParXs, Theme } from '@daohaus/ui';
+import {
+  RiErrorWarningLine,
+  RiArrowUpSLine,
+  RiArrowDownSLine,
+} from 'react-icons/ri/index.js';
 
 export const MainContainer = styled.div`
   padding: 0rem 2.6rem;
@@ -9,6 +13,12 @@ export const MainContainer = styled.div`
 export const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const DisplayContainer = styled.div`
@@ -86,3 +96,15 @@ export const IconContainer = styled.div`
 `;
 
 export const MessageContainer = styled.div``;
+
+export const StyledUpArrow = styled(RiArrowUpSLine)`
+  font-size: 3rem;
+  font-weight: 900;
+  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+`;
+
+export const StyledDownArrow = styled(RiArrowDownSLine)`
+  font-size: 3rem;
+  font-weight: 900;
+  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+`;

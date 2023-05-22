@@ -23,6 +23,7 @@ import RageQuit from './pages/RageQuit';
 import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { HeaderAvatar } from './components/HeaderAvatar';
 import { ReactSetter } from '@daohaus/utils';
+import { Footer } from '@daohaus/ui';
 
 const Routes = ({
   setDaoChainId,
@@ -83,6 +84,7 @@ const HomeContainer = () => {
       }
       pathname={location.pathname}
       navLinks={[{ label: 'Hub', href: `/` }]}
+      footer={<Footer />}
     >
       <Outlet />
     </DHLayout>

@@ -29,11 +29,13 @@ export const DHLayout = ({
   appNavLinks,
   leftNav,
   pathname,
+  footer,
 }: DaoHausNavProps & {
   children: ReactNode;
   leftNav?: ReactNode;
   appNavLinks?: ComponentProps<typeof AppSwitcher>;
   pathname: string;
+  footer?: ReactNode;
 }) => {
   return (
     <OuterLayout>
@@ -50,7 +52,7 @@ export const DHLayout = ({
         pathname={pathname}
       />
       <MainLayout>{children}</MainLayout>
-      <Footer />
+      {footer}
     </OuterLayout>
   );
 };

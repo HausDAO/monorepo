@@ -3,6 +3,7 @@ import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { CurrentDaoProvider, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { TXBuilder } from '@daohaus/tx-builder';
+import { Footer } from '@daohaus/ui';
 
 export const DaoContainer = () => {
   const { address, provider } = useDHConnect();
@@ -48,6 +49,7 @@ export const DaoContainer = () => {
         pathname={location.pathname}
         navLinks={navLinks}
         dropdownLinks={moreLinks}
+        footer={<Footer />}
       >
         <CurrentDaoProvider
           userAddress={address}

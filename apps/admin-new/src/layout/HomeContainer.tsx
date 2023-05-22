@@ -1,4 +1,5 @@
 import { DHLayout } from '@daohaus/connect';
+import { Footer } from '@daohaus/ui';
 import { Outlet, useLocation } from 'react-router-dom';
 
 export const HomeContainer = () => {
@@ -19,6 +20,7 @@ export const HomeContainer = () => {
       // }
       pathname={location.pathname}
       navLinks={[{ label: 'Hub', href: `/` }]}
+      footer={<Footer />}
     >
       <Outlet />
     </DHLayout>

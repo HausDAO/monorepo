@@ -27,7 +27,10 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   useEffect(() => {
     if (!dao || !id) return;
 
-    if (!connectedMember || Number(dao.sponsorThreshold) > Number(connectedMember.shares)) {
+    if (
+      !connectedMember ||
+      Number(dao.sponsorThreshold) > Number(connectedMember.shares)
+    ) {
       setRequiresOffering(true);
       setValue(id, dao.proposalOffering);
       return;
@@ -37,6 +40,9 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
     setRequiresOffering(false);
     return;
   }, [dao, connectedMember, setValue, id]);
+
+  console.log('requiresOffering', requiresOffering, connectedMember);
+  console.log('dao', dao);
 
   if (!requiresOffering || !dao?.proposalOffering || !networkTokenSymbol)
     return null;

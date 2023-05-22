@@ -303,6 +303,7 @@ export function handleSponsorProposal(event: SponsorProposal): void {
   proposal.prevProposalId = dao.latestSponsoredProposalId;
   proposal.sponsorTxHash = event.transaction.hash;
   proposal.sponsorTxAt = event.block.timestamp;
+  proposal.quorumPercentAtSponsor = dao.totalShares;
 
   dao.latestSponsoredProposalId = event.params.proposal;
 

@@ -6,7 +6,7 @@ import { ContractSettings } from './ContractSettings';
 import { GovernanceSettings } from './GovernanceSettings';
 import { ShamanSettings } from './ShamanSettings';
 
-import { SettingsContainer } from './DaoSettings.styles';
+import { TokenSettings } from './TokenSettings';
 
 type DaoSettingsProps = {
   daoChain: ValidNetwork;
@@ -31,33 +31,31 @@ export const DaoSettings = ({
 
   return (
     <>
-      <SettingsContainer>
-        <MetadataSettings
-          dao={dao}
-          daoChain={daoChain}
-          includeLinks={includeLinks}
-        />
-      </SettingsContainer>
+      <MetadataSettings
+        dao={dao}
+        daoChain={daoChain}
+        includeLinks={includeLinks}
+      />
 
-      <SettingsContainer>
-        <ContractSettings dao={dao} daoChain={daoChain} />
-      </SettingsContainer>
+      <ContractSettings dao={dao} daoChain={daoChain} />
 
-      <SettingsContainer>
-        <GovernanceSettings
-          dao={dao}
-          daoChain={daoChain}
-          includeLinks={includeLinks}
-        />
-      </SettingsContainer>
+      <GovernanceSettings
+        dao={dao}
+        daoChain={daoChain}
+        includeLinks={includeLinks}
+      />
 
-      <SettingsContainer>
-        <ShamanSettings
-          dao={dao}
-          daoChain={daoChain}
-          includeLinks={includeLinks}
-        />
-      </SettingsContainer>
+      <TokenSettings
+        dao={dao}
+        daoChain={daoChain}
+        includeLinks={includeLinks}
+      />
+
+      <ShamanSettings
+        dao={dao}
+        daoChain={daoChain}
+        includeLinks={includeLinks}
+      />
     </>
   );
 };

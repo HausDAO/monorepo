@@ -8,7 +8,11 @@ import {
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
-import { MetaCardHeader, MetaContent } from './DaoSettings.styles';
+import {
+  MetaCardHeader,
+  MetaContent,
+  SettingsContainer,
+} from './DaoSettings.styles';
 
 type ContractSettingsProps = {
   dao: MolochV3Dao;
@@ -19,7 +23,7 @@ export const ContractSettings = ({ dao, daoChain }: ContractSettingsProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
-    <>
+    <SettingsContainer>
       <MetaCardHeader>
         <H3>Contracts</H3>
       </MetaCardHeader>
@@ -61,6 +65,6 @@ export const ContractSettings = ({ dao, daoChain }: ContractSettingsProps) => {
           />
         </div>
       </MetaContent>
-    </>
+    </SettingsContainer>
   );
 };

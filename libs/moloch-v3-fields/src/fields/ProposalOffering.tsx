@@ -41,9 +41,6 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
     return;
   }, [dao, connectedMember, setValue, id]);
 
-  console.log('requiresOffering', requiresOffering, connectedMember);
-  console.log('dao', dao);
-
   if (!requiresOffering || !dao?.proposalOffering || !networkTokenSymbol)
     return null;
 

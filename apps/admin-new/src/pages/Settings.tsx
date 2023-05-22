@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { SingleColumnLayout } from '@daohaus/ui';
-import { DaoSettings, GovernanceSettings } from '@daohaus/moloch-v3-macro-ui';
+import { DaoSettings } from '@daohaus/moloch-v3-macro-ui';
 import { Keychain } from '@daohaus/keychain-utils';
 
 export const Settings = () => {

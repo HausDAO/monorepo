@@ -1,7 +1,7 @@
 import { ComponentProps, ReactNode } from 'react';
 
 import { DaoHausNav, DaoHausNavMenu } from '../DaoHausNav/DaoHausNav';
-import { AppSwitcher, Footer, MainLayout, widthQuery } from '@daohaus/ui';
+import { AppSwitcher, MainLayout, widthQuery } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 import styled from 'styled-components';
 import { DaoHausNavProps } from '../DaoHausNav/DaoHausNav.types';

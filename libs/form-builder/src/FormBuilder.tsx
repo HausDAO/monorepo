@@ -81,6 +81,7 @@ export const FormBuilder = ({
               error,
               fallback: 'Could not decode error message',
             });
+
             setIsLoading(false);
             lifeCycleFns?.onTxError?.(error);
             errorToast({ title: StatusMsg.TxErr, description: errMsg });

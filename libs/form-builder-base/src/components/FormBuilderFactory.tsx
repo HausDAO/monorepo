@@ -12,8 +12,14 @@ export const FormBuilderFactory = ({ field }: { field: FieldLego }) => {
     formState: { errors },
   } = useFormContext();
   const formState = errors;
-  const { formDisabled, requiredFields, fieldObj, fieldSpacing, applyToEach } =
-    useFormBuilder();
+  const {
+    formDisabled,
+    requiredFields,
+    fieldObj,
+    fieldSpacing,
+    applyToEach,
+    submitDisabled,
+  } = useFormBuilder();
 
   const GeneratedField = useMemo(
     () => {
@@ -24,11 +30,12 @@ export const FormBuilderFactory = ({ field }: { field: FieldLego }) => {
         field: field,
         requiredFields: requiredFields || {},
       });
+
       return (
         <Field
           {...field}
           rules={newRules}
-          disabled={formDisabled || field.disabled}
+          disabled={formDisabled || field.disabled || submitDisabled}
           {...applyToEach}
         />
       );
@@ -37,7 +44,15 @@ export const FormBuilderFactory = ({ field }: { field: FieldLego }) => {
     // formState change
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [type, formDisabled, field, requiredFields, fieldObj, formState]
+    [
+      type,
+      formDisabled,
+      field,
+      requiredFields,
+      fieldObj,
+      formState,
+      submitDisabled,
+    ]
   );
 
   return <Spacer fieldSpacing={fieldSpacing}>{GeneratedField}</Spacer>;

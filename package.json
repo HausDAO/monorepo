@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "bumpversion": "node tools/scripts/incrementVersion.js"
   },
   "private": true,
   "dependencies": {

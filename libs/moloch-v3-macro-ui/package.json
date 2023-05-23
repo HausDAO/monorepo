@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/moloch-v3-macro-ui",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "peerDependencies": {
     "react-router-dom": "^6.4.3"
   }

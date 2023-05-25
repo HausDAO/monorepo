@@ -23,12 +23,15 @@ import {
   OverviewContainer,
   StyledRouterLink,
 } from './ProposalDetails.styles';
+import { ProposalAddtionalDetails } from './ProposalAdditionalDetails';
+import { DecodedMultiTX } from '@daohaus/tx-builder';
 
 type ProposalDetailsProps = {
   daoChain: string;
   daoId: string;
   proposal: MolochV3Proposal;
   includeLinks: boolean;
+  actionData?: DecodedMultiTX | null;
 };
 
 export const ProposalDetails = ({
@@ -36,6 +39,7 @@ export const ProposalDetails = ({
   daoId,
   proposal,
   includeLinks = false,
+  actionData,
 }: ProposalDetailsProps) => {
   const { networks } = useDHConnect();
   const { profile: submitterProfile } = useProfile({
@@ -95,7 +99,7 @@ export const ProposalDetails = ({
       </DataContainer>
 
       {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
-        <DataContainer style={{ marginTop: '0' }}>
+        <DataContainer style={{ marginTop: '1rem' }}>
           <div>
             <ParMd>Through Contract</ParMd>
             <MemberCard
@@ -141,6 +145,14 @@ export const ProposalDetails = ({
           size="sm"
         />
       )}
+
+      <ProposalAddtionalDetails
+        daoChain={daoChain}
+        daoId={daoId}
+        proposal={proposal}
+        includeLinks={includeLinks}
+        actionData={actionData}
+      />
     </OverviewContainer>
   );
 };

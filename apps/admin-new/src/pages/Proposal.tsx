@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import { useCurrentDao, useDaoProposal } from '@daohaus/moloch-v3-hooks';
 import {
-  ProposalActionData,
   ProposalActions,
-  ProposalDetails,
+  ProposalDetailsContainer,
   ProposalHistory,
 } from '@daohaus/moloch-v3-macro-ui';
-import { TX } from '@daohaus/moloch-v3-legos';
 import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from '@daohaus/ui';
 import { getProposalTypeLabel, PROPOSAL_TYPE_LABELS } from '@daohaus/utils';
 
@@ -75,19 +73,13 @@ export const Proposal = () => {
       left={
         <OverviewCard>
           {daoChain && daoId && proposal && (
-            <ProposalDetails
+            <ProposalDetailsContainer
               daoChain={daoChain}
               daoId={daoId}
               proposal={proposal}
-              includeLinks
+              includeLinks={true}
             />
           )}
-          <ProposalActionData
-            daoChain={daoChain}
-            daoId={daoId}
-            proposal={proposal}
-            txLegos={TX}
-          />
         </OverviewCard>
       }
       right={

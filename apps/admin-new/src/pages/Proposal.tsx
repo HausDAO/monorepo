@@ -6,7 +6,11 @@ import {
   ProposalHistory,
 } from '@daohaus/moloch-v3-macro-ui';
 import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from '@daohaus/ui';
-import { getProposalTypeLabel, PROPOSAL_TYPE_LABELS } from '@daohaus/utils';
+import {
+  getProposalTypeLabel,
+  PROPOSAL_TYPE_LABELS,
+  ProposalTypeIds,
+} from '@daohaus/utils';
 
 import { CancelProposal } from '../components/CancelProposal';
 
@@ -40,9 +44,15 @@ const RightCard = styled(Card)`
   }
 `;
 
+export const CUSTOM_APP_PROPOSAL_TYPE_LABELS: Record<string, string> = {
+  INIT_VOTE: 'Initiate Vote',
+};
+
 export const Proposal = () => {
   const { proposal, refetch } = useDaoProposal();
   const { daoChain, daoId } = useCurrentDao();
+
+  console.log('proposal', proposal);
 
   if (!daoChain || !daoId)
     return (
@@ -63,7 +73,7 @@ export const Proposal = () => {
       title={proposal?.title}
       subtitle={`${proposal?.proposalId} | ${getProposalTypeLabel(
         proposal?.proposalType,
-        PROPOSAL_TYPE_LABELS
+        { ...PROPOSAL_TYPE_LABELS, ...CUSTOM_APP_PROPOSAL_TYPE_LABELS }
       )}`}
       actions={
         proposal && (

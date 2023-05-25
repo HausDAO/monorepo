@@ -91,7 +91,9 @@ export const ProposalDetailsContainer = ({
         daoId={daoId}
         proposal={proposal}
         actionData={actionData}
+        decodeError={decodeError}
         includeLinks={includeLinks}
+        proposalActionConfig={proposalActionConfig}
       />
       <ProposalActionData
         daoChain={daoChain}

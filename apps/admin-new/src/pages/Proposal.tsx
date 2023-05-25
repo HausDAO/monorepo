@@ -7,9 +7,12 @@ import {
 } from '@daohaus/moloch-v3-macro-ui';
 import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from '@daohaus/ui';
 import {
+  DAO_METHOD_TO_PROPOSAL_TYPE,
   getProposalTypeLabel,
   PROPOSAL_TYPE_LABELS,
+  PROPOSAL_TYPE_WARNINGS,
   ProposalTypeIds,
+  SENSITIVE_PROPOSAL_TYPES,
 } from '@daohaus/utils';
 
 import { CancelProposal } from '../components/CancelProposal';
@@ -44,15 +47,18 @@ const RightCard = styled(Card)`
   }
 `;
 
-export const CUSTOM_APP_PROPOSAL_TYPE_LABELS: Record<string, string> = {
+const CUSTOM_APP_PROPOSAL_TYPE_LABELS: Record<string, string> = {
   INIT_VOTE: 'Initiate Vote',
 };
+
+const CUSTOM_PROPOSAL_TYPE_WARNINGS: Record<ProposalTypeIds | string, string> =
+  {
+    INIT_VOTE: 'Proposal for DAO voting signal. No transactions are executed.',
+  };
 
 export const Proposal = () => {
   const { proposal, refetch } = useDaoProposal();
   const { daoChain, daoId } = useCurrentDao();
-
-  console.log('proposal', proposal);
 
   if (!daoChain || !daoId)
     return (
@@ -88,6 +94,14 @@ export const Proposal = () => {
               daoId={daoId}
               proposal={proposal}
               includeLinks={true}
+              proposalActionConfig={{
+                sensitiveProposalTypes: SENSITIVE_PROPOSAL_TYPES,
+                actionToProposalType: DAO_METHOD_TO_PROPOSAL_TYPE,
+                proposalTypeWarning: {
+                  ...PROPOSAL_TYPE_WARNINGS,
+                  ...CUSTOM_PROPOSAL_TYPE_WARNINGS,
+                },
+              }}
             />
           )}
         </OverviewCard>

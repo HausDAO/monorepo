@@ -47,6 +47,8 @@ export const ProposalWarning = ({
       proposalActionConfig?.sensitiveProposalTypes?.[proposalType]) ||
     warningMessage === PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN;
 
+  console.log('proposalActionConfig', proposalActionConfig);
+
   // TODO: activate this feature when errors use cases arise
   const hasError = false;
 

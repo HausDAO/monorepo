@@ -61,9 +61,6 @@ export const WarningContainer = styled(Card)`
   }
 `;
 export const GovernanceContainer = styled.div`
-  .tokens {
-    margin-top: 3rem;
-  }
   h4 {
     margin-top: 4rem;
   }
@@ -82,7 +79,6 @@ export const TokensHeader = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-  margin-top: 1rem;
 `;
 
 export const DataGrid = styled.div`

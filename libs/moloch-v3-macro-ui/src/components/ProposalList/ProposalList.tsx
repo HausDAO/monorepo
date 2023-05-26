@@ -45,6 +45,7 @@ export const ProposalList = ({
   rightActionEl,
   sensitiveProposalTypes = SENSITIVE_PROPOSAL_TYPES,
   proposalTypes = PROPOSAL_TYPE_LABELS,
+  customProposalTypeLabels,
   header,
   onSuccess: onSuccessFromProps,
   onError,
@@ -56,6 +57,7 @@ export const ProposalList = ({
   rightActionEl?: ReactNode;
   sensitiveProposalTypes?: Record<string, boolean>;
   proposalTypes?: Record<string, string>;
+  customProposalTypeLabels?: Record<string, string>;
   allowLinks?: boolean;
 }) => {
   const {
@@ -121,6 +123,7 @@ export const ProposalList = ({
           daoId={daoId}
           sensitiveProposalTypes={sensitiveProposalTypes}
           proposalTypes={proposalTypes}
+          customProposalTypeLabels={customProposalTypeLabels}
           allowLinks={allowLinks}
         />
       ))}

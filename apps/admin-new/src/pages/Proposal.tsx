@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 import { useCurrentDao, useDaoProposal } from '@daohaus/moloch-v3-hooks';
 import {
-  ProposalActionData,
   ProposalActions,
-  ProposalDetails,
+  ProposalDetailsContainer,
   ProposalHistory,
 } from '@daohaus/moloch-v3-macro-ui';
-import { TX } from '@daohaus/moloch-v3-legos';
 import { BiColumnLayout, Card, ParLg, Spinner, widthQuery } from '@daohaus/ui';
-import { getProposalTypeLabel, PROPOSAL_TYPE_LABELS } from '@daohaus/utils';
+import {
+  DAO_METHOD_TO_PROPOSAL_TYPE,
+  getProposalTypeLabel,
+  PROPOSAL_TYPE_LABELS,
+  PROPOSAL_TYPE_WARNINGS,
+  ProposalTypeIds,
+  SENSITIVE_PROPOSAL_TYPES,
+} from '@daohaus/utils';
 
 import { CancelProposal } from '../components/CancelProposal';
 
@@ -42,6 +47,15 @@ const RightCard = styled(Card)`
   }
 `;
 
+const CUSTOM_APP_PROPOSAL_TYPE_LABELS: Record<string, string> = {
+  INIT_VOTE: 'Initiate Vote',
+};
+
+const CUSTOM_PROPOSAL_TYPE_WARNINGS: Record<ProposalTypeIds | string, string> =
+  {
+    INIT_VOTE: 'Proposal for DAO voting signal. No transactions are executed.',
+  };
+
 export const Proposal = () => {
   const { proposal, refetch } = useDaoProposal();
   const { daoChain, daoId } = useCurrentDao();
@@ -65,7 +79,7 @@ export const Proposal = () => {
       title={proposal?.title}
       subtitle={`${proposal?.proposalId} | ${getProposalTypeLabel(
         proposal?.proposalType,
-        PROPOSAL_TYPE_LABELS
+        { ...PROPOSAL_TYPE_LABELS, ...CUSTOM_APP_PROPOSAL_TYPE_LABELS }
       )}`}
       actions={
         proposal && (
@@ -75,19 +89,21 @@ export const Proposal = () => {
       left={
         <OverviewCard>
           {daoChain && daoId && proposal && (
-            <ProposalDetails
+            <ProposalDetailsContainer
               daoChain={daoChain}
               daoId={daoId}
               proposal={proposal}
-              includeLinks
+              includeLinks={true}
+              proposalActionConfig={{
+                sensitiveProposalTypes: SENSITIVE_PROPOSAL_TYPES,
+                actionToProposalType: DAO_METHOD_TO_PROPOSAL_TYPE,
+                proposalTypeWarning: {
+                  ...PROPOSAL_TYPE_WARNINGS,
+                  ...CUSTOM_PROPOSAL_TYPE_WARNINGS,
+                },
+              }}
             />
           )}
-          <ProposalActionData
-            daoChain={daoChain}
-            daoId={daoId}
-            proposal={proposal}
-            txLegos={TX}
-          />
         </OverviewCard>
       }
       right={

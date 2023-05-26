@@ -51,6 +51,7 @@ type BaseProposalCardProps = {
   daoChain: string;
   daoId: string;
   allowLinks?: boolean;
+  customProposalTypeLabels?: Record<string, string>;
   onSuccess?: () => void;
   onError?: () => void;
 };
@@ -62,6 +63,7 @@ export const ProposalCard = ({
   daoChain,
   daoId,
   allowLinks = false,
+  customProposalTypeLabels,
   onSuccess,
   onError,
 }: BaseProposalCardProps) => {
@@ -91,6 +93,7 @@ export const ProposalCard = ({
           proposal={proposal}
           sensitiveProposalTypes={sensitiveProposalTypes}
           proposalTypes={proposalTypes}
+          customProposalTypeLabels={customProposalTypeLabels}
           daoChain={daoChain}
           daoId={daoId}
           allowLinks={allowLinks}

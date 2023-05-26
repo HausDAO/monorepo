@@ -12,6 +12,9 @@ import {
   ParMd,
 } from '@daohaus/ui';
 import {
+  DAO_METHOD_TO_PROPOSAL_TYPE,
+  PROPOSAL_TYPE_WARNINGS,
+  SENSITIVE_PROPOSAL_TYPES,
   dynamicDecimals,
   formatShortDateTimeFromSeconds,
   formatValueTo,
@@ -23,12 +26,24 @@ import {
   OverviewContainer,
   StyledRouterLink,
 } from './ProposalDetails.styles';
+import { ProposalAddtionalDetails } from './ProposalAdditionalDetails';
+import { DecodedMultiTX } from '@daohaus/tx-builder';
+import { ProposalWarning } from '../ProposalActionData/ProposalWarning';
+import styled from 'styled-components';
+import { ProposalActionConfig } from '../ProposalActionData';
+
+const Spacer = styled.div`
+  margin-bottom: 2rem;
+`;
 
 type ProposalDetailsProps = {
   daoChain: string;
   daoId: string;
   proposal: MolochV3Proposal;
   includeLinks: boolean;
+  actionData?: DecodedMultiTX | null;
+  decodeError: boolean;
+  proposalActionConfig?: ProposalActionConfig;
 };
 
 export const ProposalDetails = ({
@@ -36,6 +51,9 @@ export const ProposalDetails = ({
   daoId,
   proposal,
   includeLinks = false,
+  actionData,
+  decodeError = false,
+  proposalActionConfig,
 }: ProposalDetailsProps) => {
   const { networks } = useDHConnect();
   const { profile: submitterProfile } = useProfile({
@@ -95,7 +113,7 @@ export const ProposalDetails = ({
       </DataContainer>
 
       {proposal.proposedBy && proposal.proposedBy !== proposal.createdBy && (
-        <DataContainer style={{ marginTop: '0' }}>
+        <DataContainer style={{ marginTop: '1rem' }}>
           <div>
             <ParMd>Through Contract</ParMd>
             <MemberCard
@@ -141,6 +159,24 @@ export const ProposalDetails = ({
           size="sm"
         />
       )}
+
+      <ProposalAddtionalDetails
+        daoChain={daoChain}
+        daoId={daoId}
+        proposal={proposal}
+        includeLinks={includeLinks}
+        actionData={actionData}
+      />
+
+      <Spacer />
+
+      <ProposalWarning
+        proposalType={proposal.proposalType}
+        decodeError={decodeError}
+        txHash={proposal.txHash}
+        daoChain={daoChain}
+        proposalActionConfig={proposalActionConfig}
+      />
     </OverviewContainer>
   );
 };

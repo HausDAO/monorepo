@@ -68,6 +68,7 @@ type ProposalCardOverviewProps = {
   proposal: MolochV3Proposal;
   proposalTypes: Record<string, string>;
   sensitiveProposalTypes: Record<string, boolean>;
+  customProposalTypeLabels?: Record<string, string>;
   daoChain: string;
   daoId: string;
   allowLinks?: boolean;
@@ -78,6 +79,7 @@ export const ProposalCardOverview = ({
   proposal,
   proposalTypes,
   sensitiveProposalTypes,
+  customProposalTypeLabels,
   daoChain,
   daoId,
   allowLinks,
@@ -96,6 +98,7 @@ export const ProposalCardOverview = ({
         proposal={proposal}
         proposalTypes={proposalTypes}
         sensitiveProposalTypes={sensitiveProposalTypes}
+        customProposalTypeLabels={customProposalTypeLabels}
         daoChain={daoChain}
         daoId={daoId}
         allowLinks={allowLinks}
@@ -225,6 +228,7 @@ export const OverviewHeader = ({
   proposal,
   proposalTypes,
   sensitiveProposalTypes,
+  customProposalTypeLabels,
   daoChain,
   daoId,
   allowLinks,
@@ -235,10 +239,12 @@ export const OverviewHeader = ({
   proposal: MolochV3Proposal;
   proposalTypes: Record<string, string>;
   sensitiveProposalTypes: Record<string, boolean>;
+  customProposalTypeLabels?: Record<string, string>;
   allowLinks?: boolean;
 }) => {
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.md);
+
   return (
     <OverviewContainer>
       {isMobile ? (
@@ -259,7 +265,10 @@ export const OverviewHeader = ({
                   : theme.secondary.step11
               }
             >
-              {getProposalTypeLabel(proposal.proposalType, proposalTypes)}
+              {getProposalTypeLabel(proposal.proposalType, {
+                ...proposalTypes,
+                ...customProposalTypeLabels,
+              })}
             </ParSm>
           </HeaderContainer>
           <Tooltip
@@ -284,7 +293,10 @@ export const OverviewHeader = ({
               <StyledPropType
                 warning={sensitiveProposalTypes[proposal.proposalType]}
               >
-                {getProposalTypeLabel(proposal.proposalType, proposalTypes)}
+                {getProposalTypeLabel(proposal.proposalType, {
+                  ...proposalTypes,
+                  ...customProposalTypeLabels,
+                })}
               </StyledPropType>{' '}
               | {formatShortDateTimeFromSeconds(proposal.createdAt)}
             </ParSm>

@@ -49,7 +49,7 @@ export const MemberProfileMenu = ({
     return connectedMember?.memberAddress === memberAddress;
   }, [connectedMember, memberAddress]);
 
-  if (!connectedMember) return null;
+  if (!connectedMember || !allowLinks) return null;
 
   return (
     <Dialog>

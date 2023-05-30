@@ -197,7 +197,7 @@ export const MemberList = ({
         },
       },
     ],
-    [daoChain, dao]
+    [daoChain, dao, allowLinks, daoId]
   );
 
   const handleColumnSort = (

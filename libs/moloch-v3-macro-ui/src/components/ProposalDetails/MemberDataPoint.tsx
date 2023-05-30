@@ -28,7 +28,7 @@ export const MemberDataPoint = ({
   });
 
   return (
-    <div key={dataPoint.label} style={{ marginTop: '3rem' }}>
+    <div key={dataPoint.label}>
       <ParMd>{dataPoint.label}</ParMd>
       <MemberCard
         variant="ghost"

@@ -25,8 +25,9 @@ export const OverviewContainer = styled.div`
 export const DataContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 5rem;
   margin-top: 3rem;
 `;
 

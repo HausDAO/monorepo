@@ -190,6 +190,8 @@ const Action = ({
   const abiFieldId = `tx.${actionId}.abi`;
   const valueFieldId = `tx.${actionId}.value`;
   const dataFieldId = `tx.${actionId}.data`;
+  const customDataToggleFieldId = `tx.${actionId}.toggleCustomData`;
+  const customDataFieldId = `tx.${actionId}.customData`;
   const contractMethodFieldId = `tx.${actionId}.contractMethod`;
   // const deletedFlagId = `tx.${actionId}.deleted`; // TODO: Enable `Delete Action Button`
 
@@ -212,14 +214,23 @@ const Action = ({
   const [noArgs, toggleNoArgs] = useState<boolean>(false);
   const [actionError, setActionError] = useState<string>('');
 
-  const [contractAddress, contractAbi, actionValue, actionData, abiMethod] =
-    watch([
-      contractAddressFieldId,
-      abiFieldId,
-      valueFieldId,
-      dataFieldId,
-      contractMethodFieldId,
-    ]);
+  const [
+    contractAddress,
+    contractAbi,
+    actionValue,
+    actionData,
+    customDataToggle,
+    customData,
+    abiMethod,
+  ] = watch([
+    contractAddressFieldId,
+    abiFieldId,
+    valueFieldId,
+    dataFieldId,
+    customDataToggleFieldId,
+    customDataFieldId,
+    contractMethodFieldId,
+  ]);
 
   const values = watch();
 
@@ -420,6 +431,13 @@ const Action = ({
   }, [isEOA]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (customDataToggle && customData) {
+      setValue(dataFieldId, customData);
+      setValue(`tx.${actionId}.operation`, 0);
+    }
+  }, [customDataToggle, customData]);
+
+  useEffect(() => {
     if (noArgs) {
       encodeAction({ ...values.tx?.[actionId]?.fields });
     }
@@ -478,14 +496,40 @@ const Action = ({
       },
     },
     {
+      id: `${customDataToggleFieldId}Wrapper`,
+      type: 'switch',
+      label: 'Custom data?',
+      disabled: isEOA,
+      switches: [
+        {
+          id: customDataToggleFieldId,
+          fieldLabel: '',
+          defaultChecked: false,
+        },
+      ],
+    },
+    {
+      id: customDataFieldId,
+      type: 'textarea',
+      label: 'Data (Hex encoded)',
+      hidden: !customDataToggle,
+      placeholder: '0x1234...5678',
+      rules: {
+        required: customDataToggle ? 'Data is required' : false,
+      },
+      defaultValue: '0x',
+    },
+    {
       id: contractMethodFieldId,
       disabled: isEOA,
+      hidden: customDataToggle,
       type: 'select',
       label: 'Contract Function',
       options: methods,
       placeholder: 'Select Function',
       rules: {
-        required: !isEOA ? 'Contract function is required' : false,
+        required:
+          !isEOA && !customDataToggle ? 'Contract function is required' : false,
       },
       defaultValue: selectedMethod?.name,
     },

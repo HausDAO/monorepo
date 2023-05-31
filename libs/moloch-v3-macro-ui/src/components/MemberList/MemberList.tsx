@@ -36,12 +36,14 @@ type MemberListProps = {
   daoChain: ValidNetwork;
   daoId: string;
   allowLinks?: boolean;
+  allowMemberMenu?: boolean;
 };
 
 export const MemberList = ({
   daoChain,
   daoId,
   allowLinks = false,
+  allowMemberMenu = false,
 }: MemberListProps) => {
   const { dao, isLoading: isLoadingDao } = useDaoData();
 
@@ -191,13 +193,14 @@ export const MemberList = ({
                 daoId={daoId}
                 memberAddress={row.original.memberAddress}
                 allowLinks={allowLinks}
+                allowMemberMenu={allowMemberMenu}
               />
             </ActionContainer>
           );
         },
       },
     ],
-    [daoChain, dao]
+    [daoChain, dao, allowLinks, daoId, allowMemberMenu]
   );
 
   const handleColumnSort = (

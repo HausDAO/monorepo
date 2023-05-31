@@ -22,6 +22,7 @@ type MemberProfileMenuProps = {
   daoId: string;
   memberAddress: string;
   allowLinks?: boolean;
+  allowMemberMenu?: boolean;
 };
 
 export const MemberProfileMenu = ({
@@ -29,6 +30,7 @@ export const MemberProfileMenu = ({
   daoId,
   memberAddress,
   allowLinks = false,
+  allowMemberMenu = false,
 }: MemberProfileMenuProps) => {
   const { address } = useDHConnect();
   const { connectedMember } = useConnectedMember({
@@ -49,7 +51,7 @@ export const MemberProfileMenu = ({
     return connectedMember?.memberAddress === memberAddress;
   }, [connectedMember, memberAddress]);
 
-  if (!connectedMember || !allowLinks) return null;
+  if (!connectedMember || !allowMemberMenu) return null;
 
   return (
     <Dialog>

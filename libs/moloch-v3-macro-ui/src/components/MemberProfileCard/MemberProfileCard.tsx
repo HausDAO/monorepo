@@ -18,6 +18,7 @@ type MemberProfileCardProps = {
   daoId: string;
   member: MolochV3Member;
   allowLinks?: boolean;
+  allowMemberMenu?: boolean;
 };
 
 export const MemberProfileCard = ({
@@ -25,6 +26,7 @@ export const MemberProfileCard = ({
   daoId,
   member,
   allowLinks = false,
+  allowMemberMenu = false,
 }: MemberProfileCardProps) => {
   const { dao, isLoading: isLoadingDao } = useDaoData({
     daoChain,
@@ -60,6 +62,7 @@ export const MemberProfileCard = ({
             profile={currentProfile}
             membership={member}
             allowLinks={allowLinks}
+            allowMemberMenu={allowMemberMenu}
           />
           <ValueRow>
             <DataIndicator

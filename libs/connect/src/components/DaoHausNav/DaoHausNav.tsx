@@ -145,7 +145,7 @@ const DaoHausNavMobile = ({
               {mobileLinks.map((mobileLink) => {
                 const selected = isActive(pathname, mobileLink.href);
                 return (
-                  <NavMenuLink asChild active={selected}>
+                  <NavMenuLink asChild active={selected} key={mobileLink.label}>
                     <RouterLink key={mobileLink.label} to={mobileLink.href}>
                       {mobileLink.label}
                     </RouterLink>

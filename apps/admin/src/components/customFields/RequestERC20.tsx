@@ -1,4 +1,5 @@
 import {
+  formatValueTo,
   handleBaseUnits,
   ignoreEmptyVal,
   toWholeUnits,
@@ -69,7 +70,11 @@ export const RequestERC20 = (
   }, [paymentTokenAddr, erc20s]);
 
   const tokenBalance = selectedToken?.daoBalance
-    ? toWholeUnits(selectedToken?.daoBalance, selectedToken?.decimals)
+    ? formatValueTo({
+        value: toWholeUnits(selectedToken?.daoBalance, selectedToken?.decimals),
+        decimals: 6,
+        format: 'number',
+      })
     : '0';
 
   const setMax = () => {

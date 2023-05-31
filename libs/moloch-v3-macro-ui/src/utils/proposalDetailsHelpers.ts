@@ -86,12 +86,13 @@ const getRecipientAddressFromMintOrTransferAction = (
 
   return Array.isArray(actionData.params[0].value)
     ? actionData.params[0].value[0].toString()
-    : 'decoding error';
+    : actionData.params[0].value.toString();
 };
 
 const addTributeData = (
   proposal: MolochV3Proposal,
-  actionData: DecodedMultiTX
+  actionData: DecodedMultiTX,
+  dao: MolochV3Dao
 ): ProposalDataPoint[] => {
   let data: ProposalDataPoint[] = [
     {
@@ -111,7 +112,9 @@ const addTributeData = (
       {
         displayType: 'data',
         label: 'Voting Tokens Requested',
-        value: getValueFromMintOrTransferAction(sharesAction),
+        value: `${getValueFromMintOrTransferAction(sharesAction)} ${
+          dao.shareTokenSymbol
+        }`,
       },
     ];
   }
@@ -134,7 +137,10 @@ const addTributeData = (
   return data;
 };
 
-const addMintData = (actionData: DecodedMultiTX): ProposalDataPoint[] => {
+const addMintData = (
+  actionData: DecodedMultiTX,
+  dao: MolochV3Dao
+): ProposalDataPoint[] => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let data: any = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -153,7 +159,9 @@ const addMintData = (actionData: DecodedMultiTX): ProposalDataPoint[] => {
       {
         displayType: 'data',
         label: 'Voting Tokens Requested',
-        value: getValueFromMintOrTransferAction(sharesAction),
+        value: `${getValueFromMintOrTransferAction(sharesAction)} ${
+          dao.shareTokenSymbol
+        }`,
       },
     ];
     recipient = {
@@ -169,7 +177,9 @@ const addMintData = (actionData: DecodedMultiTX): ProposalDataPoint[] => {
       {
         displayType: 'data',
         label: 'Non-Voting Tokens Requested',
-        value: getValueFromMintOrTransferAction(lootAction),
+        value: `${getValueFromMintOrTransferAction(lootAction)} ${
+          dao.lootTokenSymbol
+        }`,
       },
     ];
     recipient = {
@@ -253,12 +263,12 @@ export const formatAddtionalDataPoints = async (
   daoChain: string
 ): Promise<ProposalDataPoint[] | undefined> => {
   if (isTributeProposal(proposal)) {
-    return addTributeData(proposal, actionData);
+    return addTributeData(proposal, actionData, dao);
   }
 
   // NOTE: this check must come after tribute prop
   if (isMintProposal(actionData, dao)) {
-    return addMintData(actionData);
+    return addMintData(actionData, dao);
   }
 
   if (isFundingProposal(actionData)) {

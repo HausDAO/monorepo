@@ -108,7 +108,8 @@ export const Member = () => {
             daoChain={daoChain}
             daoId={daoId}
             member={member}
-            allowLinks
+            allowLinks={true}
+            allowMemberMenu={true}
           />
         </>
       )}

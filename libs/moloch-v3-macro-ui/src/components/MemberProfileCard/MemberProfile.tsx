@@ -51,6 +51,7 @@ type ProfileProps = {
   profile: AccountProfile;
   membership: MolochV3Member;
   allowLinks?: boolean;
+  allowMemberMenu?: boolean;
 };
 
 export const MemberProfile = ({
@@ -59,6 +60,7 @@ export const MemberProfile = ({
   profile,
   membership,
   allowLinks = false,
+  allowMemberMenu = false,
 }: ProfileProps) => {
   return (
     <ProfileContainer>
@@ -100,6 +102,7 @@ export const MemberProfile = ({
             daoId={dao.id}
             memberAddress={membership.memberAddress}
             allowLinks={allowLinks}
+            allowMemberMenu={allowMemberMenu}
           />
         )}
       </PSubContainer>

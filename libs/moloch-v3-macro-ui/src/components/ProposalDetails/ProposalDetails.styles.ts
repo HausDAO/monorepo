@@ -27,7 +27,7 @@ export const DataContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 5rem;
+  gap: 3rem;
   margin-top: 3rem;
 `;
 

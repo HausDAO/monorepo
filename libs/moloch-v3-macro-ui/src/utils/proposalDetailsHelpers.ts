@@ -44,7 +44,7 @@ const getValueFromMintOrTransferAction = (
 ): string => {
   if (
     actionData.params[0].name !== 'to' &&
-    actionData.params[1].name !== 'amount'
+    !['amount', '_value'].includes(actionData.params[1].name)
   ) {
     return 'decoding error';
   }
@@ -79,7 +79,7 @@ const getRecipientAddressFromMintOrTransferAction = (
 ): string => {
   if (
     actionData.params[0].name !== 'to' &&
-    actionData.params[1].name !== 'amount'
+    !['amount', '_value'].includes(actionData.params[1].name)
   ) {
     return 'decoding error';
   }
@@ -94,13 +94,7 @@ const addTributeData = (
   actionData: DecodedMultiTX,
   dao: MolochV3Dao
 ): ProposalDataPoint[] => {
-  let data: ProposalDataPoint[] = [
-    {
-      displayType: 'data',
-      label: 'Tribute Amount',
-      value: getValueFromTributeData(proposal),
-    },
-  ];
+  let data: ProposalDataPoint[] = [];
 
   const sharesAction = actionData.find((action) => {
     return !isActionError(action) && action.name === 'mintShares';
@@ -129,12 +123,21 @@ const addTributeData = (
       {
         displayType: 'data',
         label: 'Non-Voting Tokens Requested',
-        value: getValueFromMintOrTransferAction(lootAction),
+        value: `${getValueFromMintOrTransferAction(lootAction)} ${
+          dao.lootTokenSymbol
+        }`,
       },
     ];
   }
 
-  return data;
+  return [
+    ...data,
+    {
+      displayType: 'data',
+      label: 'Tribute Amount',
+      value: getValueFromTributeData(proposal),
+    },
+  ];
 };
 
 const addMintData = (

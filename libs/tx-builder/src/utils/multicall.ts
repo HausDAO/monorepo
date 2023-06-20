@@ -18,6 +18,7 @@ import {
 import {
   CONTRACT_KEYCHAINS,
   ENDPOINTS,
+  HAUS_RPC,
   Keychain,
   PinataApiKeys,
   ValidNetwork,
@@ -35,6 +36,7 @@ import {
   FORM,
 } from './constants';
 import { processContractLego } from './contractHelpers';
+import { ethers } from 'ethers';
 
 export const estimateGas = async ({
   chainId,
@@ -80,6 +82,40 @@ export const estimateGas = async ({
   }
 };
 
+export const estimateFunctionalGas = async ({
+  chainId,
+  constractAddress,
+  from,
+  value,
+  data,
+}: {
+  chainId: ValidNetwork;
+  constractAddress: string;
+  from: string;
+  value: string;
+  data: string;
+}): Promise<number | undefined> => {
+
+  const rpcUrl = HAUS_RPC[chainId];
+
+  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
+  
+  const functionGasFees = await ethersProvider.estimateGas({
+      to: constractAddress,
+      from: from,
+      value: value,
+      data: data
+  })
+  console.log('rawdaowg', functionGasFees);
+
+
+  // const gasPrice = await ethersProvider.getGasPrice()
+  // const finalGasPrice = gasPrice.mul(functionGasFees);
+
+  // add buffer to gas estimate
+  return Number(functionGasFees);
+};
+
 export const txActionToMetaTx = ({
   abi,
   method,
@@ -95,11 +131,13 @@ export const txActionToMetaTx = ({
   value?: number;
   operation?: number;
 }): MetaTransaction => {
+
   const encodedData = encodeFunction(abi, method, args);
 
   if (typeof encodedData !== 'string') {
     throw new Error(encodedData.message);
   }
+
   console.log('operation', operation);
   return {
     to: address,
@@ -191,6 +229,137 @@ const handleMulticallFormActions = ({
   });
 };
 
+export const handleMulticallArgGasEstimate = async ({
+  arg,
+  chainId,
+  localABIs,
+  appState,
+  rpcs,
+  pinataApiKeys,
+  explorerKeys,
+  safeId
+}: {
+  arg: MulticallArg | EncodeMulticall;
+  chainId: ValidNetwork;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
+  safeId: string;
+}) => {
+  const encodedActions = await Promise.all(
+    arg.actions.map(async (action) => {
+      const { contract, method, args, value, operations, data } = action;
+      const processedContract = await processContractLego({
+        contract,
+        chainId,
+        localABIs,
+        appState,
+        rpcs,
+        explorerKeys,
+      });
+
+      const processValue = value
+        ? await processArg({
+            arg: value,
+            chainId,
+            localABIs,
+            appState,
+            rpcs,
+            pinataApiKeys,
+            explorerKeys,
+          })
+        : 0;
+
+      const processedOperations = operations
+        ? await processArg({
+            arg: operations,
+            chainId,
+            localABIs,
+            appState,
+            rpcs,
+            pinataApiKeys,
+            explorerKeys,
+          })
+        : 0;
+
+        
+
+      // Early return if encoded data is passed and args do not need processing
+      if (data) {
+
+
+        return {
+          to: processedContract.address,
+          data: (await processArg({
+            arg: data,
+            chainId,
+            localABIs,
+            appState,
+            rpcs,
+            pinataApiKeys,
+            explorerKeys,
+          })) as string,
+          value: processValue.toString(),
+          operation: Number(processedOperations),
+        };
+      }
+
+      const processedArgs = await Promise.all(
+        args.map(
+          async (arg) =>
+            await processArg({
+              arg,
+              chainId,
+              localABIs,
+              appState,
+              rpcs,
+              pinataApiKeys,
+              explorerKeys,
+            })
+        )
+      );
+
+
+      return txActionToMetaTx({
+        abi: processedContract.abi,
+        method,
+        address: processedContract.address,
+        args: processedArgs,
+        value: Number(processValue),
+        operation: Number(processedOperations),
+      });
+    })
+  );
+  const encodedFormActions = arg.formActions
+    ? handleMulticallFormActions({ appState })
+    : [];
+  
+
+  const esitmatedGases = await Promise.all(
+    [...encodedActions, ...encodedFormActions].map(async (action) => 
+       await estimateFunctionalGas({
+        chainId: chainId,
+        constractAddress: action.to,
+        from: safeId, // from value needs to be the baal safe to esitmate without revert
+        value: Number(action.value).toString(),
+        data: action.data
+      })
+    )
+  )
+
+  console.log('esitmatedGases', esitmatedGases);
+  // get sum of all gas estimates in typescript
+  
+  // @ts-ignore
+  const totalGasEstimate = esitmatedGases?.reduce((a , b) =>  a + b, 0);
+  console.log('totalGasEstimate', totalGasEstimate);
+
+  return totalGasEstimate
+
+    }
+
 export const handleMulticallArg = async ({
   arg,
   chainId,
@@ -244,8 +413,12 @@ export const handleMulticallArg = async ({
           })
         : 0;
 
+        
+
       // Early return if encoded data is passed and args do not need processing
       if (data) {
+
+
         return {
           to: processedContract.address,
           data: (await processArg({
@@ -277,6 +450,9 @@ export const handleMulticallArg = async ({
         )
       );
 
+
+      
+
       return txActionToMetaTx({
         abi: processedContract.abi,
         method,
@@ -290,6 +466,10 @@ export const handleMulticallArg = async ({
   const encodedFormActions = arg.formActions
     ? handleMulticallFormActions({ appState })
     : [];
+  
+ 
+
+
 
   if (arg.type === 'encodeMulticall') {
     const result = encodeMultiSend([...encodedActions, ...encodedFormActions]);
@@ -331,7 +511,7 @@ export const handleGasEstimate = async ({
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
-  const proposalData = await handleMulticallArg({
+  const gasEstimate = await handleMulticallArgGasEstimate({
     localABIs,
     chainId,
     appState,
@@ -343,18 +523,14 @@ export const handleGasEstimate = async ({
     rpcs,
     pinataApiKeys,
     explorerKeys,
+    safeId
   });
 
-  const estimate = await estimateGas({
-    chainId,
-    safeId,
-    data: proposalData,
-  });
 
-  console.log('estimate', estimate);
-  if (estimate?.safeTxGas) {
+  if (gasEstimate) {
     const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
-    return Math.round(Number(estimate.safeTxGas) * Number(buffer));
+    console.log("gas with 1.6 buffer", Math.round(Number(gasEstimate) * Number(buffer)));
+    return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API
     // and it returns a 404 HTTP error

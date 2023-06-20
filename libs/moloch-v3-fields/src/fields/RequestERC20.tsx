@@ -84,7 +84,7 @@ export const RequestERC20 = (
 
   const setMax = () => {
     if (!selectedToken) return;
-    setValue(amtId, tokenBalance);
+    setValue(amtId, tokenBalance.trim());
   };
 
   const newRules: RegisterOptions = {

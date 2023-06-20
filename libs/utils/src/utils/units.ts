@@ -4,7 +4,8 @@ import numbro from 'numbro';
 import { isNumberish } from './typeguards';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>
-  utils.parseUnits(amount, decimals).toString();
+  utils.parseUnits(amount.trim(), decimals).toString();
+
 export const toWholeUnits = (amount: string, decimals = 18) =>
   utils.formatUnits(amount, decimals).toString();
 

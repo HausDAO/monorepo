@@ -33,7 +33,7 @@ export const Safes = () => {
             dao={dao}
             safe={dao.vaults[0]}
             daoChain={daoChain}
-            includeLinks={false}
+            includeLinks={true}
           />
 
           <hr />

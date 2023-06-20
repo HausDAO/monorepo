@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 
 import {
@@ -39,6 +39,12 @@ export const RequestERC20 = (
   const paymentTokenAddr = watch(addressId);
   const safeAddress = watch(safeAddressId);
 
+  useEffect(() => {
+    if (paymentTokenAddr) {
+      setValue(amtId, '0');
+    }
+  }, [paymentTokenAddr, setValue, amtId]);
+
   const erc20s = useMemo(() => {
     if (dao && isValidNetwork(daoChain)) {
       const selectedSafe = dao.vaults.find((v) => {
@@ -46,7 +52,6 @@ export const RequestERC20 = (
         return v.safeAddress === safeAddress;
       });
 
-      console.log('selectedSafe', selectedSafe);
       return selectedSafe && getErc20s(selectedSafe);
     }
     return null;
@@ -79,7 +84,7 @@ export const RequestERC20 = (
 
   const setMax = () => {
     if (!selectedToken) return;
-    setValue(amtId, tokenBalance);
+    setValue(amtId, tokenBalance.trim());
   };
 
   const newRules: RegisterOptions = {

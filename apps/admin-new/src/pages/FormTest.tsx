@@ -7,7 +7,7 @@ export const FormTest = () => {
   const { daoChain } = useCurrentDao();
   return (
     <FormBuilder
-      form={PROPOSAL_FORMS.SIGNAL}
+      form={PROPOSAL_FORMS.TRANSFER_ERC20}
       targetNetwork={daoChain}
       customFields={MolochFields}
     />

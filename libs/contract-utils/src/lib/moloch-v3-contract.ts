@@ -9,7 +9,7 @@ import {
 import { ethers } from 'ethers';
 import { getContractAbi } from './contract-meta';
 import { encodeFunctionWrapper } from './encoding-utils';
-import { estimateGasSafeApi } from './estimate-util';
+import { estimateGasSafeApi, gasEstimateFromActions } from './estimate-util';
 import {
   ContractConfig,
   ProcessProposalArgs,
@@ -68,6 +68,7 @@ export class MolochV3Contract {
         ),
       };
     });
+    
 
     const encodedActions = encodeFunctionWrapper(
       multisendAbi,
@@ -76,12 +77,11 @@ export class MolochV3Contract {
     );
 
     let estimate = args.baalGas;
-    if (estimate) {
-      const safeId = await this.molochV3.avatar();
-      estimate = await estimateGasSafeApi({
+    if (!estimate) {
+      estimate = await gasEstimateFromActions({
+        actions: proposalData,
         chainId: args.networkId,
-        safeId,
-        data: encodedActions,
+        safeId: await this.molochV3.avatar(),
       });
     }
 

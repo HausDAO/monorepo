@@ -105,12 +105,7 @@ export const estimateFunctionalGas = async ({
     value: value,
     data: data,
   });
-  console.log('rawdaowg', functionGasFees);
 
-  // const gasPrice = await ethersProvider.getGasPrice()
-  // const finalGasPrice = gasPrice.mul(functionGasFees);
-
-  // add buffer to gas estimate
   return Number(functionGasFees);
 };
 
@@ -326,9 +321,8 @@ export const handleMulticallArg = async ({
     ? handleMulticallFormActions({ appState })
     : [];
 
-  return [...encodedActions, ...encodedFormActions]
-
-}
+  return [...encodedActions, ...encodedFormActions];
+};
 
 export const gasEstimateFromActions = async ({
   actions,
@@ -352,9 +346,7 @@ export const gasEstimateFromActions = async ({
     )
   );
 
-  console.log('esitmatedGases', esitmatedGases);
-  // get sum of all gas estimates in typescript
-
+  // get sum of all gas estimates
   const totalGasEstimate = esitmatedGases?.reduce(
     (a, b) => (a || 0) + (b || 0),
     0
@@ -364,7 +356,6 @@ export const gasEstimateFromActions = async ({
   return totalGasEstimate;
 };
 
-
 export const handleEncodeMulticallArg = async ({
   arg,
   actions,
@@ -372,7 +363,6 @@ export const handleEncodeMulticallArg = async ({
   arg: MulticallArg | EncodeMulticall;
   actions: MetaTransaction[];
 }) => {
-
   if (arg.type === 'encodeMulticall') {
     const result = encodeMultiSend(actions);
     console.log('arg.type', arg.type);
@@ -434,10 +424,6 @@ export const handleGasEstimate = async ({
 
   if (gasEstimate) {
     const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
-    console.log(
-      'gas with 1.6 buffer',
-      Math.round(Number(gasEstimate) * Number(buffer))
-    );
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API

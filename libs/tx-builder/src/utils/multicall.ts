@@ -95,19 +95,17 @@ export const estimateFunctionalGas = async ({
   value: string;
   data: string;
 }): Promise<number | undefined> => {
-
   const rpcUrl = HAUS_RPC[chainId];
 
   const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  
-  const functionGasFees = await ethersProvider.estimateGas({
-      to: constractAddress,
-      from: from,
-      value: value,
-      data: data
-  })
-  console.log('rawdaowg', functionGasFees);
 
+  const functionGasFees = await ethersProvider.estimateGas({
+    to: constractAddress,
+    from: from,
+    value: value,
+    data: data,
+  });
+  console.log('rawdaowg', functionGasFees);
 
   // const gasPrice = await ethersProvider.getGasPrice()
   // const finalGasPrice = gasPrice.mul(functionGasFees);
@@ -131,7 +129,6 @@ export const txActionToMetaTx = ({
   value?: number;
   operation?: number;
 }): MetaTransaction => {
-
   const encodedData = encodeFunction(abi, method, args);
 
   if (typeof encodedData !== 'string') {
@@ -237,7 +234,7 @@ export const handleMulticallArgGasEstimate = async ({
   rpcs,
   pinataApiKeys,
   explorerKeys,
-  safeId
+  safeId,
 }: {
   arg: MulticallArg | EncodeMulticall;
   chainId: ValidNetwork;
@@ -284,12 +281,8 @@ export const handleMulticallArgGasEstimate = async ({
           })
         : 0;
 
-        
-
       // Early return if encoded data is passed and args do not need processing
       if (data) {
-
-
         return {
           to: processedContract.address,
           data: (await processArg({
@@ -321,7 +314,6 @@ export const handleMulticallArgGasEstimate = async ({
         )
       );
 
-
       return txActionToMetaTx({
         abi: processedContract.abi,
         method,
@@ -335,30 +327,28 @@ export const handleMulticallArgGasEstimate = async ({
   const encodedFormActions = arg.formActions
     ? handleMulticallFormActions({ appState })
     : [];
-  
 
   const esitmatedGases = await Promise.all(
-    [...encodedActions, ...encodedFormActions].map(async (action) => 
-       await estimateFunctionalGas({
-        chainId: chainId,
-        constractAddress: action.to,
-        from: safeId, // from value needs to be the baal safe to esitmate without revert
-        value: Number(action.value).toString(),
-        data: action.data
-      })
+    [...encodedActions, ...encodedFormActions].map(
+      async (action) =>
+        await estimateFunctionalGas({
+          chainId: chainId,
+          constractAddress: action.to,
+          from: safeId, // from value needs to be the baal safe to esitmate without revert
+          value: Number(action.value).toString(),
+          data: action.data,
+        })
     )
-  )
+  );
 
   console.log('esitmatedGases', esitmatedGases);
   // get sum of all gas estimates in typescript
-  
-  // @ts-ignore
-  const totalGasEstimate = esitmatedGases?.reduce((a , b) =>  a + b, 0);
+
+  const totalGasEstimate = esitmatedGases?.reduce((a, b) => (a || 0) + (b || 0), 0);
   console.log('totalGasEstimate', totalGasEstimate);
 
-  return totalGasEstimate
-
-    }
+  return totalGasEstimate;
+};
 
 export const handleMulticallArg = async ({
   arg,
@@ -413,12 +403,8 @@ export const handleMulticallArg = async ({
           })
         : 0;
 
-        
-
       // Early return if encoded data is passed and args do not need processing
       if (data) {
-
-
         return {
           to: processedContract.address,
           data: (await processArg({
@@ -450,9 +436,6 @@ export const handleMulticallArg = async ({
         )
       );
 
-
-      
-
       return txActionToMetaTx({
         abi: processedContract.abi,
         method,
@@ -466,10 +449,6 @@ export const handleMulticallArg = async ({
   const encodedFormActions = arg.formActions
     ? handleMulticallFormActions({ appState })
     : [];
-  
- 
-
-
 
   if (arg.type === 'encodeMulticall') {
     const result = encodeMultiSend([...encodedActions, ...encodedFormActions]);
@@ -523,13 +502,15 @@ export const handleGasEstimate = async ({
     rpcs,
     pinataApiKeys,
     explorerKeys,
-    safeId
+    safeId,
   });
-
 
   if (gasEstimate) {
     const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
-    console.log("gas with 1.6 buffer", Math.round(Number(gasEstimate) * Number(buffer)));
+    console.log(
+      'gas with 1.6 buffer',
+      Math.round(Number(gasEstimate) * Number(buffer))
+    );
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API

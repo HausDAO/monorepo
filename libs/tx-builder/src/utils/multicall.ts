@@ -38,7 +38,7 @@ import {
 import { processContractLego } from './contractHelpers';
 import { ethers } from 'ethers';
 
-export const estimateGas = async ({
+export const estimateGasSafeApi = async ({
   chainId,
   safeId,
   data,
@@ -226,130 +226,6 @@ const handleMulticallFormActions = ({
   });
 };
 
-export const handleMulticallArgGasEstimate = async ({
-  arg,
-  chainId,
-  localABIs,
-  appState,
-  rpcs,
-  pinataApiKeys,
-  explorerKeys,
-  safeId,
-}: {
-  arg: MulticallArg | EncodeMulticall;
-  chainId: ValidNetwork;
-  localABIs: Record<string, ABI>;
-  appState: ArbitraryState;
-  rpcs: Keychain;
-  pinataApiKeys: PinataApiKeys;
-  explorerKeys: Keychain;
-  safeId: string;
-}) => {
-  const encodedActions = await Promise.all(
-    arg.actions.map(async (action) => {
-      const { contract, method, args, value, operations, data } = action;
-      const processedContract = await processContractLego({
-        contract,
-        chainId,
-        localABIs,
-        appState,
-        rpcs,
-        explorerKeys,
-      });
-
-      const processValue = value
-        ? await processArg({
-            arg: value,
-            chainId,
-            localABIs,
-            appState,
-            rpcs,
-            pinataApiKeys,
-            explorerKeys,
-          })
-        : 0;
-
-      const processedOperations = operations
-        ? await processArg({
-            arg: operations,
-            chainId,
-            localABIs,
-            appState,
-            rpcs,
-            pinataApiKeys,
-            explorerKeys,
-          })
-        : 0;
-
-      // Early return if encoded data is passed and args do not need processing
-      if (data) {
-        return {
-          to: processedContract.address,
-          data: (await processArg({
-            arg: data,
-            chainId,
-            localABIs,
-            appState,
-            rpcs,
-            pinataApiKeys,
-            explorerKeys,
-          })) as string,
-          value: processValue.toString(),
-          operation: Number(processedOperations),
-        };
-      }
-
-      const processedArgs = await Promise.all(
-        args.map(
-          async (arg) =>
-            await processArg({
-              arg,
-              chainId,
-              localABIs,
-              appState,
-              rpcs,
-              pinataApiKeys,
-              explorerKeys,
-            })
-        )
-      );
-
-      return txActionToMetaTx({
-        abi: processedContract.abi,
-        method,
-        address: processedContract.address,
-        args: processedArgs,
-        value: Number(processValue),
-        operation: Number(processedOperations),
-      });
-    })
-  );
-  const encodedFormActions = arg.formActions
-    ? handleMulticallFormActions({ appState })
-    : [];
-
-  const esitmatedGases = await Promise.all(
-    [...encodedActions, ...encodedFormActions].map(
-      async (action) =>
-        await estimateFunctionalGas({
-          chainId: chainId,
-          constractAddress: action.to,
-          from: safeId, // from value needs to be the baal safe to esitmate without revert
-          value: Number(action.value).toString(),
-          data: action.data,
-        })
-    )
-  );
-
-  console.log('esitmatedGases', esitmatedGases);
-  // get sum of all gas estimates in typescript
-
-  const totalGasEstimate = esitmatedGases?.reduce((a, b) => (a || 0) + (b || 0), 0);
-  console.log('totalGasEstimate', totalGasEstimate);
-
-  return totalGasEstimate;
-};
-
 export const handleMulticallArg = async ({
   arg,
   chainId,
@@ -450,8 +326,55 @@ export const handleMulticallArg = async ({
     ? handleMulticallFormActions({ appState })
     : [];
 
+  return [...encodedActions, ...encodedFormActions]
+
+}
+
+export const gasEstimateFromActions = async ({
+  actions,
+  chainId,
+  safeId,
+}: {
+  actions: MetaTransaction[];
+  chainId: ValidNetwork;
+  safeId: string;
+}) => {
+  const esitmatedGases = await Promise.all(
+    actions.map(
+      async (action) =>
+        await estimateFunctionalGas({
+          chainId: chainId,
+          constractAddress: action.to,
+          from: safeId, // from value needs to be the baal safe to esitmate without revert
+          value: Number(action.value).toString(),
+          data: action.data,
+        })
+    )
+  );
+
+  console.log('esitmatedGases', esitmatedGases);
+  // get sum of all gas estimates in typescript
+
+  const totalGasEstimate = esitmatedGases?.reduce(
+    (a, b) => (a || 0) + (b || 0),
+    0
+  );
+  console.log('totalGasEstimate', totalGasEstimate);
+
+  return totalGasEstimate;
+};
+
+
+export const handleEncodeMulticallArg = async ({
+  arg,
+  actions,
+}: {
+  arg: MulticallArg | EncodeMulticall;
+  actions: MetaTransaction[];
+}) => {
+
   if (arg.type === 'encodeMulticall') {
-    const result = encodeMultiSend([...encodedActions, ...encodedFormActions]);
+    const result = encodeMultiSend(actions);
     console.log('arg.type', arg.type);
     console.log('result', result);
 
@@ -461,7 +384,7 @@ export const handleMulticallArg = async ({
     return result;
   }
 
-  const result = encodeMultiAction([...encodedActions, ...encodedFormActions]);
+  const result = encodeMultiAction(actions);
 
   if (typeof result !== 'string') {
     throw new Error(result.message);
@@ -490,7 +413,7 @@ export const handleGasEstimate = async ({
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
-  const gasEstimate = await handleMulticallArgGasEstimate({
+  const actions = await handleMulticallArg({
     localABIs,
     chainId,
     appState,
@@ -502,6 +425,10 @@ export const handleGasEstimate = async ({
     rpcs,
     pinataApiKeys,
     explorerKeys,
+  });
+  const gasEstimate = await gasEstimateFromActions({
+    actions,
+    chainId,
     safeId,
   });
 

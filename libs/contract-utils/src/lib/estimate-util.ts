@@ -5,7 +5,7 @@ import {
   ENDPOINTS,
 } from '@daohaus/keychain-utils';
 
-export const estimateGas = async ({
+export const estimateGasSafeApi = async ({
   chainId,
   safeId,
   data,

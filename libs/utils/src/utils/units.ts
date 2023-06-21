@@ -5,6 +5,7 @@ import { isNumberish } from './typeguards';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>
   utils.parseUnits(amount, decimals).toString();
+
 export const toWholeUnits = (amount: string, decimals = 18) =>
   utils.formatUnits(amount, decimals).toString();
 
@@ -33,6 +34,7 @@ const generateNumeral = ({
   // short formats shrink large numbers to the shorter representation
   // e.g. 1.000 -> 1k, 1.000.000 -> 1m, etc
   const short = type.match(/(short)/i) ? 'a' : '';
+  
   const decimalCount = decimals ? '0'.repeat(decimals) : '';
 
   // build the correct numbro.js format OR pass a one off custom format on.
@@ -142,7 +144,9 @@ export const dynamicDecimals = ({
   tokenDecimals?: number;
   extraZeros?: number;
 }) => {
-  return tokenDecimals - baseUnits.toString().length + 1 + extraZeros;
+  const decimals = tokenDecimals - baseUnits.toString().length + 1 + extraZeros;  
+  // if decimals is negative, return 0
+  return decimals > 0 ? decimals : 0;
 };
 
 /*

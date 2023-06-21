@@ -58,6 +58,7 @@ export const ProposalDetailsGuts = ({
 }: ProposalDetailsGutsProps) => {
   const { daochain, daoid } = useParams();
   const { networks } = useDHConnect();
+
   return (
     <OverviewContainer>
       <ParMd className="description">{proposal.description}</ParMd>
@@ -108,6 +109,7 @@ export const ProposalDetailsGuts = ({
             unit: networks?.[daochain as ValidNetwork]?.symbol,
             decimals: dynamicDecimals({
               baseUnits: Number(proposal.proposalOffering),
+
             }),
           })}
           size="sm"

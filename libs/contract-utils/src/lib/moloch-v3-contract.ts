@@ -68,7 +68,6 @@ export class MolochV3Contract {
         ),
       };
     });
-    
 
     const encodedActions = encodeFunctionWrapper(
       multisendAbi,

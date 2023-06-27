@@ -8,7 +8,6 @@ import {
 import { ethers } from 'ethers';
 import { MetaTransaction } from '@gnosis.pm/safe-contracts';
 
-
 export const estimateFunctionalGas = async ({
   chainId,
   constractAddress,
@@ -57,7 +56,7 @@ export const gasEstimateFromActions = async ({
         })
     )
   );
-        // get sum of all gas estimates
+  // get sum of all gas estimates
   const totalGasEstimate = esitmatedGases?.reduce(
     (a, b) => (a || 0) + (b || 0),
     0

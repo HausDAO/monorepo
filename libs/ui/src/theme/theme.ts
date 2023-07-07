@@ -341,6 +341,45 @@ export const defaultDarkTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
+  addressDisplay: {
+    color: secondaryDark.step11,
+    icon: {
+      color: primaryDark.step10,
+    },
+  },
+  banner: {
+    bg: infoDark.step9,
+    border: infoDark.step9,
+    color: secondaryDark.step12,
+  },
+  collapsibleCard: {
+    outer: {
+      bg: secondaryDark.step2,
+      border: secondaryDark.step5,
+    },
+    inner: {
+      bg: secondaryDarkA.step3,
+      border: secondaryDarkA.step5,
+    },
+    trigger: {
+      color: primaryDark.step11,
+      hover: {
+        color: primaryDark.step10,
+      },
+      focus: {
+        color: primaryDark.step12,
+      },
+    },
+  },
+  dialog: {
+    overlay: {
+      bg: secondaryDarkA.step4,
+    },
+    content: {
+      bg: secondaryDark.step2,
+      color: secondaryDark.step12,
+    },
+  },
   toast: {
     icon: {
       default: successDark.step9,
@@ -648,7 +687,46 @@ export const defaultLightTheme: Theme = {
       color: secondary.step12,
     },
   },
-  // *** Toast needs a slight refacto for Icons *** //
+  // *** MOLECULES *** //
+  addressDisplay: {
+    color: secondary.step11,
+    icon: {
+      color: primary.step10,
+    },
+  },
+  banner: {
+    bg: info.step9,
+    border: info.step9,
+    color: secondary.step12,
+  },
+  collapsibleCard: {
+    outer: {
+      bg: secondary.step2,
+      border: secondary.step5,
+    },
+    inner: {
+      bg: secondary.step3,
+      border: secondary.step5,
+    },
+    trigger: {
+      color: primary.step11,
+      hover: {
+        color: primary.step10,
+      },
+      focus: {
+        color: primary.step12,
+      },
+    },
+  },
+  dialog: {
+    overlay: {
+      bg: secondaryA.step4,
+    },
+    content: {
+      bg: secondary.step2,
+      color: secondary.step12,
+    },
+  },
   toast: {
     icon: {
       default: success.step9,

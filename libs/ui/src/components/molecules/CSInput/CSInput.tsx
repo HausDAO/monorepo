@@ -1,6 +1,8 @@
-import { handlePluralNoun, Noun } from '@daohaus/utils';
 import { ComponentProps } from 'react';
 import { useFormContext } from 'react-hook-form';
+
+import { handlePluralNoun, Noun } from '@daohaus/utils';
+
 import { WrappedInput } from '../WrappedInput';
 
 export const CSInput = (

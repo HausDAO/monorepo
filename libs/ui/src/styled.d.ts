@@ -373,6 +373,46 @@ declare module 'styled-components' {
         color: string;
       };
     };
+    // *** MOLECULES *** //
+    addressDisplay: {
+      color: string;
+      icon: {
+        color: string;
+      };
+    };
+    banner: {
+      bg: string;
+      border: string;
+      color: string;
+    };
+    collapsibleCard: {
+      outer: {
+        bg: string;
+        border: string;
+      };
+      inner: {
+        bg: string;
+        border: string;
+      };
+      trigger: {
+        color: string;
+        hover: {
+          color: string;
+        };
+        focus: {
+          color: string;
+        };
+      };
+    };
+    dialog: {
+      overlay: {
+        bg: string;
+      };
+      content: {
+        bg: string;
+        color: string;
+      };
+    };
     toast: {
       icon: {
         default: string;

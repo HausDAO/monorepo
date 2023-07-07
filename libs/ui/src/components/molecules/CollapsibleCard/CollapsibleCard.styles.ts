@@ -4,7 +4,6 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import { CardStyles } from '../../atoms/Card/Card.styles';
 import { Card } from '../../atoms/Card/Card';
 import { Theme } from '../../../types';
-import { Button } from '../../atoms/Button';
 
 type CardProps = {
   noBackground?: boolean;
@@ -15,16 +14,18 @@ type CardProps = {
 export const StyledCollapsibleCard = styled(Collapsible.Root)`
   ${CardStyles}
   background-color: ${({ noBackground, theme }: CardProps) =>
-    noBackground ? 'inherit' : theme.secondary.step2};
+    noBackground ? 'inherit' : theme.collapsibleCard.outer.bg};
   border: ${({ noBackground }: { noBackground?: boolean }) =>
       noBackground ? '0' : '1'}px
-    solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
+    solid ${({ theme }: { theme: Theme }) => theme.collapsibleCard.outer.border};
   width: ${(props) => props.width};
 `;
 
 export const InnerCard = styled(Card)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondaryA.step3};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
+  background-color: ${({ theme }: { theme: Theme }) =>
+    theme.collapsibleCard.inner.bg};
+  border: 1px solid
+    ${({ theme }: { theme: Theme }) => theme.collapsibleCard.inner.border};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,46 +37,30 @@ export const StyledCardActionsContainer = styled.div`
   display: flex;
 `;
 
-export const StyledCollapsibleCardTrigger = Collapsible.Trigger;
-
-export const StyledCollapsibleCardButton = styled.button`
+export const StyledCollapsibleCardTrigger = styled(Collapsible.Trigger)`
+  align-items: center;
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  /* color: ${(props) => props.theme.secondary.step12}; */
+  color: ${({ theme }: { theme: Theme }) =>
+    theme.collapsibleCard.trigger.color};
   cursor: pointer;
   display: inline-flex;
-  align-items: center;
+  font-size: 14px;
   letter-spacing: 1.5px;
-  /* padding-bottom: 1rem; */
-  transition: 0.2s all;
-  /* svg {
-    margin-left: 0.3rem;
-  } */
-  /* :hover {
-    color: ${(props) => props.theme.secondary.step10};
-    text-decoration: none;
-  } */
-  /* &.selected {
-    color: white;
-    border-bottom: 2px ${(props) => props.theme.secondary.step9} solid;
-  }
-  &.navTabs {
-    padding-bottom: 1rem;
-  } */
-
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step11};
   margin-left: 2rem;
   padding: 0;
-  font-size: 14px;
+  transition: 0.2s all;
 
   :hover {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+    color: ${({ theme }: { theme: Theme }) =>
+      theme.collapsibleCard.trigger.hover.color};
     text-decoration: none;
   }
 
   :focus {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step12};
+    color: ${({ theme }: { theme: Theme }) =>
+      theme.collapsibleCard.trigger.focus.color};
   }
 
   svg {

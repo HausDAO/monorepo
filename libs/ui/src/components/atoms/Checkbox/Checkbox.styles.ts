@@ -12,8 +12,8 @@ export const Container = styled.div`
 
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   align-items: center;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+  background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.checkbox.border};
   border-radius: 1px;
   cursor: pointer;
   display: flex;
@@ -22,51 +22,67 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   width: 18px;
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
-    border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.hover.bg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-    border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step7};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.focus.bg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.focus.border};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
-    border: 2px solid ${({ theme }: { theme: Theme }) => theme.neutral.step6};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.disabled.bg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.disabled.border};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) => theme.primary.step3};
-    border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.active.bg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.active.border};
 
     :hover {
-      background-color: ${({ theme }: { theme: Theme }) => theme.primary.step4};
-      border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step9};
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.active.hover.bg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.active.hover.border};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) => theme.primary.step3};
-      border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step10};
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.active.focus.bg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.active.focus.border};
       outline: none;
     }
 
     :disabled {
-      background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
-      border: 2px solid ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.active.disabled.bg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) =>
+          theme.checkbox.active.disabled.border};
       cursor: not-allowed;
     }
   }
 `;
 
 export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+  color: ${({ theme }: { theme: Theme }) => theme.checkbox.indicator.color};
   font-size: 2rem;
   padding-top: 3px;
   :disabled {
-    color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
+    color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.indicator.disabled.color};
   }
 `;
 

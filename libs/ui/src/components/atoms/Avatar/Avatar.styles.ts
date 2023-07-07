@@ -28,7 +28,7 @@ export const AvatarFallback = styled(RadixAvatar.Fallback)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+  background: ${({ theme }: { theme: Theme }) => theme.avatar.bg};
 `;
 
 export const AvatarImage = styled(RadixAvatar.Image)`

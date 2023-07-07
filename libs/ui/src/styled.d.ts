@@ -1,53 +1,6 @@
 import 'styled-components';
 
-export type ButtonColorTargets = {
-  text: string;
-  bg: string;
-  border: string;
-  hoverBg: string;
-  hoverBorder: string;
-  focusBg: string;
-  focusBorder: string;
-  disabledBg: string;
-  disabledBorder: string;
-  outline: string;
-  outlineHover: string;
-  outlineFocus: string;
-  outlineDisabled: string;
-};
-
-export interface BtnTargets {
-  solid: {
-    text: string;
-    bg: string;
-    border: string;
-    bgHover: string;
-    borderHover: string;
-    bgFocus: string;
-    borderFocus: string;
-    bgDisabled: string;
-    borderDisabled: string;
-  };
-  outline: {
-    text: string;
-    border: string;
-    hover: string;
-    focus: string;
-    disabled: string;
-  };
-  ghost: {
-    text: string;
-    bgHover: string;
-    borderFocus: string;
-    disabled: string;
-  };
-  link: {
-    text: string;
-    hover: string;
-    focus: string;
-    disabled: string;
-  };
-}
+import { ButtonTheme } from './theme/atoms/button';
 
 type ColorSteps = {
   step1: string;
@@ -150,12 +103,57 @@ declare module 'styled-components' {
     red10: string;
     red11: string;
     red12: string;
+    avatar: {
+      bg: string;
+    };
     button: {
-      primary: BtnTargets;
-      secondary: BtnTargets;
-      success: BtnTargets;
-      warning: BtnTargets;
-      danger: BtnTargets;
+      primary: ButtonTheme;
+      secondary: ButtonTheme;
+      success: ButtonTheme;
+      warning: ButtonTheme;
+      danger: ButtonTheme;
+    };
+    card: {
+      bg: string;
+      border: string;
+    };
+    checkbox: {
+      bg: string;
+      border: string;
+      hover: {
+        bg: string;
+        border: string;
+      };
+      focus: {
+        bg: string;
+        border: string;
+      };
+      disabled: {
+        bg: string;
+        border: string;
+      };
+      active: {
+        bg: string;
+        border: string;
+        hover: {
+          bg: string;
+          border: string;
+        };
+        focus: {
+          bg: string;
+          border: string;
+        };
+        disabled: {
+          bg: string;
+          border: string;
+        };
+      };
+      indicator: {
+        color: string;
+        disabled: {
+          color: string;
+        };
+      };
     };
     toast: {
       icon: {

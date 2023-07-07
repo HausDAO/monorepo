@@ -4,8 +4,8 @@ import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
 export const CardStyles = css`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
+  background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
   border-radius: ${border.cardRadius};
   padding: 2rem;
 

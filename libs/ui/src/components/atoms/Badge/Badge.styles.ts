@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import type { BadgeColor, BadgeSize } from './Badge.types';
 
+// !TODO Rowdy: Come back to Badge
 export const BaseBadge = styled.div<{
   badgeColor: BadgeColor;
   badgeSize: BadgeSize;
@@ -24,11 +25,6 @@ export const BaseBadge = styled.div<{
 
   font-size: ${({ badgeSize }) => (badgeSize === 'sm' ? '1.2rem;' : '1.6rem;')};
   color: ${({ theme, badgeColor }) => theme[`${badgeColor}12`]};
-
-  /* Disabled hover per comment by Jord */
-  /* :hover {
-    background-color: ${({ theme, badgeColor }) => theme[`${badgeColor}7`]};
-  } */
 
   :focus {
     background-color: ${({ theme, badgeColor }) => theme[`${badgeColor}6`]};

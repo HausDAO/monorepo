@@ -5,7 +5,7 @@ import { font } from '../../../theme/global/font';
 
 export const LinkStyles = css`
   align-items: center;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }: { theme: Theme }) => theme.link.color};
   cursor: pointer;
   display: inline-flex;
   font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};

@@ -109,7 +109,6 @@ export const ProposalDetailsGuts = ({
             unit: networks?.[daochain as ValidNetwork]?.symbol,
             decimals: dynamicDecimals({
               baseUnits: Number(proposal.proposalOffering),
-
             }),
           })}
           size="sm"

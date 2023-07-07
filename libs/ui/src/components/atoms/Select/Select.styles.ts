@@ -9,7 +9,7 @@ export const WithIcon = styled.div`
 
   svg {
     position: absolute;
-    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+    color: ${({ theme }: { theme: Theme }) => theme.select.icon.color};
     top: 1.4rem;
     right: 2rem;
     pointer-events: none;
@@ -23,22 +23,29 @@ export const WithIcon = styled.div`
     max-width: ${field.size.full};
   }
 
+  &.success {
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.success.border};
+  }
+
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.warning.border};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.error.border};
   }
 `;
 
 export const BaseSelect = styled.select`
   align-items: center;
   appearance: none;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.transparent} solid;
+  background-color: ${({ theme }: { theme: Theme }) => theme.select.bg};
+  border: 1px ${({ theme }: { theme: Theme }) => theme.select.border} solid;
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+  color: ${({ theme }: { theme: Theme }) => theme.select.color};
   display: inline-flex;
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
@@ -57,40 +64,52 @@ export const BaseSelect = styled.select`
   &.full {
     max-width: ${field.size.full};
   }
+
+  &.success {
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.success.border};
+  }
+
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.warning.border};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.error.border};
   }
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+    background-color: ${({ theme }: { theme: Theme }) => theme.select.hover.bg};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+    background-color: ${({ theme }: { theme: Theme }) => theme.select.focus.bg};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.select.focus.border};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
-    color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.select.disabled.bg};
+    color: ${({ theme }: { theme: Theme }) => theme.select.disabled.color};
     cursor: not-allowed;
     font-style: italic;
 
     ::placeholder {
-      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
+      color: ${({ theme }: { theme: Theme }) =>
+        theme.select.disabled.placeholder};
     }
   }
 `;
 
 export const StyledOption = styled.option`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+  background-color: ${({ theme }: { theme: Theme }) => theme.select.option.bg};
+  color: ${({ theme }: { theme: Theme }) => theme.select.option.color};
   font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};

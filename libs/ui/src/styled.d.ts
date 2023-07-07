@@ -155,6 +155,224 @@ declare module 'styled-components' {
         };
       };
     };
+    input: {
+      bg: string;
+      border: string;
+      color: string;
+      placeholder: string;
+      hover: {
+        bg: string;
+        border: string;
+      };
+      focus: {
+        bg: string;
+        border: string;
+      };
+      disabled: {
+        bg: string;
+        border: string;
+        color: string;
+        placeholder: string;
+      };
+      success: {
+        border: string;
+      };
+      warning: {
+        border: string;
+      };
+      error: {
+        border: string;
+      };
+      icon: {
+        color: string;
+      };
+    };
+    link: {
+      color: string;
+    };
+    loading: {
+      primary: {
+        color: string;
+        bg: string;
+      };
+      secondary: {
+        color: string;
+        bg: string;
+      };
+      success: {
+        color: string;
+        bg: string;
+      };
+      warning: {
+        color: string;
+        bg: string;
+      };
+      danger: {
+        color: string;
+        bg: string;
+      };
+    };
+    radio: {
+      bg: string;
+      border: string;
+      hover: {
+        bg: string;
+        border: string;
+      };
+      focus: {
+        bg: string;
+        border: string;
+      };
+      disabled: {
+        bg: string;
+        border: string;
+      };
+      active: {
+        bg: string;
+        border: string;
+        hover: {
+          bg: string;
+          border: string;
+        };
+        focus: {
+          bg: string;
+          border: string;
+        };
+        disabled: {
+          bg: string;
+          border: string;
+        };
+      };
+      indicator: {
+        bg: primary.step3;
+        disabled: {
+          bg: neutral.step1;
+        };
+      };
+    };
+    select: {
+      bg: string;
+      border: string;
+      color: string;
+      hover: {
+        bg: string;
+        border: string;
+      };
+      focus: {
+        bg: string;
+        border: string;
+      };
+      disabled: {
+        bg: string;
+        color: string;
+        placeholder: string;
+      };
+      success: {
+        border: string;
+      };
+      warning: {
+        border: string;
+      };
+      error: {
+        border: string;
+      };
+      option: {
+        bg: string;
+        color: string;
+      };
+      icon: {
+        color: string;
+      };
+    };
+    switch: {
+      base: {
+        bg: string;
+        disabled: {
+          bg: string;
+        };
+        active: {
+          bg: string;
+          disabled: {
+            bg: string;
+          };
+        };
+      };
+      indicator: {
+        bg: string;
+        border: string;
+        hover: {
+          bg: string;
+          border: string;
+        };
+        focus: {
+          bg: string;
+          border: string;
+        };
+        disabled: {
+          bg: string;
+          border: string;
+        };
+        active: {
+          bg: string;
+          border: string;
+          hover: {
+            bg: string;
+            border: string;
+          };
+          focus: {
+            bg: string;
+            border: string;
+          };
+          disabled: {
+            bg: string;
+            border: string;
+          };
+        };
+      };
+      label: {
+        color: string;
+        disabled: {
+          color: string;
+        };
+      };
+    };
+    textarea: {
+      bg: string;
+      border: string;
+      color: string;
+      placeholder: string;
+      hover: {
+        bg: string;
+        border: string;
+      };
+      focus: {
+        bg: string;
+        border: string;
+      };
+      disabled: {
+        bg: string;
+        border: string;
+        placeholder: string;
+      };
+      success: {
+        border: string;
+      };
+      warning: {
+        border: string;
+      };
+      error: {
+        border: string;
+      };
+    };
+    tooltip: {
+      icon: {
+        color: string;
+      };
+      content: {
+        bg: string;
+        color: string;
+      };
+    };
     toast: {
       icon: {
         default: string;

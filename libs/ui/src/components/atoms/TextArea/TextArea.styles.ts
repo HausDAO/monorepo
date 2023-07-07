@@ -4,20 +4,14 @@ import { Theme } from '../../../types/theming';
 import { field } from '../../../theme/component/fieldFamily';
 
 export const BaseTextArea = styled.textarea`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  background-color: ${({ theme }: { theme: Theme }) => theme.textarea.bg};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.textarea.border};
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
+  color: ${({ theme }: { theme: Theme }) => theme.textarea.color};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
-  height: 7.688rem;
-  max-width: ${field.size.lg};
   height: ${({ height }: { height?: string }) => height || '12rem'};
-
-  width: 100%;
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.rootBgColor};
-  border-radius: ${field.borderRadius};
   line-height: 150%;
   letter-spacing: 1.5px;
   max-width: ${field.size.lg};
@@ -27,28 +21,35 @@ export const BaseTextArea = styled.textarea`
   width: 100%;
 
   ::placeholder {
-    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+    color: ${({ theme }: { theme: Theme }) => theme.textarea.placeholder};
   }
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.textarea.hover.bg};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.textarea.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.textarea.focus.bg};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.textarea.focus.border};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.textarea.disabled.bg};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.textarea.disabled.border};
     cursor: not-allowed;
     font-style: italic;
 
     ::placeholder {
-      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
+      color: ${({ theme }: { theme: Theme }) =>
+        theme.textarea.disabled.placeholder};
     }
   }
 
@@ -57,14 +58,17 @@ export const BaseTextArea = styled.textarea`
   }
 
   &.success {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.success.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.textarea.success.border};
   }
 
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.textarea.warning.border};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
+    border: 1px solid
+      ${({ theme }: { theme: Theme }) => theme.textarea.error.border};
   }
 `;

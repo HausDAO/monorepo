@@ -2,6 +2,8 @@ import { useReducer } from 'react';
 import type { Action, State, Tab } from './Tabs.types';
 import { TabLink, TabsContainer, TabLinks } from './Tabs.styles';
 
+// TODO: REFACTOR TO USE RADIX TABS
+
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'selected':

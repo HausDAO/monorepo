@@ -413,7 +413,153 @@ declare module 'styled-components' {
         color: string;
       };
     };
+    dropdown: {
+      content: {
+        primary: {
+          bg: string;
+        };
+        secondary: {
+          bg: string;
+        };
+      };
+      item: {
+        primary: {
+          bg: string;
+        };
+        secondary: {
+          bg: string;
+        };
+        focus: {
+          primary: {
+            bg: string;
+          };
+          secondary: {
+            bg: string;
+          };
+        };
+        highlight: {
+          primary: {
+            bg: string;
+          };
+          secondary: {
+            bg: string;
+          };
+        };
+        disabled: {
+          color: string;
+        };
+      };
+      separator: {
+        bg: string;
+      };
+      link: {
+        color: string;
+        hover: {
+          bg: string;
+          border: string;
+        };
+        disabled: {
+          color: string;
+        };
+      };
+    };
+    fieldAlert: {
+      bg: string;
+      border: string;
+      warning: {
+        bg: string;
+        border: string;
+        button: {
+          bg: string;
+          border: string;
+          hover: {
+            bg: string;
+            border: string;
+          };
+          active: {
+            bg: string;
+            border: string;
+          };
+        };
+      };
+    };
+    imageInput: {
+      imageWrapper: {
+        bg: string;
+      };
+      cancelIcon: {
+        color: string;
+      };
+    };
+    inputSelect: {
+      bg: string;
+      color: string;
+      hover: {
+        bg: string;
+      };
+      focus: {
+        bg: string;
+      };
+      disabled: {
+        bg: string;
+      };
+      selectBox: {
+        bg: string;
+      };
+    };
+    navigationMenu: {
+      root: {
+        bg: string;
+      };
+      content: {
+        bg: string;
+        border: string;
+      };
+      baseItem: {
+        color: string;
+        hover: {
+          bg: string;
+        };
+        focus: {
+          bg: string;
+        };
+      };
+      link: {
+        active: {
+          border: string;
+          color: string;
+        };
+      };
+    };
+    tabs: {
+      links: {
+        color: string;
+      };
+      link: {
+        color: string;
+        hover: {
+          color: string;
+        };
+        active: {
+          border: string;
+        };
+      };
+    };
     toast: {
+      bg: string;
+      border: string;
+      success: {
+        bg: string;
+        border: string;
+      };
+      warning: {
+        bg: string;
+        border: string;
+      };
+      error: {
+        bg: string;
+        border: string;
+      };
       icon: {
         default: string;
         success: string;

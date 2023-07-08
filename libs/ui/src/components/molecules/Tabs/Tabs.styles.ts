@@ -6,11 +6,10 @@ export const TabsContainer = styled.div`
 `;
 
 export const TabLinks = styled.div`
-  display: flex;
-  width: '100%';
-  list-style: none;
-
   background-color: ${(props) => props.theme.secondary.step2};
+  display: flex;
+  list-style: none;
+  width: '100%';
 
   .nav-link-list {
     a {

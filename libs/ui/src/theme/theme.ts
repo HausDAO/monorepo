@@ -380,7 +380,153 @@ export const defaultDarkTheme: Theme = {
       color: secondaryDark.step12,
     },
   },
+  dropdown: {
+    content: {
+      primary: {
+        bg: primaryDark.step3,
+      },
+      secondary: {
+        bg: secondaryDark.step3,
+      },
+    },
+    item: {
+      primary: {
+        bg: primaryDark.step3,
+      },
+      secondary: {
+        bg: secondaryDark.step3,
+      },
+      focus: {
+        primary: {
+          bg: primaryDark.step5,
+        },
+        secondary: {
+          bg: secondaryDark.step5,
+        },
+      },
+      highlight: {
+        primary: {
+          bg: primaryDark.step4,
+        },
+        secondary: {
+          bg: secondaryDark.step4,
+        },
+      },
+      disabled: {
+        color: neutralDark.step10,
+      },
+    },
+    separator: {
+      bg: secondaryDark.step12,
+    },
+    link: {
+      color: secondaryDark.step12,
+      hover: {
+        bg: secondaryDark.step4,
+        border: secondaryDark.step4,
+      },
+      disabled: {
+        color: secondaryDark.step11,
+      },
+    },
+  },
+  fieldAlert: {
+    bg: primaryDark.step3,
+    border: primaryDark.step6,
+    warning: {
+      bg: warningDark.step2,
+      border: warningDark.step5,
+      button: {
+        bg: warningDark.step9,
+        border: warningDark.step9,
+        hover: {
+          bg: warningDark.step9,
+          border: warningDark.step9,
+        },
+        active: {
+          bg: warningDark.step9,
+          border: warningDark.step9,
+        },
+      },
+    },
+  },
+  imageInput: {
+    imageWrapper: {
+      bg: secondaryDark.step2,
+    },
+    cancelIcon: {
+      color: secondaryDark.step6,
+    },
+  },
+  inputSelect: {
+    bg: secondaryDark.step6,
+    color: secondaryDark.step12,
+    hover: {
+      bg: secondaryDark.step7,
+    },
+    focus: {
+      bg: secondaryDark.step6,
+    },
+    disabled: {
+      bg: secondaryDark.step3,
+    },
+    selectBox: {
+      bg: primaryDark.step6,
+    },
+  },
+  navigationMenu: {
+    root: {
+      bg: secondaryDark.step2,
+    },
+    content: {
+      bg: secondaryDark.step4,
+      border: secondaryDark.step3,
+    },
+    baseItem: {
+      color: secondaryDark.step9,
+      hover: {
+        bg: secondaryDark.step10,
+      },
+      focus: {
+        bg: secondaryDark.step11,
+      },
+    },
+    link: {
+      active: {
+        border: secondaryDark.step9,
+        color: secondaryDark.step12,
+      },
+    },
+  },
+  tabs: {
+    links: {
+      color: secondaryDark.step2,
+    },
+    link: {
+      color: secondaryDark.step9,
+      hover: {
+        color: secondaryDark.step10,
+      },
+      active: {
+        border: secondaryDark.step9,
+      },
+    },
+  },
   toast: {
+    bg: secondaryDark.step3,
+    border: secondaryDark.step5,
+    success: {
+      bg: successDark.step3,
+      border: successDark.step7,
+    },
+    warning: {
+      bg: warningDark.step3,
+      border: warningDark.step7,
+    },
+    error: {
+      bg: dangerDark.step3,
+      border: dangerDark.step7,
+    },
     icon: {
       default: successDark.step9,
       success: successDark.step9,
@@ -727,7 +873,153 @@ export const defaultLightTheme: Theme = {
       color: secondary.step12,
     },
   },
+  dropdown: {
+    content: {
+      primary: {
+        bg: primary.step3,
+      },
+      secondary: {
+        bg: secondary.step3,
+      },
+    },
+    item: {
+      primary: {
+        bg: primary.step3,
+      },
+      secondary: {
+        bg: secondary.step3,
+      },
+      focus: {
+        primary: {
+          bg: primary.step5,
+        },
+        secondary: {
+          bg: secondary.step5,
+        },
+      },
+      highlight: {
+        primary: {
+          bg: primary.step4,
+        },
+        secondary: {
+          bg: secondary.step4,
+        },
+      },
+      disabled: {
+        color: neutral.step10,
+      },
+    },
+    separator: {
+      bg: secondary.step12,
+    },
+    link: {
+      color: secondary.step12,
+      hover: {
+        bg: secondary.step4,
+        border: secondary.step4,
+      },
+      disabled: {
+        color: secondary.step11,
+      },
+    },
+  },
+  fieldAlert: {
+    bg: primary.step3,
+    border: primary.step6,
+    warning: {
+      bg: warning.step2,
+      border: warning.step5,
+      button: {
+        bg: warning.step9,
+        border: warning.step9,
+        hover: {
+          bg: warning.step9,
+          border: warning.step9,
+        },
+        active: {
+          bg: warning.step9,
+          border: warning.step9,
+        },
+      },
+    },
+  },
+  imageInput: {
+    imageWrapper: {
+      bg: secondary.step2,
+    },
+    cancelIcon: {
+      color: secondary.step6,
+    },
+  },
+  inputSelect: {
+    bg: secondary.step6,
+    color: secondary.step12,
+    hover: {
+      bg: secondary.step7,
+    },
+    focus: {
+      bg: secondary.step6,
+    },
+    disabled: {
+      bg: secondary.step3,
+    },
+    selectBox: {
+      bg: primary.step6,
+    },
+  },
+  navigationMenu: {
+    root: {
+      bg: secondary.step2,
+    },
+    content: {
+      bg: secondary.step4,
+      border: secondary.step3,
+    },
+    baseItem: {
+      color: secondary.step9,
+      hover: {
+        bg: secondary.step10,
+      },
+      focus: {
+        bg: secondary.step11,
+      },
+    },
+    link: {
+      active: {
+        border: secondary.step9,
+        color: secondary.step12,
+      },
+    },
+  },
+  tabs: {
+    links: {
+      color: secondary.step2,
+    },
+    link: {
+      color: secondary.step9,
+      hover: {
+        color: secondary.step10,
+      },
+      active: {
+        border: secondary.step9,
+      },
+    },
+  },
   toast: {
+    bg: secondary.step3,
+    border: secondary.step5,
+    success: {
+      bg: success.step3,
+      border: success.step7,
+    },
+    warning: {
+      bg: warning.step3,
+      border: warning.step7,
+    },
+    error: {
+      bg: danger.step3,
+      border: danger.step7,
+    },
     icon: {
       default: success.step9,
       success: success.step9,

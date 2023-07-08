@@ -30,7 +30,7 @@ const BaseContentStyle = css`
   }: {
     color: DropdownColor;
     theme: Theme;
-  }) => theme[color].step3};
+  }) => theme.dropdown.content[color].bg};
   border-radius: 4px;
   font-weight: ${font.weight.reg};
   line-height: ${font.lineHeight};
@@ -64,7 +64,7 @@ const BaseItemStyles = css`
   }: {
     color: DropdownColor;
     theme: Theme;
-  }) => theme[color].step3};
+  }) => theme.dropdown.item[color].bg};
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -81,7 +81,7 @@ const BaseItemStyles = css`
     }: {
       color: DropdownColor;
       theme: Theme;
-    }) => theme[color].step5};
+    }) => theme.dropdown.item.focus[color].bg};
   }
 
   &[data-highlighted] {
@@ -91,25 +91,17 @@ const BaseItemStyles = css`
     }: {
       color: DropdownColor;
       theme: Theme;
-    }) => theme[color].step4};
+    }) => theme.dropdown.item.highlight[color].bg};
   }
 
   &[data-disabled] {
     cursor: not-allowed;
-    color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
+    color: ${({ theme }: { theme: Theme }) =>
+      theme.dropdown.item.disabled.color};
 
     & * {
-      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
-    }
-
-    &:hover {
-      background-color: ${({
-        color,
-        theme,
-      }: {
-        color: DropdownColor;
-        theme: Theme;
-      }) => theme[color].step3};
+      color: ${({ theme }: { theme: Theme }) =>
+        theme.dropdown.item.disabled.color};
     }
   }
 `;
@@ -144,7 +136,8 @@ export const SubTrigger = styled(Dropdown.SubTrigger)`
 `;
 
 export const Separator = styled(Dropdown.Separator)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+  /* ! Does this need to be dynamic?  */
+  background-color: ${({ theme }) => theme.dropdown.separator.bg};
   height: 1px;
   margin: 5px 0;
   width: 100%;
@@ -159,16 +152,16 @@ export const ItemIndicator = styled(Dropdown.ItemIndicator)`
 
 export const DropdownLinkStyles = css`
   ${LinkStyles}
-  color: ${(props) => props.theme.secondary.step12};
+  color: ${({ theme }) => theme.dropdown.link.color};
 
   :hover {
-    background-color: ${(props) => props.theme.secondary.step4};
-    border-color: ${(props) => props.theme.secondary.step8};
+    background-color: ${({ theme }) => theme.dropdown.link.hover.bg};
+    border-color: ${({ theme }) => theme.dropdown.link.hover.border};
     text-decoration: none;
   }
 
   &.disabled {
-    color: ${(props) => props.theme.secondary.step11};
+    color: ${({ theme }) => theme.dropdown.link.disabled.color};
   }
 `;
 

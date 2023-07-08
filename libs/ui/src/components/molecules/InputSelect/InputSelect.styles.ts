@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 import { field } from '../../../theme/component/fieldFamily';
 
@@ -16,22 +15,19 @@ export const InputSelectBox = styled.div`
     border-left: none;
     color: white;
     font-weight: ${font.weight.bold};
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
-    color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+    background-color: ${({ theme }) => theme.inputSelect.bg};
+    color: ${({ theme }) => theme.inputSelect.color};
 
     :hover {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.secondary.step7};
+      background-color: ${({ theme }) => theme.inputSelect.hover.bg};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.secondary.step6};
+      background-color: ${({ theme }) => theme.inputSelect.focus.bg};
     }
 
     :disabled {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.secondary.step3};
+      background-color: ${({ theme }) => theme.inputSelect.disabled.bg};
       cursor: not-allowed;
     }
   }
@@ -40,7 +36,7 @@ export const InputSelectBox = styled.div`
     max-width: 10rem;
     svg {
       right: 0.6rem;
-      color: ${({ theme }: { theme: Theme }) => theme.primary.step6};
+      color: ${({ theme }) => theme.inputSelect.selectBox.bg};
     }
     &.match-long {
       max-width: 16rem;

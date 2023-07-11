@@ -132,11 +132,11 @@ export type TxStates =
   | 'success';
 
 export type TXOverrides = {
-  gasLimit?: string;
-  value?: string;
-  gasPrice?: string;
-  from?: string;
-  blockTag?: string;
+  gasLimit?: ValidArgType;
+  value?: ValidArgType;
+  gasPrice?: ValidArgType;
+  from?: ValidArgType;
+  blockTag?: ValidArgType;
 };
 
 export type TXLegoBase = {
@@ -147,6 +147,7 @@ export type TXLegoBase = {
   argCallback?: string;
   staticArgs?: ArgType[];
   overrides?: TXOverrides;
+  staticOverrides?: TXOverrides;
   disablePoll?: boolean;
   customPoll?: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

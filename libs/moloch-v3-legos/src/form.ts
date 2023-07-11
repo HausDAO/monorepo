@@ -725,6 +725,7 @@ export const COMMON_FORMS: Record<string, MolochFormLego> = {
   },
   MANAGE_DELEGATE: {
     id: 'MANAGE_DELEGATE',
+    title: 'Manage Delegate',
     fields: [FIELD.DELEGATE],
     requiredFields: {
       delegatingTo: true,

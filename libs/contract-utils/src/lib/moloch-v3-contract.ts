@@ -9,7 +9,7 @@ import {
 import { ethers } from 'ethers';
 import { getContractAbi } from './contract-meta';
 import { encodeFunctionWrapper } from './encoding-utils';
-import { estimateGasSafeApi, gasEstimateFromActions } from './estimate-util';
+import { gasEstimateFromActions } from './estimate-util';
 import {
   ContractConfig,
   ProcessProposalArgs,

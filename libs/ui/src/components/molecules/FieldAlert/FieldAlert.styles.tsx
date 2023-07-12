@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 import { field } from '../../../theme/component/fieldFamily';
 
@@ -24,26 +23,22 @@ export const FieldAlertWrapper = styled.div<{
   }
 
   &.warning {
-    background: ${({ theme }: { theme: Theme }) => theme.warning.step2};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step5};
+    background: ${({ theme }) => theme.warning.step2};
+    border: 1px solid ${({ theme }) => theme.warning.step5};
     p {
-      color: ${({ theme }: { theme: Theme }) => theme.warning.step10};
+      color: ${({ theme }) => theme.warning.step10};
     }
     /* ? Why so many style overrides here for the theme ? */
     button {
-      background-color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
-      border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
+      background-color: ${({ theme }) => theme.warning.step9};
+      border: 1px solid ${({ theme }) => theme.warning.step9};
       :hover {
-        background-color: ${({ theme }: { theme: Theme }) =>
-          theme.warning.step10};
-        border: 1px solid
-          ${({ theme }: { theme: Theme }) => theme.warning.step10};
+        background-color: ${({ theme }) => theme.warning.step10};
+        border: 1px solid ${({ theme }) => theme.warning.step10};
       }
       :active {
-        background-color: ${({ theme }: { theme: Theme }) =>
-          theme.warning.step9};
-        border: 1px solid
-          ${({ theme }: { theme: Theme }) => theme.warning.step9};
+        background-color: ${({ theme }) => theme.warning.step9};
+        border: 1px solid ${({ theme }) => theme.warning.step9};
       }
     }
   }

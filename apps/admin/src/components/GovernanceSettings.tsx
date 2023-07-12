@@ -5,7 +5,6 @@ import {
   DataIndicator,
   ParSm,
   widthQuery,
-  Theme,
   Button,
   Link,
 } from '@daohaus/ui';
@@ -75,7 +74,7 @@ const TokenDataGrid = styled(DataGrid)`
 
 const StyledLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
   :hover {
     text-decoration: none;
   }

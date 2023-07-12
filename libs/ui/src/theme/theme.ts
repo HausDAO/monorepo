@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components';
+
 import {
   blue,
   blueDark,
@@ -12,7 +14,6 @@ import {
   red,
   redDark,
 } from '@radix-ui/colors';
-import { Theme } from '../types/theming';
 
 import {
   primary,
@@ -49,8 +50,11 @@ import {
   warningBtn,
 } from './atoms/button';
 
-export const defaultDarkTheme: Theme = {
+export const defaultDarkTheme: DefaultTheme = {
   themeName: 'dark',
+  font: {
+    family: font.family,
+  },
   transparent: 'transparent',
   rootBgColor: neutralDark.step1,
   rootFontColor: secondaryDark.step12,
@@ -534,12 +538,9 @@ export const defaultDarkTheme: Theme = {
       error: dangerDark.step9,
     },
   },
-  font: {
-    family: font.family,
-  },
 };
 
-export const defaultLightTheme: Theme = {
+export const defaultLightTheme: DefaultTheme = {
   themeName: 'light',
   font: {
     family: font.family,

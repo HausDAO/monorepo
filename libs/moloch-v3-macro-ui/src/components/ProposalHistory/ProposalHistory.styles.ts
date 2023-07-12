@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Bold, Button, Theme, widthQuery } from '@daohaus/ui';
+import { Bold, Button, widthQuery } from '@daohaus/ui';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri/index.js';
 
 export const HistoryListContainer = styled.div`
@@ -32,21 +32,20 @@ export const ContentContainer = styled.div`
   gap: 1rem;
 `;
 
-export const StyledTitle = styled(Bold)`
-  color: ${({ theme, active }: { theme: Theme; active: boolean }) =>
-    active && theme.primary.step10};
+export const StyledTitle = styled(Bold)<{ active: boolean }>`
+  color: ${({ theme, active }) => active && theme.primary.step10};
 `;
 
 export const StyledUpArrow = styled(RiArrowUpSLine)`
   font-size: 4.8rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
 `;
 
 export const StyledDownArrow = styled(RiArrowDownSLine)`
   font-size: 4.8rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
 `;
 
 export const LinkContainer = styled.div`

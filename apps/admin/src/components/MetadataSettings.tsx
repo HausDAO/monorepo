@@ -5,9 +5,7 @@ import {
   ParMd,
   ProfileAvatar,
   DataIndicator,
-  Button,
   Card,
-  Theme,
   Tooltip,
   AddressDisplay,
   useBreakpoint,
@@ -69,8 +67,8 @@ const WarningContainer = styled(Card)`
   width: 100%;
   padding: 1rem 2rem;
   margin-top: 3rem;
-  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
-  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+  background-color: ${({ theme }) => theme.warning.step3};
+  border-color: ${({ theme }) => theme.warning.step7};
   .title {
     display: flex;
     flex-direction: row;

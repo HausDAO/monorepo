@@ -58,7 +58,8 @@
     "regenerator-runtime": "0.13.7",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "storybook-addon-pseudo-states": "^1.15.1",
-    "styled-components": "5.3.5",
+    "styled-components": "^6.0.0",
+    "stylis": "^4.0.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",
     "web3modal": "^1.9.9"
@@ -95,7 +96,6 @@
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "@types/react-is": "17.0.3",
-    "@types/styled-components": "5.1.26",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",

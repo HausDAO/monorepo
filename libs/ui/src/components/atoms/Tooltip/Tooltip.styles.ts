@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { font } from '../../../theme/global/font';
 import { fadeIn } from '../../../animations/general';
-import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
 export const TooltipProvider = TooltipPrimitive.Provider;
@@ -14,19 +13,18 @@ export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
   border: none;
   padding: 0;
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.tooltip.icon.color};
+    color: ${({ theme }) => theme.tooltip.icon.color};
   }
 `;
 
 export const TooltipArrow = styled(TooltipPrimitive.Arrow)`
-  fill: ${({ theme }: { theme: Theme }) => theme.tooltip.content.bg};
+  fill: ${({ theme }) => theme.tooltip.content.bg};
 `;
 
 export const TooltipContent = styled(TooltipPrimitive.Content)`
-  background-color: ${({ theme }: { theme: Theme }) =>
-    theme.tooltip.content.bg};
+  background-color: ${({ theme }) => theme.tooltip.content.bg};
   border-radius: ${border.radius};
-  color: ${({ theme }: { theme: Theme }) => theme.tooltip.content.color};
+  color: ${({ theme }) => theme.tooltip.content.color};
   font-size: ${font.size.md};
   line-height: 2.4rem;
   max-width: 30rem;

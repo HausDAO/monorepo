@@ -7,7 +7,6 @@ import {
   DropdownMenu,
   DropdownItem,
   font,
-  Theme,
   Button,
   DropdownIconTrigger,
   DropdownContent,
@@ -24,7 +23,7 @@ export const VaultMenuTrigger = styled(Button)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.primary.step9};
   }
 
   svg.icon-left {

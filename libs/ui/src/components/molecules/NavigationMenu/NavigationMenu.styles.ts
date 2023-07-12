@@ -1,7 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import * as RadixNavMenu from '@radix-ui/react-navigation-menu';
 
-import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 export const Root = styled(RadixNavMenu.Root)`
@@ -72,8 +71,7 @@ export const Link = styled(RadixNavMenu.Link)`
 
   &[data-active] {
     color: ${({ theme }) => theme.navigationMenu.link.active.color};
-    border-bottom: 2px ${({ theme }) =>
-      theme.navigationMenu.link.active.border} solid;
+    border-bottom: 2px ${({ theme }) => theme.navigationMenu.link.active.border}
       solid;
   }
 `;
@@ -81,7 +79,7 @@ export const Link = styled(RadixNavMenu.Link)`
 export const Indicator = styled(RadixNavMenu.Indicator)`
   bottom: 0;
   height: 2px;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+  background-color: ${({ theme }) => theme.secondary.step11};
   transition: all 0.5s ease;
   display: flex;
   align-items: flex-end;

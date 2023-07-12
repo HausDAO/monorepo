@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, ParXs, Theme } from '@daohaus/ui';
+import { Card, ParXs } from '@daohaus/ui';
 import {
   RiErrorWarningLine,
   RiArrowUpSLine,
@@ -46,39 +46,21 @@ export const AlertContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const WarningContainer = styled(Card)`
+export const WarningContainer = styled(Card)<{
+  error: boolean;
+  warning: boolean;
+}>`
   display: flex;
   width: 100%;
-  background-color: ${({
-    theme,
-    error,
-    warning,
-  }: {
-    theme: Theme;
-    error: boolean;
-    warning: boolean;
-  }) => (error && theme.danger.step3) || (warning && theme.warning.step3)};
-  border-color: ${({
-    theme,
-    error,
-    warning,
-  }: {
-    theme: Theme;
-    error: boolean;
-    warning: boolean;
-  }) => (error && theme.danger.step7) || (warning && theme.warning.step7)};
+  background-color: ${({ theme, error, warning }) =>
+    (error && theme.danger.step3) || (warning && theme.warning.step3)};
+  border-color: ${({ theme, error, warning }) =>
+    (error && theme.danger.step7) || (warning && theme.warning.step7)};
 `;
 
-export const StyledParXs = styled(ParXs)`
-  color: ${({
-    theme,
-    error,
-    warning,
-  }: {
-    theme: Theme;
-    error: boolean;
-    warning: boolean;
-  }) => (error && theme.danger.step12) || (warning && theme.warning.step12)};
+export const StyledParXs = styled(ParXs)<{ error: boolean; warning: boolean }>`
+  color: ${({ theme, error, warning }) =>
+    (error && theme.danger.step12) || (warning && theme.warning.step12)};
 `;
 
 export const Spacer = styled.div`
@@ -86,7 +68,7 @@ export const Spacer = styled.div`
 `;
 
 export const WarningIcon = styled(RiErrorWarningLine)`
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  color: ${({ theme }) => theme.warning.step9};
   height: 2.5rem;
   width: 2.5rem;
 `;
@@ -100,11 +82,11 @@ export const MessageContainer = styled.div``;
 export const StyledUpArrow = styled(RiArrowUpSLine)`
   font-size: 3rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
 `;
 
 export const StyledDownArrow = styled(RiArrowDownSLine)`
   font-size: 3rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
 `;

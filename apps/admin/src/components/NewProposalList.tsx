@@ -1,7 +1,7 @@
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { RiArrowRightSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
-import { Bold, border, DataSm, ParMd, Tabs, Theme } from '@daohaus/ui';
+import { Bold, border, DataSm, ParMd, Tabs } from '@daohaus/ui';
 
 import { CustomFormLego } from '../legos/config';
 
@@ -12,8 +12,7 @@ const ListContainer = styled.div`
 const ListItemContainer = styled.div`
   width: 100%;
   padding: 1rem 0;
-  border-top: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step6}
-    solid;
+  border-top: 1px ${({ theme }) => theme.secondary.step6} solid;
 `;
 
 const ListItemLink = styled(RouterLink)`
@@ -34,7 +33,7 @@ const ListItemHoverContainer = styled.div`
   border-radius: ${border.radius};
 
   :hover {
-    background: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    background: 1px ${({ theme }) => theme.secondary.step3};
   }
 `;
 
@@ -47,7 +46,7 @@ const ListItem = styled.div`
 `;
 
 const StyledIcon = styled(RiArrowRightSLine)`
-  fill: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+  fill: ${({ theme }) => theme.primary.step9};
   font-size: 3rem;
 `;
 

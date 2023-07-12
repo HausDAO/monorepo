@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 import { font } from '../../../theme/global/font';
-import { Theme } from '../../../types/theming';
 
 export const Container = styled.div`
   align-items: center;
@@ -12,8 +11,8 @@ export const Container = styled.div`
 
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   align-items: center;
-  background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
-  border: 2px solid ${({ theme }: { theme: Theme }) => theme.checkbox.border};
+  background-color: ${({ theme }) => theme.checkbox.bg};
+  border: 2px solid ${({ theme }) => theme.checkbox.border};
   border-radius: 1px;
   cursor: pointer;
   display: flex;
@@ -22,67 +21,51 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   width: 18px;
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.hover.bg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.hover.border};
+    background-color: ${({ theme }) => theme.checkbox.hover.bg};
+    border: 2px solid ${({ theme }) => theme.checkbox.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.focus.bg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.focus.border};
+    background-color: ${({ theme }) => theme.checkbox.focus.bg};
+    border: 2px solid ${({ theme }) => theme.checkbox.focus.border};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.disabled.bg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.disabled.border};
+    background-color: ${({ theme }) => theme.checkbox.disabled.bg};
+    border: 2px solid ${({ theme }) => theme.checkbox.disabled.border};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.active.bg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.active.border};
+    background-color: ${({ theme }) => theme.checkbox.active.bg};
+    border: 2px solid ${({ theme }) => theme.checkbox.active.border};
 
     :hover {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.checkbox.active.hover.bg};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.checkbox.active.hover.border};
+      background-color: ${({ theme }) => theme.checkbox.active.hover.bg};
+      border: 2px solid ${({ theme }) => theme.checkbox.active.hover.border};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.checkbox.active.focus.bg};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.checkbox.active.focus.border};
+      background-color: ${({ theme }) => theme.checkbox.active.focus.bg};
+      border: 2px solid ${({ theme }) => theme.checkbox.active.focus.border};
       outline: none;
     }
 
     :disabled {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.checkbox.active.disabled.bg};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.checkbox.active.disabled.border};
+      background-color: ${({ theme }) => theme.checkbox.active.disabled.bg};
+      border: 2px solid ${({ theme }) => theme.checkbox.active.disabled.border};
       cursor: not-allowed;
     }
   }
 `;
 
 export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
-  color: ${({ theme }: { theme: Theme }) => theme.checkbox.indicator.color};
+  color: ${({ theme }) => theme.checkbox.indicator.color};
   font-size: 2rem;
   padding-top: 3px;
   :disabled {
-    color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.indicator.disabled.color};
+    color: ${({ theme }) => theme.checkbox.indicator.disabled.color};
   }
 `;
 
@@ -99,7 +82,7 @@ export const LabelContainer = styled.label`
 `;
 
 export const RequiredAsterisk = styled.span`
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  color: ${({ theme }) => theme.warning.step9};
   font-weight: ${font.weight.bold};
   margin-right: 8px;
   transform: translateY(-0.25rem);

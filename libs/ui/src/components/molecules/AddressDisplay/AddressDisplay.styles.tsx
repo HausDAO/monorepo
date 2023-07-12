@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { DataSm } from '../../atoms';
 
 export const AddressContainer = styled.div`
@@ -11,7 +10,7 @@ export const AddressContainer = styled.div`
 `;
 
 export const AddressDataSm = styled(DataSm)`
-  color: ${({ theme }: { theme: Theme }) => theme.addressDisplay.color};
+  color: ${({ theme }) => theme.addressDisplay.color};
 `;
 
 export const AddressCopyIcon = styled.div`

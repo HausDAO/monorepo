@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
-import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 import { Link, LinkStyles } from '../../atoms';
 import { DropdownColor } from './Dropdown.types';
@@ -23,14 +22,9 @@ export const Trigger = styled(Dropdown.Trigger)`
   }
 `;
 
-const BaseContentStyle = css`
-  background-color: ${({
-    color,
-    theme,
-  }: {
-    color: DropdownColor;
-    theme: Theme;
-  }) => theme.dropdown.content[color].bg};
+const BaseContentStyle = css<{ color?: DropdownColor }>`
+  background-color: ${({ color = 'primary', theme }) =>
+    theme.dropdown.content[color].bg};
   border-radius: 4px;
   font-weight: ${font.weight.reg};
   line-height: ${font.lineHeight};
@@ -56,15 +50,10 @@ export const Label = styled(Dropdown.Label)`
   padding: 12px;
 `;
 
-const BaseItemStyles = css`
+const BaseItemStyles = css<{ color?: DropdownColor }>`
   align-items: center;
-  background-color: ${({
-    color,
-    theme,
-  }: {
-    color: DropdownColor;
-    theme: Theme;
-  }) => theme.dropdown.item[color].bg};
+  background-color: ${({ color = 'primary', theme }) =>
+    theme.dropdown.item[color].bg};
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -75,33 +64,21 @@ const BaseItemStyles = css`
   width: 100%;
 
   &:focus-visible {
-    background-color: ${({
-      color,
-      theme,
-    }: {
-      color: DropdownColor;
-      theme: Theme;
-    }) => theme.dropdown.item.focus[color].bg};
+    background-color: ${({ color = 'primary', theme }) =>
+      theme.dropdown.item.focus[color].bg};
   }
 
   &[data-highlighted] {
-    background-color: ${({
-      color,
-      theme,
-    }: {
-      color: DropdownColor;
-      theme: Theme;
-    }) => theme.dropdown.item.highlight[color].bg};
+    background-color: ${({ color = 'primary', theme }) =>
+      theme.dropdown.item.highlight[color].bg};
   }
 
   &[data-disabled] {
     cursor: not-allowed;
-    color: ${({ theme }: { theme: Theme }) =>
-      theme.dropdown.item.disabled.color};
+    color: ${({ theme }) => theme.dropdown.item.disabled.color};
 
     & * {
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.dropdown.item.disabled.color};
+      color: ${({ theme }) => theme.dropdown.item.disabled.color};
     }
   }
 `;

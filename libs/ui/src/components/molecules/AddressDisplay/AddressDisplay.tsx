@@ -5,7 +5,6 @@ import { RiFileCopyLine } from 'react-icons/ri/index.js';
 import { generateExplorerLink } from '@daohaus/keychain-utils';
 import { truncateAddress } from '@daohaus/utils';
 
-import { Theme } from '../../../types/theming';
 import { useCopyToClipboard } from '../../../hooks';
 import { Icon, Link } from '../../atoms';
 import { AddressDisplayProps } from './AddressDisplay.types';
@@ -26,7 +25,7 @@ export const AddressDisplay = ({
   className,
   ...props
 }: AddressDisplayProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   const copyToClipboard = useCopyToClipboard();
 
   const explorerLink = useMemo(() => {

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import { useDHConnect } from '@daohaus/connect';
-import { border, Button, ParSm, Theme } from '@daohaus/ui';
+import { border, Button, ParSm } from '@daohaus/ui';
 
 const ConnectBoxContainer = styled.div`
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.danger.step9} solid;
+  border: 1px ${({ theme }) => theme.danger.step9} solid;
   padding: 1.5rem;
   margin-bottom: 2rem;
   .inner {

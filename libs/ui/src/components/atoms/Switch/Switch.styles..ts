@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 export const Container = styled.div`
@@ -12,7 +11,7 @@ export const Container = styled.div`
 
 export const SwitchBase = styled(SwitchPrimitive.Root)`
   all: unset;
-  background-color: ${({ theme }: { theme: Theme }) => theme.switch.base.bg};
+  background-color: ${({ theme }) => theme.switch.base.bg};
   border-radius: 9999px;
   cursor: pointer;
   height: 16px;
@@ -21,28 +20,23 @@ export const SwitchBase = styled(SwitchPrimitive.Root)`
   width: 54px;
 
   &[data-disabled] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.base.disabled.bg};
+    background-color: ${({ theme }) => theme.switch.base.disabled.bg};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.base.active.bg};
+    background-color: ${({ theme }) => theme.switch.base.active.bg};
 
     &[data-disabled] {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.switch.base.active.disabled.bg};
+      background-color: ${({ theme }) => theme.switch.base.active.disabled.bg};
       cursor: not-allowed;
     }
   }
 `;
 
 export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
-  background-color: ${({ theme }: { theme: Theme }) =>
-    theme.switch.indicator.bg};
-  border: 2px solid
-    ${({ theme }: { theme: Theme }) => theme.switch.indicator.border};
+  background-color: ${({ theme }) => theme.switch.indicator.bg};
+  border: 2px solid ${({ theme }) => theme.switch.indicator.border};
   border-radius: 9999px;
   height: 34px;
   position: absolute;
@@ -53,58 +47,47 @@ export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
   will-change: transform;
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.indicator.hover.bg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.indicator.hover.border};
+    background-color: ${({ theme }) => theme.switch.indicator.hover.bg};
+    border: 1px solid ${({ theme }) => theme.switch.indicator.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.indicator.focus.bg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.indicator.focus.border};
+    background-color: ${({ theme }) => theme.switch.indicator.focus.bg};
+    border: 1px solid ${({ theme }) => theme.switch.indicator.focus.border};
     outline: none;
   }
 
   &[data-disabled] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.indicator.disabled.bg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.indicator.disabled.border};
+    background-color: ${({ theme }) => theme.switch.indicator.disabled.bg};
+    border: 1px solid ${({ theme }) => theme.switch.indicator.disabled.border};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.indicator.active.bg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.indicator.active.border};
+    background-color: ${({ theme }) => theme.switch.indicator.active.bg};
+    border: 2px solid ${({ theme }) => theme.switch.indicator.active.border};
     transform: translateX(27px);
 
     :hover {
-      background-color: ${({ theme }: { theme: Theme }) =>
+      background-color: ${({ theme }) =>
         theme.switch.indicator.active.hover.bg};
       border: 1px solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.switch.indicator.active.hover.border};
+        ${({ theme }) => theme.switch.indicator.active.hover.border};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) =>
+      background-color: ${({ theme }) =>
         theme.switch.indicator.active.focus.bg};
       border: 1px solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.switch.indicator.active.focus.border};
+        ${({ theme }) => theme.switch.indicator.active.focus.border};
       outline: none;
     }
 
     &[data-disabled] {
-      background-color: ${({ theme }: { theme: Theme }) =>
+      background-color: ${({ theme }) =>
         theme.switch.indicator.active.disabled.bg};
       border: 1px solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.switch.indicator.active.disabled.border};
+        ${({ theme }) => theme.switch.indicator.active.disabled.border};
       cursor: not-allowed;
     }
   }
@@ -125,13 +108,12 @@ export const LabelContainer = styled.label`
 `;
 
 export const StyledLabel = styled.label`
-  color: ${({ theme }: { theme: Theme }) => theme.switch.label.color};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  color: ${({ theme }) => theme.switch.label.color};
+  font-family: ${({ theme }) => theme.font.family.body};
   font-weight: ${font.weight.reg};
   font-size: ${font.size.md};
 
   &.disabled {
-    color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.label.disabled.color};
+    color: ${({ theme }) => theme.switch.label.disabled.color};
   }
 `;

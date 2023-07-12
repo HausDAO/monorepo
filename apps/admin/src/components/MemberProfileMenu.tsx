@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
   font,
-  Theme,
   Button,
   Dialog,
   DialogTrigger,
@@ -29,7 +28,7 @@ export const ProfileMenuTrigger = styled(Button)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.primary.step9};
   }
 
   svg.icon-left {

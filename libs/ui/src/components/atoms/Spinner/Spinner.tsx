@@ -2,7 +2,15 @@ import styled, { useTheme } from 'styled-components';
 
 import { SpinnerType } from './Spinner.types';
 
-const StyledSpinner = styled.div`
+const StyledSpinner = styled.div<{
+  topColor?: string;
+  bottomColor?: string;
+  size?: string;
+  strokeWidth?: string;
+  margin?: string;
+  padding?: string;
+  speed?: string;
+}>`
   &.loader,
   &.loader:after {
     border-radius: 50%;
@@ -13,9 +21,8 @@ const StyledSpinner = styled.div`
     font-size: 1rem;
     position: relative;
     text-indent: -9999em;
-    border-top: ${(props: SpinnerType) =>
-      `${props.strokeWidth} solid ${props.bottomColor}`};
-    border-right: ${(props: SpinnerType) =>
+    border-top: ${(props) => `${props.strokeWidth} solid ${props.bottomColor}`};
+    border-right: ${(props) =>
       `${props.strokeWidth} solid ${props.bottomColor}`};
     border-bottom: ${(props: SpinnerType) =>
       `${props.strokeWidth} solid ${props.bottomColor}`};
@@ -50,14 +57,18 @@ const StyledSpinner = styled.div`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.div<{
+  size?: string;
+  margin?: string;
+  padding?: string;
+}>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: ${(props: SpinnerType) => props.size};
-  height: ${(props: SpinnerType) => props.size};
-  margin: ${(props: SpinnerType) => props.margin};
-  padding: ${(props: SpinnerType) => props.padding};
+  width: ${(props) => props.size};
+  height: ${(props) => props.size};
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
 `;
 
 export const Spinner = ({

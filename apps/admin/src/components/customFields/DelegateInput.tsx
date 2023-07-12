@@ -7,7 +7,6 @@ import {
   ParMd,
   DataMd,
   ParSm,
-  Theme,
   Tooltip,
 } from '@daohaus/ui';
 import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
@@ -19,7 +18,7 @@ const RemoveDelegate = styled(ParSm)`
   margin-top: 3rem;
   :hover {
     cursor: pointer;
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+    color: ${({ theme }) => theme.primary.step10};
   }
 `;
 

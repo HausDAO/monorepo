@@ -9,7 +9,6 @@ import {
   DropdownLinkStyles,
   font,
   ProfileAvatar,
-  Theme,
   widthQuery,
 } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
@@ -119,7 +118,7 @@ export const ProfileMenuTrigger = styled(Button)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.primary.step9};
   }
 
   svg.icon-left {

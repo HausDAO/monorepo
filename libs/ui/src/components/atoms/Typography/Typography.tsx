@@ -1,17 +1,15 @@
 import styled from 'styled-components';
 
 import { font } from '../../../theme/global/font';
-import { Theme } from '../../../types/theming';
 
 ////////////////////PARAGRAPH TEXT////////////////////
-const Par = styled.p`
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+const Par = styled.p<{ color?: string }>`
+  font-family: ${({ theme }) => theme.font.family.body};
   font-weight: ${font.weight.reg};
-  color: ${({ theme, color }: { color?: string; theme: Theme }) =>
-    color || theme.rootFontColor};
+  color: ${({ theme, color }) => color || theme.rootFontColor};
 `;
 const Data = styled.p`
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.data};
+  font-family: ${({ theme }) => theme.font.family.data};
   font-weight: ${font.weight.reg};
   color: ${(props) => props.color};
   letter-spacing: 1px;
@@ -36,37 +34,37 @@ export const ParXl = styled(Par)`
 export const H6 = styled.h6`
   font-size: ${font.size.md};
   font-weight: ${font.weight.black};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   color: ${(props) => props.color};
 `;
 export const H5 = styled.h5`
   font-size: ${font.size.lg};
   font-weight: ${font.weight.bold};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   color: ${(props) => props.color};
 `;
 export const H4 = styled.h4`
   font-size: ${font.size.xl};
   font-weight: ${font.weight.bold};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   color: ${(props) => props.color};
 `;
 export const H3 = styled.h3`
   font-size: ${font.size.xxl};
   font-weight: ${font.weight.reg};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   color: ${(props) => props.color};
 `;
 export const H2 = styled.h2`
   font-size: ${font.size.xxxl};
   font-weight: ${font.weight.light};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   color: ${(props) => props.color};
 `;
 export const H1 = styled.h1`
   font-size: ${font.size.xxxxl};
   font-weight: ${font.weight.light};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   color: ${(props) => props.color};
 `;
 ////////////////////DATA TEXT////////////////////
@@ -93,10 +91,9 @@ export const ExtraLight = styled.span`
 export const Light = styled.span`
   font-weight: ${font.weight.light};
 `;
-export const Bold = styled.span`
+export const Bold = styled.span<{ color?: string }>`
   font-weight: ${font.weight.bold};
-  color: ${({ theme, color }: { color?: string; theme: Theme }) =>
-    color || theme.rootFontColor};
+  color: ${({ theme, color }) => color || theme.rootFontColor};
 `;
 
 export const ExtraBold = styled.span`
@@ -112,5 +109,5 @@ export const StrikeThrough = styled.span`
   text-decoration: line-through;
 `;
 export const TintSecondary = styled.span`
-  color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+  color: ${({ theme }) => theme.secondary.step11};
 `;

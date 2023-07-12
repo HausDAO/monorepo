@@ -5,12 +5,11 @@ import {
   DropdownLabel,
   DropdownItem,
   ParSm,
-  Theme,
   DropdownButtonTrigger,
 } from '@daohaus/ui';
 import { MouseEvent, useMemo } from 'react';
 import { RiCheckLine, RiFilterFill } from 'react-icons/ri/index.js';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { FILTER_TYPE } from '../utils/hub';
 import { useDHConnect } from '@daohaus/connect';
 
@@ -27,10 +26,10 @@ const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
-  fill: ${({ theme }: { theme: Theme }) => theme.secondary.step10};
+  fill: ${({ theme }) => theme.secondary.step10};
 
   :hover {
-    fill: ${({ theme }: { theme: Theme }) => theme.secondary.step10};
+    fill: ${({ theme }) => theme.secondary.step10};
   }
 `;
 
@@ -40,7 +39,6 @@ export const DAOFilterDropdown = ({
   filterDelegate,
   toggleDelegateFilter,
 }: DAOFilterDropdownProps) => {
-  const theme = useTheme();
   const { networks } = useDHConnect();
   const networkButtons = useMemo(() => {
     return Object.values(networks).map((network) => {

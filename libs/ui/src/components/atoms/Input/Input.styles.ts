@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { field } from '../../../theme/component/fieldFamily';
 import { font } from '../../../theme/global/font';
 
 export const BaseInput = styled.input`
-  background-color: ${({ theme }: { theme: Theme }) => theme.input.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.input.border};
+  background-color: ${({ theme }) => theme.input.bg};
+  border: 1px solid ${({ theme }) => theme.input.border};
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.input.color};
+  color: ${({ theme }) => theme.input.color};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.body};
   height: 4.8rem;
   line-height: 150%;
   letter-spacing: 1.5px;
@@ -21,39 +20,34 @@ export const BaseInput = styled.input`
   width: 100%;
 
   ::placeholder {
-    color: ${({ theme }: { theme: Theme }) => theme.input.placeholder};
+    color: ${({ theme }) => theme.input.placeholder};
   }
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.input.hover.bg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.input.hover.border};
+    background-color: ${({ theme }) => theme.input.hover.bg};
+    border: 1px solid ${({ theme }) => theme.input.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.input.focus.bg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.input.focus.border};
+    background-color: ${({ theme }) => theme.input.focus.bg};
+    border: 1px solid ${({ theme }) => theme.input.focus.border};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.input.disabled.bg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.input.disabled.border};
-    color: ${({ theme }: { theme: Theme }) => theme.input.disabled.color};
+    background-color: ${({ theme }) => theme.input.disabled.bg};
+    border: 1px solid ${({ theme }) => theme.input.disabled.border};
+    color: ${({ theme }) => theme.input.disabled.color};
     cursor: not-allowed;
     font-style: italic;
 
     ::placeholder {
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.input.disabled.placeholder};
+      color: ${({ theme }) => theme.input.disabled.placeholder};
     }
   }
 
   &.number {
-    font-family: ${({ theme }: { theme: Theme }) => theme.font.family.data};
+    font-family: ${({ theme }) => theme.font.family.data};
     font-weight: ${font.weight.reg};
     letter-spacing: 1px;
   }
@@ -71,18 +65,15 @@ export const BaseInput = styled.input`
   }
 
   &.success {
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.input.success.border};
+    border: 1px solid ${({ theme }) => theme.input.success.border};
   }
 
   &.warning {
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.input.warning.border};
+    border: 1px solid ${({ theme }) => theme.input.warning.border};
   }
 
   &.error {
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.input.error.border};
+    border: 1px solid ${({ theme }) => theme.input.error.border};
   }
 `;
 
@@ -93,7 +84,7 @@ export const WithIcon = styled.div`
   width: 100%;
 
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.input.icon.color};
+    color: ${({ theme }) => theme.input.icon.color};
     position: absolute;
     right: 2rem;
     top: 1.4rem;

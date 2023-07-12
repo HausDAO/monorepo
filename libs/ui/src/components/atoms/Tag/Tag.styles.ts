@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
 export const BaseTag = styled.div<{
@@ -30,8 +29,8 @@ export const BaseTag = styled.div<{
 
   /* We might not need this */
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    background-color: ${({ theme }) => theme.neutral.step2};
+    border: 1px solid ${({ theme }) => theme.neutral.step5};
     cursor: not-allowed;
   }
 

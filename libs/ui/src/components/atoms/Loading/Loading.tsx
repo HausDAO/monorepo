@@ -1,7 +1,6 @@
 import { StyledLoader, StyledInvisibleSpan } from './Loading.styles';
 import { useTheme } from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { LoadingProps } from './Loading.types';
 
 export const Loading = ({
@@ -9,7 +8,7 @@ export const Loading = ({
   size = 50,
   ...rest
 }: LoadingProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   return (
     <>
       <StyledLoader

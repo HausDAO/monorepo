@@ -3,29 +3,22 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 
 import { CardStyles } from '../../atoms/Card/Card.styles';
 import { Card } from '../../atoms/Card/Card';
-import { Theme } from '../../../types';
 
-type CardProps = {
+export const StyledCollapsibleCard = styled(Collapsible.Root)<{
+  width?: string;
   noBackground?: boolean;
-  width: string;
-  theme: Theme;
-};
-
-export const StyledCollapsibleCard = styled(Collapsible.Root)`
+}>`
   ${CardStyles}
-  background-color: ${({ noBackground, theme }: CardProps) =>
+  background-color: ${({ noBackground, theme }) =>
     noBackground ? 'inherit' : theme.collapsibleCard.outer.bg};
-  border: ${({ noBackground }: { noBackground?: boolean }) =>
-      noBackground ? '0' : '1'}px
-    solid ${({ theme }: { theme: Theme }) => theme.collapsibleCard.outer.border};
+  border: ${({ noBackground }) => (noBackground ? '0' : '1')}px solid
+    ${({ theme }) => theme.collapsibleCard.outer.border};
   width: ${(props) => props.width};
 `;
 
 export const InnerCard = styled(Card)`
-  background-color: ${({ theme }: { theme: Theme }) =>
-    theme.collapsibleCard.inner.bg};
-  border: 1px solid
-    ${({ theme }: { theme: Theme }) => theme.collapsibleCard.inner.border};
+  background-color: ${({ theme }) => theme.collapsibleCard.inner.bg};
+  border: 1px solid ${({ theme }) => theme.collapsibleCard.inner.border};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -42,8 +35,7 @@ export const StyledCollapsibleCardTrigger = styled(Collapsible.Trigger)`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  color: ${({ theme }: { theme: Theme }) =>
-    theme.collapsibleCard.trigger.color};
+  color: ${({ theme }) => theme.collapsibleCard.trigger.color};
   cursor: pointer;
   display: inline-flex;
   font-size: 14px;
@@ -53,14 +45,12 @@ export const StyledCollapsibleCardTrigger = styled(Collapsible.Trigger)`
   transition: 0.2s all;
 
   :hover {
-    color: ${({ theme }: { theme: Theme }) =>
-      theme.collapsibleCard.trigger.hover.color};
+    color: ${({ theme }) => theme.collapsibleCard.trigger.hover.color};
     text-decoration: none;
   }
 
   :focus {
-    color: ${({ theme }: { theme: Theme }) =>
-      theme.collapsibleCard.trigger.focus.color};
+    color: ${({ theme }) => theme.collapsibleCard.trigger.focus.color};
   }
 
   svg {
@@ -75,15 +65,23 @@ export const StyledCollapsibleCardTrigger = styled(Collapsible.Trigger)`
   }
 `;
 
-const open = keyframes({
-  from: { height: 0 },
-  to: { height: 100 },
-});
+const open = keyframes`
+  from { 
+    height: 0 
+  }
+  to { 
+    height: 100 
+  }
+`;
 
-const close = keyframes({
-  from: { height: 100 },
-  to: { height: 0 },
-});
+const close = keyframes`
+  from { 
+    height: 100 
+  }
+  to { 
+    height: 0 
+  }
+`;
 
 export const StyledCollapsibleContent = styled(Collapsible.Content)`
   margin-top: 2rem;

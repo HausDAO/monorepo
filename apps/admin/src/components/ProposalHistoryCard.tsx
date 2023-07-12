@@ -15,7 +15,6 @@ import {
   DialogContent,
   ParLg,
   ParMd,
-  Theme,
   widthQuery,
   useBreakpoint,
 } from '@daohaus/ui';
@@ -50,21 +49,20 @@ const ContentContainer = styled.div`
   gap: 1rem;
 `;
 
-const StyledTitle = styled(Bold)`
-  color: ${({ theme, active }: { theme: Theme; active: boolean }) =>
-    active && theme.primary.step10};
+const StyledTitle = styled(Bold)<{ active: boolean }>`
+  color: ${({ theme, active }) => active && theme.primary.step10};
 `;
 
 const StyledUpArrow = styled(RiArrowUpSLine)`
   font-size: 4.8rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
 `;
 
 const StyledDownArrow = styled(RiArrowDownSLine)`
   font-size: 4.8rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
+  color: ${({ theme }) => theme.primary.step10};
 `;
 
 const DataGrid = styled.div`

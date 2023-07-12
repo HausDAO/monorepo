@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
-// import { DropdownButton } from '../../molecules';
 import { Button } from '../../atoms/Button';
 
-export const MemberCardTrigger = styled(Button)`
-  min-width: ${({ minWidth }: { minWidth: string }) => minWidth};
+export const MemberCardTrigger = styled(Button)<{ minWidth: string }>`
+  min-width: ${({ minWidth }) => minWidth};
 
   & > span {
     margin-right: 8px;
@@ -16,11 +14,11 @@ export const MemberCardTrigger = styled(Button)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.primary.step9};
     margin-left: auto;
   }
 
   svg.icon-left {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.primary.step9};
   }
 `;

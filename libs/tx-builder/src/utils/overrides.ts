@@ -1,16 +1,96 @@
-import { ArbitraryState, TXOverrides } from '@daohaus/utils';
+import { ABI, ArbitraryState, TXLego, TXOverrides } from '@daohaus/utils';
+import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
 
-export const processOverrides = ({
-  overrideArgs,
+import { processArg } from './args';
+
+const handleProposalOfferingValue = ({
   appState,
+  overrides,
 }: {
-  overrideArgs?: TXOverrides;
   appState: ArbitraryState;
-}): TXOverrides => {
+  overrides?: TXOverrides;
+}) => {
+  if (appState['formValues']?.proposalOffering) {
+    return Number(appState['formValues']?.proposalOffering).toFixed();
+  }
+
+  return overrides?.value || '0';
+};
+
+export const processOverrides = async ({
+  tx,
+  chainId,
+  safeId,
+  localABIs,
+  appState,
+  rpcs,
+  pinataApiKeys,
+  explorerKeys,
+}: {
+  tx: TXLego;
+  chainId: ValidNetwork;
+  safeId?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
+}) => {
+  const { overrides, staticOverrides } = tx;
+
+  if (staticOverrides) {
+    return staticOverrides;
+  }
+
   return {
-    value: appState['formValues']?.proposalOffering
-      ? Number(appState['formValues']?.proposalOffering).toFixed()
-      : '0',
-    ...overrideArgs,
+    value: handleProposalOfferingValue({ appState, overrides }),
+    gasLimit:
+      overrides?.gasLimit &&
+      (await processArg({
+        arg: overrides.gasLimit,
+        chainId,
+        safeId,
+        localABIs,
+        appState,
+        rpcs,
+        pinataApiKeys,
+        explorerKeys,
+      })),
+    gasPrice:
+      overrides?.gasPrice &&
+      (await processArg({
+        arg: overrides.gasPrice,
+        chainId,
+        safeId,
+        localABIs,
+        appState,
+        rpcs,
+        pinataApiKeys,
+        explorerKeys,
+      })),
+    from:
+      overrides?.from &&
+      (await processArg({
+        arg: overrides.from,
+        chainId,
+        safeId,
+        localABIs,
+        appState,
+        rpcs,
+        pinataApiKeys,
+        explorerKeys,
+      })),
+    blockTag:
+      overrides?.blockTag &&
+      (await processArg({
+        arg: overrides.blockTag,
+        chainId,
+        safeId,
+        localABIs,
+        appState,
+        rpcs,
+        pinataApiKeys,
+        explorerKeys,
+      })),
   };
 };

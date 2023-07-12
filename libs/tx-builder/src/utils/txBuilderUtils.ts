@@ -172,9 +172,15 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED ARGS**', processedArgs);
 
-    const overrides = processOverrides({
-      overrideArgs: tx.overrides,
+    const overrides = await processOverrides({
+      tx,
+      localABIs,
+      chainId,
+      safeId,
       appState,
+      rpcs,
+      pinataApiKeys,
+      explorerKeys,
     });
 
     console.log('**PROCESSED overrides**', overrides);

@@ -8,9 +8,10 @@ import {
   useState,
 } from 'react';
 import { useWeb3Modal } from '@web3modal/react';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import {
+  getNetworkById,
   HAUS_NETWORK_DATA,
   isValidNetwork,
   NetworkConfigs,
@@ -29,18 +30,16 @@ export type UserConnectType = {
   connectWallet: () => Promise<void>;
   disconnect: () => void;
   address?: string;
-
-  provider?: ProviderType;
   chainId?: ValidNetwork;
-  profile: UserProfile;
+  validNetwork: boolean;
   isConnecting: boolean;
   isConnected: boolean;
-  isMetamask: boolean;
   switchNetwork: (chainId: string) => void;
+
+  provider?: ProviderType;
+  profile: UserProfile;
+  isMetamask: boolean;
   isProfileLoading: boolean;
-  validNetwork: boolean;
-  isAppNetwork: (chainId: string) => boolean;
-  appNetworks: string[];
 };
 
 export const ConnectContext =
@@ -64,26 +63,34 @@ export const ConnectProvider = ({
 
 ConnectProviderProps) => {
   const { open, setDefaultChain } = useWeb3Modal();
-  const { address, isConnecting, status } = useAccount({
+  const { address, isConnecting } = useAccount({
     onDisconnect() {
       console.log('Disconnected');
     },
   });
   const { disconnect } = useDisconnect();
+  const { chain, chains } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
-  console.log('status', status);
+  console.log('chain, chains ', chain, chains);
 
-  // todo: also provider and connected chainid?
+  // todo: add provider and connected chainid?
   const isConnected = useMemo(() => !!address, [address]);
 
+  // todo: this return undefined is an unsupported network - might need to track that elsewhere
+  const chainId = useMemo(() => {
+    if (chain) {
+      const networkData = getNetworkById(chain.id);
+      return networkData?.chainId as ValidNetwork;
+    }
+    return undefined;
+  }, [chain]);
+  const validNetwork = useMemo(
+    () => !!chainId && isValidNetwork(chainId, networks),
+    [chainId, networks]
+  );
+
   const connectWallet = useCallback(async () => {
-    // handleConnectWallet({
-    //   setConnecting,
-    //   lifeCycleFns,
-    //   disconnect,
-    //   setWalletState,
-    //   web3modalOptions,
-    // });
     console.log('opening daochain', daoChainId);
 
     if (daoChainId && wgmiChains[daoChainId as ValidNetwork]) {
@@ -93,20 +100,21 @@ ConnectProviderProps) => {
       setDefaultChain(wgmiChains[daoChainId as ValidNetwork]);
     }
 
-    // could change which view we show if connected?
-
+    // could change which view we show if connected? profile vs. connect?
     open();
   }, [open, setDefaultChain, daoChainId]);
 
+  const handleSwitchNetwork = async (_chainId: string | number) => {
+    switchNetwork?.(Number(_chainId));
+  };
+
+  // figure this out
+  // https://wagmi.sh/react/ethers-adapters
   const provider = undefined;
-  const chainId = undefined;
+  // what is this for?
   const isMetamask = false;
-  const switchNetwork = (chainId: string) => undefined;
   const profile = { address: address || '', ens: undefined };
   const isProfileLoading = false;
-  const validNetwork = true;
-  const isAppNetwork = (chainId: string) => true;
-  const appNetworks = ['1'];
 
   return (
     <ConnectContext.Provider
@@ -119,16 +127,14 @@ ConnectProviderProps) => {
         disconnect,
         isConnected,
         isConnecting,
+        chainId,
+        validNetwork,
         //
         provider,
-        chainId,
         isMetamask,
-        switchNetwork,
+        switchNetwork: handleSwitchNetwork,
         profile,
         isProfileLoading,
-        validNetwork,
-        isAppNetwork,
-        appNetworks,
       }}
     >
       {children}

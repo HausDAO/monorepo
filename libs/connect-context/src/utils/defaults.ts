@@ -1,9 +1,29 @@
-import { IProviderOptions } from 'web3modal';
+// import { IProviderOptions } from 'web3modal';
 import WalletConnectProvider from '@walletconnect/ethereum-provider';
 
-import { HAUS_RPC } from '@daohaus/keychain-utils';
+import { HAUS_RPC, Keychain } from '@daohaus/keychain-utils';
 
-const providerOptions: IProviderOptions = {
+import {
+  arbitrum,
+  mainnet,
+  polygon,
+  gnosis,
+  goerli,
+  optimism,
+  Chain,
+} from 'wagmi/chains';
+
+export const wgmiChains: Keychain<Chain> = {
+  '0x1': mainnet,
+  '0x5': goerli,
+  '0x64': gnosis,
+  '0x89': polygon,
+  '0xa': optimism,
+  '0xa4b1': arbitrum,
+};
+
+// const providerOptions: IProviderOptions = {
+const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider,
     options: {

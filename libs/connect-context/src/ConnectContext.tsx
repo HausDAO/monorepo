@@ -7,6 +7,8 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { useWeb3Modal } from '@web3modal/react';
+import { useAccount, useDisconnect } from 'wagmi';
 
 import {
   HAUS_NETWORK_DATA,
@@ -15,178 +17,118 @@ import {
   ValidNetwork,
 } from '@daohaus/keychain-utils';
 
-import {
-  getModal,
-  handleConnectWallet,
-  handleSwitchNetwork,
-  isMetamaskProvider,
-  loadProfile,
-  loadWallet,
-} from './utils/contextHelpers';
+import { defaultConnectValues, wgmiChains } from './utils/defaults';
 
-import { defaultConnectValues, web3modalDefaults } from './utils/defaults';
-
-import {
-  ConnectLifecycleFns,
-  ModalOptions,
-  ProviderType,
-  UserProfile,
-  WalletStateType,
-} from './utils/types';
+import { ConnectLifecycleFns, ProviderType, UserProfile } from './utils/types';
+import { UseMutateFunction } from 'react-query';
 
 export type UserConnectType = {
-  provider?: ProviderType;
-  chainId?: ValidNetwork;
-  address?: string;
-  profile: UserProfile;
+  networks: NetworkConfigs;
+  daoId?: string;
+  daoChainId?: string;
   connectWallet: () => Promise<void>;
   disconnect: () => void;
+  address?: string;
+
+  provider?: ProviderType;
+  chainId?: ValidNetwork;
+  profile: UserProfile;
   isConnecting: boolean;
   isConnected: boolean;
   isMetamask: boolean;
-  networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
-  daoChainId?: string;
   validNetwork: boolean;
   isAppNetwork: (chainId: string) => boolean;
   appNetworks: string[];
-  daoId?: string;
-  daoChain?: string;
 };
 
 export const ConnectContext =
   createContext<UserConnectType>(defaultConnectValues);
 
 export type ConnectProviderProps = {
-  web3modalOptions?: ModalOptions;
   networks?: NetworkConfigs;
   children: ReactNode;
-  daoChainId?: string;
   lifeCycleFns?: ConnectLifecycleFns;
   daoId?: string;
-  daoChain?: string;
+  daoChainId?: string;
 };
 
 export const ConnectProvider = ({
-  web3modalOptions = web3modalDefaults,
   children,
   networks = HAUS_NETWORK_DATA,
   lifeCycleFns,
   daoChainId,
   daoId,
-  daoChain,
-}: ConnectProviderProps) => {
-  const [isConnecting, setConnecting] = useState(true);
-  const [{ provider, chainId, address }, setWalletState] =
-    useState<WalletStateType>({});
-  const [profile, setProfile] = useState<UserProfile>({
-    address: address || '',
-    ens: undefined,
-  });
-  const [isProfileLoading, setProfileLoading] = useState(false);
+}: //
 
-  const isConnected = useMemo(
-    () => !!provider && !!address && !!chainId,
-    [provider, address, chainId]
-  );
-  const isMetamask = useMemo(() => isMetamaskProvider(provider), [provider]);
-  const validNetwork = useMemo(
-    () => !!chainId && isValidNetwork(chainId, networks),
-    [chainId, networks]
-  );
-  const appNetworks = useMemo(
-    () => Object.values(networks).map((network) => network.chainId),
-    [networks]
-  );
-
-  useEffect(() => {
-    loadWallet({
-      setConnecting,
-      web3modalOptions,
-      disconnect,
-      setWalletState,
-    });
-  }, [web3modalOptions, setWalletState]);
-
-  const loadAccountProfile = useCallback(
-    (
-      address: string | null | undefined,
-      chainId: ValidNetwork | null | undefined,
-      shouldUpdate: boolean
-    ) => {
-      if (
-        address &&
-        chainId &&
-        isConnected &&
-        !isProfileLoading &&
-        address !== profile?.address
-      ) {
-        loadProfile({
-          address,
-          chainId,
-          setProfile,
-          setProfileLoading,
-          shouldUpdate,
-          networks,
-          lifeCycleFns,
-        });
-      }
+ConnectProviderProps) => {
+  const { open, setDefaultChain } = useWeb3Modal();
+  const { address, isConnecting, status } = useAccount({
+    onDisconnect() {
+      console.log('Disconnected');
     },
-    [isConnected, isProfileLoading, networks, lifeCycleFns, profile]
-  );
+  });
+  const { disconnect } = useDisconnect();
 
-  useEffect(() => {
-    let shouldUpdate = true;
-    loadAccountProfile(address, chainId, shouldUpdate);
-    return () => {
-      shouldUpdate = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chainId]);
+  console.log('status', status);
+
+  // todo: also provider and connected chainid?
+  const isConnected = useMemo(() => !!address, [address]);
 
   const connectWallet = useCallback(async () => {
-    handleConnectWallet({
-      setConnecting,
-      lifeCycleFns,
-      disconnect,
-      setWalletState,
-      web3modalOptions,
-    });
-  }, [setConnecting, lifeCycleFns, web3modalOptions]);
+    // handleConnectWallet({
+    //   setConnecting,
+    //   lifeCycleFns,
+    //   disconnect,
+    //   setWalletState,
+    //   web3modalOptions,
+    // });
+    console.log('opening daochain', daoChainId);
 
-  const switchNetwork = async (_chainId: string | number) => {
-    handleSwitchNetwork(_chainId, networks);
-  };
+    if (daoChainId && wgmiChains[daoChainId as ValidNetwork]) {
+      // this autochanges to the daochain - do we want that? seems nice - deal with on autoconnect on revist
+      // handle if there is a target chain in the context as well - ie summoner
+      // handle if unsupported chain?
+      setDefaultChain(wgmiChains[daoChainId as ValidNetwork]);
+    }
 
-  const disconnect = async () => {
-    const modal = getModal(web3modalDefaults);
-    modal.clearCachedProvider();
-    setWalletState({});
-  };
+    // could change which view we show if connected?
 
-  const isAppNetwork = (chainId: string) => appNetworks.includes(chainId);
+    open();
+  }, [open, setDefaultChain, daoChainId]);
+
+  const provider = undefined;
+  const chainId = undefined;
+  const isMetamask = false;
+  const switchNetwork = (chainId: string) => undefined;
+  const profile = { address: address || '', ens: undefined };
+  const isProfileLoading = false;
+  const validNetwork = true;
+  const isAppNetwork = (chainId: string) => true;
+  const appNetworks = ['1'];
+
   return (
     <ConnectContext.Provider
       value={{
-        provider,
+        networks,
+        daoChainId,
+        daoId,
         address,
-        chainId,
         connectWallet,
+        disconnect,
         isConnected,
         isConnecting,
-        disconnect,
+        //
+        provider,
+        chainId,
         isMetamask,
-        networks,
         switchNetwork,
         profile,
         isProfileLoading,
-        daoChainId,
         validNetwork,
         isAppNetwork,
         appNetworks,
-        daoId,
-        daoChain,
       }}
     >
       {children}

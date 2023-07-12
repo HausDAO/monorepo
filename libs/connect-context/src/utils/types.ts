@@ -1,5 +1,5 @@
 import { providers } from 'ethers';
-import { ICoreOptions } from 'web3modal';
+// import { ICoreOptions } from 'web3modal';
 
 import { AccountProfile } from '@daohaus/utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
@@ -21,4 +21,11 @@ export type WalletStateType = {
   address?: string;
 };
 export type UserProfile = AccountProfile & { displayName?: string };
-export type ModalOptions = Partial<ICoreOptions>;
+// export type ModalOptions = Partial<ICoreOptions>;
+
+export type ModalOptions = {
+  cacheProvider: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  providerOptions: any;
+  theme: string;
+};

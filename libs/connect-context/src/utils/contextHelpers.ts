@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
-import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
+import React, { Dispatch, SetStateAction } from 'react';
+// import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
 import {
   isValidNetwork,
@@ -16,12 +16,15 @@ import {
   ConnectLifecycleFns,
 } from './types';
 
+import { type PublicClient, usePublicClient } from 'wagmi';
+import { type HttpTransport } from 'viem';
+
 export const numberToHex = (number: number) => {
   return `0x${number.toString(16)}`;
 };
 export const getModal = (options: ModalOptions) => {
-  const modal = new SafeAppWeb3Modal(options);
-  return modal;
+  // const modal = new SafeAppWeb3Modal(options);
+  // return modal;
 };
 export const isMetamaskProvider = (
   provider: providers.Web3Provider | undefined | null
@@ -30,22 +33,95 @@ export const truncateAddress = (addr: string) =>
   `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
 export const handleSetProvider = async ({
-  provider,
+  // provider,
   setWalletState,
+  publicClient,
 }: {
   // eslint-disable-next-line
-  provider: any;
+  // provider: any;
+  publicClient: PublicClient;
   setWalletState: Dispatch<SetStateAction<WalletStateType>>;
 }) => {
-  const ethersProvider = new providers.Web3Provider(provider);
-  const signerAddress = await ethersProvider.getSigner().getAddress();
-  setWalletState({
-    provider: ethersProvider,
-    chainId: (typeof provider.chainId === 'number'
-      ? `0x${Number(provider.chainId).toString(16)}`
-      : provider.chainId) as ValidNetwork,
-    address: signerAddress,
-  });
+  // const ethersProvider = new providers.Web3Provider(provider);
+  const ethersProvider = publicClientToProvider(publicClient);
+
+  console.log('ethersProvider', ethersProvider);
+  console.log('publicClient', publicClient);
+
+  // const signerAddress = await ethersProvider.getSigner().getAddress();
+  // setWalletState({
+  //   provider: ethersProvider,
+  //   chainId: (typeof provider.chainId === 'number'
+  //     ? `0x${Number(provider.chainId).toString(16)}`
+  //     : provider.chainId) as ValidNetwork,
+  //   address: signerAddress,
+  // });
+};
+
+export function publicClientToProvider(publicClient: PublicClient) {
+  const { chain, transport } = publicClient;
+  const network = {
+    chainId: chain.id,
+    name: chain.name,
+    ensAddress: chain.contracts?.ensRegistry?.address,
+  };
+  if (transport.type === 'fallback')
+    return new providers.FallbackProvider(
+      (transport['transports'] as ReturnType<HttpTransport>[]).map(
+        ({ value }) => new providers.JsonRpcProvider(value?.url, network)
+      )
+    );
+  return new providers.JsonRpcProvider(transport['url'], network);
+}
+
+/** Hook to convert a viem Public Client to an ethers.js Provider. */
+export function useEthersProvider({ chainId }: { chainId?: number } = {}) {
+  const publicClient = usePublicClient({ chainId });
+  return React.useMemo(
+    () => publicClientToProvider(publicClient),
+    [publicClient]
+  );
+}
+
+export const handleConnectWalletNew = async ({
+  setConnecting,
+  lifeCycleFns,
+  disconnect,
+  setWalletState,
+  open,
+  publicClient,
+}: {
+  setConnecting: Dispatch<SetStateAction<boolean>>;
+  lifeCycleFns?: ConnectLifecycleFns;
+  disconnect: () => Promise<void>;
+  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
+  open: (options?: {
+    route?: 'Account' | 'ConnectWallet' | 'Help' | 'SelectNetwork';
+  }) => Promise<void>;
+  publicClient: PublicClient;
+}) => {
+  try {
+    setConnecting(true);
+    open();
+    lifeCycleFns?.onConnect?.();
+
+    handleSetProvider({ publicClient, setWalletState });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (web3Error: any) {
+    console.log('web3Error', web3Error);
+    const errMsg =
+      typeof web3Error === 'string'
+        ? web3Error
+        : web3Error?.message || 'Unknown Error';
+    lifeCycleFns?.onConnectError?.({
+      name: 'Connection Error',
+      message: errMsg,
+    });
+    disconnect();
+  } finally {
+    setConnecting(false);
+  }
 };
 
 export const handleConnectWallet = async ({
@@ -64,29 +140,32 @@ export const handleConnectWallet = async ({
   try {
     setConnecting(true);
 
-    const modal = getModal(web3modalOptions);
-    const modalProvider = await modal.requestProvider();
-    const _isGnosisSafe = await modal.isSafeApp();
+    // const modal = getModal(web3modalOptions);
+    // const modalProvider = await modal.requestProvider();
+    // const _isGnosisSafe = await modal.isSafeApp();
+
+    const modalProvider = false;
+    const _isGnosisSafe = false;
 
     if (!_isGnosisSafe) {
-      modalProvider.on('accountsChanged', () => {
-        handleSetProvider({ provider: modalProvider, setWalletState });
-        lifeCycleFns?.onAccountsChanged?.();
-      });
-      modalProvider.on('chainChanged', (chainId: string) => {
-        console.log(chainId);
-        handleSetProvider({ provider: modalProvider, setWalletState });
-        lifeCycleFns?.onChainChanged?.(chainId);
-        if (!isValidNetwork(chainId)) {
-          lifeCycleFns?.onConnectError?.({
-            name: 'UNSUPPORTED_NETWORK',
-            message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-          });
-        }
-      });
+      // modalProvider.on('accountsChanged', () => {
+      //   handleSetProvider({ provider: modalProvider, setWalletState });
+      //   lifeCycleFns?.onAccountsChanged?.();
+      // });
+      // modalProvider.on('chainChanged', (chainId: string) => {
+      //   console.log(chainId);
+      //   handleSetProvider({ provider: modalProvider, setWalletState });
+      //   lifeCycleFns?.onChainChanged?.(chainId);
+      //   if (!isValidNetwork(chainId)) {
+      //     lifeCycleFns?.onConnectError?.({
+      //       name: 'UNSUPPORTED_NETWORK',
+      //       message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
+      //     });
+      //   }
+      // });
     }
 
-    handleSetProvider({ provider: modalProvider, setWalletState });
+    // handleSetProvider({ provider: modalProvider, setWalletState });
     lifeCycleFns?.onConnect?.();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (web3Error: any) {
@@ -117,12 +196,16 @@ export const loadWallet = async ({
   lifeCycleFns?: ConnectLifecycleFns;
   disconnect: () => Promise<void>;
 }) => {
-  const isMetamaskUnlocked =
-    (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
-  const modal = getModal(web3modalOptions);
-  const _isGnosisSafe = await modal.isSafeApp();
+  // const isMetamaskUnlocked =
+  //   (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
+  // const modal = getModal(web3modalOptions);
+  // const _isGnosisSafe = await modal.isSafeApp();
 
-  if (isMetamaskUnlocked && (_isGnosisSafe || web3modalOptions.cacheProvider)) {
+  const isMetamaskUnlocked = false;
+  const _isGnosisSafe = false;
+
+  // if (isMetamaskUnlocked && (_isGnosisSafe || web3modalOptions.cacheProvider)) {
+  if (isMetamaskUnlocked && _isGnosisSafe) {
     await handleConnectWallet({
       setConnecting,
       setWalletState,
@@ -198,10 +281,10 @@ export const handleSwitchNetwork = async (
     // handle on error
     return;
   }
-  if (!window.ethereum?.isMetaMask) {
-    console.error('Switching chain is only supported in Metamask');
-    // handle on error
-    return;
-  }
+  // if (!window.ethereum?.isMetaMask) {
+  //   console.error('Switching chain is only supported in Metamask');
+  //   // handle on error
+  //   return;
+  // }
   await switchChainOnMetaMask(networks, chainId);
 };

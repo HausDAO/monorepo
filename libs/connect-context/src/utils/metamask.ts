@@ -22,7 +22,8 @@ export const switchChainOnMetaMask = async (
   const explorerUrl = explorer;
 
   if (
-    !(name && symbol && networkName && rpcUrl && explorerUrl && window.ethereum)
+    // !(name && symbol && networkName && rpcUrl && explorerUrl && window.ethereum)
+    !(name && symbol && networkName && rpcUrl && explorerUrl)
   ) {
     console.error('Invalid network configuration');
     console.log({
@@ -40,35 +41,35 @@ export const switchChainOnMetaMask = async (
   }
 
   try {
-    await window.ethereum.request({
-      method: 'wallet_switchEthereumChain',
-      params: [
-        {
-          chainId: utils.hexValue(chainId),
-        },
-      ],
-    });
+    // await window.ethereum.request({
+    //   method: 'wallet_switchEthereumChain',
+    //   params: [
+    //     {
+    //       chainId: utils.hexValue(chainId),
+    //     },
+    //   ],
+    // });
     return true;
   } catch (error) {
     if (isSwitchError(error)) {
       if (error.code === 4902) {
         try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: utils.hexValue(chainId),
-                chainName: networkName,
-                nativeCurrency: {
-                  name,
-                  symbol,
-                  decimals: 18,
-                },
-                rpcUrls: [rpcUrl],
-                blockExplorerUrls: [explorerUrl],
-              },
-            ],
-          });
+          // await window.ethereum.request({
+          //   method: 'wallet_addEthereumChain',
+          //   params: [
+          //     {
+          //       chainId: utils.hexValue(chainId),
+          //       chainName: networkName,
+          //       nativeCurrency: {
+          //         name,
+          //         symbol,
+          //         decimals: 18,
+          //       },
+          //       rpcUrls: [rpcUrl],
+          //       blockExplorerUrls: [explorerUrl],
+          //     },
+          //   ],
+          // });
           return true;
         } catch (addError) {
           console.error('Unable to add chain to metamask', addError);

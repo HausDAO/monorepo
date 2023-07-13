@@ -65,6 +65,7 @@ ConnectProviderProps) => {
   const { open, setDefaultChain } = useWeb3Modal();
   const { address, isConnecting } = useAccount({
     onDisconnect() {
+      // we might clear some state here
       console.log('Disconnected');
     },
   });
@@ -74,8 +75,9 @@ ConnectProviderProps) => {
 
   console.log('chain, chains ', chain, chains);
 
-  // todo: add provider and connected chainid?
-  const isConnected = useMemo(() => !!address, [address]);
+  // todo: add provider?
+  // check this on bad chain - might switch to chainId? but validNetwork might handle that ok
+  const isConnected = useMemo(() => !!address && !!chain, [address, chain]);
 
   // todo: this return undefined is an unsupported network - might need to track that elsewhere
   const chainId = useMemo(() => {
@@ -85,22 +87,19 @@ ConnectProviderProps) => {
     }
     return undefined;
   }, [chain]);
+
   const validNetwork = useMemo(
     () => !!chainId && isValidNetwork(chainId, networks),
     [chainId, networks]
   );
 
   const connectWallet = useCallback(async () => {
-    console.log('opening daochain', daoChainId);
-
     if (daoChainId && wgmiChains[daoChainId as ValidNetwork]) {
       // this autochanges to the daochain - do we want that? seems nice - deal with on autoconnect on revist
       // handle if there is a target chain in the context as well - ie summoner
       // handle if unsupported chain?
       setDefaultChain(wgmiChains[daoChainId as ValidNetwork]);
     }
-
-    // could change which view we show if connected? profile vs. connect?
     open();
   }, [open, setDefaultChain, daoChainId]);
 
@@ -111,8 +110,12 @@ ConnectProviderProps) => {
   // figure this out
   // https://wagmi.sh/react/ethers-adapters
   const provider = undefined;
+
   // what is this for?
+  // see loadWallet in old context - lots to handle safe app connection
+  // might need to deploy then test as safe app last
   const isMetamask = false;
+
   const profile = { address: address || '', ens: undefined };
   const isProfileLoading = false;
 

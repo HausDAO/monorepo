@@ -66,7 +66,16 @@ export const processOverrides = async ({
   }
 
   return {
-    value: await handleProposalOfferingValue({ appState, overrides }),
+    value: await handleProposalOfferingValue({
+      appState,
+      overrides,
+      chainId,
+      safeId,
+      localABIs,
+      rpcs,
+      pinataApiKeys,
+      explorerKeys,
+    }),
     gasLimit:
       overrides?.gasLimit &&
       (await processArg({

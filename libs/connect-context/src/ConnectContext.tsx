@@ -19,9 +19,8 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { defaultConnectValues, wgmiChains } from './utils/defaults';
-
 import { ConnectLifecycleFns, ProviderType, UserProfile } from './utils/types';
-import { UseMutateFunction } from 'react-query';
+import { loadProfile } from './utils';
 
 export type UserConnectType = {
   networks: NetworkConfigs;
@@ -70,10 +69,14 @@ ConnectProviderProps) => {
     },
   });
   const { disconnect } = useDisconnect();
-  const { chain, chains } = useNetwork();
+  const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
 
-  console.log('chain, chains ', chain, chains);
+  const [profile, setProfile] = useState<UserProfile>({
+    address: address || '',
+    ens: undefined,
+  });
+  const [isProfileLoading, setProfileLoading] = useState(false);
 
   // todo: add provider?
   // check this on bad chain - might switch to chainId? but validNetwork might handle that ok
@@ -107,6 +110,42 @@ ConnectProviderProps) => {
     switchNetwork?.(Number(_chainId));
   };
 
+  const loadAccountProfile = useCallback(
+    (
+      address: string | null | undefined,
+      chainId: ValidNetwork | null | undefined,
+      shouldUpdate: boolean
+    ) => {
+      if (
+        address &&
+        chainId &&
+        isConnected &&
+        !isProfileLoading &&
+        address !== profile?.address
+      ) {
+        loadProfile({
+          address,
+          chainId,
+          setProfile,
+          setProfileLoading,
+          shouldUpdate,
+          networks,
+          lifeCycleFns,
+        });
+      }
+    },
+    [isConnected, isProfileLoading, networks, lifeCycleFns, profile]
+  );
+
+  useEffect(() => {
+    let shouldUpdate = true;
+    loadAccountProfile(address, chainId, shouldUpdate);
+    return () => {
+      shouldUpdate = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, chainId]);
+
   // figure this out
   // https://wagmi.sh/react/ethers-adapters
   const provider = undefined;
@@ -115,9 +154,6 @@ ConnectProviderProps) => {
   // see loadWallet in old context - lots to handle safe app connection
   // might need to deploy then test as safe app last
   const isMetamask = false;
-
-  const profile = { address: address || '', ens: undefined };
-  const isProfileLoading = false;
 
   return (
     <ConnectContext.Provider

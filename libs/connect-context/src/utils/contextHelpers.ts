@@ -22,16 +22,20 @@ import { type HttpTransport } from 'viem';
 export const numberToHex = (number: number) => {
   return `0x${number.toString(16)}`;
 };
+
+//remove
 export const getModal = (options: ModalOptions) => {
   // const modal = new SafeAppWeb3Modal(options);
   // return modal;
 };
+//remove
 export const isMetamaskProvider = (
   provider: providers.Web3Provider | undefined | null
 ) => provider?.connection?.url === 'metamask';
 export const truncateAddress = (addr: string) =>
   `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
+// new - playing with converting the provider
 export const handleSetProvider = async ({
   // provider,
   setWalletState,
@@ -83,47 +87,7 @@ export function useEthersProvider({ chainId }: { chainId?: number } = {}) {
   );
 }
 
-export const handleConnectWalletNew = async ({
-  setConnecting,
-  lifeCycleFns,
-  disconnect,
-  setWalletState,
-  open,
-  publicClient,
-}: {
-  setConnecting: Dispatch<SetStateAction<boolean>>;
-  lifeCycleFns?: ConnectLifecycleFns;
-  disconnect: () => Promise<void>;
-  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
-  open: (options?: {
-    route?: 'Account' | 'ConnectWallet' | 'Help' | 'SelectNetwork';
-  }) => Promise<void>;
-  publicClient: PublicClient;
-}) => {
-  try {
-    setConnecting(true);
-    open();
-    lifeCycleFns?.onConnect?.();
-
-    handleSetProvider({ publicClient, setWalletState });
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (web3Error: any) {
-    console.log('web3Error', web3Error);
-    const errMsg =
-      typeof web3Error === 'string'
-        ? web3Error
-        : web3Error?.message || 'Unknown Error';
-    lifeCycleFns?.onConnectError?.({
-      name: 'Connection Error',
-      message: errMsg,
-    });
-    disconnect();
-  } finally {
-    setConnecting(false);
-  }
-};
-
+// remove old if we don't need the extra ismetamask handling
 export const handleConnectWallet = async ({
   setConnecting,
   lifeCycleFns,
@@ -183,6 +147,7 @@ export const handleConnectWallet = async ({
   }
 };
 
+// remove old if we don't need the extra ismetamask handling
 export const loadWallet = async ({
   setConnecting,
   web3modalOptions,
@@ -269,6 +234,7 @@ export const loadProfile = async ({
   }
 };
 
+// remove old
 export const handleSwitchNetwork = async (
   _chainId: string | number,
   networks: NetworkConfigs

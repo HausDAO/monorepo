@@ -235,14 +235,14 @@ export async function prepareTX(args: {
 
     // const [signerAddress] = await walletClient.getAddresses();
 
-    const { request } = await publicClient.simulateContract({
-      account,
-      address: address as `0x${string}`,
-      abi,
-      functionName: method,
-    });
+    // const { request } = await publicClient.simulateContract({
+    //   account,
+    //   address: address as `0x${string}`,
+    //   abi,
+    //   functionName: method,
+    // });
 
-    const res = await walletClient.writeContract(request);
+    // const res = await walletClient.writeContract(request);
 
     // console.log('res', res);
   } catch (error) {

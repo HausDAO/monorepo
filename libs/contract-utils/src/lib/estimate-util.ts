@@ -1,7 +1,4 @@
-import {
-  ValidNetwork,
-  HAUS_RPC,
-} from '@daohaus/keychain-utils';
+import { ValidNetwork, HAUS_RPC } from '@daohaus/keychain-utils';
 import { ethers } from 'ethers';
 import { MetaTransaction } from '@gnosis.pm/safe-contracts';
 
@@ -62,5 +59,3 @@ export const gasEstimateFromActions = async ({
 
   return totalGasEstimate;
 };
-
-

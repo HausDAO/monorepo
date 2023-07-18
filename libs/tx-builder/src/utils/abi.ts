@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { createPublicClient, getContract } from 'viem';
+import { createPublicClient, getContract, http, HttpTransport } from 'viem';
 import { ABI, isJSON } from '@daohaus/utils';
 import {
   Keychain,
@@ -61,7 +61,9 @@ const getGnosisMasterCopy = async (
     chainId,
     rpcs,
   });
-  const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
+  // const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
+  const masterCopy = await gnosisProxyContract?.read.masterCopy();
+
   return masterCopy;
 };
 
@@ -117,7 +119,9 @@ export const getImplementation = async ({
   });
 
   try {
-    const newAddress = await ethersContract?.['implementation']?.();
+    // const newAddress = await ethersContract?.['implementation']?.();
+    const newAddress = await ethersContract?.read.implementation();
+
     return newAddress;
   } catch (error) {
     console.error(error);
@@ -176,7 +180,9 @@ export const processABI = async ({
       abi: LOCAL_ABI.SUPERFLUID_PROXY,
       chainId,
     });
-    const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();
+    // const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();
+    const sfProxyAddr = await proxyEthersContract?.read.getCodeAddress();
+
     const newData = await fetchABI({
       contractAddress: sfProxyAddr,
       chainId,

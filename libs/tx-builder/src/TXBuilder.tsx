@@ -1,5 +1,7 @@
 import { ethers, providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
+import { PublicClient } from 'wagmi';
+
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
 import {
   ABI_EXPLORER_KEYS,
@@ -79,6 +81,7 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   graphApiKeys?: Keychain;
   pinataApiKeys?: PinataApiKeys;
   explorerKeys?: Keychain;
+  publicClient?: PublicClient;
 };
 
 export const TXBuilder = ({
@@ -95,6 +98,8 @@ export const TXBuilder = ({
   graphApiKeys = GRAPH_API_KEYS,
   pinataApiKeys = PINATA_API_KEYS,
   explorerKeys = ABI_EXPLORER_KEYS,
+
+  publicClient,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -106,7 +111,8 @@ export const TXBuilder = ({
     callerState,
     lifeCycleFns = {},
   }) => {
-    if (!chainId || !isValidNetwork(chainId) || !provider) {
+    // if (!chainId || !isValidNetwork(chainId) || !provider) {
+    if (!chainId || !isValidNetwork(chainId)) {
       lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
       );
@@ -125,7 +131,7 @@ export const TXBuilder = ({
       tx,
       chainId,
       safeId,
-      provider,
+      // provider,
       setTransactions,
       appState: wholeState,
       argCallbackRecord,
@@ -138,6 +144,8 @@ export const TXBuilder = ({
       graphApiKeys,
       pinataApiKeys,
       explorerKeys,
+
+      publicClient,
     });
 
     return true;

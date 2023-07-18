@@ -6,6 +6,8 @@ import {
   NetworkConfigs,
 } from '@daohaus/keychain-utils';
 
+// can we remove now?
+
 type SwitchError = Error & { code: number };
 const isSwitchError = (err: unknown): err is SwitchError =>
   (err as SwitchError).code !== undefined;

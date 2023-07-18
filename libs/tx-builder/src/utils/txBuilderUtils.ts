@@ -1,4 +1,7 @@
 import { ethers, providers } from 'ethers';
+import { PublicClient } from 'wagmi';
+import { goerli } from 'wagmi/chains';
+import { createWalletClient, custom, http } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
@@ -118,7 +121,7 @@ export async function prepareTX(args: {
   tx: TXLego;
   chainId: ValidNetwork;
   safeId?: string;
-  provider: providers.Web3Provider;
+  // provider: providers.Web3Provider;
   setTransactions: ReactSetter<TxRecord>;
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
@@ -128,13 +131,14 @@ export async function prepareTX(args: {
   graphApiKeys: Keychain;
   pinataApiKeys: PinataApiKeys;
   explorerKeys: Keychain;
+  publicClient?: PublicClient;
 }) {
   const {
     argCallbackRecord,
     tx,
     chainId,
     safeId,
-    provider,
+    // provider,
     localABIs,
     lifeCycleFns,
     appState,
@@ -142,6 +146,7 @@ export async function prepareTX(args: {
     explorerKeys,
     pinataApiKeys,
     graphApiKeys,
+    publicClient,
   } = args;
   console.log('**APPLICATION STATE**', appState);
   try {
@@ -185,20 +190,61 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED overrides**', overrides);
 
-    const contract = new ethers.Contract(
-      address,
+    // const contract = new ethers.Contract(
+    //   address,
+    //   abi,
+    //   provider.getSigner().connectUnchecked()
+    // );
+
+    // lifeCycleFns?.onRequestSign?.();
+
+    // const ethersTx = await contract.functions[method](
+    //   ...processedArgs,
+    //   overrides
+    // );
+
+    // executeTx({ ...args, ethersTx, graphApiKeys });
+
+    if (!publicClient) {
+      return;
+    }
+
+    // @ts-expect-error because
+    const [account] = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+
+    console.log('account', account);
+    console.log('publicClient', publicClient);
+
+    const walletClient = createWalletClient({
+      chain: goerli,
+      account,
+
+      // not sure if we can use window.ethereum on all wallets
+      // transport: custom(window.ethereum),
+      transport: http(),
+    });
+
+    // @ts-expect-error because
+    console.log('window.ethereum', window.ethereum);
+
+    console.log('walletClient', walletClient);
+
+    console.log('method', method);
+
+    // const [signerAddress] = await walletClient.getAddresses();
+
+    const { request } = await publicClient.simulateContract({
+      account,
+      address: address as `0x${string}`,
       abi,
-      provider.getSigner().connectUnchecked()
-    );
+      functionName: method,
+    });
 
-    lifeCycleFns?.onRequestSign?.();
+    const res = await walletClient.writeContract(request);
 
-    const ethersTx = await contract.functions[method](
-      ...processedArgs,
-      overrides
-    );
-
-    executeTx({ ...args, ethersTx, graphApiKeys });
+    // console.log('res', res);
   } catch (error) {
     console.log('**TX Error**');
     console.error(error);

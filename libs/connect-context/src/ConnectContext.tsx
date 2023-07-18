@@ -8,7 +8,14 @@ import {
   useState,
 } from 'react';
 import { useWeb3Modal } from '@web3modal/react';
-import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi';
+import {
+  useAccount,
+  useDisconnect,
+  useNetwork,
+  useSwitchNetwork,
+  usePublicClient,
+  PublicClient,
+} from 'wagmi';
 
 import {
   getNetworkById,
@@ -20,7 +27,7 @@ import {
 
 import { defaultConnectValues, wgmiChains } from './utils/defaults';
 import { ConnectLifecycleFns, ProviderType, UserProfile } from './utils/types';
-import { loadProfile } from './utils';
+import { loadProfile, publicClientToProvider } from './utils';
 
 export type UserConnectType = {
   networks: NetworkConfigs;
@@ -34,11 +41,11 @@ export type UserConnectType = {
   isConnecting: boolean;
   isConnected: boolean;
   switchNetwork: (chainId: string) => void;
-
-  provider?: ProviderType;
   profile: UserProfile;
-  isMetamask: boolean;
   isProfileLoading: boolean;
+  provider?: ProviderType;
+  publicClient?: PublicClient;
+  isMetamask: boolean;
 };
 
 export const ConnectContext =
@@ -65,12 +72,14 @@ ConnectProviderProps) => {
   const { address, isConnecting } = useAccount({
     onDisconnect() {
       // we might clear some state here
+      // reset provider
       console.log('Disconnected');
     },
   });
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
+  const publicClient = usePublicClient();
 
   const [profile, setProfile] = useState<UserProfile>({
     address: address || '',
@@ -78,8 +87,19 @@ ConnectProviderProps) => {
   });
   const [isProfileLoading, setProfileLoading] = useState(false);
 
+  // const ethersProvider = useMemo(() => {
+  //   console.log('publicClient', publicClient);
+
+  //   if (publicClient) {
+  //     return publicClientToProvider(publicClient);
+  //   }
+
+  //   return undefined;
+  // }, [publicClient]);
+
+  // console.log('ethersProvider', ethersProvider);
+
   // todo: add provider?
-  // check this on bad chain - might switch to chainId? but validNetwork might handle that ok
   const isConnected = useMemo(() => !!address && !!chain, [address, chain]);
 
   // todo: this return undefined is an unsupported network - might need to track that elsewhere
@@ -148,7 +168,7 @@ ConnectProviderProps) => {
 
   // figure this out
   // https://wagmi.sh/react/ethers-adapters
-  const provider = undefined;
+  // const provider = undefined;
 
   // what is this for?
   // see loadWallet in old context - lots to handle safe app connection
@@ -164,16 +184,18 @@ ConnectProviderProps) => {
         address,
         connectWallet,
         disconnect,
+        switchNetwork: handleSwitchNetwork,
         isConnected,
         isConnecting,
         chainId,
         validNetwork,
-        //
-        provider,
-        isMetamask,
-        switchNetwork: handleSwitchNetwork,
         profile,
         isProfileLoading,
+        //
+        // provider: ethersProvider as ProviderType,
+        publicClient,
+        provider: undefined,
+        isMetamask,
       }}
     >
       {children}

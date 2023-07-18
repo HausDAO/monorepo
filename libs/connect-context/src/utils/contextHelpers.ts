@@ -2,6 +2,8 @@ import React, { Dispatch, SetStateAction } from 'react';
 // import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
 import {
+  getNetworkById,
+  HAUS_RPC,
   isValidNetwork,
   NetworkConfigs,
   ValidNetwork,
@@ -35,56 +37,33 @@ export const isMetamaskProvider = (
 export const truncateAddress = (addr: string) =>
   `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
-// new - playing with converting the provider
-export const handleSetProvider = async ({
-  // provider,
-  setWalletState,
-  publicClient,
-}: {
-  // eslint-disable-next-line
-  // provider: any;
-  publicClient: PublicClient;
-  setWalletState: Dispatch<SetStateAction<WalletStateType>>;
-}) => {
-  // const ethersProvider = new providers.Web3Provider(provider);
-  const ethersProvider = publicClientToProvider(publicClient);
-
-  console.log('ethersProvider', ethersProvider);
-  console.log('publicClient', publicClient);
-
-  // const signerAddress = await ethersProvider.getSigner().getAddress();
-  // setWalletState({
-  //   provider: ethersProvider,
-  //   chainId: (typeof provider.chainId === 'number'
-  //     ? `0x${Number(provider.chainId).toString(16)}`
-  //     : provider.chainId) as ValidNetwork,
-  //   address: signerAddress,
-  // });
-};
-
 export function publicClientToProvider(publicClient: PublicClient) {
   const { chain, transport } = publicClient;
+
+  console.log('chain, transport', chain, transport);
   const network = {
     chainId: chain.id,
     name: chain.name,
     ensAddress: chain.contracts?.ensRegistry?.address,
   };
-  if (transport.type === 'fallback')
-    return new providers.FallbackProvider(
-      (transport['transports'] as ReturnType<HttpTransport>[]).map(
-        ({ value }) => new providers.JsonRpcProvider(value?.url, network)
-      )
-    );
-  return new providers.JsonRpcProvider(transport['url'], network);
-}
+  // if (transport.type === 'fallback')
+  //   return new providers.FallbackProvider(
+  //     (transport['transports'] as ReturnType<HttpTransport>[]).map(
+  //       ({ value }) => new providers.JsonRpcProvider(value?.url, network)
+  //     )
+  //   );
+  // const networkData = getNetworkById(chain.id);
+  // console.log('networkData', networkData);
 
-/** Hook to convert a viem Public Client to an ethers.js Provider. */
-export function useEthersProvider({ chainId }: { chainId?: number } = {}) {
-  const publicClient = usePublicClient({ chainId });
-  return React.useMemo(
-    () => publicClientToProvider(publicClient),
-    [publicClient]
+  // return new providers.JsonRpcProvider(transport['url'], network);
+  return new providers.JsonRpcProvider(
+    transport['transports'][0]['value']['url'],
+    network
   );
+
+  // if (!networkData) return;
+
+  // return new providers.JsonRpcProvider(networkData.rpc, network);
 }
 
 // remove old if we don't need the extra ismetamask handling

@@ -22,6 +22,8 @@ export const wgmiChains: Keychain<Chain> = {
   '0xa4b1': arbitrum,
 };
 
+// remove
+
 // const providerOptions: IProviderOptions = {
 const providerOptions = {
   walletconnect: {
@@ -67,4 +69,5 @@ export const defaultConnectValues = {
   appNetworks: [],
   daoId: undefined,
   daoChain: undefined,
+  publicClient: undefined,
 };

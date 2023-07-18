@@ -15,12 +15,15 @@ export type ConnectLifecycleFns = {
 
 export type ProviderType = providers.Web3Provider;
 
+export type UserProfile = AccountProfile & { displayName?: string };
+
+// remove
+
 export type WalletStateType = {
   provider?: providers.Web3Provider;
   chainId?: ValidNetwork;
   address?: string;
 };
-export type UserProfile = AccountProfile & { displayName?: string };
 // export type ModalOptions = Partial<ICoreOptions>;
 
 export type ModalOptions = {

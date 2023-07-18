@@ -34,6 +34,5 @@ export const getNetworkById = (
   const network = Object.values(networks).find(
     (net) => net.networkId === networkId
   );
-  console.log('network', network);
   return network;
 };

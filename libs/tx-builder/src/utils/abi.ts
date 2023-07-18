@@ -1,10 +1,12 @@
 import { ethers } from 'ethers';
+import { createPublicClient, getContract } from 'viem';
 import { ABI, isJSON } from '@daohaus/utils';
 import {
   Keychain,
   HAUS_RPC,
   ValidNetwork,
   ABI_EXPLORER_KEYS,
+  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
 import { cacheABI, getCachedABI } from './cache';
@@ -63,6 +65,15 @@ const getGnosisMasterCopy = async (
   return masterCopy;
 };
 
+export const getTransport = (
+  chainId: ValidNetwork,
+  rpcs?: Keychain
+): HttpTransport => {
+  const rpc = HAUS_RPC[chainId];
+  if (!rpc) return http();
+  return http(rpc);
+};
+
 export const createContract = ({
   address,
   abi,
@@ -74,9 +85,17 @@ export const createContract = ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return new ethers.Contract(address, abi, ethersProvider);
+  const transport = getTransport(chainId);
+  const client = createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
+
+  return getContract({
+    address: address as `0x${string}`,
+    abi,
+    publicClient: client,
+  });
 };
 
 export const getImplementation = async ({

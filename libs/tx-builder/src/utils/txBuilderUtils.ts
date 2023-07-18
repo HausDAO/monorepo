@@ -1,7 +1,7 @@
-import { ethers, providers } from 'ethers';
+import { ethers } from 'ethers';
 import { PublicClient } from 'wagmi';
 import { goerli } from 'wagmi/chains';
-import { createWalletClient, custom, http } from 'viem';
+import { createWalletClient, custom } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
@@ -222,29 +222,34 @@ export async function prepareTX(args: {
       account,
 
       // not sure if we can use window.ethereum on all wallets
-      // transport: custom(window.ethereum),
-      transport: http(),
+      // @ts-expect-error because
+      transport: custom(window.ethereum),
     });
 
     // @ts-expect-error because
     console.log('window.ethereum', window.ethereum);
-
     console.log('walletClient', walletClient);
 
-    console.log('method', method);
+    console.info({
+      account,
+      address: address as `0x${string}`,
+      abi,
+      functionName: method,
+    });
 
-    // const [signerAddress] = await walletClient.getAddresses();
+    const { request } = await publicClient.simulateContract({
+      account,
+      address: address as `0x${string}`,
+      abi,
+      args: processedArgs,
+      functionName: method,
+    });
 
-    // const { request } = await publicClient.simulateContract({
-    //   account,
-    //   address: address as `0x${string}`,
-    //   abi,
-    //   functionName: method,
-    // });
+    console.log('request', request);
 
-    // const res = await walletClient.writeContract(request);
+    const res = await walletClient.writeContract(request);
 
-    // console.log('res', res);
+    console.log('res', res);
   } catch (error) {
     console.log('**TX Error**');
     console.error(error);

@@ -12,7 +12,6 @@ import { HAUS_NETWORK_DATA, getNetworkById } from '@daohaus/keychain-utils';
 import { ConnectProvider, ConnectProviderProps } from './ConnectContext';
 import { wgmiChains } from './utils';
 
-// cleanup - could move some of this into defaults.ts
 if (!process.env['NX_WALLET_CONNECT_ID']) {
   throw new Error('You need to provide NX_WALLET_CONNECT_ID env variable');
 }
@@ -36,8 +35,6 @@ export const wagmiConfig = createConfig({
   publicClient,
 });
 export const ethereumClient = new EthereumClient(wagmiConfig, chains);
-
-// todo: pass rpcs
 
 export const Connect = ({
   children,

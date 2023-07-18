@@ -1,4 +1,5 @@
-import { ethers, providers } from 'ethers';
+import { providers } from 'ethers';
+import { TransactionReceipt } from 'viem';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { PublicClient } from 'wagmi';
 
@@ -21,7 +22,7 @@ export type TXLifeCycleFns = {
   onTxHash?: (txHash: string) => void;
   onTxError?: (error: unknown) => void;
   onTxSuccess?: (
-    txReceipt: ethers.providers.TransactionReceipt,
+    txReceipt: TransactionReceipt,
     txHash: string,
     appState: ArbitraryState
   ) => void;
@@ -30,7 +31,7 @@ export type TXLifeCycleFns = {
   onPollSuccess?: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result: any,
-    txReceipt: ethers.providers.TransactionReceipt,
+    txReceipt: TransactionReceipt,
     appState: ArbitraryState
   ) => void;
 };
@@ -112,7 +113,7 @@ export const TXBuilder = ({
     lifeCycleFns = {},
   }) => {
     // if (!chainId || !isValidNetwork(chainId) || !provider) {
-    if (!chainId || !isValidNetwork(chainId)) {
+    if (!chainId || !isValidNetwork(chainId) || !publicClient) {
       lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
       );

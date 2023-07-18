@@ -1,7 +1,7 @@
-import { ethers, providers } from 'ethers';
+import { ethers } from 'ethers';
 import { PublicClient } from 'wagmi';
 import { goerli } from 'wagmi/chains';
-import { createWalletClient, custom, http } from 'viem';
+import { Hash, createWalletClient, custom } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
@@ -26,7 +26,9 @@ export type MassState = {
 
 export const executeTx = async (args: {
   tx: TXLego;
-  ethersTx: {
+  txHash: Hash;
+  publicClient: PublicClient;
+  ethersTx?: {
     hash: string;
     wait: () => Promise<ethers.providers.TransactionReceipt>;
   };
@@ -38,6 +40,8 @@ export const executeTx = async (args: {
 }) => {
   const {
     tx,
+    txHash,
+    publicClient,
     ethersTx,
     setTransactions,
     chainId,
@@ -46,20 +50,22 @@ export const executeTx = async (args: {
     appState,
   } = args;
   console.log('**Transaction Initatiated**');
-  const txHash = ethersTx.hash;
   console.log('txHash', txHash);
   try {
-    lifeCycleFns?.onTxHash?.(ethersTx.hash);
+    lifeCycleFns?.onTxHash?.(txHash);
     setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'idle' },
     }));
     console.log('**Transaction Pending**');
-    const receipt = await ethersTx.wait();
+
+    const receipt = await publicClient.waitForTransactionReceipt({
+      hash: txHash,
+    });
     console.log('**Transaction Mined**');
     console.log('**Transaction Receipt**', receipt);
 
-    if (receipt.status === 0) {
+    if (receipt.status === 'reverted') {
       throw new Error('CALL_EXCEPTION: txReceipt status 0');
     }
 
@@ -121,7 +127,6 @@ export async function prepareTX(args: {
   tx: TXLego;
   chainId: ValidNetwork;
   safeId?: string;
-  // provider: providers.Web3Provider;
   setTransactions: ReactSetter<TxRecord>;
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
@@ -138,7 +143,6 @@ export async function prepareTX(args: {
     tx,
     chainId,
     safeId,
-    // provider,
     localABIs,
     lifeCycleFns,
     appState,
@@ -190,25 +194,11 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED overrides**', overrides);
 
-    // const contract = new ethers.Contract(
-    //   address,
-    //   abi,
-    //   provider.getSigner().connectUnchecked()
-    // );
-
-    // lifeCycleFns?.onRequestSign?.();
-
-    // const ethersTx = await contract.functions[method](
-    //   ...processedArgs,
-    //   overrides
-    // );
-
-    // executeTx({ ...args, ethersTx, graphApiKeys });
-
     if (!publicClient) {
       return;
     }
 
+    // TODO figure out account away from window.ethereum
     // @ts-expect-error because
     const [account] = await window.ethereum.request({
       method: 'eth_requestAccounts',
@@ -222,29 +212,50 @@ export async function prepareTX(args: {
       account,
 
       // not sure if we can use window.ethereum on all wallets
-      // transport: custom(window.ethereum),
-      transport: http(),
+      // TODO figure out transport away from window.ethereum
+      // @ts-expect-error because
+      transport: custom(window.ethereum),
     });
 
     // @ts-expect-error because
     console.log('window.ethereum', window.ethereum);
-
     console.log('walletClient', walletClient);
 
-    console.log('method', method);
+    const { request } = await publicClient.simulateContract({
+      account,
+      address: address as `0x${string}`,
+      abi,
+      args: processedArgs,
+      functionName: method,
+    });
 
-    // const [signerAddress] = await walletClient.getAddresses();
+    console.log('request', request);
 
-    // const { request } = await publicClient.simulateContract({
-    //   account,
-    //   address: address as `0x${string}`,
+    // const contract = new ethers.Contract(
+    //   address,
     //   abi,
-    //   functionName: method,
-    // });
+    //   provider.getSigner().connectUnchecked()
+    // );
 
-    // const res = await walletClient.writeContract(request);
+    lifeCycleFns?.onRequestSign?.();
 
-    // console.log('res', res);
+    // const ethersTx = await contract.functions[method](
+    //   ...processedArgs,
+    //   overrides
+    // );
+
+    console.info({
+      account,
+      address: address as `0x${string}`,
+      abi,
+      functionName: method,
+    });
+
+    const txHash = await walletClient.writeContract(request);
+
+    console.log('txHash', txHash);
+
+    executeTx({ ...args, publicClient, txHash, graphApiKeys });
   } catch (error) {
     console.log('**TX Error**');
     console.error(error);

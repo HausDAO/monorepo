@@ -5,8 +5,7 @@ import {
   isString,
   toBaseUnits,
 } from '@daohaus/utils';
-import { BigNumber } from 'ethers';
-import { isAddress } from 'ethers/lib/utils';
+import { isAddress } from 'viem';
 
 const VAL_MSG = {
   formattingError:
@@ -52,14 +51,14 @@ export const transformAddressesAndAmountsData = (
         recipients: [...acc.recipients, newRecipientAddress],
         values: [...acc.values, newAmountsWei],
         total: isNumberish(newAmountsWei)
-          ? acc.total.add(BigNumber.from(newAmountsWei))
+          ? acc.total + BigInt(newAmountsWei)
           : acc.total,
       };
     },
     {
       recipients: [] as string[],
       values: [] as string[],
-      total: BigNumber.from(0),
+      total: BigInt(0),
     }
   );
 

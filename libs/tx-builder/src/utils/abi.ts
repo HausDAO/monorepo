@@ -1,6 +1,6 @@
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
 import { createPublicClient, getContract, http, HttpTransport } from 'viem';
-import { ABI, isJSON } from '@daohaus/utils';
+import { ABI, EthAddress, isJSON } from '@daohaus/utils';
 import {
   Keychain,
   HAUS_RPC,
@@ -51,7 +51,7 @@ const getABIUrl = ({
 };
 
 const getGnosisMasterCopy = async (
-  address: string,
+  address: EthAddress,
   chainId: ValidNetwork,
   rpcs: Keychain
 ) => {
@@ -61,19 +61,33 @@ const getGnosisMasterCopy = async (
     chainId,
     rpcs,
   });
-  // const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
-  const masterCopy = await gnosisProxyContract?.read.masterCopy();
-
-  return masterCopy;
+  return await gnosisProxyContract?.read.masterCopy();
 };
 
-export const getTransport = (
-  chainId: ValidNetwork,
-  rpcs?: Keychain
-): HttpTransport => {
-  const rpc = HAUS_RPC[chainId];
+export const createTransport = ({
+  chainId,
+  rpcs = HAUS_RPC,
+}: {
+  chainId: ValidNetwork;
+  rpcs: Keychain;
+}): HttpTransport => {
+  const rpc = rpcs[chainId];
   if (!rpc) return http();
   return http(rpc);
+};
+
+export const createViemClient = ({
+  chainId,
+  rpcs = HAUS_RPC,
+}: {
+  chainId: ValidNetwork;
+  rpcs?: Keychain;
+}) => {
+  const transport = createTransport({ chainId, rpcs });
+  return createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
 };
 
 export const createContract = ({
@@ -87,14 +101,13 @@ export const createContract = ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-  const transport = getTransport(chainId);
-  const client = createPublicClient({
-    chain: VIEM_CHAINS[chainId],
-    transport,
+  const client = createViemClient({
+    chainId,
+    rpcs,
   });
 
   return getContract({
-    address: address as `0x${string}`,
+    address: address as EthAddress,
     abi,
     publicClient: client,
   });
@@ -111,18 +124,16 @@ export const getImplementation = async ({
   abi: ABI;
   rpcs?: Keychain;
 }): Promise<string | false> => {
-  const ethersContract = createContract({
-    address,
-    abi,
-    chainId,
-    rpcs,
-  });
+  const client = createViemClient({ chainId, rpcs });
 
   try {
-    // const newAddress = await ethersContract?.['implementation']?.();
-    const newAddress = await ethersContract?.read.implementation();
+    const newAddress = await client.readContract({
+      address: address as EthAddress,
+      abi,
+      functionName: 'implementation',
+    });
 
-    return newAddress;
+    return newAddress as string;
   } catch (error) {
     console.error(error);
     return false;
@@ -175,16 +186,16 @@ export const processABI = async ({
       }
     }
   } else if (isSuperfluidProxy(abi)) {
-    const proxyEthersContract = createContract({
-      address: contractAddress,
+    const client = createViemClient({ chainId, rpcs });
+
+    const sfProxyAddr = await client.readContract({
+      address: contractAddress as EthAddress,
       abi: LOCAL_ABI.SUPERFLUID_PROXY,
-      chainId,
+      functionName: 'getCodeAddress',
     });
-    // const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();
-    const sfProxyAddr = await proxyEthersContract?.read.getCodeAddress();
 
     const newData = await fetchABI({
-      contractAddress: sfProxyAddr,
+      contractAddress: sfProxyAddr as EthAddress,
       chainId,
       rpcs,
       explorerKeys,
@@ -196,12 +207,12 @@ export const processABI = async ({
     }
   } else if (isGnosisProxy(abi)) {
     const gnosisProxyAddress = await getGnosisMasterCopy(
-      contractAddress,
+      contractAddress as EthAddress,
       chainId,
       rpcs
     );
     const newData = await fetchABI({
-      contractAddress: gnosisProxyAddress,
+      contractAddress: gnosisProxyAddress as EthAddress,
       chainId,
       rpcs,
       explorerKeys,
@@ -280,7 +291,18 @@ export const getCode = async ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return ethersProvider.getCode(contractAddress);
+  // const rpcUrl = rpcs[chainId];
+  // const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
+  // return ethersProvider.getCode(contractAddress);
+
+  const transport = createTransport({ chainId, rpcs });
+  const client = createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
+  const bytecode = await client.getBytecode({
+    address: contractAddress as EthAddress,
+  });
+
+  return bytecode;
 };

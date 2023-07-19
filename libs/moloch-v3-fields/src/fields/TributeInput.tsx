@@ -13,7 +13,7 @@ import {
 import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
 import { useDHConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
-import { createContract, useTxBuilder } from '@daohaus/tx-builder';
+import { useTxBuilder, createViemClient } from '@daohaus/tx-builder';
 import {
   Buildable,
   Button,
@@ -75,18 +75,50 @@ const fetchUserERC20 = async ({
     return setFetchState(TokenFetchStates.NotValidNetwork);
 
   const spenderAddress = CONTRACT_KEYCHAINS.TRIBUTE_MINION[chainId];
-  const contract = createContract({
-    address: tokenAddress,
+  // const contract = createContract({
+  //   address: tokenAddress,
+  //   chainId,
+  //   abi: LOCAL_ABI.ERC20,
+  // });
+
+  const client = createViemClient({
     chainId,
-    abi: LOCAL_ABI.ERC20,
   });
 
   try {
-    const balance = await contract.balanceOf(userAddress);
-    const decimals = await contract.decimals();
-    const tokenName = await contract.name();
-    const tokenSymbol = await contract.symbol();
-    const allowance = await contract.allowance(userAddress, spenderAddress);
+    // const balance = await contract.balanceOf(userAddress);
+    const balance = (await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress,
+      functionName: 'balanceOf',
+      args: [userAddress],
+    })) as bigint;
+
+    // const decimals = await contract.decimals();?
+    const decimals = await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress,
+      functionName: 'decimals',
+    });
+    // const tokenName = await contract.name();
+    const tokenName = await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress,
+      functionName: 'tokenName',
+    });
+    // const tokenSymbol = await contract.symbol();
+    const tokenSymbol = await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress,
+      functionName: 'tokenSymbol',
+    });
+    // const allowance = await contract.allowance(userAddress, spenderAddress);
+    const allowance = (await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress,
+      functionName: 'allowance',
+      args: [userAddress, spenderAddress],
+    })) as bigint;
     const tokenData = {
       allowance: allowance.toString(),
       balance: balance.toString(),

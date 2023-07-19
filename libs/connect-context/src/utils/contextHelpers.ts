@@ -37,35 +37,6 @@ export const isMetamaskProvider = (
 export const truncateAddress = (addr: string) =>
   `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
-export function publicClientToProvider(publicClient: PublicClient) {
-  const { chain, transport } = publicClient;
-
-  console.log('chain, transport', chain, transport);
-  const network = {
-    chainId: chain.id,
-    name: chain.name,
-    ensAddress: chain.contracts?.ensRegistry?.address,
-  };
-  // if (transport.type === 'fallback')
-  //   return new providers.FallbackProvider(
-  //     (transport['transports'] as ReturnType<HttpTransport>[]).map(
-  //       ({ value }) => new providers.JsonRpcProvider(value?.url, network)
-  //     )
-  //   );
-  // const networkData = getNetworkById(chain.id);
-  // console.log('networkData', networkData);
-
-  // return new providers.JsonRpcProvider(transport['url'], network);
-  return new providers.JsonRpcProvider(
-    transport['transports'][0]['value']['url'],
-    network
-  );
-
-  // if (!networkData) return;
-
-  // return new providers.JsonRpcProvider(networkData.rpc, network);
-}
-
 // remove old if we don't need the extra ismetamask handling
 export const handleConnectWallet = async ({
   setConnecting,

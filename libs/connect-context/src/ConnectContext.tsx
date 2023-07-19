@@ -23,11 +23,12 @@ import {
   isValidNetwork,
   NetworkConfigs,
   ValidNetwork,
+  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
-import { defaultConnectValues, wgmiChains } from './utils/defaults';
+import { defaultConnectValues } from './utils/defaults';
 import { ConnectLifecycleFns, ProviderType, UserProfile } from './utils/types';
-import { loadProfile, publicClientToProvider } from './utils';
+import { loadProfile } from './utils';
 
 export type UserConnectType = {
   networks: NetworkConfigs;
@@ -65,17 +66,9 @@ export const ConnectProvider = ({
   lifeCycleFns,
   daoChainId,
   daoId,
-}: //
-
-ConnectProviderProps) => {
+}: ConnectProviderProps) => {
   const { open, setDefaultChain } = useWeb3Modal();
-  const { address, isConnecting } = useAccount({
-    onDisconnect() {
-      // we might clear some state here
-      // reset provider
-      console.log('Disconnected');
-    },
-  });
+  const { address, isConnecting } = useAccount();
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
@@ -86,18 +79,6 @@ ConnectProviderProps) => {
     ens: undefined,
   });
   const [isProfileLoading, setProfileLoading] = useState(false);
-
-  // const ethersProvider = useMemo(() => {
-  //   console.log('publicClient', publicClient);
-
-  //   if (publicClient) {
-  //     return publicClientToProvider(publicClient);
-  //   }
-
-  //   return undefined;
-  // }, [publicClient]);
-
-  // console.log('ethersProvider', ethersProvider);
 
   // todo: add provider?
   const isConnected = useMemo(() => !!address && !!chain, [address, chain]);
@@ -117,11 +98,11 @@ ConnectProviderProps) => {
   );
 
   const connectWallet = useCallback(async () => {
-    if (daoChainId && wgmiChains[daoChainId as ValidNetwork]) {
+    if (daoChainId && VIEM_CHAINS[daoChainId as ValidNetwork]) {
       // this autochanges to the daochain - do we want that? seems nice - deal with on autoconnect on revist
       // handle if there is a target chain in the context as well - ie summoner
       // handle if unsupported chain?
-      setDefaultChain(wgmiChains[daoChainId as ValidNetwork]);
+      setDefaultChain(VIEM_CHAINS[daoChainId as ValidNetwork]);
     }
     open();
   }, [open, setDefaultChain, daoChainId]);

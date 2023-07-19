@@ -8,7 +8,6 @@ import {
   isActionError,
 } from '@daohaus/tx-builder';
 import { EthAddress, formatValueTo, toWholeUnits } from '@daohaus/utils';
-import { BigNumberish } from 'ethers';
 
 export type ProposalDataPoint = {
   displayType: 'data' | 'member';
@@ -50,8 +49,8 @@ const getValueFromMintOrTransferAction = (
   }
 
   const value = Array.isArray(actionData.params[1].value)
-    ? (actionData.params[1].value[0] as BigNumberish)
-    : (actionData.params[1].value as BigNumberish);
+    ? (actionData.params[1].value[0] as bigint)
+    : (actionData.params[1].value as bigint);
 
   return formatValueTo({
     value: toWholeUnits(value.toString(), decimals),
@@ -238,12 +237,6 @@ const fetchTokenData = async ({
   rpcs?: Keychain;
 }) => {
   const tokenAddress = actionData.to;
-  // const tokenContract = createContract({
-  //   address: tokenAddress,
-  //   abi: LOCAL_ABI.ERC20,
-  //   chainId,
-  //   rpcs,
-  // });
 
   const client = createViemClient({
     chainId,
@@ -251,9 +244,6 @@ const fetchTokenData = async ({
   });
 
   try {
-    // const decimals = await tokenContract.decimals();
-    // const symbol = await tokenContract.symbol();
-
     const decimals = (await client.readContract({
       abi: LOCAL_ABI.ERC20,
       address: tokenAddress as EthAddress,

@@ -1,11 +1,5 @@
-// import { ethers } from 'ethers';
-import {
-  createPublicClient,
-  getContract,
-  http,
-  HttpTransport,
-  PublicClient,
-} from 'viem';
+import { ethers } from 'ethers';
+import { createPublicClient, http, HttpTransport, PublicClient } from 'viem';
 import { ABI, EthAddress, isJSON } from '@daohaus/utils';
 import {
   Keychain,
@@ -17,7 +11,6 @@ import {
 
 import { cacheABI, getCachedABI } from './cache';
 import { LOCAL_ABI } from '@daohaus/abis';
-import { ethers } from 'ethers';
 
 const isGnosisProxy = (abi: ABI) => {
   return (

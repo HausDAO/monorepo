@@ -1,4 +1,3 @@
-import { ethers } from 'ethers';
 import { PublicClient } from 'wagmi';
 import { goerli } from 'wagmi/chains';
 import { Hash, createWalletClient, custom } from 'viem';
@@ -28,10 +27,6 @@ export const executeTx = async (args: {
   tx: TXLego;
   txHash: Hash;
   publicClient: PublicClient;
-  ethersTx?: {
-    hash: string;
-    wait: () => Promise<ethers.providers.TransactionReceipt>;
-  };
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
@@ -42,7 +37,6 @@ export const executeTx = async (args: {
     tx,
     txHash,
     publicClient,
-    ethersTx,
     setTransactions,
     chainId,
     lifeCycleFns,
@@ -231,25 +225,7 @@ export async function prepareTX(args: {
 
     console.log('request', request);
 
-    // const contract = new ethers.Contract(
-    //   address,
-    //   abi,
-    //   provider.getSigner().connectUnchecked()
-    // );
-
     lifeCycleFns?.onRequestSign?.();
-
-    // const ethersTx = await contract.functions[method](
-    //   ...processedArgs,
-    //   overrides
-    // );
-
-    console.info({
-      account,
-      address: address as `0x${string}`,
-      abi,
-      functionName: method,
-    });
 
     const txHash = await walletClient.writeContract(request);
 

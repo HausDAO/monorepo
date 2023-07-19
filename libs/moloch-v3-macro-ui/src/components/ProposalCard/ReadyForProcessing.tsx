@@ -6,9 +6,14 @@ import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 
 import { useDHConnect } from '@daohaus/connect';
-import { createContract, useTxBuilder } from '@daohaus/tx-builder';
+import {
+  createContract,
+  createViemClient,
+  useTxBuilder,
+} from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
+  EthAddress,
   getProcessingGasLimit,
   handleErrorMessage,
   ReactSetter,
@@ -54,11 +59,24 @@ const checkCanProcess = async ({
   setCanProcess: ReactSetter<string | true>;
 }) => {
   try {
-    const state = await createContract({
-      address: daoId,
-      abi: LOCAL_ABI.BAAL,
+    // const state = await createContract({
+    //   address: daoId,
+    //   abi: LOCAL_ABI.BAAL,
+    //   chainId: daoChain,
+    // })['state'](prevProposalId);
+
+    const client = createViemClient({
       chainId: daoChain,
-    })['state'](prevProposalId);
+    });
+
+    const state = await client.readContract({
+      abi: LOCAL_ABI.BAAL,
+      address: daoId as EthAddress,
+      functionName: 'state',
+      args: [prevProposalId],
+    });
+
+    console.log('state', state);
 
     setCanProcess(
       eligibableStatuses.some((status) => status === state)

@@ -1,8 +1,9 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import { useQuery } from 'react-query';
 
-import { createContract } from '@daohaus/tx-builder';
+import { createContract, createViemClient } from '@daohaus/tx-builder';
 import { ValidNetwork, Keychain } from '@daohaus/keychain-utils';
+import { EthAddress } from '@daohaus/utils';
 
 type FetchShape = {
   decimals?: boolean;
@@ -28,29 +29,72 @@ const fetchTokenData = async ({
   spenderAddress?: string | null;
   fetchShape?: FetchShape;
 }) => {
-  const tokenContract = createContract({
-    address: tokenAddress,
-    abi: LOCAL_ABI.ERC20,
+  // const tokenContract = createContract({
+  //   address: tokenAddress,
+  //   abi: LOCAL_ABI.ERC20,
+  //   chainId,
+  //   rpcs,
+  // });
+
+  const client = createViemClient({
     chainId,
     rpcs,
   });
 
   try {
     const decimals = fetchShape?.decimals
-      ? await tokenContract.decimals()
+      ? // ? await tokenContract.decimals()
+        await client.readContract({
+          abi: LOCAL_ABI.ERC20,
+          address: tokenAddress as EthAddress,
+          functionName: 'decimals',
+        })
       : null;
-    const name = fetchShape?.name ? await tokenContract.name() : null;
-    const symbol = fetchShape?.symbol ? await tokenContract.symbol() : null;
+    // const name = fetchShape?.name ? await tokenContract.name() : null;
+    const name = fetchShape?.name
+      ? await client.readContract({
+          abi: LOCAL_ABI.ERC20,
+          address: tokenAddress as EthAddress,
+          functionName: 'name',
+        })
+      : null;
+
+    // const symbol = fetchShape?.symbol ? await tokenContract.symbol() : null;
+    const symbol = fetchShape?.symbol
+      ? await client.readContract({
+          abi: LOCAL_ABI.ERC20,
+          address: tokenAddress as EthAddress,
+          functionName: 'symbol',
+        })
+      : null;
+
     const totalSupply = fetchShape?.totalSupply
-      ? await tokenContract.totalSupply()
+      ? // ? await tokenContract.totalSupply()
+        await client.readContract({
+          abi: LOCAL_ABI.ERC20,
+          address: tokenAddress as EthAddress,
+          functionName: 'totalSupply',
+        })
       : null;
     const balance =
       fetchShape?.balanceOf && userAddress
-        ? await tokenContract.balanceOf(userAddress)
+        ? // ? await tokenContract.balanceOf(userAddress)
+          await client.readContract({
+            abi: LOCAL_ABI.ERC20,
+            address: tokenAddress as EthAddress,
+            functionName: 'balanceOf',
+            args: [userAddress],
+          })
         : null;
     const allowance =
       fetchShape?.allowance && userAddress && spenderAddress
-        ? await tokenContract.allowance(userAddress, spenderAddress)
+        ? // ? await tokenContract.allowance(userAddress, spenderAddress)
+          await client.readContract({
+            abi: LOCAL_ABI.ERC20,
+            address: tokenAddress as EthAddress,
+            functionName: 'allowance',
+            args: [userAddress, spenderAddress],
+          })
         : null;
 
     const data = {

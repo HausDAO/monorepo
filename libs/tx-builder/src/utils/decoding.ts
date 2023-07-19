@@ -1,4 +1,5 @@
 import { BigNumber, utils } from 'ethers';
+import { decodeFunctionData } from 'viem';
 import {
   ArgType,
   ENCODED_0X0_DATA,
@@ -16,7 +17,7 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { LOCAL_ABI } from '@daohaus/abis';
-import { createContract, fetchABI, getCode } from './abi';
+import { createContract, createEthersContract, fetchABI, getCode } from './abi';
 import { isSearchArg } from './args';
 
 const OPERATION_TYPE = 2;
@@ -63,7 +64,7 @@ const getMultisendHex = ({ chainId, actionData, rpcs }: MultisendArgs) => {
   const multisendAddr = CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId];
   if (!multisendAddr) throw new Error('Invalid chainId');
 
-  const multisendContract = createContract({
+  const multisendContract = createEthersContract({
     chainId,
     address: multisendAddr,
     abi: LOCAL_ABI.GNOSIS_MULTISEND,
@@ -74,6 +75,14 @@ const getMultisendHex = ({ chainId, actionData, rpcs }: MultisendArgs) => {
     'multiSend',
     actionData
   );
+
+  const decodedViem = decodeFunctionData({
+    abi: LOCAL_ABI.GNOSIS_MULTISEND,
+    data: actionData as `0x${string}`,
+  });
+
+  console.log('decoded', decoded);
+  console.log('decodedViem', decodedViem);
 
   return decoded['transactions']?.slice(2) || decoded?.[0]?.slice(2);
 };

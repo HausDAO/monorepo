@@ -104,13 +104,13 @@ const fetchUserERC20 = async ({
     const tokenName = await client.readContract({
       abi: LOCAL_ABI.ERC20,
       address: tokenAddress,
-      functionName: 'tokenName',
+      functionName: 'name',
     });
     // const tokenSymbol = await contract.symbol();
     const tokenSymbol = await client.readContract({
       abi: LOCAL_ABI.ERC20,
       address: tokenAddress,
-      functionName: 'tokenSymbol',
+      functionName: 'symbol',
     });
     // const allowance = await contract.allowance(userAddress, spenderAddress);
     const allowance = (await client.readContract({

@@ -5,9 +5,10 @@ import {
   DecodedAction,
   DecodedMultiTX,
   createContract,
+  createViemClient,
   isActionError,
 } from '@daohaus/tx-builder';
-import { formatValueTo, toWholeUnits } from '@daohaus/utils';
+import { EthAddress, formatValueTo, toWholeUnits } from '@daohaus/utils';
 import { BigNumberish } from 'ethers';
 
 export type ProposalDataPoint = {
@@ -238,16 +239,32 @@ const fetchTokenData = async ({
   rpcs?: Keychain;
 }) => {
   const tokenAddress = actionData.to;
-  const tokenContract = createContract({
-    address: tokenAddress,
-    abi: LOCAL_ABI.ERC20,
+  // const tokenContract = createContract({
+  //   address: tokenAddress,
+  //   abi: LOCAL_ABI.ERC20,
+  //   chainId,
+  //   rpcs,
+  // });
+
+  const client = createViemClient({
     chainId,
     rpcs,
   });
 
   try {
-    const decimals = await tokenContract.decimals();
-    const symbol = await tokenContract.symbol();
+    // const decimals = await tokenContract.decimals();
+    // const symbol = await tokenContract.symbol();
+
+    const decimals = await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress as EthAddress,
+      functionName: 'decimals',
+    });
+    const symbol = await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress as EthAddress,
+      functionName: 'symbol',
+    });
 
     return {
       tokenAddress,

@@ -1,6 +1,9 @@
 import { ValidNetwork, HAUS_RPC } from '@daohaus/keychain-utils';
 import { ethers } from 'ethers';
-import { MetaTransaction } from '@gnosis.pm/safe-contracts';
+// TODO revisit @gnosis.pm/safe-contracts if metratransaction gets updated
+// from BigNumber to bigint?
+// import { MetaTransaction } from '@gnosis.pm/safe-contracts';
+import { MetaTransaction } from '@daohaus/utils';
 
 export const estimateFunctionalGas = async ({
   chainId,

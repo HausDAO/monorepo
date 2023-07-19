@@ -17,7 +17,7 @@ export type BaseOverrideArgs = ethers.Overrides;
 
 type daoTokenConfigArgs = {
   to: string[];
-  amount: ethers.BigNumber[];
+  amount: bigint[];
 };
 
 export type SummonMolochV3Args = {
@@ -34,16 +34,16 @@ export type SummonMolochV3Args = {
     pauseLoot: boolean;
   };
   governanceConfig: {
-    voting: ethers.BigNumber;
-    grace: ethers.BigNumber;
-    newOffering: ethers.BigNumber;
-    quorum: ethers.BigNumber;
-    sponsor: ethers.BigNumber;
-    minRetention: ethers.BigNumber;
+    voting: bigint;
+    grace: bigint;
+    newOffering: bigint;
+    quorum: bigint;
+    sponsor: bigint;
+    minRetention: bigint;
   };
   shamanConfig: {
     shamans: string[];
-    permissions: ethers.BigNumber[];
+    permissions: bigint[];
   };
   sharesConfig: daoTokenConfigArgs;
   lootConfig: daoTokenConfigArgs;
@@ -56,13 +56,13 @@ type ProposalActionParams = {
   fnName: string;
   functionArgs: ReadonlyArray<unknown>;
   to: string;
-  value: ethers.BigNumber;
+  value: bigint;
   operation: number;
 };
 
 export type SubmitProposalArgs = {
   proposalActions: ProposalActionParams[];
-  expiration: ethers.BigNumber;
+  expiration: bigint;
   baalGas?: number;
   networkId: ValidNetwork;
   details: string;
@@ -70,7 +70,7 @@ export type SubmitProposalArgs = {
 };
 
 export type ProcessProposalArgs = {
-  id: ethers.BigNumber;
+  id: bigint;
   proposalData: ethers.BytesLike;
   overrides?: ethers.Overrides;
 };

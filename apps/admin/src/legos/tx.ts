@@ -10,7 +10,7 @@ import {
 import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 
 import { buildMultiCallTX } from '@daohaus/tx-builder';
-import { MaxUint256 } from '@ethersproject/constants';
+import { MaxUint256 } from '@daohaus/utils';
 import { ProposalTypeIds } from '../utils/constants';
 import { CONTRACT } from './contracts';
 

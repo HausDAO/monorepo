@@ -4,7 +4,6 @@ import { MolochV3Dao, MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   DecodedAction,
   DecodedMultiTX,
-  createContract,
   createViemClient,
   isActionError,
 } from '@daohaus/tx-builder';
@@ -255,11 +254,11 @@ const fetchTokenData = async ({
     // const decimals = await tokenContract.decimals();
     // const symbol = await tokenContract.symbol();
 
-    const decimals = await client.readContract({
+    const decimals = (await client.readContract({
       abi: LOCAL_ABI.ERC20,
       address: tokenAddress as EthAddress,
       functionName: 'decimals',
-    });
+    })) as number;
     const symbol = await client.readContract({
       abi: LOCAL_ABI.ERC20,
       address: tokenAddress as EthAddress,

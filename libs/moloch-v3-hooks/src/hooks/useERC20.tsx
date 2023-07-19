@@ -89,12 +89,12 @@ const fetchTokenData = async ({
     const allowance =
       fetchShape?.allowance && userAddress && spenderAddress
         ? // ? await tokenContract.allowance(userAddress, spenderAddress)
-          await client.readContract({
+          ((await client.readContract({
             abi: LOCAL_ABI.ERC20,
             address: tokenAddress as EthAddress,
             functionName: 'allowance',
             args: [userAddress, spenderAddress],
-          })
+          })) as bigint)
         : null;
 
     const data = {
@@ -104,7 +104,7 @@ const fetchTokenData = async ({
       totalSupply: totalSupply ? (totalSupply?.toString() as string) : null,
       balance: balance ? (balance?.toString() as string) : null,
       allowance: allowance ? (allowance?.toString() as string) : null,
-      isApproved: !!allowance && allowance?.gt(0),
+      isApproved: !!allowance && allowance > 0,
     };
 
     console.log('data', data);

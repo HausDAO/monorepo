@@ -1,7 +1,7 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import { useQuery } from 'react-query';
 
-import { createContract, createViemClient } from '@daohaus/tx-builder';
+import { createViemClient } from '@daohaus/tx-builder';
 import { ValidNetwork, Keychain } from '@daohaus/keychain-utils';
 import { EthAddress } from '@daohaus/utils';
 

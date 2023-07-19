@@ -1,5 +1,11 @@
 // import { ethers } from 'ethers';
-import { createPublicClient, getContract, http, HttpTransport } from 'viem';
+import {
+  createPublicClient,
+  getContract,
+  http,
+  HttpTransport,
+  PublicClient,
+} from 'viem';
 import { ABI, EthAddress, isJSON } from '@daohaus/utils';
 import {
   Keychain,
@@ -56,13 +62,16 @@ const getGnosisMasterCopy = async (
   chainId: ValidNetwork,
   rpcs: Keychain
 ) => {
-  const gnosisProxyContract = createContract({
-    address,
-    abi: LOCAL_ABI.GNOSIS_PROXY,
+  const client = createViemClient({
     chainId,
     rpcs,
   });
-  return await gnosisProxyContract?.read.masterCopy();
+
+  return await client.readContract({
+    abi: LOCAL_ABI.ERC20,
+    address,
+    functionName: 'masterCopy',
+  });
 };
 
 export const createTransport = ({
@@ -83,34 +92,11 @@ export const createViemClient = ({
 }: {
   chainId: ValidNetwork;
   rpcs?: Keychain;
-}) => {
+}): PublicClient => {
   const transport = createTransport({ chainId, rpcs });
   return createPublicClient({
     chain: VIEM_CHAINS[chainId],
     transport,
-  });
-};
-
-export const createContract = ({
-  address,
-  abi,
-  chainId,
-  rpcs = HAUS_RPC,
-}: {
-  address: string;
-  abi: ABI;
-  chainId: ValidNetwork;
-  rpcs?: Keychain;
-}) => {
-  const client = createViemClient({
-    chainId,
-    rpcs,
-  });
-
-  return getContract({
-    address: address as EthAddress,
-    abi,
-    publicClient: client,
   });
 };
 

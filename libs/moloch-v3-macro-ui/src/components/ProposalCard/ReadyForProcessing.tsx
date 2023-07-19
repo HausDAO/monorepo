@@ -6,11 +6,7 @@ import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 
 import { useDHConnect } from '@daohaus/connect';
-import {
-  createContract,
-  createViemClient,
-  useTxBuilder,
-} from '@daohaus/tx-builder';
+import { createViemClient, useTxBuilder } from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
   EthAddress,

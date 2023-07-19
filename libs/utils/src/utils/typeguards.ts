@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { isAddress } from 'viem';
 import { ArgType, EthAddress } from '../types';
 
 // TS user-defined typeguards
@@ -13,7 +13,7 @@ export const isBoolean = (item: unknown): item is boolean =>
 export const isNumberish = (item: unknown): item is string | number =>
   isNumber(item) || isNumberString(item);
 export const isEthAddress = (item: unknown): item is EthAddress =>
-  isString(item) && ethers.utils.isAddress(item);
+  isString(item) && isAddress(item);
 // general 'is' guards that help us verify shapes of data
 
 export const isObject = (item: unknown) => {

@@ -101,7 +101,7 @@ export class MolochV3Contract {
   public async processProposal(args: ProcessProposalArgs) {
     const proposal = await this.molochV3.proposals(args.id);
     const overrides = args.overrides || {};
-    if (proposal[6] !== ethers.BigNumber.from('0')) {
+    if (proposal[6]?.toString() !== '0') {
       overrides.gasLimit = proposal[6];
     }
     return await this.molochV3.processProposal(

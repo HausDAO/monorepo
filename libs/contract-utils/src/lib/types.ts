@@ -2,6 +2,7 @@ import { ABI } from '@daohaus/utils';
 import { Keychain, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { ethers } from 'ethers';
+import { BytesLike } from '@daohaus/utils';
 
 export type ContractConfig = {
   address: string;
@@ -71,6 +72,6 @@ export type SubmitProposalArgs = {
 
 export type ProcessProposalArgs = {
   id: bigint;
-  proposalData: ethers.BytesLike;
+  proposalData: BytesLike;
   overrides?: ethers.Overrides;
 };

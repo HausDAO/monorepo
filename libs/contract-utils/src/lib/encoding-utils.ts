@@ -7,7 +7,7 @@ import {
 } from '@daohaus/utils';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 
-import { ethers } from 'ethers';
+import { BytesLike } from '@daohaus/utils';
 import { getContractAbi, getContractAddressesForChain } from './contract-meta';
 import { SummonMolochV3Args } from './types';
 
@@ -27,7 +27,7 @@ export const encodeFunctionWrapper = (
 export const encodeInitializationParams = (
   args: SummonMolochV3Args,
   networkId: ValidNetwork
-): ethers.BytesLike[] => {
+): BytesLike[] => {
   const baalAbi = getContractAbi('BAAL');
   const posterAbi = getContractAbi('POSTER');
   const posterAddress = getContractAddressesForChain('POSTER', networkId);
@@ -96,7 +96,7 @@ export const encodeInitializationParams = (
 export const encodeInitializationParamsAdvToken = (
   args: SummonMolochV3Args,
   networkId: ValidNetwork
-): ethers.BytesLike[] => {
+): BytesLike[] => {
   const baalAbi = getContractAbi('BAAL');
   const posterAbi = getContractAbi('POSTER');
   const posterAddress = getContractAddressesForChain('POSTER', networkId);

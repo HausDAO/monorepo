@@ -108,6 +108,8 @@ export function ProposalDetails() {
         actionData,
         actionsMeta: multicallMeta && (multicallMeta as MulticallArg).actions,
       });
+
+      console.log('proposalActions', proposalActions);
       if (shouldUpdate) {
         setActionData(proposalActions);
         setDecodeError(

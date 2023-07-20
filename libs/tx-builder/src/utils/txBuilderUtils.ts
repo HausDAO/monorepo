@@ -3,7 +3,12 @@ import { goerli } from 'wagmi/chains';
 import { Hash, createWalletClient, custom } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
-import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  Keychain,
+  PinataApiKeys,
+  VIEM_CHAINS,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
@@ -202,9 +207,8 @@ export async function prepareTX(args: {
     console.log('publicClient', publicClient);
 
     const walletClient = createWalletClient({
-      chain: goerli,
+      chain: VIEM_CHAINS[chainId],
       account,
-
       // not sure if we can use window.ethereum on all wallets
       // TODO figure out transport away from window.ethereum
       // @ts-expect-error because

@@ -80,7 +80,6 @@ export const ConnectProvider = ({
   });
   const [isProfileLoading, setProfileLoading] = useState(false);
 
-  // todo: add provider?
   const isConnected = useMemo(() => !!address && !!chain, [address, chain]);
 
   // todo: this return undefined is an unsupported network - might need to track that elsewhere

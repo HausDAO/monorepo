@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { encodeAbiParameters, parseAbiParameters } from 'viem';
 import { ABI, ArgType } from '../types';
 
 export const encodeValues = (
@@ -6,6 +7,11 @@ export const encodeValues = (
   valueArray: ArgType[]
 ): string => {
   return ethers.utils.defaultAbiCoder.encode(typesArray, valueArray);
+
+  // typesArray need to be an abi parameter:
+  // https://viem.sh/docs/abi/encodeAbiParameters.html#usage
+  // goes through handleArgEncode - changes the lego shape
+  // return encodeAbiParameters(typesArray, valueArray);
 };
 
 export const encodeFunction = (

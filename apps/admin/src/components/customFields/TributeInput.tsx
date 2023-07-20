@@ -122,6 +122,8 @@ const fetchUserERC20 = async ({
       tokenSymbol,
     } as TokenData;
 
+    console.log('allowance', allowance, spenderAddress);
+
     if (tokenData && shouldUpdate) {
       setTokenData(tokenData);
       setFetchState(TokenFetchStates.Success);

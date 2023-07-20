@@ -33,7 +33,7 @@ import {
   FORM,
 } from './constants';
 import { processContractLego } from './contractHelpers';
-import { ethers } from 'ethers';
+import { createViemClient } from './abi';
 
 export const estimateFunctionalGas = async ({
   chainId,
@@ -41,22 +41,25 @@ export const estimateFunctionalGas = async ({
   from,
   value,
   data,
+  rpcs = HAUS_RPC,
 }: {
   chainId: ValidNetwork;
   constractAddress: string;
   from: string;
-  value: string;
+  value: bigint;
   data: string;
+  rpcs?: Keychain;
 }): Promise<number | undefined> => {
-  const rpcUrl = HAUS_RPC[chainId];
+  const client = createViemClient({
+    chainId,
+    rpcs,
+  });
 
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-
-  const functionGasFees = await ethersProvider.estimateGas({
-    to: constractAddress,
-    from: from,
-    value: value,
-    data: data,
+  const functionGasFees = await client.estimateGas({
+    account: from as EthAddress,
+    to: constractAddress as EthAddress,
+    value,
+    data: data as `0x${string}`,
   });
 
   return Number(functionGasFees);
@@ -293,7 +296,7 @@ export const gasEstimateFromActions = async ({
           chainId: chainId,
           constractAddress: action.to,
           from: safeId, // from value needs to be the baal safe to esitmate without revert
-          value: Number(action.value).toString(),
+          value: BigInt(Number(action.value)),
           data: action.data,
         })
     )

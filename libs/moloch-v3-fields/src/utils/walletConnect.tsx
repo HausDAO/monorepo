@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { BigNumberish, BytesLike } from 'ethers';
+import type { BigIntish, BytesLike } from '@daohaus/utils';
 import { hashMessage, _TypedDataEncoder } from 'ethers/lib/utils';
 import { LOCAL_ABI } from '@daohaus/abis';
 import { encodeFunction } from '@daohaus/utils';
@@ -12,7 +12,7 @@ type EIP712TypedData = {
   domain: {
     name?: string;
     version?: string;
-    chainId?: BigNumberish;
+    chainId?: BigIntish;
     verifyingContract?: string;
     salt?: BytesLike;
   };

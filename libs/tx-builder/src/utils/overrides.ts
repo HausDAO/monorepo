@@ -3,18 +3,41 @@ import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { processArg } from './args';
 
-const handleProposalOfferingValue = ({
+const handleProposalOfferingValue = async ({
   appState,
   overrides,
+  chainId,
+  safeId,
+  localABIs,
+  rpcs,
+  pinataApiKeys,
+  explorerKeys,
 }: {
   appState: ArbitraryState;
   overrides?: TXOverrides;
+  chainId: ValidNetwork;
+  safeId?: string;
+  localABIs: Record<string, ABI>;
+  rpcs: Keychain;
+  pinataApiKeys: PinataApiKeys;
+  explorerKeys: Keychain;
 }) => {
   if (appState['formValues']?.proposalOffering) {
     return Number(appState['formValues']?.proposalOffering).toFixed();
   }
 
-  return overrides?.value || '0';
+  return overrides?.value
+    ? await processArg({
+        arg: overrides.value,
+        chainId,
+        safeId,
+        localABIs,
+        appState,
+        rpcs,
+        pinataApiKeys,
+        explorerKeys,
+      })
+    : '0';
 };
 
 export const processOverrides = async ({
@@ -43,7 +66,16 @@ export const processOverrides = async ({
   }
 
   return {
-    value: handleProposalOfferingValue({ appState, overrides }),
+    value: await handleProposalOfferingValue({
+      appState,
+      overrides,
+      chainId,
+      safeId,
+      localABIs,
+      rpcs,
+      pinataApiKeys,
+      explorerKeys,
+    }),
     gasLimit:
       overrides?.gasLimit &&
       (await processArg({

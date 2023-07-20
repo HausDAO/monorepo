@@ -1,10 +1,11 @@
-import { ethers } from 'ethers';
-import { ABI, isJSON } from '@daohaus/utils';
+import { createPublicClient, http, HttpTransport, PublicClient } from 'viem';
+import { ABI, EthAddress, isJSON } from '@daohaus/utils';
 import {
   Keychain,
   HAUS_RPC,
   ValidNetwork,
   ABI_EXPLORER_KEYS,
+  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
 import { cacheABI, getCachedABI } from './cache';
@@ -49,34 +50,46 @@ const getABIUrl = ({
 };
 
 const getGnosisMasterCopy = async (
-  address: string,
+  address: EthAddress,
   chainId: ValidNetwork,
   rpcs: Keychain
 ) => {
-  const gnosisProxyContract = createContract({
-    address,
-    abi: LOCAL_ABI.GNOSIS_PROXY,
+  const client = createViemClient({
     chainId,
     rpcs,
   });
-  const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
-  return masterCopy;
+
+  return await client.readContract({
+    abi: LOCAL_ABI.ERC20,
+    address,
+    functionName: 'masterCopy',
+  });
 };
 
-export const createContract = ({
-  address,
-  abi,
+export const createTransport = ({
   chainId,
   rpcs = HAUS_RPC,
 }: {
-  address: string;
-  abi: ABI;
+  chainId: ValidNetwork;
+  rpcs: Keychain;
+}): HttpTransport => {
+  const rpc = rpcs[chainId];
+  if (!rpc) return http();
+  return http(rpc);
+};
+
+export const createViemClient = ({
+  chainId,
+  rpcs = HAUS_RPC,
+}: {
   chainId: ValidNetwork;
   rpcs?: Keychain;
-}) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return new ethers.Contract(address, abi, ethersProvider);
+}): PublicClient => {
+  const transport = createTransport({ chainId, rpcs });
+  return createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
 };
 
 export const getImplementation = async ({
@@ -90,16 +103,16 @@ export const getImplementation = async ({
   abi: ABI;
   rpcs?: Keychain;
 }): Promise<string | false> => {
-  const ethersContract = createContract({
-    address,
-    abi,
-    chainId,
-    rpcs,
-  });
+  const client = createViemClient({ chainId, rpcs });
 
   try {
-    const newAddress = await ethersContract?.['implementation']?.();
-    return newAddress;
+    const newAddress = await client.readContract({
+      address: address as EthAddress,
+      abi,
+      functionName: 'implementation',
+    });
+
+    return newAddress as string;
   } catch (error) {
     console.error(error);
     return false;
@@ -152,14 +165,16 @@ export const processABI = async ({
       }
     }
   } else if (isSuperfluidProxy(abi)) {
-    const proxyEthersContract = createContract({
-      address: contractAddress,
+    const client = createViemClient({ chainId, rpcs });
+
+    const sfProxyAddr = await client.readContract({
+      address: contractAddress as EthAddress,
       abi: LOCAL_ABI.SUPERFLUID_PROXY,
-      chainId,
+      functionName: 'getCodeAddress',
     });
-    const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();
+
     const newData = await fetchABI({
-      contractAddress: sfProxyAddr,
+      contractAddress: sfProxyAddr as EthAddress,
       chainId,
       rpcs,
       explorerKeys,
@@ -171,12 +186,12 @@ export const processABI = async ({
     }
   } else if (isGnosisProxy(abi)) {
     const gnosisProxyAddress = await getGnosisMasterCopy(
-      contractAddress,
+      contractAddress as EthAddress,
       chainId,
       rpcs
     );
     const newData = await fetchABI({
-      contractAddress: gnosisProxyAddress,
+      contractAddress: gnosisProxyAddress as EthAddress,
       chainId,
       rpcs,
       explorerKeys,
@@ -255,7 +270,12 @@ export const getCode = async ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return ethersProvider.getCode(contractAddress);
+  const transport = createTransport({ chainId, rpcs });
+  const client = createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
+  return await client.getBytecode({
+    address: contractAddress as EthAddress,
+  });
 };

@@ -4,11 +4,10 @@ import { MolochV3Dao, MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   DecodedAction,
   DecodedMultiTX,
-  createContract,
+  createViemClient,
   isActionError,
 } from '@daohaus/tx-builder';
-import { formatValueTo, toWholeUnits } from '@daohaus/utils';
-import { BigNumberish } from 'ethers';
+import { EthAddress, formatValueTo, toWholeUnits } from '@daohaus/utils';
 
 export type ProposalDataPoint = {
   displayType: 'data' | 'member';
@@ -50,8 +49,8 @@ const getValueFromMintOrTransferAction = (
   }
 
   const value = Array.isArray(actionData.params[1].value)
-    ? (actionData.params[1].value[0] as BigNumberish)
-    : (actionData.params[1].value as BigNumberish);
+    ? (actionData.params[1].value[0] as bigint)
+    : (actionData.params[1].value as bigint);
 
   return formatValueTo({
     value: toWholeUnits(value.toString(), decimals),
@@ -238,16 +237,23 @@ const fetchTokenData = async ({
   rpcs?: Keychain;
 }) => {
   const tokenAddress = actionData.to;
-  const tokenContract = createContract({
-    address: tokenAddress,
-    abi: LOCAL_ABI.ERC20,
+
+  const client = createViemClient({
     chainId,
     rpcs,
   });
 
   try {
-    const decimals = await tokenContract.decimals();
-    const symbol = await tokenContract.symbol();
+    const decimals = (await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress as EthAddress,
+      functionName: 'decimals',
+    })) as number;
+    const symbol = await client.readContract({
+      abi: LOCAL_ABI.ERC20,
+      address: tokenAddress as EthAddress,
+      functionName: 'symbol',
+    });
 
     return {
       tokenAddress,

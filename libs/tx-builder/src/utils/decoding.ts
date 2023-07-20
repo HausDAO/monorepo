@@ -1,4 +1,4 @@
-import { BigNumber, utils } from 'ethers';
+import { utils } from 'ethers';
 import { decodeFunctionData } from 'viem';
 import {
   ArgType,
@@ -110,12 +110,14 @@ const decodeMultisend = ({ chainId, actionData, rpcs }: MultisendArgs) => {
       actionsHex.length >=
       OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
     ) {
-      const thisTxLength = BigNumber.from(
-        `0x${actionsHex.slice(
-          OPERATION_TYPE + ADDRESS + VALUE,
-          OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
-        )}`
-      ).toNumber();
+      const thisTxLength = Number(
+        BigInt(
+          `0x${actionsHex.slice(
+            OPERATION_TYPE + ADDRESS + VALUE,
+            OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
+          )}`
+        )
+      );
 
       transactions.push(processAction(actionsHex, thisTxLength));
       actionsHex = actionsHex.slice(
@@ -145,7 +147,7 @@ const buildEthTransferAction = (
 ): DecodedAction => ({
   to: action.to,
   name: `${HAUS_NETWORK_DATA[chainId]?.symbol} Transfer`,
-  value: BigNumber.from(action.value).toString(),
+  value: BigInt(action.value).toString(),
   params: [],
 });
 

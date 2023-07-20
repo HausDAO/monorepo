@@ -1,4 +1,3 @@
-import { providers } from 'ethers';
 import { TransactionReceipt } from 'viem';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { PublicClient } from 'wagmi';
@@ -72,7 +71,6 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   chainId: string | undefined | null;
   safeId?: string;
   daoId?: string;
-  provider: providers.Web3Provider | undefined | null;
   children: ReactNode;
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
@@ -89,7 +87,6 @@ export const TXBuilder = ({
   chainId,
   safeId,
   daoId,
-  provider,
   appState,
   children,
   localABIs = {},
@@ -99,7 +96,6 @@ export const TXBuilder = ({
   graphApiKeys = GRAPH_API_KEYS,
   pinataApiKeys = PINATA_API_KEYS,
   explorerKeys = ABI_EXPLORER_KEYS,
-
   publicClient,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
@@ -132,7 +128,6 @@ export const TXBuilder = ({
       tx,
       chainId,
       safeId,
-      // provider,
       setTransactions,
       appState: wholeState,
       argCallbackRecord,
@@ -145,7 +140,6 @@ export const TXBuilder = ({
       graphApiKeys,
       pinataApiKeys,
       explorerKeys,
-
       publicClient,
     });
 

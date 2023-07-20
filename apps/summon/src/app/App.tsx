@@ -25,7 +25,7 @@ const TemporaryLayout = styled.div`
 
 export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
-  const { provider, chainId, publicClient } = useDHConnect();
+  const { chainId, publicClient } = useDHConnect();
 
   const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');
@@ -33,12 +33,7 @@ export const App = () => {
   const [errMsg, setErrMsg] = useState<string>('');
 
   return (
-    <TXBuilder
-      provider={provider}
-      chainId={chainId}
-      appState={{}}
-      publicClient={publicClient}
-    >
+    <TXBuilder chainId={chainId} appState={{}} publicClient={publicClient}>
       <TemporaryLayout>
         <DaoHausNav />
         <CenterLayout>

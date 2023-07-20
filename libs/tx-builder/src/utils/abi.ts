@@ -1,4 +1,3 @@
-import { ethers } from 'ethers';
 import { createPublicClient, http, HttpTransport, PublicClient } from 'viem';
 import { ABI, EthAddress, isJSON } from '@daohaus/utils';
 import {
@@ -91,22 +90,6 @@ export const createViemClient = ({
     chain: VIEM_CHAINS[chainId],
     transport,
   });
-};
-
-export const createEthersContract = ({
-  address,
-  abi,
-  chainId,
-  rpcs = HAUS_RPC,
-}: {
-  address: string;
-  abi: ABI;
-  chainId: ValidNetwork;
-  rpcs?: Keychain;
-}) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return new ethers.Contract(address, abi, ethersProvider);
 };
 
 export const getImplementation = async ({
@@ -287,18 +270,12 @@ export const getCode = async ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-  // const rpcUrl = rpcs[chainId];
-  // const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  // return ethersProvider.getCode(contractAddress);
-
   const transport = createTransport({ chainId, rpcs });
   const client = createPublicClient({
     chain: VIEM_CHAINS[chainId],
     transport,
   });
-  const bytecode = await client.getBytecode({
+  return await client.getBytecode({
     address: contractAddress as EthAddress,
   });
-
-  return bytecode;
 };

@@ -17,8 +17,9 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { LOCAL_ABI } from '@daohaus/abis';
-import { createEthersContract, fetchABI, getCode } from './abi';
+import { fetchABI, getCode } from './abi';
 import { isSearchArg } from './args';
+import { createEthersContract } from './ethersFallback';
 
 const OPERATION_TYPE = 2;
 const ADDRESS = 40;

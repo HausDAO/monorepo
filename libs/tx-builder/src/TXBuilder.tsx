@@ -72,7 +72,6 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   chainId: string | undefined | null;
   safeId?: string;
   daoId?: string;
-  provider: providers.Web3Provider | undefined | null;
   children: ReactNode;
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
@@ -89,7 +88,6 @@ export const TXBuilder = ({
   chainId,
   safeId,
   daoId,
-  provider,
   appState,
   children,
   localABIs = {},

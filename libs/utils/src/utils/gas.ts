@@ -72,7 +72,7 @@ export async function fetchFeeData({
   try {
     gasPrice = await client.getGasPrice();
   } catch {
-    //
+    console.error('Failed to get gas price');
   }
 
   let lastBaseFeePerGas: bigint | null = null;

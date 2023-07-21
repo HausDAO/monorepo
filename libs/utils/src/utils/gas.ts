@@ -6,9 +6,26 @@ import {
   http,
   createPublicClient,
 } from 'viem';
+
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
 export const L2_ADDITIONAL_GAS = 5000000;
+
+// OPTIMISM challenge - how to display this estimated gas fee like we do on other networks.
+// ethers.js getFeeData returns maxFeePerGas as undefined,  might need to use gasPrice some how, then fetch the L1 amount
+// https://community.optimism.io/docs/developers/build/transaction-fees/#displaying-fees-to-users
+
+export const getGasCostEstimate = async (
+  gasLimit: number | string,
+  chainId: string
+): Promise<number | undefined> => {
+  const feeDataNew = await fetchFeeData({ chainId: chainId as ValidNetwork });
+
+  return (
+    Number(getProcessingGasLimit(gasLimit, chainId)) *
+    Number(feeDataNew.maxFeePerGas || 0)
+  );
+};
 
 export const getProcessingGasLimit = (
   actionGasEstimate: string | number,

@@ -24,10 +24,8 @@ export const getGasCostEstimate = async (
     Number(getProcessingGasLimit(gasLimit, chainId)) *
     Number(feeDataNew.maxFeePerGas || 0);
 
-  console.log('feeData', feeData);
-  console.log('feeDataNew', feeDataNew);
-  console.log('ethersFeeData', ethersFeeData);
-  console.log('viemFeeData', viemFeeData);
-
-  return ethersFeeData;
+  return (
+    Number(getProcessingGasLimit(gasLimit, chainId)) *
+    Number(feeDataNew.maxFeePerGas || 0)
+  );
 };

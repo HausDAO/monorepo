@@ -1,4 +1,11 @@
-import { weiUnits, formatUnits, parseGwei, PublicClient } from 'viem';
+import { VIEM_CHAINS, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  weiUnits,
+  formatUnits,
+  parseGwei,
+  http,
+  createPublicClient,
+} from 'viem';
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
 export const L2_ADDITIONAL_GAS = 5000000;
@@ -27,11 +34,10 @@ export const getProcessingGasLimit = (
 export type Unit = 'ether' | 'gwei' | 'wei' | number;
 
 export type FetchFeeDataArgs = {
-  /** Units for formatting output */
+  // Chain id to use for Public Client.
+  chainId: ValidNetwork;
+  // Units for formatting output
   formatUnits?: Unit;
-  /** Chain id to use for Public Client. */
-  chainId?: number;
-  publicClient?: PublicClient
 };
 
 export function getUnit(unit: Unit) {
@@ -55,14 +61,16 @@ export type FetchFeeDataResult = {
 export async function fetchFeeData({
   chainId,
   formatUnits: units = 'gwei',
-  publicClient:
-}: FetchFeeDataArgs = {}): Promise<FetchFeeDataResult> {
-  const publicClient = getPublicClient({ chainId });
+}: FetchFeeDataArgs): Promise<FetchFeeDataResult> {
+  const client = createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport: http(),
+  });
 
-  const block = await publicClient.getBlock();
+  const block = await client.getBlock();
   let gasPrice: bigint | null = null;
   try {
-    gasPrice = await publicClient.getGasPrice();
+    gasPrice = await client.getGasPrice();
   } catch {
     //
   }

@@ -4,6 +4,7 @@ import {
   w3mProvider,
 } from '@web3modal/ethereum';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { SafeConnector } from '@wagmi/connectors/safe';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { Web3Modal } from '@web3modal/react';
 
@@ -34,7 +35,16 @@ const { publicClient } = configureChains(chains, [
 ]);
 export const wagmiConfig = createConfig({
   autoConnect: true,
-  connectors: w3mConnectors({ projectId, chains }),
+  connectors: [
+    ...w3mConnectors({ projectId, chains }),
+    new SafeConnector({
+      chains,
+      options: {
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+        debug: false,
+      },
+    }),
+  ],
   publicClient,
 });
 export const ethereumClient = new EthereumClient(wagmiConfig, chains);

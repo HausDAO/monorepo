@@ -97,6 +97,7 @@ export const ConnectProvider = ({
     if (daoChainId && VIEM_CHAINS[daoChainId as ValidNetwork]) {
       setDefaultChain(VIEM_CHAINS[daoChainId as ValidNetwork]);
     }
+
     open();
   }, [open, setDefaultChain, daoChainId]);
 

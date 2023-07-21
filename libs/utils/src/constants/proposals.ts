@@ -60,9 +60,8 @@ export const PROPOSAL_TYPE_WARNINGS: Record<ProposalTypeIds | string, string> =
   {
     SIGNAL: 'Proposal for DAO voting signal. No transactions are executed.',
     ISSUE: 'Proposal issues voting or non-voting tokens from the DAO.',
-    TRANSFER_ERC20: 'Proposal transfers ERC-20 tokens from DAO treasury.',
-    TRANSFER_NETWORK_TOKEN:
-      'Proposal transfers native tokens from DAO treasury.',
+    TRANSFER_ERC20: 'Proposal transfers ERC-20 tokens from a DAO safe.',
+    TRANSFER_NETWORK_TOKEN: 'Proposal transfers native tokens from a DAO safe.',
     ADD_SHAMAN: 'Proposal grants DAO permissions to an external contract.',
     UPDATE_GOV_SETTINGS:
       'Proposal updates DAO proposal timing or advanced governance settings.',

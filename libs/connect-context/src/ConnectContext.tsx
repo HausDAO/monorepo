@@ -27,7 +27,7 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { defaultConnectValues } from './utils/defaults';
-import { ConnectLifecycleFns, ProviderType, UserProfile } from './utils/types';
+import { ConnectLifecycleFns, UserProfile } from './utils/types';
 import { loadProfile } from './utils';
 
 export type UserConnectType = {
@@ -44,9 +44,7 @@ export type UserConnectType = {
   switchNetwork: (chainId: string) => void;
   profile: UserProfile;
   isProfileLoading: boolean;
-  provider?: ProviderType;
   publicClient?: PublicClient;
-  isMetamask: boolean;
 };
 
 export const ConnectContext =
@@ -82,7 +80,6 @@ export const ConnectProvider = ({
 
   const isConnected = useMemo(() => !!address && !!chain, [address, chain]);
 
-  // todo: this return undefined is an unsupported network - might need to track that elsewhere
   const chainId = useMemo(() => {
     if (chain) {
       const networkData = getNetworkById(chain.id);
@@ -98,9 +95,6 @@ export const ConnectProvider = ({
 
   const connectWallet = useCallback(async () => {
     if (daoChainId && VIEM_CHAINS[daoChainId as ValidNetwork]) {
-      // this autochanges to the daochain - do we want that? seems nice - deal with on autoconnect on revist
-      // handle if there is a target chain in the context as well - ie summoner
-      // handle if unsupported chain?
       setDefaultChain(VIEM_CHAINS[daoChainId as ValidNetwork]);
     }
     open();
@@ -146,15 +140,6 @@ export const ConnectProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chainId]);
 
-  // figure this out
-  // https://wagmi.sh/react/ethers-adapters
-  // const provider = undefined;
-
-  // what is this for?
-  // see loadWallet in old context - lots to handle safe app connection
-  // might need to deploy then test as safe app last
-  const isMetamask = false;
-
   return (
     <ConnectContext.Provider
       value={{
@@ -171,11 +156,7 @@ export const ConnectProvider = ({
         validNetwork,
         profile,
         isProfileLoading,
-        //
-        // provider: ethersProvider as ProviderType,
         publicClient,
-        provider: undefined,
-        isMetamask,
       }}
     >
       {children}

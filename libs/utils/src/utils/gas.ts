@@ -1,4 +1,4 @@
-import { weiUnits, formatUnits, parseGwei } from 'viem';
+import { weiUnits, formatUnits, parseGwei, PublicClient } from 'viem';
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
 export const L2_ADDITIONAL_GAS = 5000000;
@@ -31,6 +31,7 @@ export type FetchFeeDataArgs = {
   formatUnits?: Unit;
   /** Chain id to use for Public Client. */
   chainId?: number;
+  publicClient?: PublicClient
 };
 
 export function getUnit(unit: Unit) {
@@ -54,6 +55,7 @@ export type FetchFeeDataResult = {
 export async function fetchFeeData({
   chainId,
   formatUnits: units = 'gwei',
+  publicClient:
 }: FetchFeeDataArgs = {}): Promise<FetchFeeDataResult> {
   const publicClient = getPublicClient({ chainId });
 
@@ -72,7 +74,7 @@ export async function fetchFeeData({
   if (block?.baseFeePerGas) {
     lastBaseFeePerGas = block.baseFeePerGas;
     maxPriorityFeePerGas = parseGwei('1');
-    maxFeePerGas = block.baseFeePerGas * 2n + maxPriorityFeePerGas;
+    maxFeePerGas = block.baseFeePerGas * BigInt(2) + maxPriorityFeePerGas;
   }
 
   const unit = getUnit(units);

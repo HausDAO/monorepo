@@ -33,7 +33,7 @@ import {
   FORM,
 } from './constants';
 import { processContractLego } from './contractHelpers';
-import { createViemClient } from './abi';
+import { createViemClient } from '@daohaus/keychain-utils';
 
 export const estimateFunctionalGas = async ({
   chainId,

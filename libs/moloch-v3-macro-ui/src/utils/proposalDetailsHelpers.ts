@@ -4,9 +4,9 @@ import { MolochV3Dao, MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   DecodedAction,
   DecodedMultiTX,
-  createViemClient,
   isActionError,
 } from '@daohaus/tx-builder';
+import { createViemClient } from '@daohaus/keychain-utils';
 import { EthAddress, formatValueTo, toWholeUnits } from '@daohaus/utils';
 
 export type ProposalDataPoint = {

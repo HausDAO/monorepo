@@ -5,4 +5,4 @@ export * from './networkUtils';
 export * from './types';
 export * from './validNetworks';
 export * from './contractKeychains';
-export * from './viemNetworks';
+export * from './viemUtils';

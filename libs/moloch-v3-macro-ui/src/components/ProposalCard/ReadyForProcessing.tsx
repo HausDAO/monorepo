@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 
 import { useDHConnect } from '@daohaus/connect';
-import { createViemClient, useTxBuilder } from '@daohaus/tx-builder';
+import { useTxBuilder } from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
   EthAddress,
@@ -16,7 +16,11 @@ import {
   roundedPercentage,
   TXLego,
 } from '@daohaus/utils';
-import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  isValidNetwork,
+  ValidNetwork,
+  createViemClient,
+} from '@daohaus/keychain-utils';
 
 import { ACTION_TX } from './legos';
 import { GatedButton } from '@daohaus/ui';

@@ -10,7 +10,8 @@ import {
 import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
 import { useDHConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
-import { createViemClient, useTxBuilder } from '@daohaus/tx-builder';
+import { useTxBuilder } from '@daohaus/tx-builder';
+import { createViemClient } from '@daohaus/keychain-utils';
 import {
   Buildable,
   Button,

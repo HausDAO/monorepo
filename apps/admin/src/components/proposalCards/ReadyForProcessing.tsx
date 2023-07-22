@@ -7,7 +7,7 @@ import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
 import { useDHConnect } from '@daohaus/connect';
 import { useDao } from '@daohaus/moloch-v3-context';
-import { createViemClient, useTxBuilder } from '@daohaus/tx-builder';
+import { useTxBuilder } from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
   EthAddress,
@@ -17,7 +17,11 @@ import {
   roundedPercentage,
   TXLego,
 } from '@daohaus/utils';
-import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  createViemClient,
+  isValidNetwork,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';

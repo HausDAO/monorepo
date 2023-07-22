@@ -1,4 +1,4 @@
-import { createPublicClient, http, HttpTransport, PublicClient } from 'viem';
+import { createPublicClient } from 'viem';
 import { ABI, EthAddress, isJSON } from '@daohaus/utils';
 import {
   Keychain,
@@ -6,6 +6,8 @@ import {
   ValidNetwork,
   ABI_EXPLORER_KEYS,
   VIEM_CHAINS,
+  createViemClient,
+  createTransport,
 } from '@daohaus/keychain-utils';
 
 import { cacheABI, getCachedABI } from './cache';
@@ -63,32 +65,6 @@ const getGnosisMasterCopy = async (
     abi: LOCAL_ABI.ERC20,
     address,
     functionName: 'masterCopy',
-  });
-};
-
-export const createTransport = ({
-  chainId,
-  rpcs = HAUS_RPC,
-}: {
-  chainId: ValidNetwork;
-  rpcs: Keychain;
-}): HttpTransport => {
-  const rpc = rpcs[chainId];
-  if (!rpc) return http();
-  return http(rpc);
-};
-
-export const createViemClient = ({
-  chainId,
-  rpcs = HAUS_RPC,
-}: {
-  chainId: ValidNetwork;
-  rpcs?: Keychain;
-}): PublicClient => {
-  const transport = createTransport({ chainId, rpcs });
-  return createPublicClient({
-    chain: VIEM_CHAINS[chainId],
-    transport,
   });
 };
 

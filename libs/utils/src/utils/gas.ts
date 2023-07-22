@@ -1,11 +1,5 @@
-import { VIEM_CHAINS, ValidNetwork } from '@daohaus/keychain-utils';
-import {
-  weiUnits,
-  formatUnits,
-  parseGwei,
-  http,
-  createPublicClient,
-} from 'viem';
+import { ValidNetwork, createViemClient } from '@daohaus/keychain-utils';
+import { weiUnits, formatUnits, parseGwei } from 'viem';
 
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
@@ -21,6 +15,7 @@ export const getGasCostEstimate = async (
 ): Promise<number | undefined> => {
   const feeDataNew = await fetchFeeData({ chainId: chainId as ValidNetwork });
 
+  console.log('feeDataNew', feeDataNew);
   return (
     Number(getProcessingGasLimit(gasLimit, chainId)) *
     Number(feeDataNew.maxFeePerGas || 0)
@@ -79,10 +74,7 @@ export async function fetchFeeData({
   chainId,
   formatUnits: units = 'gwei',
 }: FetchFeeDataArgs): Promise<FetchFeeDataResult> {
-  const client = createPublicClient({
-    chain: VIEM_CHAINS[chainId],
-    transport: http(),
-  });
+  const client = createViemClient({ chainId });
 
   const block = await client.getBlock();
   let gasPrice: bigint | null = null;

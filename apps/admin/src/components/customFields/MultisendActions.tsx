@@ -434,7 +434,7 @@ const Action = ({
       setValue(dataFieldId, customData);
       setValue(`tx.${actionId}.operation`, 0);
     }
-  }, [customDataToggle, customData]);
+  }, [customDataToggle, customData, setValue, dataFieldId, actionId]);
 
   useEffect(() => {
     if (noArgs) {

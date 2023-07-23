@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
 import { useParams, Link as RouterLink } from 'react-router-dom';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { useConnectedMember } from '@daohaus/moloch-v3-context';
 import {
   DropdownMenu,
@@ -46,7 +46,6 @@ type VaultMenuProps = {
 export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
   const { daoid, daochain } = useParams();
   const { connectedMember } = useConnectedMember();
-  const theme = useTheme();
 
   const enableActions = useMemo(() => {
     return connectedMember && Number(connectedMember.shares) > 0;

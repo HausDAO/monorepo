@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { RiFilterFill } from 'react-icons/ri/index.js';
 
@@ -29,8 +29,6 @@ type FilterDropdownProps = {
 };
 
 const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
-  const theme = useTheme();
-
   return (
     <DropdownMenu>
       {/* !MARK Update Trigger to allow whatever to be passed */}

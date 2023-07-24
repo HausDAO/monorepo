@@ -229,11 +229,7 @@ export const GasDisplay = ({
   useEffect(() => {
     const getGasEst = async () => {
       if (gasAmt) {
-        const est = await getGasCostEstimate(
-          gasAmt,
-          HAUS_RPC[daoChain as ValidNetwork],
-          daoChain as string
-        );
+        const est = await getGasCostEstimate(gasAmt, daoChain as string);
         const estEth = est && Number(toWholeUnits(est.toFixed())).toFixed(10);
         setEstimate(estEth);
       }

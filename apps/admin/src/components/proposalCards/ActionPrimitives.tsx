@@ -225,11 +225,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
   useEffect(() => {
     const getGasEst = async () => {
       if (gasAmt) {
-        const est = await getGasCostEstimate(
-          gasAmt,
-          HAUS_RPC[daochain as ValidNetwork],
-          daochain as string
-        );
+        const est = await getGasCostEstimate(gasAmt, daochain as string);
 
         const estEth = est && Number(toWholeUnits(est.toFixed())).toFixed(10);
         setEstimate(estEth);

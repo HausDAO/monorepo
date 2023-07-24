@@ -13,4 +13,4 @@ export * from './shamanPermission';
 export * from './time';
 export * from './validation';
 export * from './error';
-export * from './ethersFallback';
+export * from './viem';

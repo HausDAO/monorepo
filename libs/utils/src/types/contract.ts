@@ -1,6 +1,4 @@
-import { BigNumber } from 'ethers';
-
-export type ArgType = string | number | boolean | BigNumber | ArgType[];
+export type ArgType = string | number | boolean | bigint | ArgType[];
 export type JsonFragmentType = {
   readonly name?: string;
   readonly indexed?: boolean;
@@ -25,3 +23,11 @@ export type JsonFragment = {
   readonly gas?: string;
 };
 export type ABI = (JsonFragment | JsonFragmentType)[];
+
+// Exported Types
+
+export type Bytes = ArrayLike<number>;
+
+export type BytesLike = Bytes | string;
+
+export type BigIntish = Bytes | bigint | string | number;

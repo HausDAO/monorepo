@@ -9,7 +9,7 @@ import {
 import { ethers } from 'ethers';
 import { getContractAbi } from './contract-meta';
 import { encodeFunctionWrapper } from './encoding-utils';
-import { estimateGas } from './estimate-util';
+import { gasEstimateFromActions } from './estimate-util';
 import {
   ContractConfig,
   ProcessProposalArgs,
@@ -76,12 +76,11 @@ export class MolochV3Contract {
     );
 
     let estimate = args.baalGas;
-    if (estimate) {
-      const safeId = await this.molochV3.avatar();
-      estimate = await estimateGas({
+    if (!estimate) {
+      estimate = await gasEstimateFromActions({
+        actions: proposalData,
         chainId: args.networkId,
-        safeId,
-        data: encodedActions,
+        safeId: await this.molochV3.avatar(),
       });
     }
 
@@ -102,7 +101,7 @@ export class MolochV3Contract {
   public async processProposal(args: ProcessProposalArgs) {
     const proposal = await this.molochV3.proposals(args.id);
     const overrides = args.overrides || {};
-    if (proposal[6] !== ethers.BigNumber.from('0')) {
+    if (proposal[6]?.toString() !== '0') {
       overrides.gasLimit = proposal[6];
     }
     return await this.molochV3.processProposal(

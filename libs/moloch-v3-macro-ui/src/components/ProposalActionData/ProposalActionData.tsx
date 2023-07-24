@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
-import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+import { useState } from 'react';
+import { isValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import {
-  DecodedMultiTX,
-  decodeProposalActions,
-  isActionError,
-} from '@daohaus/tx-builder';
+import { DecodedMultiTX, isActionError } from '@daohaus/tx-builder';
 import {
   AddressDisplay,
   Bold,
@@ -20,10 +16,8 @@ import {
 import {
   DAO_METHOD_TO_PROPOSAL_TYPE,
   MulticallAction,
-  MulticallArg,
   PROPOSAL_TYPE_WARNINGS,
   SENSITIVE_PROPOSAL_TYPES,
-  TXLego,
 } from '@daohaus/utils';
 
 import { ActionAlert } from './ActionAlert';

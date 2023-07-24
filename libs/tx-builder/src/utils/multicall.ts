@@ -16,8 +16,7 @@ import {
   TXLego,
 } from '@daohaus/utils';
 import {
-  CONTRACT_KEYCHAINS,
-  ENDPOINTS,
+  HAUS_RPC,
   Keychain,
   PinataApiKeys,
   ValidNetwork,
@@ -25,7 +24,6 @@ import {
 
 import { LOCAL_ABI } from '@daohaus/abis';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
-import { getAddress } from 'ethers/lib/utils';
 import { processArg } from './args';
 import {
   BaalContractBase,
@@ -35,49 +33,36 @@ import {
   FORM,
 } from './constants';
 import { processContractLego } from './contractHelpers';
+import { createViemClient } from '@daohaus/utils';
 
-export const estimateGas = async ({
+export const estimateFunctionalGas = async ({
   chainId,
-  safeId,
+  constractAddress,
+  from,
+  value,
   data,
+  rpcs = HAUS_RPC,
 }: {
   chainId: ValidNetwork;
-  safeId: string;
+  constractAddress: string;
+  from: string;
+  value: bigint;
   data: string;
-}) => {
-  const rawUri = ENDPOINTS['GAS_ESTIMATE'][chainId];
-  if (!rawUri)
-    throw new Error(
-      `Gnosis Gas Estimation API not found for chainID: ${chainId}`
-    );
+  rpcs?: Keychain;
+}): Promise<number | undefined> => {
+  const client = createViemClient({
+    chainId,
+    rpcs,
+  });
 
-  const gnosisMultisendAddress =
-    CONTRACT_KEYCHAINS['GNOSIS_MULTISEND'][chainId];
+  const functionGasFees = await client.estimateGas({
+    account: from as EthAddress,
+    to: constractAddress as EthAddress,
+    value,
+    data: data as `0x${string}`,
+  });
 
-  if (!gnosisMultisendAddress)
-    throw new Error(
-      `Gnosis Multisend Contract not found for chainID: ${chainId}`
-    );
-  const gasEstimateUri = rawUri.replace('<<safeId>>', getAddress(safeId));
-  try {
-    const response = await fetch(gasEstimateUri, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        to: getAddress(gnosisMultisendAddress),
-        value: 0,
-        data,
-        operation: 1,
-      }),
-    });
-    if (response.ok) {
-      return response.json();
-    }
-  } catch (error) {
-    throw new Error(`Failed to estimate gas: ${error}`);
-  }
+  return Number(functionGasFees);
 };
 
 export const txActionToMetaTx = ({
@@ -100,6 +85,7 @@ export const txActionToMetaTx = ({
   if (typeof encodedData !== 'string') {
     throw new Error(encodedData.message);
   }
+
   console.log('operation', operation);
   return {
     to: address,
@@ -291,8 +277,50 @@ export const handleMulticallArg = async ({
     ? handleMulticallFormActions({ appState })
     : [];
 
+  return [...encodedActions, ...encodedFormActions];
+};
+
+export const gasEstimateFromActions = async ({
+  actions,
+  chainId,
+  safeId,
+}: {
+  actions: MetaTransaction[];
+  chainId: ValidNetwork;
+  safeId: string;
+}) => {
+  const esitmatedGases = await Promise.all(
+    actions.map(
+      async (action) =>
+        await estimateFunctionalGas({
+          chainId: chainId,
+          constractAddress: action.to,
+          from: safeId, // from value needs to be the baal safe to esitmate without revert
+          value: BigInt(Number(action.value)),
+          data: action.data,
+        })
+    )
+  );
+
+  // get sum of all gas estimates
+  const totalGasEstimate = esitmatedGases?.reduce(
+    (a, b) => (a || 0) + (b || 0),
+    0
+  );
+  console.log('totalGasEstimate', totalGasEstimate);
+
+  return totalGasEstimate;
+};
+
+export const handleEncodeMulticallArg = async ({
+  arg,
+  actions,
+}: {
+  arg: MulticallArg | EncodeMulticall;
+  actions: MetaTransaction[];
+}) => {
   if (arg.type === 'encodeMulticall') {
-    const result = encodeMultiSend([...encodedActions, ...encodedFormActions]);
+    const result = encodeMultiSend(actions);
     console.log('arg.type', arg.type);
     console.log('result', result);
 
@@ -302,7 +330,7 @@ export const handleMulticallArg = async ({
     return result;
   }
 
-  const result = encodeMultiAction([...encodedActions, ...encodedFormActions]);
+  const result = encodeMultiAction(actions);
 
   if (typeof result !== 'string') {
     throw new Error(result.message);
@@ -331,7 +359,7 @@ export const handleGasEstimate = async ({
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
-  const proposalData = await handleMulticallArg({
+  const actions = await handleMulticallArg({
     localABIs,
     chainId,
     appState,
@@ -344,17 +372,15 @@ export const handleGasEstimate = async ({
     pinataApiKeys,
     explorerKeys,
   });
-
-  const estimate = await estimateGas({
+  const gasEstimate = await gasEstimateFromActions({
+    actions,
     chainId,
     safeId,
-    data: proposalData,
   });
 
-  console.log('estimate', estimate);
-  if (estimate?.safeTxGas) {
+  if (gasEstimate) {
     const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
-    return Math.round(Number(estimate.safeTxGas) * Number(buffer));
+    return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API
     // and it returns a 404 HTTP error

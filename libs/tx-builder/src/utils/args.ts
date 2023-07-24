@@ -14,6 +14,7 @@ import { handleIPFSPinata } from './ipfs';
 import {
   handleArgEncode,
   handleEncodeCallArg,
+  handleEncodeMulticallArg,
   handleGasEstimate,
   handleMulticallArg,
 } from './multicall';
@@ -122,7 +123,7 @@ export const processArg = async ({
     );
   }
   if (arg?.type === 'multicall' || arg.type === 'encodeMulticall') {
-    const result = await handleMulticallArg({
+    const actions = await handleMulticallArg({
       arg,
       chainId,
       localABIs,
@@ -131,6 +132,11 @@ export const processArg = async ({
       pinataApiKeys,
       explorerKeys,
     });
+    const result = await handleEncodeMulticallArg({
+      arg,
+      actions,
+    });
+
     return result;
   }
   if (arg?.type === 'encodeCall') {

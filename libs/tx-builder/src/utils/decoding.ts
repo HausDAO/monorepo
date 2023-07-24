@@ -1,4 +1,9 @@
-import { BigNumber, utils } from 'ethers';
+import {
+  decodeFunctionData,
+  parseAbiParameters,
+  decodeAbiParameters,
+  getAbiItem,
+} from 'viem';
 import {
   ArgType,
   ENCODED_0X0_DATA,
@@ -16,7 +21,7 @@ import {
 } from '@daohaus/keychain-utils';
 
 import { LOCAL_ABI } from '@daohaus/abis';
-import { createContract, fetchABI, getCode } from './abi';
+import { fetchABI, getCode } from './abi';
 import { isSearchArg } from './args';
 
 const OPERATION_TYPE = 2;
@@ -54,6 +59,14 @@ export type ActionError = {
 
 export type DecodedMultiTX = (DecodedAction | ActionError)[];
 
+type ViemAbiFunction = {
+  inputs: {
+    internalType: string;
+    name: string;
+    type: string;
+  }[];
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isActionError = (action: any): action is ActionError => {
   return action.error;
@@ -63,19 +76,13 @@ const getMultisendHex = ({ chainId, actionData, rpcs }: MultisendArgs) => {
   const multisendAddr = CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId];
   if (!multisendAddr) throw new Error('Invalid chainId');
 
-  const multisendContract = createContract({
-    chainId,
-    address: multisendAddr,
+  const decoded = decodeFunctionData({
     abi: LOCAL_ABI.GNOSIS_MULTISEND,
-    rpcs,
+    data: actionData as `0x${string}`,
   });
 
-  const decoded = multisendContract.interface['decodeFunctionData'](
-    'multiSend',
-    actionData
-  );
-
-  return decoded['transactions']?.slice(2) || decoded?.[0]?.slice(2);
+  const hexData = decoded?.args?.[0] as string;
+  return hexData.slice(2);
 };
 
 const processAction = (actionsHex: string, txLength: number): EncodedAction => {
@@ -101,12 +108,14 @@ const decodeMultisend = ({ chainId, actionData, rpcs }: MultisendArgs) => {
       actionsHex.length >=
       OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
     ) {
-      const thisTxLength = BigNumber.from(
-        `0x${actionsHex.slice(
-          OPERATION_TYPE + ADDRESS + VALUE,
-          OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
-        )}`
-      ).toNumber();
+      const thisTxLength = Number(
+        BigInt(
+          `0x${actionsHex.slice(
+            OPERATION_TYPE + ADDRESS + VALUE,
+            OPERATION_TYPE + ADDRESS + VALUE + DATA_LENGTH
+          )}`
+        )
+      );
 
       transactions.push(processAction(actionsHex, thisTxLength));
       actionsHex = actionsHex.slice(
@@ -136,7 +145,7 @@ const buildEthTransferAction = (
 ): DecodedAction => ({
   to: action.to,
   name: `${HAUS_NETWORK_DATA[chainId]?.symbol} Transfer`,
-  value: BigNumber.from(action.value).toString(),
+  value: BigInt(action.value).toString(),
   params: [],
 });
 
@@ -152,8 +161,8 @@ const decodeParam = ({
     return value;
   }
   if (argMeta?.type === 'argEncode') {
-    const decodedValues = utils.defaultAbiCoder.decode(
-      argMeta.solidityTypes,
+    const decodedValues = decodeAbiParameters(
+      parseAbiParameters(argMeta.solidityTypes.join(',')),
       value
     );
     return argMeta.args.map((arg, i) => {
@@ -198,7 +207,10 @@ const decodeAction = async ({
     };
   }
 
-  const decoded = new utils.Interface(abi).parseTransaction({ data, value });
+  const decoded = decodeFunctionData({
+    abi,
+    data: data as `0x${string}`,
+  });
 
   if (!decoded) {
     return {
@@ -208,25 +220,29 @@ const decodeAction = async ({
     };
   }
 
+  const decodedArgs = decoded.args || [];
+
   return {
     to,
-    name: decoded.name,
-    value: decoded.value?.toString(),
-    params: decoded.args.map((arg, i) => ({
-      name:
-        decoded?.functionFragment?.inputs?.[i].name ||
-        'ERROR: Could not find name',
-      type:
-        decoded?.functionFragment?.inputs?.[i].type ||
-        'ERROR: Could not find type',
-      value:
-        decoded?.functionFragment?.inputs?.[i].type === 'bytes'
-          ? decodeParam({
-              argMeta: actionMeta?.args?.[i],
-              value: arg,
-            })
-          : arg,
-    })),
+    name: decoded.functionName,
+    value: parseInt(value).toString(),
+    params: decodedArgs.map((arg, i) => {
+      const abiItem = getAbiItem({
+        abi,
+        name: decoded.functionName,
+      }) as ViemAbiFunction;
+      return {
+        name: abiItem?.inputs?.[i]?.name || 'ERROR: Could not find name',
+        type: abiItem?.inputs?.[i]?.type || 'ERROR: Could not find type',
+        value:
+          abiItem?.inputs?.[i]?.type === 'bytes'
+            ? decodeParam({
+                argMeta: actionMeta?.args?.[i],
+                value: arg,
+              })
+            : arg,
+      };
+    }),
   };
 };
 

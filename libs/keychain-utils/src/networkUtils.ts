@@ -26,3 +26,13 @@ export const getNetworkName = (
 ) => {
   return getNetwork(chainId, networks)?.name || null;
 };
+
+export const getNetworkById = (
+  networkId: number,
+  networks = HAUS_NETWORK_DATA
+) => {
+  const network = Object.values(networks).find(
+    (net) => net.networkId === networkId
+  );
+  return network;
+};

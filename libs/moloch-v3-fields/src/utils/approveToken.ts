@@ -1,7 +1,7 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
 import { ContractLego, TXLego } from '@daohaus/utils';
-import { MaxUint256 } from '@ethersproject/constants';
+import { MaxUint256 } from '@daohaus/utils';
 
 const ERC_20_CONTRCT: ContractLego = {
   type: 'static',

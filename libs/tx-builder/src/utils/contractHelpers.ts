@@ -22,18 +22,18 @@ const findTargetAddress = ({
   chainId,
 }: {
   appState: ArbitraryState;
-  targetAddress: StringSearch | Keychain;
+  targetAddress: StringSearch | Keychain | EthAddress;
   chainId: ValidNetwork;
 }) => {
+  if (typeof targetAddress === 'string' && isEthAddress(targetAddress)) {
+    return targetAddress;
+  }
   if (typeof targetAddress === 'string' && isSearchArg(targetAddress)) {
     return searchArg({
       searchString: targetAddress,
       appState,
       shouldThrow: true,
     });
-  }
-  if (typeof targetAddress === 'string' && isEthAddress(targetAddress)) {
-    return targetAddress;
   }
   if (
     typeof targetAddress === 'object' &&
@@ -46,7 +46,7 @@ const findTargetAddress = ({
 
 const handleTargetAddress = (args: {
   appState: ArbitraryState;
-  targetAddress: StringSearch | Keychain;
+  targetAddress: StringSearch | Keychain | EthAddress;
   chainId: ValidNetwork;
 }): EthAddress => {
   const address = findTargetAddress(args);

@@ -1,4 +1,5 @@
-import { ethers } from 'ethers';
+import { formatEther } from 'viem';
+
 import { Noun } from '../types';
 
 export const truncateAddress = (addr: string) =>
@@ -8,7 +9,7 @@ export const charLimit = (str: string | undefined, limit: number) =>
 export const handlePluralNoun = (noun: Noun, count: number) =>
   count === 1 ? noun.singular : noun.plural;
 export const fromWei = (amt: string): string => {
-  return ethers.utils.formatEther(amt).toString();
+  return formatEther(BigInt(amt)).toString();
 };
 export const isJSON = (obj: unknown) => {
   try {

@@ -7,9 +7,10 @@ import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
 import { useDHConnect } from '@daohaus/connect';
 import { useDao } from '@daohaus/moloch-v3-context';
-import { createContract, useTxBuilder } from '@daohaus/tx-builder';
+import { createViemClient, useTxBuilder } from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
+  EthAddress,
   getProcessingGasLimit,
   handleErrorMessage,
   ReactSetter,
@@ -55,11 +56,23 @@ const checkCanProcess = async ({
   setCanProcess: ReactSetter<string | true>;
 }) => {
   try {
-    const state = await createContract({
-      address: daoid,
-      abi: LOCAL_ABI.BAAL,
+    // const state = await createContract({
+    //   address: daoid,
+    //   abi: LOCAL_ABI.BAAL,
+    //   chainId: daochain,
+    // })['state'](prevProposalId);
+    const client = createViemClient({
       chainId: daochain,
-    })['state'](prevProposalId);
+    });
+
+    const state = await client.readContract({
+      abi: LOCAL_ABI.BAAL,
+      address: daoid as EthAddress,
+      functionName: 'state',
+      args: [prevProposalId],
+    });
+
+    console.log('state', state);
 
     setCanProcess(
       eligibableStatuses.some((status) => status === state)
@@ -103,7 +116,7 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
-        overrides: {
+        staticOverrides: {
           gasLimit: getProcessingGasLimit(actionGasEstimate, chainId as string),
         },
       } as TXLego,

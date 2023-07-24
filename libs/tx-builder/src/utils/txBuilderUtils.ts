@@ -1,7 +1,14 @@
-import { ethers, providers } from 'ethers';
+import { PublicClient } from 'wagmi';
+import { goerli } from 'wagmi/chains';
+import { Hash, createWalletClient, custom } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
-import { Keychain, PinataApiKeys, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  Keychain,
+  PinataApiKeys,
+  VIEM_CHAINS,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
@@ -23,10 +30,8 @@ export type MassState = {
 
 export const executeTx = async (args: {
   tx: TXLego;
-  ethersTx: {
-    hash: string;
-    wait: () => Promise<ethers.providers.TransactionReceipt>;
-  };
+  txHash: Hash;
+  publicClient: PublicClient;
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
@@ -35,7 +40,8 @@ export const executeTx = async (args: {
 }) => {
   const {
     tx,
-    ethersTx,
+    txHash,
+    publicClient,
     setTransactions,
     chainId,
     lifeCycleFns,
@@ -43,20 +49,22 @@ export const executeTx = async (args: {
     appState,
   } = args;
   console.log('**Transaction Initatiated**');
-  const txHash = ethersTx.hash;
   console.log('txHash', txHash);
   try {
-    lifeCycleFns?.onTxHash?.(ethersTx.hash);
+    lifeCycleFns?.onTxHash?.(txHash);
     setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'idle' },
     }));
     console.log('**Transaction Pending**');
-    const receipt = await ethersTx.wait();
+
+    const receipt = await publicClient.waitForTransactionReceipt({
+      hash: txHash,
+    });
     console.log('**Transaction Mined**');
     console.log('**Transaction Receipt**', receipt);
 
-    if (receipt.status === 0) {
+    if (receipt.status === 'reverted') {
       throw new Error('CALL_EXCEPTION: txReceipt status 0');
     }
 
@@ -118,7 +126,6 @@ export async function prepareTX(args: {
   tx: TXLego;
   chainId: ValidNetwork;
   safeId?: string;
-  provider: providers.Web3Provider;
   setTransactions: ReactSetter<TxRecord>;
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
@@ -128,13 +135,13 @@ export async function prepareTX(args: {
   graphApiKeys: Keychain;
   pinataApiKeys: PinataApiKeys;
   explorerKeys: Keychain;
+  publicClient?: PublicClient;
 }) {
   const {
     argCallbackRecord,
     tx,
     chainId,
     safeId,
-    provider,
     localABIs,
     lifeCycleFns,
     appState,
@@ -142,6 +149,7 @@ export async function prepareTX(args: {
     explorerKeys,
     pinataApiKeys,
     graphApiKeys,
+    publicClient,
   } = args;
   console.log('**APPLICATION STATE**', appState);
   try {
@@ -172,27 +180,62 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED ARGS**', processedArgs);
 
-    const overrides = processOverrides({
-      overrideArgs: tx.overrides,
+    const overrides = await processOverrides({
+      tx,
+      localABIs,
+      chainId,
+      safeId,
       appState,
+      rpcs,
+      pinataApiKeys,
+      explorerKeys,
     });
 
     console.log('**PROCESSED overrides**', overrides);
 
-    const contract = new ethers.Contract(
-      address,
+    if (!publicClient) {
+      return;
+    }
+
+    // TODO figure out account away from window.ethereum
+    // @ts-expect-error because
+    const [account] = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+
+    console.log('account', account);
+    console.log('publicClient', publicClient);
+
+    const walletClient = createWalletClient({
+      chain: VIEM_CHAINS[chainId],
+      account,
+      // not sure if we can use window.ethereum on all wallets
+      // TODO figure out transport away from window.ethereum
+      // @ts-expect-error because
+      transport: custom(window.ethereum),
+    });
+
+    // @ts-expect-error because
+    console.log('window.ethereum', window.ethereum);
+    console.log('walletClient', walletClient);
+
+    const { request } = await publicClient.simulateContract({
+      account,
+      address: address as `0x${string}`,
       abi,
-      provider.getSigner().connectUnchecked()
-    );
+      args: processedArgs,
+      functionName: method,
+    });
+
+    console.log('request', request);
 
     lifeCycleFns?.onRequestSign?.();
 
-    const ethersTx = await contract.functions[method](
-      ...processedArgs,
-      overrides
-    );
+    const txHash = await walletClient.writeContract(request);
 
-    executeTx({ ...args, ethersTx, graphApiKeys });
+    console.log('txHash', txHash);
+
+    executeTx({ ...args, publicClient, txHash, graphApiKeys });
   } catch (error) {
     console.log('**TX Error**');
     console.error(error);

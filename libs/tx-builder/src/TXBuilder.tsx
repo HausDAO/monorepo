@@ -1,5 +1,7 @@
-import { ethers, providers } from 'ethers';
+import { TransactionReceipt } from 'viem';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
+import { PublicClient } from 'wagmi';
+
 import { ABI, ArbitraryState, ArgType, TXLego } from '@daohaus/utils';
 import {
   ABI_EXPLORER_KEYS,
@@ -19,7 +21,7 @@ export type TXLifeCycleFns = {
   onTxHash?: (txHash: string) => void;
   onTxError?: (error: unknown) => void;
   onTxSuccess?: (
-    txReceipt: ethers.providers.TransactionReceipt,
+    txReceipt: TransactionReceipt,
     txHash: string,
     appState: ArbitraryState
   ) => void;
@@ -28,7 +30,7 @@ export type TXLifeCycleFns = {
   onPollSuccess?: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result: any,
-    txReceipt: ethers.providers.TransactionReceipt,
+    txReceipt: TransactionReceipt,
     appState: ArbitraryState
   ) => void;
 };
@@ -69,7 +71,6 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   chainId: string | undefined | null;
   safeId?: string;
   daoId?: string;
-  provider: providers.Web3Provider | undefined | null;
   children: ReactNode;
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
@@ -79,13 +80,13 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   graphApiKeys?: Keychain;
   pinataApiKeys?: PinataApiKeys;
   explorerKeys?: Keychain;
+  publicClient?: PublicClient;
 };
 
 export const TXBuilder = ({
   chainId,
   safeId,
   daoId,
-  provider,
   appState,
   children,
   localABIs = {},
@@ -95,6 +96,7 @@ export const TXBuilder = ({
   graphApiKeys = GRAPH_API_KEYS,
   pinataApiKeys = PINATA_API_KEYS,
   explorerKeys = ABI_EXPLORER_KEYS,
+  publicClient,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -106,7 +108,8 @@ export const TXBuilder = ({
     callerState,
     lifeCycleFns = {},
   }) => {
-    if (!chainId || !isValidNetwork(chainId) || !provider) {
+    // if (!chainId || !isValidNetwork(chainId) || !provider) {
+    if (!chainId || !isValidNetwork(chainId) || !publicClient) {
       lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
       );
@@ -125,7 +128,6 @@ export const TXBuilder = ({
       tx,
       chainId,
       safeId,
-      provider,
       setTransactions,
       appState: wholeState,
       argCallbackRecord,
@@ -138,6 +140,7 @@ export const TXBuilder = ({
       graphApiKeys,
       pinataApiKeys,
       explorerKeys,
+      publicClient,
     });
 
     return true;

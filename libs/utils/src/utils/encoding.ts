@@ -1,11 +1,18 @@
-import { ethers } from 'ethers';
+import {
+  encodeAbiParameters,
+  parseAbiParameters,
+  encodeFunctionData,
+} from 'viem';
 import { ABI, ArgType } from '../types';
 
 export const encodeValues = (
   typesArray: string[],
   valueArray: ArgType[]
 ): string => {
-  return ethers.utils.defaultAbiCoder.encode(typesArray, valueArray);
+  return encodeAbiParameters(
+    parseAbiParameters(typesArray.join(',')),
+    valueArray
+  );
 };
 
 export const encodeFunction = (
@@ -18,9 +25,12 @@ export const encodeFunction = (
       throw new Error(
         'Incorrect params passed to safeEncodeHexFunction in abi.js'
       );
-    const abiString = JSON.stringify(abi);
-    const ethersInterface = new ethers.utils.Interface(abiString);
-    return ethersInterface.encodeFunctionData(fnName, functionArgs);
+
+    return encodeFunctionData({
+      abi,
+      functionName: fnName,
+      args: functionArgs,
+    });
   } catch (error) {
     console.error('error', error);
     return {
@@ -38,5 +48,3 @@ export const getNonce = (length = 24) => {
   }
   return text;
 };
-
-// export const decodeAction = () => {};

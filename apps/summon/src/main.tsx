@@ -15,7 +15,7 @@ const container = document.getElementById('root');
 window.Buffer = window.Buffer || Buffer;
 
 //reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#updates-to-client-rendering-apis
-// THis is how react wants to render the app.
+// This is how react wants to render the app.
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 

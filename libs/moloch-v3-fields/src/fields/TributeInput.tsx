@@ -3,6 +3,7 @@ import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
 
 import { LOCAL_ABI } from '@daohaus/abis';
 import {
+  createViemClient,
   formatValueTo,
   handleErrorMessage,
   isEthAddress,
@@ -10,11 +11,7 @@ import {
   toBaseUnits,
   toWholeUnits,
 } from '@daohaus/utils';
-import {
-  CONTRACT_KEYCHAINS,
-  isValidNetwork,
-  createViemClient,
-} from '@daohaus/keychain-utils';
+import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
 import { useDHConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
 import { useTxBuilder } from '@daohaus/tx-builder';

@@ -6,7 +6,7 @@ import {
   DecodedMultiTX,
   isActionError,
 } from '@daohaus/tx-builder';
-import { createViemClient } from '@daohaus/keychain-utils';
+import { createViemClient } from '@daohaus/utils';
 import { EthAddress, formatValueTo, toWholeUnits } from '@daohaus/utils';
 
 export type ProposalDataPoint = {

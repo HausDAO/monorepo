@@ -1,5 +1,6 @@
-import { ValidNetwork, createViemClient } from '@daohaus/keychain-utils';
+import { ValidNetwork } from '@daohaus/keychain-utils';
 import { weiUnits, formatUnits, parseGwei } from 'viem';
+import { createViemClient } from './viem';
 
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;

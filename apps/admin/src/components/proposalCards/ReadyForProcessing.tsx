@@ -10,6 +10,7 @@ import { useDao } from '@daohaus/moloch-v3-context';
 import { useTxBuilder } from '@daohaus/tx-builder';
 import {
   checkHasQuorum,
+  createViemClient,
   EthAddress,
   getProcessingGasLimit,
   handleErrorMessage,
@@ -17,11 +18,7 @@ import {
   roundedPercentage,
   TXLego,
 } from '@daohaus/utils';
-import {
-  createViemClient,
-  isValidNetwork,
-  ValidNetwork,
-} from '@daohaus/keychain-utils';
+import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
 
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';

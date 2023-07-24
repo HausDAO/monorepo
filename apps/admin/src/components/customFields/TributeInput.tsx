@@ -11,7 +11,7 @@ import { CONTRACT_KEYCHAINS, isValidNetwork } from '@daohaus/keychain-utils';
 import { useDHConnect } from '@daohaus/connect';
 import { FieldSpacer } from '@daohaus/form-builder';
 import { useTxBuilder } from '@daohaus/tx-builder';
-import { createViemClient } from '@daohaus/keychain-utils';
+import { createViemClient } from '@daohaus/utils';
 import {
   Buildable,
   Button,

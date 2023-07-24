@@ -1,13 +1,17 @@
 import { createPublicClient } from 'viem';
-import { ABI, EthAddress, isJSON } from '@daohaus/utils';
+import {
+  ABI,
+  EthAddress,
+  isJSON,
+  createViemClient,
+  createTransport,
+} from '@daohaus/utils';
 import {
   Keychain,
   HAUS_RPC,
   ValidNetwork,
   ABI_EXPLORER_KEYS,
   VIEM_CHAINS,
-  createViemClient,
-  createTransport,
 } from '@daohaus/keychain-utils';
 
 import { cacheABI, getCachedABI } from './cache';

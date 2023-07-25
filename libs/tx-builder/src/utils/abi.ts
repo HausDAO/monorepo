@@ -1,4 +1,4 @@
-import { createPublicClient } from 'viem';
+import { createPublicClient, trim } from 'viem';
 import {
   ABI,
   EthAddress,
@@ -85,14 +85,24 @@ export const getImplementation = async ({
 }): Promise<string | false> => {
   const client = createViemClient({ chainId, rpcs });
 
+  let newAddress;
   try {
-    const newAddress = await client.readContract({
-      address: address as EthAddress,
-      abi,
-      functionName: 'implementation',
-    });
+    try {
+      newAddress = await client.readContract({
+        address: address as EthAddress,
+        abi,
+        functionName: 'implementation',
+      });
+    } catch (error) {
+      newAddress = await client.getStorageAt({
+        address: address as EthAddress,
+        slot: '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc',
+      });
+    }
 
-    return newAddress as string;
+    const final = trim(newAddress as `0x${string}`);
+
+    return final;
   } catch (error) {
     console.error(error);
     return false;

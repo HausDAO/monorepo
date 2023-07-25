@@ -134,10 +134,16 @@ const isEthTransfer = async (
   chainId: ValidNetwork,
   action: EncodedAction,
   rpcs: Keychain
-) =>
-  action?.data?.slice(2)?.length === 0 ||
-  action?.data === ENCODED_0X0_DATA ||
-  (await getCode({ chainId, contractAddress: action.to, rpcs })) === '0x';
+) => {
+  const code = await getCode({ chainId, contractAddress: action.to, rpcs });
+
+  console.log(code);
+  return (
+    action?.data?.slice(2)?.length === 0 ||
+    action?.data === ENCODED_0X0_DATA ||
+    code === '0x'
+  );
+};
 
 const buildEthTransferAction = (
   chainId: ValidNetwork,

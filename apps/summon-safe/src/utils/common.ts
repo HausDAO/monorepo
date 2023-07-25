@@ -1,5 +1,5 @@
 import { isArray, isNumberString, isString } from '@daohaus/utils';
-import { isAddress, parseAbi } from 'viem';
+import { isAddress } from 'viem';
 
 const VAL_MSG = {
   formattingError:

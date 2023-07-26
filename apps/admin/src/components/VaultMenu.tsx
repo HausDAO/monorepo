@@ -49,8 +49,6 @@ export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
   const { connectedMember } = useConnectedMember();
   const theme = useTheme();
 
-  console.log('connectedMember', connectedMember);
-
   const enableActions = useMemo(() => {
     return (
       connectedMember &&

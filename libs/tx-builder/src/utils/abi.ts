@@ -1,4 +1,4 @@
-import { createPublicClient } from 'viem';
+import { createPublicClient, trim, Address } from 'viem';
 import {
   ABI,
   EthAddress,
@@ -23,9 +23,11 @@ const isGnosisProxy = (abi: ABI) => {
     abi.every((fn) => ['constructor', 'fallback'].includes(fn?.type as string))
   );
 };
+
 const isSuperfluidProxy = (abi: ABI) => {
   return abi.length === 3 && abi.some((fn) => fn.name === 'initializeProxy');
 };
+
 export const isProxyABI = (abi: ABI) => {
   if (abi?.length) {
     return abi.some((fn) => fn.name === 'implementation');
@@ -72,6 +74,31 @@ const getGnosisMasterCopy = async (
   });
 };
 
+// reads the logic contract proxy storage slot directly via to EIP-1967
+// https://eips.ethereum.org/EIPS/eip-1967#specification
+const getProxyStorageSlot = async ({
+  address,
+  client,
+  // slot: bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)
+  slot = '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc' as Address,
+}: {
+  address: Address;
+  client: ReturnType<typeof createViemClient>;
+  slot?: Address;
+}): Promise<string | false> => {
+  try {
+    const proxyAddr = await client.getStorageAt({
+      address: address,
+      slot,
+    });
+
+    return trim(proxyAddr as Address);
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
 export const getImplementation = async ({
   address,
   chainId,
@@ -86,16 +113,18 @@ export const getImplementation = async ({
   const client = createViemClient({ chainId, rpcs });
 
   try {
-    const newAddress = await client.readContract({
+    const proxyAddr = await client.readContract({
       address: address as EthAddress,
       abi,
       functionName: 'implementation',
     });
 
-    return newAddress as string;
-  } catch (error) {
-    console.error(error);
-    return false;
+    return proxyAddr as string;
+  } catch {
+    return await getProxyStorageSlot({
+      address: address as Address,
+      client,
+    });
   }
 };
 

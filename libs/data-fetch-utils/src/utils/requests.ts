@@ -15,8 +15,14 @@ export const graphFetch = async <T = unknown, V = QueryVariables>(
   networkId: keyof Keychain,
   variables?: V
 ): Promise<IFindQueryResult<T>> => {
-  const res = await request<T, V>(url, document, cleanVariables(variables));
-  return { data: res, networkId };
+  try {
+    const res = await request<T, V>(url, document, cleanVariables(variables));
+    return { data: res, networkId };
+  } catch (err) {
+    console.log('graphFetchErr', err);
+    // throw formatFetchError({ type: 'SUBGRAPH_ERROR', errorObject: err });
+    return { data: undefined, networkId };
+  }
 };
 
 export const graphFetchList = async <T = unknown, V = QueryVariables>(

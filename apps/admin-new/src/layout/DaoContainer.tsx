@@ -6,7 +6,7 @@ import { TXBuilder } from '@daohaus/tx-builder';
 import { Footer } from '@daohaus/ui';
 
 export const DaoContainer = () => {
-  const { address, provider } = useDHConnect();
+  const { address } = useDHConnect();
   const { daoChain, daoId, proposalId, memberAddress } = useParams<{
     daoChain: ValidNetwork;
     daoId: string;
@@ -42,7 +42,6 @@ export const DaoContainer = () => {
       chainId={daoChain}
       daoId={daoId}
       safeId={dao?.safeAddress}
-      provider={provider}
       appState={{ dao, userAddress: address }}
     >
       <DHLayout

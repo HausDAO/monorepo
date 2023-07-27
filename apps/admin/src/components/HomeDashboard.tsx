@@ -10,7 +10,11 @@ import {
   useDebounce,
   widthQuery,
 } from '@daohaus/ui';
-import { isValidNetwork, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  HAUS_NETWORK_DATA,
+  isValidNetwork,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 
 import { DEFAULT_SORT_KEY, getDelegateFilter, SORT_FIELDS } from '../utils/hub';
 import { DaoList } from './DaoList';
@@ -22,9 +26,11 @@ export enum ListType {
   Table,
 }
 
+const appNetworks = Object.keys(HAUS_NETWORK_DATA);
+
 export const HomeDashboard = () => {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { appNetworks, address } = useDHConnect();
+  const { address } = useDHConnect();
   const [daoData, setDaoData] = useState<MolochV3Membership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<string[]>(appNetworks);
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');

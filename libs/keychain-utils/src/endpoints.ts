@@ -30,20 +30,6 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://safe-transaction-optimism.safe.global/api/v1',
     '0xa4b1': 'https://safe-transaction-arbitrum.safe.global/api/v1',
   },
-  GAS_ESTIMATE: {
-    '0x1':
-      'https://safe-transaction-mainnet.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-    '0x5':
-      'https://safe-transaction-goerli.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-    '0x64':
-      'https://safe-transaction-gnosis-chain.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-    '0x89':
-      'https://safe-transaction-polygon.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-    '0xa':
-      'https://safe-transaction-optimism.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-    '0xa4b1':
-      'https://safe-transaction-arbitrum.safe.global/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-  },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://app.safe.global/eth',
     '0x5': 'https://app.safe.global/gor',
@@ -87,12 +73,20 @@ export const getGraphUrl = (
   return ENDPOINTS['V3_SUBGRAPH'][networkId];
 };
 export const HAUS_RPC = {
-  '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
+  '0x1': process.env['NX_RIVET_KEY']
+    ? `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud`
+    : `https://eth-mainnet.g.alchemy.com/v2/${process.env['NX_ETHEREUM_ALCHEMY_KEY']}`,
+  '0x5': process.env['NX_RIVET_KEY']
+    ? `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`
+    : `https://eth-goerli.g.alchemy.com/v2/demo`,
   '0x64': 'https://rpc.gnosischain.com/',
-  '0xa': 'https://mainnet.optimism.io',
+  '0xa': process.env['NX_OPTIMISM_ALCHEMY_KEY']
+    ? `https://opt-mainnet.g.alchemy.com/v2/${process.env['NX_OPTIMISM_ALCHEMY_KEY']}`
+    : 'https://mainnet.optimism.io',
   '0x89': 'https://polygon-rpc.com/',
-  '0xa4b1': 'https://arb1.arbitrum.io/rpc',
+  '0xa4b1': process.env['NX_ARBITRUM_ALCHEMY_KEY']
+    ? `https://arb-mainnet.g.alchemy.com/v2/${process.env['NX_ARBITRUM_ALCHEMY_KEY']}`
+    : 'https://arb1.arbitrum.io/rpc',
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],

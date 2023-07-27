@@ -1,4 +1,6 @@
-import { providers } from 'ethers';
+import { createPublicClient, http } from 'viem';
+import { mainnet } from 'viem/chains';
+
 import { graphFetchList } from '@daohaus/data-fetch-utils';
 import { AccountProfile } from '@daohaus/utils';
 import {
@@ -40,12 +42,19 @@ const getENSReverseResolver = async ({
   rpcUri: string;
 }) => {
   try {
-    const provider = new providers.JsonRpcProvider(rpcUri);
-    const domainName = await provider.lookupAddress(address);
-    if (domainName) {
+    const client = createPublicClient({
+      chain: mainnet,
+      transport: http(rpcUri),
+    });
+
+    const ensName = await client.getEnsName({
+      address: address as `0x${string}`,
+    });
+
+    if (ensName) {
       return {
         domain: {
-          name: domainName,
+          name: ensName,
         },
       };
     }

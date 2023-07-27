@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import {
   ConnectContext,
-  ConnectProvider,
   ConnectProviderProps,
+  Connect,
   UserConnectType,
 } from '@daohaus/connect-context';
 import { useToast } from '@daohaus/ui';
@@ -12,7 +12,7 @@ export const DHConnectProvider = (props: ConnectProviderProps) => {
   const { defaultToast, errorToast } = useToast();
 
   return (
-    <ConnectProvider
+    <Connect
       {...props}
       lifeCycleFns={{
         onConnect: () => {

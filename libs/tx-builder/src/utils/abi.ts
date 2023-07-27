@@ -1,10 +1,17 @@
-import { ethers } from 'ethers';
-import { ABI, isJSON } from '@daohaus/utils';
+import { createPublicClient, trim, Address } from 'viem';
+import {
+  ABI,
+  EthAddress,
+  isJSON,
+  createViemClient,
+  createTransport,
+} from '@daohaus/utils';
 import {
   Keychain,
   HAUS_RPC,
   ValidNetwork,
   ABI_EXPLORER_KEYS,
+  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
 import { cacheABI, getCachedABI } from './cache';
@@ -16,9 +23,11 @@ const isGnosisProxy = (abi: ABI) => {
     abi.every((fn) => ['constructor', 'fallback'].includes(fn?.type as string))
   );
 };
+
 const isSuperfluidProxy = (abi: ABI) => {
   return abi.length === 3 && abi.some((fn) => fn.name === 'initializeProxy');
 };
+
 export const isProxyABI = (abi: ABI) => {
   if (abi?.length) {
     return abi.some((fn) => fn.name === 'implementation');
@@ -49,34 +58,45 @@ const getABIUrl = ({
 };
 
 const getGnosisMasterCopy = async (
-  address: string,
+  address: EthAddress,
   chainId: ValidNetwork,
   rpcs: Keychain
 ) => {
-  const gnosisProxyContract = createContract({
-    address,
-    abi: LOCAL_ABI.GNOSIS_PROXY,
+  const client = createViemClient({
     chainId,
     rpcs,
   });
-  const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
-  return masterCopy;
+
+  return await client.readContract({
+    abi: LOCAL_ABI.ERC20,
+    address,
+    functionName: 'masterCopy',
+  });
 };
 
-export const createContract = ({
+// reads the logic contract proxy storage slot directly via to EIP-1967
+// https://eips.ethereum.org/EIPS/eip-1967#specification
+const getProxyStorageSlot = async ({
   address,
-  abi,
-  chainId,
-  rpcs = HAUS_RPC,
+  client,
+  // slot: bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)
+  slot = '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc' as Address,
 }: {
-  address: string;
-  abi: ABI;
-  chainId: ValidNetwork;
-  rpcs?: Keychain;
-}) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return new ethers.Contract(address, abi, ethersProvider);
+  address: Address;
+  client: ReturnType<typeof createViemClient>;
+  slot?: Address;
+}): Promise<string | false> => {
+  try {
+    const proxyAddr = await client.getStorageAt({
+      address: address,
+      slot,
+    });
+
+    return trim(proxyAddr as Address);
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };
 
 export const getImplementation = async ({
@@ -90,19 +110,21 @@ export const getImplementation = async ({
   abi: ABI;
   rpcs?: Keychain;
 }): Promise<string | false> => {
-  const ethersContract = createContract({
-    address,
-    abi,
-    chainId,
-    rpcs,
-  });
+  const client = createViemClient({ chainId, rpcs });
 
   try {
-    const newAddress = await ethersContract?.['implementation']?.();
-    return newAddress;
-  } catch (error) {
-    console.error(error);
-    return false;
+    const proxyAddr = await client.readContract({
+      address: address as EthAddress,
+      abi,
+      functionName: 'implementation',
+    });
+
+    return proxyAddr as string;
+  } catch {
+    return await getProxyStorageSlot({
+      address: address as Address,
+      client,
+    });
   }
 };
 
@@ -152,14 +174,16 @@ export const processABI = async ({
       }
     }
   } else if (isSuperfluidProxy(abi)) {
-    const proxyEthersContract = createContract({
-      address: contractAddress,
+    const client = createViemClient({ chainId, rpcs });
+
+    const sfProxyAddr = await client.readContract({
+      address: contractAddress as EthAddress,
       abi: LOCAL_ABI.SUPERFLUID_PROXY,
-      chainId,
+      functionName: 'getCodeAddress',
     });
-    const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();
+
     const newData = await fetchABI({
-      contractAddress: sfProxyAddr,
+      contractAddress: sfProxyAddr as EthAddress,
       chainId,
       rpcs,
       explorerKeys,
@@ -171,12 +195,12 @@ export const processABI = async ({
     }
   } else if (isGnosisProxy(abi)) {
     const gnosisProxyAddress = await getGnosisMasterCopy(
-      contractAddress,
+      contractAddress as EthAddress,
       chainId,
       rpcs
     );
     const newData = await fetchABI({
-      contractAddress: gnosisProxyAddress,
+      contractAddress: gnosisProxyAddress as EthAddress,
       chainId,
       rpcs,
       explorerKeys,
@@ -255,7 +279,12 @@ export const getCode = async ({
   chainId: ValidNetwork;
   rpcs?: Keychain;
 }) => {
-  const rpcUrl = rpcs[chainId];
-  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
-  return ethersProvider.getCode(contractAddress);
+  const transport = createTransport({ chainId, rpcs });
+  const client = createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
+  return await client.getBytecode({
+    address: contractAddress as EthAddress,
+  });
 };

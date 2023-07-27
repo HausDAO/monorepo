@@ -9,7 +9,7 @@ import { Footer } from '@daohaus/ui';
 export function Dao() {
   const { daochain, daoid } = useParams();
   const location = useLocation();
-  const { provider } = useDHConnect();
+  const { publicClient } = useDHConnect();
   const { dao } = useDao();
   const { connectedMember } = useConnectedMember();
 
@@ -38,10 +38,10 @@ export function Dao() {
   return (
     <TXBuilder
       chainId={daochain}
-      provider={provider}
       safeId={dao?.safeAddress}
       daoId={daoid}
       appState={{ dao }}
+      publicClient={publicClient}
     >
       <DHLayout
         leftNav={

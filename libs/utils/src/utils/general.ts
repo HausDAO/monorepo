@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { formatEther } from 'viem';
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const votingPowerPercentage = (
@@ -7,8 +7,8 @@ export const votingPowerPercentage = (
 ): number => {
   if (Number(daoTotalShares) === 0) return 0;
   const perc =
-    (Number(ethers.utils.formatEther(memberShares)) /
-      Number(ethers.utils.formatEther(daoTotalShares))) *
+    (Number(formatEther(BigInt(memberShares))) /
+      Number(formatEther(BigInt(daoTotalShares)))) *
     100;
 
   return Math.round(perc * 100) / 100;
@@ -25,11 +25,11 @@ export const memberTokenBalanceShare = (
   decimals: string | number = 18
 ): number => {
   const daoSharesAndLoot =
-    Number(ethers.utils.formatEther(daoTotalShares)) +
-    Number(ethers.utils.formatEther(daoTotalLoot));
+    Number(formatEther(BigInt(daoTotalShares))) +
+    Number(formatEther(BigInt(daoTotalLoot)));
   const sharesAndLoot =
-    Number(ethers.utils.formatEther(memberShares)) +
-    Number(ethers.utils.formatEther(memberLoot));
+    Number(formatEther(BigInt(memberShares))) +
+    Number(formatEther(BigInt(memberLoot)));
 
   const ratio = sharesAndLoot / daoSharesAndLoot;
 
@@ -45,12 +45,12 @@ export const memberUsdValueShare = (
   memberLoot: string | number
 ): number => {
   const daoSharesAndLoot =
-    Number(ethers.utils.formatEther(daoTotalShares)) +
-    Number(ethers.utils.formatEther(daoTotalLoot));
+    Number(formatEther(BigInt(daoTotalShares))) +
+    Number(formatEther(BigInt(daoTotalLoot)));
   if (daoSharesAndLoot === 0) return 0;
   const sharesAndLoot =
-    Number(ethers.utils.formatEther(memberShares)) +
-    Number(ethers.utils.formatEther(memberLoot));
+    Number(formatEther(BigInt(memberShares))) +
+    Number(formatEther(BigInt(memberLoot)));
 
   const ratio = sharesAndLoot / daoSharesAndLoot;
 

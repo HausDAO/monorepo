@@ -108,13 +108,22 @@ export const VaultOverview = ({ dao, vault }: VaultOverviewProps) => {
       <DataGrid>
         <DataIndicator
           label="Balance"
-          data={formatValueTo({
-            value: vault.fiatTotal,
-            decimals: 2,
-            format: 'currencyShort',
-          })}
+          data={
+            vault?.fiatTotal
+              ? formatValueTo({
+                  value: vault.fiatTotal,
+                  decimals: 2,
+                  format: 'currencyShort',
+                })
+              : 'NA'
+          }
         />
-        <DataIndicator label="Tokens" data={vault.tokenBalances.length} />
+        <DataIndicator
+          label="Tokens"
+          data={
+            vault?.tokenBalances?.length ? vault.tokenBalances.length : 'NA'
+          }
+        />
       </DataGrid>
     </VaultOverviewCard>
   );

@@ -6,7 +6,7 @@ import { encodeFunction } from '@daohaus/utils';
 import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 
 import WalletConnect from '@walletconnect/client';
-import { IClientMeta } from '@walletconnect/types';
+import { IClientMeta } from '@walletconnect/legacy-types';
 
 type EIP712TypedData = {
   domain: {
@@ -25,7 +25,24 @@ type EIP712TypedData = {
   message: Record<string, unknown>;
 };
 
-const isObjectEIP712TypedData = (obj?: unknown): obj is EIP712TypedData => {
+export enum WalletConnectVersion {
+  NONE,
+  V1,
+  V2,
+}
+
+// WalletConnect URI follows eip-1328 standard
+// see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1328.md
+export const getWalletConnectVersion = (uri: string): WalletConnectVersion => {
+  const encodedURI = encodeURI(uri);
+  return encodedURI?.split('@')?.[1]?.[0] === '1'
+    ? WalletConnectVersion.V1
+    : WalletConnectVersion.V2;
+};
+
+export const isObjectEIP712TypedData = (
+  obj?: unknown
+): obj is EIP712TypedData => {
   return (
     typeof obj === 'object' &&
     obj != null &&
@@ -65,23 +82,23 @@ const rejectWithMessage = (
   connector.rejectRequest({ id, error: { message } });
 };
 
-type WCParams = {
+export type WCParams = {
   chainId: ValidNetwork;
   safeAddress: string;
   session?: WalletConnect;
   uri: string;
 };
 
-type Tx = {
+export type Tx = {
   data: string;
-  from: string;
-  gas: string;
+  from?: string;
+  gas?: string;
   to: string;
   value: string;
   operation?: string;
 };
 
-type WCPayload = {
+export type WCPayload = {
   id: number;
   jsonrpc: string;
   method: string;

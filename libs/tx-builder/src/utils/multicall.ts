@@ -379,7 +379,7 @@ export const handleGasEstimate = async ({
   });
 
   if (gasEstimate) {
-    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
+    const buffer = arg.bufferPercentage || 1.6;
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API
@@ -400,12 +400,14 @@ export const buildMultiCallTX = ({
   actions,
   JSONDetails = basicDetails,
   formActions = false,
+  gasBufferPercentage,
 }: {
   id: string;
   baalAddress?: StringSearch | Keychain | EthAddress;
   JSONDetails?: JSONDetailsSearch;
   actions: MulticallAction[];
   formActions?: boolean;
+  gasBufferPercentage?: number;
 }): TXLego => {
   return {
     id,
@@ -430,6 +432,7 @@ export const buildMultiCallTX = ({
         type: 'estimateGas',
         actions,
         formActions,
+        bufferPercentage: gasBufferPercentage,
       },
       JSONDetails,
     ],

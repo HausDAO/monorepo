@@ -4,8 +4,12 @@ import { Core } from '@walletconnect/core';
 import { SignClientTypes, SessionTypes } from '@walletconnect/types';
 import Web3WalletType, { Web3Wallet } from '@walletconnect/web3wallet';
 
-import { WCParams, WCPayload, encodeSafeSignMessage, isObjectEIP712TypedData } from './walletConnect';
-
+import {
+  WCParams,
+  WCPayload,
+  encodeSafeSignMessage,
+  isObjectEIP712TypedData,
+} from './walletConnect';
 
 if (!process.env['NX_WALLET_CONNECT_ID']) {
   throw new Error('You need to provide NX_WALLET_CONNECT_ID env variable');
@@ -83,7 +87,8 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   const [web3wallet, setWeb3wallet] = useState<Web3WalletType>();
 
   const [wcSession, setWcSession] = useState<SessionTypes.Struct>();
-  const [isWallectConnectInitialized, setIsWallectConnectInitialized] = useState<boolean>(false);
+  const [isWallectConnectInitialized, setIsWallectConnectInitialized] =
+    useState<boolean>(false);
   const [chainId, setChainId] = useState<number>();
   const [safeAddress, setSafeAddress] = useState<string>();
   const [txPayload, setTxPayload] = useState<WCPayload>();
@@ -102,7 +107,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
       });
 
       setWeb3wallet(web3wallet);
-    }
+    };
 
     try {
       initializeWalletConnectV2Client();
@@ -112,16 +117,16 @@ const useWalletConnectV2 = (): useWalletConnectType => {
     }
   }, []);
 
-
   useEffect(() => {
     // session_request needs to be a separate Effect because a valid wcSession should be present
     if (isWallectConnectInitialized && web3wallet && wcSession) {
-      web3wallet.on('session_request', async event => {
+      web3wallet.on('session_request', async (event) => {
         const { topic, id } = event;
         const { request, chainId: transactionChainId } = event.params;
         const { method, params } = request;
 
-        const isSafeChainId = transactionChainId === `${EVMBasedNamespaces}:${chainId}`;
+        const isSafeChainId =
+          transactionChainId === `${EVMBasedNamespaces}:${chainId}`;
 
         // we only accept transactions from the Safe chain
         if (!isSafeChainId) {
@@ -129,7 +134,11 @@ const useWalletConnectV2 = (): useWalletConnectType => {
           setError(errorMessage);
           await web3wallet.respondSessionRequest({
             topic,
-            response: rejectResponse(id, UNSUPPORTED_CHAIN_ERROR_CODE, errorMessage),
+            response: rejectResponse(
+              id,
+              UNSUPPORTED_CHAIN_ERROR_CODE,
+              errorMessage
+            ),
           });
           return;
         }
@@ -149,7 +158,10 @@ const useWalletConnectV2 = (): useWalletConnectType => {
             case 'personal_sign': {
               const [message] = params;
               if (message.startsWith('0x')) {
-                const tx = encodeSafeSignMessage(`0x${chainId?.toString(16)}` as ValidNetwork, message);
+                const tx = encodeSafeSignMessage(
+                  `0x${chainId?.toString(16)}` as ValidNetwork,
+                  message
+                );
                 if (tx) {
                   setTxPayload({
                     id,
@@ -164,7 +176,11 @@ const useWalletConnectV2 = (): useWalletConnectType => {
               setError(errorMsg);
               await web3wallet.respondSessionRequest({
                 topic,
-                response: rejectResponse(id, INVALID_METHOD_ERROR_CODE, errorMsg),
+                response: rejectResponse(
+                  id,
+                  INVALID_METHOD_ERROR_CODE,
+                  errorMsg
+                ),
               });
               break;
             }
@@ -173,7 +189,10 @@ const useWalletConnectV2 = (): useWalletConnectType => {
               const [, typedDataString] = params;
               const typedData = JSON.parse(typedDataString);
               if (isObjectEIP712TypedData(typedData)) {
-                const tx = encodeSafeSignMessage(`0x${chainId?.toString(16)}` as ValidNetwork, typedData);
+                const tx = encodeSafeSignMessage(
+                  `0x${chainId?.toString(16)}` as ValidNetwork,
+                  typedData
+                );
                 if (tx) {
                   setTxPayload({
                     id,
@@ -188,7 +207,11 @@ const useWalletConnectV2 = (): useWalletConnectType => {
               setError(errorMsg);
               await web3wallet.respondSessionRequest({
                 topic,
-                response: rejectResponse(id, INVALID_METHOD_ERROR_CODE, errorMsg),
+                response: rejectResponse(
+                  id,
+                  INVALID_METHOD_ERROR_CODE,
+                  errorMsg
+                ),
               });
               break;
             }
@@ -197,7 +220,11 @@ const useWalletConnectV2 = (): useWalletConnectType => {
               setError(errorMsg);
               await web3wallet.respondSessionRequest({
                 topic,
-                response: rejectResponse(id, INVALID_METHOD_ERROR_CODE, errorMsg),
+                response: rejectResponse(
+                  id,
+                  INVALID_METHOD_ERROR_CODE,
+                  errorMsg
+                ),
               });
               break;
             }
@@ -205,8 +232,12 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         } catch (error) {
           const errorMsg = (error as Error)?.message;
           setError(errorMsg);
-          const isUserRejection = errorMsg?.includes?.('Transaction was rejected');
-          const code = isUserRejection ? USER_REJECTED_REQUEST_CODE : INVALID_METHOD_ERROR_CODE;
+          const isUserRejection = errorMsg?.includes?.(
+            'Transaction was rejected'
+          );
+          const code = isUserRejection
+            ? USER_REJECTED_REQUEST_CODE
+            : INVALID_METHOD_ERROR_CODE;
           await web3wallet.respondSessionRequest({
             topic,
             response: rejectResponse(id, code, errorMsg),
@@ -214,22 +245,17 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         }
       });
     }
-  }, [
-    chainId,
-    wcSession,
-    isWallectConnectInitialized,
-    web3wallet,
-  ]);
+  }, [chainId, wcSession, isWallectConnectInitialized, web3wallet]);
 
   useEffect(() => {
     if (!isWallectConnectInitialized && web3wallet && chainId && safeAddress) {
       const activeSessions = web3wallet.getActiveSessions();
       const compatibleSession = Object.keys(activeSessions)
-        .map(topic => activeSessions[topic])
+        .map((topic) => activeSessions[topic])
         .find(
-          session =>
+          (session) =>
             session.namespaces[EVMBasedNamespaces].accounts[0] ===
-            `${EVMBasedNamespaces}:${chainId}:${safeAddress}`, // Safe Account
+            `${EVMBasedNamespaces}:${chainId}:${safeAddress}` // Safe Account
         );
 
       // restore an active previous session
@@ -238,12 +264,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         setIsWallectConnectInitialized(true); // custom added
       }
     }
-  }, [
-    chainId,
-    safeAddress,
-    web3wallet,
-    isWallectConnectInitialized
-  ]);
+  }, [chainId, safeAddress, web3wallet, isWallectConnectInitialized]);
 
   const wcConnect = useCallback<wcConnectType>(
     async ({ chainId, safeAddress, uri }: WCParams) => {
@@ -251,14 +272,17 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         setChainId(Number(chainId));
         setSafeAddress(safeAddress);
         // events
-        web3wallet.on('session_proposal', async proposal => {
+        web3wallet.on('session_proposal', async (proposal) => {
           const { id, params } = proposal;
           const { requiredNamespaces } = params;
 
-          const safeAccount = `${EVMBasedNamespaces}:${Number(chainId)}:${safeAddress}`;
+          const safeAccount = `${EVMBasedNamespaces}:${Number(
+            chainId
+          )}:${safeAddress}`;
           const safeChain = `${EVMBasedNamespaces}:${Number(chainId)}`;
           // accept all events like chainChanged & accountsChanged (even if they are not compatible with the Safe)
-          const safeEvents = requiredNamespaces[EVMBasedNamespaces]?.events || [];
+          const safeEvents =
+            requiredNamespaces[EVMBasedNamespaces]?.events || [];
 
           try {
             const wcSession = await web3wallet.approveSession({
@@ -279,8 +303,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
             console.log('session_proposal error: ', error);
             setError((error as Error).message);
 
-            const errorMessage =
-              `Connection refused: This Safe Account is in chain ${chainId} but the Wallet Connect session proposal is invalid as it required different chain`;
+            const errorMessage = `Connection refused: This Safe Account is in chain ${chainId} but the Wallet Connect session proposal is invalid as it required different chain`;
             await web3wallet.rejectSession({
               id: proposal.id,
               reason: {
@@ -300,9 +323,8 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         // Pairing session starts
         await web3wallet.core.pairing.pair({ uri });
       }
-
     },
-    [web3wallet],
+    [web3wallet]
   );
 
   const wcDisconnect = useCallback<wcDisconnectType>(async () => {
@@ -321,7 +343,14 @@ const useWalletConnectV2 = (): useWalletConnectType => {
 
   const wcClientData = wcSession?.peer.metadata;
 
-  return { wcConnect, wcClientData, wcDisconnect, txPayload, isWallectConnectInitialized, error };
-}
+  return {
+    wcConnect,
+    wcClientData,
+    wcDisconnect,
+    txPayload,
+    isWallectConnectInitialized,
+    error,
+  };
+};
 
 export default useWalletConnectV2;

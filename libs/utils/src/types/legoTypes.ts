@@ -64,7 +64,7 @@ export type EncodeCallArg = {
   type: 'encodeCall';
   action: MulticallAction;
 };
-export type EstmimateGas = {
+export type EstimateGas = {
   type: 'estimateGas';
   actions: MulticallAction[];
   bufferPercentage?: number;
@@ -111,7 +111,7 @@ export type IPFSPinata = {
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
-  | EstmimateGas
+  | EstimateGas
   | SingletonSearch
   | NestedArray
   | MulticallArg

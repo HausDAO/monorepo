@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+// TODO: Field theme use
 import { field } from '../../../theme/component/fieldFamily';
-import { font } from '../../../theme/global/font';
 
 export const BaseInput = styled.input`
   background-color: ${({ theme }) => theme.input.bg};
@@ -48,7 +48,7 @@ export const BaseInput = styled.input`
 
   &.number {
     font-family: ${({ theme }) => theme.font.family.data};
-    font-weight: ${font.weight.reg};
+    font-weight: ${({ theme }) => theme.font.weight.reg};
     letter-spacing: 1px;
   }
 

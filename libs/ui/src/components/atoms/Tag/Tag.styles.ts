@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import { border } from '../../../theme/global/border';
-
+/* TODO: Component specific border radius ?*/
 export const BaseTag = styled.div<{
   tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
   fontSize?: string;
@@ -10,7 +9,7 @@ export const BaseTag = styled.div<{
   align-items: center;
   background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
   border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}3`]};
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.border.radius};
   color: ${({ theme, tagColor }) => theme[`${tagColor}11`]};
   height: fit-content;
   width: fit-content;

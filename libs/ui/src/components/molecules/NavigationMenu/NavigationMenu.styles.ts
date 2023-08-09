@@ -1,8 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import * as RadixNavMenu from '@radix-ui/react-navigation-menu';
 
-import { font } from '../../../theme/global/font';
-
 export const Root = styled(RadixNavMenu.Root)`
   background-color: ${(props) => props.theme.secondary.step2};
   padding: 2.8rem;
@@ -14,10 +12,10 @@ export const Content = styled(RadixNavMenu.Content)`
   background-color: ${({ theme }) => theme.navigationMenu.content.bg};
   border: 1px solid ${({ theme }) => theme.navigationMenu.content.border};
   border-radius: 4px;
-  font-weight: ${font.weight.reg};
-  line-height: ${font.lineHeight};
-  letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.md};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  line-height: ${({ theme }) => theme.font.lineHeight};
+  letter-spacing: ${({ theme }) => theme.font.letterSpacing};
+  font-size: ${({ theme }) => theme.font.size.md};
   padding: 5px;
   display: flex;
   flex-direction: column;
@@ -30,10 +28,10 @@ export const NavMenuBaseItemStyles = css`
   cursor: pointer;
   outline: none;
   user-select: none;
-  font-weight: ${font.weight.reg};
-  line-height: ${font.lineHeight};
-  letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.lg};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  line-height: ${({ theme }) => theme.font.lineHeight};
+  letter-spacing: ${({ theme }) => theme.font.letterSpacing};
+  font-size: ${({ theme }) => theme.font.size.lg};
   border-radius: 4px;
   color: ${({ theme }) => theme.navigationMenu.baseItem.color};
 

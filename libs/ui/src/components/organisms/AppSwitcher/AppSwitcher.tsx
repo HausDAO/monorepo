@@ -13,7 +13,12 @@ import { IApp, AppSwitcherProps } from './AppSwitcher.types';
 function makeAppList(apps: IApp[]) {
   return apps.map((app, index) => (
     <DropdownItem key={index} asChild>
-      <Button href={app.url} IconLeft={app.Icon} justify="flex-start">
+      <Button
+        href={app.url}
+        IconLeft={app.Icon}
+        justify="flex-start"
+        color="secondary"
+      >
         {app.name}
       </Button>
     </DropdownItem>

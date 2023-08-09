@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { border } from '../../../theme/global/border';
-
 export const CardStyles = css<{ width?: string }>`
   background-color: ${({ theme }) => theme.card.bg};
   border: 1px solid ${({ theme }) => theme.card.border};

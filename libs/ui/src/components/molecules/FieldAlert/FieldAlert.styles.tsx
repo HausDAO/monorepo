@@ -1,19 +1,15 @@
 import styled from 'styled-components';
 
-import { border } from '../../../theme/global/border';
+// TODO: Field theme use
 import { field } from '../../../theme/component/fieldFamily';
 
 // TODO: Delete props added to styled div
-export const FieldAlertWrapper = styled.div<{
-  color?: string;
-  background?: string;
-  border?: string;
-}>`
+export const FieldAlertWrapper = styled.div`
   padding: 1.6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.border.radius};
   max-width: 600px;
   background: ${({ theme }) => theme.primary.step3};
   border: 1px solid ${({ theme }) => theme.primary.step6};

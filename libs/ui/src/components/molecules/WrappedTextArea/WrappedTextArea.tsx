@@ -3,11 +3,16 @@ import { Buildable, Field } from '../../../types/formAndField';
 import { TextArea } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-export const WrappedTextArea = ({ rules, ...props }: Buildable<Field>) => {
+export const WrappedTextArea = ({
+  rules,
+  helperText,
+  full,
+  ...rest
+}: Buildable<Field>) => {
   const { register } = useFormContext();
   return (
-    <FieldWrapper {...props} rules={rules}>
-      <TextArea {...register(props.id, rules)} {...props} />
+    <FieldWrapper rules={rules} helperText={helperText} {...rest}>
+      <TextArea {...register(rest.id, rules)} {...rest} />
     </FieldWrapper>
   );
 };

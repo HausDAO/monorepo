@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import type { BadgeColor, BadgeSize } from './Badge.types';
 
-// !TODO Rowdy: Come back to Badge
 export const BaseBadge = styled.div<{
   $color: BadgeColor;
   $size: BadgeSize;

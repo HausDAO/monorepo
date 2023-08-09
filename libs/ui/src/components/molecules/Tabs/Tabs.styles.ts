@@ -6,7 +6,7 @@ export const TabsContainer = styled.div`
 `;
 
 export const TabLinks = styled.div`
-  background-color: ${(props) => props.theme.secondary.step2};
+  background-color: ${({ theme }) => theme.secondary.step2};
   display: flex;
   list-style: none;
   width: '100%';
@@ -23,7 +23,7 @@ export const TabLinks = styled.div`
 
 export const TabLink = styled.li`
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.secondary.step9};
+  color: ${({ theme }) => theme.secondary.step9};
   cursor: pointer;
   font-size: 2.2rem;
   letter-spacing: 1.5px;
@@ -35,13 +35,13 @@ export const TabLink = styled.li`
   }
 
   &:hover {
-    color: ${(props) => props.theme.secondary.step10};
+    color: ${({ theme }) => theme.secondary.step10};
     text-decoration: none;
   }
 
   &.selected {
     color: white;
-    border-bottom: 2px ${(props) => props.theme.secondary.step9} solid;
+    border-bottom: 2px ${({ theme }) => theme.secondary.step9} solid;
   }
 
   &.nav-tabs {

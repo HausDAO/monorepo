@@ -1,15 +1,13 @@
 import styled, { css } from 'styled-components';
 
-import { font } from '../../../theme/global/font';
-
 export const LinkStyles = css`
   align-items: center;
   color: ${({ theme }) => theme.link.color};
   cursor: pointer;
   display: inline-flex;
   font-family: ${({ theme }) => theme.font.family.body};
-  font-weight: ${font.weight.reg};
-  font-size: ${font.size.md};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  font-size: ${({ theme }) => theme.font.size.md};
   text-decoration: none;
   letter-spacing: 1.5px;
   &:hover {

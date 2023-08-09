@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { font } from '../../../theme/global/font';
+
 import { Loading } from '../Loading';
 import { ButtonJustifyContent, ButtonColor } from './Button.types';
 
@@ -11,8 +11,8 @@ export const StyledButton = styled.button<{
   border-radius: 0.4rem;
   cursor: pointer;
   display: flex;
-  font-size: ${font.size.md};
-  font-weight: ${font.weight.bold};
+  font-size: ${({ theme }) => theme.font.size.md};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
   height: 4.8rem;
   justify-content: ${({ $justify }) => $justify};
   letter-spacing: 1.8px;
@@ -116,8 +116,8 @@ export const StyledButton = styled.button<{
   &.link {
     height: auto;
     font-family: ${({ theme }) => theme.font.family.body};
-    font-weight: ${font.weight.reg};
-    font-size: ${font.size.md};
+    font-weight: ${({ theme }) => theme.font.weight.reg};
+    font-size: ${({ theme }) => theme.font.size.md};
     text-decoration: none;
     letter-spacing: 1.5px;
     padding: 0;
@@ -141,7 +141,7 @@ export const StyledButton = styled.button<{
   }
 
   &.lg {
-    font-size: ${font.size.lg};
+    font-size: ${({ theme }) => theme.font.size.lg};
     height: 6rem;
     min-width: 10.7rem;
     padding: 1.5rem;
@@ -153,7 +153,7 @@ export const StyledButton = styled.button<{
   }
 
   &.sm {
-    font-size: ${font.size.xs};
+    font-size: ${({ theme }) => theme.font.size.xs};
     height: 3.6rem;
     min-width: 6.6rem;
     padding: 0.9rem;

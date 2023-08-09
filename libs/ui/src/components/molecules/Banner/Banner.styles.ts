@@ -1,5 +1,7 @@
-import { breakpoints } from '../../../theme/global/breakpoints';
 import styled from 'styled-components';
+
+// TODO: Add Breakpoints to theme
+import { breakpoints } from '../../../theme/global/breakpoints';
 
 export const StyledBanner = styled.div`
   align-items: center;

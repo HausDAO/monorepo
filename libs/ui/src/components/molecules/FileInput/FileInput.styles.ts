@@ -1,5 +1,5 @@
-import { RiCloseFill } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
+import { RiCloseFill } from 'react-icons/ri/index.js';
 
 export const FileInputContents = styled.div`
   padding: 3.6rem 0;

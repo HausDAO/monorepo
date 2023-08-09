@@ -1,6 +1,7 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 
+// TODO: Add mediaQuery section to theme
 import { widthQuery } from '../../../theme';
 
 export const DialogRoot = DialogPrimitive.Root;

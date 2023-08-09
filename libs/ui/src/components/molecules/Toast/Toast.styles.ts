@@ -92,9 +92,9 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Icon = styled.span<{
-  iconType: ToastType;
+  $iconType: ToastType;
 }>`
-  color: ${({ theme, iconType }) => theme.toast.icon[iconType]};
+  color: ${({ theme, $iconType }) => theme.toast.icon[$iconType]};
   font-size: 24px;
   margin-right: 1rem;
 `;

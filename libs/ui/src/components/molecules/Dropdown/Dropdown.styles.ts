@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
-import { font } from '../../../theme/global/font';
 import { Link, LinkStyles } from '../../atoms';
 import { DropdownColor } from './Dropdown.types';
 
@@ -22,38 +21,42 @@ export const Trigger = styled(Dropdown.Trigger)`
   }
 `;
 
-const BaseContentStyle = css<{ color?: DropdownColor }>`
-  background-color: ${({ color = 'primary', theme }) =>
-    theme.dropdown.content[color].bg};
+const BaseContentStyle = css<{ $color?: DropdownColor }>`
+  background-color: ${({ $color = 'primary', theme }) =>
+    theme.dropdown.content[$color].bg};
   border-radius: 4px;
-  font-weight: ${font.weight.reg};
-  line-height: ${font.lineHeight};
-  letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.md};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  line-height: ${({ theme }) => theme.font.lineHeight};
+  letter-spacing: ${({ theme }) => theme.font.letterSpacing};
+  font-size: ${({ theme }) => theme.font.size.md};
   padding: 5px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 `;
 
-export const Content = styled(Dropdown.DropdownMenuContent)`
+export const Content = styled(Dropdown.DropdownMenuContent)<{
+  $color?: DropdownColor;
+}>`
   ${BaseContentStyle}
 `;
 
-export const SubContent = styled(Dropdown.DropdownMenuSubContent)`
+export const SubContent = styled(Dropdown.DropdownMenuSubContent)<{
+  $color?: DropdownColor;
+}>`
   ${BaseContentStyle}
 `;
 
 export const Label = styled(Dropdown.Label)`
-  font-size: ${font.size.xs};
+  font-size: ${({ theme }) => theme.font.size.xs};
   min-height: 4.8rem;
   padding: 12px;
 `;
 
-const BaseItemStyles = css<{ color?: DropdownColor }>`
+const BaseItemStyles = css<{ $color?: DropdownColor }>`
   align-items: center;
-  background-color: ${({ color = 'primary', theme }) =>
-    theme.dropdown.item[color].bg};
+  background-color: ${({ $color = 'primary', theme }) =>
+    theme.dropdown.item[$color].bg};
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -64,13 +67,13 @@ const BaseItemStyles = css<{ color?: DropdownColor }>`
   width: 100%;
 
   &:focus-visible {
-    background-color: ${({ color = 'primary', theme }) =>
-      theme.dropdown.item.focus[color].bg};
+    background-color: ${({ $color = 'primary', theme }) =>
+      theme.dropdown.item.focus[$color].bg};
   }
 
   &[data-highlighted] {
-    background-color: ${({ color = 'primary', theme }) =>
-      theme.dropdown.item.highlight[color].bg};
+    background-color: ${({ $color = 'primary', theme }) =>
+      theme.dropdown.item.highlight[$color].bg};
   }
 
   &[data-disabled] {
@@ -83,7 +86,7 @@ const BaseItemStyles = css<{ color?: DropdownColor }>`
   }
 `;
 
-export const Item = styled(Dropdown.Item)`
+export const Item = styled(Dropdown.Item)<{ $color?: DropdownColor }>`
   ${BaseItemStyles}
 
   svg {
@@ -100,15 +103,19 @@ export const Item = styled(Dropdown.Item)`
   }
 `;
 
-export const CheckboxItem = styled(Dropdown.CheckboxItem)`
+export const CheckboxItem = styled(Dropdown.CheckboxItem)<{
+  $color?: DropdownColor;
+}>`
   ${BaseItemStyles}
 `;
 
-export const RadioItem = styled(Dropdown.RadioItem)`
+export const RadioItem = styled(Dropdown.RadioItem)<{ $color?: DropdownColor }>`
   ${BaseItemStyles}
 `;
 
-export const SubTrigger = styled(Dropdown.SubTrigger)`
+export const SubTrigger = styled(Dropdown.SubTrigger)<{
+  $color?: DropdownColor;
+}>`
   ${BaseItemStyles}
 `;
 

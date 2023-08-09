@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { font } from '../../../theme/global/font';
+// TODO: Field theme use
 import { field } from '../../../theme/component/fieldFamily';
 
 export const InputSelectBox = styled.div`
@@ -14,7 +14,7 @@ export const InputSelectBox = styled.div`
     border-radius: 0 ${field.borderRadius} ${field.borderRadius} 0;
     border-left: none;
     color: white;
-    font-weight: ${font.weight.bold};
+    font-weight: ${({ theme }) => theme.font.weight.bold};
     background-color: ${({ theme }) => theme.inputSelect.bg};
     color: ${({ theme }) => theme.inputSelect.color};
 

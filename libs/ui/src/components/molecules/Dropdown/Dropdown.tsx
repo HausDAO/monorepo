@@ -90,7 +90,7 @@ export const DropdownContent = React.forwardRef<
 >(({ color = 'secondary', className, children, ...props }, forwardedRef) => {
   return (
     <Portal>
-      <Content color={color} {...props} ref={forwardedRef}>
+      <Content $color={color} {...props} ref={forwardedRef}>
         {children}
       </Content>
     </Portal>
@@ -104,7 +104,7 @@ export const DropdownItem = ({
   ...props
 }: DropdownItemProps) => {
   return (
-    <Item color={color} className={`${className}`} {...props}>
+    <Item $color={color} className={`${className}`} {...props}>
       {children}
     </Item>
   );
@@ -115,7 +115,12 @@ export const DropdownCheckbox = React.forwardRef<
   DropdownCheckboxProps
 >(({ color = 'secondary', checked, children, ...props }, forwardedRef) => {
   return (
-    <CheckboxItem color={color} checked={checked} ref={forwardedRef} {...props}>
+    <CheckboxItem
+      $color={color}
+      checked={checked}
+      ref={forwardedRef}
+      {...props}
+    >
       {children}
       <ItemIndicator>
         <RiCheckLine />
@@ -129,7 +134,7 @@ export const DropdownRadio = React.forwardRef<
   DropdownRadioProps
 >(({ color = 'secondary', className, children, ...props }, forwardedRef) => {
   return (
-    <RadioItem color={color} ref={forwardedRef} {...props}>
+    <RadioItem $color={color} ref={forwardedRef} {...props}>
       {children}
       <ItemIndicator>
         <RiRadioButtonFill />

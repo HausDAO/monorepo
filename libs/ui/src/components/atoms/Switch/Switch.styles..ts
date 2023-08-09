@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-import { font } from '../../../theme/global/font';
 
 export const Container = styled.div`
   align-items: center;
@@ -110,8 +109,8 @@ export const LabelContainer = styled.label`
 export const StyledLabel = styled.label`
   color: ${({ theme }) => theme.switch.label.color};
   font-family: ${({ theme }) => theme.font.family.body};
-  font-weight: ${font.weight.reg};
-  font-size: ${font.size.md};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  font-size: ${({ theme }) => theme.font.size.md};
 
   &.disabled {
     color: ${({ theme }) => theme.switch.label.disabled.color};

@@ -1,4 +1,5 @@
 import styled, { useTheme } from 'styled-components';
+// TODO: DELETE and replace with Loader SVG.
 
 import { SpinnerType } from './Spinner.types';
 

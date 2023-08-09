@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
-import { font } from '../../../theme/global/font';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 export const Container = styled.div`
   align-items: center;
@@ -62,7 +61,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
 
 export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
   color: ${({ theme }) => theme.checkbox.indicator.color};
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.font.size.lg};
   padding-top: 3px;
   :disabled {
     color: ${({ theme }) => theme.checkbox.indicator.disabled.color};
@@ -83,7 +82,7 @@ export const LabelContainer = styled.label`
 
 export const RequiredAsterisk = styled.span`
   color: ${({ theme }) => theme.warning.step9};
-  font-weight: ${font.weight.bold};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
   margin-right: 8px;
   transform: translateY(-0.25rem);
 `;

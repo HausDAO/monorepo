@@ -49,8 +49,7 @@ export const VaultMenu = ({ ragequittable, safeAddress }: VaultMenuProps) => {
 
   const enableActions = useMemo(() => {
     return (
-      connectedMember &&
-      (Number(connectedMember.sharesLootDelegateShares) > 0)
+      connectedMember && Number(connectedMember.sharesLootDelegateShares) > 0
     );
   }, [connectedMember]);
 

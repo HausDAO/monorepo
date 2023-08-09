@@ -4,8 +4,8 @@ import { Loading } from '../Loading';
 import { ButtonJustifyContent, ButtonColor } from './Button.types';
 
 export const StyledButton = styled.button<{
-  justify: ButtonJustifyContent;
-  color: ButtonColor;
+  $justify: ButtonJustifyContent;
+  $color: ButtonColor;
 }>`
   align-items: center;
   border-radius: 0.4rem;
@@ -14,7 +14,7 @@ export const StyledButton = styled.button<{
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
   height: 4.8rem;
-  justify-content: ${({ justify }) => justify};
+  justify-content: ${({ $justify }) => $justify};
   letter-spacing: 1.8px;
   outline: none;
   padding: 1.2rem;
@@ -36,31 +36,31 @@ export const StyledButton = styled.button<{
   }
 
   &.solid {
-    background-color: ${({ theme, color }) =>
-      theme.button[`${color}`].solid.bg};
+    background-color: ${({ theme, $color }) =>
+      theme.button[`${$color}`].solid.bg};
     border: 0.1rem solid
-      ${({ theme, color }) => theme.button[`${color}`].solid.border};
-    color: ${({ theme, color }) => theme.button[`${color}`].solid.text};
+      ${({ theme, $color }) => theme.button[`${$color}`].solid.border};
+    color: ${({ theme, $color }) => theme.button[`${$color}`].solid.text};
 
     &&:hover {
-      background-color: ${({ theme, color }) =>
-        theme.button[`${color}`].solid.bgHover};
+      background-color: ${({ theme, $color }) =>
+        theme.button[`${$color}`].solid.bgHover};
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].solid.borderHover};
+        ${({ theme, $color }) => theme.button[`${$color}`].solid.borderHover};
     }
 
     &:focus {
-      background-color: ${({ theme, color }) =>
-        theme.button[`${color}`].solid.bgFocus};
+      background-color: ${({ theme, $color }) =>
+        theme.button[`${$color}`].solid.bgFocus};
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].solid.borderFocus};
+        ${({ theme, $color }) => theme.button[`${$color}`].solid.borderFocus};
     }
 
     &:disabled {
-      background-color: ${({ theme, color }) =>
-        theme.button[`${color}`].solid.bgDisabled};
+      background-color: ${({ theme, $color }) =>
+        theme.button[`${$color}`].solid.bgDisabled};
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].solid.borderDisabled};
+        ${({ theme, $color }) => theme.button[`${$color}`].solid.borderDisabled};
       cursor: not-allowed;
     }
   }
@@ -68,25 +68,26 @@ export const StyledButton = styled.button<{
   &.outline {
     background-color: transparent;
     border: 0.1rem solid
-      ${({ theme, color }) => theme.button[`${color}`].outline.border};
-    color: ${({ theme, color }) => theme.button[`${color}`].outline.text};
+      ${({ theme, $color }) => theme.button[`${$color}`].outline.border};
+    color: ${({ theme, $color }) => theme.button[`${$color}`].outline.text};
 
     &&:hover {
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].outline.hover};
-      color: ${({ theme, color }) => theme.button[`${color}`].outline.hover};
+        ${({ theme, $color }) => theme.button[`${$color}`].outline.hover};
+      color: ${({ theme, $color }) => theme.button[`${$color}`].outline.hover};
     }
 
     &:focus {
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].outline.focus};
-      color: ${({ theme, color }) => theme.button[`${color}`].outline.focus};
+        ${({ theme, $color }) => theme.button[`${$color}`].outline.focus};
+      color: ${({ theme, $color }) => theme.button[`${$color}`].outline.focus};
     }
 
     &:disabled {
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].outline.disabled};
-      color: ${({ theme, color }) => theme.button[`${color}`].outline.disabled};
+        ${({ theme, $color }) => theme.button[`${$color}`].outline.disabled};
+      color: ${({ theme, $color }) =>
+        theme.button[`${$color}`].outline.disabled};
       cursor: not-allowed;
     }
   }
@@ -94,20 +95,20 @@ export const StyledButton = styled.button<{
   &.ghost {
     background-color: ${({ theme }) => theme.transparent};
     border: 1px solid ${({ theme }) => theme.transparent};
-    color: ${({ theme, color }) => theme.button[`${color}`].ghost.text};
+    color: ${({ theme, $color }) => theme.button[`${$color}`].ghost.text};
 
     &&:hover {
-      background-color: ${({ theme, color }) =>
-        theme.button[`${color}`].ghost.bgHover};
+      background-color: ${({ theme, $color }) =>
+        theme.button[`${$color}`].ghost.bgHover};
     }
 
     &:focus {
       border: 1px solid
-        ${({ theme, color }) => theme.button[`${color}`].ghost.borderFocus};
+        ${({ theme, $color }) => theme.button[`${$color}`].ghost.borderFocus};
     }
 
     &:disabled {
-      color: ${({ theme, color }) => theme.button[`${color}`].ghost.disabled};
+      color: ${({ theme, $color }) => theme.button[`${$color}`].ghost.disabled};
       cursor: not-allowed;
     }
   }
@@ -122,19 +123,19 @@ export const StyledButton = styled.button<{
     padding: 0;
     background-color: transparent;
     border: none;
-    color: ${({ theme, color }) => theme.button[`${color}`].link.text};
+    color: ${({ theme, $color }) => theme.button[`${$color}`].link.text};
 
     &&:hover {
-      color: ${({ theme, color }) => theme.button[`${color}`].link.hover};
+      color: ${({ theme, $color }) => theme.button[`${$color}`].link.hover};
       text-decoration: underline;
     }
 
     &:focus {
-      color: ${({ theme, color }) => theme.button[`${color}`].link.focus};
+      color: ${({ theme, $color }) => theme.button[`${$color}`].link.focus};
     }
 
     &:disabled {
-      color: ${({ theme, color }) => theme.button[`${color}`].link.disabled};
+      color: ${({ theme, $color }) => theme.button[`${$color}`].link.disabled};
       cursor: not-allowed;
     }
   }

@@ -43,6 +43,9 @@ export interface DAOhausTheme {
     lineHeight: string;
     letterSpacing: string;
   };
+  border: {
+    radius: string;
+  };
   rootBgColor: string;
   rootFontColor: string;
   transparent: string;

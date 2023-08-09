@@ -52,8 +52,9 @@ import {
 
 export const defaultDarkTheme: DefaultTheme = {
   themeName: 'dark',
-  font: {
-    family: font.family,
+  font,
+  border: {
+    radius: '0.4rem',
   },
   transparent: 'transparent',
   rootBgColor: neutralDark.step1,
@@ -87,6 +88,7 @@ export const defaultDarkTheme: DefaultTheme = {
   card: {
     bg: secondaryDark.step2,
     border: secondaryDark.step5,
+    radius: '0.8rem',
   },
   checkbox: {
     bg: secondaryDark.step3,
@@ -542,8 +544,9 @@ export const defaultDarkTheme: DefaultTheme = {
 
 export const defaultLightTheme: DefaultTheme = {
   themeName: 'light',
-  font: {
-    family: font.family,
+  font,
+  border: {
+    radius: '0.4rem',
   },
   transparent: 'transparent',
   rootBgColor: secondary.step1,
@@ -577,6 +580,7 @@ export const defaultLightTheme: DefaultTheme = {
   card: {
     bg: secondary.step2,
     border: secondary.step5,
+    radius: '0.8rem',
   },
   checkbox: {
     bg: secondary.step3,

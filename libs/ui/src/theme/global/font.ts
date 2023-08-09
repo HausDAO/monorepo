@@ -1,3 +1,4 @@
+// TODO: Update to use theme value across all packages
 export const font = {
   family: {
     body: `'Mulish', sans-serif`,

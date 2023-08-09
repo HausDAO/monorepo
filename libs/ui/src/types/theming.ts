@@ -22,6 +22,26 @@ export interface DAOhausTheme {
       body: string;
       data: string;
     };
+    size: {
+      xs: string;
+      sm: string;
+      md: string;
+      lg: string;
+      xl: string;
+      xxl: string;
+      xxxl: string;
+      xxxxl: string;
+    };
+    weight: {
+      extraLight: number;
+      light: number;
+      reg: number;
+      med: number;
+      bold: number;
+      black: number;
+    };
+    lineHeight: string;
+    letterSpacing: string;
   };
   rootBgColor: string;
   rootFontColor: string;
@@ -120,6 +140,7 @@ export interface DAOhausTheme {
   card: {
     bg: string;
     border: string;
+    radius: string;
   };
   checkbox: {
     bg: string;

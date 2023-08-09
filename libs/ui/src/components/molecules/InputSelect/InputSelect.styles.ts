@@ -18,7 +18,7 @@ export const InputSelectBox = styled.div`
     background-color: ${({ theme }) => theme.inputSelect.bg};
     color: ${({ theme }) => theme.inputSelect.color};
 
-    :hover {
+    &:hover {
       background-color: ${({ theme }) => theme.inputSelect.hover.bg};
     }
 

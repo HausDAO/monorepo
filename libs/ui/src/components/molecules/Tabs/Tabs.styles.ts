@@ -34,7 +34,7 @@ export const TabLink = styled.li`
     margin-left: 0.3rem;
   }
 
-  :hover {
+  &:hover {
     color: ${(props) => props.theme.secondary.step10};
     text-decoration: none;
   }

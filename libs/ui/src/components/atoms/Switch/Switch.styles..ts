@@ -46,7 +46,7 @@ export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
   width: 34px;
   will-change: transform;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.switch.indicator.hover.bg};
     border: 1px solid ${({ theme }) => theme.switch.indicator.hover.border};
   }
@@ -68,7 +68,7 @@ export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
     border: 2px solid ${({ theme }) => theme.switch.indicator.active.border};
     transform: translateX(27px);
 
-    :hover {
+    &:hover {
       background-color: ${({ theme }) =>
         theme.switch.indicator.active.hover.bg};
       border: 1px solid

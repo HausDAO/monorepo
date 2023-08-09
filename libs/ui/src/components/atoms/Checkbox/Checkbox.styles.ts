@@ -20,7 +20,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   justify-content: center;
   width: 18px;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.checkbox.hover.bg};
     border: 2px solid ${({ theme }) => theme.checkbox.hover.border};
   }
@@ -41,7 +41,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
     background-color: ${({ theme }) => theme.checkbox.active.bg};
     border: 2px solid ${({ theme }) => theme.checkbox.active.border};
 
-    :hover {
+    &:hover {
       background-color: ${({ theme }) => theme.checkbox.active.hover.bg};
       border: 2px solid ${({ theme }) => theme.checkbox.active.hover.border};
     }

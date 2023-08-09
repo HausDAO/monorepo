@@ -16,7 +16,7 @@ export const BaseTag = styled.div<{
   width: fit-content;
   padding: 0.5rem 0.8rem;
   font-size: ${({ fontSize }) => fontSize};
-  :hover {
+  &:hover {
     background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
     border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}4`]};
   }

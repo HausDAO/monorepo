@@ -16,7 +16,7 @@ export const BaseCard = styled.div<{ width: string }>`
   ${CardStyles}/* Saved styles for cards that require hover, focus, or disabled states */
 
   /*
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.secondary.step3};
     border: 1px solid ${({ theme }) => theme.secondary.step6};
   }

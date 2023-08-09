@@ -147,7 +147,7 @@ export const ProfileMenuText = styled(DropdownLabel)`
     margin-left: 0.3rem;
   }
 
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.secondary.step4};
     border-color: ${(props) => props.theme.secondary.step8};
     text-decoration: none;
@@ -166,7 +166,7 @@ export const MemberContainer = styled.div`
 
 export const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

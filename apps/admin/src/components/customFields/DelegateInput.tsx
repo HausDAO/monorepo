@@ -16,7 +16,7 @@ import { useFormContext } from 'react-hook-form';
 
 const RemoveDelegate = styled(ParSm)`
   margin-top: 3rem;
-  :hover {
+  &:hover {
     cursor: pointer;
     color: ${({ theme }) => theme.primary.step10};
   }

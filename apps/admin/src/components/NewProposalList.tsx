@@ -19,7 +19,7 @@ const ListItemLink = styled(RouterLink)`
   text-decoration: none;
   width: 100%;
   color: unset;
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;
@@ -32,7 +32,7 @@ const ListItemHoverContainer = styled.div`
   padding: 1rem;
   border-radius: ${border.radius};
 
-  :hover {
+  &:hover {
     background: 1px ${({ theme }) => theme.secondary.step3};
   }
 `;

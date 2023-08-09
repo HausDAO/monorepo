@@ -42,6 +42,7 @@ export const BaseSelect = styled.select`
   border: 1px ${({ theme }) => theme.select.border} solid;
   border-radius: ${field.borderRadius};
   color: ${({ theme }) => theme.select.color};
+  cursor: pointer;
   display: inline-flex;
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
@@ -73,7 +74,7 @@ export const BaseSelect = styled.select`
     border: 1px solid ${({ theme }) => theme.select.error.border};
   }
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.select.hover.bg};
     border: 1px solid ${({ theme }) => theme.select.hover.border};
   }

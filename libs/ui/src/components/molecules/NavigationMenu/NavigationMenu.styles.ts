@@ -37,7 +37,7 @@ export const NavMenuBaseItemStyles = css`
   border-radius: 4px;
   color: ${({ theme }) => theme.navigationMenu.baseItem.color};
 
-  &:hover {
+  &&:hover {
     color: ${({ theme }) => theme.navigationMenu.baseItem.hover.bg};
   }
 

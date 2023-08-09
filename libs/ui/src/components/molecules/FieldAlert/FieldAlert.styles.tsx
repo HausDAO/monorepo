@@ -32,7 +32,7 @@ export const FieldAlertWrapper = styled.div<{
     button {
       background-color: ${({ theme }) => theme.warning.step9};
       border: 1px solid ${({ theme }) => theme.warning.step9};
-      :hover {
+      &:hover {
         background-color: ${({ theme }) => theme.warning.step10};
         border: 1px solid ${({ theme }) => theme.warning.step10};
       }

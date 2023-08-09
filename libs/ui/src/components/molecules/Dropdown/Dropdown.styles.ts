@@ -131,7 +131,7 @@ export const DropdownLinkStyles = css`
   ${LinkStyles}
   color: ${({ theme }) => theme.dropdown.link.color};
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.dropdown.link.hover.bg};
     border-color: ${({ theme }) => theme.dropdown.link.hover.border};
     text-decoration: none;

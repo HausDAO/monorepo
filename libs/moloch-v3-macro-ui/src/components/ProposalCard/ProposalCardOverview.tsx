@@ -57,7 +57,7 @@ const SubmittedContainer = styled.div`
 
 const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

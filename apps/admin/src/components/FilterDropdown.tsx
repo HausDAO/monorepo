@@ -18,7 +18,7 @@ const IconFilter = styled(RiFilterFill)`
   width: 1.8rem;
   display: flex;
   fill: ${indigoDark.indigo10};
-  :hover {
+  &:hover {
     fill: ${indigoDark.indigo10};
   }
 `;

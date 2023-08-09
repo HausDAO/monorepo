@@ -23,7 +23,7 @@ export const BaseInput = styled.input`
     color: ${({ theme }) => theme.input.placeholder};
   }
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.input.hover.bg};
     border: 1px solid ${({ theme }) => theme.input.hover.border};
   }

@@ -271,7 +271,7 @@ export const VoteUpButton = styled(GatedButton)`
   color: ${mintDark.mint1};
   min-width: 7rem;
 
-  :hover {
+  &:hover {
     background-color: ${mintDark.mint11};
     border: 1px solid ${mintDark.mint11};
   }
@@ -294,7 +294,7 @@ export const VoteDownButton = styled(GatedButton)`
   color: ${tomatoDark.tomato1};
   min-width: 7rem;
 
-  :hover {
+  &:hover {
     background-color: ${tomatoDark.tomato11};
     border: 1px solid ${tomatoDark.tomato11};
   }

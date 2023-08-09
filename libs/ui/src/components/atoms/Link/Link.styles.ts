@@ -12,7 +12,7 @@ export const LinkStyles = css`
   font-size: ${font.size.md};
   text-decoration: none;
   letter-spacing: 1.5px;
-  :hover {
+  &:hover {
     text-decoration: underline;
   }
 
@@ -25,7 +25,7 @@ export const LinkStyles = css`
     margin-left: 0.3rem;
   }
   &.button-link {
-    :hover {
+    &:hover {
       text-decoration: none;
     }
   }

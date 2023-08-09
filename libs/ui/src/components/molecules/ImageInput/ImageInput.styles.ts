@@ -24,7 +24,7 @@ export const CancelIcon = styled(RiCloseFill)`
   margin-left: 1rem;
   font-size: 2rem;
   color: ${({ theme }) => theme.imageInput.cancelIcon.color};
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `;

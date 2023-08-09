@@ -19,7 +19,7 @@ export const RadioItem = styled(RadioGroupPrimitive.Item)`
   position: relative;
   width: 2rem;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.radio.hover.bg};
     border: 2px solid ${({ theme }) => theme.radio.hover.border};
   }
@@ -40,7 +40,7 @@ export const RadioItem = styled(RadioGroupPrimitive.Item)`
     background-color: ${({ theme }) => theme.radio.active.bg};
     border: 2px solid ${({ theme }) => theme.radio.active.border};
 
-    :hover {
+    &:hover {
       background-color: ${({ theme }) => theme.radio.active.hover.bg};
       border: 2px solid ${({ theme }) => theme.radio.active.hover.border};
     }

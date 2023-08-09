@@ -224,15 +224,15 @@ export function NxWelcome({ title }: { title: string }) {
       transition-duration: 150ms;
       width: 1rem;
     }
-    .list-item-link:hover {
+    .list-item-link&:hover {
       color: rgba(255, 255, 255, 1);
       background-color: hsla(162, 47%, 50%, 1);
     }
-    .list-item-link:hover > span {}
-    .list-item-link:hover > span > span {
+    .list-item-link&:hover > span {}
+    .list-item-link&:hover > span > span {
       color: rgba(243, 244, 246, 1);
     }
-    .list-item-link:hover svg:last-child {
+    .list-item-link&:hover svg:last-child {
       transform: translateX(0.25rem);
     }
     #other-links {}
@@ -269,17 +269,17 @@ export function NxWelcome({ title }: { title: string }) {
       font-weight: 300;
       line-height: 1.25rem;
     }
-    .button-pill:hover svg,
-    .button-pill:hover {
+    .button-pill&:hover svg,
+    .button-pill&:hover {
       color: rgba(255, 255, 255, 1) !important;
     }
-    #nx-console:hover {
+    #nx-console&:hover {
       background-color: rgba(0, 122, 204, 1);
     }
     #nx-console svg {
       color: rgba(0, 122, 204, 1);
     }
-    #nx-repo:hover {
+    #nx-repo&:hover {
       background-color: rgba(24, 23, 23, 1);
     }
     #nx-repo svg {
@@ -329,7 +329,7 @@ export function NxWelcome({ title }: { title: string }) {
       margin-top: 1.5rem;
       text-align: right;
     }
-    #nx-cloud a:hover {
+    #nx-cloud a&:hover {
       text-decoration: underline;
     }
     #commands {
@@ -376,7 +376,7 @@ export function NxWelcome({ title }: { title: string }) {
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 150ms;
     }
-    summary:hover {
+    summary&:hover {
       background-color: rgba(243, 244, 246, 1);
     }
     summary svg {

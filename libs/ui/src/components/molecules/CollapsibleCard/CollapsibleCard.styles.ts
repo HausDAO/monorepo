@@ -44,7 +44,7 @@ export const StyledCollapsibleCardTrigger = styled(Collapsible.Trigger)`
   padding: 0;
   transition: 0.2s all;
 
-  :hover {
+  &:hover {
     color: ${({ theme }) => theme.collapsibleCard.trigger.hover.color};
     text-decoration: none;
   }

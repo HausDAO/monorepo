@@ -18,7 +18,7 @@ export const CancelIcon = styled(RiCloseFill)`
   margin-left: 1rem;
   font-size: 2rem;
   color: ${({ theme }) => theme.secondary.step6};
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `;

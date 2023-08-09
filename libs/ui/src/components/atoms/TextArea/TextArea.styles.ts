@@ -23,7 +23,7 @@ export const BaseTextArea = styled.textarea<{ height?: string }>`
     color: ${({ theme }) => theme.textarea.placeholder};
   }
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.textarea.hover.bg};
     border: 1px solid ${({ theme }) => theme.textarea.hover.border};
   }

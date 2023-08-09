@@ -28,7 +28,7 @@ const MemberContainer = styled.div`
 
 const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

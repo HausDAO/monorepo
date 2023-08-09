@@ -5,7 +5,7 @@ import { border } from '../../../theme/global/border';
 export const CardStyles = css<{ width?: string }>`
   background-color: ${({ theme }) => theme.card.bg};
   border: 1px solid ${({ theme }) => theme.card.border};
-  border-radius: ${border.cardRadius};
+  border-radius: ${({ theme }) => theme.card.radius};
   padding: 2rem;
 
   width: ${({ width }) => width};

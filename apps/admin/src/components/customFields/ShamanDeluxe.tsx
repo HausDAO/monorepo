@@ -42,7 +42,8 @@ export const ShamanDeluxe = (
 
   const newRules: RegisterOptions = {
     validate: (val) =>
-      ignoreEmptyVal(val, (val) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ignoreEmptyVal(val, (val: any) => {
         if (oldShamanLevel == null) return true;
         return Number(oldShamanLevel) > Number(val)
           ? true

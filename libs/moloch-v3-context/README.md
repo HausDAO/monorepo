@@ -37,12 +37,7 @@ export function DaoContainer() {
   const { address } = useDHConnect();
 
   return (
-    <MolochV3ContextProvider
-      address={address}
-      daoid={daoid}
-      daochain={daochain}
-      graphApiKeys={{ '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] }}
-    >
+    <MolochV3ContextProvider address={address} daoid={daoid} daochain={daochain} graphApiKeys={{ '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'] }}>
       <Dao />
     </MolochV3ContextProvider>
   );
@@ -56,24 +51,12 @@ After including the `<DHConnectProvider/>` component in your app, you'll be able
 moloch-v3-context exposes several useful hooks that can be used throughout your app. Some examples:
 
 ```jsx
-import {
-  useDao,
-  useConnectedMember,
-  useMembers,
-  useProposals,
-} from '@daohaus/moloch-v3-context';
+import { useDao, useConnectedMember, useMembers, useProposals } from '@daohaus/moloch-v3-context';
 
 const { dao } = useDao();
-const { members, membersNextPaging, loadMoreMembers, sortMembers } =
-  useMembers();
+const { members, membersNextPaging, loadMoreMembers, sortMembers } = useMembers();
 const { connectedMember } = useConnectedMember();
-const {
-  isProposalsLoading,
-  proposals,
-  proposalsNextPaging,
-  loadMoreProposals,
-  filterProposals,
-} = useProposals();
+const { isProposalsLoading, proposals, proposalsNextPaging, loadMoreProposals, filterProposals } = useProposals();
 ```
 
 ## Examples

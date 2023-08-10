@@ -42,7 +42,7 @@ export const StyledButton = styled.button<{
       ${({ theme, $color }) => theme.button[`${$color}`].solid.border};
     color: ${({ theme, $color }) => theme.button[`${$color}`].solid.text};
 
-    &&:hover {
+    &:hover {
       background-color: ${({ theme, $color }) =>
         theme.button[`${$color}`].solid.bgHover};
       border: 0.1rem solid
@@ -71,7 +71,7 @@ export const StyledButton = styled.button<{
       ${({ theme, $color }) => theme.button[`${$color}`].outline.border};
     color: ${({ theme, $color }) => theme.button[`${$color}`].outline.text};
 
-    &&:hover {
+    &:hover {
       border: 0.1rem solid
         ${({ theme, $color }) => theme.button[`${$color}`].outline.hover};
       color: ${({ theme, $color }) => theme.button[`${$color}`].outline.hover};
@@ -97,7 +97,7 @@ export const StyledButton = styled.button<{
     border: 1px solid ${({ theme }) => theme.transparent};
     color: ${({ theme, $color }) => theme.button[`${$color}`].ghost.text};
 
-    &&:hover {
+    &:hover {
       background-color: ${({ theme, $color }) =>
         theme.button[`${$color}`].ghost.bgHover};
     }
@@ -125,7 +125,7 @@ export const StyledButton = styled.button<{
     border: none;
     color: ${({ theme, $color }) => theme.button[`${$color}`].link.text};
 
-    &&:hover {
+    &:hover {
       color: ${({ theme, $color }) => theme.button[`${$color}`].link.hover};
       text-decoration: underline;
     }

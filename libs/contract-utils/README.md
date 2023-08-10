@@ -30,18 +30,9 @@ const goerliNetworkId = '0x5';
 
 const contracts = {
   posterAddress: getContractAddressesForChain('POSTER', goerliNetworkId),
-  gnosisMultisendAddress: getContractAddressesForChain(
-    'GNOSIS_MULTISEND',
-    goerliNetworkId
-  ),
-  baalSummonerAddress: getContractAddressesForChain(
-    'V3_FACTORY_ADV_TOKEN',
-    goerliNetworkId
-  ),
-  tributeMinionAddress: getContractAddressesForChain(
-    'TRIBUTE_MINION',
-    goerliNetworkId
-  ),
+  gnosisMultisendAddress: getContractAddressesForChain('GNOSIS_MULTISEND', goerliNetworkId),
+  baalSummonerAddress: getContractAddressesForChain('V3_FACTORY_ADV_TOKEN', goerliNetworkId),
+  tributeMinionAddress: getContractAddressesForChain('TRIBUTE_MINION', goerliNetworkId),
 };
 ```
 

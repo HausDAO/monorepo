@@ -101,7 +101,8 @@ const createActionField = (
     newRules['setValueAs'] = (val: string) =>
       isObject(val) && typeof val === 'string' ? JSON.parse(val) : val;
     newRules['validate'] = (val) =>
-      ignoreEmptyVal(val, (val) => ValidateField.object(val));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ignoreEmptyVal(val, (val: any) => ValidateField.object(val));
   }
   const fieldBase = {
     id: `tx.${actionId}.fields.${input.name}`,

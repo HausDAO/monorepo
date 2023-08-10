@@ -84,7 +84,7 @@ export const Root = styled(ToastPrimitive.Root)`
     &[data-swipe='end'] {
       animation: ${swipeOut} 100ms ease-out forwards;
     }
-  } ;
+  }
 `;
 
 export const HeaderContainer = styled.div`

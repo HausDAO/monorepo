@@ -22,7 +22,7 @@ export const StyledDialogOverlay = styled(DialogPrimitive.Overlay)`
   inset: 0;
   @media (prefers-reduced-motion: no-preference) {
     animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  } ;
+  }
 `;
 
 const contentShow = keyframes`
@@ -83,5 +83,5 @@ export const ButtonContainer = styled.div<{
   gap: 1rem;
   @media ${widthQuery.sm} {
     width: 100%;
-  } ;
+  }
 `;

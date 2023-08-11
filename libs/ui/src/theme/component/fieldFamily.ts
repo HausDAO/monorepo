@@ -1,5 +1,6 @@
 import { font } from '../global';
 
+// TODO: Darn it. Need to extrapolate
 export const field = {
   fontWeight: font.weight.reg,
   fontSize: font.size.md,

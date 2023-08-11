@@ -100,5 +100,5 @@ const EnumIconsObject = {
 };
 
 function getEnumIcons(toastType: ToastType) {
-  return <Icon iconType={toastType}>{EnumIconsObject[toastType]}</Icon>;
+  return <Icon $iconType={toastType}>{EnumIconsObject[toastType]}</Icon>;
 }

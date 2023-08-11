@@ -9,7 +9,6 @@ import {
   DropdownLinkStyles,
   font,
   ProfileAvatar,
-  Theme,
   widthQuery,
 } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
@@ -119,7 +118,7 @@ export const ProfileMenuTrigger = styled(Button)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.primary.step9};
   }
 
   svg.icon-left {
@@ -148,7 +147,7 @@ export const ProfileMenuText = styled(DropdownLabel)`
     margin-left: 0.3rem;
   }
 
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.secondary.step4};
     border-color: ${(props) => props.theme.secondary.step8};
     text-decoration: none;
@@ -167,7 +166,7 @@ export const MemberContainer = styled.div`
 
 export const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

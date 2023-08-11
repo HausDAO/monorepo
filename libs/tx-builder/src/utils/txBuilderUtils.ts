@@ -1,6 +1,6 @@
 import { PublicClient } from 'wagmi';
-import { goerli } from 'wagmi/chains';
-import { Hash, createWalletClient, custom } from 'viem';
+import { getAccount } from '@wagmi/core';
+import { Hash } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import {
@@ -197,27 +197,14 @@ export async function prepareTX(args: {
       return;
     }
 
-    // TODO figure out account away from window.ethereum
-    // @ts-expect-error because
-    const [account] = await window.ethereum.request({
-      method: 'eth_requestAccounts',
+    const { address: account, connector } = getAccount();
+
+    const walletClient = await connector?.getWalletClient({
+      chainId: VIEM_CHAINS[chainId]?.id,
     });
-
-    console.log('account', account);
-    console.log('publicClient', publicClient);
-
-    const walletClient = createWalletClient({
-      chain: VIEM_CHAINS[chainId],
-      account,
-      // not sure if we can use window.ethereum on all wallets
-      // TODO figure out transport away from window.ethereum
-      // @ts-expect-error because
-      transport: custom(window.ethereum),
-    });
-
-    // @ts-expect-error because
-    console.log('window.ethereum', window.ethereum);
-    console.log('walletClient', walletClient);
+    if (!walletClient) {
+      throw new Error('Wallet Client not found!');
+    }
 
     const { request } = await publicClient.simulateContract({
       account,
@@ -226,8 +213,6 @@ export async function prepareTX(args: {
       args: processedArgs,
       functionName: method,
     });
-
-    console.log('request', request);
 
     lifeCycleFns?.onRequestSign?.();
 

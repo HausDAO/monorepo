@@ -6,7 +6,7 @@ import {
   EncodeCallArg,
   encodeFunction,
   encodeValues,
-  EstmimateGas,
+  EstimateGas,
   EthAddress,
   EncodeMulticall,
   JSONDetailsSearch,
@@ -16,6 +16,7 @@ import {
   TXLego,
 } from '@daohaus/utils';
 import {
+  CONTRACT_KEYCHAINS,
   HAUS_RPC,
   Keychain,
   PinataApiKeys,
@@ -277,17 +278,28 @@ export const handleMulticallArg = async ({
     ? handleMulticallFormActions({ appState })
     : [];
 
-  return [...encodedActions, ...encodedFormActions];
+  // if arg type is multicall wrap all actions on a multiSend
+  return arg.type === 'multicall'
+    ? [
+        {
+          to: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId],
+          data: encodeMultiAction([...encodedActions, ...encodedFormActions]),
+          value: '0',
+          operation: 1,
+        } as MetaTransaction,
+      ]
+    : [...encodedActions, ...encodedFormActions];
 };
 
 export const gasEstimateFromActions = async ({
   actions,
   chainId,
-  safeId,
+  daoId,
 }: {
   actions: MetaTransaction[];
   chainId: ValidNetwork;
-  safeId: string;
+  daoId: string;
+  safeId: string; // not used at the moment
 }) => {
   const esitmatedGases = await Promise.all(
     actions.map(
@@ -295,7 +307,7 @@ export const gasEstimateFromActions = async ({
         await estimateFunctionalGas({
           chainId: chainId,
           constractAddress: action.to,
-          from: safeId, // from value needs to be the baal safe to esitmate without revert
+          from: daoId, // from value needs to be the safe module (baal) to estimate without revert
           value: BigInt(Number(action.value)),
           data: action.data,
         })
@@ -350,7 +362,7 @@ export const handleGasEstimate = async ({
 }: {
   safeId?: string;
   chainId: ValidNetwork;
-  arg: EstmimateGas;
+  arg: EstimateGas;
   appState: ArbitraryState;
   localABIs?: Record<string, ABI>;
   rpcs: Keychain;
@@ -372,14 +384,18 @@ export const handleGasEstimate = async ({
     pinataApiKeys,
     explorerKeys,
   });
+
+  const { daoId } = appState;
+  const metaTx = actions[0]; // multiSend action
   const gasEstimate = await gasEstimateFromActions({
-    actions,
+    actions: encodeExecFromModule({ safeId, metaTx }),
     chainId,
+    daoId,
     safeId,
   });
 
   if (gasEstimate) {
-    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
+    const buffer = arg.bufferPercentage || 1.6;
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API
@@ -388,10 +404,32 @@ export const handleGasEstimate = async ({
     return 0;
   }
 };
+
 export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
   return encodeFunction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
     encodeMultiSend(rawMulti),
   ]);
+};
+
+export const encodeExecFromModule = ({
+  safeId,
+  metaTx, // usually a multiSend encoded action. See `encodeMultiAction`
+}: {
+  safeId: string;
+  metaTx: MetaTransaction;
+}) => {
+  return [
+    {
+      to: safeId,
+      data: encodeFunction(
+        LOCAL_ABI.GNOSIS_MODULE,
+        'execTransactionFromModule',
+        [metaTx.to, metaTx.value, metaTx.data, metaTx.operation]
+      ),
+      value: '0',
+      operation: 0,
+    } as MetaTransaction,
+  ];
 };
 
 export const buildMultiCallTX = ({
@@ -400,12 +438,14 @@ export const buildMultiCallTX = ({
   actions,
   JSONDetails = basicDetails,
   formActions = false,
+  gasBufferPercentage,
 }: {
   id: string;
   baalAddress?: StringSearch | Keychain | EthAddress;
   JSONDetails?: JSONDetailsSearch;
   actions: MulticallAction[];
   formActions?: boolean;
+  gasBufferPercentage?: number;
 }): TXLego => {
   return {
     id,
@@ -430,6 +470,7 @@ export const buildMultiCallTX = ({
         type: 'estimateGas',
         actions,
         formActions,
+        bufferPercentage: gasBufferPercentage,
       },
       JSONDetails,
     ],

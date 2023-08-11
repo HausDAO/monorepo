@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, widthQuery, ProfileAvatar, Theme } from '@daohaus/ui';
+import { Card, widthQuery, ProfileAvatar } from '@daohaus/ui';
 
 export const SettingsContainer = styled(Card)`
   width: 110rem;
@@ -52,8 +52,8 @@ export const WarningContainer = styled(Card)`
   width: 100%;
   padding: 1rem 2rem;
   margin-top: 3rem;
-  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
-  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+  background-color: ${({ theme }) => theme.warning.step3};
+  border-color: ${({ theme }) => theme.warning.step7};
   .title {
     display: flex;
     flex-direction: row;
@@ -104,8 +104,8 @@ export const TokenDataGrid = styled(DataGrid)`
 
 export const StyledLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
-  :hover {
+  color: ${({ theme }) => theme.primary.step10};
+  &:hover {
     text-decoration: none;
   }
 `;

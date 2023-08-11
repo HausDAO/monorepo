@@ -1,8 +1,8 @@
 import { green } from '@radix-ui/colors';
-import { font, ThemeOverrides } from '@daohaus/ui';
+import { font } from '@daohaus/ui';
 import './fonts.css';
 
-export const themeOverrides: ThemeOverrides = {
+export const themeOverrides: any = {
   themeName: 'custom',
   rootBgColor: green.green10,
   font: {

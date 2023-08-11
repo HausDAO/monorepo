@@ -37,8 +37,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <StyledButton
         {...rest}
-        color={color}
-        justify={justify}
+        $color={color}
+        $justify={justify}
         className={`${classes} ${className}`}
         ref={ref}
         type={!href ? type : undefined}

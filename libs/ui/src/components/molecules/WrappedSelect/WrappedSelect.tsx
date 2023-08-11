@@ -6,12 +6,20 @@ import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 export const WrappedSelect = ({
   id,
   rules,
-  ...props
+  helperText,
+  address,
+  ...rest
 }: Buildable<SelectProps>) => {
   const { register } = useFormContext();
   return (
-    <FieldWrapper {...props} id={id} rules={rules}>
-      <Select {...register(id, rules)} {...props} id={id} />
+    <FieldWrapper
+      {...rest}
+      id={id}
+      rules={rules}
+      address={address}
+      helperText={helperText}
+    >
+      <Select {...register(id, rules)} {...rest} id={id} />
     </FieldWrapper>
   );
 };

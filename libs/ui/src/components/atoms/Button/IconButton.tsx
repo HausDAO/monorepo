@@ -30,8 +30,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     return (
       <StyledButton
         {...rest}
-        justify="center"
-        color={color}
+        $justify="center"
+        $color={color}
         className={`${classes} ${className}`}
         ref={ref}
         type={type}

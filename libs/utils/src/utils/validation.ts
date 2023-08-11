@@ -41,10 +41,10 @@ export const ValidateField = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ignoreEmptyVal = (val: any, validator: Validate<any>) =>
+export const ignoreEmptyVal = (val: any, validator: any) =>
   val === '' ? true : validator(val);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ignoreEmpty = (val: any, validator: Validate<any>) =>
+export const ignoreEmpty = (val: any, validator: any) =>
   val === '' ? true : validator(val);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleBaseUnits = (val: any, decimals = 18) =>

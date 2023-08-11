@@ -49,21 +49,17 @@ const Template: ComponentStory<typeof NavMenu> = (args) => {
                 margin: 0,
               }}
             >
-              <li>
-                <NavMenuItem>
-                  <NavMenuLink>List Item One Content</NavMenuLink>
-                </NavMenuItem>
-              </li>
-              <li>
-                <NavMenuItem>
-                  <NavMenuLink>List Item Two Content</NavMenuLink>
-                </NavMenuItem>
-              </li>
-              <li>
-                <NavMenuItem>
-                  <NavMenuLink>List Item Three Content</NavMenuLink>
-                </NavMenuItem>
-              </li>
+              <NavMenuItem>
+                <NavMenuLink>List Item One Content</NavMenuLink>
+              </NavMenuItem>
+
+              <NavMenuItem>
+                <NavMenuLink>List Item Two Content</NavMenuLink>
+              </NavMenuItem>
+
+              <NavMenuItem>
+                <NavMenuLink>List Item Three Content</NavMenuLink>
+              </NavMenuItem>
             </ul>
           </NavMenuContent>
         </NavMenuItem>
@@ -78,21 +74,17 @@ const Template: ComponentStory<typeof NavMenu> = (args) => {
                 margin: 0,
               }}
             >
-              <li>
-                <NavMenuItem>
-                  <NavMenuLink>Dropdown 2 List Item One Content</NavMenuLink>
-                </NavMenuItem>
-              </li>
-              <li>
-                <NavMenuItem>
-                  <NavMenuLink>Dropdown 2 List Item Two Content</NavMenuLink>
-                </NavMenuItem>
-              </li>
-              <li>
-                <NavMenuItem>
-                  <NavMenuLink>Dropdown 2 List Item Three Content</NavMenuLink>
-                </NavMenuItem>
-              </li>
+              <NavMenuItem>
+                <NavMenuLink>Dropdown 2 List Item One Content</NavMenuLink>
+              </NavMenuItem>
+
+              <NavMenuItem>
+                <NavMenuLink>Dropdown 2 List Item Two Content</NavMenuLink>
+              </NavMenuItem>
+
+              <NavMenuItem>
+                <NavMenuLink>Dropdown 2 List Item Three Content</NavMenuLink>
+              </NavMenuItem>
             </ul>
           </NavMenuContent>
         </NavMenuItem>

@@ -10,7 +10,7 @@ export const MemberContainer = styled.div`
 
 export const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

@@ -89,7 +89,8 @@ export const RequestERC20 = (
       daoHasBalance: (val) => {
         return (
           selectedToken &&
-          ignoreEmptyVal(val, (val) =>
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ignoreEmptyVal(val, (val: any) =>
             Number(val) > Number(selectedToken?.daoBalance || 0)
               ? 'Amount exceeds DAO Balance'
               : true

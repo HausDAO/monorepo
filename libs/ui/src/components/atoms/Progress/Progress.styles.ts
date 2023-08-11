@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-export const ProgressVisualFull = styled.div`
-  background-color: ${({ backgroundColor }: { backgroundColor: string }) =>
-    backgroundColor};
+export const ProgressVisualFull = styled.div<{ backgroundColor: string }>`
+  background-color: ${({ backgroundColor }) => backgroundColor};
   display: flex;
   height: 10px;
 `;

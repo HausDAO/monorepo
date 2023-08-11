@@ -1,7 +1,6 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { ToastType } from './Toast.types';
 
 // TODO Rename to follow pattern established in Dropdown & Navigation Menu
@@ -46,26 +45,26 @@ export const Viewport = styled(ToastPrimitive.Viewport)`
 export const Root = styled(ToastPrimitive.Root)`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
+  background-color: ${({ theme }) => theme.secondary.step3};
+  border: 1px solid ${({ theme }) => theme.secondary.step5};
   border-radius: 0.8rem;
   height: auto;
   padding: 2rem;
   width: auto;
 
   &.success {
-    background-color: ${({ theme }: { theme: Theme }) => theme.success.step3};
-    border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.success.step7};
+    background-color: ${({ theme }) => theme.success.step3};
+    border: 0.1rem solid ${({ theme }) => theme.success.step7};
   }
 
   &.warning {
-    background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
-    border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.warning.step7};
+    background-color: ${({ theme }) => theme.warning.step3};
+    border: 0.1rem solid ${({ theme }) => theme.warning.step7};
   }
 
   &.error {
-    background-color: ${({ theme }: { theme: Theme }) => theme.danger.step3};
-    border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.danger.step7};
+    background-color: ${({ theme }) => theme.danger.step3};
+    border: 0.1rem solid ${({ theme }) => theme.danger.step7};
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -85,7 +84,7 @@ export const Root = styled(ToastPrimitive.Root)`
     &[data-swipe='end'] {
       animation: ${swipeOut} 100ms ease-out forwards;
     }
-  } ;
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -93,9 +92,9 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Icon = styled.span<{
-  iconType: ToastType;
+  $iconType: ToastType;
 }>`
-  color: ${(props) => props.theme.toast.icon[props.iconType]};
+  color: ${({ theme, $iconType }) => theme.toast.icon[$iconType]};
   font-size: 24px;
   margin-right: 1rem;
 `;

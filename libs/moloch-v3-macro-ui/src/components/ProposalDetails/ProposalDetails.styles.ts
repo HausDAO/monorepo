@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import { border, DropdownLinkStyles, Theme } from '@daohaus/ui';
+import { border, DropdownLinkStyles } from '@daohaus/ui';
 
 export const OverviewContainer = styled.div`
   display: flex;
@@ -10,8 +10,8 @@ export const OverviewContainer = styled.div`
   padding: 2.8rem 3.6rem;
 
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 1px ${({ theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }) => theme.secondary.step3};
 
   .description {
     word-break: break-word;
@@ -33,7 +33,7 @@ export const DataContainer = styled.div`
 
 export const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

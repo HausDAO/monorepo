@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
-import { border } from '../../../theme/global/border';
-
+/* TODO: Component specific border radius ?*/
 export const BaseTag = styled.div<{
   tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
   fontSize?: string;
@@ -11,13 +9,13 @@ export const BaseTag = styled.div<{
   align-items: center;
   background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
   border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}3`]};
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.border.radius};
   color: ${({ theme, tagColor }) => theme[`${tagColor}11`]};
   height: fit-content;
   width: fit-content;
   padding: 0.5rem 0.8rem;
   font-size: ${({ fontSize }) => fontSize};
-  :hover {
+  &:hover {
     background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
     border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}4`]};
   }
@@ -30,8 +28,8 @@ export const BaseTag = styled.div<{
 
   /* We might not need this */
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    background-color: ${({ theme }) => theme.neutral.step2};
+    border: 1px solid ${({ theme }) => theme.neutral.step5};
     cursor: not-allowed;
   }
 

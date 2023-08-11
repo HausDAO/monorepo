@@ -1,29 +1,30 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
 
 import { ReactSetter } from '@daohaus/utils';
 
 import { GlobalStyles } from './global/globalStyles';
 import { defaultDarkTheme, defaultLightTheme } from './theme';
-import { Theme, ThemeOverrides } from '../types/theming';
+
 import './global/fonts.css';
 import {
   Toast,
   ToastProps,
   ToastProvider,
 } from '../components/molecules/Toast';
+import { ThemeOverrides } from '../types/theming';
 
 type HausUI = {
-  theme: Theme;
-  setTheme: ReactSetter<Theme>;
+  theme: DefaultTheme;
+  setTheme: ReactSetter<DefaultTheme>;
   toggleLightDark: () => void;
   setToast: (toast: ToastProps) => void;
 };
 
 type ProviderProps = {
   children: ReactNode;
-  defaultDark?: Theme;
-  defaultLight?: Theme;
+  defaultDark?: DefaultTheme;
+  defaultLight?: DefaultTheme;
   startDark?: boolean;
   themeOverrides?: ThemeOverrides;
 };
@@ -37,7 +38,10 @@ export const HausThemeContext = createContext<HausUI>({
 
 const DEFAULT_TOAST_DURATION = 6000;
 
-const mergeThemeProperties = (theme: Theme, overrides?: ThemeOverrides) => ({
+const mergeThemeProperties = (
+  theme: DefaultTheme,
+  overrides?: ThemeOverrides
+) => ({
   ...theme,
   ...overrides,
 });

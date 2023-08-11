@@ -16,6 +16,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       placeholder,
       disabled,
       error,
+      success,
       warning,
       className,
       containerClassName,
@@ -31,6 +32,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const classes = classNames({
       long,
       full,
+      success,
       error,
       warning,
     });

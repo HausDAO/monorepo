@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { field } from '../../../theme';
 import { font } from '../../../theme/global/font';
-import { Theme } from '../../../types/theming';
 
 export const FieldWrapperBase = styled.div`
   width: 100%;
@@ -61,6 +60,6 @@ export const RightAddonContainer = styled.div`
 export const RequiredAsterisk = styled.span`
   margin-right: 8px;
   font-weight: ${font.weight.bold};
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  color: ${({ theme }) => theme.warning.step9};
   transform: translateY(-0.25rem);
 `;

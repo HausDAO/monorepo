@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 
-import { Theme } from '../../../types/theming';
 import { ProgressProps } from './Progress.types';
 import { ProgressVisualFull, ProgressVisualPart } from './Progress.styles';
 
@@ -14,7 +13,7 @@ export const Progress = ({
     },
   ],
 }: ProgressProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   // Starting values needed for the animation
   // Mapped by "progressSection" so it can work with multiple values dynamically
   const [widths, setWidths] = useState(

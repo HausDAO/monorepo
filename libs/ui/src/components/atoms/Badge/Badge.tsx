@@ -11,11 +11,7 @@ export const Badge = ({
   badgeColor = 'blue',
 }: BadgeProps) => {
   return (
-    <BaseBadge
-      badgeColor={badgeColor}
-      badgeSize={badgeSize}
-      className={className}
-    >
+    <BaseBadge $color={badgeColor} $size={badgeSize} className={className}>
       {badgeSize === 'sm' && (
         <ParXs>
           <Bold>{badgeLabel}</Bold>

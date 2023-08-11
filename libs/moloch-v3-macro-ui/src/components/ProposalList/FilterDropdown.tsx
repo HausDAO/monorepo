@@ -17,7 +17,7 @@ const IconFilter = styled(RiFilterFill)`
   width: 1.8rem;
   display: flex;
   fill: ${(props) => props.theme.secondary.step10};
-  :hover {
+  &:hover {
     fill: ${(props) => props.theme.secondary.step10};
   }
 `;

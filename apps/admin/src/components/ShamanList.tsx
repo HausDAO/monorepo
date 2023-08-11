@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AddressDisplay, Button, DataSm, Link, widthQuery } from '@daohaus/ui';
+import { AddressDisplay, DataSm, widthQuery } from '@daohaus/ui';
 
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/keychain-utils';
@@ -26,12 +26,6 @@ const ShamanContainer = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     width: 40%;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  :hover {
-    text-decoration: none;
   }
 `;
 

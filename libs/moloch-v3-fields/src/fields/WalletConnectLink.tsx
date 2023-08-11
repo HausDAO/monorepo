@@ -18,13 +18,23 @@ import {
   ParSm,
   ParMd,
   Spinner,
-  Theme,
   WrappedInput,
 } from '@daohaus/ui';
 import { FieldSpacer } from '@daohaus/form-builder';
+import { IClientMeta } from '@walletconnect/legacy-types';
+import { CoreTypes } from '@walletconnect/types';
 
-import { useWalletConnect } from '../utils/walletConnect';
+import {
+  WCParams,
+  WalletConnectVersion,
+  getWalletConnectVersion,
+  useWalletConnect,
+} from '../utils/walletConnect';
+import useWalletConnectV2 from '../utils/walletConnectV2';
+
 import WalletConnectLogo from '../assets/wallet_connect.svg';
+
+type MetadataType = CoreTypes.Metadata | IClientMeta | undefined;
 
 enum Status {
   DISCONNECTED,
@@ -38,8 +48,8 @@ const WalletConectContainer = styled.div`
   align-items: center;
   width: 100%;
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 1px ${({ theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }) => theme.secondary.step3};
   padding: 2.2rem;
   img {
     margin-bottom: 2.7rem;
@@ -82,15 +92,27 @@ export const WalletConnectLink = ({
   const { daochain } = useParams();
   const {
     wcConnector,
-    txPayload,
-    wcClientData,
-    wcConnect,
-    wcDisconnect,
-    txError,
+    txPayload: txPayloadV1,
+    wcClientData: wcClientDataV1,
+    wcConnect: wcConnectV1,
+    wcDisconnect: wcDisconnectV1,
+    txError: txErrorV1,
   } = useWalletConnect();
+  const {
+    txPayload: txPayloadV2,
+    wcClientData: wcClientDataV2,
+    wcConnect: wcConnectV2,
+    wcDisconnect: wcDisconnectV2,
+    error: txErrorV2,
+  } = useWalletConnectV2();
+
+  const wcClientData: MetadataType = wcClientDataV1 || wcClientDataV2;
+  const txPayload = txPayloadV1 || txPayloadV2;
+  const txError = txErrorV1 || txErrorV2;
 
   const inputId = 'wcLink';
 
+  const [wcVersion, setWCVersion] = useState<WalletConnectVersion>();
   const [connectionStatus, setConnectionStatus] = useState(Status.DISCONNECTED);
 
   const wcLink = watch(inputId);
@@ -109,14 +131,21 @@ export const WalletConnectLink = ({
       wcLink?.startsWith('wc:') &&
       connectionStatus === Status.DISCONNECTED
     ) {
-      setConnectionStatus(Status.CONNECTING);
-      wcConnect({
+      const params: WCParams = {
         chainId: daochain as ValidNetwork,
         safeAddress: dao.safeAddress,
         uri: wcLink,
-      });
+      };
+      setConnectionStatus(Status.CONNECTING);
+      const version: WalletConnectVersion = getWalletConnectVersion(wcLink);
+      setWCVersion(version);
+      if (version === WalletConnectVersion.V1) {
+        wcConnectV1(params);
+      } else {
+        wcConnectV2(params);
+      }
     }
-  }, [connectionStatus, dao, daochain, wcConnect, wcLink]);
+  }, [connectionStatus, dao, daochain, wcConnectV1, wcConnectV2, wcLink]);
 
   const clean = () => {
     [inputId, 'txTo', 'txData', 'txValue', 'txOperation'].forEach((formInput) =>
@@ -125,11 +154,13 @@ export const WalletConnectLink = ({
     setConnectionStatus(Status.DISCONNECTED);
   };
 
-  const disconnect = () => {
-    if (wcConnector) {
-      wcDisconnect(wcConnector);
-      clean();
+  const onDisconnect = () => {
+    if (wcVersion === WalletConnectVersion.V1) {
+      if (wcConnector) wcDisconnectV1(wcConnector);
+    } else {
+      wcDisconnectV2();
     }
+    clean();
   };
 
   useEffect(() => {
@@ -173,7 +204,7 @@ export const WalletConnectLink = ({
             {!wcClientData ? (
               <BaseContainer>
                 <Spinner margin="2.2rem" />
-                <Button onClick={disconnect}>Cancel</Button>
+                <Button onClick={onDisconnect}>Cancel</Button>
               </BaseContainer>
             ) : (
               <BaseContainer>
@@ -182,7 +213,7 @@ export const WalletConnectLink = ({
                   <Button onClick={() => setConnectionStatus(Status.CONNECTED)}>
                     Continue
                   </Button>
-                  <Button onClick={disconnect}>Cancel</Button>
+                  <Button onClick={onDisconnect}>Cancel</Button>
                 </ButtonsContainer>
               </BaseContainer>
             )}
@@ -207,7 +238,7 @@ export const WalletConnectLink = ({
                 <ParSm>Tx Ready to Submit!</ParSm>
               </BaseContainer>
             )}
-            <Button onClick={disconnect}>Disconnect</Button>
+            <Button onClick={onDisconnect}>Disconnect</Button>
           </BaseContainer>
         )}
       </WalletConectContainer>

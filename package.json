@@ -85,6 +85,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.6",
     "@nrwl/cli": "15.0.9",
     "@nrwl/cypress": "15.0.9",
+    "@nrwl/devkit": "15.0.9",
     "@nrwl/eslint-plugin-nx": "15.0.9",
     "@nrwl/jest": "15.0.9",
     "@nrwl/js": "15.0.9",

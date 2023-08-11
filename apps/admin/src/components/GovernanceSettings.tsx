@@ -1,14 +1,5 @@
 import styled from 'styled-components';
-import {
-  H3,
-  H4,
-  DataIndicator,
-  ParSm,
-  widthQuery,
-  Theme,
-  Button,
-  Link,
-} from '@daohaus/ui';
+import { H3, H4, DataIndicator, ParSm, widthQuery, Button } from '@daohaus/ui';
 
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
@@ -75,14 +66,8 @@ const TokenDataGrid = styled(DataGrid)`
 
 const StyledLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
-  :hover {
-    text-decoration: none;
-  }
-`;
-
-const StyledButtonLink = styled(Link)`
-  :hover {
+  color: ${({ theme }) => theme.primary.step10};
+  &:hover {
     text-decoration: none;
   }
 `;

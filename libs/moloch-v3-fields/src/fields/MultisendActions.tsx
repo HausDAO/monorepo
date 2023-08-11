@@ -28,7 +28,6 @@ import {
   Icon,
   OptionType,
   ParXs,
-  Theme,
   WarningMessage,
 } from '@daohaus/ui';
 import {
@@ -55,16 +54,16 @@ const MainContainer = styled.div`
 const WarningContainer = styled(Card)`
   display: flex;
   width: 100%;
-  background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
-  border-color: ${({ theme }: { theme: Theme }) => theme.warning.step7};
+  background-color: ${({ theme }) => theme.warning.step3};
+  border-color: ${({ theme }) => theme.warning.step7};
 `;
 
 const StyledParXs = styled(ParXs)`
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step12};
+  color: ${({ theme }) => theme.warning.step12};
 `;
 
 const WarningIcon = styled(RiErrorWarningLine)`
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  color: ${({ theme }) => theme.warning.step9};
   height: 2.5rem;
   width: 2.5rem;
 `;
@@ -102,7 +101,8 @@ const createActionField = (
     newRules['setValueAs'] = (val: string) =>
       isObject(val) && typeof val === 'string' ? JSON.parse(val) : val;
     newRules['validate'] = (val) =>
-      ignoreEmptyVal(val, (val) => ValidateField.object(val));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ignoreEmptyVal(val, (val: any) => ValidateField.object(val));
   }
   const fieldBase = {
     id: `tx.${actionId}.fields.${input.name}`,

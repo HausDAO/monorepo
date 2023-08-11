@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { RiErrorWarningLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
 import { ExplorerLink } from '@daohaus/connect';
-import { Card, Icon, ParXs, Theme } from '@daohaus/ui';
+import { Card, Icon, ParXs } from '@daohaus/ui';
 
 import {
   PROPOSAL_TYPE_WARNINGS,
@@ -11,39 +11,18 @@ import {
 import { useParams } from 'react-router-dom';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 
-const WarningContainer = styled(Card)`
+const WarningContainer = styled(Card)<{ error: boolean; warning: boolean }>`
   display: flex;
   width: 100%;
-  background-color: ${({
-    theme,
-    error,
-    warning,
-  }: {
-    theme: Theme;
-    error: boolean;
-    warning: boolean;
-  }) => (error && theme.danger.step3) || (warning && theme.warning.step3)};
-  border-color: ${({
-    theme,
-    error,
-    warning,
-  }: {
-    theme: Theme;
-    error: boolean;
-    warning: boolean;
-  }) => (error && theme.danger.step7) || (warning && theme.warning.step7)};
+  background-color: ${({ theme, error, warning }) =>
+    (error && theme.danger.step3) || (warning && theme.warning.step3)};
+  border-color: ${({ theme, error, warning }) =>
+    (error && theme.danger.step7) || (warning && theme.warning.step7)};
 `;
 
-const StyledParXs = styled(ParXs)`
-  color: ${({
-    theme,
-    error,
-    warning,
-  }: {
-    theme: Theme;
-    error: boolean;
-    warning: boolean;
-  }) => (error && theme.danger.step12) || (warning && theme.warning.step12)};
+const StyledParXs = styled(ParXs)<{ error: boolean; warning: boolean }>`
+  color: ${({ theme, error, warning }) =>
+    (error && theme.danger.step12) || (warning && theme.warning.step12)};
 `;
 
 const Spacer = styled.div`
@@ -51,7 +30,7 @@ const Spacer = styled.div`
 `;
 
 const WarningIcon = styled(RiErrorWarningLine)`
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  color: ${({ theme }) => theme.warning.step9};
   height: 2.5rem;
   width: 2.5rem;
 `;

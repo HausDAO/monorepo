@@ -1,10 +1,8 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import styled from 'styled-components';
 
-import { font } from '../../../theme/global/font';
+// TODO: Animations section of theme
 import { fadeIn } from '../../../animations/general';
-import { Theme } from '../../../types/theming';
-import { border } from '../../../theme/global/border';
 
 export const TooltipProvider = TooltipPrimitive.Provider;
 export const TooltipRoot = TooltipPrimitive.Root;
@@ -14,19 +12,19 @@ export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
   border: none;
   padding: 0;
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    color: ${({ theme }) => theme.tooltip.icon.color};
   }
 `;
 
 export const TooltipArrow = styled(TooltipPrimitive.Arrow)`
-  fill: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+  fill: ${({ theme }) => theme.tooltip.content.bg};
 `;
 
 export const TooltipContent = styled(TooltipPrimitive.Content)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
-  border-radius: ${border.radius};
-  color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
-  font-size: ${font.size.md};
+  background-color: ${({ theme }) => theme.tooltip.content.bg};
+  border-radius: ${({ theme }) => theme.border.radius};
+  color: ${({ theme }) => theme.tooltip.content.color};
+  font-size: ${({ theme }) => theme.font.size.md};
   line-height: 2.4rem;
   max-width: 30rem;
   padding: 1.2rem 1.5rem;

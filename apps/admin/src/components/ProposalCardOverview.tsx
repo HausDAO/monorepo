@@ -18,7 +18,6 @@ import {
   widthQuery,
   Tooltip,
   ParSm,
-  Theme,
   Icon,
   MemberCard,
   MemberCardExplorerLink,
@@ -64,7 +63,7 @@ const SubmittedContainer = styled.div`
 
 const StyledRouterLink = styled(RouterLink)`
   ${DropdownLinkStyles}
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;
@@ -205,13 +204,12 @@ const HeaderContainer = styled.div`
   display: flex;
 `;
 
-const StyledPropType = styled.span`
-  color: ${({ theme, warning }: { theme: Theme; warning: boolean }) =>
-    warning && theme.warning.step9};
+const StyledPropType = styled.span<{ warning: boolean }>`
+  color: ${({ theme, warning }) => warning && theme.warning.step9};
 `;
 
 const WarningIcon = styled(RiErrorWarningLine)`
-  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+  color: ${({ theme }) => theme.warning.step9};
   height: 2rem;
   width: 2rem;
   margin-right: 0.5rem;

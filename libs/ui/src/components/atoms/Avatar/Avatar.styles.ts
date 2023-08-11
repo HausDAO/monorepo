@@ -1,8 +1,6 @@
 import * as RadixAvatar from '@radix-ui/react-avatar';
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
-
 const sizes: Record<string, string> = {
   sm: '2.5rem',
   md: '3.5rem',
@@ -11,7 +9,7 @@ const sizes: Record<string, string> = {
 };
 const handleSizing = (size: string) => (sizes[size] ? sizes[size] : size);
 
-export const AvatarBase = styled(RadixAvatar.Root)`
+export const AvatarBase = styled(RadixAvatar.Root)<{ size: string }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +26,7 @@ export const AvatarFallback = styled(RadixAvatar.Fallback)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+  background: ${({ theme }) => theme.avatar.bg};
 `;
 
 export const AvatarImage = styled(RadixAvatar.Image)`

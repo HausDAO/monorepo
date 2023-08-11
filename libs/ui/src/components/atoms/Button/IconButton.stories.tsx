@@ -41,7 +41,7 @@ export const BaseIconButton = Template.bind({});
 BaseIconButton.args = {
   Icon: RiBugLine,
   color: 'primary',
-  variant: 'solid',
+  variant: 'outline',
   size: 'md',
   isLoading: false,
   disabled: false,

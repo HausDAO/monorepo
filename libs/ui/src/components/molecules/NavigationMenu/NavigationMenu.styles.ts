@@ -1,34 +1,47 @@
 import styled, { css, keyframes } from 'styled-components';
 import * as RadixNavMenu from '@radix-ui/react-navigation-menu';
 
-import { Theme } from '../../../types/theming';
-import { font } from '../../../theme/global/font';
-import { border } from '../../../theme/global/border';
+export const Root = styled(RadixNavMenu.Root)`
+  background-color: ${(props) => props.theme.secondary.step2};
+  padding: 2.8rem;
+`;
+
+export const Content = styled(RadixNavMenu.Content)`
+  position: absolute;
+  top: 100%;
+  background-color: ${({ theme }) => theme.navigationMenu.content.bg};
+  border: 1px solid ${({ theme }) => theme.navigationMenu.content.border};
+  border-radius: 4px;
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  line-height: ${({ theme }) => theme.font.lineHeight};
+  letter-spacing: ${({ theme }) => theme.font.letterSpacing};
+  font-size: ${({ theme }) => theme.font.size.md};
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: fit-content;
+`;
 
 export const NavMenuBaseItemStyles = css`
   padding: 8px 12px;
   cursor: pointer;
   outline: none;
   user-select: none;
-  font-weight: ${font.weight.reg};
-  line-height: ${font.lineHeight};
-  letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.lg};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  line-height: ${({ theme }) => theme.font.lineHeight};
+  letter-spacing: ${({ theme }) => theme.font.letterSpacing};
+  font-size: ${({ theme }) => theme.font.size.lg};
   border-radius: 4px;
-  color: ${(props) => props.theme.secondary.step9};
+  color: ${({ theme }) => theme.navigationMenu.baseItem.color};
 
   &:hover {
-    color: ${(props) => props.theme.secondary.step10};
+    color: ${({ theme }) => theme.navigationMenu.baseItem.hover.bg};
   }
 
   &:focus {
-    color: ${(props) => props.theme.secondary.step11};
+    color: ${({ theme }) => theme.navigationMenu.baseItem.focus.bg};
   }
-`;
-
-export const Root = styled(RadixNavMenu.Root)`
-  background-color: ${(props) => props.theme.secondary.step2};
-  padding: 2.8rem;
 `;
 
 export const List = styled(RadixNavMenu.List)`
@@ -55,33 +68,16 @@ export const Link = styled(RadixNavMenu.Link)`
   text-decoration: none;
 
   &[data-active] {
-    color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
-    border-bottom: 2px ${({ theme }: { theme: Theme }) => theme.secondary.step9}
+    color: ${({ theme }) => theme.navigationMenu.link.active.color};
+    border-bottom: 2px ${({ theme }) => theme.navigationMenu.link.active.border}
       solid;
   }
-`;
-
-export const Content = styled(RadixNavMenu.Content)`
-  position: absolute;
-  top: 100%;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  border-radius: 4px;
-  font-weight: ${font.weight.reg};
-  line-height: ${font.lineHeight};
-  letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.md};
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: fit-content;
 `;
 
 export const Indicator = styled(RadixNavMenu.Indicator)`
   bottom: 0;
   height: 2px;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+  background-color: ${({ theme }) => theme.secondary.step11};
   transition: all 0.5s ease;
   display: flex;
   align-items: flex-end;
@@ -89,7 +85,7 @@ export const Indicator = styled(RadixNavMenu.Indicator)`
   overflow: hidden;
 `;
 
-export const Sub = styled(RadixNavMenu.Sub)``;
+export const Sub = styled(RadixNavMenu.Sub);
 
 const scaleIn = keyframes({
   from: { transform: 'rotateX(-30deg) scale(0.9)', opacity: 0 },
@@ -104,7 +100,6 @@ const scaleOut = keyframes({
 export const Viewport = styled(RadixNavMenu.Viewport)`
   position: relative;
   transform-origin: top center;
-  /* width: var(--radix-navigation-menu-viewport-width); */
   transition: width, height, 300ms ease;
   &[data-state='open'] {
     animation: ${scaleIn} 200ms ease;

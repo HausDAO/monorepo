@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Theme } from '../../../types/theming';
 import styled from 'styled-components';
 import { FieldWrapper } from './FieldWrapper';
 import { field } from '../../../theme';
@@ -16,7 +15,7 @@ const Template: ComponentStory<typeof FieldWrapper> = (args) => (
 );
 
 const DummyField = styled.div`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  background-color: ${({ theme }) => theme.secondary.step3};
   width: 100%;
   max-width: ${field.size.md};
   border-radius: ${border.radius};

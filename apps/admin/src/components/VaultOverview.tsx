@@ -6,7 +6,6 @@ import {
   H4,
   Link,
   ParXs,
-  Theme,
   Bold,
   DataIndicator,
   widthQuery,
@@ -19,7 +18,7 @@ import { DaoSafe, MolochV3Dao } from '@daohaus/moloch-v3-data';
 import { VaultMenu } from './VaultMenu';
 
 const VaultOverviewCard = styled(Card)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  background-color: ${({ theme }) => theme.secondary.step3};
   border: none;
   padding: 3rem;
   width: 100%;
@@ -38,7 +37,7 @@ const VaultCardHeader = styled.div`
 
   .safe-link {
     padding: 0.9rem;
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step5};
+    background-color: ${({ theme }) => theme.secondary.step5};
     border-radius: 4px;
   }
 `;

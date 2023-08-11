@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
-import { Theme } from '../../../types/theming';
-import { font } from '../../../theme/global/font';
 import { Link, LinkStyles } from '../../atoms';
 import { DropdownColor } from './Dropdown.types';
 
@@ -23,48 +21,42 @@ export const Trigger = styled(Dropdown.Trigger)`
   }
 `;
 
-const BaseContentStyle = css`
-  background-color: ${({
-    color,
-    theme,
-  }: {
-    color: DropdownColor;
-    theme: Theme;
-  }) => theme[color].step3};
+const BaseContentStyle = css<{ $color?: DropdownColor }>`
+  background-color: ${({ $color = 'primary', theme }) =>
+    theme.dropdown.content[$color].bg};
   border-radius: 4px;
-  font-weight: ${font.weight.reg};
-  line-height: ${font.lineHeight};
-  letter-spacing: ${font.letterSpacing};
-  font-size: ${font.size.md};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  line-height: ${({ theme }) => theme.font.lineHeight};
+  letter-spacing: ${({ theme }) => theme.font.letterSpacing};
+  font-size: ${({ theme }) => theme.font.size.md};
   padding: 5px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 `;
 
-export const Content = styled(Dropdown.DropdownMenuContent)`
+export const Content = styled(Dropdown.DropdownMenuContent)<{
+  $color?: DropdownColor;
+}>`
   ${BaseContentStyle}
 `;
 
-export const SubContent = styled(Dropdown.DropdownMenuSubContent)`
+export const SubContent = styled(Dropdown.DropdownMenuSubContent)<{
+  $color?: DropdownColor;
+}>`
   ${BaseContentStyle}
 `;
 
 export const Label = styled(Dropdown.Label)`
-  font-size: ${font.size.xs};
+  font-size: ${({ theme }) => theme.font.size.xs};
   min-height: 4.8rem;
   padding: 12px;
 `;
 
-const BaseItemStyles = css`
+const BaseItemStyles = css<{ $color?: DropdownColor }>`
   align-items: center;
-  background-color: ${({
-    color,
-    theme,
-  }: {
-    color: DropdownColor;
-    theme: Theme;
-  }) => theme[color].step3};
+  background-color: ${({ $color = 'primary', theme }) =>
+    theme.dropdown.item[$color].bg};
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -75,46 +67,26 @@ const BaseItemStyles = css`
   width: 100%;
 
   &:focus-visible {
-    background-color: ${({
-      color,
-      theme,
-    }: {
-      color: DropdownColor;
-      theme: Theme;
-    }) => theme[color].step5};
+    background-color: ${({ $color = 'primary', theme }) =>
+      theme.dropdown.item.focus[$color].bg};
   }
 
   &[data-highlighted] {
-    background-color: ${({
-      color,
-      theme,
-    }: {
-      color: DropdownColor;
-      theme: Theme;
-    }) => theme[color].step4};
+    background-color: ${({ $color = 'primary', theme }) =>
+      theme.dropdown.item.highlight[$color].bg};
   }
 
   &[data-disabled] {
     cursor: not-allowed;
-    color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
+    color: ${({ theme }) => theme.dropdown.item.disabled.color};
 
     & * {
-      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
-    }
-
-    &:hover {
-      background-color: ${({
-        color,
-        theme,
-      }: {
-        color: DropdownColor;
-        theme: Theme;
-      }) => theme[color].step3};
+      color: ${({ theme }) => theme.dropdown.item.disabled.color};
     }
   }
 `;
 
-export const Item = styled(Dropdown.Item)`
+export const Item = styled(Dropdown.Item)<{ $color?: DropdownColor }>`
   ${BaseItemStyles}
 
   svg {
@@ -131,20 +103,25 @@ export const Item = styled(Dropdown.Item)`
   }
 `;
 
-export const CheckboxItem = styled(Dropdown.CheckboxItem)`
+export const CheckboxItem = styled(Dropdown.CheckboxItem)<{
+  $color?: DropdownColor;
+}>`
   ${BaseItemStyles}
 `;
 
-export const RadioItem = styled(Dropdown.RadioItem)`
+export const RadioItem = styled(Dropdown.RadioItem)<{ $color?: DropdownColor }>`
   ${BaseItemStyles}
 `;
 
-export const SubTrigger = styled(Dropdown.SubTrigger)`
+export const SubTrigger = styled(Dropdown.SubTrigger)<{
+  $color?: DropdownColor;
+}>`
   ${BaseItemStyles}
 `;
 
 export const Separator = styled(Dropdown.Separator)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+  /* ! Does this need to be dynamic?  */
+  background-color: ${({ theme }) => theme.dropdown.separator.bg};
   height: 1px;
   margin: 5px 0;
   width: 100%;
@@ -159,16 +136,16 @@ export const ItemIndicator = styled(Dropdown.ItemIndicator)`
 
 export const DropdownLinkStyles = css`
   ${LinkStyles}
-  color: ${(props) => props.theme.secondary.step12};
+  color: ${({ theme }) => theme.dropdown.link.color};
 
-  :hover {
-    background-color: ${(props) => props.theme.secondary.step4};
-    border-color: ${(props) => props.theme.secondary.step8};
+  &:hover {
+    background-color: ${({ theme }) => theme.dropdown.link.hover.bg};
+    border-color: ${({ theme }) => theme.dropdown.link.hover.border};
     text-decoration: none;
   }
 
   &.disabled {
-    color: ${(props) => props.theme.secondary.step11};
+    color: ${({ theme }) => theme.dropdown.link.disabled.color};
   }
 `;
 

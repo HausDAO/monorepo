@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { MolochV3Dao } from '@daohaus/moloch-v3-data';
-import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
+import { Card, DataIndicator, widthQuery } from '@daohaus/ui';
 import {
   charLimit,
   formatValueTo,
@@ -10,7 +10,7 @@ import {
 } from '@daohaus/utils';
 
 const MembersOverviewCard = styled(Card)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  background-color: ${({ theme }) => theme.secondary.step3};
   border: none;
   padding: 3rem;
   width: 100%;

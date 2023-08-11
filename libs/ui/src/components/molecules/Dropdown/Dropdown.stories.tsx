@@ -30,7 +30,6 @@ const Template: ComponentStory<typeof DropdownMenu> = (args) => {
   const [color, setColor] = React.useState('blue');
   return (
     <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-      {/* <Dropdown {...args} /> */}
       <DropdownMenu>
         <DropdownButtonTrigger fullWidth={true}>Button</DropdownButtonTrigger>
         <DropdownContent align="end">
@@ -46,8 +45,8 @@ const Template: ComponentStory<typeof DropdownMenu> = (args) => {
           <DropdownCheckbox>Unchecked</DropdownCheckbox>
           <DropdownSeparator />
           <DropdownRadioGroup value={color} onValueChange={setColor}>
-            <DropdownRadio value="blue">Radio</DropdownRadio>
-            <DropdownRadio value="green">Radio</DropdownRadio>
+            <DropdownRadio value="blue">Blue</DropdownRadio>
+            <DropdownRadio value="green">Green</DropdownRadio>
           </DropdownRadioGroup>
         </DropdownContent>
       </DropdownMenu>

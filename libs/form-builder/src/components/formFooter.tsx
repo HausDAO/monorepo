@@ -78,11 +78,9 @@ const getStatusElement = (status: StatusMsg, theme: Theme) => {
   } else return <Spinner size="2.25rem" strokeWidth=".25rem" />;
 };
 
-const StatusBox = styled.div`
+const StatusBox = styled.div<{ status: StatusMsg }>`
   border-radius: ${border.radius};
-  border: 1px
-    ${({ theme, status }: { theme: Theme; status: StatusMsg }) =>
-      getStatusColor(status, theme)}
+  border: 1px ${({ theme, status }) => getStatusColor(status, theme as Theme)}
     solid;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -91,8 +89,7 @@ const StatusBox = styled.div`
     justify-content: space-between;
     align-items: center;
     p {
-      color: ${({ theme, status }: { theme: Theme; status: StatusMsg }) =>
-        getStatusColor(status, theme)};
+      color: ${({ theme, status }) => getStatusColor(status, theme as Theme)};
       margin-right: auto;
     }
   }
@@ -104,7 +101,7 @@ const FormStatusDisplay = ({ status }: { status: StatusMsg }) => {
     <StatusBox status={status}>
       <div className="inner">
         <ParSm>{status}</ParSm>
-        {getStatusElement(status, theme)}
+        {getStatusElement(status, theme as Theme)}
       </div>
     </StatusBox>
   );

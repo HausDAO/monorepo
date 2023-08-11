@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { DataMd, DataXl, Tooltip } from '../../atoms';
 
 import { DataIndicatorProps } from './DataIndicator.types';
@@ -18,7 +16,7 @@ export const DataIndicator = ({
   if (size === 'sm') {
     return (
       <DataIndicatorContainer>
-        <DataIndicatorLabelMd style={{ marginBottom: '0.5rem' }}>
+        <DataIndicatorLabelMd>
           {label} {info && <Tooltip content={info} />}
         </DataIndicatorLabelMd>
         <DataMd>{data}</DataMd>

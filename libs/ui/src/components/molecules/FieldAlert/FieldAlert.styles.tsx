@@ -1,47 +1,40 @@
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
-import { border } from '../../../theme/global/border';
+// TODO: Field theme use
 import { field } from '../../../theme/component/fieldFamily';
 
-export const FieldAlertWrapper = styled.div<{
-  color?: string;
-  background?: string;
-  border?: string;
-}>`
+// TODO: Delete props added to styled div
+export const FieldAlertWrapper = styled.div`
   padding: 1.6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.border.radius};
   max-width: 600px;
-  background: ${({ theme }: { theme: Theme }) => theme.primary.step3};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.primary.step6};
+  background: ${({ theme }) => theme.primary.step3};
+  border: 1px solid ${({ theme }) => theme.primary.step6};
 
   &.full {
     max-width: ${field.size.full};
   }
 
   &.warning {
-    background: ${({ theme }: { theme: Theme }) => theme.warning.step2};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step5};
+    background: ${({ theme }) => theme.warning.step2};
+    border: 1px solid ${({ theme }) => theme.warning.step5};
     p {
-      color: ${({ theme }: { theme: Theme }) => theme.warning.step10};
+      color: ${({ theme }) => theme.warning.step10};
     }
+    /* ? Why so many style overrides here for the theme ? */
     button {
-      background-color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
-      border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
-      :hover {
-        background-color: ${({ theme }: { theme: Theme }) =>
-          theme.warning.step9};
-        border: 1px solid
-          ${({ theme }: { theme: Theme }) => theme.warning.step9};
+      background-color: ${({ theme }) => theme.warning.step9};
+      border: 1px solid ${({ theme }) => theme.warning.step9};
+      &:hover {
+        background-color: ${({ theme }) => theme.warning.step10};
+        border: 1px solid ${({ theme }) => theme.warning.step10};
       }
       :active {
-        background-color: ${({ theme }: { theme: Theme }) =>
-          theme.warning.step9};
-        border: 1px solid
-          ${({ theme }: { theme: Theme }) => theme.warning.step9};
+        background-color: ${({ theme }) => theme.warning.step9};
+        border: 1px solid ${({ theme }) => theme.warning.step9};
       }
     }
   }

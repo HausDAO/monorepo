@@ -17,6 +17,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       number,
       address,
       className,
+      ...rest
     } = props;
 
     const inputClasses = classNames({
@@ -41,7 +42,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             name={id}
             className={`${inputClasses} ${className}`}
             ref={ref}
-            {...props}
+            {...rest}
           />
           <Icon size="2rem" />
         </WithIcon>
@@ -54,7 +55,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         name={id}
         className={`${inputClasses} ${className}`}
         ref={ref}
-        {...props}
+        {...rest}
       />
     );
   }

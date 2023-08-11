@@ -6,7 +6,7 @@ import { BaseTextArea } from './TextArea.styles';
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (props, ref) => {
-    const { full, warning, error, success, className, height } = props;
+    const { full, warning, error, success, className, height, ...rest } = props;
     const classes = classNames({
       full,
       success,
@@ -16,7 +16,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
     return (
       <BaseTextArea
-        {...props}
+        {...rest}
         className={`${classes} ${className}`}
         ref={ref}
         rows={10}

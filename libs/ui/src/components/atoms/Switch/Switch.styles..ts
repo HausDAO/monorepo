@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
-import { Theme } from '../../../types/theming';
-import { font } from '../../../theme/global/font';
 
 export const Container = styled.div`
   align-items: center;
@@ -12,7 +10,7 @@ export const Container = styled.div`
 
 export const SwitchBase = styled(SwitchPrimitive.Root)`
   all: unset;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+  background-color: ${({ theme }) => theme.switch.base.bg};
   border-radius: 9999px;
   cursor: pointer;
   height: 16px;
@@ -21,23 +19,23 @@ export const SwitchBase = styled(SwitchPrimitive.Root)`
   width: 54px;
 
   &[data-disabled] {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step6};
+    background-color: ${({ theme }) => theme.switch.base.disabled.bg};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) => theme.primary.step6};
+    background-color: ${({ theme }) => theme.switch.base.active.bg};
 
     &[data-disabled] {
-      background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step6};
+      background-color: ${({ theme }) => theme.switch.base.active.disabled.bg};
       cursor: not-allowed;
     }
   }
 `;
 
 export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
-  border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step9};
+  background-color: ${({ theme }) => theme.switch.indicator.bg};
+  border: 2px solid ${({ theme }) => theme.switch.indicator.border};
   border-radius: 9999px;
   height: 34px;
   position: absolute;
@@ -47,44 +45,48 @@ export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
   width: 34px;
   will-change: transform;
 
-  :hover {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.secondary.step10};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step10};
+  &:hover {
+    background-color: ${({ theme }) => theme.switch.indicator.hover.bg};
+    border: 1px solid ${({ theme }) => theme.switch.indicator.hover.border};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step11};
+    background-color: ${({ theme }) => theme.switch.indicator.focus.bg};
+    border: 1px solid ${({ theme }) => theme.switch.indicator.focus.border};
     outline: none;
   }
 
   &[data-disabled] {
-    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+    background-color: ${({ theme }) => theme.switch.indicator.disabled.bg};
+    border: 1px solid ${({ theme }) => theme.switch.indicator.disabled.border};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
-    border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    background-color: ${({ theme }) => theme.switch.indicator.active.bg};
+    border: 2px solid ${({ theme }) => theme.switch.indicator.active.border};
     transform: translateX(27px);
 
-    :hover {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.primary.step10};
-      border: 1px solid ${({ theme }: { theme: Theme }) => theme.primary.step10};
+    &:hover {
+      background-color: ${({ theme }) =>
+        theme.switch.indicator.active.hover.bg};
+      border: 1px solid
+        ${({ theme }) => theme.switch.indicator.active.hover.border};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
-      border: 1px solid ${({ theme }: { theme: Theme }) => theme.primary.step11};
+      background-color: ${({ theme }) =>
+        theme.switch.indicator.active.focus.bg};
+      border: 1px solid
+        ${({ theme }) => theme.switch.indicator.active.focus.border};
       outline: none;
     }
 
     &[data-disabled] {
-      background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
-      border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+      background-color: ${({ theme }) =>
+        theme.switch.indicator.active.disabled.bg};
+      border: 1px solid
+        ${({ theme }) => theme.switch.indicator.active.disabled.border};
       cursor: not-allowed;
     }
   }
@@ -105,12 +107,12 @@ export const LabelContainer = styled.label`
 `;
 
 export const StyledLabel = styled.label`
-  color: white;
-  font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
-  font-weight: ${font.weight.reg};
-  font-size: ${font.size.md};
+  color: ${({ theme }) => theme.switch.label.color};
+  font-family: ${({ theme }) => theme.font.family.body};
+  font-weight: ${({ theme }) => theme.font.weight.reg};
+  font-size: ${({ theme }) => theme.font.size.md};
 
   &.disabled {
-    color: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+    color: ${({ theme }) => theme.switch.label.disabled.color};
   }
 `;

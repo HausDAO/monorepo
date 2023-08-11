@@ -17,7 +17,7 @@ type ProfileLinkProps = {
 const StyledRouterLink = styled(RouterLink)`
   text-decoration: none;
   color: unset;
-  :hover {
+  &:hover {
     text-decoration: none;
   }
 `;

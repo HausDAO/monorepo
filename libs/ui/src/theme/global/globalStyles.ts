@@ -1,6 +1,6 @@
 import { normalize } from 'polished';
 import { createGlobalStyle } from 'styled-components';
-import { Theme } from '../../types/theming';
+import { DefaultTheme } from 'styled-components';
 import { font } from './font';
 
 export const GlobalStyles = createGlobalStyle`
@@ -32,13 +32,12 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 10px;
-    background-color: ${({ theme }: { theme: Theme }) => theme.rootBgColor};
+    background-color: ${({ theme }) => theme.rootBgColor};
   }
 
   body {
-    font-family: ${({ theme }: { theme: Theme }) => theme.font.family.body};
-    color: ${({ theme }: { theme: Theme }) => theme.rootFontColor}
+    font-family: ${({ theme }) => theme.font.family.body};
+    color: ${({ theme }) => theme.rootFontColor}
   }
 
-  }
-  `;
+`;

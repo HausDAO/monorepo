@@ -17,7 +17,6 @@ import {
   ParSm,
   ParMd,
   Spinner,
-  Theme,
   WrappedInput,
 } from '@daohaus/ui';
 import { FieldSpacer } from '@daohaus/form-builder';
@@ -48,8 +47,8 @@ const WalletConectContainer = styled.div`
   align-items: center;
   width: 100%;
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 1px ${({ theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }) => theme.secondary.step3};
   padding: 2.2rem;
   img {
     margin-bottom: 2.7rem;

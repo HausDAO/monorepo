@@ -2,14 +2,12 @@ import * as RadixDivider from '@radix-ui/react-separator';
 import styled from 'styled-components';
 import { slateDark } from '@radix-ui/colors';
 
-type StyleProps = {
+const StyledDivider = styled(RadixDivider.Root)<{
   margin?: string;
   color?: string;
-};
-
-const StyledDivider = styled(RadixDivider.Root)`
-  background-color: ${(props: StyleProps) => props.color || slateDark.slate6};
-  margin: ${(props: StyleProps) => props.margin};
+}>`
+  background-color: ${({ color }) => color || slateDark.slate6};
+  margin: ${({ margin }) => margin || '0rem'};
   &[data-orientation='horizontal'] {
     height: 0.1rem;
     width: 100%;

@@ -6,12 +6,13 @@ import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 export const WrappedFileInput = ({
   id,
   rules,
-  ...props
+  helperText,
+  ...rest
 }: Buildable<FileInputProps>) => {
   const { register } = useFormContext();
   return (
-    <FieldWrapper {...props} id={id} rules={rules}>
-      <FileInput {...props} {...register(id, rules)} id={id} />
+    <FieldWrapper id={id} rules={rules} helperText={helperText} {...rest}>
+      <FileInput {...register(id, rules)} id={id} {...rest} />
     </FieldWrapper>
   );
 };

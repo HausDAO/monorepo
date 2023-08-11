@@ -1,10 +1,7 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 
-// Move into colors for any overlays
-import { indigoDarkA } from '@radix-ui/colors';
-
-import { Theme } from '../../../types/theming';
+// TODO: Add mediaQuery section to theme
 import { widthQuery } from '../../../theme';
 
 export const DialogRoot = DialogPrimitive.Root;
@@ -20,12 +17,12 @@ const overlayShow = keyframes`
 `;
 
 export const StyledDialogOverlay = styled(DialogPrimitive.Overlay)`
-  background-color: ${() => indigoDarkA.indigoA4};
+  background-color: ${({ theme }) => theme.dialog.overlay.bg};
   position: fixed;
   inset: 0;
   @media (prefers-reduced-motion: no-preference) {
     animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  } ;
+  }
 `;
 
 const contentShow = keyframes`
@@ -34,11 +31,11 @@ const contentShow = keyframes`
 `;
 
 export const StyledDialogContent = styled(DialogPrimitive.Content)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
+  background-color: ${({ theme }) => theme.dialog.content.bg};
   border-radius: 8px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-  color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
+  color: ${({ theme }) => theme.dialog.content.color};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -86,5 +83,5 @@ export const ButtonContainer = styled.div<{
   gap: 1rem;
   @media ${widthQuery.sm} {
     width: 100%;
-  } ;
+  }
 `;

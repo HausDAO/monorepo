@@ -1,14 +1,14 @@
-import { breakpoints } from '../../../theme/global/breakpoints';
 import styled from 'styled-components';
 
-import { Theme } from '../../../types/theming';
+// TODO: Add Breakpoints to theme
+import { breakpoints } from '../../../theme/global/breakpoints';
 
 export const StyledBanner = styled.div`
   align-items: center;
   display: flex;
-  background-color: ${({ theme }: { theme: Theme }) => theme.info.step9};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.info.step9};
-  color: ${({ theme }) => theme.rootFontColor};
+  background-color: ${({ theme }) => theme.banner.bg};
+  border: 1px solid ${({ theme }) => theme.banner.border};
+  color: ${({ theme }) => theme.banner.color};
   flex-wrap: wrap;
   height: auto;
   justify-content: space-between;

@@ -8,6 +8,7 @@ export const WrappedSelect = ({
   rules,
   helperText,
   address,
+  onChange,
   ...rest
 }: Buildable<SelectProps>) => {
   const { register } = useFormContext();

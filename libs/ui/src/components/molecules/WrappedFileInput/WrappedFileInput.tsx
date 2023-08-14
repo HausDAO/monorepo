@@ -7,12 +7,18 @@ export const WrappedFileInput = ({
   id,
   rules,
   helperText,
+  onChange,
   ...rest
 }: Buildable<FileInputProps>) => {
   const { register } = useFormContext();
   return (
     <FieldWrapper id={id} rules={rules} helperText={helperText} {...rest}>
-      <FileInput {...register(id, rules)} id={id} {...rest} />
+      <FileInput
+        {...register(id, rules)}
+        id={id}
+        {...rest}
+        onChange={onChange}
+      />
     </FieldWrapper>
   );
 };

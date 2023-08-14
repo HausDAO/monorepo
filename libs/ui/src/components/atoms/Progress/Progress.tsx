@@ -37,7 +37,7 @@ export const Progress = ({
 
   return (
     <ProgressVisualFull
-      backgroundColor={backgroundColor || theme.neutral.step10}
+      $backgroundColor={backgroundColor || theme.neutral.step10}
     >
       {progressSection.map((item, index) => {
         // map each part into separate div where each will be animated
@@ -45,7 +45,7 @@ export const Progress = ({
           <ProgressVisualPart
             key={index}
             width={widths[index]}
-            backgroundColor={item.color}
+            $backgroundColor={item.color}
           />
         );
       })}

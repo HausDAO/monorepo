@@ -30,7 +30,7 @@ const OverviewBox = styled.div<{ $allowLinks?: boolean }>`
   margin-bottom: 1.1rem;
   height: 100%;
   .title {
-    margin-top: ${({$allowLinks}) => ($allowLinks ? '0' : '1.5rem')};/
+    margin-top: ${({$allowLinks}) => ($allowLinks ? '0' : '1.5rem')};
     margin-bottom: 2rem;
   }
   .description {

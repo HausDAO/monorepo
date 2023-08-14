@@ -2,27 +2,27 @@ import styled from 'styled-components';
 
 /* TODO: Component specific border radius ?*/
 export const BaseTag = styled.div<{
-  tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
-  fontSize?: string;
+  $tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
+  $fontSize?: string;
 }>`
   display: inline-flex;
   align-items: center;
-  background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
-  border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}3`]};
+  background-color: ${({ theme, $tagColor }) => theme[`${$tagColor}3`]};
+  border: 1px solid ${({ theme, $tagColor }) => theme[`${$tagColor}3`]};
   border-radius: ${({ theme }) => theme.border.radius};
-  color: ${({ theme, tagColor }) => theme[`${tagColor}11`]};
+  color: ${({ theme, $tagColor }) => theme[`${$tagColor}11`]};
   height: fit-content;
   width: fit-content;
   padding: 0.5rem 0.8rem;
-  font-size: ${({ fontSize }) => fontSize};
+  font-size: ${({ $fontSize }) => $fontSize};
   &:hover {
-    background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
-    border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}4`]};
+    background-color: ${({ theme, $tagColor }) => theme[`${$tagColor}3`]};
+    border: 1px solid ${({ theme, $tagColor }) => theme[`${$tagColor}4`]};
   }
 
   :focus {
-    background-color: ${({ theme, tagColor }) => theme[`${tagColor}3`]};
-    border: 1px solid ${({ theme, tagColor }) => theme[`${tagColor}5`]};
+    background-color: ${({ theme, $tagColor }) => theme[`${$tagColor}3`]};
+    border: 1px solid ${({ theme, $tagColor }) => theme[`${$tagColor}5`]};
     outline: none;
   }
 
@@ -36,7 +36,7 @@ export const BaseTag = styled.div<{
   svg {
     width: 1.2rem;
     height: 1.2rem;
-    color: ${({ theme, tagColor }) => theme[`${tagColor}11`]};
+    color: ${({ theme, $tagColor }) => theme[`${$tagColor}11`]};
   }
 
   svg.icon-left {

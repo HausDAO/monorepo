@@ -5,7 +5,7 @@ import SafeAppsSDK, {
   GatewayTransactionDetails,
 } from '@gnosis.pm/safe-apps-sdk';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
-import { calculateProxyAddress, CONTRACT_ABIS } from '@gnosis.pm/zodiac';
+import { calculateProxyAddress, ContractAbis } from '@gnosis.pm/zodiac';
 import { handleKeychains } from '@daohaus/contract-utils';
 
 export const calculateBaalAddress = async (
@@ -39,7 +39,7 @@ export const calculateBaalAddress = async (
   const baalSingleton = new Contract(templateAddress, LOCAL_ABI.BAAL);
   const moduleProxyFactory = new Contract(
     ZODIAC_FACTORY,
-    CONTRACT_ABIS.factory
+    ContractAbis.factory
   );
   const initData = baalSingleton.interface.encodeFunctionData('avatar');
   return calculateProxyAddress(

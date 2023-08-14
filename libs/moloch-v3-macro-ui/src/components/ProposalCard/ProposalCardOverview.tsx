@@ -24,13 +24,13 @@ import { getProposalTypeLabel } from '@daohaus/utils';
 import { useProfile } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 
-const OverviewBox = styled.div<{ allowLinks?: boolean }>`
+const OverviewBox = styled.div<{ $allowLinks?: boolean }>`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.1rem;
   height: 100%;
   .title {
-    margin-top: ${(props) => (props.allowLinks ? '0' : '1.5rem')};
+    margin-top: ${({$allowLinks}) => ($allowLinks ? '0' : '1.5rem')};
     margin-bottom: 2rem;
   }
   .description {
@@ -91,7 +91,7 @@ export const ProposalCardOverview = ({
   });
 
   return (
-    <OverviewBox allowLinks={allowLinks}>
+    <OverviewBox $allowLinks={allowLinks}>
       <OverviewHeader
         loading={loading}
         proposal={proposal}

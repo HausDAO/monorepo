@@ -17,7 +17,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       number,
       address,
       className,
-      ...rest
+      placeholder,
+      defaultValue,
+      value,
+      disabled,
+      hidden,
+      onChange,
     } = props;
 
     const inputClasses = classNames({
@@ -42,7 +47,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             name={id}
             className={`${inputClasses} ${className}`}
             ref={ref}
-            {...rest}
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            value={value}
+            disabled={disabled}
+            hidden={hidden}
+            onChange={onChange}
           />
           <Icon size="2rem" />
         </WithIcon>
@@ -55,7 +65,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         name={id}
         className={`${inputClasses} ${className}`}
         ref={ref}
-        {...rest}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        value={value}
+        disabled={disabled}
+        hidden={hidden}
+        onChange={onChange}
       />
     );
   }

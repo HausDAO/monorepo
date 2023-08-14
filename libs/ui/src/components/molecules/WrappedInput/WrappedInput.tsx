@@ -45,6 +45,7 @@ export const WrappedInput = ({
       rules={rules}
     >
       <Input
+        {...register(id, rules)}
         id={id}
         long={long}
         full={full}
@@ -60,7 +61,6 @@ export const WrappedInput = ({
         value={value}
         disabled={disabled}
         hidden={hidden}
-        {...register(id, rules)}
       />
     </FieldWrapper>
   );

@@ -8,9 +8,10 @@ export * from './FileInput';
 export * from './TextArea';
 export * from './Tooltip';
 export * from './Typography';
+export * from './Loading';
 export * from './Link';
 export * from './Select';
-export * from './Spinner';
+export * from './Spinner'; // TODO: DELETE / REPLACE this with Loader Breaking Change
 export * from './Divider';
 export * from './Switch';
 export * from './Icon';

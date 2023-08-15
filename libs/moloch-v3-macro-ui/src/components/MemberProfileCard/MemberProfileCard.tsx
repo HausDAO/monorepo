@@ -1,7 +1,7 @@
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Member } from '@daohaus/moloch-v3-data';
 import { useDaoData, useProfile } from '@daohaus/moloch-v3-hooks';
-import { DataIndicator, ParLg, Spinner } from '@daohaus/ui';
+import { DataIndicator, ParLg, Loading } from '@daohaus/ui';
 import { formatValueTo, memberUsdValueShare } from '@daohaus/utils';
 
 import {
@@ -51,7 +51,7 @@ export const MemberProfileCard = ({
     <MProfileCard>
       {(!dao || !member || !currentProfile) && (
         <LoadingContainer>
-          <Spinner size="12rem" />
+          <Loading size={120} />
         </LoadingContainer>
       )}
       {dao && member && currentProfile && (

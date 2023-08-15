@@ -8,7 +8,7 @@ import {
   Card,
   ParLg,
   SingleColumnLayout,
-  Spinner,
+  Loading,
   useBreakpoint,
   useToast,
   widthQuery,
@@ -71,7 +71,7 @@ export const Member = () => {
 
   return (
     <SingleColumnLayout title="Member Profile">
-      {!member && isLoading && <Spinner size="6rem" />}
+      {!member && isLoading && <Loading size={60} />}
       {!member && !isLoading && (
         <AlertContainer>
           <ParLg className="warn">Member Not Found</ParLg>

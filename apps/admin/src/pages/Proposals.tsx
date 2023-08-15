@@ -6,7 +6,7 @@ import {
   DialogTrigger,
   DialogContent,
   SingleColumnLayout,
-  Spinner,
+  Loading,
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
@@ -124,7 +124,7 @@ export function Proposals() {
           </DialogContent>
         </Dialog>
       </ActionsContainer>
-      {!proposals && <Spinner size={isMobile ? '8rem' : '16rem'} />}
+      {!proposals && <Loading size={isMobile ? 80 : 160} />}
       {proposals &&
         proposals.map((proposal) => (
           <BaseProposalCard proposal={proposal} key={proposal.id} />

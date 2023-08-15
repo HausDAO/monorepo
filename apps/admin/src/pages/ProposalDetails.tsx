@@ -5,7 +5,7 @@ import {
   BiColumnLayout,
   Card,
   SingleColumnLayout,
-  Spinner,
+  Loading,
   widthQuery,
 } from '@daohaus/ui';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
@@ -133,7 +133,7 @@ export function ProposalDetails() {
   if (proposalLoading) {
     return (
       <SingleColumnLayout>
-        <Spinner />
+        <Loading />
       </SingleColumnLayout>
     );
   }

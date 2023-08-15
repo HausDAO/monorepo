@@ -5,7 +5,7 @@ import { useConnectedMember, useCurrentDao } from '@daohaus/moloch-v3-hooks';
 import { MemberList } from '@daohaus/moloch-v3-macro-ui';
 import {
   SingleColumnLayout,
-  Spinner,
+  Loading,
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
@@ -79,7 +79,7 @@ export const Members = () => {
       }
     >
       {!daoChain || !daoId ? (
-        <Spinner size={isMd ? '8rem' : '16rem'} padding="6rem" />
+        <Loading size={isMd ? 80 : 160} padding="6rem" />
       ) : (
         <MemberList
           daoChain={daoChain}

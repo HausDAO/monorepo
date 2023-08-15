@@ -7,7 +7,7 @@ import { useDaoData, useDaoMembers } from '@daohaus/moloch-v3-hooks';
 import {
   AddressDisplay,
   ParLg,
-  Spinner,
+  Loading,
   Tooltip,
   useBreakpoint,
   widthQuery,
@@ -221,7 +221,7 @@ export const MemberList = ({
     <MemberContainer>
       {!dao && isLoadingDao && (
         <LoadingContainer>
-          <Spinner size="12rem" />
+          <Loading size={120} />
         </LoadingContainer>
       )}
       {dao && <MembersOverview dao={dao} />}
@@ -241,7 +241,7 @@ export const MemberList = ({
       )}
       {dao && isLoadingMembers && (
         <LoadingContainer>
-          <Spinner size="12rem" />
+          <Loading size={120} />
         </LoadingContainer>
       )}
     </MemberContainer>

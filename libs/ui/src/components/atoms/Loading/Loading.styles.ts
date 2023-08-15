@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-export const StyledLoader = styled.svg`
+export const StyledLoader = styled.svg<{ $margin: string; $padding: string }>`
   animation: spin 1s linear infinite;
+  margin: ${({ $margin }) => $margin};
+  padding: ${({ $padding }) => $padding};
 
   @keyframes spin {
     to {

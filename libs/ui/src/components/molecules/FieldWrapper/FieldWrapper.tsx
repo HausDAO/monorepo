@@ -8,7 +8,7 @@ import {
   Label,
   Tooltip,
   Icon,
-  Spinner,
+  Loading,
   ErrorText,
   HelperText,
   SuccessText,
@@ -64,7 +64,7 @@ export const FieldWrapper = ({
       <div className="field-slot">{children}</div>
       <BottomContainer className={classes}>
         <LeftAddonContainer>
-          {loading && <Spinner size="2rem" />}
+          {loading && <Loading size={20} />}
           <HelperTextFactory
             error={error || fieldError}
             success={success}

@@ -14,4 +14,5 @@ export const BaseLoading = Template.bind({});
 
 BaseLoading.args = {
   size: 50,
+  margin: '',
 };

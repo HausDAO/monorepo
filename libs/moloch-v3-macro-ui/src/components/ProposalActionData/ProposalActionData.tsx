@@ -9,7 +9,7 @@ import {
   Divider,
   H4,
   ParMd,
-  Spinner,
+  Loading,
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
@@ -77,7 +77,7 @@ export const ProposalActionData = ({
 
           {!actionData && (
             <LoadingContainer>
-              <Spinner size="2rem" />
+              <Loading size={20} />
             </LoadingContainer>
           )}
 

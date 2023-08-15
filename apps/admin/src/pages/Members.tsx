@@ -22,7 +22,7 @@ import {
   Card,
   widthQuery,
   AddressDisplay,
-  Spinner,
+  Loading,
   useBreakpoint,
   Tooltip,
 } from '@daohaus/ui';
@@ -273,7 +273,7 @@ export const Members = () => {
             }
           />
         ) : (
-          <Spinner size={isMd ? '8rem' : '16rem'} padding="6rem" />
+          <Loading size={isMd ? 80 : 160} padding="6rem" />
         )}
       </MemberContainer>
     </SingleColumnLayout>

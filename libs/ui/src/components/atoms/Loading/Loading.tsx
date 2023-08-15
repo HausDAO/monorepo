@@ -6,6 +6,8 @@ import { LoadingProps } from './Loading.types';
 export const Loading = ({
   color = 'primary',
   size = 50,
+  margin = '0',
+  padding = '0',
   ...rest
 }: LoadingProps) => {
   const theme = useTheme();
@@ -17,6 +19,8 @@ export const Loading = ({
         xmlns="http://www.w3.org/2000/svg"
         height={size}
         width={size}
+        $padding={padding}
+        $margin={margin}
         {...rest}
       >
         <path

@@ -11,7 +11,7 @@ import {
   PROPOSAL_STATUS,
   TXLego,
 } from '@daohaus/utils';
-import { GatedButton, Spinner, useToast } from '@daohaus/ui';
+import { GatedButton, Loading, useToast } from '@daohaus/ui';
 
 export const CancelProposal = ({
   proposal,
@@ -106,7 +106,7 @@ export const CancelProposal = ({
       onClick={handleCancel}
       // centerAlign
     >
-      {isLoading ? <Spinner size="2rem" strokeWidth=".2rem" /> : 'Cancel'}
+      {isLoading ? <Loading size={20} /> : 'Cancel'}
     </GatedButton>
   );
 };

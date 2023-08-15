@@ -11,7 +11,7 @@ import { useTxBuilder } from '@daohaus/tx-builder';
 import {
   Italic,
   ParSm,
-  Spinner,
+  Loading,
   useBreakpoint,
   useToast,
   widthQuery,
@@ -142,11 +142,7 @@ export const Unsponsored = ({
             onClick={handleSponsor}
             fullWidth={isMobile}
           >
-            {isLoading ? (
-              <Spinner size="2rem" strokeWidth=".2rem" />
-            ) : (
-              'Sponsor Proposal'
-            )}
+            {isLoading ? <Loading size={20} /> : 'Sponsor Proposal'}
           </GatedButton>
         </>
       }

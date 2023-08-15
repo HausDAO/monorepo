@@ -1,5 +1,4 @@
-import { amberDark } from '@radix-ui/colors';
-import { Button, Spinner } from '@daohaus/ui';
+import { Button, Loading } from '@daohaus/ui';
 import { RiUserAddLine } from 'react-icons/ri/index.js';
 
 import { useDHConnect } from '../../HausConnectContext';
@@ -40,12 +39,7 @@ const LoadingButton = ({ isSm }: { isSm: boolean }) => {
   return (
     <ButtonContainer>
       <Button fullWidth={!isSm} size={isSm ? 'sm' : 'md'}>
-        <Spinner
-          topColor={amberDark.amber8}
-          bottomColor={amberDark.amber11}
-          size={isSm ? '2rem' : '2.8rem'}
-          strokeWidth=".3rem"
-        />
+        <Loading size={isSm ? 20 : 28} />
       </Button>
     </ButtonContainer>
   );

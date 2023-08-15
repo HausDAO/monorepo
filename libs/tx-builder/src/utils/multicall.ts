@@ -278,17 +278,7 @@ export const handleMulticallArg = async ({
     ? handleMulticallFormActions({ appState })
     : [];
 
-  // if arg type is multicall wrap all actions on a multiSend
-  return arg.type === 'multicall'
-    ? [
-        {
-          to: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId],
-          data: encodeMultiAction([...encodedActions, ...encodedFormActions]),
-          value: '0',
-          operation: 1,
-        } as MetaTransaction,
-      ]
-    : [...encodedActions, ...encodedFormActions];
+  return [...encodedActions, ...encodedFormActions];
 };
 
 export const gasEstimateFromActions = async ({
@@ -386,7 +376,13 @@ export const handleGasEstimate = async ({
   });
 
   const { daoId } = appState;
-  const metaTx = actions[0]; // multiSend action
+  // wrap on a multiSend action for simulation
+  const metaTx = {
+    to: CONTRACT_KEYCHAINS.GNOSIS_MULTISEND[chainId],
+    data: encodeMultiAction(actions),
+    value: '0',
+    operation: 1,
+  } as MetaTransaction;
   const gasEstimate = await gasEstimateFromActions({
     actions: encodeExecFromModule({ safeId, metaTx }),
     chainId,

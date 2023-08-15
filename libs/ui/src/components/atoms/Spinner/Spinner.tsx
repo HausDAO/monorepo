@@ -4,13 +4,10 @@ import styled, { useTheme } from 'styled-components';
 import { SpinnerType } from './Spinner.types';
 
 const StyledSpinner = styled.div<{
-  topColor?: string;
-  bottomColor?: string;
-  size?: string;
-  strokeWidth?: string;
-  margin?: string;
-  padding?: string;
-  speed?: string;
+  $topColor?: string;
+  $bottomColor?: string;
+  $strokeWidth?: string;
+  $speed?: string;
 }>`
   &.loader,
   &.loader:after {
@@ -22,19 +19,18 @@ const StyledSpinner = styled.div<{
     font-size: 1rem;
     position: relative;
     text-indent: -9999em;
-    border-top: ${(props) => `${props.strokeWidth} solid ${props.bottomColor}`};
+    border-top: ${(props) =>
+      `${props.$strokeWidth} solid ${props.$bottomColor}`};
     border-right: ${(props) =>
-      `${props.strokeWidth} solid ${props.bottomColor}`};
-    border-bottom: ${(props: SpinnerType) =>
-      `${props.strokeWidth} solid ${props.bottomColor}`};
-    border-left: ${(props: SpinnerType) =>
-      `${props.strokeWidth} solid ${props.topColor}`};
+      `${props.$strokeWidth} solid ${props.$bottomColor}`};
+    border-bottom: ${(props) =>
+      `${props.$strokeWidth} solid ${props.$bottomColor}`};
+    border-left: ${(props) => `${props.$strokeWidth} solid ${props.$topColor}`};
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
-    -webkit-animation: load8 ${(props: SpinnerType) => props.speed} infinite
-      linear;
-    animation: load8 ${(props: SpinnerType) => props.speed} infinite linear;
+    -webkit-animation: load8 ${({ $speed }) => $speed} infinite linear;
+    animation: load8 ${({ $speed }) => $speed} infinite linear;
   }
   @-webkit-keyframes load8 {
     0% {
@@ -59,17 +55,17 @@ const StyledSpinner = styled.div<{
 `;
 
 const Container = styled.div<{
-  size?: string;
-  margin?: string;
-  padding?: string;
+  $size?: string;
+  $margin?: string;
+  $padding?: string;
 }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: ${(props) => props.size};
-  height: ${(props) => props.size};
-  margin: ${(props) => props.margin};
-  padding: ${(props) => props.padding};
+  width: ${({ $size }) => $size};
+  height: ${({ $size }) => $size};
+  margin: ${({ $margin }) => $margin};
+  padding: ${({ $padding }) => $padding};
 `;
 
 export const Spinner = ({
@@ -83,14 +79,13 @@ export const Spinner = ({
 }: SpinnerType) => {
   const theme = useTheme();
   return (
-    <Container size={size} margin={margin} padding={padding}>
+    <Container $size={size} $margin={margin} $padding={padding}>
       <StyledSpinner
-        topColor={topColor || theme.primary.step9}
-        bottomColor={bottomColor || theme.primary.step4}
-        size={size}
+        $topColor={topColor || theme.primary.step9}
+        $bottomColor={bottomColor || theme.primary.step4}
         className="loader"
-        strokeWidth={strokeWidth}
-        speed={speed}
+        $strokeWidth={strokeWidth}
+        $speed={speed}
       />
     </Container>
   );

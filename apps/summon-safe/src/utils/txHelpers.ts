@@ -37,10 +37,7 @@ export const calculateBaalAddress = async (
   ]);
   const templateAddress = `0x${rs.substring(rs.length - 40)}`;
   const baalSingleton = new Contract(templateAddress, LOCAL_ABI.BAAL);
-  const moduleProxyFactory = new Contract(
-    ZODIAC_FACTORY,
-    ContractAbis.factory
-  );
+  const moduleProxyFactory = new Contract(ZODIAC_FACTORY, ContractAbis.factory);
   const initData = baalSingleton.interface.encodeFunctionData('avatar');
   return calculateProxyAddress(
     moduleProxyFactory,

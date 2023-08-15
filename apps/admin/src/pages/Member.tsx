@@ -11,9 +11,9 @@ import {
   Card,
   DataIndicator,
   DataMd,
+  Loading,
   ParMd,
   SingleColumnLayout,
-  Spinner,
   useBreakpoint,
   useToast,
   widthQuery,
@@ -242,7 +242,7 @@ export function Member() {
 
   return (
     <SingleColumnLayout title="Member Profile">
-      {currentMemberLoading && <Spinner />}
+      {currentMemberLoading && <Loading />}
       {currentMember && (
         <>
           <ButtonsContainer>

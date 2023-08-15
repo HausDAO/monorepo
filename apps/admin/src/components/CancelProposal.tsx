@@ -9,7 +9,7 @@ import {
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
-import { Spinner, useToast } from '@daohaus/ui';
+import { Loading, useToast } from '@daohaus/ui';
 import { useDao } from '@daohaus/moloch-v3-context';
 
 import { ACTION_TX } from '../legos/tx';
@@ -104,9 +104,8 @@ export const CancelProposal = ({
       color="secondary"
       rules={[isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
-      // centerAlign
     >
-      {isLoading ? <Spinner size="2rem" strokeWidth=".2rem" /> : 'Cancel'}
+      {isLoading ? <Loading size={20} /> : 'Cancel'}
     </GatedButton>
   );
 };

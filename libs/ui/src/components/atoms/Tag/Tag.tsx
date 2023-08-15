@@ -15,9 +15,9 @@ export const Tag = ({
   const iconClasses = classNames({ tagColor });
   return (
     <BaseTag
-      tagColor={tagColor || 'green'}
       className={className}
-      fontSize={fontSize}
+      $tagColor={tagColor || 'green'}
+      $fontSize={fontSize}
     >
       {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
       {children}

@@ -7,12 +7,67 @@ export const WrappedFileInput = ({
   id,
   rules,
   helperText,
-  ...rest
+  long,
+  full,
+  icon,
+  success,
+  warning,
+  error,
+  number,
+  address,
+  className,
+  placeholder,
+  defaultValue,
+  value,
+  disabled,
+  hidden,
+  rightAddon,
+  label,
+  loading,
+  info,
+  onChange,
+  multiple,
+  accept,
 }: Buildable<FileInputProps>) => {
   const { register } = useFormContext();
   return (
-    <FieldWrapper id={id} rules={rules} helperText={helperText} {...rest}>
-      <FileInput {...register(id, rules)} id={id} {...rest} />
+    <FieldWrapper
+      id={id}
+      rules={rules}
+      helperText={helperText}
+      label={label}
+      loading={loading}
+      info={info}
+      error={error}
+      success={success}
+      warning={warning}
+      hidden={hidden}
+      long={long}
+      full={full}
+      address={address}
+      rightAddon={rightAddon}
+    >
+      <FileInput
+        {...register(id, rules)}
+        id={id}
+        long={long}
+        full={full}
+        icon={icon}
+        success={success}
+        warning={warning}
+        error={error}
+        number={number}
+        address={address}
+        className={className}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        value={value}
+        disabled={disabled}
+        hidden={hidden}
+        onChange={onChange}
+        multiple={multiple}
+        accept={accept}
+      />
     </FieldWrapper>
   );
 };

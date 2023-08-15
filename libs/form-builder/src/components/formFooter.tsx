@@ -3,7 +3,7 @@ import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri/index.js';
 
 import { ExplorerLink } from '@daohaus/connect';
 import { useFormBuilder } from '@daohaus/form-builder-base';
-import { border, Button, ParSm, Spinner, Theme } from '@daohaus/ui';
+import { border, Button, ParSm, Loading, Theme } from '@daohaus/ui';
 
 enum StatusMsg {
   Compile = 'Compiling Transaction Data',
@@ -75,7 +75,7 @@ const getStatusElement = (status: StatusMsg, theme: Theme) => {
     status === StatusMsg.NoContext
   ) {
     return <RiErrorWarningLine color={theme.danger.step9} size="2.25rem" />;
-  } else return <Spinner size="2.25rem" strokeWidth=".25rem" />;
+  } else return <Loading size={22.5} />;
 };
 
 const StatusBox = styled.div<{ status: StatusMsg }>`

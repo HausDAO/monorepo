@@ -9,7 +9,7 @@ import {
   useDaoMembers,
   useDaoProposals,
 } from '@daohaus/moloch-v3-hooks';
-import { Button, SingleColumnLayout, Spinner, widthQuery } from '@daohaus/ui';
+import { Button, SingleColumnLayout, Loading, widthQuery } from '@daohaus/ui';
 import {
   PROPOSAL_STATUS,
   PROPOSAL_TYPE_LABELS,
@@ -89,7 +89,7 @@ export const ProposalList = ({
   if (isLoadingProposals || isLoadingDao)
     return (
       <ProposalControls header={header} rightActionEl={rightActionEl}>
-        <Spinner size="12rem" />
+        <Loading size={120} />
       </ProposalControls>
     );
 

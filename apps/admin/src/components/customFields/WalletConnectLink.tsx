@@ -16,8 +16,8 @@ import {
   Icon,
   ParSm,
   ParMd,
-  Spinner,
   WrappedInput,
+  Loading,
 } from '@daohaus/ui';
 import { FieldSpacer } from '@daohaus/form-builder';
 import { IClientMeta } from '@walletconnect/legacy-types';
@@ -202,7 +202,7 @@ export const WalletConnectLink = ({
           <div>
             {!wcClientData ? (
               <BaseContainer>
-                <Spinner margin="2.2rem" />
+                <Loading margin="2.2rem" />
                 <Button onClick={onDisconnect}>Cancel</Button>
               </BaseContainer>
             ) : (
@@ -228,7 +228,7 @@ export const WalletConnectLink = ({
             </ParSm>
             {!txPayload ? (
               <BaseContainer>
-                <Spinner margin="1rem" />
+                <Loading margin="1rem" />
                 <ParSm>Waiting for a Tx to be triggered...</ParSm>
               </BaseContainer>
             ) : (

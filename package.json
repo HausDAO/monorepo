@@ -12,11 +12,10 @@
     "@storybook/react-docgen-typescript-plugin": "1.0.6--canary.9.cd77847.0"
   },
   "dependencies": {
-    "@daohaus/baal-contracts": "^1.2.4",
+    "@daohaus/baal-contracts": "^1.2.9",
     "@gnosis.pm/safe-apps-react-sdk": "^4.6.2",
     "@gnosis.pm/safe-apps-web3modal": "^17.0.2",
     "@gnosis.pm/safe-react-components": "^1.2.0",
-    "@gnosis.pm/zodiac": "1.0.3",
     "@graphql-typed-document-node/core": "^3.1.1",
     "@hookform/devtools": "^4.2.3",
     "@material-ui/core": "^4.12.4",

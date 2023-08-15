@@ -5,7 +5,7 @@ import { handleErrorMessage, MolochV3Membership } from '@daohaus/utils';
 import { listDaosByMember } from '@daohaus/moloch-v3-data';
 import {
   H2,
-  Spinner,
+  Loading,
   useBreakpoint,
   useDebounce,
   widthQuery,
@@ -131,7 +131,7 @@ export const HomeDashboard = () => {
   if (loading) {
     return (
       <ListActions {...tableControlProps}>
-        <Loading isMobile={isMobile} />
+        <LoadingContainer isMobile={isMobile} />
       </ListActions>
     );
   }
@@ -153,10 +153,10 @@ const CenterFrame = styled.div`
   }
 `;
 
-const Loading = ({ isMobile }: { isMobile: boolean }) => (
+const LoadingContainer = ({ isMobile }: { isMobile: boolean }) => (
   <CenterFrame>
     <div className="inner">
-      <Spinner size={isMobile ? '8rem' : '16rem'} />
+      <Loading size={isMobile ? 80 : 160} />
     </div>
   </CenterFrame>
 );

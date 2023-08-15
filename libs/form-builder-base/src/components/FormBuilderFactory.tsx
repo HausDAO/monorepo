@@ -55,9 +55,9 @@ export const FormBuilderFactory = ({ field }: { field: FieldLego }) => {
     ]
   );
 
-  return <Spacer fieldSpacing={fieldSpacing}>{GeneratedField}</Spacer>;
+  return <Spacer $fieldSpacing={fieldSpacing}>{GeneratedField}</Spacer>;
 };
 
-const Spacer = styled.div<{ fieldSpacing?: string }>`
-  margin-bottom: ${({ fieldSpacing }) => fieldSpacing || '0'};
+const Spacer = styled.div<{ $fieldSpacing?: string }>`
+  margin-bottom: ${({ $fieldSpacing }) => $fieldSpacing || '0'};
 `;

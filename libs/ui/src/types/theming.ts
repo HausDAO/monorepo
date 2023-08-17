@@ -19,6 +19,7 @@ export interface DAOhausTheme {
   themeName: string;
   font: {
     family: {
+      header: string;
       body: string;
       data: string;
     };

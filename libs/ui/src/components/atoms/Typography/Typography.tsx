@@ -32,37 +32,37 @@ export const ParXl = styled(Par)`
 export const H6 = styled.h6`
   font-size: ${({ theme }) => theme.font.size.md};
   font-weight: ${({ theme }) => theme.font.weight.black};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.header};
   color: ${(props) => props.color};
 `;
 export const H5 = styled.h5`
   font-size: ${({ theme }) => theme.font.size.lg};
   font-weight: ${({ theme }) => theme.font.weight.bold};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.header};
   color: ${(props) => props.color};
 `;
 export const H4 = styled.h4`
   font-size: ${({ theme }) => theme.font.size.xl};
   font-weight: ${({ theme }) => theme.font.weight.bold};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.header};
   color: ${(props) => props.color};
 `;
 export const H3 = styled.h3`
   font-size: ${({ theme }) => theme.font.size.xxl};
   font-weight: ${({ theme }) => theme.font.weight.reg};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.header};
   color: ${(props) => props.color};
 `;
 export const H2 = styled.h2`
   font-size: ${({ theme }) => theme.font.size.xxxl};
   font-weight: ${({ theme }) => theme.font.weight.light};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.header};
   color: ${(props) => props.color};
 `;
 export const H1 = styled.h1`
   font-size: ${({ theme }) => theme.font.size.xxxxl};
   font-weight: ${({ theme }) => theme.font.weight.light};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.font.family.header};
   color: ${(props) => props.color};
 `;
 ////////////////////DATA TEXT////////////////////

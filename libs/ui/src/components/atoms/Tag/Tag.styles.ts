@@ -9,7 +9,7 @@ export const BaseTag = styled.div<{
   align-items: center;
   background-color: ${({ theme, $tagColor }) => theme[`${$tagColor}3`]};
   border: 1px solid ${({ theme, $tagColor }) => theme[`${$tagColor}3`]};
-  border-radius: ${({ theme }) => theme.border.radius};
+  border-radius: ${({ theme }) => theme.tag.radius};
   color: ${({ theme, $tagColor }) => theme[`${$tagColor}11`]};
   height: fit-content;
   width: fit-content;

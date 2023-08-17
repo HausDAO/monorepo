@@ -7,7 +7,6 @@ import { MolochV3Membership } from '@daohaus/utils';
 import {
   Badge,
   Bold,
-  border,
   ParLg,
   ParMd,
   ProfileAvatar,
@@ -26,7 +25,7 @@ const StyledDaoCard = styled.div`
   min-width: 26rem;
   border: 1px solid ${(props) => props.theme.secondary.step5};
   padding: 2.4rem;
-  border-radius: ${border.radius};
+  border-radius: ${(props) => props.theme.card.radius};
   .top-box {
     display: flex;
     justify-content: space-between;

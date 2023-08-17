@@ -41,7 +41,7 @@ export const BaseSelect = styled.select`
   appearance: none;
   background-color: ${({ theme }) => theme.select.bg};
   border: 1px ${({ theme }) => theme.select.border} solid;
-  border-radius: ${field.borderRadius};
+  border-radius: ${({ theme }) => theme.select.radius};
   color: ${({ theme }) => theme.select.color};
   cursor: pointer;
   display: inline-flex;

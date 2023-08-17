@@ -6,7 +6,7 @@ import { field } from '../../../theme/component/fieldFamily';
 export const BaseInput = styled.input`
   background-color: ${({ theme }) => theme.input.bg};
   border: 1px solid ${({ theme }) => theme.input.border};
-  border-radius: ${field.borderRadius};
+  border-radius: ${({ theme }) => theme.field.radius};
   color: ${({ theme }) => theme.input.color};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import { border, DropdownLinkStyles } from '@daohaus/ui';
+import { DropdownLinkStyles } from '@daohaus/ui';
 
 export const OverviewContainer = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export const OverviewContainer = styled.div`
   width: 100%;
   padding: 2.8rem 3.6rem;
 
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
   border: 1px ${({ theme }) => theme.secondary.step5} solid;
   background-color: ${({ theme }) => theme.secondary.step3};
 

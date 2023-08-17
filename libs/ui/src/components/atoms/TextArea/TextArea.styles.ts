@@ -6,7 +6,7 @@ import { field } from '../../../theme/component/fieldFamily';
 export const BaseTextArea = styled.textarea<{ height?: string }>`
   background-color: ${({ theme }) => theme.textarea.bg};
   border: 1px solid ${({ theme }) => theme.textarea.border};
-  border-radius: ${field.borderRadius};
+  border-radius: ${({ theme }) => theme.field.radius};
   color: ${({ theme }) => theme.textarea.color};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};

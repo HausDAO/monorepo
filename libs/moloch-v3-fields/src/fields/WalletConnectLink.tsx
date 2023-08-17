@@ -47,7 +47,7 @@ const WalletConectContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
   border: 1px ${({ theme }) => theme.secondary.step5} solid;
   background-color: ${({ theme }) => theme.secondary.step3};
   padding: 2.2rem;

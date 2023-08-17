@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { ParMd, Link, border, DataIndicator } from '@daohaus/ui';
+import { ParMd, Link, DataIndicator } from '@daohaus/ui';
 import {
   dynamicDecimals,
   formatShortDateTimeFromSeconds,
@@ -21,8 +21,7 @@ const OverviewContainer = styled.div`
   margin-top: 1rem;
   width: 100%;
   padding: 2.8rem 3.6rem;
-
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
   border: 1px ${({ theme }) => theme.secondary.step5} solid;
   background-color: ${({ theme }) => theme.secondary.step3};
 

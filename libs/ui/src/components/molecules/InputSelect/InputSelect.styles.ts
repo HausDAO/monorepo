@@ -11,7 +11,8 @@ export const InputSelectBox = styled.div`
   .select {
     max-width: 100%;
     padding: 0 0.8rem;
-    border-radius: 0 ${field.borderRadius} ${field.borderRadius} 0;
+    border-radius: ${({ theme }) =>
+      `0 ${theme.field.radius} ${theme.field.radius} 0`};
     border-left: none;
     color: white;
     font-weight: ${({ theme }) => theme.font.weight.bold};
@@ -48,7 +49,8 @@ export const InputSelectBox = styled.div`
 
   .input {
     border-right: none;
-    border-radius: ${field.borderRadius} 0 0 ${field.borderRadius};
+    border-radius: ${({ theme }) =>
+      `0 ${theme.field.radius} ${theme.field.radius} 0`};
   }
 
   &.long {

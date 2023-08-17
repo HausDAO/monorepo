@@ -9,7 +9,7 @@ export const FieldAlertWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: ${({ theme }) => theme.border.radius};
+  border-radius: ${({ theme }) => theme.fieldAlert.radius};
   max-width: 600px;
   background: ${({ theme }) => theme.primary.step3};
   border: 1px solid ${({ theme }) => theme.primary.step6};

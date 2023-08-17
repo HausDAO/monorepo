@@ -8,7 +8,7 @@ export const StyledButton = styled.button<{
   $color: ButtonColor;
 }>`
   align-items: center;
-  border-radius: 0.4rem;
+  border-radius: ${({ theme }) => theme.border.radius};
   cursor: pointer;
   display: flex;
   font-size: ${({ theme }) => theme.font.size.md};

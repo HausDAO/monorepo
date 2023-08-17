@@ -834,6 +834,9 @@ export const defaultLightTheme: DefaultTheme = {
       },
     },
   },
+  tag: {
+    radius: border.radius,
+  },
   textarea: {
     bg: secondary.step3,
     border: secondary.step1,

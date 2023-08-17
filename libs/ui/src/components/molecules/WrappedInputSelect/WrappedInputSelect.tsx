@@ -8,14 +8,55 @@ export const WrappedInputSelect = ({
   id,
   selectId,
   rules,
-  ...props
+  options,
+  disabled,
+  long,
+  full,
+  error,
+  warning,
+  placeholder,
+  selectPlaceholder,
+  defaultValue,
+  selectDefault,
+  helperText,
+  label,
+  loading,
+  info,
+  success,
+  hidden,
+  address,
+  rightAddon,
 }: Buildable<InputSelectProps>) => {
   const { register } = useFormContext();
 
   return (
-    <FieldWrapper {...props} id={id} rules={rules}>
+    <FieldWrapper
+      id={id}
+      rules={rules}
+      helperText={helperText}
+      label={label}
+      loading={loading}
+      info={info}
+      error={error}
+      success={success}
+      warning={warning}
+      hidden={hidden}
+      long={long}
+      full={full}
+      address={address}
+      rightAddon={rightAddon}
+    >
       <InputSelect
-        {...props}
+        options={options}
+        disabled={disabled}
+        long={long}
+        full={full}
+        error={error}
+        warning={warning}
+        placeholder={placeholder}
+        selectPlaceholder={selectPlaceholder}
+        defaultValue={defaultValue}
+        selectDefault={selectDefault}
         registerInput={register(id, rules)}
         registerSelect={register(selectId)}
         id={id}

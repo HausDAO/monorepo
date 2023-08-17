@@ -25,7 +25,6 @@ export const WrappedSelect = ({
   info,
   options,
   containerClassName,
-  onChange,
 }: Buildable<SelectProps>) => {
   const { register } = useFormContext();
   return (
@@ -61,7 +60,6 @@ export const WrappedSelect = ({
         hidden={hidden}
         options={options}
         containerClassName={containerClassName}
-        onChange={onChange}
       />
     </FieldWrapper>
   );

@@ -6,7 +6,6 @@ import { Keychain } from '@daohaus/keychain-utils';
 
 import {
   AddressDisplay,
-  border,
   H4,
   ProfileAvatar,
   widthQuery,
@@ -25,7 +24,7 @@ import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
   border: 1px ${({ theme }) => theme.secondary.step5} solid;
   background-color: ${({ theme }) => theme.secondary.step3};
   padding: 2.2rem;

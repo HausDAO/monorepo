@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { border, Card, ProfileAvatar, widthQuery } from '@daohaus/ui';
+import { Card, ProfileAvatar, widthQuery } from '@daohaus/ui';
 
 export const OverviewCard = styled(Card)`
   width: 64rem;
@@ -29,7 +29,7 @@ export const DataGrid = styled.div`
 
 export const DaoProfileContainer = styled.div`
   width: 100%;
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
   border: 1px ${({ theme }) => theme.secondary.step5} solid;
   background-color: ${({ theme }) => theme.secondary.step3};
   padding: 2.2rem;

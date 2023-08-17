@@ -12,7 +12,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   align-items: center;
   background-color: ${({ theme }) => theme.checkbox.bg};
   border: 2px solid ${({ theme }) => theme.checkbox.border};
-  border-radius: 1px;
+  border-radius: ${({ theme }) => theme.checkbox.radius};
   cursor: pointer;
   display: flex;
   height: 18px;

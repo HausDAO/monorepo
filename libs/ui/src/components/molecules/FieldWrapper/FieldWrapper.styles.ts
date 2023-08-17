@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 
-import { field } from '../../../theme';
 import { font } from '../../../theme/global/font';
 
 export const FieldWrapperBase = styled.div`
   width: 100%;
-  max-width: ${field.size.lg};
+  max-width: ${({ theme }) => theme.field.size.lg};
   .field-slot {
     margin-bottom: 1.2rem;
   }
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
   &.hidden {
     display: none;
@@ -36,12 +35,12 @@ export const BottomContainer = styled.div`
   display: flex;
   margin-bottom: 12px;
   width: 100%;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 `;
 

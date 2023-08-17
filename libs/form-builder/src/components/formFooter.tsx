@@ -3,7 +3,7 @@ import { RiCheckLine, RiErrorWarningLine } from 'react-icons/ri/index.js';
 
 import { ExplorerLink } from '@daohaus/connect';
 import { useFormBuilder } from '@daohaus/form-builder-base';
-import { border, Button, ParSm, Loading, Theme } from '@daohaus/ui';
+import { Button, ParSm, Loading, Theme } from '@daohaus/ui';
 
 enum StatusMsg {
   Compile = 'Compiling Transaction Data',
@@ -79,7 +79,7 @@ const getStatusElement = (status: StatusMsg, theme: Theme) => {
 };
 
 const StatusBox = styled.div<{ status: StatusMsg }>`
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme['card'].radius};
   border: 1px ${({ theme, status }) => getStatusColor(status, theme as Theme)}
     solid;
   padding: 1.5rem;

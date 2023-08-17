@@ -36,6 +36,7 @@ import {
   secondaryA,
 } from './global/colors';
 import { font } from './global/font';
+import { border } from './global/border';
 
 import {
   primaryDarkBtn,
@@ -53,9 +54,6 @@ import {
 export const defaultDarkTheme: DefaultTheme = {
   themeName: 'dark',
   font,
-  border: {
-    radius: '0.4rem',
-  },
   transparent: 'transparent',
   rootBgColor: neutralDark.step1,
   rootFontColor: secondaryDark.step12,
@@ -74,6 +72,17 @@ export const defaultDarkTheme: DefaultTheme = {
   ...greenDark,
   ...yellowDark,
   ...redDark,
+  field: {
+    fontWeight: font.weight.reg,
+    fontSize: font.size.md,
+    size: {
+      md: '28rem',
+      lg: '52rem',
+      full: '100%',
+    },
+    radius: border.radius,
+    transition: '0.2s all ease-in-out',
+  },
   // *** ATOMS *** //
   avatar: {
     bg: neutralDark.step9,
@@ -84,6 +93,7 @@ export const defaultDarkTheme: DefaultTheme = {
     success: successDarkBtn,
     warning: warningDarkBtn,
     danger: dangerDarkBtn,
+    radius: border.radius,
   },
   card: {
     bg: secondaryDark.step2,
@@ -93,6 +103,7 @@ export const defaultDarkTheme: DefaultTheme = {
   checkbox: {
     bg: secondaryDark.step3,
     border: secondaryDark.step6,
+    radius: '1px',
     hover: {
       bg: secondaryDark.step4,
       border: secondaryDark.step6,
@@ -226,6 +237,7 @@ export const defaultDarkTheme: DefaultTheme = {
   select: {
     bg: secondaryDark.step2,
     border: 'transparent',
+    radius: border.radius,
     color: secondaryDark.step11,
     hover: {
       bg: secondaryDark.step4,
@@ -309,6 +321,9 @@ export const defaultDarkTheme: DefaultTheme = {
       },
     },
   },
+  tag: {
+    radius: border.radius,
+  },
   textarea: {
     bg: secondaryDark.step3,
     border: secondaryDark.step1,
@@ -338,6 +353,7 @@ export const defaultDarkTheme: DefaultTheme = {
     },
   },
   tooltip: {
+    radius: border.radius,
     icon: {
       color: primaryDark.step9,
     },
@@ -378,6 +394,7 @@ export const defaultDarkTheme: DefaultTheme = {
     },
   },
   dialog: {
+    radius: '8px',
     overlay: {
       bg: secondaryDarkA.step4,
     },
@@ -439,6 +456,7 @@ export const defaultDarkTheme: DefaultTheme = {
   fieldAlert: {
     bg: primaryDark.step3,
     border: primaryDark.step6,
+    radius: border.radius,
     warning: {
       bg: warningDark.step2,
       border: warningDark.step5,
@@ -521,6 +539,7 @@ export const defaultDarkTheme: DefaultTheme = {
   toast: {
     bg: secondaryDark.step3,
     border: secondaryDark.step5,
+    radius: border.radius,
     success: {
       bg: successDark.step3,
       border: successDark.step7,
@@ -546,7 +565,7 @@ export const defaultLightTheme: DefaultTheme = {
   themeName: 'light',
   font,
   border: {
-    radius: '0.4rem',
+    radius: border.radius,
   },
   transparent: 'transparent',
   rootBgColor: secondary.step1,
@@ -566,6 +585,17 @@ export const defaultLightTheme: DefaultTheme = {
   ...green,
   ...yellow,
   ...red,
+  field: {
+    fontWeight: font.weight.reg,
+    fontSize: font.size.md,
+    size: {
+      md: '28rem',
+      lg: '52rem',
+      full: '100%',
+    },
+    radius: border.radius,
+    transition: '0.2s all ease-in-out',
+  },
   // *** ATOMS *** //
   avatar: {
     bg: neutral.step9,
@@ -576,6 +606,7 @@ export const defaultLightTheme: DefaultTheme = {
     success: successBtn,
     warning: warningBtn,
     danger: dangerBtn,
+    radius: border.radius,
   },
   card: {
     bg: secondary.step2,
@@ -585,6 +616,7 @@ export const defaultLightTheme: DefaultTheme = {
   checkbox: {
     bg: secondary.step3,
     border: secondary.step6,
+    radius: border.radius,
     hover: {
       bg: secondary.step4,
       border: secondary.step6,
@@ -718,6 +750,7 @@ export const defaultLightTheme: DefaultTheme = {
   select: {
     bg: secondary.step2,
     border: 'transparent',
+    radius: border.radius,
     color: secondary.step11,
     hover: {
       bg: secondary.step4,
@@ -801,6 +834,9 @@ export const defaultLightTheme: DefaultTheme = {
       },
     },
   },
+  tag: {
+    radius: border.radius,
+  },
   textarea: {
     bg: secondary.step3,
     border: secondary.step1,
@@ -830,6 +866,7 @@ export const defaultLightTheme: DefaultTheme = {
     },
   },
   tooltip: {
+    radius: border.radius,
     icon: {
       color: primary.step9,
     },
@@ -870,6 +907,7 @@ export const defaultLightTheme: DefaultTheme = {
     },
   },
   dialog: {
+    radius: border.radius,
     overlay: {
       bg: secondaryA.step4,
     },
@@ -931,6 +969,7 @@ export const defaultLightTheme: DefaultTheme = {
   fieldAlert: {
     bg: primary.step3,
     border: primary.step6,
+    radius: border.radius,
     warning: {
       bg: warning.step2,
       border: warning.step5,
@@ -1013,6 +1052,7 @@ export const defaultLightTheme: DefaultTheme = {
   toast: {
     bg: secondary.step3,
     border: secondary.step5,
+    radius: border.radius,
     success: {
       bg: success.step3,
       border: success.step7,

@@ -1,17 +1,15 @@
 import styled from 'styled-components';
 
-// TODO: Field theme use
-import { field } from '../../../theme/component/fieldFamily';
-
 export const InputSelectBox = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
 
   .select {
     max-width: 100%;
     padding: 0 0.8rem;
-    border-radius: 0 ${field.borderRadius} ${field.borderRadius} 0;
+    border-radius: ${({ theme }) =>
+      `0 ${theme.field.radius} ${theme.field.radius} 0`};
     border-left: none;
     color: white;
     font-weight: ${({ theme }) => theme.font.weight.bold};
@@ -48,14 +46,15 @@ export const InputSelectBox = styled.div`
 
   .input {
     border-right: none;
-    border-radius: ${field.borderRadius} 0 0 ${field.borderRadius};
+    border-radius: ${({ theme }) =>
+      `0 ${theme.field.radius} ${theme.field.radius} 0`};
   }
 
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 `;

@@ -2,7 +2,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import styled from 'styled-components';
 import { FieldWrapper } from './FieldWrapper';
 import { field } from '../../../theme';
-import { border } from '../../../theme/global/border';
 import { Button } from '../../atoms/Button';
 import { ParXs } from '../../atoms/Typography';
 
@@ -18,7 +17,7 @@ const DummyField = styled.div`
   background-color: ${({ theme }) => theme.secondary.step3};
   width: 100%;
   max-width: ${field.size.md};
-  border-radius: ${border.radius};
+  border-radius: '0.4rem';
   height: 4.8rem;
 `;
 

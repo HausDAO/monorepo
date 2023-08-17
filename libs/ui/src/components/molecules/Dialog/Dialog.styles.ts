@@ -32,7 +32,7 @@ const contentShow = keyframes`
 
 export const StyledDialogContent = styled(DialogPrimitive.Content)`
   background-color: ${({ theme }) => theme.dialog.content.bg};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.dialog.radius};
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   color: ${({ theme }) => theme.dialog.content.color};

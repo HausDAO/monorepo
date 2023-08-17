@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-// TODO: Field theme use
-import { field } from '../../../theme/component/fieldFamily';
-
 // TODO: Delete props added to styled div
 export const FieldAlertWrapper = styled.div`
   padding: 1.6rem;
@@ -15,7 +12,7 @@ export const FieldAlertWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.primary.step6};
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 
   &.warning {

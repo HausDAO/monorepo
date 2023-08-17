@@ -12,7 +12,6 @@ export const StyledRow = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 3.6rem;
 
   .left-section,
   .right-section {

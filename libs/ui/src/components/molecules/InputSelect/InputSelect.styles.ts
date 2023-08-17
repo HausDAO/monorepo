@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
-// TODO: Field theme use
-import { field } from '../../../theme/component/fieldFamily';
-
 export const InputSelectBox = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
 
   .select {
     max-width: 100%;
@@ -54,10 +51,10 @@ export const InputSelectBox = styled.div`
   }
 
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 `;

@@ -1,23 +1,20 @@
 import styled from 'styled-components';
 
-// TODO: Field theme use
-import { field } from '../../../theme/component/fieldFamily';
-
 export const BaseTextArea = styled.textarea<{ height?: string }>`
   background-color: ${({ theme }) => theme.textarea.bg};
   border: 1px solid ${({ theme }) => theme.textarea.border};
   border-radius: ${({ theme }) => theme.field.radius};
   color: ${({ theme }) => theme.textarea.color};
-  font-size: ${field.fontSize};
-  font-weight: ${field.fontWeight};
+  font-size: ${({ theme }) => theme.field.fontSize};
+  font-weight: ${({ theme }) => theme.field.fontWeight};
   font-family: ${({ theme }) => theme.font.family.body};
   height: ${({ height }: { height?: string }) => height || '12rem'};
   line-height: 150%;
   letter-spacing: 1.5px;
-  max-width: ${field.size.lg};
+  max-width: ${({ theme }) => theme.field.size.lg};
   padding: 1.2rem 1.8rem;
   resize: none;
-  transition: ${field.transition};
+  transition: ${({ theme }) => theme.field.transition};
   width: 100%;
 
   ::placeholder {
@@ -47,7 +44,7 @@ export const BaseTextArea = styled.textarea<{ height?: string }>`
   }
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 
   &.success {

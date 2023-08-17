@@ -1,22 +1,19 @@
 import styled from 'styled-components';
 
-// TODO: Field theme use
-import { field } from '../../../theme/component/fieldFamily';
-
 export const BaseInput = styled.input`
   background-color: ${({ theme }) => theme.input.bg};
   border: 1px solid ${({ theme }) => theme.input.border};
   border-radius: ${({ theme }) => theme.field.radius};
   color: ${({ theme }) => theme.input.color};
-  font-size: ${field.fontSize};
-  font-weight: ${field.fontWeight};
+  font-size: ${({ theme }) => theme.field.fontSize};
+  font-weight: ${({ theme }) => theme.field.fontWeight};
   font-family: ${({ theme }) => theme.font.family.body};
   height: 4.8rem;
   line-height: 150%;
   letter-spacing: 1.5px;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
   padding: 1.2rem 1.8rem;
-  transition: ${field.transition};
+  transition: ${({ theme }) => theme.field.transition};
   width: 100%;
 
   ::placeholder {
@@ -53,15 +50,15 @@ export const BaseInput = styled.input`
   }
 
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 
   &.input-select {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 
   &.success {
@@ -80,7 +77,7 @@ export const BaseInput = styled.input`
 export const WithIcon = styled.div`
   display: inline-block;
   position: relative;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
   width: 100%;
 
   svg {
@@ -95,10 +92,10 @@ export const WithIcon = styled.div`
   }
 
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 `;

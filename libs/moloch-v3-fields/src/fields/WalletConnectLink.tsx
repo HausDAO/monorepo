@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { useDaoData } from '@daohaus/moloch-v3-hooks';
 import {
-  border,
   Buildable,
   Button,
   Field,

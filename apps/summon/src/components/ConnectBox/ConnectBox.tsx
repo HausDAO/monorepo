@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { useDHConnect } from '@daohaus/connect';
-import { border, Button, ParSm } from '@daohaus/ui';
+import { Button, ParSm } from '@daohaus/ui';
 
 const ConnectBoxContainer = styled.div`
   border-radius: ${border.radius};

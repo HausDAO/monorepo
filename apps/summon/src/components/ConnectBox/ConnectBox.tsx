@@ -4,7 +4,7 @@ import { useDHConnect } from '@daohaus/connect';
 import { Button, ParSm } from '@daohaus/ui';
 
 const ConnectBoxContainer = styled.div`
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
   border: 1px ${({ theme }) => theme.danger.step9} solid;
   padding: 1.5rem;
   margin-bottom: 2rem;

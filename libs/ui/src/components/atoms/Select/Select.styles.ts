@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-// TODO: Marker for field theme use
-import { field } from '../../../theme/component/fieldFamily';
 
 export const WithIcon = styled.div`
   position: relative;
   width: 100%;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
 
   svg {
     position: absolute;
@@ -16,11 +14,11 @@ export const WithIcon = styled.div`
   }
 
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
 
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 
   &.success {
@@ -41,26 +39,26 @@ export const BaseSelect = styled.select`
   appearance: none;
   background-color: ${({ theme }) => theme.select.bg};
   border: 1px ${({ theme }) => theme.select.border} solid;
-  border-radius: ${field.borderRadius};
+  border-radius: ${({ theme }) => theme.select.radius};
   color: ${({ theme }) => theme.select.color};
   cursor: pointer;
   display: inline-flex;
-  font-size: ${field.fontSize};
-  font-weight: ${field.fontWeight};
+  font-size: ${({ theme }) => theme.field.fontSize};
+  font-weight: ${({ theme }) => theme.field.fontWeight};
   font-family: ${({ theme }) => theme.font.family.body};
   height: 4.8rem;
   justify-content: space-between;
   line-height: 150%;
-  max-width: ${field.size.md};
+  max-width: ${({ theme }) => theme.field.size.md};
   padding: 0 1.8rem;
-  transition: ${field.transition};
+  transition: ${({ theme }) => theme.field.transition};
   width: 100%;
 
   &.long {
-    max-width: ${field.size.lg};
+    max-width: ${({ theme }) => theme.field.size.lg};
   }
   &.full {
-    max-width: ${field.size.full};
+    max-width: ${({ theme }) => theme.field.size.full};
   }
 
   &.success {
@@ -102,7 +100,7 @@ export const StyledOption = styled.option`
   background-color: ${({ theme }) => theme.select.option.bg};
   color: ${({ theme }) => theme.select.option.color};
   font-family: ${({ theme }) => theme.font.family.body};
-  font-size: ${field.fontSize};
-  font-weight: ${field.fontWeight};
+  font-size: ${({ theme }) => theme.field.fontSize};
+  font-weight: ${({ theme }) => theme.field.fontWeight};
   height: 4.8rem;
 `;

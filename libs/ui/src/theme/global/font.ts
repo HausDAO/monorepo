@@ -1,6 +1,7 @@
 // TODO: Update to use theme value across all packages
 export const font = {
   family: {
+    header: `'Mulish', sans-serif`,
     body: `'Mulish', sans-serif`,
     data: `'Space Mono', monospace`,
   },

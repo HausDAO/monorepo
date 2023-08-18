@@ -25,7 +25,6 @@ export const WrappedFileInput = ({
   label,
   loading,
   info,
-  onChange,
   multiple,
   accept,
 }: Buildable<FileInputProps>) => {
@@ -64,7 +63,6 @@ export const WrappedFileInput = ({
         value={value}
         disabled={disabled}
         hidden={hidden}
-        onChange={onChange}
         multiple={multiple}
         accept={accept}
       />

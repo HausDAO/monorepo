@@ -22,7 +22,7 @@ export const TooltipArrow = styled(TooltipPrimitive.Arrow)`
 
 export const TooltipContent = styled(TooltipPrimitive.Content)`
   background-color: ${({ theme }) => theme.tooltip.content.bg};
-  border-radius: ${({ theme }) => theme.border.radius};
+  border-radius: ${({ theme }) => theme.tooltip.radius};
   color: ${({ theme }) => theme.tooltip.content.color};
   font-size: ${({ theme }) => theme.font.size.md};
   line-height: 2.4rem;

@@ -1,7 +1,7 @@
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { RiArrowRightSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
-import { Bold, border, DataSm, ParMd, Tabs } from '@daohaus/ui';
+import { Bold, DataSm, ParMd, Tabs } from '@daohaus/ui';
 
 import { CustomFormLego } from '../legos/config';
 
@@ -30,7 +30,7 @@ const ListItemHoverContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 1rem;
-  border-radius: ${border.radius};
+  border-radius: ${({ theme }) => theme.card.radius};
 
   &:hover {
     background: 1px ${({ theme }) => theme.secondary.step3};

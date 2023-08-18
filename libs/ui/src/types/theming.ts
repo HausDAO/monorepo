@@ -19,6 +19,7 @@ export interface DAOhausTheme {
   themeName: string;
   font: {
     family: {
+      header: string;
       body: string;
       data: string;
     };
@@ -42,9 +43,6 @@ export interface DAOhausTheme {
     };
     lineHeight: string;
     letterSpacing: string;
-  };
-  border: {
-    radius: string;
   };
   rootBgColor: string;
   rootFontColor: string;
@@ -130,6 +128,17 @@ export interface DAOhausTheme {
   red10: string;
   red11: string;
   red12: string;
+  field: {
+    fontWeight: number;
+    fontSize: string;
+    size: {
+      md: string;
+      lg: string;
+      full: string;
+    };
+    radius: string;
+    transition: string;
+  };
   avatar: {
     bg: string;
   };
@@ -139,6 +148,7 @@ export interface DAOhausTheme {
     success: ButtonTheme;
     warning: ButtonTheme;
     danger: ButtonTheme;
+    radius: string;
   };
   card: {
     bg: string;
@@ -148,6 +158,7 @@ export interface DAOhausTheme {
   checkbox: {
     bg: string;
     border: string;
+    radius: string;
     hover: {
       bg: string;
       border: string;
@@ -281,6 +292,7 @@ export interface DAOhausTheme {
   select: {
     bg: string;
     border: string;
+    radius: string;
     color: string;
     hover: {
       bg: string;
@@ -364,6 +376,9 @@ export interface DAOhausTheme {
       };
     };
   };
+  tag: {
+    radius: string;
+  };
   textarea: {
     bg: string;
     border: string;
@@ -393,6 +408,7 @@ export interface DAOhausTheme {
     };
   };
   tooltip: {
+    radius: string;
     icon: {
       color: string;
     };
@@ -433,6 +449,7 @@ export interface DAOhausTheme {
     };
   };
   dialog: {
+    radius: string;
     overlay: {
       bg: string;
     };
@@ -494,6 +511,7 @@ export interface DAOhausTheme {
   fieldAlert: {
     bg: string;
     border: string;
+    radius: string;
     warning: {
       bg: string;
       border: string;
@@ -576,6 +594,7 @@ export interface DAOhausTheme {
   toast: {
     bg: string;
     border: string;
+    radius: string;
     success: {
       bg: string;
       border: string;

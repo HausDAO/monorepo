@@ -47,7 +47,7 @@ export const Root = styled(ToastPrimitive.Root)`
   flex-direction: column;
   background-color: ${({ theme }) => theme.secondary.step3};
   border: 1px solid ${({ theme }) => theme.secondary.step5};
-  border-radius: 0.8rem;
+  border-radius: ${({ theme }) => theme.toast.radius};
   height: auto;
   padding: 2rem;
   width: auto;

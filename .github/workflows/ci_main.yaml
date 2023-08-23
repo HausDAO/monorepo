@@ -58,4 +58,4 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           echo '//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}' > .npmrc
-          npx nx affected --target npmPublish --base $BASE --otp ${{ secrets.NPM_AUTH_TOKEN }} --tag alpha
+          npx nx affected --target npmPublish --base $BASE --otp ${{ secrets.NPM_AUTH_TOKEN }} --tag latest

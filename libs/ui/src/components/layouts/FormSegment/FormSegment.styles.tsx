@@ -4,7 +4,6 @@ import { Divider } from '../../atoms';
 
 export const StyledFormSegment = styled.section`
   width: 100%;
-  margin-bottom: 2.4rem;
 
   .segment-title {
     margin-bottom: 3.2rem;

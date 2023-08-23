@@ -7,7 +7,7 @@ export const BaseInput = styled.input`
   color: ${({ theme }) => theme.input.color};
   font-size: ${({ theme }) => theme.field.fontSize};
   font-weight: ${({ theme }) => theme.field.fontWeight};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.field.inputFont};
   height: 4.8rem;
   line-height: 150%;
   letter-spacing: 1.5px;

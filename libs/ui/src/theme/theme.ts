@@ -590,6 +590,8 @@ export const defaultLightTheme: DefaultTheme = {
   field: {
     fontWeight: font.weight.reg,
     fontSize: font.size.md,
+    inputFont: font.family.body,
+    labelFont: font.family.header,
     size: {
       md: '28rem',
       lg: '52rem',

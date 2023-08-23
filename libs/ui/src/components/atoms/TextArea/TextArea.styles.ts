@@ -7,7 +7,7 @@ export const BaseTextArea = styled.textarea<{ height?: string }>`
   color: ${({ theme }) => theme.textarea.color};
   font-size: ${({ theme }) => theme.field.fontSize};
   font-weight: ${({ theme }) => theme.field.fontWeight};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.field.inputFont};
   height: ${({ height }: { height?: string }) => height || '12rem'};
   line-height: 150%;
   letter-spacing: 1.5px;

@@ -131,6 +131,8 @@ export interface DAOhausTheme {
   field: {
     fontWeight: number;
     fontSize: string;
+    labelFont: string;
+    inputFont: string;
     size: {
       md: string;
       lg: string;

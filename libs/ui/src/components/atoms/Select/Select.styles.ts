@@ -45,7 +45,7 @@ export const BaseSelect = styled.select`
   display: inline-flex;
   font-size: ${({ theme }) => theme.field.fontSize};
   font-weight: ${({ theme }) => theme.field.fontWeight};
-  font-family: ${({ theme }) => theme.font.family.body};
+  font-family: ${({ theme }) => theme.field.inputFont};
   height: 4.8rem;
   justify-content: space-between;
   line-height: 150%;

@@ -4,4 +4,5 @@ export type FormSegmentProps = {
   formArea: React.ReactNode;
   collapsible?: boolean;
   defaultOpen?: boolean;
+  showDivider?: boolean;
 };

@@ -10,6 +10,7 @@ export const FormSegment = ({
   title,
   description,
   formArea,
+  showDivider = true,
 }: FormSegmentProps) => {
   if (collapsible) {
     return (
@@ -26,7 +27,7 @@ export const FormSegment = ({
           triggerLabel={''}
           width="100%"
         />
-        <StyledDivider />
+        {showDivider && <StyledDivider />}
       </>
     );
   }
@@ -35,7 +36,7 @@ export const FormSegment = ({
       <H5 className="segment-title">{title}</H5>
       <ParMd className="segment-description">{description}</ParMd>
       <div>{formArea}</div>
-      <Divider />
+      {showDivider && <Divider />}
     </StyledFormSegment>
   );
 };

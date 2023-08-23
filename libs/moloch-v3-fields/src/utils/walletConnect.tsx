@@ -1,6 +1,11 @@
 import { useState, useCallback } from 'react';
 import type { BigIntish, BytesLike } from '@daohaus/utils';
-import { hashMessage, _TypedDataEncoder } from 'ethers/lib/utils';
+import {
+  hashMessage,
+  isHexString,
+  toUtf8String,
+  _TypedDataEncoder,
+} from 'ethers/lib/utils';
 import { LOCAL_ABI } from '@daohaus/abis';
 import { encodeFunction } from '@daohaus/utils';
 import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
@@ -52,14 +57,37 @@ export const isObjectEIP712TypedData = (
   );
 };
 
+const getDecodedMessage = (message: string): string => {
+  if (isHexString(message)) {
+    // If is a hex string we try to extract a message
+    try {
+      return toUtf8String(message);
+    } catch (e) {
+      // the hex string is not UTF8 encoding so we will return the raw message.
+    }
+  }
+  return message;
+};
+
 export const encodeSafeSignMessage = (
   chainId: ValidNetwork,
   message: string | EIP712TypedData
 ) => {
   const signLibAddress = CONTRACT_KEYCHAINS.GNOSIS_SIGNLIB[chainId];
-  const msgHash = isObjectEIP712TypedData(message)
-    ? _TypedDataEncoder.hash(message.domain, message.types, message.message)
-    : hashMessage(message);
+  const signedTypedMessage = (message: string | EIP712TypedData): string => {
+    if (isObjectEIP712TypedData(message)) {
+      const typesCopy = { ...message.types };
+      // Source: https://github.com/safe-global/safe-wallet-web/blob/dev/src/components/tx-flow/flows/SignMessageOnChain/ReviewSignMessageOnChain.tsx
+      // We need to remove the EIP712Domain type from the types object
+      // Because it's a part of the JSON-RPC payload, but for the `.hash` in ethers.js
+      // The types are not allowed to be recursive, so ever type must either be used by another type, or be
+      // the primary type. And there must only be one type that is not used by any other type.
+      delete typesCopy.EIP712Domain;
+      return _TypedDataEncoder.hash(message.domain, typesCopy, message.message);
+    }
+    return hashMessage(getDecodedMessage(message));
+  };
+  const msgHash = signedTypedMessage(message);
   const data = encodeFunction(LOCAL_ABI.GNOSIS_SIGNLIB, 'signMessage', [
     msgHash,
   ]);

@@ -212,6 +212,7 @@ export async function prepareTX(args: {
       abi,
       args: processedArgs,
       functionName: method,
+      value: BigInt(0),
     });
 
     lifeCycleFns?.onRequestSign?.();

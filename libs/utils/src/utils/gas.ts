@@ -26,21 +26,21 @@ export const getGasCostEstimate = async (
 export const getProcessingGasLimit = (
   actionGasEstimate: string | number,
   chainId: string
-): string => {
+): bigint => {
   if (chainId === '0xa4b1' || chainId === '0xa') {
-    return (
+    return BigInt(
       Number(actionGasEstimate) > 0
         ? Number(actionGasEstimate) +
-          PROCESS_PROPOSAL_GAS_LIMIT_ADDITION +
-          L2_ADDITIONAL_GAS
+            PROCESS_PROPOSAL_GAS_LIMIT_ADDITION +
+            L2_ADDITIONAL_GAS
         : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6 + L2_ADDITIONAL_GAS
-    ).toFixed();
+    );
   }
-  return (
+  return BigInt(
     Number(actionGasEstimate) > 0
       ? Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
       : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6
-  ).toFixed();
+  );
 };
 
 // moved getGasCostEstimate function to utils/ethersFallback.ts

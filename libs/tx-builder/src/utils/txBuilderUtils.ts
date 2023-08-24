@@ -212,6 +212,10 @@ export async function prepareTX(args: {
       abi,
       args: processedArgs,
       functionName: method,
+      value: overrides.value,
+      gas: overrides.gasLimit,
+      maxFeePerGas: overrides.gasPrice,
+      blockTag: overrides.blockTag,
     });
 
     lifeCycleFns?.onRequestSign?.();

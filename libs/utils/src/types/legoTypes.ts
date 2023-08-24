@@ -1,8 +1,10 @@
 import { JSXElementConstructor } from 'react';
-import { ValidateField } from '../utils';
+import { BlockTag } from 'viem';
+import { Keychain } from '@daohaus/keychain-utils';
+
 import { ABI, ArgType } from './contract';
 import { EthAddress, RequireOnlyOne } from './general';
-import { Keychain } from '@daohaus/keychain-utils';
+import { ValidateField } from '../utils';
 
 export type LookupType = Record<
   string,
@@ -139,6 +141,14 @@ export type TXOverrides = {
   blockTag?: ValidArgType;
 };
 
+export type TXStaticOverrides = {
+  gasLimit?: bigint;
+  value?: bigint;
+  gasPrice?: bigint;
+  from?: `0x${string}`;
+  blockTag?: BlockTag;
+};
+
 export type TXLegoBase = {
   id: string;
   contract: ContractLego;
@@ -147,7 +157,7 @@ export type TXLegoBase = {
   argCallback?: string;
   staticArgs?: ArgType[];
   overrides?: TXOverrides;
-  staticOverrides?: TXOverrides;
+  staticOverrides?: TXStaticOverrides;
   disablePoll?: boolean;
   customPoll?: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

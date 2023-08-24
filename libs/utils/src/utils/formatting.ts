@@ -1,6 +1,6 @@
 import { formatEther } from 'viem';
 
-import { Noun } from '../types';
+import { ArgType, Noun } from '../types';
 
 export const truncateAddress = (addr: string) =>
   `${addr.slice(0, 6)}...${addr.slice(-4)}`;
@@ -10,6 +10,11 @@ export const handlePluralNoun = (noun: Noun, count: number) =>
   count === 1 ? noun.singular : noun.plural;
 export const fromWei = (amt: string): string => {
   return formatEther(BigInt(amt)).toString();
+};
+export const toBigInt = (amt?: ArgType): bigint | undefined => {
+  if (amt) {
+    return BigInt(amt as string | number | boolean | bigint);
+  }
 };
 export const isJSON = (obj: unknown) => {
   try {

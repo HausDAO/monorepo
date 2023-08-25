@@ -1,9 +1,11 @@
-import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
+
+import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { CurrentDaoProvider, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { Footer } from '@daohaus/ui';
+
 import { HeaderAvatar } from '../components/HeaderAvatar';
 
 export const DaoContainer = () => {

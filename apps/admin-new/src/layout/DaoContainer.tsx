@@ -4,6 +4,7 @@ import { CurrentDaoProvider, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { Footer } from '@daohaus/ui';
+import { HeaderAvatar } from '../components/HeaderAvatar';
 
 export const DaoContainer = () => {
   const { address } = useDHConnect();
@@ -49,6 +50,16 @@ export const DaoContainer = () => {
         navLinks={navLinks}
         dropdownLinks={moreLinks}
         footer={<Footer />}
+        leftNav={
+          dao?.name &&
+          dao?.id && (
+            <HeaderAvatar
+              name={dao.name}
+              address={dao.id}
+              imgUrl={dao?.avatarImg}
+            />
+          )
+        }
       >
         <CurrentDaoProvider
           userAddress={address}

@@ -32,8 +32,8 @@ export const ContentContainer = styled.div`
   gap: 1rem;
 `;
 
-export const StyledTitle = styled(Bold)<{ active: boolean }>`
-  color: ${({ theme, active }) => active && theme.primary.step10};
+export const StyledTitle = styled(Bold)<{ $active: boolean }>`
+  color: ${({ theme, $active }) => $active && theme.primary.step10};
 `;
 
 export const StyledUpArrow = styled(RiArrowUpSLine)`

@@ -1,23 +1,38 @@
-import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
+import { BsPlusLg } from 'react-icons/bs';
 import { ProposalList } from '@daohaus/moloch-v3-macro-ui';
-import { ButtonRouterLink } from '../components/ButtonRouterLink';
+import { Button, Dialog, DialogContent, DialogTrigger } from '@daohaus/ui';
 
-export const CUSTOM_APP_PROPOSAL_TYPE_LABELS: Record<string, string> = {
-  INIT_VOTE: 'Initiate Vote',
+import { NewProposalList } from '../components/NewProposalList';
+import {
+  ADVANCED_PROPOSAL_FORMS,
+  BASIC_PROPOSAL_FORMS,
+} from '@daohaus/moloch-v3-legos';
+import { CustomFormLego } from '../legos/legoConfig';
+
+const prepareProposals = (proposals: Record<string, CustomFormLego>) => {
+  return Object.keys(proposals).map((key) => proposals[key]);
 };
 
 export const Proposals = () => {
-  const { daoId, daoChain } = useCurrentDao();
+  const basicProposals = prepareProposals(BASIC_PROPOSAL_FORMS);
+  const advancedProposals = prepareProposals(ADVANCED_PROPOSAL_FORMS);
 
   return (
     <ProposalList
       header="Proposals"
       allowLinks={true}
-      customProposalTypeLabels={CUSTOM_APP_PROPOSAL_TYPE_LABELS}
       rightActionEl={
-        <ButtonRouterLink to={`/molochv3/${daoChain}/${daoId}/formtest`}>
-          New Proposal
-        </ButtonRouterLink>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button IconLeft={BsPlusLg}>New Proposal</Button>
+          </DialogTrigger>
+          <DialogContent title="Choose Proposal Type">
+            <NewProposalList
+              basicProposals={basicProposals}
+              advancedProposals={advancedProposals}
+            />
+          </DialogContent>
+        </Dialog>
       }
     />
   );

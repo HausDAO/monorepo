@@ -172,7 +172,7 @@ export const ProposalHistoryCard = ({
             <DialogContent
               alignButtons="end"
               rightButton={{
-                closeDialog: true,
+                $closeDialog: true,
                 fullWidth: isMobile,
               }}
               title={`Proposal Votes (${totalVotes})`}

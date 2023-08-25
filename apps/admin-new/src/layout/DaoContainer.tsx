@@ -9,7 +9,7 @@ import { Footer } from '@daohaus/ui';
 import { HeaderAvatar } from '../components/HeaderAvatar';
 
 export const DaoContainer = () => {
-  const { address } = useDHConnect();
+  const { address, publicClient } = useDHConnect();
   const { daoChain, daoId, proposalId, memberAddress } = useParams<{
     daoChain: ValidNetwork;
     daoId: string;
@@ -46,6 +46,7 @@ export const DaoContainer = () => {
       daoId={daoId}
       safeId={dao?.safeAddress}
       appState={{ dao, userAddress: address }}
+      publicClient={publicClient}
     >
       <DHLayout
         pathname={location.pathname}

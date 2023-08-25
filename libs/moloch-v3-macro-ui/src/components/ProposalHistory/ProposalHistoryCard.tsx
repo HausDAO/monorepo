@@ -105,7 +105,7 @@ export const ProposalHistoryCard = ({
       <VisibleContainer>
         <ContentContainer>
           <ParLg>
-            <StyledTitle active={element.active}>{element.title}</StyledTitle>
+            <StyledTitle $active={element.active}>{element.title}</StyledTitle>
           </ParLg>
           {element.text && <ParMd>{element.text}</ParMd>}
         </ContentContainer>
@@ -129,7 +129,7 @@ export const ProposalHistoryCard = ({
             <DialogContent
               alignButtons="end"
               rightButton={{
-                closeDialog: true,
+                $closeDialog: true,
                 fullWidth: isMobile,
               }}
               title={`Proposal Votes (${totalVotes})`}

@@ -206,8 +206,8 @@ const HeaderContainer = styled.div`
   display: flex;
 `;
 
-const StyledPropType = styled.span<{ warning: boolean }>`
-  color: ${({ theme, warning }) => warning && theme.warning.step9};
+const StyledPropType = styled.span<{ $warning: boolean }>`
+  color: ${({ theme, $warning }) => $warning && theme.warning.step9};
 `;
 
 const WarningIcon = styled(RiErrorWarningLine)`
@@ -289,7 +289,7 @@ export const OverviewHeader = ({
             )}
             <ParSm color={theme.secondary.step11}>
               <StyledPropType
-                warning={sensitiveProposalTypes[proposal.proposalType]}
+                $warning={sensitiveProposalTypes[proposal.proposalType]}
               >
                 {getProposalTypeLabel(proposal.proposalType, {
                   ...proposalTypes,

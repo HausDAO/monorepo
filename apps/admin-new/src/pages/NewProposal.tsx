@@ -2,7 +2,11 @@ import { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { FormBuilder } from '@daohaus/form-builder';
-import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoProposals,
+} from '@daohaus/moloch-v3-hooks';
 import { getFormLegoById } from '@daohaus/moloch-v3-legos';
 import { AppFieldLookup } from '../legos/legoConfig';
 
@@ -11,9 +15,11 @@ export function NewProposal() {
   const navigate = useNavigate();
   const { daoChain, daoId } = useCurrentDao();
   const { refetch } = useDaoData();
+  const { refetch: refetchProposals } = useDaoProposals();
 
   const onFormComplete = () => {
     refetch?.();
+    refetchProposals?.();
     navigate(`/molochV3/${daoChain}/${daoId}/proposals`);
   };
 

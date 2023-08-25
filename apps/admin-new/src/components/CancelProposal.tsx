@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react';
 
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoProposal,
+} from '@daohaus/moloch-v3-hooks';
 import { ACTION_TX } from '@daohaus/moloch-v3-legos';
 import { useDHConnect } from '@daohaus/connect';
 import { useTxBuilder } from '@daohaus/tx-builder';
@@ -22,6 +26,7 @@ export const CancelProposal = ({
 }) => {
   const { daoChain } = useCurrentDao();
   const { dao, isLoading: isLoadingDao, refetch } = useDaoData();
+  const { refetch: refetchProposal } = useDaoProposal();
   const { chainId, address } = useDHConnect();
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
@@ -62,6 +67,7 @@ export const CancelProposal = ({
           });
           setIsLoading(false);
           refetch();
+          refetchProposal();
           onSuccess();
         },
       },

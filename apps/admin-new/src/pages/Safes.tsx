@@ -1,46 +1,53 @@
-import React from 'react';
-import { ValidNetwork } from '@daohaus/keychain-utils';
-import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
-import { DataLg, Link, ParLg, SingleColumnLayout } from '@daohaus/ui';
-import { generateGnosisUiLink } from '@daohaus/utils';
-import { SafeCard, SafesList } from '@daohaus/moloch-v3-macro-ui';
-import { JSONDisplay } from '../components/JSONDisplay';
+import React, { useState } from 'react';
+import {
+  useConnectedMember,
+  useCurrentDao,
+  useDaoData,
+} from '@daohaus/moloch-v3-hooks';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  SingleColumnLayout,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
+import { SafesList } from '@daohaus/moloch-v3-macro-ui';
+import AddSafeForm from '../components/AddSafeForm';
 
 export const Safes = () => {
   const { daoChain } = useCurrentDao();
   const { dao } = useDaoData();
+  const { connectedMember } = useConnectedMember();
+  const [open, setOpen] = useState(false);
+  const isMobile = useBreakpoint(widthQuery.sm);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <SingleColumnLayout>
-      <ParLg>Treasury</ParLg>
-      <Link
-        href={generateGnosisUiLink({
-          chainId: daoChain as ValidNetwork,
-          address: dao?.safeAddress,
-        })}
-      >
-        {dao?.safeAddress}
-      </Link>
-      <ParLg>Safes</ParLg>
-      <JSONDisplay data={dao?.vaults} />
+    <SingleColumnLayout
+      title="Safes"
+      actions={
+        connectedMember && (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button color="secondary" fullWidth={isMobile}>
+                New Safe
+              </Button>
+            </DialogTrigger>
 
-      <hr />
-
+            <DialogContent title="Add Safe">
+              <AddSafeForm onSuccess={handleClose} />
+            </DialogContent>
+          </Dialog>
+        )
+      }
+    >
       {dao && daoChain && (
-        <>
-          <DataLg>single vault component</DataLg>
-          <SafeCard
-            dao={dao}
-            safe={dao.vaults[0]}
-            daoChain={daoChain}
-            includeLinks={true}
-          />
-
-          <hr />
-          <DataLg>all vaults component</DataLg>
-
-          <SafesList daoChain={daoChain} daoId={dao.id} includeLinks={true} />
-        </>
+        <SafesList daoChain={daoChain} daoId={dao.id} includeLinks={true} />
       )}
     </SingleColumnLayout>
   );

@@ -16,11 +16,6 @@ export const Settings = () => {
           daoId={dao.id}
           includeLinks={true}
         />
-        // <GovernanceSettings
-        //   daoChain={daoChain as keyof Keychain}
-        //   dao={dao}
-        //   includeLinks={true}
-        // />
       )}
     </SingleColumnLayout>
   );

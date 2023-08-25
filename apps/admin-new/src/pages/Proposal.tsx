@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { useCurrentDao, useDaoProposal } from '@daohaus/moloch-v3-hooks';
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoProposal,
+} from '@daohaus/moloch-v3-hooks';
 import {
   ProposalActions,
   ProposalDetailsContainer,
@@ -47,18 +51,15 @@ const RightCard = styled(Card)`
   }
 `;
 
-const CUSTOM_APP_PROPOSAL_TYPE_LABELS: Record<string, string> = {
-  INIT_VOTE: 'Initiate Vote',
-};
-
-const CUSTOM_PROPOSAL_TYPE_WARNINGS: Record<ProposalTypeIds | string, string> =
-  {
-    INIT_VOTE: 'Proposal for DAO voting signal. No transactions are executed.',
-  };
-
 export const Proposal = () => {
   const { proposal, refetch } = useDaoProposal();
+  const { refetch: refetchDao } = useDaoData();
   const { daoChain, daoId } = useCurrentDao();
+
+  const handleSuccess = () => {
+    refetch();
+    refetchDao();
+  };
 
   if (!daoChain || !daoId)
     return (
@@ -79,7 +80,7 @@ export const Proposal = () => {
       title={proposal?.title}
       subtitle={`${proposal?.proposalId} | ${getProposalTypeLabel(
         proposal?.proposalType,
-        { ...PROPOSAL_TYPE_LABELS, ...CUSTOM_APP_PROPOSAL_TYPE_LABELS }
+        { ...PROPOSAL_TYPE_LABELS }
       )}`}
       actions={
         proposal && (
@@ -99,7 +100,6 @@ export const Proposal = () => {
                 actionToProposalType: DAO_METHOD_TO_PROPOSAL_TYPE,
                 proposalTypeWarning: {
                   ...PROPOSAL_TYPE_WARNINGS,
-                  ...CUSTOM_PROPOSAL_TYPE_WARNINGS,
                 },
               }}
             />
@@ -113,8 +113,8 @@ export const Proposal = () => {
             daoChain={daoChain}
             daoId={daoId}
             lifeCycleFnsOverride={{
-              onPollError: () => refetch(),
-              onPollSuccess: () => refetch(),
+              onPollError: () => handleSuccess(),
+              onPollSuccess: () => handleSuccess(),
             }}
           />
           <ProposalHistory

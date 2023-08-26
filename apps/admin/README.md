@@ -18,5 +18,4 @@ Core DAO interface for DAO administration:
 ## Current Deployments
 
 [Staging: admin.daohaus.fun](https://admin.daohaus.fun/)
-
-Production - TBD
+[Production: admin.daohaus.club](https://admin.daohaus.club/)

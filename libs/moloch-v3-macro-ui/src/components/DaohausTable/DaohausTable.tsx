@@ -3,7 +3,6 @@ import { useTable, Column } from 'react-table';
 
 import { Button } from '@daohaus/ui';
 
-import { ColumnSortIcons } from './ColumnSortIcons';
 import {
   HeaderCellContainer,
   Table,
@@ -13,6 +12,7 @@ import {
   Thead,
   Tr,
 } from './DaohausTable.styles';
+import { ColumnSortIcons } from './ColumnSortIcons';
 
 export type DaoTableProps<T extends object> = {
   tableData: T[];

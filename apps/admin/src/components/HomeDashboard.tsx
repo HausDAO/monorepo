@@ -15,11 +15,11 @@ import {
   isValidNetwork,
   ValidNetwork,
 } from '@daohaus/keychain-utils';
+import { useDHConnect } from '@daohaus/connect';
 
 import { DEFAULT_SORT_KEY, getDelegateFilter, SORT_FIELDS } from '../utils/hub';
-import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
-import { useDHConnect } from '@daohaus/connect';
+import { DaoList } from './DaoList';
 
 export enum ListType {
   Cards,

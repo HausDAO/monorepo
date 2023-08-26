@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
-import { Field, Input } from '@daohaus/ui';
-import useDebounce from '../utils/debounceHook';
+
+import { Field, Input, useDebounce } from '@daohaus/ui';
 import { Noun } from '@daohaus/utils';
 
 type SearchInputProps = {

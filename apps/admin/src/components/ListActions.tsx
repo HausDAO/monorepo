@@ -1,3 +1,8 @@
+import { ChangeEvent, MouseEvent, ReactNode } from 'react';
+import { RiGridFill, RiListCheck } from 'react-icons/ri/index.js';
+import styled from 'styled-components';
+import { indigoDark } from '@radix-ui/colors';
+
 import { Noun } from '@daohaus/utils';
 import {
   Button,
@@ -5,14 +10,10 @@ import {
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-import { indigoDark } from '@radix-ui/colors';
-import { ChangeEvent, MouseEvent, ReactNode } from 'react';
-import { RiGridFill, RiListCheck } from 'react-icons/ri/index.js';
-import styled from 'styled-components';
 import { sortOptions } from '../utils/hub';
-import { DAOFilterDropdown } from './DaoFilterDropdown';
 import { ListType } from './HomeDashboard';
 import SearchInput from './SearchInput';
+import { DAOFilterDropdown } from './DaoFilterDropdown';
 import { SortDropdown } from './SortDropdown';
 
 type ListActionsProps = {

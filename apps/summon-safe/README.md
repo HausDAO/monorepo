@@ -6,6 +6,6 @@ Interface to summon Moloch V3 DAOs within the Gnosis Safe UI. Allows a multisig 
 
 Import these urls as an app in the Gnosis Safe UI:
 
-[Staging: summon-safe.daohaus.fun](https://summon.daohaus.fun/)
+[Staging: summon-safe.daohaus.club](https://summon.daohaus.club/)
 
 Production - TBD

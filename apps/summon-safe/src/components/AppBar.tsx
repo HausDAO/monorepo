@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 import { Link, Text } from '@gnosis.pm/safe-react-components';
 
-const BAAL_DOCS = 'https://summon.daohaus.fun';
+const BAAL_DOCS = 'https://summon.daohaus.club';
 
 const AppBar = () => {
   return (

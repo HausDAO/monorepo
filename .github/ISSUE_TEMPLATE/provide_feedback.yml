@@ -8,10 +8,10 @@ body:
       label: App
       description: For which app do want to provide feedback?
       options:
-        - label: '[Admin](https://admin.daohaus.fun)'
-        - label: '[Summon](https://summon.daohaus.fun)'
-        - label: '[Hub](https://hub.daohaus.fun)'
-        - label: '[Toolbox](https://toolbox.daohaus.fun/)'
+        - label: '[Admin](https://admin.daohaus.club)'
+        - label: '[Summon](https://summon.daohaus.club)'
+        - label: '[Hub](https://hub.daohaus.club)'
+        - label: '[Toolbox](https://toolbox.daohaus.club/)'
     validations:
       required: false
   - type: checkboxes

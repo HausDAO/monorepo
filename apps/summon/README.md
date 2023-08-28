@@ -12,6 +12,6 @@ Interface to summon Moloch V3 DAOs.
 
 ## Current Deployments
 
-[Staging: summon.daohaus.fun](https://summon.daohaus.fun/)
+[Staging: summon.daohaus.club](https://summon.daohaus.club/)
 
 Production - TBD

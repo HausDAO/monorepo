@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { MolochV3Membership } from '@daohaus/utils';
 import { breakpoints } from '@daohaus/ui';
 
-import { DaoCard } from './DaoCard';
 import { ListType } from './HomeDashboard';
 import { DaoTable } from './DaoTable';
+import { DaoCard } from './DaoCard';
 
 export const DaoList = ({
   daoData,

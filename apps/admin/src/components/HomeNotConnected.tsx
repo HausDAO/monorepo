@@ -1,5 +1,6 @@
-import { breakpoints, H1, Italic, ParMd, ParXl } from '@daohaus/ui';
 import styled from 'styled-components';
+
+import { breakpoints, H1, Italic, ParMd, ParXl } from '@daohaus/ui';
 
 const ViewBox = styled.div`
   grid-area: body;

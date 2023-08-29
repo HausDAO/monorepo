@@ -94,7 +94,7 @@ export const SummonerSuccess = ({
           <Bold>Summon Another DAO</Bold>
         </Button>
         <Link
-          href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}
+          href={`https://admin.daohaus.club/#/molochv3/${chainId}/${daoAddress}`}
           showExternalIcon={false}
         >
           <Button

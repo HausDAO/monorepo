@@ -1,20 +1,26 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FormBuilder } from '@daohaus/form-builder';
 
-import { getFormLegoById } from '../legos/form';
-import { CustomFields } from '../legos/config';
-import { useDao } from '@daohaus/moloch-v3-context';
+import { FormBuilder } from '@daohaus/form-builder';
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoProposals,
+} from '@daohaus/moloch-v3-hooks';
+import { getFormLegoById } from '@daohaus/moloch-v3-legos';
+import { AppFieldLookup } from '../legos/legoConfig';
 
 export function NewProposal() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { daoid, daochain } = useParams();
-  const { refreshAll } = useDao();
+  const { daoChain, daoId } = useCurrentDao();
+  const { refetch } = useDaoData();
+  const { refetch: refetchProposals } = useDaoProposals();
 
   const onFormComplete = () => {
-    refreshAll?.();
-    navigate(`/molochV3/${daochain}/${daoid}/proposals`);
+    refetch?.();
+    refetchProposals?.();
+    navigate(`/molochV3/${daoChain}/${daoId}/proposals`);
   };
 
   const formLego = useMemo(() => {
@@ -42,13 +48,13 @@ export function NewProposal() {
     <FormBuilder
       form={formLego}
       defaultValues={defaults}
-      customFields={CustomFields}
+      customFields={AppFieldLookup}
       lifeCycleFns={{
         onPollSuccess: () => {
           onFormComplete();
         },
       }}
-      targetNetwork={daochain}
+      targetNetwork={daoChain}
     />
   );
 }

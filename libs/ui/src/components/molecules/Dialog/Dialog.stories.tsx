@@ -72,7 +72,7 @@ MoleculeDialogWithComponentInside.args = {
     children: 'Left Button',
   },
   rightButton: {
-    closeDialog: true,
+    $closeDialog: true,
   },
   children: [
     <div>

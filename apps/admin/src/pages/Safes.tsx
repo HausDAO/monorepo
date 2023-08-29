@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-
+import React, { useState } from 'react';
+import {
+  useConnectedMember,
+  useCurrentDao,
+  useDaoData,
+} from '@daohaus/moloch-v3-hooks';
 import {
   Button,
-  Card,
   Dialog,
   DialogContent,
   DialogTrigger,
@@ -11,27 +13,14 @@ import {
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
-import { VaultOverview } from '../components/VaultOverview';
+import { SafesList } from '@daohaus/moloch-v3-macro-ui';
 import AddSafeForm from '../components/AddSafeForm';
 
-const VaultContainer = styled(Card)`
-  padding: 3rem;
-  width: 100%;
-  border: none;
-  margin-bottom: 3rem;
-  @media ${widthQuery.lg} {
-    max-width: 100%;
-    min-width: 0;
-  }
-`;
-
-export function Safes() {
-  const { dao } = useDao();
+export const Safes = () => {
+  const { daoChain } = useCurrentDao();
+  const { dao } = useDaoData();
   const { connectedMember } = useConnectedMember();
-
   const [open, setOpen] = useState(false);
-
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const handleClose = () => {
@@ -57,19 +46,9 @@ export function Safes() {
         )
       }
     >
-      {dao?.vaults
-        .sort((a, b) => Number(b.ragequittable) - Number(a.ragequittable))
-        .map(
-          (vault) =>
-            dao &&
-            vault && (
-              <VaultContainer key={vault.id}>
-                <VaultOverview dao={dao} vault={vault} />
-              </VaultContainer>
-            )
-        )}
+      {dao && daoChain && (
+        <SafesList daoChain={daoChain} daoId={dao.id} includeLinks={true} />
+      )}
     </SingleColumnLayout>
   );
-}
-
-export default Safes;
+};

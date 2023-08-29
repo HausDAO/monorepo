@@ -1,3 +1,7 @@
+import { MouseEvent, useMemo } from 'react';
+import { RiCheckLine, RiFilterFill } from 'react-icons/ri/index.js';
+import styled from 'styled-components';
+
 import {
   Button,
   DropdownMenu,
@@ -7,11 +11,9 @@ import {
   ParSm,
   DropdownButtonTrigger,
 } from '@daohaus/ui';
-import { MouseEvent, useMemo } from 'react';
-import { RiCheckLine, RiFilterFill } from 'react-icons/ri/index.js';
-import styled from 'styled-components';
-import { FILTER_TYPE } from '../utils/hub';
 import { useDHConnect } from '@daohaus/connect';
+
+import { FILTER_TYPE } from '../utils/hub';
 
 // HOW CAN THIS BE GENERALIZED?
 

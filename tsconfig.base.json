@@ -26,7 +26,6 @@
       "@daohaus/form-builder": ["libs/form-builder/src/index.ts"],
       "@daohaus/form-builder-base": ["libs/form-builder-base/src/index.ts"],
       "@daohaus/keychain-utils": ["libs/keychain-utils/src/index.ts"],
-      "@daohaus/moloch-v3-context": ["libs/moloch-v3-context/src/index.ts"],
       "@daohaus/moloch-v3-data": ["libs/moloch-v3-data/src/index.ts"],
       "@daohaus/moloch-v3-fields": ["libs/moloch-v3-fields/src/index.ts"],
       "@daohaus/moloch-v3-hooks": ["libs/moloch-v3-hooks/src/index.ts"],

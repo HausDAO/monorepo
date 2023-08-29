@@ -1,19 +1,21 @@
-import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useMemo, useState } from 'react';
+
+import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
+import {
+  useCurrentDao,
+  useDaoData,
+  useDaoProposal,
+} from '@daohaus/moloch-v3-hooks';
+import { ACTION_TX } from '@daohaus/moloch-v3-legos';
+import { useDHConnect } from '@daohaus/connect';
+import { useTxBuilder } from '@daohaus/tx-builder';
 import {
   handleErrorMessage,
   isGovernor,
   PROPOSAL_STATUS,
   TXLego,
 } from '@daohaus/utils';
-import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import { useDHConnect } from '@daohaus/connect';
-import { useTxBuilder } from '@daohaus/tx-builder';
-import { Loading, useToast } from '@daohaus/ui';
-import { useDao } from '@daohaus/moloch-v3-context';
-
-import { ACTION_TX } from '../legos/tx';
-import { GatedButton } from './proposalCards/GatedButton';
+import { GatedButton, Loading, useToast } from '@daohaus/ui';
 
 export const CancelProposal = ({
   proposal,
@@ -22,12 +24,13 @@ export const CancelProposal = ({
   proposal: MolochV3Proposal;
   onSuccess: () => void;
 }) => {
-  const { daochain } = useParams();
-  const { fireTransaction } = useTxBuilder();
+  const { daoChain } = useCurrentDao();
+  const { dao, isLoading: isLoadingDao, refetch } = useDaoData();
+  const { refetch: refetchProposal } = useDaoProposal();
   const { chainId, address } = useDHConnect();
+  const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const { dao, refreshAll } = useDao();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCancel = () => {
     const { proposalId } = proposal;
@@ -63,15 +66,18 @@ export const CancelProposal = ({
             description: 'Proposal cancelled',
           });
           setIsLoading(false);
-          refreshAll();
+          refetch();
+          refetchProposal();
           onSuccess();
         },
       },
     });
   };
 
+  const daoExists = !dao && !isLoadingDao ? 'DAO does not exist' : true;
+
   const isConnectedToDao =
-    chainId === daochain
+    chainId === daoChain
       ? true
       : 'You are not connected to the same network as the DAO';
 
@@ -102,8 +108,9 @@ export const CancelProposal = ({
   return (
     <GatedButton
       color="secondary"
-      rules={[isConnectedToDao, addressCanCancel]}
+      rules={[daoExists, isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
+      // centerAlign
     >
       {isLoading ? <Loading size={20} /> : 'Cancel'}
     </GatedButton>

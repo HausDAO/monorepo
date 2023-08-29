@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { charLimit, readableNumbers } from '@daohaus/utils';
 import { getNetworkName } from '@daohaus/keychain-utils';
-
 import { MolochV3Membership } from '@daohaus/utils';
 import {
   Badge,

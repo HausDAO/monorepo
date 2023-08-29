@@ -1,17 +1,23 @@
 import { useMemo } from 'react';
 
 import { FormBuilder } from '@daohaus/form-builder';
-import { useConnectedMember, useDao } from '@daohaus/moloch-v3-context';
-import { CustomFields } from '../legos/config';
-import { COMMON_FORMS } from '../legos/form';
 import { NETWORK_TOKEN_ETH_ADDRESS, TokenBalance } from '@daohaus/utils';
-import { sortTokensForRageQuit } from '../utils/general';
-import { useParams } from 'react-router-dom';
+import { COMMON_FORMS } from '@daohaus/moloch-v3-legos';
+import { sortTokensForRageQuit } from '@daohaus/moloch-v3-fields';
+
+import { AppFieldLookup } from '../legos/legoConfig';
+import {
+  useConnectedMember,
+  useCurrentDao,
+  useDaoData,
+  useDaoMembers,
+} from '@daohaus/moloch-v3-hooks';
 
 export function RageQuit() {
-  const { dao, refreshAll } = useDao();
-  const { connectedMember } = useConnectedMember();
-  const { daochain } = useParams();
+  const { dao, refetch } = useDaoData();
+  const { connectedMember, refetch: refetchMember } = useConnectedMember();
+  const { refetch: refetchMembers } = useDaoMembers();
+  const { daoChain } = useCurrentDao();
 
   const defaultFields = useMemo(() => {
     if (connectedMember && dao) {
@@ -36,7 +42,9 @@ export function RageQuit() {
   }, [connectedMember, dao]);
 
   const onFormComplete = () => {
-    refreshAll?.();
+    refetch?.();
+    refetchMember?.();
+    refetchMembers?.();
   };
 
   if (!dao || !connectedMember) {
@@ -47,13 +55,13 @@ export function RageQuit() {
     <FormBuilder
       defaultValues={defaultFields}
       form={{ ...COMMON_FORMS.RAGEQUIT, log: true, devtool: true }}
-      customFields={CustomFields}
+      customFields={AppFieldLookup}
       lifeCycleFns={{
         onPollSuccess: () => {
           onFormComplete();
         },
       }}
-      targetNetwork={daochain}
+      targetNetwork={daoChain}
     />
   );
 }

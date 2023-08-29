@@ -22,18 +22,18 @@ export const DaoHausAppSwitcher = Template.bind({});
 DaoHausAppSwitcher.args = {
   currentApp: {
     name: 'Hub',
-    url: 'https://hub.daohaus.fun/',
+    url: 'https://hub.daohaus.club/',
     Icon: Hub,
   },
   apps: [
     {
       name: 'Summoner',
-      url: 'https://summon.daohaus.fun/',
+      url: 'https://summon.daohaus.club/',
       Icon: Summoner,
     },
     {
       name: 'Docs',
-      url: 'https://storybook.daohaus.fun/',
+      url: 'https://storybook.daohaus.club/',
       Icon: Docs,
     },
     {

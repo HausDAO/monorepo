@@ -1,17 +1,15 @@
 import { FormBuilder } from '@daohaus/form-builder';
-import { useParams } from 'react-router-dom';
-import { CustomFields } from '../legos/config';
-import { PROPOSAL_FORMS } from '../legos/form';
+import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
+import { COMMON_FORMS, PROPOSAL_FORMS } from '@daohaus/moloch-v3-legos';
+import { MolochFields } from '@daohaus/moloch-v3-fields';
 
-export function FormTest() {
-  const { daochain } = useParams();
+export const FormTest = () => {
+  const { daoChain } = useCurrentDao();
   return (
     <FormBuilder
-      form={PROPOSAL_FORMS.ISSUE}
-      customFields={CustomFields}
-      targetNetwork={daochain}
+      form={COMMON_FORMS.MANAGE_DELEGATE}
+      targetNetwork={daoChain}
+      customFields={MolochFields}
     />
   );
-}
-
-export default FormTest;
+};

@@ -1,5 +1,6 @@
-import { Label, Select, SelectProps, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
+
+import { Label, Select, SelectProps, widthQuery } from '@daohaus/ui';
 
 // SENDTO UI LIBRARY
 

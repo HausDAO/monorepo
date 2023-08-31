@@ -22,17 +22,21 @@ if (!process.env['NX_WALLET_CONNECT_ID']) {
 export const projectId = process.env['NX_WALLET_CONNECT_ID'];
 
 const chains = Object.values(VIEM_CHAINS);
-const { publicClient } = configureChains(chains, [
-  jsonRpcProvider({
-    rpc: (chain) => {
-      const network = getNetworkById(chain.id);
-      return {
-        http: network?.rpc || '',
-      };
-    },
-  }),
-  w3mProvider({ projectId }),
-]);
+const { publicClient } = configureChains(
+  chains,
+  [
+    jsonRpcProvider({
+      rpc: (chain) => {
+        const network = getNetworkById(chain.id);
+        return {
+          http: network?.rpc || '',
+        };
+      },
+    }),
+    w3mProvider({ projectId }),
+  ],
+  { retryCount: 5 }
+);
 export const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: [

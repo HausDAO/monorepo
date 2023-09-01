@@ -84,8 +84,8 @@ export const HAUS_RPC = {
     ? `https://opt-mainnet.g.alchemy.com/v2/${process.env['NX_OPTIMISM_ALCHEMY_KEY']}`
     : 'https://mainnet.optimism.io',
   '0x89': process.env['NX_POLYGONPOS_ALCHEMY_KEY']
-  ? `https://polygon-mainnet.g.alchemy.com/v2/${process.env['NX_POLYGONPOS_ALCHEMY_KEY']}`
-  : 'https://polygon-rpc.com/',
+    ? `https://polygon-mainnet.g.alchemy.com/v2/${process.env['NX_POLYGONPOS_ALCHEMY_KEY']}`
+    : 'https://polygon-rpc.com/',
   '0xa4b1': process.env['NX_ARBITRUM_ALCHEMY_KEY']
     ? `https://arb-mainnet.g.alchemy.com/v2/${process.env['NX_ARBITRUM_ALCHEMY_KEY']}`
     : 'https://arb1.arbitrum.io/rpc',

@@ -391,7 +391,7 @@ export const handleGasEstimate = async ({
   });
 
   if (gasEstimate) {
-    const buffer = arg.bufferPercentage || 1.6;
+    const buffer = arg.bufferPercentage || 2;
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API

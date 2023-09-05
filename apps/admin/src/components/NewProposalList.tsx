@@ -1,9 +1,11 @@
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { RiArrowRightSLine } from 'react-icons/ri/index.js';
 import styled from 'styled-components';
+
 import { Bold, DataSm, ParMd, Tabs } from '@daohaus/ui';
 
-import { CustomFormLego } from '../legos/config';
+import { CustomFormLego } from '../legos/legoConfig';
+import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
 
 const ListContainer = styled.div`
   margin-top: 2.5rem;
@@ -56,14 +58,14 @@ type NewProposalListProps = {
 };
 
 const ProposalList = ({ proposals }: { proposals: CustomFormLego[] }) => {
-  const { daochain, daoid } = useParams();
+  const { daoChain, daoId } = useCurrentDao();
 
   return (
     <div>
       {proposals.map((proposalLego: CustomFormLego) => (
         <ListItemContainer key={proposalLego.id}>
           <ListItemLink
-            to={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${proposalLego.id}`}
+            to={`/molochv3/${daoChain}/${daoId}/new-proposal?formLego=${proposalLego.id}`}
           >
             <ListItemHoverContainer>
               <ListItem>

@@ -53,7 +53,6 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
 | [DAOhaus Connect](./libs/connect)            | `libs/connect`            |
 | [Tx Builder](./libs/tx-builder)              | `libs/tx-builder`         |
 | [Form Builder](./libs/form-builder)          | `libs/form-builder`       |
-| [Reacgt Context](./libs/moloch-v3-context)   | `libs/moloch-v3-context`  |
 
 ## Getting Started
 

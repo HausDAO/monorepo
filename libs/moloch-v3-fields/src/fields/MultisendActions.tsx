@@ -615,7 +615,6 @@ export const MultisendActions = (props: Buildable<Field>) => {
 
   const vaultMessage = useMemo(() => {
     const vault = dao?.vaults.find((v) => v.safeAddress === sidecarSafeAddress);
-    console.log('vaultMessage', vault);
     if (vault) {
       return `Proposal Actions will interact with ${vault.name} Vault: ${sidecarSafeAddress}`;
     }

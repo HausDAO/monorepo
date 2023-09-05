@@ -72,7 +72,7 @@ export const GovernanceSettings = ({
         <div className="description">
           <ParSm>
             <StyledLink
-              href="https://moloch.daohaus.fun/configuration/governance-configuration"
+              href="https://moloch.daohaus.club/configuration/governance-configuration"
               target="_blank"
               rel="noreferrer"
             >

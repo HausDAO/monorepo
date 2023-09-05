@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/moloch-v3-hooks",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "peerDependencies": {
     "react-query": "^3.39.3"
   }

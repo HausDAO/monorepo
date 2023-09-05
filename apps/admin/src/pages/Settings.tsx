@@ -1,49 +1,22 @@
-import styled from 'styled-components';
-import { Card, SingleColumnLayout, widthQuery } from '@daohaus/ui';
+import React from 'react';
+import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
+import { SingleColumnLayout } from '@daohaus/ui';
+import { DaoSettings } from '@daohaus/moloch-v3-macro-ui';
+import { Keychain } from '@daohaus/keychain-utils';
 
-import { useDao } from '@daohaus/moloch-v3-context';
-import { MetadataSettings } from '../components/MetadataSettings';
-import { GovernanceSettings } from '../components/GovernanceSettings';
-import { ShamanSettings } from '../components/ShamanSettings';
-import { ContractSettings } from '../components/ContractSettings';
-
-const SettingsContainer = styled(Card)`
-  width: 110rem;
-  padding: 3rem;
-  border: none;
-  margin-bottom: 3rem;
-  @media ${widthQuery.lg} {
-    max-width: 100%;
-    min-width: 0;
-  }
-`;
-
-export function Settings() {
-  const { dao } = useDao();
+export const Settings = () => {
+  const { daoChain } = useCurrentDao();
+  const { dao } = useDaoData();
 
   return (
     <SingleColumnLayout title="Settings">
       {dao && (
-        <>
-          <SettingsContainer>
-            <MetadataSettings dao={dao} />
-          </SettingsContainer>
-
-          <SettingsContainer>
-            <ContractSettings dao={dao} />
-          </SettingsContainer>
-
-          <SettingsContainer>
-            <GovernanceSettings dao={dao} />
-          </SettingsContainer>
-
-          <SettingsContainer>
-            <ShamanSettings dao={dao} />
-          </SettingsContainer>
-        </>
+        <DaoSettings
+          daoChain={daoChain as keyof Keychain}
+          daoId={dao.id}
+          includeLinks={true}
+        />
       )}
     </SingleColumnLayout>
   );
-}
-
-export default Settings;
+};

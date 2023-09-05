@@ -9,7 +9,7 @@ This library was generated with [Nx](https://nx.dev).
 **Install**
 
 ```sh
-yarn add @daohaus/moloch-v3-context
+yarn add @daohaus/moloch-v3-data
 ```
 
 ## Usage

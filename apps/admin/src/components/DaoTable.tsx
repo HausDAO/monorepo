@@ -106,7 +106,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
             <FirstCell>
               <ProfileAvatar size="sm" address={value.address} />
               <StyledLink
-                href={`https://admin.daohaus.fun/#/molochv3/${value.networkId}/${value.address}`}
+                href={`https://admin.daohaus.club/#/molochv3/${value.networkId}/${value.address}`}
                 target="_blank"
                 rel="noreferrer"
               >

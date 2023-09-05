@@ -9,7 +9,7 @@ import { HttpTransport, http, PublicClient, createPublicClient } from 'viem';
 export const createTransport = ({
   chainId,
   rpcs = HAUS_RPC,
-  retryCount = 5,
+  retryCount = 10,
 }: {
   chainId: ValidNetwork;
   rpcs: Keychain;

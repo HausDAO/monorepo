@@ -47,20 +47,23 @@ export const AlertContainer = styled.div`
 `;
 
 export const WarningContainer = styled(Card)<{
-  error: boolean;
-  warning: boolean;
+  $error: boolean;
+  $warning: boolean;
 }>`
   display: flex;
   width: 100%;
-  background-color: ${({ theme, error, warning }) =>
-    (error && theme.danger.step3) || (warning && theme.warning.step3)};
-  border-color: ${({ theme, error, warning }) =>
-    (error && theme.danger.step7) || (warning && theme.warning.step7)};
+  background-color: ${({ theme, $error, $warning }) =>
+    ($error && theme.danger.step3) || ($warning && theme.warning.step3)};
+  border-color: ${({ theme, $error, $warning }) =>
+    ($error && theme.danger.step7) || ($warning && theme.warning.step7)};
 `;
 
-export const StyledParXs = styled(ParXs)<{ error: boolean; warning: boolean }>`
-  color: ${({ theme, error, warning }) =>
-    (error && theme.danger.step12) || (warning && theme.warning.step12)};
+export const StyledParXs = styled(ParXs)<{
+  $error: boolean;
+  $warning: boolean;
+}>`
+  color: ${({ theme, $error, $warning }) =>
+    ($error && theme.danger.step12) || ($warning && theme.warning.step12)};
 `;
 
 export const Spacer = styled.div`

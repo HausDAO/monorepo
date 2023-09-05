@@ -78,7 +78,7 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
           {listDaos.map((dao, idx) => (
             <Grid key={idx} item xs={6}>
               <Link
-                href={`https://admin.daohaus.fun/#/molochv3/${
+                href={`https://admin.daohaus.club/#/molochv3/${
                   VALID_NETWORKS[safe.chainId]
                 }/${dao.id}`}
                 target="_blank"

@@ -3,9 +3,12 @@ import { useMemo } from 'react';
 import { useDHConnect } from '@daohaus/connect';
 import { FormBuilder } from '@daohaus/form-builder';
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { useDao } from '@daohaus/moloch-v3-context';
 import { MolochFields } from '@daohaus/moloch-v3-fields';
-import { useConnectedMember } from '@daohaus/moloch-v3-hooks';
+import {
+  useConnectedMember,
+  useDaoData,
+  useDaoMembers,
+} from '@daohaus/moloch-v3-hooks';
 import { COMMON_FORMS } from '@daohaus/moloch-v3-legos';
 
 type ManageDelegateProps = {
@@ -19,9 +22,10 @@ export const ManageDelegate = ({
   daoId,
   defaultMember,
 }: ManageDelegateProps) => {
-  const { refreshAll } = useDao();
+  const { refetch } = useDaoData();
+  const { refetch: refetchMembers } = useDaoMembers();
   const { address } = useDHConnect();
-  const { connectedMember } = useConnectedMember({
+  const { connectedMember, refetch: refetchMember } = useConnectedMember({
     daoChain,
     daoId,
     memberAddress: address as string,
@@ -40,7 +44,9 @@ export const ManageDelegate = ({
   }, [connectedMember, defaultMember]);
 
   const onFormComplete = () => {
-    refreshAll?.();
+    refetch?.();
+    refetchMembers?.();
+    refetchMember?.();
   };
 
   return (

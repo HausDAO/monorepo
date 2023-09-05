@@ -53,8 +53,8 @@ export const ProposalWarning = ({
   return (
     <WarningContainer
       className="container"
-      error={hasError}
-      warning={hasWarning}
+      $error={hasError}
+      $warning={hasWarning}
     >
       {hasWarning && (
         <IconContainer>
@@ -64,7 +64,7 @@ export const ProposalWarning = ({
         </IconContainer>
       )}
       <MessageContainer>
-        <StyledParXs error={hasError} warning={hasWarning}>
+        <StyledParXs $error={hasError} $warning={hasWarning}>
           {warningMessage}
         </StyledParXs>
         {decodeError ||

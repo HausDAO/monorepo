@@ -35,7 +35,7 @@ const { publicClient } = configureChains(
     }),
     w3mProvider({ projectId }),
   ],
-  { retryCount: 5 }
+  { retryCount: 10 }
 );
 export const wagmiConfig = createConfig({
   autoConnect: true,

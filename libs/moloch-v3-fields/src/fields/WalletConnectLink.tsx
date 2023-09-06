@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaQrcode } from 'react-icons/fa';
 import { useFormContext } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { FieldSpacer } from '@daohaus/form-builder';
 import { ValidNetwork } from '@daohaus/keychain-utils';
-import { useDaoData } from '@daohaus/moloch-v3-hooks';
+import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
 import {
   Buildable,
   Button,
@@ -19,7 +19,6 @@ import {
   Loading,
   WrappedInput,
 } from '@daohaus/ui';
-import { FieldSpacer } from '@daohaus/form-builder';
 import { IClientMeta } from '@walletconnect/legacy-types';
 import { CoreTypes } from '@walletconnect/types';
 
@@ -88,7 +87,7 @@ export const WalletConnectLink = ({
 }: Buildable<Field>) => {
   const { dao } = useDaoData();
   const { register, setValue, watch } = useFormContext();
-  const { daochain } = useParams();
+  const { daoChain } = useCurrentDao();
   const {
     wcConnector,
     txPayload: txPayloadV1,
@@ -126,12 +125,12 @@ export const WalletConnectLink = ({
   useEffect(() => {
     if (
       dao &&
-      daochain &&
+      daoChain &&
       wcLink?.startsWith('wc:') &&
       connectionStatus === Status.DISCONNECTED
     ) {
       const params: WCParams = {
-        chainId: daochain as ValidNetwork,
+        chainId: daoChain as ValidNetwork,
         safeAddress: dao.safeAddress,
         uri: wcLink,
       };
@@ -144,7 +143,7 @@ export const WalletConnectLink = ({
         wcConnectV2(params);
       }
     }
-  }, [connectionStatus, dao, daochain, wcConnectV1, wcConnectV2, wcLink]);
+  }, [connectionStatus, dao, daoChain, wcConnectV1, wcConnectV2, wcLink]);
 
   const clean = () => {
     [inputId, 'txTo', 'txData', 'txValue', 'txOperation'].forEach((formInput) =>

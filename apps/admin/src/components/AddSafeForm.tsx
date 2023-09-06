@@ -1,11 +1,10 @@
 import { FormBuilder } from '@daohaus/form-builder';
-import { useDaoData } from '@daohaus/moloch-v3-hooks';
+import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { COMMON_FORMS } from '@daohaus/moloch-v3-legos';
-import { useParams } from 'react-router-dom';
 
 export const AddSafeForm = ({ onSuccess }: { onSuccess: () => void }) => {
+  const { daoChain } = useCurrentDao();
   const { refetch } = useDaoData();
-  const { daochain } = useParams();
 
   const onFormComplete = () => {
     refetch?.();
@@ -20,7 +19,7 @@ export const AddSafeForm = ({ onSuccess }: { onSuccess: () => void }) => {
           onFormComplete();
         },
       }}
-      targetNetwork={daochain}
+      targetNetwork={daoChain}
     />
   );
 };

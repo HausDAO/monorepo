@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { charLimit } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
-
+import { MolochV3Dao } from '@daohaus/moloch-v3-data';
+import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
 import { AddressDisplay, H4, ParMd, ParXs, Button, Link } from '@daohaus/ui';
 
-import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   DaoProfileAvatar,
   DaoProfileContainer,
@@ -16,7 +16,6 @@ import {
   missingDaoProfileData,
 } from '../../utils/daoDataDisplayHelpers';
 import { OverviewIconLinkList, OverviewLinkList, TagList } from '../Layout';
-import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
 
 type DaoProfileProps = {
   dao: MolochV3Dao;

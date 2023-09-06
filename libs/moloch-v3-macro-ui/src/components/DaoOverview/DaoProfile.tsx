@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import { charLimit } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 
@@ -17,13 +16,14 @@ import {
   missingDaoProfileData,
 } from '../../utils/daoDataDisplayHelpers';
 import { OverviewIconLinkList, OverviewLinkList, TagList } from '../Layout';
+import { useCurrentDao } from '@daohaus/moloch-v3-hooks';
 
 type DaoProfileProps = {
   dao: MolochV3Dao;
 };
 
 export const DaoProfile = ({ dao }: DaoProfileProps) => {
-  const { daoChain, daoId } = useParams();
+  const { daoChain, daoId } = useCurrentDao();
 
   const missingProfile = useMemo(() => {
     if (!missingDaoProfileData(dao)) return null;

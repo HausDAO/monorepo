@@ -88,7 +88,7 @@ export const WalletConnectLink = ({
 }: Buildable<Field>) => {
   const { dao } = useDaoData();
   const { register, setValue, watch } = useFormContext();
-  const { daochain } = useParams();
+  const { daoChain } = useParams();
   const {
     wcConnector,
     txPayload: txPayloadV1,
@@ -126,12 +126,12 @@ export const WalletConnectLink = ({
   useEffect(() => {
     if (
       dao &&
-      daochain &&
+      daoChain &&
       wcLink?.startsWith('wc:') &&
       connectionStatus === Status.DISCONNECTED
     ) {
       const params: WCParams = {
-        chainId: daochain as ValidNetwork,
+        chainId: daoChain as ValidNetwork,
         safeAddress: dao.safeAddress,
         uri: wcLink,
       };
@@ -144,7 +144,7 @@ export const WalletConnectLink = ({
         wcConnectV2(params);
       }
     }
-  }, [connectionStatus, dao, daochain, wcConnectV1, wcConnectV2, wcLink]);
+  }, [connectionStatus, dao, daoChain, wcConnectV1, wcConnectV2, wcLink]);
 
   const clean = () => {
     [inputId, 'txTo', 'txData', 'txValue', 'txOperation'].forEach((formInput) =>

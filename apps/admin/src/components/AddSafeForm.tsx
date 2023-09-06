@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 export const AddSafeForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const { refetch } = useDaoData();
-  const { daochain } = useParams();
+  const { daoChain } = useParams();
 
   const onFormComplete = () => {
     refetch?.();
@@ -20,7 +20,7 @@ export const AddSafeForm = ({ onSuccess }: { onSuccess: () => void }) => {
           onFormComplete();
         },
       }}
-      targetNetwork={daochain}
+      targetNetwork={daoChain}
     />
   );
 };

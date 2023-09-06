@@ -23,7 +23,7 @@ type DaoProfileProps = {
 };
 
 export const DaoProfile = ({ dao }: DaoProfileProps) => {
-  const { daochain, daoid } = useParams();
+  const { daoChain, daoId } = useParams();
 
   const missingProfile = useMemo(() => {
     if (!missingDaoProfileData(dao)) return null;
@@ -32,12 +32,12 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
         <ParXs>
           (ﾉ´ヮ`)ﾉ*: ･ﾟ Add some sparkle with a DAO avatar and description!
         </ParXs>
-        <Link href={`/molochv3/${daochain}/${daoid}/settings`}>
+        <Link href={`/molochv3/${daoChain}/${daoId}/settings`}>
           <Button>Go To Settings</Button>
         </Link>
       </MissingProfileCard>
     );
-  }, [dao, daochain, daoid]);
+  }, [dao, daoChain, daoId]);
 
   return (
     <DaoProfileContainer>
@@ -49,7 +49,7 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
             address={dao.id}
             truncate
             copy
-            explorerNetworkId={daochain as keyof Keychain}
+            explorerNetworkId={daoChain as keyof Keychain}
           />
         </div>
       </div>

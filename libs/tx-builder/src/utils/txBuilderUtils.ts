@@ -1,6 +1,6 @@
 import { PublicClient } from 'wagmi';
 import { getAccount } from '@wagmi/core';
-import { Hash } from 'viem';
+import { Hash, zeroAddress } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import {
@@ -113,11 +113,43 @@ export const executeTx = async (args: {
   } catch (error) {
     console.log('**TX Error**');
     console.error(error);
-    lifeCycleFns?.onTxError?.(error);
-    setTransactions((prevState) => ({
-      ...prevState,
-      [txHash]: { ...tx, status: 'failed' },
-    }));
+    // catch error if transaction hash is not found
+    if (String(error).indexOf('TransactionNotFoundError') > -1) {
+      console.log('Something went wrong in retrieving transaction hash...');
+      // set transaction to success
+      setTransactions((prevState) => ({
+        ...prevState,
+        [txHash]: { ...tx, status: 'success' },
+      }));
+
+      // Empty receipt to pass to onPollSuccess
+      lifeCycleFns?.onPollSuccess?.(
+        'Something went wrong in retrieving transaction hash...',
+        {
+          blockHash: zeroAddress,
+          blockNumber: BigInt(0),
+          from: zeroAddress,
+          status: 'success',
+          contractAddress: zeroAddress,
+          cumulativeGasUsed: BigInt(0),
+          effectiveGasPrice: BigInt(0),
+          gasUsed: BigInt(0),
+          logs: [],
+          logsBloom: zeroAddress,
+          to: zeroAddress,
+          transactionHash: txHash,
+          transactionIndex: 0,
+          type: 'none',
+        },
+        appState
+      );
+    } else {
+      lifeCycleFns?.onTxError?.(error);
+      setTransactions((prevState) => ({
+        ...prevState,
+        [txHash]: { ...tx, status: 'failed' },
+      }));
+    }
     return;
   }
 };
@@ -226,7 +258,6 @@ export async function prepareTX(args: {
 
     executeTx({ ...args, publicClient, txHash, graphApiKeys });
   } catch (error) {
-    console.log('**TX Error**');
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
   }

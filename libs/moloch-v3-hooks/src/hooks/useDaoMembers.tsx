@@ -75,7 +75,7 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
       orderDirection: 'desc',
     },
     paging = {
-      pageSize: 500,
+      pageSize: 20,
       offset: 0,
     },
   } = props || {};

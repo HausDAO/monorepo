@@ -16,6 +16,8 @@ import { processContractLego } from './contractHelpers';
 import { ArgCallback, TXLifeCycleFns } from '../TXBuilder';
 import { processOverrides } from './overrides';
 
+import SafeAppsSDK, { TransactionStatus } from "@gnosis.pm/safe-apps-sdk";
+
 export type TxRecord = Record<string, TXLego>;
 export type MassState = {
   tx: TXLego;
@@ -24,6 +26,10 @@ export type MassState = {
   daoid?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+};
+
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 // The console logs below are to help devs monitor and debug their txs.
@@ -38,6 +44,7 @@ export const executeTx = async (args: {
   graphApiKeys: Keychain;
   appState: ArbitraryState;
 }) => {
+
   const {
     tx,
     txHash,
@@ -116,33 +123,67 @@ export const executeTx = async (args: {
     // catch error if transaction hash is not found
     if (String(error).indexOf('TransactionNotFoundError') > -1) {
       console.log('Something went wrong in retrieving transaction hash...');
-      // set transaction to success
-      setTransactions((prevState) => ({
-        ...prevState,
-        [txHash]: { ...tx, status: 'success' },
-      }));
+      console.log('**wait for a few seconds and check safe sdk**');
+      await sleep(5000);
+      console.log('**done waiting**');
+      type Opts = {
+        allowedDomains?: RegExp[];
+        debug?: boolean;
+      };
+      
+      const opts: Opts = {
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+        debug: false,
+      };
+      const sdk = new SafeAppsSDK(opts);
+      console.log("sdk", sdk);
+      try{
+        const safeReceipt = await sdk.txs.getBySafeTxHash(txHash);
+        console.log('**Safe Receipt**', safeReceipt);
+        console.log(`**Rerun with onchain hash ${safeReceipt.txHash}`);
+        executeTx(
+          {
+            ...args,
+            txHash: safeReceipt.txHash as `0x${string}` || txHash,
+          }
+        )
+      } catch (error) {
+        console.log('**Error from Safe**')
+        console.error(error);
+        executeTx(args);
+      }
 
-      // Empty receipt to pass to onPollSuccess
-      lifeCycleFns?.onPollSuccess?.(
-        'Something went wrong in retrieving transaction hash...',
-        {
-          blockHash: zeroAddress,
-          blockNumber: BigInt(0),
-          from: zeroAddress,
-          status: 'success',
-          contractAddress: zeroAddress,
-          cumulativeGasUsed: BigInt(0),
-          effectiveGasPrice: BigInt(0),
-          gasUsed: BigInt(0),
-          logs: [],
-          logsBloom: zeroAddress,
-          to: zeroAddress,
-          transactionHash: txHash,
-          transactionIndex: 0,
-          type: 'none',
-        },
-        appState
-      );
+
+
+
+      
+      // // set transaction to success
+      // setTransactions((prevState) => ({
+      //   ...prevState,
+      //   [txHash]: { ...tx, status: 'success' },
+      // }));
+
+      // // Empty receipt to pass to onPollSuccess
+      // lifeCycleFns?.onPollSuccess?.(
+      //   'Something went wrong in retrieving transaction hash...',
+      //   {
+      //     blockHash: zeroAddress,
+      //     blockNumber: BigInt(0),
+      //     from: zeroAddress,
+      //     status: 'success',
+      //     contractAddress: zeroAddress,
+      //     cumulativeGasUsed: BigInt(0),
+      //     effectiveGasPrice: BigInt(0),
+      //     gasUsed: BigInt(0),
+      //     logs: [],
+      //     logsBloom: zeroAddress,
+      //     to: zeroAddress,
+      //     transactionHash: txHash,
+      //     transactionIndex: 0,
+      //     type: 'none',
+      //   },
+      //   appState
+      // );
     } else {
       lifeCycleFns?.onTxError?.(error);
       setTransactions((prevState) => ({

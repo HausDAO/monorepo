@@ -122,11 +122,11 @@ export const executeTx = async (args: {
     console.log('**TX Error**');
     console.error(error);
     // catch error if transaction hash is not found
+    // this happens when coming from a safe connection and it returns safeTxHash
     if (String(error).indexOf('TransactionNotFoundError') > -1) {
-      console.log('Something went wrong in retrieving transaction hash...');
+      console.log('**Something went wrong in retrieving transaction hash...**');
       console.log('**wait for a few seconds and check safe service**');
-      await sleep(5000);
-      console.log('**done waiting**');
+      await sleep(6000);
       const url = ENDPOINTS['GNOSIS_API'][chainId];
       if (!url) {
         return {
@@ -138,8 +138,11 @@ export const executeTx = async (args: {
         const safeReceipt = await fetch.get<{ transactionHash: `0x${string}` }>(
           `${url}/multisig-transactions/${txHash}`
         );
-        console.log('**safeReceipt**', safeReceipt);
-        console.log('**Rerun with new hash**');  
+        console.log(
+          '**safeReceipt with onchain transactionHash**',
+          safeReceipt
+        );
+        console.log('**Rerun with new hash**');
 
         executeTx({
           ...args,
@@ -149,38 +152,37 @@ export const executeTx = async (args: {
         console.error({
           error: formatFetchError({ type: 'GNOSIS_ERROR', errorObject: err }),
         });
-        console.log('**Rerun**');  
-        executeTx(args);
+        console.log('**Cant find hash, bail out.**');
+
+        // set transaction to success
+        setTransactions((prevState) => ({
+          ...prevState,
+          [txHash]: { ...tx, status: 'success' },
+        }));
+
+        // Empty receipt to pass to onPollSuccess
+        lifeCycleFns?.onPollSuccess?.(
+          'Something went wrong in retrieving transaction hash...',
+          {
+            blockHash: zeroAddress,
+            blockNumber: BigInt(0),
+            from: zeroAddress,
+            status: 'success',
+            contractAddress: zeroAddress,
+            cumulativeGasUsed: BigInt(0),
+            effectiveGasPrice: BigInt(0),
+            gasUsed: BigInt(0),
+            logs: [],
+            logsBloom: zeroAddress,
+            to: zeroAddress,
+            transactionHash: txHash,
+            transactionIndex: 0,
+            type: 'none',
+          },
+          appState
+        );
         return;
       }
-
-      // // set transaction to success
-      // setTransactions((prevState) => ({
-      //   ...prevState,
-      //   [txHash]: { ...tx, status: 'success' },
-      // }));
-
-      // // Empty receipt to pass to onPollSuccess
-      // lifeCycleFns?.onPollSuccess?.(
-      //   'Something went wrong in retrieving transaction hash...',
-      //   {
-      //     blockHash: zeroAddress,
-      //     blockNumber: BigInt(0),
-      //     from: zeroAddress,
-      //     status: 'success',
-      //     contractAddress: zeroAddress,
-      //     cumulativeGasUsed: BigInt(0),
-      //     effectiveGasPrice: BigInt(0),
-      //     gasUsed: BigInt(0),
-      //     logs: [],
-      //     logsBloom: zeroAddress,
-      //     to: zeroAddress,
-      //     transactionHash: txHash,
-      //     transactionIndex: 0,
-      //     type: 'none',
-      //   },
-      //   appState
-      // );
     } else {
       lifeCycleFns?.onTxError?.(error);
       setTransactions((prevState) => ({

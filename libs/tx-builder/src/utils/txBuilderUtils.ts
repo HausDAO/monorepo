@@ -4,6 +4,7 @@ import { Hash, zeroAddress } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import {
+  ENDPOINTS,
   Keychain,
   PinataApiKeys,
   VIEM_CHAINS,
@@ -16,7 +17,7 @@ import { processContractLego } from './contractHelpers';
 import { ArgCallback, TXLifeCycleFns } from '../TXBuilder';
 import { processOverrides } from './overrides';
 
-import SafeAppsSDK, { TransactionStatus } from "@gnosis.pm/safe-apps-sdk";
+import { formatFetchError, fetch } from '@daohaus/data-fetch-utils';
 
 export type TxRecord = Record<string, TXLego>;
 export type MassState = {
@@ -44,7 +45,6 @@ export const executeTx = async (args: {
   graphApiKeys: Keychain;
   appState: ArbitraryState;
 }) => {
-
   const {
     tx,
     txHash,
@@ -57,6 +57,7 @@ export const executeTx = async (args: {
   } = args;
   console.log('**Transaction Initatiated**');
   console.log('txHash', txHash);
+  console.log('publicClient', publicClient);
   try {
     lifeCycleFns?.onTxHash?.(txHash);
     setTransactions((prevState) => ({
@@ -123,40 +124,36 @@ export const executeTx = async (args: {
     // catch error if transaction hash is not found
     if (String(error).indexOf('TransactionNotFoundError') > -1) {
       console.log('Something went wrong in retrieving transaction hash...');
-      console.log('**wait for a few seconds and check safe sdk**');
+      console.log('**wait for a few seconds and check safe service**');
       await sleep(5000);
       console.log('**done waiting**');
-      type Opts = {
-        allowedDomains?: RegExp[];
-        debug?: boolean;
-      };
-      
-      const opts: Opts = {
-        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-        debug: false,
-      };
-      const sdk = new SafeAppsSDK(opts);
-      console.log("sdk", sdk);
-      try{
-        const safeReceipt = await sdk.txs.getBySafeTxHash(txHash);
-        console.log('**Safe Receipt**', safeReceipt);
-        console.log(`**Rerun with onchain hash ${safeReceipt.txHash}`);
-        executeTx(
-          {
-            ...args,
-            txHash: safeReceipt.txHash as `0x${string}` || txHash,
-          }
-        )
-      } catch (error) {
-        console.log('**Error from Safe**')
-        console.error(error);
-        executeTx(args);
+      const url = ENDPOINTS['GNOSIS_API'][chainId];
+      if (!url) {
+        return {
+          error: formatFetchError({ type: 'INVALID_NETWORK_ERROR' }),
+        };
       }
 
+      try {
+        const safeReceipt = await fetch.get<{ transactionHash: `0x${string}` }>(
+          `${url}/multisig-transactions/${txHash}`
+        );
+        console.log('**safeReceipt**', safeReceipt);
+        console.log('**Rerun with new hash**');  
 
+        executeTx({
+          ...args,
+          txHash: (safeReceipt.transactionHash as `0x${string}`) || txHash,
+        });
+      } catch (err) {
+        console.error({
+          error: formatFetchError({ type: 'GNOSIS_ERROR', errorObject: err }),
+        });
+        console.log('**Rerun**');  
+        executeTx(args);
+        return;
+      }
 
-
-      
       // // set transaction to success
       // setTransactions((prevState) => ({
       //   ...prevState,

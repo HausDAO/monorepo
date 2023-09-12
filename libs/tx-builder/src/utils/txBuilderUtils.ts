@@ -4,6 +4,7 @@ import { Hash, zeroAddress } from 'viem';
 
 import { ABI, ArbitraryState, ReactSetter, TXLego } from '@daohaus/utils';
 import {
+  ENDPOINTS,
   Keychain,
   PinataApiKeys,
   VIEM_CHAINS,
@@ -16,6 +17,8 @@ import { processContractLego } from './contractHelpers';
 import { ArgCallback, TXLifeCycleFns } from '../TXBuilder';
 import { processOverrides } from './overrides';
 
+import { formatFetchError, fetch } from '@daohaus/data-fetch-utils';
+
 export type TxRecord = Record<string, TXLego>;
 export type MassState = {
   tx: TXLego;
@@ -24,6 +27,10 @@ export type MassState = {
   daoid?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+};
+
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 // The console logs below are to help devs monitor and debug their txs.
@@ -50,6 +57,7 @@ export const executeTx = async (args: {
   } = args;
   console.log('**Transaction Initatiated**');
   console.log('txHash', txHash);
+  console.log('publicClient', publicClient);
   try {
     lifeCycleFns?.onTxHash?.(txHash);
     setTransactions((prevState) => ({
@@ -114,35 +122,67 @@ export const executeTx = async (args: {
     console.log('**TX Error**');
     console.error(error);
     // catch error if transaction hash is not found
+    // this happens when coming from a safe connection and it returns safeTxHash
     if (String(error).indexOf('TransactionNotFoundError') > -1) {
-      console.log('Something went wrong in retrieving transaction hash...');
-      // set transaction to success
-      setTransactions((prevState) => ({
-        ...prevState,
-        [txHash]: { ...tx, status: 'success' },
-      }));
+      console.log('**Something went wrong in retrieving transaction hash...**');
+      console.log('**wait for a few seconds and check safe service**');
+      await sleep(6000);
+      const url = ENDPOINTS['GNOSIS_API'][chainId];
+      if (!url) {
+        return {
+          error: formatFetchError({ type: 'INVALID_NETWORK_ERROR' }),
+        };
+      }
 
-      // Empty receipt to pass to onPollSuccess
-      lifeCycleFns?.onPollSuccess?.(
-        'Something went wrong in retrieving transaction hash...',
-        {
-          blockHash: zeroAddress,
-          blockNumber: BigInt(0),
-          from: zeroAddress,
-          status: 'success',
-          contractAddress: zeroAddress,
-          cumulativeGasUsed: BigInt(0),
-          effectiveGasPrice: BigInt(0),
-          gasUsed: BigInt(0),
-          logs: [],
-          logsBloom: zeroAddress,
-          to: zeroAddress,
-          transactionHash: txHash,
-          transactionIndex: 0,
-          type: 'none',
-        },
-        appState
-      );
+      try {
+        const safeReceipt = await fetch.get<{ transactionHash: `0x${string}` }>(
+          `${url}/multisig-transactions/${txHash}`
+        );
+        console.log(
+          '**safeReceipt with onchain transactionHash**',
+          safeReceipt
+        );
+        console.log('**Rerun with new hash**');
+
+        executeTx({
+          ...args,
+          txHash: (safeReceipt.transactionHash as `0x${string}`) || txHash,
+        });
+      } catch (err) {
+        console.error({
+          error: formatFetchError({ type: 'GNOSIS_ERROR', errorObject: err }),
+        });
+        console.log('**Cant find hash, bail out.**');
+
+        // set transaction to success
+        setTransactions((prevState) => ({
+          ...prevState,
+          [txHash]: { ...tx, status: 'success' },
+        }));
+
+        // Empty receipt to pass to onPollSuccess
+        lifeCycleFns?.onPollSuccess?.(
+          'Something went wrong in retrieving transaction hash...',
+          {
+            blockHash: zeroAddress,
+            blockNumber: BigInt(0),
+            from: zeroAddress,
+            status: 'success',
+            contractAddress: zeroAddress,
+            cumulativeGasUsed: BigInt(0),
+            effectiveGasPrice: BigInt(0),
+            gasUsed: BigInt(0),
+            logs: [],
+            logsBloom: zeroAddress,
+            to: zeroAddress,
+            transactionHash: txHash,
+            transactionIndex: 0,
+            type: 'none',
+          },
+          appState
+        );
+        return;
+      }
     } else {
       lifeCycleFns?.onTxError?.(error);
       setTransactions((prevState) => ({

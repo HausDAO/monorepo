@@ -1,76 +1,90 @@
-# `@daohaus/connect`
+# @daohaus/connect
 
-**DAOhaus Connect** provides a drop-in component for handling wallet connection, and includes additional functionality such as notifying users of unsupported networks, switching networks, and displaying ens data and [Lens profile data](https://www.lens.xyz/) data if the user has one set.
+**DAOhaus Connect** provides a drop-in component for handling wallet connection. It includes additional functionality such as notifying users of unsupported networks, switching networks, and displaying ens data. It also includes a top-of-page navigation component and a layout component to enable rapid application development. It is opinionated and composed with the following libraries:
 
-This is used throughout our applications and is designed to be leveraged by the larger DAOhaus community as a portal into the DAOhaus ecosystem.
+- [Web3 Modal and Wallet Connect](https://web3modal.com/)
+- [React-Router](https://reactrouter.com/en/main)
 
-This library was generated with [Nx](https://nx.dev).
+### [View on NPM](https://www.npmjs.com/package/@daohaus/connect)
 
-## Getting Started
+## Usage
 
-**Install**
+### Installation
 
-```sh
+```bash
 yarn add @daohaus/connect
 ```
 
-### DHConnectProvider Context Provider
+Note: This will also install @daohaus/connect-context
 
-Start by importing the `DHConnectProvider` component from the `@daohaus/connect` package at your app's root component, such as `main.tsx`:
+### Requirements
 
-```jsx
-// main.tsx
+You will need to provide a Wallet Connect V2 api key as an env variable at NX_WALLET_CONNECT_ID. You can get those from [Wallet Connect](https://docs.walletconnect.com/2.0/api/auth/overview#key-features)
 
-import { DHConnectProvider } from '@daohaus/daohaus-connect-feature';
+```
+NX_WALLET_CONNECT_ID=<some wc api key>
 ```
 
-Once imported you can use it as you would any other Context Provider:
+### Examples
+
+**How to add to your application**
 
 ```jsx
-// main.tsx
+import { DHConnectProvider } from `@daohaus/connect`;
 
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
-      <DHConnectProvider>
+      <DHConnectProvider
+        daoId={"some dao id if scoping to a single dao"}
+        daoChain={"some dao chain id if scoping to single chain"}>
         <App />
       </DHConnectProvider>
     </BrowserRouter>
   </StrictMode>,
-  document.getElementById('root')
-);
+document.getElementById('root')
+
 ```
 
-After including the `<DHConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
-
-### Connecting to a Wallet
-
-DAOhaus Connect exposes several useful tools that can be used throughout your app. You can access these by importing `useDHConnect` from DAOhas Connect:
+**How to add the DAOHaus layout and nav**
 
 ```jsx
-import { useDHConnect } from '@daohaus/daohaus-connect-feature';
+import { HausLayout } from '@daohaus/daohaus-connect-feature'
+
+<HausLayout
+  pathname={location.pathname}
+  navLinks={[{ label: 'Home', href: '/'` }]}
+  footer={<Footer />}
+>
+  <YourApp /> // any other components that are needed
+</HausLayout>
 ```
 
-Once this is imported, you can destructure out useful tools, such as `connectWallet`:
+**How to make a connect button**
 
 ```jsx
-const { connectWallet } = useDHConnect();
-```
+const { connectWallet } = useConnect();
 
-This can then be passed into any Button with an `onClick` handler:
-
-```jsx
-<Button onClick={connectWallet} size="sm" type="button">
+<Button onClick={connectWallet} sm type="button">
   Connect
-</Button>
+</Button>;
 ```
 
-There are other useful tools such as interacting with Ceramic that we'll continue to add to the documentation.
+**How to get connected wallet data**
 
-## Examples
+```jsx
+const { isConnected, address } = useConnect();
 
-We use DAOhaus Connect in both our Admin and Summon apps.
+...
+
+if (!isConnected) {
+    return <ConnectWalletButton isSm={isSm} />;
+  }
+
+  return <p>{address}</p>;
+};
+```
 
 ## Building
 
-Run `nx build connect` to build the library.
+Run `nx run connect:build` to build the library.

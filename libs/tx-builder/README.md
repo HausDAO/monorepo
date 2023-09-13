@@ -1,59 +1,116 @@
 # @daohaus/tx-builder
 
-**@daohaus/tx-builder** is a feature library that provides a React component specifically intended to help users build transactions. Transactions are at the core of our platform, so we designed this library to provide helper utilities for this purpose. This library is an evolution of the patterns utilized in DAOhaus v2.
+This feature allows your React application to easily make transactions with all the JavaScript app lifecycle functions baked-in to trigger error and success messages, along with other cool features. Transactions are at the core of our platform, so we designed this library to provide helper utilities for this purpose.
 
-The core element is that its a React Context that bundles together generic transaction calls with subgraph polling within the function. This provides lifecycle methods that we can use to control UI based on synchronized events from within the React component.
+The core element is a React Context that bundles together generic transaction calls with subgraph polling within the function. This provides lifecycle methods that we can use to control UI based on synchronized events from within the React component.
 
-This library was generated with [Nx](https://nx.dev).
+The package uses [Viem](https://viem.sh/).
 
-## Getting Started
+#### Related packages
 
-**Install**
+- [**Moloch V3 Legos**](https://github.com/HausDAO/monorepo/tree/develop/libs/moloch-v3-legos)
+- [**Form-Builder**](https://github.com/HausDAO/monorepo/tree/develop/libs/form-builder)
+- [**Moloch V3 Fields**](https://github.com/HausDAO/monorepo/tree/develop/libs/moloch-v3-fields)
 
-```sh
-yarn add @daohaus/tx-builder
-```
+### [View on NPM](https://www.npmjs.com/package/@daohaus/tx-builder)
 
 ## Usage
 
-Begin by importing the `TXBuilder` component from the `@daohaus/tx-builder-feature` package at a high-level component, such as `App.tsx`, in your app. This doesn't need to be at the root of your app with other Context Providers.
+### Installation
 
-### TxBuilder
-
-```jsx
-// App.tsx
-import { TXBuilder } from '@daohaus/tx-builder-feature';
+```bash
+yarn add @daohaus/tx-builder
 ```
 
-Once `TXBuilder` is imported, you can wrap your component with it and pass in the connected user's `provider` and `chainId`, which can come in from DAOhaus Connect.
+### Requirements
 
-In this example, `TXBuilder` is used in combination with DAOhaus Connect, where the `provider` and `chainId` are coming from the DAOhaus Connect context and are provided as props to `TXBuilder`:
+**Graph API Keys**
+If you are trying to query for data on Etheruem Mainnet or Gnosis Chain (and more to come) you will need to provide an API key from TheGraph. Learn to get those [here](https://thegraph.com/docs/en/querying/managing-api-keys/) and [here](https://thegraph.com/studio/apikeys/).
 
-```jsx
-// App.tsx
-const { provider, chainId } = useDHConnect();
+**RPC endpoints**
+This package makes transaction to the blockchain so you will also need to provide RPC endpoints for the chains you are targeting.
 
-<TXBuilder provider={provider} chainId={chainId}>
-  <YourComponents />
-</TXBuilder>;
+**Blockchain Explorer API keys**
+This package fetches ABIs in some instances if you are not providing the ABI in the txLego. You can provide those keys from [etherscan](https://docs.etherscan.io/) flavored explorers if needed.
+
+```jsx!
+<TXBuilder
+  ...
+  //all other props
+  chainId={'0x1'}
+  graphApiKeys={{'0x1': 'some api key'}}
+  rpcs={{'0x1': 'some rpc url'}}
+  explorerKeys={{'0x1': 'some explorer api key'}}
+>
+  {children}
+</TXBuilder>
 ```
 
-`<TXBuilder />` expects a `provider`, `chainId`, and `children` as props.
+**How to add to you application**
+Tx-builder uses [Viem](https://viem.sh/) and requires you to pass a publicClient as a prop. This example shows a component wrapped in our DHConnectProvider from the [@daohaus/connect](https://github.com/HausDAO/monorepo/tree/develop/libs/connect) package that set up a publicClient upon wallet connection.
 
-### useTxBuilder
+```jsx
+import { TXBuilder } from '@daohaus/tx-builder';
 
-Tx Builder exposes useful functionality that you can use throughout your app as well. You can access these by importing `useTxBuilder` from Tx Builder:
+export const SomePage = () => {
+  const { publicClient } = useDHConnect();
+
+  return (
+    <TXBuilder publicClient={publicClient} chainId={'0x1'} daoId={'0xsomedaoaddress'} safeId={'0x0somedaosafeaddress'}>
+      {children}
+    </TXBuilder>
+  );
+};
+```
+
+| Prop Name      |                                                                                                                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| chainId        | target network chain id                                                                                                                                                                          |
+| daoId          | target dao contract addresss                                                                                                                                                                     |
+| safeId         | target dao's main treasury safe contract addresss                                                                                                                                                |
+| publicClient   | [viem public client](https://viem.sh/docs/clients/public.html)                                                                                                                                   |
+| appState       | object of arbitrary state data passed to the tx-builder                                                                                                                                          |
+| txLifeCycleFns | custom functions to be run on tx lifecycle moments - [view here](https://github.com/HausDAO/monorepo/blob/develop/libs/tx-builder/src/utils/lifeCycleFns.ts)                                     |
+| localABIs      | custom abis you might want to pass to the tx-builder, these can be added in your [txLego as well](https://hackmd.io/@bootleggers/Skfd50_w3/https%3A%2F%2Fhackmd.io%2F%40bootleggers%2FHJRr1xFv3) |
+| rpcs           | list of rpc endpoints by chain id                                                                                                                                                                |
+| graphApiKeys   | list of graph api keys by chain id (required for mainnet and gnosis chain)                                                                                                                       |
+| explorerKeys   | list of etherscan explorer keys by chain id                                                                                                                                                      |
+
+### Examples
+
+TODO: link to these when the new docs app is ready.
+
+**Here is a [tutorial on form and transaction building]().**
+
+[Here are some examples]( of contract and transaction legos used in tx-builder.
+
+**How to fire a transaction**
+
+Tx Builder exposes several handy functions that can be used throughout your app. These can be accessed by importing `useTxBuilder` from Tx Builder:
 
 ```jsx
 // Anywhere in your app
 
-`import { useTxBuilder } from '@daohaus/tx-builder-feature';`;
+import { useTxBuilder } from '@daohaus/tx-builder-feature';
+
+...
 
 const { fireTransaction } = useTxBuilder();
+
+...
+
+  fireTransaction({
+    tx: ACTION_TX.SOME_TX_LEGO,
+    lifeCycleFns:{
+      onTxSuccess: () => {
+        console.log('do something on success');
+      },
+    };
+
 ```
 
-You're then able to utilize the `fireTranscation` function which composes the transation calls and subgraph polling. For a more detailed example, look to the `SummonerForm.tsx` in our [Summon App](../../apps/summon-app/).
+For a detailed example, refer to the `CancelProposal.tsx` our [Admin App](https://github.com/HausDAO/monorepo/blob/develop/apps/admin/src/components/CancelProposal.tsx).
 
-## Examples
+## Building
 
-`TXBuilder` is used in our Admin App. We'll be adding more examples to our documentation as we go!
+Run `nx tx-builder:build` to build the library.

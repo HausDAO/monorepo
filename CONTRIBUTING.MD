@@ -109,6 +109,13 @@ nx run app-name:serve
 
 nx run admin:serve
 
+# lint a specific package
+
+nx run app-name:lint
+
+# example to lint the Hub app:
+
+nx run hub-app:lint
 
 # build a specific package:
 

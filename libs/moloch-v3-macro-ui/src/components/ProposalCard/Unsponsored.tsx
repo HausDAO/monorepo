@@ -97,17 +97,17 @@ export const Unsponsored = ({
     });
   };
 
-  const hasShares = useMemo(() => {
+  const hasDelegatedShares = useMemo(() => {
     if (
       dao &&
-      isNumberish(connectedMember?.shares) &&
+      isNumberish(connectedMember?.delegateShares) &&
       isNumberish(dao.sponsorThreshold)
     ) {
-      return Number(connectedMember?.shares) >= Number(dao?.sponsorThreshold)
+      return Number(connectedMember?.delegateShares) >= Number(dao?.sponsorThreshold)
         ? true
         : `${fromWei(
             dao.sponsorThreshold
-          )} voting stake tokens are required to sponsor this proposal.`;
+          )} delegated voting stake tokens are required to sponsor this proposal.`;
     }
     return 'Subgraph data not loading or is not in sync';
   }, [dao, connectedMember]);
@@ -138,7 +138,7 @@ export const Unsponsored = ({
           <VotingBar proposal={proposal} />
           <GatedButton
             size="sm"
-            rules={[hasShares, isConnectedToDao, notDelegating]}
+            rules={[hasDelegatedShares, isConnectedToDao, notDelegating]}
             onClick={handleSponsor}
             fullWidth={isMobile}
           >

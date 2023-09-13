@@ -103,7 +103,8 @@ export const Unsponsored = ({
       isNumberish(connectedMember?.delegateShares) &&
       isNumberish(dao.sponsorThreshold)
     ) {
-      return Number(connectedMember?.delegateShares) >= Number(dao?.sponsorThreshold)
+      return Number(connectedMember?.delegateShares) >=
+        Number(dao?.sponsorThreshold)
         ? true
         : `${fromWei(
             dao.sponsorThreshold

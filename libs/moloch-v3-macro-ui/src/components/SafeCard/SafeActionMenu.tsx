@@ -6,9 +6,8 @@ import {
   DropdownTrigger,
   DropdownContent,
 } from '@daohaus/ui';
-import { getNetwork, Keychain } from '@daohaus/keychain-utils';
+import { getNetwork } from '@daohaus/keychain-utils';
 import { SafeActionMenuLink, SafeActionMenuTrigger } from './SafeCard.styles';
-import { useDaoMember } from '@daohaus/moloch-v3-hooks';
 import { useDHConnect } from '@daohaus/connect';
 
 type SafeActionMenuProps = {
@@ -25,22 +24,14 @@ export const SafeActionMenu = ({
   daoId,
 }: SafeActionMenuProps) => {
   const { address } = useDHConnect();
-  const { member } = useDaoMember({
-    daoId,
-    daoChain: daoChain as keyof Keychain,
-    memberAddress: address,
-  });
-
-  const enableActions = useMemo(() => {
-    return member && Number(member.shares) > 0;
-  }, [member]);
 
   const networkData = useMemo(() => {
     if (!daoChain) return null;
     return getNetwork(daoChain);
   }, [daoChain]);
 
-  if (!enableActions) return null;
+  // must be connected to view action menu
+  if (!address) return null;
 
   return (
     <DropdownMenu>

@@ -25,6 +25,7 @@ const Header = styled.div`
 export const DHLayout = ({
   navLinks,
   dropdownLinks,
+  dropdownTriggerLabel,
   children,
   appNavLinks,
   leftNav,
@@ -49,6 +50,7 @@ export const DHLayout = ({
       <DaoHausNavMenu
         navLinks={navLinks}
         dropdownLinks={dropdownLinks}
+        dropdownTriggerLabel={dropdownTriggerLabel}
         pathname={pathname}
       />
       <MainLayout>{children}</MainLayout>

@@ -122,6 +122,7 @@ fragment proposalFields on Proposal {
   sponsorMembership {
     memberAddress
     shares
+    delegateShares
   }
   dao {
     totalShares

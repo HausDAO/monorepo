@@ -1,5 +1,3 @@
-const poo = '100';
-console.log('poo', poo);
 export const FORM_COPY = {
   TOKENS: {
     title: 'Stake Tokens',

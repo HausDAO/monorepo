@@ -86,7 +86,7 @@ export const CancelProposal = ({
       proposal.createdBy.toLowerCase() === address?.toLowerCase();
 
     const sponsorBelowThreshold =
-      Number(proposal.sponsorMembership?.shares) <
+      Number(proposal.sponsorMembership?.delegateShares) <
       Number(dao?.sponsorThreshold);
 
     const isGovernorShaman = dao?.shamen?.some((shaman) => {

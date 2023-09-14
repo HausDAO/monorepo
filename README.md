@@ -1,6 +1,6 @@
 # DAOhaus v3 Monorepo
 
-DAOhaus is a no-code platform for summoning and managing Moloch DAOs. We've worked to reimagine our platform into multiple apps, libraries, and microservices. We're using a monorepo to streamline the development of all of these elements, and we used [Nx](https://nx.dev) to scaffold our monorepo.
+DAOhaus is a platform for summoning and managing Moloch DAOs. We've worked to reimagine our platform into multiple apps, libraries, and microservices. We're using a monorepo to streamline the development of all of these elements, and we used [Nx](https://nx.dev) to scaffold our monorepo.
 
 If you'd like to join our community, we coordinate on [Discord](https://discord.gg/gWH4vt3tWE).
 
@@ -19,40 +19,16 @@ Our applications in the `apps` folder are our DAO infrastructure and leverage ou
 - **User Interfaces**: These are our applications that are used to interact with DAOs.
   - Admin App
   - Summoner App
-- **Deployed Infrastructure**: These are our jobs and subgraphs and are deployed to provide functionality leveraged throughout our other applications.
-  - v3 Subgraph
-
-| App                                | Build       | Entry Points       |
-| ---------------------------------- | ----------- | ------------------ |
-| [Admin App](./apps/admin)          | webpack, ts | `apps/admin`       |
-| [Summoner App](./apps/summon/)     | webpack, ts | `apps/summon`      |
-| [v3 Subgraph](./apps/v3-subgraph/) | webpack, ts | `apps/v3-subgraph` |
+    **v3 Subgraph**
 
 ### Libs
 
 Our libraries in the `libs` folder are structured to be consumed by our apps as well as used by external developers using our tooling. Currently, we have three categories of libraries:
 
-- **Utility Libraries**: These are libraries that are used to provide foundational utility that can be composed and integrated into applications.
-  - Utilities libraries
-  - Data reading libraries
-  - Date writing libraries (contract function wrappers)
-  - Component Library
-- **Feature Libraries**: These compose together other libraries such as the _DAO Data SDK_ and the _Component Library_ to create "smart components" that can be integrated into applications.
-  - DAOhaus Connect
-  - Tx Builder
-  - Form Builder
-  - React application data context
-
-| Lib                                          | Entry Point               |
-| -------------------------------------------- | ------------------------- |
-| [ABI Utilities](./libs/abis/)                | `libs/abis`               |
-| [Contract Utilities](./libs/contract-utils/) | `libs/contract-utils`     |
-| [Common Utilities](./libs/utils/)            | `libs/utils`              |
-| [DAO Data SDK](./libs/moloch-v3-data)        | `libs/moloch-v3-data-sdk` |
-| [Component Library (UI)](./libs/ui)          | `libs/ui`                 |
-| [DAOhaus Connect](./libs/connect)            | `libs/connect`            |
-| [Tx Builder](./libs/tx-builder)              | `libs/tx-builder`         |
-| [Form Builder](./libs/form-builder)          | `libs/form-builder`       |
+- **Utility Libraries**: The utilities packages contain a host of common functions, constants, and helper utilities that are routinely used across our other libraries.
+- **Data Libraries**: The data packages wrap our contracts, subgraphs and other data sources. They help with fetching dao data, profile data and writing to contracts.
+- **UI Component Library**: The DAOhaus UI package is a comprehensive library, offering a robust set of UI components. You can import and use these to construct your application’s user interface. The package caters particularly to TypeScript app development and can be adapted to any framework.
+- **Feature Libraries**: These features are a powerful blend of UI and data elements, crafted with the intention to provide you with robust, ready-to-use components that seamlessly integrate with your applications.
 
 ## Getting Started
 

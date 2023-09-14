@@ -12,9 +12,6 @@ import {
   ParMd,
 } from '@daohaus/ui';
 import {
-  DAO_METHOD_TO_PROPOSAL_TYPE,
-  PROPOSAL_TYPE_WARNINGS,
-  SENSITIVE_PROPOSAL_TYPES,
   dynamicDecimals,
   formatShortDateTimeFromSeconds,
   formatValueTo,

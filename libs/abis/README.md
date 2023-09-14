@@ -4,15 +4,19 @@
 
 This library was generated with [Nx](https://nx.dev).
 
-## Getting Started
+### [View on NPM](https://www.npmjs.com/package/@daohaus/abis)
 
-**Install**
+## Usage
+
+### Installation
 
 ```sh
 yarn add @daohaus/abis
 ```
 
-**Get ABI Instances**
+### Examples
+
+**How to get ABI instances**
 
 ```ts
 import { LOCAL_ABI } from '@daohaus/abis';
@@ -24,4 +28,4 @@ console.log(summonerContractAbi);
 
 ## Building
 
-Run `nx build abis` to build the library.
+Run `nx run abis:build` to build the library.

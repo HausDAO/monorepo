@@ -1,39 +1,37 @@
 # Component Library (UI) / @daohaus/ui
 
-**Component Library (UI)** is a set of React components with TypeScript leveraging [Radix UI](https://www.radix-ui.com/) primitives. This library roughly follows [Atomic Design principles](https://bradfrost.com/blog/post/atomic-web-design/), and are intended to be composed together to build application UI.
+The UI component library is organized into various component levels: _Atoms_, _Molecules_, _Organisms_, and _Layouts_. This organization allows you to install the entire package or pick the components you need. Even though we bundle many elements together, we also provide the primitives when possible. If a molecule doesn't suit your needs, you can reconstruct it as you wish.
 
-This library includes a [Storybook](https://storybook.js.org/) as well and is intended for use by the larger DAOhaus community. Since we "dogfood" our own package development we're continually adding to this library as we surface new components.
+### [Inspect components in Storybook](https://storybook.daohaus.fun/?path=/story/atoms-avatar--small-avatar)
 
-This library was generated with [Nx](https://nx.dev).
-
-## Getting Started
-
-**Install**
-
-```sh
-yarn add @daohaus/ui
-```
-
-## Running Locally
-
-To run this locally, clone the monorepo and use `nx run ui:storybook` to run the Storybook instance. This will start a local server and open a browser window to the Storybook UI. This will run the Storybook instance on `localhost:4400`.
+### [View on NPM](https://www.npmjs.com/package/@daohaus/ui)
 
 ## Usage
 
-DAOhaus UI provides a theme Context Provider as well as a set of UI components that can be imported and used to build app UI.Start by importing the `HausThemeProvider` from the `@daohaus/ui` package at your app's `root` component, such as `main.tsx`:
+## Running Storybook Locally
 
-### HausThemeProvider Context Provider
+Run `nx ui:storybook`
+
+### Installation
+
+```bash
+yarn add @daohaus/ui
+```
+
+Initially, import the `HausThemeProvider` from the `@daohaus/ui` package in your app's root component, such as `main.tsx`. This wraps the entire application and avails its data to other components
 
 ```jsx
 // main.tsx
+
+import { HausThemeProvider } from '@daohaus/ui';
 
 ReactDOM.render(
   <StrictMode>
     <HausThemeProvider>
       <HashRouter>
-        <DHConnectProvider>
+        <HausConnectProvider>
           <Routes />
-        </DHConnectProvider>
+        </HausConnectProvider>
       </HashRouter>
     </HausThemeProvider>
   </StrictMode>,
@@ -41,19 +39,52 @@ ReactDOM.render(
 );
 ```
 
-Eventually this will support multiple themes that can be passed into the `<HausThemeProvider/>` but for now it only includes the default theme. Once this is imported, your app will inherit all of the default theme styles and tokens.
+### Examples
 
-### Importing Components
+**There are examples of most component in our [Storybook](https://storybook.daohaus.fun/)**
 
-Individual components are exported as named exports from the `@daohaus/ui` package. You can use them in your app by importing them into a component:
+**How to use Components**
+
+You can import individual components from the `@daohaus/ui` package and utilize them in your app:
 
 ```jsx
-// Component.tsx
-
 import { Button } from '@daohaus/ui';
+
+<Button color="secondary" onClick={somAction} IconLeft={<SomeIcon />}>
+  Button content
+</Button>;
 ```
 
-We have a Storybook with stories for each exported component showcasing the props and variants. All of our components are written with TypeScript so you'll be able to have TypeScript "hints" in your code editor when using them.
+**How to override the theme.**
+
+The `theme.ts` file establishes base styles for components, leveraging the Radix [open-source color system](https://www.radix-ui.com/colors). The `<HausThemeContext>` sets state variables for primary, secondary, tertiary, neutral, and utility colors.
+
+[Daefult DAOhaus theme](https://github.com/HausDAO/monorepo/blob/develop/libs/ui/src/theme/theme.ts#L54)
+
+You can override this theme by passing a new theme or parts of the theme to the themeOverrides prop on the HausThemeProvider
+
+**How to use the toast hook**
+
+```jsx
+import { useToast } from '@daohaus/ui';
+
+const { successToast } = useToast();
+
+successToast({
+  title: 'Toast title',
+  description: 'Some content',
+});
+```
+
+**How to use the media query hook**
+
+```jsx
+import { useBreakpoint, widthQuery } from '@daohaus/ui';
+
+const isMobile = useBreakpoint(widthQuery.sm);
+
+<Button full={isMobile} />;
+```
 
 ## Components Overview
 
@@ -75,3 +106,7 @@ Our component library includes the following, and each of the components has an 
   - Common types used throughout the component library.
 
 ---
+
+## Building
+
+Run `nx ui:build` to build the library.

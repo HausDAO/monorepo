@@ -29,7 +29,7 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
 
     if (
       !connectedMember ||
-      Number(dao.sponsorThreshold) > Number(connectedMember.shares)
+      Number(dao.sponsorThreshold) > Number(connectedMember.delegateShares)
     ) {
       setRequiresOffering(true);
       setValue(id, dao.proposalOffering);

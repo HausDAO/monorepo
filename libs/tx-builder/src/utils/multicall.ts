@@ -32,6 +32,7 @@ import {
   CURRENT_DAO,
   EXPIRY,
   FORM,
+  gasBufferMultiplier,
 } from './constants';
 import { processContractLego } from './contractHelpers';
 import { createViemClient } from '@daohaus/utils';
@@ -391,7 +392,7 @@ export const handleGasEstimate = async ({
   });
 
   if (gasEstimate) {
-    const buffer = arg.bufferPercentage || 2;
+    const buffer = arg.bufferPercentage || gasBufferMultiplier;
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {
     // This happens when the safe vault takes longer to be indexed by the Gnosis API

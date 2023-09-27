@@ -10,6 +10,7 @@ import SHARES from '../abi/shares.json';
 import SUPERFLUID_PROXY from '../abi/superFluidProxy.json';
 import TRIBUTE_MINION from '../abi/tributeMinion.json';
 import ERC20 from '../abi/erc20a.json';
+import ERC721 from '../abi/erc721.json';
 import VAULT_SUMMONER from '../abi/vaultSummoner.json';
 import GNOSIS_MODULE from '../abi/gnosisModule.json';
 
@@ -27,6 +28,7 @@ export const LOCAL_ABI = {
   SUPERFLUID_PROXY,
   TRIBUTE_MINION,
   ERC20,
+  ERC721,
   VAULT_SUMMONER,
 };
 export type ContractABIKey = keyof typeof LOCAL_ABI;

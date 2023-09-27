@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { NetworkConfigs, ValidNetwork } from '@daohaus/keychain-utils';
+import { NetworkConfigs } from '@daohaus/keychain-utils';
 import { getProfileForAddress } from '@daohaus/profile-data';
 
 import { UserProfile, ConnectLifecycleFns } from './types';
@@ -13,7 +13,6 @@ export const truncateAddress = (addr: string) =>
 
 export const loadProfile = async ({
   address,
-  chainId,
   setProfile,
   setProfileLoading,
   shouldUpdate,
@@ -21,7 +20,6 @@ export const loadProfile = async ({
   networks,
 }: {
   address: string;
-  chainId: ValidNetwork;
   setProfile: Dispatch<SetStateAction<UserProfile>>;
   setProfileLoading: Dispatch<SetStateAction<boolean>>;
   shouldUpdate: boolean;
@@ -30,15 +28,12 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const daochain = !['0x1', '0x5'].includes(chainId) ? '0x1' : chainId;
-    const profile = await getProfileForAddress(
+    const profile = await getProfileForAddress({
       address,
-      networks[daochain]?.rpc
-    );
-
+      rpcUri: networks['0x1']?.rpc,
+    });
     if (profile && shouldUpdate) {
-      const displayName =
-        profile.name || profile.ens || truncateAddress(address);
+      const displayName = profile.ens || truncateAddress(address);
       setProfile({ ...profile, displayName });
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

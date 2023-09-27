@@ -42,6 +42,7 @@ const fetchProposals = async ({
       paging: pageParam || paging,
       graphApiKeys,
     });
+
     return res;
   } catch (error) {
     throw new Error(
@@ -106,7 +107,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
   );
 
   const { data, error, ...rest } = useInfiniteQuery(
-    [{ daoId, daoChain, filter, ordering, paging }],
+    ['proposals', { daoId, daoChain, filter, ordering, paging }],
     ({ pageParam }) =>
       fetchProposals({
         daoId,

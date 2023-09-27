@@ -4,36 +4,29 @@ import { useQuery } from 'react-query';
 
 const fetchProfile = async ({
   address,
-  ensNetwork,
-  rpcs,
+  mainnetRpc,
 }: {
   address: string;
-  ensNetwork: string;
-  rpcs: Record<string, string>;
+  mainnetRpc?: string;
 }) => {
-  const rpcUri = rpcs[ensNetwork];
-
-  if (!rpcUri) {
-    throw new Error('Invalid RPC URI');
-  }
-
-  const profile = await getProfileForAddress(address, rpcUri);
+  const profile = await getProfileForAddress({
+    address,
+    rpcUri: mainnetRpc,
+  });
 
   return profile;
 };
 
 export const useProfile = ({
   address,
-  ensNetwork = '0x1',
-  rpcs = HAUS_RPC,
+  mainnetRpc = HAUS_RPC['0x1'],
 }: {
   address: string;
-  ensNetwork?: string;
-  rpcs?: Record<string, string>;
+  mainnetRpc?: string;
 }) => {
   const { data, error, ...rest } = useQuery(
     [`globalProfile-${address}`],
-    () => fetchProfile({ address, ensNetwork, rpcs }),
+    () => fetchProfile({ address, mainnetRpc }),
     { enabled: !!address }
   );
 

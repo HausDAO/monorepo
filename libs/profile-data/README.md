@@ -23,7 +23,7 @@ This packages uses an rpc endpoint to get the ens name for an address. You shoul
 ```ts
 import { getProfileForAddress } from '@daohaus/profile-data';
 
-const profile = await getProfileForAddress('0x0address', 'https://some-rpc-endpoint.com');
+const profile = await getProfileForAddress({ address: '0x0address', rpcUri: 'https://some-rpc-endpoint.com' });
 ```
 
 ## Building

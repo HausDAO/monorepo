@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 import { FormBuilder } from '@daohaus/form-builder';
 import {
@@ -16,10 +17,12 @@ export function NewProposal() {
   const { daoChain, daoId } = useCurrentDao();
   const { refetch } = useDaoData();
   const { refetch: refetchProposals } = useDaoProposals();
+  const queryClient = useQueryClient();
 
   const onFormComplete = () => {
-    refetch?.();
+    queryClient.invalidateQueries('proposals');
     refetchProposals?.();
+    refetch?.();
     navigate(`/molochV3/${daoChain}/${daoId}/proposals`);
   };
 

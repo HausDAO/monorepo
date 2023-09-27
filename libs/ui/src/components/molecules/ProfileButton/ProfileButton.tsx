@@ -41,24 +41,20 @@ export const ProfileButton = React.forwardRef<
       {!avatarOnly ? (
         <ProfileBtnAvatar
           address={profile.address}
-          image={profile.image}
+          image={profile.avatar}
           size={size}
         />
       ) : (
         <ProfileAvatar
           address={profile.address}
-          image={profile.image}
+          image={profile.avatar}
           size={size}
         />
       )}
       {!avatarOnly && (
         <div className="interior">
-          {profile.name && profile.name}
-          {!profile.name && profile.ens && profile.ens}
-          {!profile.name &&
-            !profile.ens &&
-            profile.address &&
-            truncateAddress(profile.address)}
+          {profile.ens && profile.ens}
+          {!profile.ens && profile.address && truncateAddress(profile.address)}
           {children}
         </div>
       )}

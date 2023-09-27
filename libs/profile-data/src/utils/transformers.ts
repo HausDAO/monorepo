@@ -1,23 +1,37 @@
-import { AccountProfile } from '@daohaus/utils';
-import { LensProfile, ENSDomain } from '../types';
+import { AccountProfile, isString } from '@daohaus/utils';
+import { ENSDomain } from '../types';
+import { GetEnsAvatarReturnType } from 'viem/ens';
 
 export const transformProfile = ({
   address,
-  lensProfile,
   ensDomain,
 }: {
   address: string;
-  lensProfile?: LensProfile;
   ensDomain?: ENSDomain;
 }): AccountProfile => {
   return {
     address,
-    name: lensProfile?.name,
-    ens: ensDomain?.domain?.name || lensProfile?.onChainIdentity?.ens?.name,
-    // TODO: lens profile images have been unreliable
-    image: '',
-    description: lensProfile?.bio,
-    lensHandle: lensProfile?.handle,
-    lensId: lensProfile?.id,
+    ens: isString(ensDomain) ? ensDomain : ensDomain?.domain?.name,
+    avatar: isString(ensDomain)
+      ? ensDomain
+      : formatImageUrl(ensDomain?.domain?.avatar),
   };
+};
+
+const formatImageUrl = (
+  imageUri?: GetEnsAvatarReturnType
+): string | undefined => {
+  if (!imageUri) return;
+  if (
+    imageUri.toLowerCase().startsWith('http') ||
+    imageUri.toLowerCase().startsWith('data')
+  ) {
+    return imageUri;
+  }
+
+  if (imageUri.toLowerCase().startsWith('ipfs')) {
+    return `https://daohaus.mypinata.cloud/ipfs/${imageUri.match(
+      /Qm[a-zA-Z0-9/.]+/
+    )}`;
+  }
 };

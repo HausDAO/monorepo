@@ -111,16 +111,9 @@ export const ConnectProvider = ({
       chainId: ValidNetwork | null | undefined,
       shouldUpdate: boolean
     ) => {
-      if (
-        address &&
-        chainId &&
-        isConnected &&
-        !isProfileLoading &&
-        address !== profile?.address
-      ) {
+      if (address && chainId && isConnected && !isProfileLoading) {
         loadProfile({
           address,
-          chainId,
           setProfile,
           setProfileLoading,
           shouldUpdate,
@@ -129,11 +122,12 @@ export const ConnectProvider = ({
         });
       }
     },
-    [isConnected, isProfileLoading, networks, lifeCycleFns, profile]
+    [isConnected, isProfileLoading, networks, lifeCycleFns]
   );
 
   useEffect(() => {
     let shouldUpdate = true;
+
     loadAccountProfile(address, chainId, shouldUpdate);
     return () => {
       shouldUpdate = false;

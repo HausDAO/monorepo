@@ -36,7 +36,6 @@
     "@radix-ui/react-tooltip": "^1.0.2",
     "@safe-global/safe-apps-sdk": "^8.0.0",
     "@svgr/webpack": "^6.5.1",
-    "@tokenbound/sdk": "^0.3.7",
     "@types/react-table": "^7.7.12",
     "@wagmi/connectors": "^2.6.6",
     "@walletconnect/client": "^1.8.0",

@@ -123,7 +123,7 @@ export const encodeTokenParams = (formValues: SummonParams) => {
   throw new Error('Encoding Error');
 };
 
-const governanceConfigTX = (formValues: SummonParams) => {
+export const governanceConfigTX = (formValues: SummonParams) => {
   const {
     votingPeriodInSeconds,
     gracePeriodInSeconds,
@@ -197,7 +197,10 @@ export const shamanConfigTX = (formValues: SummonParams) => {
   throw new Error('Encoding Error');
 };
 
-const metadataConfigTX = (formValues: SummonParams, posterAddress: string) => {
+export const metadataConfigTX = (
+  formValues: SummonParams,
+  posterAddress: string
+) => {
   const { daoName } = formValues;
   if (!isString(daoName)) {
     console.log('ERROR: Form Values', formValues);
@@ -221,7 +224,7 @@ const metadataConfigTX = (formValues: SummonParams, posterAddress: string) => {
 };
 
 // THIS IS ONLY USED IN V3_FACTORY_ORIGINAL CONTRACT
-const tokenConfigTX = (formValues: SummonParams) => {
+export const tokenConfigTX = (formValues: SummonParams) => {
   const pauseVoteToken = !formValues.votingTransferable;
   const pauseNvToken = !formValues.nvTransferable;
 

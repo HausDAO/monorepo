@@ -124,7 +124,10 @@ fragment daoFields on Dao {
     contentType
     content
   }
-  shamen: shaman {
+  shamen: shaman(
+    orderBy: createdAt
+    orderDirection: desc
+  ) {
     id
     createdAt
     shamanAddress

@@ -49,9 +49,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/moloch-v3-data/src/subgraph/schema.graphql",
-          "get-graphql-schema https://api.thegraph.com/subgraphs/name/ensdomains/ens > libs/moloch-v3-data/src/subgraph/schema-ens.graphql",
-          "get-graphql-schema https://api.lens.dev > libs/moloch-v3-data/src/subgraph/schema-lens.graphql"
+          "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/moloch-v3-data/src/subgraph/schema.graphql"
         ]
       }
     },
@@ -59,9 +57,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "graphql-codegen --config libs/moloch-v3-data/codegen.yaml",
-          "graphql-codegen --config libs/moloch-v3-data/codegen-ens.yaml",
-          "graphql-codegen --config libs/moloch-v3-data/codegen-lens.yaml"
+          "graphql-codegen --config libs/moloch-v3-data/codegen.yaml"
         ]
       }
     }

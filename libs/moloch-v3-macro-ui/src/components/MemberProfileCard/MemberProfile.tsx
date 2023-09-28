@@ -1,14 +1,7 @@
 import styled from 'styled-components';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Dao, MolochV3Member } from '@daohaus/moloch-v3-data';
-import {
-  H5,
-  ParLg,
-  DataXs,
-  AddressDisplay,
-  DataIndicator,
-  ParMd,
-} from '@daohaus/ui';
+import { H5, DataXs, AddressDisplay, DataIndicator, ParMd } from '@daohaus/ui';
 import {
   AccountProfile,
   formatLongDateFromSeconds,
@@ -67,19 +60,14 @@ export const MemberProfile = ({
       <PSubContainer>
         <ProfileMetadataContainer>
           <AvatarLarge
-            image={profile?.image || ''}
+            image={profile?.avatar || ''}
             size="lg"
             alt="profile image"
             address={profile.address}
           />
           <Container>
             <ProfileNameContainer>
-              {profile?.name && <H5>{profile?.name || ''}</H5>}
-              {profile?.emoji && (
-                <ParLg as="span" role="img" aria-label="profile emoji">
-                  {profile?.emoji || ''}
-                </ParLg>
-              )}
+              {profile?.ens && <H5>{profile?.ens || ''}</H5>}
             </ProfileNameContainer>
             {membership && (
               <AddressDisplay

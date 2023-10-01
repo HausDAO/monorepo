@@ -97,6 +97,12 @@ export const deepDecodeProposalActions = async ({
   return decodeMultiCall(options, actionData as `0x${string}`);
 };
 
+const createActionError = (data: string, message: string): ActionError => ({
+  error: true,
+  message,
+  data,
+});
+
 const decodeMultiCall = async (
   options: Options,
   data: `0x${string}`
@@ -120,7 +126,7 @@ const decodeMultiCall = async (
   return decodedProposalActions;
 };
 
-type FunctionDataWithInputsReturnType = {
+type DecodedMethod = {
   functionName: string;
   inputs: {
     name: string;
@@ -142,10 +148,10 @@ const decodeValue = (value: unknown): string => {
   return '0';
 };
 
-const decodeFunctionDataWithInputs = (options: {
+const decodeMethod = (options: {
   abi: any[];
   data: `0x${string}`;
-}): FunctionDataWithInputsReturnType => {
+}): DecodedMethod => {
   const result = decodeFunctionData(options);
 
   const functionDetails = getAbiItem({
@@ -165,6 +171,139 @@ const decodeFunctionDataWithInputs = (options: {
     functionName: result.functionName,
     inputs: inputsWithValues,
   };
+};
+
+const actionDecoders: Record<
+  string,
+  (
+    options: Options,
+    action: MetaTransaction,
+    decodedMethod: DecodedMethod
+  ) => Promise<DeepDecodedAction | ActionError>
+> = {
+  // multiSend(bytes)
+  '0x8d80ff0a': async (options, action, decodedMethod) => {
+    if (
+      decodedMethod.functionName !== 'multiSend' ||
+      decodedMethod.inputs.length !== 1
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: multiSend'
+      );
+    }
+    const input = decodedMethod.inputs[0];
+    if (input.type !== 'bytes') {
+      return createActionError(
+        action.data,
+        'Could not decode action: multiSend'
+      );
+    }
+
+    const decodedActions = await decodeMultiCall(
+      options,
+      action.data as `0x${string}`
+    );
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.DelegateCall,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: decodedMethod.inputs,
+      decodedActions,
+    };
+  },
+
+  // execTransactionFromModule(address,uint256,bytes,uint8)
+  '0x468721a7': async (options, action, decodedMethod) => {
+    if (
+      decodedMethod.functionName !== 'execTransactionFromModule' ||
+      decodedMethod.inputs.length !== 4
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: execTransactionFromModule'
+      );
+    }
+    const inputTo = decodedMethod.inputs[0];
+    const inputValue = decodedMethod.inputs[1];
+    const inputData = decodedMethod.inputs[2];
+    const inputOperation = decodedMethod.inputs[3];
+
+    if (
+      inputTo.type !== 'address' ||
+      inputValue.type !== 'uint256' ||
+      inputData.type !== 'bytes' ||
+      inputOperation.type !== 'uint8'
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: execTransactionFromModule'
+      );
+    }
+
+    const decodedAction = await decodeAction(options, {
+      to: inputTo.value as `0x${string}`,
+      data: inputData.value as `0x${string}`,
+      value: decodeValue(inputValue?.value),
+      operation:
+        decodeValue(inputOperation?.value) === '1'
+          ? OperationType.DelegateCall
+          : OperationType.Call,
+    });
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.Call,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: decodedMethod.inputs,
+      decodedActions: [decodedAction],
+    };
+  },
+  // executeAsBaal(address,uint256,bytes)
+  '0xb3c98bbb': async (options, action, decodedMethod) => {
+    if (
+      decodedMethod.functionName !== 'executeAsBaal' ||
+      decodedMethod.inputs.length !== 3
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: executeAsBaal'
+      );
+    }
+    const inputTo = decodedMethod.inputs[0];
+    const inputValue = decodedMethod.inputs[1];
+    const inputData = decodedMethod.inputs[2];
+
+    if (
+      inputTo.type !== 'address' ||
+      inputValue.type !== 'uint256' ||
+      inputData.type !== 'bytes'
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: executeAsBaal'
+      );
+    }
+
+    const decodedAction = await decodeAction(options, {
+      to: inputTo.value as `0x${string}`,
+      data: inputData.value as `0x${string}`,
+      value: decodeValue(inputValue?.value),
+      operation: OperationType.Call,
+    });
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.Call,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: decodedMethod.inputs,
+      decodedActions: [decodedAction],
+    };
+  },
 };
 
 const decodeAction = async (
@@ -197,79 +336,30 @@ const decodeAction = async (
   });
 
   if (!abi || !abi?.length) {
-    throw new Error('No ABI found for this contract');
+    return createActionError(data, 'Could not decode action: abi not found');
   }
 
-  const result = decodeFunctionDataWithInputs({
+  const decodedMethod = decodeMethod({
     abi,
     data: data as `0x${string}`,
   });
 
-  if (!result) {
-    throw new Error('Could not decode action');
+  if (!decodedMethod) {
+    return createActionError(data, 'Could not decode action: method not found');
   }
 
-  if (result.functionName === 'multiSend' && result.inputs.length === 1) {
-    const decodedActions = await decodeMultiCall(
-      options,
-      data as `0x${string}`
-    );
-
-    return {
-      to: to,
-      operation: OperationType.DelegateCall,
-      name: result.functionName,
-      value: decodeValue(value),
-      params: result.inputs,
-      decodedActions,
-    };
-  }
-
-  if (result.functionName.toLowerCase().includes('exec')) {
-    const inputTo = result.inputs.find((input) => input.type === 'address');
-    const inputData = result.inputs.find((input) => input.type === 'bytes');
-    const inputValue = result.inputs.find((input) => input.type === 'uint256');
-    const inputOperation = result.inputs.find(
-      (input) => input.type === 'uint8'
-    );
-
-    if (!inputTo || !inputData) {
-      return {
-        to: to,
-        operation: operation || OperationType.Call,
-        name: result.functionName,
-        value: decodeValue(value),
-        params: result.inputs,
-        decodedActions: [],
-      };
-    }
-
-    const decodedData = await decodeAction(options, {
-      to: inputTo.value as `0x${string}`,
-      data: inputData.value as `0x${string}`,
-      value: decodeValue(inputValue?.value),
-      operation:
-        decodeValue(inputOperation?.value) === '1'
-          ? OperationType.DelegateCall
-          : OperationType.Call,
-    });
-
-    return {
-      to: to,
-      operation: operation || OperationType.Call,
-      name: result.functionName,
-      value: decodeValue(value),
-      params: result.inputs,
-      decodedActions: [decodedData],
-    };
+  const methodSignature = data.slice(0, 10);
+  const actionDecoder = actionDecoders[methodSignature];
+  if (actionDecoder) {
+    return await actionDecoder(options, action, decodedMethod);
   }
 
   return {
     to: to,
     operation: operation || OperationType.Call,
-    name: result.functionName,
+    name: decodedMethod.functionName,
     value: decodeValue(value),
-    params: result.inputs,
+    params: decodedMethod.inputs,
     decodedActions: [],
   };
 };

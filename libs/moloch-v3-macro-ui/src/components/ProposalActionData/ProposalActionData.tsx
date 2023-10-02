@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { isValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
-import { DecodedMultiTX, isActionError } from '@daohaus/tx-builder';
+import {
+  DeepDecodedMultiTX as DecodedMultiTX,
+  isActionError,
+} from '@daohaus/tx-builder';
 import {
   AddressDisplay,
   Bold,
@@ -73,7 +76,7 @@ export const ProposalActionData = ({
     <MainContainer>
       <DisplayContainer>
         <TitleContainer>
-          <ParMd>Transaction Call Data</ParMd>
+          <ParMd>Decoded Transaction Data</ParMd>
 
           {!actionData && (
             <LoadingContainer>
@@ -166,6 +169,16 @@ export const ProposalActionData = ({
                     </div>
                   );
                 })}
+                {action.decodedActions?.length ? (
+                  <ProposalActionData
+                    daoChain={daoChain}
+                    daoId={daoId}
+                    proposal={proposal}
+                    proposalActionConfig={proposalActionConfig}
+                    actionData={action.decodedActions}
+                    decodeError={decodeError}
+                  />
+                ) : null}
               </div>
             );
           })}

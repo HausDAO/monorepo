@@ -34,6 +34,7 @@
     "@radix-ui/react-switch": "^1.0.1",
     "@radix-ui/react-toast": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.0.2",
+    "@safe-global/safe-apps-react-sdk": "^4.7.0",
     "@safe-global/safe-apps-sdk": "^8.0.0",
     "@shazow/whatsabi": "^0.8.5",
     "@svgr/webpack": "^6.5.1",

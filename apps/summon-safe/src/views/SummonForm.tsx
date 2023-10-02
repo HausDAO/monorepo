@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Container, Grid } from '@material-ui/core';
-import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
+import styled from 'styled-components';
+
+import {
+  assembleTxArgs,
+  handleKeychains,
+  SummonParams,
+} from '@daohaus/contract-utils';
+import { toBaseUnits } from '@daohaus/utils';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
 import {
   Button,
@@ -13,13 +19,13 @@ import {
   Text,
   Title,
 } from '@gnosis.pm/safe-react-components';
-import styled from 'styled-components';
+import { Container, Grid } from '@material-ui/core';
+import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
 
 import InputText from '../components/InputText';
 import RecordsDataTable, { Column } from '../components/RecordsDataTable';
 import TimePicker from '../components/TimePicker';
 import Toggle from '../components/Toggle';
-
 import { VALID_NETWORKS } from '../utils/chain';
 import {
   transformMemberData,
@@ -33,12 +39,6 @@ import {
   encodeSummonBaal,
   pollSafeTx,
 } from '../utils/txHelpers';
-import {
-  assembleTxArgs,
-  handleKeychains,
-  SummonParams,
-} from '@daohaus/contract-utils';
-import { toBaseUnits } from '@daohaus/utils';
 
 const SHAMAN_PROPS: Array<Column> = [
   {
@@ -91,13 +91,9 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
   const [txExplorerURI, setTxExplorerURI] = useState('');
   const [requireSignatures, setRequireSignatures] = useState(false);
   const { sdk, safe } = useSafeAppsSDK();
-  // const { sdk, safe, connected } = useSafeAppsSDK()
   const methods = useForm({ mode: 'onTouched' });
-  // const {
-  //   formState: { isValid },
-  // } = methods
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const submitDisabled = !isValid || isSubmitting || !connected
+
   const formDisabled = isSubmitting;
 
   const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {

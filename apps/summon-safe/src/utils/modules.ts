@@ -4,6 +4,7 @@ export const MODULES: Record<string, ModuleTemplate> = {
   BAAL_COOKIE_JAR: {
     id: 'baalCookieJar',
     name: 'Baal CookieJar',
+    tag: 'baal',
     description: 'A CookieJar ready for Baal',
     factory: {
       abi: [
@@ -134,6 +135,7 @@ export const MODULES: Record<string, ModuleTemplate> = {
   ERC20_COOKIE_JAR: {
     id: 'erc20CookieJar',
     name: 'ERC20 CookieJar',
+    tag: 'erc20',
     description: 'An ERC20 CookieJar',
     factory: {
       abi: [
@@ -214,6 +216,7 @@ export const MODULES: Record<string, ModuleTemplate> = {
   ERC721_COOKIE_JAR: {
     id: 'erc721CookieJar',
     name: 'ERC721 CookieJar',
+    tag: 'erc721',
     description: 'An ERC721 CookieJar',
     factory: {
       abi: [
@@ -286,6 +289,7 @@ export const MODULES: Record<string, ModuleTemplate> = {
   LIST_COOKIE_JAR: {
     id: 'listCookieJar',
     name: 'List CookieJar',
+    tag: 'list',
     description: 'An Allowlist CookieJar',
     factory: {
       abi: [
@@ -360,6 +364,7 @@ export const MODULES: Record<string, ModuleTemplate> = {
   OPEN_COOKIE_JAR: {
     id: 'openCookieJar',
     name: 'Open CookieJar',
+    tag: 'open',
     description: 'An Open CookieJar',
     factory: {
       abi: [

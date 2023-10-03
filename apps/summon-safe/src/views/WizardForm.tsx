@@ -209,7 +209,7 @@ const WizardForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           return param.multipleValues ? vals[param.id][param.id] : value;
         });
 
-      console.log('moduleParams', moduleParams);
+      // console.log('moduleParams', moduleParams);
       if (
         !moduleParams.every((val) => typeof val === 'boolean' || val?.length)
       ) {
@@ -247,6 +247,13 @@ const WizardForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
       const donationToken = ethers.constants.AddressZero;
       const donationAmount = '0';
 
+      const details = JSON.stringify({
+        type: moduleTemplate.tag,
+        title: vals['moduleDetails'] as string,
+        description: moduleTemplate.description,
+        link: '',
+      });
+
       setError('');
       const { safeTxHash } = await sdk.txs.send({
         txs: [
@@ -265,7 +272,7 @@ const WizardForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
               [
                 moduleFactory.singletonAddress,
                 initializer,
-                vals['moduleDetails'] || 'New Module',
+                details,
                 donationToken,
                 donationAmount,
                 saltNonce,

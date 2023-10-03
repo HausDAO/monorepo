@@ -40,6 +40,7 @@ export type SetupSection<T> = {
 export type ModuleTemplate = {
   id: string;
   name: string;
+  tag: string;
   description: string;
   avatarImg?: string;
   chain: Record<ValidNetwork, Network>;

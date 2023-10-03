@@ -1,1 +1,1 @@
-export * from "./wizardFormLegoTypes";
+export * from './wizardFormLegoTypes';

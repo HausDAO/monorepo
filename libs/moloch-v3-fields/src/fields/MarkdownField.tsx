@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Buildable, Button, Field, Label, WrappedTextArea } from "@daohaus/ui";
-import { useFormContext } from "react-hook-form";
-import { BiPencil} from 'react-icons/bi';
+import React, { useState } from 'react';
+import { Buildable, Button, Field, Label, WrappedTextArea } from '@daohaus/ui';
+import { useFormContext } from 'react-hook-form';
+import { BiPencil } from 'react-icons/bi';
 import { MdPreview } from 'react-icons/md';
 
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const TabsContainer = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const LabelContainer = styled(Label)`
 
 export const MarkdownField = (props: Buildable<Field>) => {
   const { watch } = useFormContext();
-  console.log("watch", watch(props.id));
+  console.log('watch', watch(props.id));
   const value = watch(props.id);
   // use state for edit or preview view
   const [edit, setEdit] = useState(true);
@@ -50,27 +50,28 @@ export const MarkdownField = (props: Buildable<Field>) => {
       <TabsContainer>
         <Button
           color="secondary"
-          variant={!edit ? "outline" : "solid"}
+          variant={!edit ? 'outline' : 'solid'}
           onClick={() => setEdit(true)}
           size="sm"
-
         >
-          <BiPencil/>
+          <BiPencil />
         </Button>
         <Button
           color="secondary"
-          variant={edit ? "outline" : "solid"}
+          variant={edit ? 'outline' : 'solid'}
           onClick={() => setEdit(false)}
           size="sm"
         >
-          <MdPreview/>
+          <MdPreview />
         </Button>
       </TabsContainer>
       {edit ? (
         <WrappedTextArea {...props} />
       ) : (
         <>
-          <LabelContainer><Label>Preview</Label></LabelContainer>
+          <LabelContainer>
+            <Label>Preview</Label>
+          </LabelContainer>
           <MarkDownContainer>
             <ReactMarkdown>{value}</ReactMarkdown>
           </MarkDownContainer>

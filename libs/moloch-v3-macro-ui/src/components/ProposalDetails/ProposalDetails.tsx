@@ -29,6 +29,8 @@ import { ProposalWarning } from '../ProposalActionData/ProposalWarning';
 import styled from 'styled-components';
 import { ProposalActionConfig } from '../ProposalActionData';
 
+import ReactMarkdown from "react-markdown";
+
 const Spacer = styled.div`
   margin-bottom: 2rem;
 `;
@@ -59,7 +61,7 @@ export const ProposalDetails = ({
 
   return (
     <OverviewContainer>
-      <ParMd className="description">{proposal.description}</ParMd>
+      <ReactMarkdown className="description">{proposal.description}</ReactMarkdown>
       {proposal.contentURI && (
         <Link href={proposal.contentURI} className="proposal-link">
           Link

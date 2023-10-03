@@ -21,7 +21,7 @@ export const SUMMON_COPY = {
   MIN_RETENTION:
     'What is the maximum percentage of DAO members (voting and non-voting stake) required to remain in the DAO after grace period? If the percentage falls below this number, the proposal is not executed.',
   SPONSOR_THRESHOLD:
-    'What is minimum number of voting stake tokens a member needs to sponsor a proposal?',
+    'What is minimum number of delegated stake tokens a member needs to sponsor a proposal?',
   NEW_OFFERING:
     'Would you like to require a fee to submit proposals? This feature is intended to protect against spam proposals. Fees go into the DAO treasury.',
   SHAMAN:

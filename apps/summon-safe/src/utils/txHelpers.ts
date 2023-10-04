@@ -3,7 +3,7 @@ import { LOCAL_ABI } from '@daohaus/abis';
 import { ENDPOINTS, ValidNetwork } from '@daohaus/keychain-utils';
 import SafeAppsSDK, {
   GatewayTransactionDetails,
-} from '@gnosis.pm/safe-apps-sdk';
+} from '@safe-global/safe-apps-sdk';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
 import { calculateProxyAddress, ContractAbis } from '@gnosis.pm/zodiac';
 import { handleKeychains } from '@daohaus/contract-utils';
@@ -47,11 +47,36 @@ export const calculateBaalAddress = async (
   );
 };
 
+export const calculateModuleAddress = async (
+  chainId: ValidNetwork,
+  singletonAddress: string,
+  initData: string,
+  saltNonce: string
+) => {
+  const { ZODIAC_FACTORY } = handleKeychains(chainId);
+  const moduleProxyFactory = new Contract(ZODIAC_FACTORY, ContractAbis.factory);
+
+  return calculateProxyAddress(
+    moduleProxyFactory,
+    singletonAddress,
+    initData,
+    saltNonce
+  );
+};
+
 export const encodeAddModule = (moduleAddress: string) => {
   const ifaceAvatar = new utils.Interface([
     'function enableModule(address module) public',
   ]);
   return ifaceAvatar.encodeFunctionData('enableModule', [moduleAddress]);
+};
+
+export const encodeSummonModule = (
+  iface: utils.Interface,
+  functionFragment: string | utils.FunctionFragment,
+  params: string[]
+) => {
+  return iface.encodeFunctionData(functionFragment, params);
 };
 
 export const encodeSummonBaal = (params: Array<string>) => {

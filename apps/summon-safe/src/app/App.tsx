@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { VALID_NETWORKS } from '@daohaus/keychain-utils';
-import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
 import { Tab, TabItem, Card } from '@gnosis.pm/safe-react-components';
 import { Container, Grid } from '@material-ui/core';
+import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
 
 import AppBar from '../components/AppBar';
 import AppFooter from '../components/AppFooter';
 import Daos from '../views/Daos';
 import SummonForm from '../views/SummonForm';
+import ModuleMarket from '../views/ModuleMarket';
 
 const TAB_OPTS: Array<TabItem> = [
   { id: 'listBaal', label: 'DAOs', icon: 'apps' },
   { id: 'newBaal', label: 'New DAO', icon: 'owners' },
+  { id: 'newBaalFromTemplate', label: 'New Module', icon: 'rocket' },
 ];
 
 const SafeApp = (): React.ReactElement => {
@@ -47,6 +49,7 @@ const SafeApp = (): React.ReactElement => {
                 <Daos newBaalEvent={() => setSelectedTab('newBaal')} />
               )}
               {selectedTab === 'newBaal' && <SummonForm resetTab={resetTab} />}
+              {selectedTab === 'newBaalFromTemplate' && <ModuleMarket />}
             </StyledCard>
           </StyledCardContainer>
         </StyledAppContainer>

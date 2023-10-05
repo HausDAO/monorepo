@@ -202,7 +202,7 @@ const RecordsDataTable: React.FC<RecordsProps> = (props: RecordsProps) => {
                 <Grid
                   key={`${id}_${column.field}`}
                   item
-                  xs={gridSize === 0 ? 6 : 4}
+                  xs={columns.length === 1 ? 12 : gridSize === 0 ? 6 : 4}
                 >
                   <InputText
                     id={column.field}

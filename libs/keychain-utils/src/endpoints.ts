@@ -72,7 +72,7 @@ export const getGraphUrl = (
   }
   return ENDPOINTS['V3_SUBGRAPH'][networkId];
 };
-export const HAUS_RPC = {
+export const HAUS_RPC_DEFAULTS = {
   '0x1': process.env['NX_RIVET_KEY']
     ? `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud`
     : `https://eth-mainnet.g.alchemy.com/v2/${process.env['NX_ETHEREUM_ALCHEMY_KEY']}`,
@@ -89,6 +89,14 @@ export const HAUS_RPC = {
   '0xa4b1': process.env['NX_ARBITRUM_ALCHEMY_KEY']
     ? `https://arb-mainnet.g.alchemy.com/v2/${process.env['NX_ARBITRUM_ALCHEMY_KEY']}`
     : 'https://arb1.arbitrum.io/rpc',
+};
+export const HAUS_RPC = {
+  '0x1': process.env['NX_MAINNET_RPC'] ? process.env['NX_MAINNET_RPC'] : HAUS_RPC_DEFAULTS['0x1'],
+  '0x5': process.env['NX_GOERLI_RPC'] ? process.env['NX_GOERLI_RPC'] : HAUS_RPC_DEFAULTS['0x5'],
+  '0x64': process.env['NX_GNOSISCHAIN_RPC'] ? process.env['NX_GNOSISCHAIN_RPC'] : HAUS_RPC_DEFAULTS['0x64'],
+  '0xa': process.env['NX_OPTIMISM_RPC'] ? process.env['NX_OPTIMISM_RPC'] : HAUS_RPC_DEFAULTS['0xa'],
+  '0x89': process.env['NX_POLYGONPOS_RPC'] ? process.env['NX_POLYGONPOS_RPC'] : HAUS_RPC_DEFAULTS['0x89'],
+  '0xa4b1': process.env['NX_ARBITRUM_RPC'] ? process.env['NX_ARBITRUM_RPC'] : HAUS_RPC_DEFAULTS['0xa4b1'],
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],

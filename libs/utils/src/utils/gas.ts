@@ -1,10 +1,11 @@
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { weiUnits, formatUnits, parseGwei } from 'viem';
 import { createViemClient } from './viem';
-
-// Adding to the gas limit to account for cost of processProposal
-export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
-export const L2_ADDITIONAL_GAS = 5000000;
+import {
+  GAS_BUFFER_MULTIPLIER,
+  L2_ADDITIONAL_GAS,
+  PROCESS_PROPOSAL_GAS_LIMIT_ADDITION,
+} from '../constants';
 
 // OPTIMISM challenge - how to display this estimated gas fee like we do on other networks.
 // ethers.js getFeeData returns maxFeePerGas as undefined,  might need to use gasPrice some how, then fetch the L1 amount
@@ -32,13 +33,14 @@ export const getProcessingGasLimit = (
         ? Number(actionGasEstimate) +
             PROCESS_PROPOSAL_GAS_LIMIT_ADDITION +
             L2_ADDITIONAL_GAS
-        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6 + L2_ADDITIONAL_GAS
+        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * GAS_BUFFER_MULTIPLIER +
+            L2_ADDITIONAL_GAS
     );
   }
   return BigInt(
     Number(actionGasEstimate) > 0
       ? Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
-      : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6
+      : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * GAS_BUFFER_MULTIPLIER
   );
 };
 

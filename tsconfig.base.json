@@ -34,7 +34,8 @@
       "@daohaus/profile-data": ["libs/profile-data/src/index.ts"],
       "@daohaus/tx-builder": ["libs/tx-builder/src/index.ts"],
       "@daohaus/ui": ["libs/ui/src/index.ts"],
-      "@daohaus/utils": ["libs/utils/src/index.ts"]
+      "@daohaus/utils": ["libs/utils/src/index.ts"],
+      "@daohaus/wizard-form-builder": ["libs/wizard-form-builder/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

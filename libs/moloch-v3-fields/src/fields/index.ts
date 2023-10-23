@@ -14,3 +14,4 @@ export * from './ShamanDeluxe';
 export * from './TagsInput';
 export * from './TributeInput';
 export * from './WalletConnectLink';
+export * from './EpochDatePicker';

@@ -67,6 +67,8 @@ export const ProposalDetailsContainer = ({
         chainId,
         actionData,
       });
+
+      console.log('proposalActions', proposalActions);
       if (shouldUpdate) {
         setActionData(proposalActions);
         setDecodeError(

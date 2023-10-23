@@ -149,6 +149,7 @@ const decodeValue = (value: unknown): string => {
 };
 
 const decodeMethod = (options: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abi: any[];
   data: `0x${string}`;
 }): DecodedMethod => {
@@ -161,6 +162,7 @@ const decodeMethod = (options: {
 
   const inputs = functionDetails['inputs'] || [];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputsWithValues = (inputs as any[]).map((input, index) => ({
     name: input.name,
     type: input.type,

@@ -52,10 +52,6 @@ const addABI = ({
   address: string;
   abi: ABI;
 }) => {
-  console.log('address', address);
-  console.log('abi', abi);
-  console.log('chainId', chainId);
-  console.log('abiStore', abiStore);
   return {
     ...abiStore,
     [chainId]: {
@@ -75,7 +71,6 @@ export const cacheABI = async ({
   abi: ABI;
 }) => {
   const abiStore = await getABIstore();
-  console.log('abiStore', abiStore);
   const newStore = addABI({
     abiStore,
     chainId,

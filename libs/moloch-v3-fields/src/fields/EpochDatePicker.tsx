@@ -69,7 +69,12 @@ export const EpochDatePicker = (props: Buildable<Field>) => {
 
   // TODO: how to check if required?
   return (
-    <FieldWrapper id={props.id} label={props?.label}>
+    <FieldWrapper
+      id={props.id}
+      label={props?.label}
+      rules={props?.rules}
+      helperText={props?.helperText}
+    >
       <DatePicker
         id={props.id}
         selected={startDate}

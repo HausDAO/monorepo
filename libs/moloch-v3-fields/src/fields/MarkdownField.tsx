@@ -113,7 +113,7 @@ export const MarkdownField = (props: Buildable<Field>) => {
             </Button>
           </DialogTrigger>
 
-          <DialogContent title="Add Safe">
+          <DialogContent title="Markdown Editor">
             <DialogButtonWrapper>
               <Button
                 color="secondary"

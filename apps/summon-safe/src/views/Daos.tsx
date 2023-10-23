@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
 import { ListDaosQueryResDaos } from '@daohaus/moloch-v3-data';
-import { Container, Grid } from '@material-ui/core';
 import {
   Button,
   Card,
@@ -11,8 +12,8 @@ import {
   Title,
   Text,
 } from '@gnosis.pm/safe-react-components';
-import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
-import styled from 'styled-components';
+import { Container, Grid } from '@material-ui/core';
+import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
 
 import { VALID_NETWORKS } from '../utils/chain';
 import { fetchDaos } from '../utils/graphql';

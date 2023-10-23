@@ -34,6 +34,7 @@ export const EpochDatePicker = (props: Buildable<Field>) => {
 
   .react-datepicker {
     font-size: 2rem;
+    font-family: inherit;
   }
   .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
     width: 5rem;
@@ -58,7 +59,7 @@ export const EpochDatePicker = (props: Buildable<Field>) => {
       <Button
         IconLeft={RiCalendar2Fill}
         IconRight={RiArrowDropDownFill}
-        className="example-custom-input"
+        className="custom-button-input"
         onClick={onClick}
         ref={ref}
       >

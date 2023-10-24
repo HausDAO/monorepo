@@ -18,6 +18,8 @@ import { MetadataLink } from '../fields';
 import { SafeSelect } from '../fields';
 import { MultisendActions } from '../fields';
 import { AddressesAndAmounts } from '../fields';
+import { EpochDatePicker } from '../fields';
+
 
 export const MolochFields = {
   ...CoreFieldLookup,
@@ -37,6 +39,7 @@ export const MolochFields = {
   safeSelect: SafeSelect,
   multisendActions: MultisendActions,
   addressesAndAmounts: AddressesAndAmounts,
+  epochDatePicker: EpochDatePicker,
 };
 
 export type MolochFieldLego = FieldLegoBase<typeof MolochFields>;

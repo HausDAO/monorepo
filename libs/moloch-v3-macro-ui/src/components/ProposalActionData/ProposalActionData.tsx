@@ -82,7 +82,7 @@ export const ProposalActionData = ({
         </TitleContainer>
         {actionData?.map((action, index) => {
           return (
-            <>
+            <div key={index}>
               <ActionSection
                 index={index}
                 action={action}
@@ -102,7 +102,7 @@ export const ProposalActionData = ({
                 index={index}
                 actionHeader={`-`}
               />
-            </>
+            </div>
           );
         })}
       </DisplayContainer>
@@ -146,8 +146,8 @@ const SubActions = ({
 
   return (
     <>
-      {action.decodedActions.map((subAction) => (
-        <>
+      {action.decodedActions.map((subAction, i) => (
+        <div key={i}>
           <ActionSection
             daoChain={daoChain}
             daoId={daoId}
@@ -167,7 +167,7 @@ const SubActions = ({
             index={index}
             actionHeader={actionHeader}
           />
-        </>
+        </div>
       ))}
     </>
   );

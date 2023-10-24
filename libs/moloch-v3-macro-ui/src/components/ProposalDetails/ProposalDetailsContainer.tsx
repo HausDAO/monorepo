@@ -68,7 +68,6 @@ export const ProposalDetailsContainer = ({
         actionData,
       });
 
-      console.log('proposalActions', proposalActions);
       if (shouldUpdate) {
         setActionData(proposalActions);
         setDecodeError(

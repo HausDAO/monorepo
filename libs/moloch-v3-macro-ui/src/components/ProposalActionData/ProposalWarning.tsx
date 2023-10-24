@@ -29,17 +29,26 @@ export const ProposalWarning = ({
   proposalActionConfig,
   daoChain,
 }: ProposalWarningProps) => {
-  const warningMessage: string = useMemo(() => {
+  const warningMessage: string | undefined = useMemo(() => {
+    console.log('decodeError', decodeError);
     if (decodeError) {
       return PROPOSAL_TYPE_WARNINGS.ERROR_CANNOT_DECODE;
     } else {
       return (
-        (proposalType &&
-          proposalActionConfig?.proposalTypeWarning?.[proposalType]) ||
-        PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN
+        proposalType &&
+        proposalActionConfig?.proposalTypeWarning?.[proposalType]
       );
     }
+    return;
   }, [proposalType, decodeError, proposalActionConfig]);
+
+  console.log('warningMessage', warningMessage);
+
+  console.log('proposalActionConfig', proposalActionConfig);
+
+  console.log('proposalType', proposalType);
+
+  console.log('PROPOSAL_TYPE_WARNINGS', PROPOSAL_TYPE_WARNINGS);
 
   const hasWarning =
     decodeError ||
@@ -50,19 +59,19 @@ export const ProposalWarning = ({
   // TODO: activate this feature when errors use cases arise
   const hasError = false;
 
+  if (!hasWarning) return null;
+
   return (
     <WarningContainer
       className="container"
       $error={hasError}
       $warning={hasWarning}
     >
-      {hasWarning && (
-        <IconContainer>
-          <Icon label="Warning">
-            <WarningIcon />
-          </Icon>
-        </IconContainer>
-      )}
+      <IconContainer>
+        <Icon label="Warning">
+          <WarningIcon />
+        </Icon>
+      </IconContainer>
       <MessageContainer>
         <StyledParXs $error={hasError} $warning={hasWarning}>
           {warningMessage}

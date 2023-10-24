@@ -4,7 +4,7 @@ import {
   fromHex,
   getAbiItem,
 } from 'viem';
-import { ArgType, ENCODED_0X0_DATA } from '@daohaus/utils';
+import { ENCODED_0X0_DATA } from '@daohaus/utils';
 import {
   ABI_EXPLORER_KEYS,
   HAUS_NETWORK_DATA,
@@ -18,23 +18,8 @@ import { whatsabi, loaders } from '@shazow/whatsabi';
 import { providers } from 'ethers';
 
 import { fetchABI, getCode } from './abi';
-import { ActionError } from './decoding';
+import { ActionError, DeepDecodedAction, DeepDecodedMultiTX } from './decoding';
 const { MultiABILoader, SourcifyABILoader } = loaders;
-
-export type DeepDecodedAction = {
-  to: string;
-  operation: OperationType;
-  name: string;
-  value: string;
-  params: {
-    name: string;
-    type: string;
-    value: ArgType;
-  }[];
-  decodedActions?: DeepDecodedMultiTX;
-};
-
-export type DeepDecodedMultiTX = (DeepDecodedAction | ActionError)[];
 
 class EtherscanABILoader implements loaders.ABILoader {
   chainId: ValidNetwork;
@@ -51,6 +36,7 @@ class EtherscanABILoader implements loaders.ABILoader {
     this.explorerKeys = options.explorerKeys;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async loadABI(address: string): Promise<any[]> {
     const abi = await fetchABI({
       chainId: this.chainId,
@@ -388,8 +374,6 @@ const decodeAction = async (
   }
 
   const methodSignature = data.slice(0, 10);
-
-  console.log('methodSignature', methodSignature);
 
   const actionDecoder = actionDecoders[methodSignature];
   if (actionDecoder) {

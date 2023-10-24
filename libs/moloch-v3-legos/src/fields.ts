@@ -9,7 +9,7 @@ export const FIELD: Record<string, MolochFieldLego> = {
   },
   DESCRIPTION: {
     id: 'description',
-    type: 'textarea',
+    type: 'markdownField',
     label: 'Description',
     placeholder: 'Enter description',
   },

@@ -104,3 +104,37 @@ export const transformShamans = (response: string | undefined) => {
     }
   );
 };
+
+export const transformAddressData = (fieldId: string) => {
+  return (response: string | undefined) => {
+    if (!isString(response) || response === '') return '';
+    const data = response
+      .split(/[\n|,]/)
+      .map((str) => str.trim())
+      .filter(Boolean);
+    return data.reduce(
+      (acc, rec) => {
+        return {
+          [fieldId]: [...acc[fieldId], rec],
+        };
+      },
+      {
+        [fieldId]: [] as string[],
+      }
+    );
+  };
+};
+
+export const validateAddressData = (data: Record<string, string[]>) => {
+  const keys = Object.keys(data);
+
+  if (
+    !keys.every((key) => {
+      console.log('r', data, key, data[key]);
+      return isAddress(data[key][0]);
+    })
+  ) {
+    return VAL_MSG.ADDRESS_ERR;
+  }
+  return true;
+};

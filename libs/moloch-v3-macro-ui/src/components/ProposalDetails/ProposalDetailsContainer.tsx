@@ -16,8 +16,8 @@ import {
   TXLego,
 } from '@daohaus/utils';
 import {
-  DecodedMultiTX,
-  decodeProposalActions,
+  DeepDecodedMultiTX as DecodedMultiTX,
+  deepDecodeProposalActions as decodeProposalActions,
   isActionError,
 } from '@daohaus/tx-builder';
 import { ValidNetwork, isValidNetwork } from '@daohaus/keychain-utils';
@@ -61,13 +61,13 @@ export const ProposalDetailsContainer = ({
     const fetchPropActions = async (
       chainId: ValidNetwork,
       actionData: string,
-      actionMeta?: MulticallAction[]
+      _actionMeta?: MulticallAction[]
     ) => {
       const proposalActions = await decodeProposalActions({
         chainId,
         actionData,
-        actionsMeta: actionMeta,
       });
+
       if (shouldUpdate) {
         setActionData(proposalActions);
         setDecodeError(

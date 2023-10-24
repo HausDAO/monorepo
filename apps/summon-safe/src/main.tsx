@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { theme, Loader, Title } from '@gnosis.pm/safe-react-components';
-import SafeProvider from '@gnosis.pm/safe-apps-react-sdk';
+import SafeProvider from '@safe-global/safe-apps-react-sdk';
 
 import GlobalStyle from './GlobalStyle';
 import App from './app/App';

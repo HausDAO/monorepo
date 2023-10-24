@@ -246,9 +246,7 @@ export const fetchABI = async ({
       throw new Error('Could generate explorer url with the given arguments');
     }
     const scanResponse = await fetch(url);
-    console.log('scanResponse', scanResponse);
     const data = await scanResponse.json();
-    console.log('data', data);
     if (data.message === 'OK' && isJSON(data.result)) {
       const abi = JSON.parse(data.result);
       cacheABI({ address: contractAddress, chainId, abi });

@@ -15,6 +15,9 @@ export const OverviewContainer = styled.div`
 
   .description {
     word-break: break-word;
+    img {
+      max-width: 100%;
+    }
   }
 
   .proposal-link {

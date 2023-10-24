@@ -8,6 +8,7 @@ import { RequestNativeToken } from '../fields';
 import { RequestERC20 } from '../fields';
 import { ShamanDeluxe } from '../fields';
 import { TagsInput } from '../fields';
+import { MarkdownField } from '../fields';
 
 import { ProposalOffering } from '../fields';
 import { DelegateInput } from '../fields';
@@ -39,6 +40,7 @@ export const MolochFields = {
   multisendActions: MultisendActions,
   addressesAndAmounts: AddressesAndAmounts,
   epochDatePicker: EpochDatePicker,
+  markdownField: MarkdownField,
 };
 
 export type MolochFieldLego = FieldLegoBase<typeof MolochFields>;

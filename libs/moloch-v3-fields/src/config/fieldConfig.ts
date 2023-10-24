@@ -20,7 +20,6 @@ import { MultisendActions } from '../fields';
 import { AddressesAndAmounts } from '../fields';
 import { EpochDatePicker } from '../fields';
 
-
 export const MolochFields = {
   ...CoreFieldLookup,
   proposalExpiry: ProposalExpiry,

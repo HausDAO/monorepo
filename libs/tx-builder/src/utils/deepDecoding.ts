@@ -1,4 +1,9 @@
-import { decodeFunctionData, fromHex, getAbiItem } from 'viem';
+import {
+  decodeAbiParameters,
+  decodeFunctionData,
+  fromHex,
+  getAbiItem,
+} from 'viem';
 import { ArgType, ENCODED_0X0_DATA } from '@daohaus/utils';
 import {
   ABI_EXPLORER_KEYS,
@@ -306,6 +311,38 @@ const actionDecoders: Record<
       decodedActions: [decodedAction],
     };
   },
+  // setGovernanceConfig(uint256,bytes)
+  '0xee4d88ed': async (options, action, decodedMethod) => {
+    const govTypes = [
+      { name: 'voting', type: 'uint32' },
+      { name: 'grace', type: 'uint32' },
+      { name: 'newOffering', type: 'uint256' },
+      { name: 'quorum', type: 'uint256' },
+      { name: 'sponsor', type: 'uint256' },
+      { name: 'minRetention', type: 'uint256' },
+    ];
+
+    const govValues = decodeAbiParameters(
+      govTypes,
+      decodedMethod.inputs[0].value as `0x${string}`
+    );
+
+    const govParams = govTypes.map((govType, i) => {
+      return {
+        ...govType,
+        value: govValues[i] as string,
+      };
+    });
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.Call,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: govParams,
+      decodedActions: [],
+    };
+  },
 };
 
 const decodeAction = async (
@@ -351,6 +388,9 @@ const decodeAction = async (
   }
 
   const methodSignature = data.slice(0, 10);
+
+  console.log('methodSignature', methodSignature);
+
   const actionDecoder = actionDecoders[methodSignature];
   if (actionDecoder) {
     return await actionDecoder(options, action, decodedMethod);

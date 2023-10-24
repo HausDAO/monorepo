@@ -90,23 +90,18 @@ export const ProposalActionData = ({
                 daoChain={daoChain}
                 proposal={proposal}
                 proposalActionConfig={proposalActionConfig}
+                actionHeader={`${index + 1}.`}
               />
-              {!isActionError(action) &&
-                action.decodedActions &&
-                action.decodedActions.length > 0 &&
-                action.decodedActions.map((subAction, i) => {
-                  return (
-                    <ActionSection
-                      daoChain={daoChain}
-                      daoId={daoId}
-                      proposal={proposal}
-                      proposalActionConfig={proposalActionConfig}
-                      action={subAction}
-                      subIndex={i}
-                      index={index}
-                    />
-                  );
-                })}
+
+              <SubActions
+                daoChain={daoChain}
+                daoId={daoId}
+                proposal={proposal}
+                proposalActionConfig={proposalActionConfig}
+                action={action}
+                index={index}
+                actionHeader={`-`}
+              />
             </>
           );
         })}
@@ -124,15 +119,67 @@ export const ProposalActionData = ({
   );
 };
 
-const ActionToggle = ({
+const SubActions = ({
   action,
   index,
-  subIndex = 0,
-  children,
+  actionHeader,
+  daoChain,
+  daoId,
+  proposal,
+  proposalActionConfig,
 }: {
   action: DeepDecodedAction | ActionError;
   index: number;
-  subIndex?: number;
+  actionHeader: string;
+  daoChain: string;
+  daoId: string;
+  proposal: MolochV3Proposal;
+  proposalActionConfig?: ProposalActionConfig;
+}) => {
+  if (
+    isActionError(action) ||
+    !action.decodedActions ||
+    action.decodedActions.length === 0
+  ) {
+    return null;
+  }
+
+  return (
+    <>
+      {action.decodedActions.map((subAction) => (
+        <>
+          <ActionSection
+            daoChain={daoChain}
+            daoId={daoId}
+            proposal={proposal}
+            proposalActionConfig={proposalActionConfig}
+            action={subAction}
+            index={index}
+            actionHeader={`-`}
+          />
+
+          <SubActions
+            daoChain={daoChain}
+            daoId={daoId}
+            proposal={proposal}
+            proposalActionConfig={proposalActionConfig}
+            action={subAction}
+            index={index}
+            actionHeader={actionHeader}
+          />
+        </>
+      ))}
+    </>
+  );
+};
+
+const ActionToggle = ({
+  action,
+  actionHeader,
+  children,
+}: {
+  action: DeepDecodedAction | ActionError;
+  actionHeader: string;
   children: ReactNode;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -143,8 +190,7 @@ const ActionToggle = ({
     <>
       <TitleContainer>
         <ParLg className="space">
-          {index + 1}.{subIndex}:{' '}
-          {'name' in action ? action.name : 'Decoding Error'}
+          {actionHeader} {'name' in action ? action.name : 'Decoding Error'}
         </ParLg>
         {open && (
           <div onClick={handleToggle}>
@@ -185,7 +231,7 @@ const ActionSectionError = ({
 const ActionSection = ({
   action,
   index,
-  subIndex = 0,
+  actionHeader,
   daoChain,
   daoId,
   proposal,
@@ -193,7 +239,7 @@ const ActionSection = ({
 }: {
   action: DeepDecodedAction | ActionError;
   index: number;
-  subIndex?: number;
+  actionHeader: string;
   daoChain: string;
   daoId: string;
   proposal: MolochV3Proposal;
@@ -206,11 +252,9 @@ const ActionSection = ({
     return <ActionSectionError index={index} action={action} />;
   }
 
-  // TODO: fixe titles - not sure we can get .1.2.3 ect...
-
   return (
     <div className="display-segment" key={`action_${index}`}>
-      <ActionToggle index={index} subIndex={subIndex} action={action}>
+      <ActionToggle actionHeader={actionHeader} action={action}>
         <>
           <ActionAlert
             action={action}

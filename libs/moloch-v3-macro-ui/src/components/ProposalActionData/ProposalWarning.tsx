@@ -30,7 +30,6 @@ export const ProposalWarning = ({
   daoChain,
 }: ProposalWarningProps) => {
   const warningMessage: string | undefined = useMemo(() => {
-    console.log('decodeError', decodeError);
     if (decodeError) {
       return PROPOSAL_TYPE_WARNINGS.ERROR_CANNOT_DECODE;
     } else {
@@ -41,14 +40,6 @@ export const ProposalWarning = ({
     }
     return;
   }, [proposalType, decodeError, proposalActionConfig]);
-
-  console.log('warningMessage', warningMessage);
-
-  console.log('proposalActionConfig', proposalActionConfig);
-
-  console.log('proposalType', proposalType);
-
-  console.log('PROPOSAL_TYPE_WARNINGS', PROPOSAL_TYPE_WARNINGS);
 
   const hasWarning =
     decodeError ||

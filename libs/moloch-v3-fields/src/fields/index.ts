@@ -1,5 +1,6 @@
 export * from './AddressesAndAmounts';
 export * from './DelegateInput';
+export * from './MarkdownField';
 export * from './MetadataLink';
 export * from './MultisendActions';
 export * from './ProposalExpiry';

@@ -1,5 +1,10 @@
-import { decodeFunctionData, fromHex, getAbiItem } from 'viem';
-import { ArgType, ENCODED_0X0_DATA } from '@daohaus/utils';
+import {
+  decodeAbiParameters,
+  decodeFunctionData,
+  fromHex,
+  getAbiItem,
+} from 'viem';
+import { ENCODED_0X0_DATA } from '@daohaus/utils';
 import {
   ABI_EXPLORER_KEYS,
   HAUS_NETWORK_DATA,
@@ -13,23 +18,8 @@ import { whatsabi, loaders } from '@shazow/whatsabi';
 import { providers } from 'ethers';
 
 import { fetchABI, getCode } from './abi';
-import { ActionError } from './decoding';
+import { ActionError, DeepDecodedAction, DeepDecodedMultiTX } from './decoding';
 const { MultiABILoader, SourcifyABILoader } = loaders;
-
-export type DeepDecodedAction = {
-  to: string;
-  operation: OperationType;
-  name: string;
-  value: string;
-  params: {
-    name: string;
-    type: string;
-    value: ArgType;
-  }[];
-  decodedActions?: DeepDecodedMultiTX;
-};
-
-export type DeepDecodedMultiTX = (DeepDecodedAction | ActionError)[];
 
 class EtherscanABILoader implements loaders.ABILoader {
   chainId: ValidNetwork;
@@ -46,6 +36,7 @@ class EtherscanABILoader implements loaders.ABILoader {
     this.explorerKeys = options.explorerKeys;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async loadABI(address: string): Promise<any[]> {
     const abi = await fetchABI({
       chainId: this.chainId,
@@ -149,6 +140,7 @@ const decodeValue = (value: unknown): string => {
 };
 
 const decodeMethod = (options: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abi: any[];
   data: `0x${string}`;
 }): DecodedMethod => {
@@ -161,6 +153,7 @@ const decodeMethod = (options: {
 
   const inputs = functionDetails['inputs'] || [];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputsWithValues = (inputs as any[]).map((input, index) => ({
     name: input.name,
     type: input.type,
@@ -304,6 +297,38 @@ const actionDecoders: Record<
       decodedActions: [decodedAction],
     };
   },
+  // setGovernanceConfig(uint256,bytes)
+  '0xee4d88ed': async (options, action, decodedMethod) => {
+    const govTypes = [
+      { name: 'voting', type: 'uint32' },
+      { name: 'grace', type: 'uint32' },
+      { name: 'newOffering', type: 'uint256' },
+      { name: 'quorum', type: 'uint256' },
+      { name: 'sponsor', type: 'uint256' },
+      { name: 'minRetention', type: 'uint256' },
+    ];
+
+    const govValues = decodeAbiParameters(
+      govTypes,
+      decodedMethod.inputs[0].value as `0x${string}`
+    );
+
+    const govParams = govTypes.map((govType, i) => {
+      return {
+        ...govType,
+        value: govValues[i] as string,
+      };
+    });
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.Call,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: govParams,
+      decodedActions: [],
+    };
+  },
 };
 
 const decodeAction = async (
@@ -349,6 +374,7 @@ const decodeAction = async (
   }
 
   const methodSignature = data.slice(0, 10);
+
   const actionDecoder = actionDecoders[methodSignature];
   if (actionDecoder) {
     return await actionDecoder(options, action, decodedMethod);

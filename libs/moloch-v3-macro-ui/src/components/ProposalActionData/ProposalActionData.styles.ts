@@ -19,6 +19,7 @@ export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
 `;
 
 export const DisplayContainer = styled.div`
@@ -27,6 +28,7 @@ export const DisplayContainer = styled.div`
   .display-segment {
     display: flex;
     flex-direction: column;
+    padding-bottom: 1.5rem;
   }
 
   .data {
@@ -39,6 +41,9 @@ export const DisplayContainer = styled.div`
   }
   .value-box {
     display: flex;
+  }
+  .spaced-divider {
+    margin-bottom: 2rem;
   }
 `;
 

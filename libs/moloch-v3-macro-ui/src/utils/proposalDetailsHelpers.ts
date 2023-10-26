@@ -43,7 +43,7 @@ const getValueFromMintOrTransferAction = (
 ): string => {
   if (
     actionData.params[0].name !== 'to' &&
-    !['amount', '_value'].includes(actionData.params[1].name)
+    !['amount', '_value', 'wad'].includes(actionData.params[1].name)
   ) {
     return 'decoding error';
   }
@@ -78,7 +78,7 @@ const getRecipientAddressFromMintOrTransferAction = (
 ): string => {
   if (
     actionData.params[0].name !== 'to' &&
-    !['amount', '_value'].includes(actionData.params[1].name)
+    !['amount', '_value', 'wad'].includes(actionData.params[1].name)
   ) {
     return 'decoding error';
   }

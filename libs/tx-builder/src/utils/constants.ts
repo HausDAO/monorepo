@@ -4,7 +4,7 @@ import { LOCAL_ABI } from '@daohaus/abis';
 export const EXPIRY = '.proposalExpiry';
 export const FORM = '.formValues';
 export const CURRENT_DAO = '.daoId';
-export const gasBufferMultiplier = 5;
+export const gasBufferMultiplier = 1.2; // buffers baalgas estimate
 export const BaalContractBase = {
   type: 'local',
   contractName: 'Baal',

@@ -16,7 +16,7 @@ export const getGasCostEstimate = async (
 ): Promise<number | undefined> => {
   const feeDataNew = await fetchFeeData({ chainId: chainId as ValidNetwork });
 
-  console.log('feeDataNew', feeDataNew);
+  // console.log('feeDataNew', feeDataNew);
   return (
     Number(getProcessingGasLimit(gasLimit, chainId)) *
     Number(feeDataNew.maxFeePerGas || 0)

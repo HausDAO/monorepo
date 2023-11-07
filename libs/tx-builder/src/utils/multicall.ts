@@ -14,6 +14,7 @@ import {
   MulticallArg,
   StringSearch,
   TXLego,
+  ACTION_GAS_LIMIT_ADDITION,
 } from '@daohaus/utils';
 import {
   CONTRACT_KEYCHAINS,
@@ -39,17 +40,19 @@ import { createViemClient } from '@daohaus/utils';
 
 export const estimateFunctionalGas = async ({
   chainId,
-  constractAddress,
+  contractAddress,
   from,
   value,
   data,
+  actionsCount,
   rpcs = HAUS_RPC,
 }: {
   chainId: ValidNetwork;
-  constractAddress: string;
+  contractAddress: string;
   from: string;
   value: bigint;
   data: string;
+  actionsCount: number;
   rpcs?: Keychain;
 }): Promise<number | undefined> => {
   const client = createViemClient({
@@ -59,12 +62,20 @@ export const estimateFunctionalGas = async ({
 
   const functionGasFees = await client.estimateGas({
     account: from as EthAddress,
-    to: constractAddress as EthAddress,
+    to: contractAddress as EthAddress,
     value,
     data: data as `0x${string}`,
   });
 
-  return Number(functionGasFees);
+  console.log('functionGasFees', functionGasFees)
+
+  // extra gas overhead when calling the dao from the baal safe
+  console.log('contractAddress', contractAddress);
+  console.log('from', from);
+  const baalOnlyGas = actionsCount * ACTION_GAS_LIMIT_ADDITION;
+  console.log('baalOnlyGas', baalOnlyGas);
+  console.log('functionGasFees', functionGasFees)
+  return Number(functionGasFees + BigInt(baalOnlyGas));
 };
 
 export const txActionToMetaTx = ({
@@ -284,23 +295,27 @@ export const handleMulticallArg = async ({
 
 export const gasEstimateFromActions = async ({
   actions,
+  actionsCount,
   chainId,
   daoId,
 }: {
   actions: MetaTransaction[];
+  actionsCount: number;
   chainId: ValidNetwork;
   daoId: string;
   safeId: string; // not used at the moment
 }) => {
+
   const esitmatedGases = await Promise.all(
     actions.map(
       async (action) =>
         await estimateFunctionalGas({
           chainId: chainId,
-          constractAddress: action.to,
+          contractAddress: action.to,
           from: daoId, // from value needs to be the safe module (baal) to estimate without revert
           value: BigInt(Number(action.value)),
           data: action.data,
+          actionsCount
         })
     )
   );
@@ -386,12 +401,14 @@ export const handleGasEstimate = async ({
   } as MetaTransaction;
   const gasEstimate = await gasEstimateFromActions({
     actions: encodeExecFromModule({ safeId, metaTx }),
+    actionsCount: actions.length,
     chainId,
     daoId,
     safeId,
   });
 
   if (gasEstimate) {
+    // adds buffer to baalgas estimate
     const buffer = arg.bufferPercentage || gasBufferMultiplier;
     return Math.round(Number(gasEstimate) * Number(buffer));
   } else {

@@ -44,7 +44,6 @@ export const estimateFunctionalGas = async ({
   from,
   value,
   data,
-  actionsCount,
   rpcs = HAUS_RPC,
 }: {
   chainId: ValidNetwork;
@@ -52,7 +51,6 @@ export const estimateFunctionalGas = async ({
   from: string;
   value: bigint;
   data: string;
-  actionsCount: number;
   rpcs?: Keychain;
 }): Promise<number | undefined> => {
   const client = createViemClient({
@@ -67,15 +65,9 @@ export const estimateFunctionalGas = async ({
     data: data as `0x${string}`,
   });
 
-  console.log('functionGasFees', functionGasFees)
+  console.log('functionGasFees', functionGasFees);
 
-  // extra gas overhead when calling the dao from the baal safe
-  console.log('contractAddress', contractAddress);
-  console.log('from', from);
-  const baalOnlyGas = actionsCount * ACTION_GAS_LIMIT_ADDITION;
-  console.log('baalOnlyGas', baalOnlyGas);
-  console.log('functionGasFees', functionGasFees)
-  return Number(functionGasFees + BigInt(baalOnlyGas));
+  return Number(functionGasFees);
 };
 
 export const txActionToMetaTx = ({
@@ -305,7 +297,6 @@ export const gasEstimateFromActions = async ({
   daoId: string;
   safeId: string; // not used at the moment
 }) => {
-
   const esitmatedGases = await Promise.all(
     actions.map(
       async (action) =>
@@ -314,8 +305,7 @@ export const gasEstimateFromActions = async ({
           contractAddress: action.to,
           from: daoId, // from value needs to be the safe module (baal) to estimate without revert
           value: BigInt(Number(action.value)),
-          data: action.data,
-          actionsCount
+          data: action.data
         })
     )
   );
@@ -325,9 +315,14 @@ export const gasEstimateFromActions = async ({
     (a, b) => (a || 0) + (b || 0),
     0
   );
+
+
+  // extra gas overhead when calling the dao from the baal safe
+  const baalOnlyGas = actionsCount * ACTION_GAS_LIMIT_ADDITION;
+
   console.log('totalGasEstimate', totalGasEstimate);
 
-  return totalGasEstimate;
+  return (totalGasEstimate || 0) + baalOnlyGas;
 };
 
 export const handleEncodeMulticallArg = async ({

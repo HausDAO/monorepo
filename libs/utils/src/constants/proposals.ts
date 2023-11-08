@@ -110,7 +110,6 @@ export const GAS_BUFFER_MULTIPLIER = 2;
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
 // Adding to the gas limit to account for cost of each action
-export const ACTION_GAS_LIMIT_ADDITION = 150000; 
+export const ACTION_GAS_LIMIT_ADDITION = 150000;
 
 export const L2_ADDITIONAL_GAS = 5000000;
-

@@ -305,7 +305,7 @@ export const gasEstimateFromActions = async ({
           contractAddress: action.to,
           from: daoId, // from value needs to be the safe module (baal) to estimate without revert
           value: BigInt(Number(action.value)),
-          data: action.data
+          data: action.data,
         })
     )
   );
@@ -316,10 +316,9 @@ export const gasEstimateFromActions = async ({
     0
   );
 
-
   // extra gas overhead when calling the dao from the baal safe
   const baalOnlyGas = actionsCount * ACTION_GAS_LIMIT_ADDITION;
-
+  console.log('baalOnlyGas addtition', baalOnlyGas);
   console.log('totalGasEstimate', totalGasEstimate);
 
   return (totalGasEstimate || 0) + baalOnlyGas;

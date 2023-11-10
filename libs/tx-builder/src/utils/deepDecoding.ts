@@ -157,7 +157,11 @@ const decodeMethod = (options: {
   const inputsWithValues = (inputs as any[]).map((input, index) => ({
     name: input.name,
     type: input.type,
-    value: result.args?.[index]?.toString() || '0x',
+    value: Array.isArray(result.args?.[index])
+      ? (result.args?.[index] as Array<any>).length
+        ? (result.args?.[index] as Array<any>).toString()
+        : '[]'
+      : result.args?.[index]?.toString() || '0x',
   }));
 
   return {

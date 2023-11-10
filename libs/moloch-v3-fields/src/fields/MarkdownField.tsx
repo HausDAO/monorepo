@@ -7,8 +7,10 @@ import {
   DialogContent,
   Field,
   Label,
+  Card,
   WrappedTextArea,
 } from '@daohaus/ui';
+
 import { useFormContext } from 'react-hook-form';
 import { BiPencil } from 'react-icons/bi';
 import { MdFullscreen, MdFullscreenExit, MdPreview } from 'react-icons/md';
@@ -38,8 +40,6 @@ const MarkDownContainer = styled.div`
 
 const DialogMarkDownContainer = styled.div`
   height: 50rem;
-  max-width: 100rem;
-  min-width: 50rem;
   overflow-y: scroll;
   padding: 10px;
   margin-bottom: 5rem;
@@ -64,8 +64,12 @@ const LabelContainer = styled(Label)`
 
 const DialogWrappedTextArea = styled(WrappedTextArea)`
   height: 50rem;
-  max-width: 100rem;
-  min-width: 70rem;
+  overflow-y: scroll;
+  padding: 10px;
+  margin-bottom: 5rem;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  font-family: inherit;
 `;
 
 const DialogButtonWrapper = styled.div`
@@ -73,6 +77,12 @@ const DialogButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: right;
   margin-bottom: -2rem;
+`;
+
+const ContentWrapper = styled(Card)`
+  border: none;
+  min-width: 50vw;
+  max-width: 90vw;
 `;
 
 export const MarkdownField = (props: Buildable<Field>) => {
@@ -132,18 +142,20 @@ export const MarkdownField = (props: Buildable<Field>) => {
                 <MdPreview />
               </Button>
             </DialogButtonWrapper>
-            {edit ? (
-              <DialogWrappedTextArea {...props} />
-            ) : (
-              <>
-                <LabelContainer>
-                  <Label>Preview</Label>
-                </LabelContainer>
-                <DialogMarkDownContainer>
-                  <ReactMarkdown>{value}</ReactMarkdown>
-                </DialogMarkDownContainer>
-              </>
-            )}
+            <ContentWrapper>
+              {edit ? (
+                <DialogWrappedTextArea {...props} />
+              ) : (
+                <>
+                  <LabelContainer>
+                    <Label>Preview</Label>
+                  </LabelContainer>
+                  <DialogMarkDownContainer>
+                    <ReactMarkdown>{value}</ReactMarkdown>
+                  </DialogMarkDownContainer>
+                </>
+              )}
+            </ContentWrapper>
           </DialogContent>
         </Dialog>
       </TabsContainer>

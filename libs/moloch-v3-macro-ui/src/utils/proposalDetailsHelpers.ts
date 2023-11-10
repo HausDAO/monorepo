@@ -43,17 +43,25 @@ const getValueFromMintOrTransferAction = (
 ): string => {
   if (
     actionData.params[0].name !== 'to' &&
-    !['amount', '_value'].includes(actionData.params[1].name)
+    !['amount', '_value', 'wad'].includes(actionData.params[1].name)
   ) {
     return 'decoding error';
   }
 
-  const value = Array.isArray(actionData.params[1].value)
-    ? (actionData.params[1].value[0] as bigint)
-    : (actionData.params[1].value as bigint);
+  const value = actionData.params[1].type.endsWith('[]')
+    ? actionData.params[1].value
+        .toString()
+        .split(',')
+        .map((v) => BigInt(v))
+    : [BigInt(actionData.params[1].value.toString())];
 
   return formatValueTo({
-    value: toWholeUnits(value.toString(), decimals),
+    value: toWholeUnits(
+      value
+        .reduce((val: bigint, accValue: bigint) => accValue + val, BigInt(0))
+        .toString(),
+      decimals
+    ),
     decimals: 2,
     format: 'numberShort',
   });
@@ -78,7 +86,7 @@ const getRecipientAddressFromMintOrTransferAction = (
 ): string => {
   if (
     actionData.params[0].name !== 'to' &&
-    !['amount', '_value'].includes(actionData.params[1].name)
+    !['amount', '_value', 'wad'].includes(actionData.params[1].name)
   ) {
     return 'decoding error';
   }

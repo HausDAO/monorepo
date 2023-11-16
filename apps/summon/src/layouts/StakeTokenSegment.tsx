@@ -62,9 +62,9 @@ export const StakeTokensSegment = ({
                   rules={{
                     required: 'Token symbol is required',
                     maxLength: {
-                      value: 5,
+                      value: 20,
                       message:
-                        'Token symbol cannot be longer than 5 characters',
+                        'Token symbol cannot be longer than 20 characters',
                     },
                   }}
                 />
@@ -100,9 +100,9 @@ export const StakeTokensSegment = ({
                   rules={{
                     required: 'Token symbol is required',
                     maxLength: {
-                      value: 5,
+                      value: 20,
                       message:
-                        'Token symbol cannot be longer than 5 characters',
+                        'Token symbol cannot be longer than 20 characters',
                     },
                   }}
                 />

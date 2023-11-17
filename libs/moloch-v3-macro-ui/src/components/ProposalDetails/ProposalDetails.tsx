@@ -29,10 +29,33 @@ import { ProposalWarning } from '../ProposalActionData/ProposalWarning';
 import styled from 'styled-components';
 import { ProposalActionConfig } from '../ProposalActionData';
 
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 
 const Spacer = styled.div`
   margin-bottom: 2rem;
+`;
+
+const ReactMarkdownWrapper = styled.div`
+  font-size: 1.6rem;
+
+  .description {
+    p,
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-top: 1rem;
+    }
+    h2 + p {
+      margin-top: 0;
+    }
+    h3 + p {
+      margin-top: 0;
+    }
+    h4 + p {
+      margin-top: 0;
+    }
+  }
 `;
 
 type ProposalDetailsProps = {
@@ -61,7 +84,11 @@ export const ProposalDetails = ({
 
   return (
     <OverviewContainer>
-      <ReactMarkdown className="description">{proposal.description}</ReactMarkdown>
+      <ReactMarkdownWrapper>
+        <ReactMarkdown className="description">
+          {proposal.description}
+        </ReactMarkdown>
+      </ReactMarkdownWrapper>
       {proposal.contentURI && (
         <Link href={proposal.contentURI} className="proposal-link">
           Link

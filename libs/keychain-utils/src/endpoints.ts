@@ -112,6 +112,8 @@ export const HAUS_RPC = {
   '0xa4b1': process.env['NX_ARBITRUM_RPC']
     ? process.env['NX_ARBITRUM_RPC']
     : HAUS_RPC_DEFAULTS['0xa4b1'],
+  '0xaa36a7': 'todo',
+  '0x2105': 'todo',
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],

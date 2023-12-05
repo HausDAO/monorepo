@@ -8,7 +8,7 @@ export const SUMMON_COPY = {
   VOTING_STK:
     'What does your DAO want to name the tokens representing voting stake?',
   TOKEN_SYMBOL:
-    'How would your DAO like to abbreviate the tokens representing voting stake?',
+    'How would your DAO like to abbreviate the tokens representing voting stake? (20 letters max)',
   STAKE_TRANSFER:
     'Should DAO members be allowed to transfer voting stake to other accounts? After summoning, the DAO can change this with a proposal.',
   NV_STAKE_TRANSFER:

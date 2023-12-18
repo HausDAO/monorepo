@@ -13,6 +13,9 @@ export const ENDPOINTS: KeychainList = {
       'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-optimism',
     '0xa4b1':
       'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-arbitrum',
+    '0xaa36a7':
+      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-sepolia',
+    '0x2105': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-base',
   },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
@@ -95,6 +98,10 @@ export const HAUS_RPC_DEFAULTS = {
   '0xa4b1': process.env['NX_ARBITRUM_ALCHEMY_KEY']
     ? `https://arb-mainnet.g.alchemy.com/v2/${process.env['NX_ARBITRUM_ALCHEMY_KEY']}`
     : 'https://arb1.arbitrum.io/rpc',
+  '0xaa36a7': process.env['NX_RIVET_KEY']
+    ? `https://${process.env['NX_RIVET_KEY']}.sepolia.rpc.rivet.cloud/`
+    : 'https://eth-sepolia.g.alchemy.com/v2/demo',
+  '0x2105': '**TODO',
 };
 export const HAUS_RPC = {
   '0x1': process.env['NX_MAINNET_RPC']
@@ -115,8 +122,10 @@ export const HAUS_RPC = {
   '0xa4b1': process.env['NX_ARBITRUM_RPC']
     ? process.env['NX_ARBITRUM_RPC']
     : HAUS_RPC_DEFAULTS['0xa4b1'],
-  '0xaa36a7': 'todo',
-  '0x2105': 'todo',
+  '0xaa36a7': process.env['NX_SEPOLIA_RPC']
+    ? process.env['NX_SEPOLIA_RPC']
+    : HAUS_RPC_DEFAULTS['0xaa36a7'],
+  '0x2105': '**TODO',
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
@@ -138,4 +147,6 @@ export const ABI_EXPLORER_KEYS: Keychain = {
   '0x89': process.env['NX_POLYGONSCAN_KEY'],
   '0xa': process.env['NX_OPTIMISMSCAN_KEY'],
   '0xa4b1': process.env['NX_ARBISCAN_KEY'],
+  '0xaa36a7': process.env['NX_ETHERSCAN_KEY'],
+  '0x2105': '**TODO',
 };

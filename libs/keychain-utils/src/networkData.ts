@@ -63,7 +63,7 @@ export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {
     symbol: 'ETH',
     tokenDecimals: 18,
     explorer: ENDPOINTS.EXPLORER['0xaa36a7'] as string,
-    rpc: 'todo',
+    rpc: HAUS_RPC['0xaa36a7'] as string,
   },
   '0x2105': {
     chainId: '0x2105',
@@ -71,7 +71,7 @@ export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {
     name: 'Base',
     symbol: 'ETH',
     tokenDecimals: 18,
-    explorer: ENDPOINTS.EXPLORER['0xaa36a7'] as string,
-    rpc: 'todo',
+    explorer: ENDPOINTS.EXPLORER['0x2105'] as string,
+    rpc: '**TODO',
   },
 };

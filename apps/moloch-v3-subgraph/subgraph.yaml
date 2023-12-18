@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: BaalSummoner
-    network: gnosis
+    network: base
     source:
-      address: '0xf020a55794DB5e065692F86a0Eb82197850a09b9'
+      address: '0x22e0382194AC1e9929E023bBC2fD2BA6b778E098'
       abi: BaalSummoner
-      startBlock: 24659969
+      startBlock: 7428979
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -30,11 +30,11 @@ dataSources:
       file: ./src/baal-summoner-mapping.ts
   - kind: ethereum/contract
     name: BaalSummonerV2
-    network: gnosis
+    network: base
     source:
-      address: '0x7e988A9db2F8597735fc68D21060Daed948a3e8C'
+      address: '0x97Aaa5be8B38795245f1c38A883B44cccdfB3E11'
       abi: BaalSummonerV2
-      startBlock: 25109196
+      startBlock: 7428979
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -55,12 +55,34 @@ dataSources:
           handler: handleDaoReferral
       file: ./src/baal-summoner-mapping.ts
   - kind: ethereum/contract
+    name: VaultSummoner
+    network: base
+    source:
+      address: '0x2eF2fC8a18A914818169eFa183db480d31a90c5D'
+      abi: VaultSummoner
+      startBlock: 7428979
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Dao
+      abis:
+        - name: VaultSummoner
+          file: ./abis/VaultSummoner.json
+      eventHandlers:
+        - event: SetVault((uint256,bool,address,address,string))
+          handler: handleSetVault
+        - event: SetDelegate(address,address)
+          handler: handleSetVaultDelegate
+      file: ./src/vault-summoner-mapping.ts
+  - kind: ethereum/contract
     name: Poster
-    network: gnosis
+    network: base
     source:
       address: '0x000000000000cd17345801aa8147b8d3950260ff'
       abi: Poster
-      startBlock: 24659969
+      startBlock: 7428979
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -77,11 +99,11 @@ dataSources:
       file: ./src/poster-mapping.ts
   - kind: ethereum/contract
     name: TributeMinion
-    network: gnosis
+    network: base
     source:
-      address: '0x5c17BFBaB751C5ddF1Ff267acF8fF919537F39Cf'
+      address: '0x00768B047f73D88b6e9c14bcA97221d6E179d468'
       abi: TributeMinion
-      startBlock: 24659969
+      startBlock: 7428979
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -99,32 +121,10 @@ dataSources:
         - event: TributeProposal(indexed address,address,uint256,address,uint256)
           handler: handleTributeProposal
       file: ./src/tribute-minion-mapping.ts
-  - kind: ethereum/contract
-    name: VaultSummoner
-    network: gnosis
-    source:
-      address: '0x594E630efbe8dbd810c168e3878817a4094bB312'
-      abi: VaultSummoner
-      startBlock: 25109199
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Dao
-      abis:
-        - name: VaultSummoner
-          file: ./abis/VaultSummoner.json
-      eventHandlers:
-        - event: SetVault((uint256,bool,address,address,string))
-          handler: handleSetVault
-        - event: SetDelegate(address,address)
-          handler: handleSetVaultDelegate
-      file: ./src/vault-summoner-mapping.ts
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
-    network: gnosis
+    network: base
     source:
       abi: Baal
     mapping:
@@ -173,7 +173,7 @@ templates:
           handler: handleLockManager
   - kind: ethereum/contract
     name: SharesTemplate
-    network: gnosis
+    network: base
     source:
       abi: Shares
     mapping:
@@ -196,7 +196,7 @@ templates:
           handler: handleSharesTransfer
   - kind: ethereum/contract
     name: LootTemplate
-    network: gnosis
+    network: base
     source:
       abi: Loot
     mapping:

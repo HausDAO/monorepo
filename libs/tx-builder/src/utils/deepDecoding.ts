@@ -158,8 +158,10 @@ const decodeMethod = (options: {
     name: input.name,
     type: input.type,
     value: Array.isArray(result.args?.[index])
-      ? (result.args?.[index] as Array<any>).length
-        ? (result.args?.[index] as Array<any>).toString()
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (result.args?.[index] as Array<any>).length
+        ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (result.args?.[index] as Array<any>).toString()
         : '[]'
       : result.args?.[index]?.toString() || '0x',
   }));
@@ -190,6 +192,8 @@ const actionDecoders: Record<
       );
     }
     const input = decodedMethod.inputs[0];
+
+    console.log('input', input);
     if (input.type !== 'bytes') {
       return createActionError(
         action.data,
@@ -209,6 +213,67 @@ const actionDecoders: Record<
       value: decodeValue(action.value),
       params: decodedMethod.inputs,
       decodedActions,
+    };
+  },
+
+  // multicall(bytes)
+  '0xac9650d8': async (options, action, decodedMethod) => {
+    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&& multicall(bytes)');
+    if (
+      decodedMethod.functionName !== 'multicall' ||
+      decodedMethod.inputs.length !== 1
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: multiSend'
+      );
+    }
+    const input = decodedMethod.inputs[0];
+
+    console.log('input', input);
+    if (input.type !== 'bytes[]') {
+      return createActionError(
+        action.data,
+        'Could not decode action: multicall'
+      );
+    }
+
+    console.log('action', action);
+    const actions = input.value.split(',');
+
+    console.log('actions', actions.length);
+
+    // const decodedActions = await decodeMultiCall(
+    //   options,
+    //   action.data as `0x${string}`
+    // );
+
+    const res = await Promise.all(
+      actions.map(async (act, i) => {
+        const lol = await decodeAction(options, {
+          to: action.to as `0x${string}`,
+          data: act as `0x${string}`,
+          value: decodeValue(act),
+          operation:
+            decodeValue(action.operation) === '1'
+              ? OperationType.DelegateCall
+              : OperationType.Call,
+        });
+
+        console.log('lol', i, lol);
+        return lol;
+      })
+    );
+
+    console.log('res', res);
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.DelegateCall,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: decodedMethod.inputs,
+      decodedActions: res,
     };
   },
 
@@ -378,6 +443,8 @@ const decodeAction = async (
   }
 
   const methodSignature = data.slice(0, 10);
+
+  console.log('methodSignature', methodSignature);
 
   const actionDecoder = actionDecoders[methodSignature];
   if (actionDecoder) {

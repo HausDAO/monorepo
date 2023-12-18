@@ -22,7 +22,7 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://optimistic.etherscan.io',
     '0xa4b1': 'https://arbiscan.io',
     '0xaa36a7': 'https://sepolia.etherscan.io',
-    '0x2105': 'https://basescan.org/',
+    '0x2105': 'https://basescan.org',
   },
   GNOSIS_API: {
     '0x1': 'https://safe-transaction-mainnet.safe.global/api/v1',
@@ -32,6 +32,7 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://safe-transaction-optimism.safe.global/api/v1',
     '0xa4b1': 'https://safe-transaction-arbitrum.safe.global/api/v1',
     '0xaa36a7': 'https://safe-transaction-sepolia.safe.global/api/v1',
+    '0x2105': 'https://safe-transaction-base.safe.global/api/v1',
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://app.safe.global/eth',
@@ -40,6 +41,8 @@ export const ENDPOINTS: KeychainList = {
     '0x89': 'https://app.safe.global/matic',
     '0xa': 'https://app.safe.global/oeth',
     '0xa4b1': 'https://app.safe.global/arb',
+    '0xaa36a7': 'https://app.safe.global/sep',
+    '0x2105': 'https://app.safe.global/base',
   },
   TABULA_GRAPH: {
     '0x5':

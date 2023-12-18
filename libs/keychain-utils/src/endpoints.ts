@@ -15,7 +15,7 @@ export const ENDPOINTS: KeychainList = {
       'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-arbitrum',
     '0xaa36a7':
       'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-sepolia',
-    '0x2105': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-base',
+    // '0x2105': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-base',
   },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
@@ -25,7 +25,7 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://optimistic.etherscan.io',
     '0xa4b1': 'https://arbiscan.io',
     '0xaa36a7': 'https://sepolia.etherscan.io',
-    '0x2105': 'https://basescan.org',
+    // '0x2105': 'https://basescan.org',
   },
   GNOSIS_API: {
     '0x1': 'https://safe-transaction-mainnet.safe.global/api/v1',
@@ -35,7 +35,7 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://safe-transaction-optimism.safe.global/api/v1',
     '0xa4b1': 'https://safe-transaction-arbitrum.safe.global/api/v1',
     '0xaa36a7': 'https://safe-transaction-sepolia.safe.global/api/v1',
-    '0x2105': 'https://safe-transaction-base.safe.global/api/v1',
+    // '0x2105': 'https://safe-transaction-base.safe.global/api/v1',
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://app.safe.global/eth',
@@ -45,7 +45,7 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://app.safe.global/oeth',
     '0xa4b1': 'https://app.safe.global/arb',
     '0xaa36a7': 'https://app.safe.global/sep',
-    '0x2105': 'https://app.safe.global/base',
+    // '0x2105': 'https://app.safe.global/base',
   },
   TABULA_GRAPH: {
     '0x5':
@@ -101,7 +101,7 @@ export const HAUS_RPC_DEFAULTS = {
   '0xaa36a7': process.env['NX_RIVET_KEY']
     ? `https://${process.env['NX_RIVET_KEY']}.sepolia.rpc.rivet.cloud/`
     : 'https://eth-sepolia.g.alchemy.com/v2/demo',
-  '0x2105': '**TODO',
+  // '0x2105': '**TODO',
 };
 export const HAUS_RPC = {
   '0x1': process.env['NX_MAINNET_RPC']
@@ -125,7 +125,7 @@ export const HAUS_RPC = {
   '0xaa36a7': process.env['NX_SEPOLIA_RPC']
     ? process.env['NX_SEPOLIA_RPC']
     : HAUS_RPC_DEFAULTS['0xaa36a7'],
-  '0x2105': '**TODO',
+  // '0x2105': '**TODO',
 };
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
@@ -148,5 +148,5 @@ export const ABI_EXPLORER_KEYS: Keychain = {
   '0xa': process.env['NX_OPTIMISMSCAN_KEY'],
   '0xa4b1': process.env['NX_ARBISCAN_KEY'],
   '0xaa36a7': process.env['NX_ETHERSCAN_KEY'],
-  '0x2105': '**TODO',
+  // '0x2105': '**TODO',
 };

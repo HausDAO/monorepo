@@ -60,8 +60,7 @@ export const ProposalDetailsContainer = ({
     let shouldUpdate = true;
     const fetchPropActions = async (
       chainId: ValidNetwork,
-      actionData: string,
-      _actionMeta?: MulticallAction[]
+      actionData: string
     ) => {
       const proposalActions = await decodeProposalActions({
         chainId,
@@ -78,12 +77,12 @@ export const ProposalDetailsContainer = ({
     };
 
     if (!isValidNetwork(daoChain) || !proposal) return;
-    fetchPropActions(daoChain, proposal.proposalData, actionsMeta);
+    fetchPropActions(daoChain, proposal.proposalData);
 
     return () => {
       shouldUpdate = false;
     };
-  }, [daoChain, proposal, actionsMeta]);
+  }, [daoChain, proposal]);
   return (
     <>
       <ProposalDetails

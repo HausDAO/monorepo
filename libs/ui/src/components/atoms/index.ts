@@ -10,6 +10,7 @@ export * from './Tooltip';
 export * from './Typography';
 export * from './Loading';
 export * from './Link';
+export * from './Radio';
 export * from './Select';
 export * from './Spinner'; // TODO: DELETE / REPLACE this with Loader Breaking Change
 export * from './Divider';

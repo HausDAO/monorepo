@@ -158,8 +158,10 @@ const decodeMethod = (options: {
     name: input.name,
     type: input.type,
     value: Array.isArray(result.args?.[index])
-      ? (result.args?.[index] as Array<any>).length
-        ? (result.args?.[index] as Array<any>).toString()
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (result.args?.[index] as Array<any>).length
+        ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (result.args?.[index] as Array<any>).toString()
         : '[]'
       : result.args?.[index]?.toString() || '0x',
   }));
@@ -190,6 +192,7 @@ const actionDecoders: Record<
       );
     }
     const input = decodedMethod.inputs[0];
+
     if (input.type !== 'bytes') {
       return createActionError(
         action.data,
@@ -331,6 +334,54 @@ const actionDecoders: Record<
       value: decodeValue(action.value),
       params: govParams,
       decodedActions: [],
+    };
+  },
+
+  // multicall(bytes)
+  '0xac9650d8': async (options, action, decodedMethod) => {
+    if (
+      decodedMethod.functionName !== 'multicall' ||
+      decodedMethod.inputs.length !== 1
+    ) {
+      return createActionError(
+        action.data,
+        'Could not decode action: multiSend'
+      );
+    }
+    const input = decodedMethod.inputs[0];
+
+    if (input.type !== 'bytes[]') {
+      return createActionError(
+        action.data,
+        'Could not decode action: multicall'
+      );
+    }
+
+    const actions = input.value.split(',');
+
+    const res = await Promise.all(
+      actions.map(async (act, i) => {
+        const lol = await decodeAction(options, {
+          to: action.to as `0x${string}`,
+          data: act as `0x${string}`,
+          value: decodeValue(action.value),
+          operation:
+            decodeValue(action.operation) === '1'
+              ? OperationType.DelegateCall
+              : OperationType.Call,
+        });
+
+        return lol;
+      })
+    );
+
+    return {
+      to: action.to,
+      operation: action.operation || OperationType.DelegateCall,
+      name: decodedMethod.functionName,
+      value: decodeValue(action.value),
+      params: decodedMethod.inputs,
+      decodedActions: res,
     };
   },
 };

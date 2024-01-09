@@ -320,15 +320,9 @@ module.exports.config = {
   sepolia: {
     dataSources: [
       {
-        name: 'baalSummoner-v1.0.0',
-        template: 'baal-summoner-ds.yaml',
-        address: '0xD69e5B8F6FA0E5d94B93848700655A78DF24e387',
-        startBlock: 4816767,
-      },
-      {
         name: 'baalSummoner-v2.0.0',
         template: 'baal-summoner-2.0.0-ds.yaml',
-        address: '0xD69e5B8F6FA0E5d94B93848700655A78DF24e387',
+        address: '0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0',
         startBlock: 4816767,
       },
       {
@@ -368,15 +362,9 @@ module.exports.config = {
   base: {
     dataSources: [
       {
-        name: 'baalSummoner-v1.0.0',
-        template: 'baal-summoner-ds.yaml',
-        address: '0x22e0382194AC1e9929E023bBC2fD2BA6b778E098',
-        startBlock: 7428979,
-      },
-      {
         name: 'baalSummoner-v2.0.0',
         template: 'baal-summoner-2.0.0-ds.yaml',
-        address: '0x97Aaa5be8B38795245f1c38A883B44cccdfB3E11',
+        address: '0x22e0382194AC1e9929E023bBC2fD2BA6b778E098',
         startBlock: 7428979,
       },
       {

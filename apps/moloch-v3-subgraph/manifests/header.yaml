@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.5
 description: DAOHaus V3 Subgraph
 repository: https://github.com/hausdao/daohaus-v3-subgraph-sandbox
 schema:

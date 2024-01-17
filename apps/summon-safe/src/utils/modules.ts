@@ -44,6 +44,13 @@ export const MODULES: Record<string, ModuleTemplate> = {
       },
       '0x89': {},
       '0xa4b1': {},
+      '0xaa36a7': {
+        moduleFactory: {
+          address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
+          singletonAddress: '0x7c1Db931F804271E39b04E68221b71Ca94E9AFa5',
+        },
+      },
+      // '0x2105': {},
     },
     params: [
       {
@@ -178,6 +185,13 @@ export const MODULES: Record<string, ModuleTemplate> = {
       },
       '0x89': {},
       '0xa4b1': {},
+      '0xaa36a7': {
+        moduleFactory: {
+          address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
+          singletonAddress: '0x85C60D0674e161B7f9d1d40A2A46e4b788E7F057',
+        },
+      },
+      // '0x2105': {},
     },
     params: [
       {
@@ -263,6 +277,13 @@ export const MODULES: Record<string, ModuleTemplate> = {
       },
       '0x89': {},
       '0xa4b1': {},
+      '0xaa36a7': {
+        moduleFactory: {
+          address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
+          singletonAddress: '0x15f06a6dB8eC8D79Eaa49659210C1c58975a4056',
+        },
+      },
+      // '0x2105': {},
     },
     params: [
       {
@@ -341,6 +362,13 @@ export const MODULES: Record<string, ModuleTemplate> = {
       },
       '0x89': {},
       '0xa4b1': {},
+      '0xaa36a7': {
+        moduleFactory: {
+          address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
+          singletonAddress: '0x226E0601aa8b8CC34519c76Be00A7a6a8a4d97d2',
+        },
+      },
+      // '0x2105': {},
     },
     params: [
       {
@@ -415,6 +443,13 @@ export const MODULES: Record<string, ModuleTemplate> = {
       },
       '0x89': {},
       '0xa4b1': {},
+      '0xaa36a7': {
+        moduleFactory: {
+          address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
+          singletonAddress: '0x0C7F0fC0ddb95d7099ED97c10A2DE549c03E39F9',
+        },
+      },
+      // '0x2105': {},
     },
     params: [
       {

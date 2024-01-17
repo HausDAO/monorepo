@@ -317,4 +317,88 @@ module.exports.config = {
       },
     ],
   },
+  sepolia: {
+    dataSources: [
+      {
+        name: 'baalSummoner-v2.0.0',
+        template: 'baal-summoner-2.0.0-ds.yaml',
+        address: '0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0',
+        startBlock: 4816767,
+      },
+      {
+        name: 'vaultSummoner',
+        template: 'vault-summoner-ds.yaml',
+        address: '0x763f5c2E59f997A6cC48Bf1228aBf61325244702',
+        startBlock: 4816767,
+      },
+      {
+        name: 'poster',
+        template: 'poster-ds.yaml',
+        address: '0x000000000000cd17345801aa8147b8d3950260ff',
+        startBlock: 4816767,
+      },
+      {
+        name: 'tributeMinion-v1.0.0',
+        template: 'tribute-minion-ds.yaml',
+        address: '0xdb4D89F2199b9Cf451B7Ff4bdC94b1c96De4bdD0',
+        startBlock: 4816767,
+      },
+    ],
+    templates: [
+      {
+        name: 'baalTemplate',
+        template: 'baal-template.yaml',
+      },
+      {
+        name: 'sharesTemplate',
+        template: 'shares-template.yaml',
+      },
+      {
+        name: 'lootTemplate',
+        template: 'loot-template.yaml',
+      },
+    ],
+  },
+  base: {
+    dataSources: [
+      {
+        name: 'baalSummoner-v2.0.0',
+        template: 'baal-summoner-2.0.0-ds.yaml',
+        address: '0x22e0382194AC1e9929E023bBC2fD2BA6b778E098',
+        startBlock: 7428979,
+      },
+      {
+        name: 'vaultSummoner',
+        template: 'vault-summoner-ds.yaml',
+        address: '0x2eF2fC8a18A914818169eFa183db480d31a90c5D',
+        startBlock: 7428979,
+      },
+      {
+        name: 'poster',
+        template: 'poster-ds.yaml',
+        address: '0x000000000000cd17345801aa8147b8d3950260ff',
+        startBlock: 7428979,
+      },
+      {
+        name: 'tributeMinion-v1.0.0',
+        template: 'tribute-minion-ds.yaml',
+        address: '0x00768B047f73D88b6e9c14bcA97221d6E179d468',
+        startBlock: 7428979,
+      },
+    ],
+    templates: [
+      {
+        name: 'baalTemplate',
+        template: 'baal-template.yaml',
+      },
+      {
+        name: 'sharesTemplate',
+        template: 'shares-template.yaml',
+      },
+      {
+        name: 'lootTemplate',
+        template: 'loot-template.yaml',
+      },
+    ],
+  },
 };

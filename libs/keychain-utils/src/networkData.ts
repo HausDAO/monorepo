@@ -65,13 +65,13 @@ export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {
     explorer: ENDPOINTS.EXPLORER['0xaa36a7'] as string,
     rpc: HAUS_RPC['0xaa36a7'] as string,
   },
-  // '0x2105': {
-  //   chainId: '0x2105',
-  //   networkId: 8453,
-  //   name: 'Base',
-  //   symbol: 'ETH',
-  //   tokenDecimals: 18,
-  //   explorer: ENDPOINTS.EXPLORER['0x2105'] as string,
-  //   rpc: '**TODO',
-  // },
+  '0x2105': {
+    chainId: '0x2105',
+    networkId: 8453,
+    name: 'Base',
+    symbol: 'ETH',
+    tokenDecimals: 18,
+    explorer: ENDPOINTS.EXPLORER['0x2105'] as string,
+    rpc: HAUS_RPC['0x2105'] as string,
+  },
 };

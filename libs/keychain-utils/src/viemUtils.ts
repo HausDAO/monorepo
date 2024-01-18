@@ -5,7 +5,7 @@ import {
   gnosis,
   goerli,
   optimism,
-  // base,
+  base,
   sepolia,
   Chain,
 } from 'wagmi/chains';
@@ -19,5 +19,5 @@ export const VIEM_CHAINS: Keychain<Chain> = {
   '0xa': optimism,
   '0xa4b1': arbitrum,
   '0xaa36a7': sepolia,
-  // '0x2105': base,
+  '0x2105': base,
 };

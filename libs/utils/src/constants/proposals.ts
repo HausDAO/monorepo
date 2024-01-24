@@ -108,7 +108,7 @@ export const PROPOSAL_FILTERS: Record<string, string> = {
 // Processing gas estimate buffer
 export const GAS_BUFFER_MULTIPLIER = 2;
 // Adding to the gas limit to account for cost of processProposal
-export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 250000;
+export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 400000;
 // Adding to the gas limit to account for cost of each action
 export const ACTION_GAS_LIMIT_ADDITION = 150000;
 

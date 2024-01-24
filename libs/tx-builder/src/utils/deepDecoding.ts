@@ -157,13 +157,17 @@ const decodeMethod = (options: {
   const inputsWithValues = (inputs as any[]).map((input, index) => ({
     name: input.name,
     type: input.type,
-    value: Array.isArray(result.args?.[index])
-      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (result.args?.[index] as Array<any>).length
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value:
+      (result.args?.[index] as any).constructor === {}.constructor
+        ? JSON.stringify(result.args?.[index]) // struct as json object
+        : Array.isArray(result.args?.[index]) // array
         ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (result.args?.[index] as Array<any>).toString()
-        : '[]'
-      : result.args?.[index]?.toString() || '0x',
+          (result.args?.[index] as Array<any>).length
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (result.args?.[index] as Array<any>).toString()
+          : '[]'
+        : result.args?.[index]?.toString() || '0x',
   }));
 
   return {

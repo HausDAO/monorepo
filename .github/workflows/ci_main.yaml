@@ -40,7 +40,6 @@ jobs:
           echo NX_GRAPH_API_KEY_MAINNET=${{ secrets.NX_GRAPH_API_KEY_MAINNET }}  >> .env
           echo NX_WALLET_CONNECT_ID=${{ secrets.NX_WALLET_CONNECT_ID }}  >> .env
           echo NX_BASESCAN_KEY=${{ secrets.NX_BASESCAN_KEY }}  >> .env
-          echo NX_BASE_ALCHEMY_KEY=${{ secrets.NX_BASE_ALCHEMY_KEY }}  >> .env
 
       - name: Install dependencies
         run: yarn install

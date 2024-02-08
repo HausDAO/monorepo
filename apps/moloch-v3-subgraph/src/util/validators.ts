@@ -5,7 +5,7 @@ import {
   log,
   TypedMap,
 } from '@graphprotocol/graph-ts';
-import { Dao, Member } from '../../generated/schema';
+import { Dao, Member, Shaman } from '../../generated/schema';
 import { constants } from './constants';
 import { getStringFromJson } from './parser';
 
@@ -64,6 +64,31 @@ export function isMember(
 
   return true;
 }
+
+export function isDaoShaman(
+  object: TypedMap<string, JSONValue>,
+  senderAddress: Bytes
+): boolean {
+  const daoId = getStringFromJson(object, 'daoId');
+  if (daoId.error != 'none') {
+    log.error('no table', []);
+    return false;
+  }
+
+  const shamanId = daoId.data
+    .concat('-shaman-')
+    .concat(senderAddress.toHexString());
+
+  const shaman = Shaman.load(shamanId);
+  if (!shaman) {
+    log.info('no shaman', []);
+
+    return false;
+  }
+
+  return true;
+}
+
 
 export function isDaoSafe(
   object: TypedMap<string, JSONValue>,

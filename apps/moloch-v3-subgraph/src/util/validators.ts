@@ -86,9 +86,16 @@ export function isDaoShaman(
     return false;
   }
 
+  if (
+    shaman.permissions == constants.BIGINT_ZERO
+  ) {
+    log.info('shaman has been disabled', []);
+
+    return false;
+  }
+
   return true;
 }
-
 
 export function isDaoSafe(
   object: TypedMap<string, JSONValue>,

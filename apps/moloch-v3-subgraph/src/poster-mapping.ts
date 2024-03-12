@@ -12,6 +12,7 @@ import { constants } from './util/constants';
 import {
   hasDaoDatabaseFields,
   isDaoSafe,
+  isDaoShaman,
   isMember,
   isShareholder,
 } from './util/validators';
@@ -110,6 +111,17 @@ export function handleNewPost(event: NewPost): void {
     event.params.tag.toHexString() == constants.DAOHAUS_MEMBER_DATABASE &&
     hasDaoDatabaseFields(object) &&
     isMember(object, event.params.user)
+  ) {
+    log.info('&&& creating database record', [event.params.content]);
+    createDaoDatabaseRecord(object, event);
+    addTransaction(event.block, event.transaction, event.address);
+    return;
+  }
+
+  if (
+    event.params.tag.toHexString() == constants.DAOHAUS_SHAMAN_DATABASE &&
+    hasDaoDatabaseFields(object) &&
+    isDaoShaman(object, event.params.user)
   ) {
     log.info('&&& creating database record', [event.params.content]);
     createDaoDatabaseRecord(object, event);

@@ -203,7 +203,7 @@ export function createDaoDatabaseRecord(
   // connect to parent record - for comments
   const parentId = getStringFromJson(object, 'parentId');
   if (parentId.error == 'none') {
-    entity.parentId = parentId;
+    entity.parentId = parentId.data;
   }
 
   const table = getStringFromJson(object, 'table');

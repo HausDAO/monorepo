@@ -267,7 +267,7 @@ export const TX: Record<string, TXLego> = {
         description: '.formValues.description',
         contentURI: `.formValues.link`,
         contentURIType: { type: 'static', value: 'url' },
-        // duceRecordId: 'duceRecordId',
+        // relatedRecordId: 'relatedRecordId',
         proposalType: {
           type: 'static',
           value: ProposalTypeIds.TransferNetworkToken,

@@ -200,6 +200,12 @@ export function createDaoDatabaseRecord(
   entity.contentType = 'json';
   entity.content = event.params.content;
 
+  // connect to parent record - for comments
+  const parentId = getStringFromJson(object, 'parentId');
+  if (parentId.error == 'none') {
+    entity.parentId = parentId;
+  }
+
   const table = getStringFromJson(object, 'table');
   if (table.error != 'none') {
     return false;

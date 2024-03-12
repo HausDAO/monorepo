@@ -260,7 +260,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
       proposal.contentURIType = contentURIType.data;
     }
 
-    const duceContentId = getStringFromJson(object, 'duceContentId');
+    const duceContentId = getStringFromJson(object, 'duceRecordId');
     if (duceContentId.error == 'none') {
       proposal.record = duceContentId.data;
     }

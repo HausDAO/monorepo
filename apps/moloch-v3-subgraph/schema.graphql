@@ -232,6 +232,7 @@ type Record @entity {
   content: String!
   queryType: String
   proposals: [Proposal!] @derivedFrom(field: "record")
+  parentId: String
 }
 
 type Member @entity {

@@ -259,6 +259,11 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     if (contentURIType.error == 'none') {
       proposal.contentURIType = contentURIType.data;
     }
+
+    const duceContentId = getStringFromJson(object, 'duceContentId');
+    if (duceContentId.error == 'none') {
+      proposal.record = duceContentId.data;
+    }
   }
 
   proposal.save();

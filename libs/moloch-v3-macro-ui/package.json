@@ -3,5 +3,9 @@
   "version": "0.4.2",
   "peerDependencies": {
     "react-router-dom": "^6.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HausDAO/monorepo"
   }
 }

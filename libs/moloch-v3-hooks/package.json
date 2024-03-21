@@ -1,7 +1,11 @@
 {
   "name": "@daohaus/moloch-v3-hooks",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "peerDependencies": {
     "react-query": "^3.39.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HausDAO/monorepo"
   }
 }

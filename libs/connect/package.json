@@ -1,7 +1,11 @@
 {
   "name": "@daohaus/connect",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "peerDependencies": {
     "react-router-dom": "^6.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HausDAO/monorepo"
   }
 }

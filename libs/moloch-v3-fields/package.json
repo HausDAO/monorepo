@@ -1,4 +1,8 @@
 {
   "name": "@daohaus/moloch-v3-fields",
-  "version": "0.4.2"
+  "version": "0.4.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HausDAO/monorepo"
+  }
 }

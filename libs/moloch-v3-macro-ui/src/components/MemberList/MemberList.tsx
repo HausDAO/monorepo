@@ -46,6 +46,7 @@ export const MemberList = ({
   allowMemberMenu = false,
 }: MemberListProps) => {
   const { dao, isLoading: isLoadingDao } = useDaoData();
+  console.log('dao', dao);
 
   const {
     members,
@@ -54,6 +55,7 @@ export const MemberList = ({
     hasNextPage,
     orderMembers,
   } = useDaoMembers();
+  console.log('members', members);
   const isMd = useBreakpoint(widthQuery.md);
 
   const tableData = useMemo<MolochV3Members>(() => {

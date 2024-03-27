@@ -89,7 +89,6 @@ export const listMembers = async ({
     throw formatFetchError({ type: 'INVALID_NETWORK_ERROR' });
   }
 
-  console.log('filter', filter);
   const res = await graphFetchList<ListMembersQuery, ListMembersQueryVariables>(
     ListMembersDocument,
     url,

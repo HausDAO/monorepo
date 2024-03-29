@@ -14,7 +14,7 @@ export const ENDPOINTS: KeychainList = {
     '0xa4b1':
       'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-arbitrum',
     '0xaa36a7':
-      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-sepolia',
+      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-sepolia-2',
     '0x2105':
       'https://api.studio.thegraph.com/query/36740/daohaus-v3-base/version/latest',
   },

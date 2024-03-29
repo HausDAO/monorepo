@@ -54,6 +54,7 @@ export const MemberList = ({
     hasNextPage,
     orderMembers,
   } = useDaoMembers();
+
   const isMd = useBreakpoint(widthQuery.md);
 
   const tableData = useMemo<MolochV3Members>(() => {

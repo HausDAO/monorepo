@@ -33,7 +33,7 @@ const MarkDownContainer = styled.div`
   padding: 10px;
   margin-bottom: 5rem;
   border-radius: 5px;
-  background-color: hsl(228, 43.3%, 17.5%);
+  background-color: ${({ theme }) => theme.secondary.step11};
   font-size: 1.5rem;
   font-family: inherit;
 `;
@@ -44,7 +44,7 @@ const DialogMarkDownContainer = styled.div`
   padding: 10px;
   margin-bottom: 5rem;
   border-radius: 5px;
-  background-color: hsl(228, 43.3%, 17.5%);
+  background-color: ${({ theme }) => theme.secondary.step11};
   font-size: 1.5rem;
   font-family: inherit;
 `;

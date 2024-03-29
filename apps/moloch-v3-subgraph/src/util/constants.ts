@@ -30,4 +30,7 @@ export namespace constants {
   //daohaus.member.database
   export const DAOHAUS_MEMBER_DATABASE =
     '0x3577aebf71d9bfbe235b0b98b53c9f1865b0f0dc68290b2b64c6251dc4de7800';
+  //daohaus.shaman.database
+  export const DAOHAUS_SHAMAN_DATABASE =
+    '0x28669a2d28b687eb592c45bf97b13239758e5d93354d383b83d2c2c51afaf4fe';
 }

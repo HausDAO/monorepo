@@ -6,14 +6,14 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: BaalSummonerV2
-    network: base
+    network: sepolia
     source:
-      address: '0x22e0382194AC1e9929E023bBC2fD2BA6b778E098'
+      address: '0xB2B3909661552942AE1115E9Fc99dF0BC93d71d0'
       abi: BaalSummonerV2
-      startBlock: 7428979
+      startBlock: 4816767
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Dao
@@ -32,14 +32,14 @@ dataSources:
       file: ./src/baal-summoner-mapping.ts
   - kind: ethereum/contract
     name: VaultSummoner
-    network: base
+    network: sepolia
     source:
-      address: '0x2eF2fC8a18A914818169eFa183db480d31a90c5D'
+      address: '0x763f5c2E59f997A6cC48Bf1228aBf61325244702'
       abi: VaultSummoner
-      startBlock: 7428979
+      startBlock: 4816767
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Dao
@@ -54,14 +54,14 @@ dataSources:
       file: ./src/vault-summoner-mapping.ts
   - kind: ethereum/contract
     name: Poster
-    network: base
+    network: sepolia
     source:
       address: '0x000000000000cd17345801aa8147b8d3950260ff'
       abi: Poster
-      startBlock: 7428979
+      startBlock: 4816767
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Post
@@ -75,14 +75,14 @@ dataSources:
       file: ./src/poster-mapping.ts
   - kind: ethereum/contract
     name: TributeMinion
-    network: base
+    network: sepolia
     source:
-      address: '0x00768B047f73D88b6e9c14bcA97221d6E179d468'
+      address: '0xdb4D89F2199b9Cf451B7Ff4bdC94b1c96De4bdD0'
       abi: TributeMinion
-      startBlock: 7428979
+      startBlock: 4816767
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Proposal
@@ -100,12 +100,12 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
-    network: base
+    network: sepolia
     source:
       abi: Baal
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/baal-mapping.ts
       entities:
@@ -149,12 +149,12 @@ templates:
           handler: handleLockManager
   - kind: ethereum/contract
     name: SharesTemplate
-    network: base
+    network: sepolia
     source:
       abi: Shares
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/token-mapping.ts
       entities:
@@ -172,12 +172,12 @@ templates:
           handler: handleSharesTransfer
   - kind: ethereum/contract
     name: LootTemplate
-    network: base
+    network: sepolia
     source:
       abi: Loot
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/token-mapping.ts
       entities:

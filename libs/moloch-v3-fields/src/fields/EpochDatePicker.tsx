@@ -21,6 +21,8 @@ import { createGlobalStyle } from 'styled-components';
  * @example FIELD { EPOCH_DATE_FIELD: {id: "epochDate",type: "epochDateField",label: "Epoch Date Field",}},
  */
 
+// TODO: set the default somehow and enforce required
+
 export const EpochDatePicker = (props: Buildable<Field>) => {
   const { setValue } = useFormContext();
   const [startDate, setStartDate] = useState(new Date());

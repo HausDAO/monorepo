@@ -29,6 +29,7 @@ export function handleNewPost(event: NewPost): void {
     constants.DAOHAUS_PROPOSAL_DATABASE,
     constants.DAOHAUS_SHARES_DATABASE,
     constants.DAOHAUS_MEMBER_DATABASE,
+    constants.DAOHAUS_SHAMAN_DATABASE,
   ];
   const validTag = validTags.includes(event.params.tag.toHexString());
   if (!validTag) {

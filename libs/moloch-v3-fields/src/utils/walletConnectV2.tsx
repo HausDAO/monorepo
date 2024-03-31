@@ -215,6 +215,18 @@ const useWalletConnectV2 = (): useWalletConnectType => {
               });
               break;
             }
+            case 'eth_estimateGas': {
+              // notice: we don't require to estimate gas for the individual contract call to build the proposal calldata
+              await web3wallet.respondSessionRequest({
+                topic,
+                response: {
+                  id,
+                  jsonrpc: '2.0',
+                  result: '0x0', // notice: respond zero gas by default
+                },
+              });
+              break;
+            }
             default: {
               const errorMsg = 'Tx type not supported';
               setError(errorMsg);

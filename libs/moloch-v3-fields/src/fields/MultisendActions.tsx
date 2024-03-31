@@ -296,6 +296,17 @@ const Action = ({
             'Contract not verified. You can manually paste the ABI but proceed with extreme caution!',
         });
       }
+      // allow ABI to be overridden by the user
+      if (
+        contractAbi &&
+        contractAbi !== '' &&
+        contractAbi !== JSON.stringify(fetchedAbi)
+      ) {
+        setValue(abiFieldId, contractAbi);
+        extractContractMethods(JSON.parse(contractAbi));
+        setLoading(false);
+        return;
+      }
       if (!fetchedAbi && fallbackAbi) {
         cacheABI({
           address,
@@ -313,6 +324,7 @@ const Action = ({
     },
     [
       abiFieldId,
+      contractAbi,
       contractMethodFieldId,
       daoChain,
       extractContractMethods,

@@ -86,9 +86,7 @@ export function isDaoShaman(
     return false;
   }
 
-  if (
-    shaman.permissions == constants.BIGINT_ZERO
-  ) {
+  if (shaman.permissions == constants.BIGINT_ZERO) {
     log.info('shaman has been disabled', []);
 
     return false;

@@ -16,6 +16,8 @@ export type ActionError = {
   error: boolean;
   message: string;
   data: string;
+  contractAddress?: string;
+  value?: string;
 };
 
 export type DecodedMultiTX = (DecodedAction | ActionError)[];

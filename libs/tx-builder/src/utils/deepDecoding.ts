@@ -88,10 +88,17 @@ export const deepDecodeProposalActions = async ({
   return decodeMultiCall(options, actionData as `0x${string}`);
 };
 
-const createActionError = (data: string, message: string): ActionError => ({
+const createActionError = (
+  data: string,
+  message: string,
+  contractAddress?: string,
+  value?: string
+): ActionError => ({
   error: true,
   message,
   data,
+  contractAddress,
+  value,
 });
 
 const decodeMultiCall = async (
@@ -192,7 +199,8 @@ const actionDecoders: Record<
     ) {
       return createActionError(
         action.data,
-        'Could not decode action: multiSend'
+        'Could not decode action: multiSend',
+        action.to
       );
     }
     const input = decodedMethod.inputs[0];
@@ -200,7 +208,8 @@ const actionDecoders: Record<
     if (input.type !== 'bytes') {
       return createActionError(
         action.data,
-        'Could not decode action: multiSend'
+        'Could not decode action: multiSend',
+        action.to
       );
     }
 
@@ -227,7 +236,8 @@ const actionDecoders: Record<
     ) {
       return createActionError(
         action.data,
-        'Could not decode action: execTransactionFromModule'
+        'Could not decode action: execTransactionFromModule',
+        action.to
       );
     }
     const inputTo = decodedMethod.inputs[0];
@@ -243,7 +253,8 @@ const actionDecoders: Record<
     ) {
       return createActionError(
         action.data,
-        'Could not decode action: execTransactionFromModule'
+        'Could not decode action: execTransactionFromModule',
+        action.to
       );
     }
 
@@ -274,7 +285,8 @@ const actionDecoders: Record<
     ) {
       return createActionError(
         action.data,
-        'Could not decode action: executeAsBaal'
+        'Could not decode action: executeAsBaal',
+        action.to
       );
     }
     const inputTo = decodedMethod.inputs[0];
@@ -288,7 +300,8 @@ const actionDecoders: Record<
     ) {
       return createActionError(
         action.data,
-        'Could not decode action: executeAsBaal'
+        'Could not decode action: executeAsBaal',
+        action.to
       );
     }
 
@@ -349,7 +362,8 @@ const actionDecoders: Record<
     ) {
       return createActionError(
         action.data,
-        'Could not decode action: multiSend'
+        'Could not decode action: multiSend',
+        action.to
       );
     }
     const input = decodedMethod.inputs[0];
@@ -357,7 +371,8 @@ const actionDecoders: Record<
     if (input.type !== 'bytes[]') {
       return createActionError(
         action.data,
-        'Could not decode action: multicall'
+        'Could not decode action: multicall',
+        action.to
       );
     }
 
@@ -420,7 +435,12 @@ const decodeAction = async (
   });
 
   if (!abi || !abi?.length) {
-    return createActionError(data, 'Could not decode action: abi not found');
+    return createActionError(
+      data,
+      'Could not decode action: abi not found',
+      to,
+      decodeValue(value)
+    );
   }
 
   const decodedMethod = decodeMethod({
@@ -429,7 +449,12 @@ const decodeAction = async (
   });
 
   if (!decodedMethod) {
-    return createActionError(data, 'Could not decode action: method not found');
+    return createActionError(
+      data,
+      'Could not decode action: method not found',
+      to,
+      decodeValue(value)
+    );
   }
 
   const methodSignature = data.slice(0, 10);

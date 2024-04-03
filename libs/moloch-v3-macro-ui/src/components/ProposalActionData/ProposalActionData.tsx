@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { isValidNetwork } from '@daohaus/keychain-utils';
+import { ValidNetwork, isValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Proposal } from '@daohaus/moloch-v3-data';
 import {
   ActionError,
@@ -18,6 +18,7 @@ import {
   useBreakpoint,
   widthQuery,
   ParLg,
+  DataMd,
 } from '@daohaus/ui';
 import {
   DAO_METHOD_TO_PROPOSAL_TYPE,
@@ -210,20 +211,52 @@ const ActionToggle = ({
 
 const ActionSectionError = ({
   action,
+  actionHeader,
+  daoChain,
   index,
+  isMobile,
 }: {
   action: ActionError;
+  actionHeader: string;
+  daoChain?: ValidNetwork;
   index: number;
+  isMobile?: boolean;
 }) => {
   return (
     <div className="display-segment data" key={`${action.message}-${index}`}>
-      <H4 className="space">Action {index + 1}: Error</H4>
-      <DataSm className="space">{action.message}</DataSm>
-      <Divider className="space" />
-      <DataSm className="space">
-        <Bold>HEX DATA:</Bold>
-      </DataSm>
-      <DataSm className="space">{action.data}</DataSm>
+      <ActionToggle actionHeader={actionHeader} action={action}>
+        <>
+          <DataMd className="space">Action {index + 1}</DataMd>
+          <DataSm className="space">Error: {action.message}</DataSm>
+          <Divider className="space" />
+          {action.contractAddress && (
+            <>
+              <DataSm className="space">
+                <Bold>TARGET</Bold>
+              </DataSm>
+              <AddressDisplay
+                className="space"
+                address={action.contractAddress}
+                copy
+                explorerNetworkId={daoChain}
+                truncate={isMobile}
+              />
+            </>
+          )}
+          <DataSm className="space">
+            <Bold>HEX DATA:</Bold>
+          </DataSm>
+          <DataSm className="space">{action.data}</DataSm>
+          {action.value && (
+            <>
+              <DataSm className="space">
+                <Bold>VALUE</Bold>
+              </DataSm>
+              <DataSm className="space">{action.value}</DataSm>
+            </>
+          )}
+        </>
+      </ActionToggle>
     </div>
   );
 };
@@ -249,7 +282,15 @@ const ActionSection = ({
   const isMobile = useBreakpoint(widthQuery.sm);
 
   if (isActionError(action)) {
-    return <ActionSectionError index={index} action={action} />;
+    return (
+      <ActionSectionError
+        index={index}
+        action={action}
+        actionHeader={actionHeader}
+        daoChain={network}
+        isMobile={isMobile}
+      />
+    );
   }
 
   return (

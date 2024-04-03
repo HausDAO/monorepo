@@ -169,8 +169,13 @@ const handleMulticallFormActions = ({
   if (!validTxs.length) {
     throw new Error('No actions found');
   }
-  // TODO: sort by tx.actionId.index
-  return validTxs.map((actionId: string) => {
+  const sortedTxs = validTxs.sort((actionA: string, actionB: string) =>
+    Number(appState.formValues.tx[actionA].index) >
+    Number(appState.formValues.tx[actionB].index)
+      ? 1
+      : -1
+  );
+  return sortedTxs.map((actionId: string) => {
     const action = appState.formValues.tx[actionId];
     const { to, data, value, operation } = action;
     return {

@@ -36,7 +36,7 @@ To generate subgraph code, run the following command:
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-optimism --network=optimism`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-arbitrum --network=arbitrum-one`
 `nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-polygon --network=matic`
-`nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-sepolia --network=sepolia`
+`nx run moloch-v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-sepolia-2 --network=sepolia`
 
 ### mainnet and gnosis chain deployment to studio
 

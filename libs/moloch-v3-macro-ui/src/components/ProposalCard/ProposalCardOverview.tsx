@@ -35,6 +35,7 @@ const OverviewBox = styled.div<{ $allowLinks?: boolean }>`
   }
   .description {
     margin-bottom: auto;
+    word-break: break-word;
   }
   @media ${widthQuery.md} {
     .description {

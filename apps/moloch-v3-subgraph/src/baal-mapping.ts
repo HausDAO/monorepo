@@ -259,6 +259,11 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     if (contentURIType.error == 'none') {
       proposal.contentURIType = contentURIType.data;
     }
+
+    const relatedRecordId = getStringFromJson(object, 'relatedRecordId');
+    if (relatedRecordId.error == 'none') {
+      proposal.record = relatedRecordId.data;
+    }
   }
 
   proposal.save();

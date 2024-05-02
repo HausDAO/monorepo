@@ -11,6 +11,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import {
+  GRAPH_API_KEYS,
   HAUS_NETWORK_DATA,
   isValidNetwork,
   ValidNetwork,
@@ -52,10 +53,7 @@ export const HomeDashboard = () => {
           daoFilter: { name_contains_nocase: debouncedSearchTerm },
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
-          graphApiKeys: {
-            '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-            '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
-          },
+          graphApiKeys: GRAPH_API_KEYS,
         });
         if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);

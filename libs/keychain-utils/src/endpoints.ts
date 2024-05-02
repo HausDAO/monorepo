@@ -6,17 +6,17 @@ export const ENDPOINTS: KeychainList = {
       'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP',
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
     '0x64':
-      'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/5oXHJGgAWTSEXHK5FGf7mcxYtk6rSz7MJV5ccvGfoW6q',
+      'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/6x9FK3iuhVFaH9sZ39m8bKB5eckax8sjxooBPNKWWK8r',
     '0x89':
-      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-polygon',
+      'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/A4su27JYXR5TkPZmiFHzzqMJnmYttfU3FyrdNBDnnu8T',
     '0xa':
-      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-optimism',
+      'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/CgH5vtz9CJPdcSmD3XEh8fCVDjQjnRwrSawg71T1ySXW',
     '0xa4b1':
-      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-arbitrum',
+      'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/GPACxuMWrrPSEJpFqupnePJNMfuArpFabrXLnWvXU2bp',
     '0xaa36a7':
-      'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-sepolia-2',
+      'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/3k93SNY5Y1r4YYWEuPY9mpCm2wnGoYDKRtk82QZJ3Kvw',
     '0x2105':
-      'https://api.studio.thegraph.com/query/36740/daohaus-v3-base/version/latest',
+      'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/7yh4eHJ4qpHEiLPAk9BXhL5YgYrTrRE6gWy8x4oHyAqW',
   },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
@@ -133,6 +133,11 @@ export const HAUS_RPC = {
 export const GRAPH_API_KEYS = {
   '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
   '0x64': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0xaa36a7': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0x2105': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0xa4b1': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0x89': process.env['NX_GRAPH_API_KEY_MAINNET'],
+  '0xa': process.env['NX_GRAPH_API_KEY_MAINNET'],
 };
 
 export type PinataApiKeys = {

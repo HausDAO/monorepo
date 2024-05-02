@@ -1,4 +1,8 @@
-import { HAUS_NETWORK_DATA, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  GRAPH_API_KEYS,
+  HAUS_NETWORK_DATA,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 import {
   findMember,
   FindMemberQuery,
@@ -155,9 +159,7 @@ export const isActiveMember = async ({
       networkId: daochain,
       dao: daoid,
       memberAddress: address.toLowerCase(),
-      graphApiKeys: {
-        '0x1': process.env['NX_GRAPH_API_KEY_MAINNET'],
-      },
+      graphApiKeys: GRAPH_API_KEYS,
     });
 
     if (

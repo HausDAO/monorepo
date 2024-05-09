@@ -6,7 +6,12 @@ import {
   IListQueryArguments,
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
-import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  getGraphUrl,
+  GRAPH_API_KEYS,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 import { nowInSeconds, MolochV3MembershipQuery } from '@daohaus/utils';
 import {
   Dao_Filter,
@@ -39,7 +44,7 @@ export const findMember = async ({
   networkId,
   dao,
   memberAddress,
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: {
   networkId: ValidNetwork;
   dao: string;
@@ -80,7 +85,7 @@ export const listMembers = async ({
     pageSize: DEFAULT_RECORDS_PER_PAGE,
     offset: 0,
   },
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: IListQueryArguments<Member_OrderBy, Member_Filter>): Promise<
   IListQueryResults<Member_OrderBy, Member_Filter, ListMembersQuery['members']>
 > => {
@@ -122,7 +127,7 @@ export const listDaosByMember = async ({
     orderDirection: 'desc',
   },
   networkIds,
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: ICrossNetworkMemberListArguments<
   Dao_OrderBy,
   Dao_Filter,
@@ -170,7 +175,7 @@ export const listProposalVotesByMember = async ({
     pageSize: DEFAULT_RECORDS_PER_PAGE,
     offset: 0,
   },
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: IListQueryArguments<Proposal_OrderBy, Proposal_Filter> & {
   memberAddress: string;
 }): Promise<

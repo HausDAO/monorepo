@@ -6,7 +6,12 @@ import {
   IListQueryArguments,
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
-import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  getGraphUrl,
+  GRAPH_API_KEYS,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 import {
   addParsedContent,
   createPaging,
@@ -30,7 +35,7 @@ import {
 export const findRecord = async ({
   networkId,
   recordId,
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: {
   networkId: ValidNetwork;
   recordId: string;
@@ -72,7 +77,7 @@ export const listRecords = async ({
     pageSize: DEFAULT_RECORDS_PER_PAGE,
     offset: 0,
   },
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: IListQueryArguments<Record_OrderBy, Record_Filter>): Promise<
   IListQueryResults<
     Record_OrderBy,

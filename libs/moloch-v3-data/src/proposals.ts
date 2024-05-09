@@ -6,7 +6,12 @@ import {
   IListQueryArguments,
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
-import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  getGraphUrl,
+  GRAPH_API_KEYS,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 import {
   ListVotesDocument,
   ListVotesQuery,
@@ -37,7 +42,7 @@ export const findProposal = async ({
   dao,
   proposalId,
   connectedAddress,
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: {
   networkId: ValidNetwork;
   dao: string;

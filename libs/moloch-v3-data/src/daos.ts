@@ -9,6 +9,7 @@ import {
 import {
   ENDPOINTS,
   getGraphUrl,
+  GRAPH_API_KEYS,
   Keychain,
   ValidNetwork,
 } from '@daohaus/keychain-utils';
@@ -35,7 +36,7 @@ import { listTokenBalances } from './vaults';
 export const findDao = async ({
   networkId,
   dao,
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
   includeTokens = false,
 }: {
   networkId: ValidNetwork;
@@ -139,7 +140,7 @@ export const listDaos = async ({
     pageSize: DEFAULT_RECORDS_PER_PAGE,
     offset: 0,
   },
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: IListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
   IListQueryResults<Dao_OrderBy, Dao_Filter, ListDaosQueryResDaos>
 > => {

@@ -6,7 +6,12 @@ import {
   IListQueryArguments,
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
-import { getGraphUrl, Keychain, ValidNetwork } from '@daohaus/keychain-utils';
+import {
+  getGraphUrl,
+  GRAPH_API_KEYS,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/keychain-utils';
 import { createPaging, DEFAULT_RECORDS_PER_PAGE } from './utils';
 import {
   EventTransaction_Filter,
@@ -22,7 +27,7 @@ import {
 export const findTransaction = async ({
   networkId,
   txHash,
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: {
   networkId: ValidNetwork;
   txHash: string;
@@ -62,7 +67,7 @@ export const listTransactions = async ({
     pageSize: DEFAULT_RECORDS_PER_PAGE,
     offset: 0,
   },
-  graphApiKeys,
+  graphApiKeys = GRAPH_API_KEYS,
 }: IListQueryArguments<
   EventTransaction_OrderBy,
   EventTransaction_Filter

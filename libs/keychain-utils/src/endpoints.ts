@@ -102,7 +102,7 @@ export const HAUS_RPC_DEFAULTS = {
   '0xaa36a7': process.env['NX_RIVET_KEY']
     ? `https://${process.env['NX_RIVET_KEY']}.sepolia.rpc.rivet.cloud/`
     : 'https://eth-sepolia.g.alchemy.com/v2/demo',
-  '0x2105': `https://base.llamarpc.com`,
+  '0x2105': `https://mainnet.base.org`,
 };
 export const HAUS_RPC = {
   '0x1': process.env['NX_MAINNET_RPC']

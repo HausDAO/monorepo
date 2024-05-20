@@ -16,6 +16,7 @@ export const listTokenBalances = async ({
   safeAddress: string;
 }): Promise<IFindQueryResult<DaoTokenBalances>> => {
   const url = ENDPOINTS['GNOSIS_API'][networkId];
+
   if (!url) {
     return {
       error: formatFetchError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -24,7 +25,9 @@ export const listTokenBalances = async ({
 
   try {
     const res = await fetch.get<TokenBalance[]>(
-      `${url}/safes/${getAddress(safeAddress)}/balances/usd/`
+      // `${url}/safes/${getAddress(safeAddress)}/balances/usd/` // dead link
+      `${url}/safes/${getAddress(safeAddress)}/balances/`
+
     );
 
     return { data: transformTokenBalances(res, safeAddress) };

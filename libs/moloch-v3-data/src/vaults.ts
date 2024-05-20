@@ -27,7 +27,6 @@ export const listTokenBalances = async ({
     const res = await fetch.get<TokenBalance[]>(
       // `${url}/safes/${getAddress(safeAddress)}/balances/usd/` // dead link
       `${url}/safes/${getAddress(safeAddress)}/balances/`
-
     );
 
     return { data: transformTokenBalances(res, safeAddress) };

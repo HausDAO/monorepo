@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import {
   formatValueTo,
   memberTokenBalanceShare,
-  memberUsdValueShare,
+  // memberUsdValueShare,
   NETWORK_TOKEN_ETH_ADDRESS,
 } from '@daohaus/utils';
 import { getNetwork } from '@daohaus/keychain-utils';
@@ -158,10 +158,10 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
 
           return acc;
         },
-        { 
-          tokenCheckboxes: [], 
-          amounts: [], 
-          // usdValue: [] 
+        {
+          tokenCheckboxes: [],
+          amounts: [],
+          // usdValue: []
         }
       );
   }, [

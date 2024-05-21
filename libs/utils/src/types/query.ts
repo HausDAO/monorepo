@@ -12,7 +12,6 @@ export interface MolochV3Membership {
   delegatingTo?: string;
   isDelegate: boolean;
   memberAddress: string;
-  fiatTotal?: number;
   totalProposalCount: string;
   contractType: string;
   tokenBalances?: TokenBalance[];
@@ -32,13 +31,9 @@ export type TokenBalance = {
   balance: string;
   ethValue: string;
   timestamp: string;
-  fiatBalance: string;
-  fiatConversion: string;
-  fiatCode: string;
 };
 export type DaoTokenBalances = {
   safeAddress: string;
-  fiatTotal: number;
   tokenBalances: TokenBalance[];
 };
 export type AccountProfile = {

@@ -9,7 +9,6 @@ import {
   charLimit,
   formatValueTo,
   memberTokenBalanceShare,
-  memberUsdValueShare,
   NETWORK_TOKEN_ETH_ADDRESS,
 } from '@daohaus/utils';
 
@@ -21,7 +20,6 @@ type TokenTableType = {
     name: string | undefined;
   };
   balance: string;
-  fiatBalance: string;
 };
 
 type MemberTokensProps = {
@@ -53,17 +51,6 @@ export const MemberTokens = ({ daoChain, dao, member }: MemberTokensProps) => {
               address: bal.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
               name: charLimit(bal.token?.name, 21),
             },
-            fiatBalance: formatValueTo({
-              value: memberUsdValueShare(
-                bal.fiatBalance,
-                dao.totalShares || 0,
-                dao.totalLoot || 0,
-                member.shares || 0,
-                member.loot || 0
-              ),
-              decimals: 2,
-              format: 'currency',
-            }),
             balance: formatValueTo({
               value: memberTokenBalanceShare(
                 bal.balance,
@@ -104,15 +91,6 @@ export const MemberTokens = ({ daoChain, dao, member }: MemberTokensProps) => {
       {
         Header: 'Amount',
         accessor: 'balance',
-        Cell: ({ value }: { value: string }) => {
-          return <div>{value}</div>;
-        },
-      },
-      {
-        Header: () => {
-          return <div>USD Value</div>;
-        },
-        accessor: 'fiatBalance',
         Cell: ({ value }: { value: string }) => {
           return <div>{value}</div>;
         },

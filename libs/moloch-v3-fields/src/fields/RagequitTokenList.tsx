@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form';
 import {
   formatValueTo,
   memberTokenBalanceShare,
-  memberUsdValueShare,
   NETWORK_TOKEN_ETH_ADDRESS,
 } from '@daohaus/utils';
 import { getNetwork } from '@daohaus/keychain-utils';
@@ -48,7 +47,6 @@ const DataColumn = styled(Column)`
 type TokenTable = {
   tokenCheckboxes: CheckboxProps[];
   amounts: React.ReactNode[];
-  usdValue: React.ReactNode[];
 };
 
 export const RagequitTokenList = (props: Buildable<Field>) => {
@@ -139,26 +137,12 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
             </DataSm>,
           ];
 
-          acc.usdValue = [
-            ...acc.usdValue,
-            <DataSm key={token.tokenAddress}>
-              {formatValueTo({
-                value: memberUsdValueShare(
-                  token.fiatBalance,
-                  dao.totalShares || 0,
-                  dao.totalLoot || 0,
-                  sharesToBurn || 0,
-                  lootToBurn || 0
-                ),
-                decimals: 2,
-                format: 'currency',
-              })}
-            </DataSm>,
-          ];
-
           return acc;
         },
-        { tokenCheckboxes: [], amounts: [], usdValue: [] }
+        {
+          tokenCheckboxes: [],
+          amounts: [],
+        }
       );
   }, [
     dao,
@@ -210,9 +194,6 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
         <Column>
           <ParSm>Amount</ParSm>
         </Column>
-        <Column>
-          <ParSm>USD Value</ParSm>
-        </Column>
       </TokenListContainer>
       <TokenListContainer>
         <Column>
@@ -223,7 +204,6 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
           />
         </Column>
         <DataColumn>{tokenTable.amounts}</DataColumn>
-        <DataColumn>{tokenTable.usdValue}</DataColumn>
       </TokenListContainer>
     </>
   );

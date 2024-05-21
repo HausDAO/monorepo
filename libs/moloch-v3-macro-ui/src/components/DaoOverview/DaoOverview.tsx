@@ -36,14 +36,6 @@ export const DaoOverview = ({
           <OverviewCard>
             <DaoProfile dao={dao} />
             <DataGrid>
-              <DataIndicator
-                label="Total in Safes"
-                data={formatValueTo({
-                  value: dao.fiatTotal,
-                  decimals: 2,
-                  format: 'currencyShort',
-                })}
-              />
               <DataIndicator label="Members" data={dao.activeMemberCount} />
               <DataIndicator label="Proposals" data={dao.proposalCount} />
               <DataIndicator

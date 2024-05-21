@@ -10,7 +10,7 @@ import {
   ParXs,
   Tag,
 } from '@daohaus/ui';
-import { formatValueTo, generateGnosisUiLink } from '@daohaus/utils';
+import { generateGnosisUiLink } from '@daohaus/utils';
 import { Keychain } from '@daohaus/keychain-utils';
 import { DataGrid } from '../Layout';
 import {
@@ -78,14 +78,6 @@ export const SafeCard = ({
           </div>
         </SafeCardHeader>
         <DataGrid>
-          <DataIndicator
-            label="Balance"
-            data={formatValueTo({
-              value: safe.fiatTotal,
-              decimals: 2,
-              format: 'currencyShort',
-            })}
-          />
           <DataIndicator label="Tokens" data={safe.tokenBalances.length} />
         </DataGrid>
       </SafeOverviewCard>

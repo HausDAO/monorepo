@@ -37,6 +37,7 @@ export const memberTokenBalanceShare = (
   return memberSharesWei / 10 ** Number(decimals);
 };
 
+// if we have a usd value of the Safe, we can calculate the usd value of the member's shares
 export const memberUsdValueShare = (
   usdValue: string | number,
   daoTotalShares: string | number,

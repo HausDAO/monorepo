@@ -76,7 +76,6 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           networkId: dao.networkId,
         },
         activeProposalCount: dao.activeProposalCount,
-        fiatTotal: dao.fiatTotal,
         activeMemberCount: dao.activeMemberCount,
         votingPower: dao.votingPower,
         networkId: dao.networkId,
@@ -135,19 +134,6 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           return (
             <Highlight>
               {readableNumbers.toNumberShort({ value, decimals: 1 })}
-            </Highlight>
-          );
-        },
-      },
-      {
-        Header: 'Vaults',
-        accessor: 'fiatTotal',
-        Cell: ({ value }: { value?: number }) => {
-          return (
-            <Highlight>
-              {value != null
-                ? readableNumbers.toDollars({ value, separator: ' ' })
-                : '--'}
             </Highlight>
           );
         },

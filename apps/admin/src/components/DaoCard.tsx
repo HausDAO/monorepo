@@ -56,7 +56,6 @@ export const DaoCard = ({
   dao,
   daoAvatarImg,
   activeMemberCount,
-  fiatTotal,
   activeProposalCount,
   totalProposalCount,
   votingPower,

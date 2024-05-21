@@ -78,14 +78,14 @@ export const SafeCard = ({
           </div>
         </SafeCardHeader>
         <DataGrid>
-          <DataIndicator
+          {/* <DataIndicator
             label="Balance"
             data={formatValueTo({
               value: safe.fiatTotal,
               decimals: 2,
               format: 'currencyShort',
             })}
-          />
+          /> */}
           <DataIndicator label="Tokens" data={safe.tokenBalances.length} />
         </DataGrid>
       </SafeOverviewCard>

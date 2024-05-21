@@ -88,7 +88,7 @@ export const findDao = async ({
 
           return {
             ...vault,
-            fiatTotal: vaultResMatch?.data?.fiatTotal,
+            // fiatTotal: vaultResMatch?.data?.fiatTotal,
             tokenBalances: vaultResMatch?.data?.tokenBalances,
           };
         });
@@ -99,10 +99,10 @@ export const findDao = async ({
               ...daoRes.data.dao,
               ...addDaoProfileFields(daoRes.data.dao),
               vaults: hydratedVaults,
-              fiatTotal: tokenData.reduce((sum, vault) => {
-                sum += Number(vault.data?.fiatTotal);
-                return sum;
-              }, 0),
+              // fiatTotal: tokenData.reduce((sum, vault) => {
+              //   sum += Number(vault.data?.fiatTotal);
+              //   return sum;
+              // }, 0),
             },
           },
         };

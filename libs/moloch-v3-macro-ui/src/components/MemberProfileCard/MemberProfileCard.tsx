@@ -1,10 +1,7 @@
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Member } from '@daohaus/moloch-v3-data';
 import { useDaoData, useProfile } from '@daohaus/moloch-v3-hooks';
-import {
-  ParLg,
-  Loading,
-} from '@daohaus/ui';
+import { ParLg, Loading } from '@daohaus/ui';
 
 import {
   AlertContainer,

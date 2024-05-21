@@ -31,9 +31,6 @@ export type TokenBalance = {
   balance: string;
   ethValue: string;
   timestamp: string;
-  fiatBalance: string;
-  fiatConversion: string;
-  fiatCode: string;
 };
 export type DaoTokenBalances = {
   safeAddress: string;

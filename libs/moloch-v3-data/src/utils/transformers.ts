@@ -29,15 +29,7 @@ export const transformTokenBalances = (
   tokenBalanceRes: TokenBalance[],
   safeAddress: string
 ): DaoTokenBalances => {
-  const fiatTotal = tokenBalanceRes.reduce(
-    (sum: number, balance: TokenBalance): number => {
-      sum += Number(balance.fiatBalance);
-      return sum;
-    },
-    0
-  );
-
-  return { safeAddress, tokenBalances: tokenBalanceRes, fiatTotal };
+  return { safeAddress, tokenBalances: tokenBalanceRes };
 };
 
 export const transformMembershipList = (

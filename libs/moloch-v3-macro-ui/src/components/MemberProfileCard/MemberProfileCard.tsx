@@ -1,16 +1,15 @@
 import { ValidNetwork } from '@daohaus/keychain-utils';
 import { MolochV3Member } from '@daohaus/moloch-v3-data';
 import { useDaoData, useProfile } from '@daohaus/moloch-v3-hooks';
-import { 
-  // DataIndicator, 
-  ParLg, Loading } from '@daohaus/ui';
-// import { formatValueTo, memberUsdValueShare } from '@daohaus/utils';
+import {
+  ParLg,
+  Loading,
+} from '@daohaus/ui';
 
 import {
   AlertContainer,
   LoadingContainer,
   MProfileCard,
-  // ValueRow,
 } from './MemberProfileCard.styles';
 import { MemberProfile } from './MemberProfile';
 import { MemberTokens } from './MemberTokens';
@@ -66,22 +65,6 @@ export const MemberProfileCard = ({
             allowLinks={allowLinks}
             allowMemberMenu={allowMemberMenu}
           />
-          {/* <ValueRow>
-            <DataIndicator
-              label="Total Exit Amount"
-              data={formatValueTo({
-                value: memberUsdValueShare(
-                  dao?.fiatTotal || 0,
-                  dao?.totalShares || 0,
-                  dao?.totalLoot || 0,
-                  member?.shares || 0,
-                  member?.loot || 0
-                ),
-                decimals: 2,
-                format: 'currency',
-              })}
-            />
-          </ValueRow> */}
           <MemberTokens daoChain={daoChain} dao={dao} member={member} />
         </>
       )}

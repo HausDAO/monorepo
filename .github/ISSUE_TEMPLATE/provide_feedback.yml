@@ -1,7 +1,7 @@
 ---
 name: Provide Feedback
 description: Questions and general feedback goes here!
-labels: ['feedback', 'beta']
+labels: ['feedback']
 body:
   - type: checkboxes
     attributes:
@@ -10,8 +10,9 @@ body:
       options:
         - label: '[Admin](https://admin.daohaus.club)'
         - label: '[Summon](https://summon.daohaus.club)'
-        - label: '[Hub](https://hub.daohaus.club)'
-        - label: '[Toolbox](https://toolbox.daohaus.club/)'
+        - label: '[Contracts](https://docs.daohaus.club/contracts)'
+        - label: '[Contracts](https://docs.daohaus.club/subgraphs)'
+        - label: '[SDK](https://docs.daohaus.club/)'
     validations:
       required: false
   - type: checkboxes

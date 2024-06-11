@@ -1,7 +1,7 @@
 ---
 name: Report Bug
 description: Report a reproducible bug or issue
-labels: ['bug', 'beta']
+labels: ['bug']
 body:
   - type: input
     attributes:
@@ -16,8 +16,9 @@ body:
       options:
         - label: '[Admin](https://admin.daohaus.club)'
         - label: '[Summon](https://summon.daohaus.club)'
-        - label: '[Hub](https://hub.daohaus.club)'
-        - label: '[Toolbox](https://toolbox.daohaus.club/)'
+        - label: '[Contracts](https://docs.daohaus.club/contracts)'
+        - label: '[Contracts](https://docs.daohaus.club/subgraphs)'
+        - label: '[SDK](https://docs.daohaus.club/)'
     validations:
       required: false
   - type: textarea
@@ -43,9 +44,17 @@ body:
         3.
     validations:
       required: false
+  - type: textarea
+    attributes:
+      label: Screenshots and Context
+      placeholder: |
+        Add additional information that will help us address this issue.
+        You can add screenshots by pasting from your clipboard.
+    validations:
+      required: false
   - type: dropdown
     attributes:
-      label: Browser
+      label: Browser (if applicable)
       description: Which browser is this issue occurring in?
       multiple: true
       options:
@@ -54,13 +63,6 @@ body:
         - Chrome
         - Brave
         - Safari
-        - Internet Explorer
         - Other
-  - type: textarea
-    attributes:
-      label: Screenshots and Context
-      placeholder: |
-        Add additional information that will help us address this issue.
-        You can add screenshots by pasting from your clipboard.
     validations:
       required: false

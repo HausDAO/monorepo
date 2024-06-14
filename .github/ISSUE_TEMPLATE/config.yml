@@ -7,3 +7,6 @@ contact_links:
   - name: DAOhaus Discord
     url: https://discord.gg/daohaus
     about: 'Join our discord and report issues in #support'
+  - name: DAOhaus Developer Docs and Contribution Guidelines
+    url: https://docs.daohaus.club/
+    about: 'Learn about developing for DAOhaus'

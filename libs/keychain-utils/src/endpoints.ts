@@ -45,7 +45,7 @@ export const ENDPOINTS: KeychainList = {
     '0x2105': 'https://app.safe.global/base',
   },
   TABULA_GRAPH: {
-    '0x5':
+    '0x2105':
       'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-goerli',
   },
 };

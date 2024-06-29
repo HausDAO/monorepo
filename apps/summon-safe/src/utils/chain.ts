@@ -7,4 +7,6 @@ export const VALID_NETWORKS: { [key: number]: ValidNetwork } = {
   10: '0xa',
   137: '0x89',
   42161: '0xa4b1',
+  11155111: '0xaa36a7',
+  8453: '0x2105',
 };

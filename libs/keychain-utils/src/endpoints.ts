@@ -4,7 +4,6 @@ export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
     '0x1':
       'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/HouDe2pTdyKM9CTG1aodnPPPhm7U148BCH7eJ4HHwpdQ',
-    '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
     '0x64':
       'https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/6x9FK3iuhVFaH9sZ39m8bKB5eckax8sjxooBPNKWWK8r',
     '0x89':
@@ -20,7 +19,6 @@ export const ENDPOINTS: KeychainList = {
   },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
-    '0x5': 'https://goerli.etherscan.io',
     '0x64': 'https://gnosisscan.io',
     '0x89': 'https://polygonscan.com',
     '0xa': 'https://optimistic.etherscan.io',
@@ -30,7 +28,6 @@ export const ENDPOINTS: KeychainList = {
   },
   GNOSIS_API: {
     '0x1': 'https://safe-transaction-mainnet.safe.global/api/v1',
-    '0x5': 'https://safe-transaction-goerli.safe.global/api/v1',
     '0x64': 'https://safe-transaction-gnosis-chain.safe.global/api/v1',
     '0x89': 'https://safe-transaction-polygon.safe.global/api/v1',
     '0xa': 'https://safe-transaction-optimism.safe.global/api/v1',
@@ -40,7 +37,6 @@ export const ENDPOINTS: KeychainList = {
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://app.safe.global/eth',
-    '0x5': 'https://app.safe.global/gor',
     '0x64': 'https://app.safe.global/gno',
     '0x89': 'https://app.safe.global/matic',
     '0xa': 'https://app.safe.global/oeth',
@@ -86,9 +82,6 @@ export const HAUS_RPC_DEFAULTS = {
   '0x1': process.env['NX_RIVET_KEY']
     ? `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud`
     : `https://eth-mainnet.g.alchemy.com/v2/${process.env['NX_ETHEREUM_ALCHEMY_KEY']}`,
-  '0x5': process.env['NX_RIVET_KEY']
-    ? `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`
-    : `https://eth-goerli.g.alchemy.com/v2/demo`,
   '0x64': 'https://rpc.gnosischain.com/',
   '0xa': process.env['NX_OPTIMISM_ALCHEMY_KEY']
     ? `https://opt-mainnet.g.alchemy.com/v2/${process.env['NX_OPTIMISM_ALCHEMY_KEY']}`
@@ -108,9 +101,6 @@ export const HAUS_RPC = {
   '0x1': process.env['NX_MAINNET_RPC']
     ? process.env['NX_MAINNET_RPC']
     : HAUS_RPC_DEFAULTS['0x1'],
-  '0x5': process.env['NX_GOERLI_RPC']
-    ? process.env['NX_GOERLI_RPC']
-    : HAUS_RPC_DEFAULTS['0x5'],
   '0x64': process.env['NX_GNOSISCHAIN_RPC']
     ? process.env['NX_GNOSISCHAIN_RPC']
     : HAUS_RPC_DEFAULTS['0x64'],
@@ -150,7 +140,6 @@ export const PINATA_API_KEYS: PinataApiKeys = {
 };
 export const ABI_EXPLORER_KEYS: Keychain = {
   '0x1': process.env['NX_ETHERSCAN_KEY'],
-  '0x5': process.env['NX_ETHERSCAN_KEY'],
   '0x64': process.env['NX_GNOSISSCAN_KEY'],
   '0x89': process.env['NX_POLYGONSCAN_KEY'],
   '0xa': process.env['NX_OPTIMISMSCAN_KEY'],

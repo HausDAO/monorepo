@@ -30,7 +30,7 @@ import { BASIC_PROPOSAL_FORMS } from '@daohaus/moloch-v3-legos';
 import { TARGET_DAO } from '../targetDao';
 
 export const FormPage = () => {
-  return <FormBuilder form={BASIC_PROPOSAL_FORMS.TRANSFER_ERC20} targetNetwork={'0x5'} customFields={MolochFields} />;
+  return <FormBuilder form={BASIC_PROPOSAL_FORMS.TRANSFER_ERC20} targetNetwork={'0x1'} customFields={MolochFields} />;
 };
 ```
 

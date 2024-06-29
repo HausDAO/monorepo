@@ -15,7 +15,6 @@ const localforage = import('localforage').then(async (localforage) => {
 const defaultABIStore = {
   '0x1': {},
   '0x4': {},
-  '0x5': {},
   '0x2a': {},
   '0xa': {},
   '0x64': {},

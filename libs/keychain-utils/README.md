@@ -21,7 +21,7 @@ import { generateExplorerLink } from '@daohaus/keychain-utils';
 
 const contractLink = generateExplorerLink({ chainId: '0x1', address: '0x0address', type: 'address' });
 
-const txLink = generateExplorerLink({ chainId: '0x5', address: '0x0TxHash', type: 'tx' });
+const txLink = generateExplorerLink({ chainId: '0x64', address: '0x0TxHash', type: 'tx' });
 ```
 
 **How to get contract addresses for each supported network**

@@ -47,7 +47,6 @@ const getABIUrl = ({
   const ABI_ADDRESS = '<<address>>';
   const TEMPORARY_ABI_EXPLORER: Keychain = {
     '0x1': `https://api.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
-    '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
     '0x64': `https://api.gnosisscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
     '0x89': `https://api.polygonscan.com/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
     '0xa': `https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,

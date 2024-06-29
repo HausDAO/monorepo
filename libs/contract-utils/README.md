@@ -43,7 +43,7 @@ Dao summoning argument explainer [here]
 import { MolochV3AdvTokenSummonerContract } from '@daohaus/contract-utils';
 
 const molochV3AdvSummoner = MolochV3AdvTokenSummonerContract.create({
-  networkIs: '0x5',
+  networkIs: '0x1',
   provider: new ethers.providers.JsonRpcProvider('https:///someProviderUrl.com'),
 });
 

@@ -11,15 +11,6 @@ export const HAUS_NETWORK_DATA: Keychain<NetworkConfig> = {
     explorer: ENDPOINTS.EXPLORER['0x1'] as string,
     rpc: HAUS_RPC['0x1'] as string,
   },
-  '0x5': {
-    chainId: '0x5',
-    networkId: 5,
-    name: 'Goerli',
-    symbol: 'ETH',
-    tokenDecimals: 18,
-    explorer: ENDPOINTS.EXPLORER['0x5'] as string,
-    rpc: HAUS_RPC['0x5'] as string,
-  },
   '0x64': {
     chainId: '0x64',
     networkId: 100,

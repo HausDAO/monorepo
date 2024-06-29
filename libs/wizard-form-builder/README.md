@@ -73,6 +73,6 @@ const WIZARD_FORM_LEGO = {
 };
 
 export const FormPage = () => {
-  return <WizardFormBuilder form={WIZARD_FORM_LEGO} targetNetwork={'0x5'} customFields={MolochFields} />;
+  return <WizardFormBuilder form={WIZARD_FORM_LEGO} targetNetwork={'0x1'} customFields={MolochFields} />;
 };
 ```

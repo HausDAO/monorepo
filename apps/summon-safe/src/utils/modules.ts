@@ -24,12 +24,6 @@ export const MODULES: Record<string, ModuleTemplate> = {
     },
     chain: {
       '0x1': {},
-      '0x5': {
-        moduleFactory: {
-          address: '0x8f60853B55847d91331106acc303F4A8676efc8B',
-          singletonAddress: '0x30b3Ac0e403e5102c9f0097E9c65f09E5AaF810c',
-        },
-      },
       '0x64': {
         moduleFactory: {
           address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
@@ -165,12 +159,6 @@ export const MODULES: Record<string, ModuleTemplate> = {
     },
     chain: {
       '0x1': {},
-      '0x5': {
-        moduleFactory: {
-          address: '0x8f60853B55847d91331106acc303F4A8676efc8B',
-          singletonAddress: '0x6a2580B166b7132042cCcABa1Fe554fd67440597',
-        },
-      },
       '0x64': {
         moduleFactory: {
           address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
@@ -257,12 +245,6 @@ export const MODULES: Record<string, ModuleTemplate> = {
     },
     chain: {
       '0x1': {},
-      '0x5': {
-        moduleFactory: {
-          address: '0x8f60853B55847d91331106acc303F4A8676efc8B',
-          singletonAddress: '0xf3219beFA8d7ae465fbb0DD227F706972943a84E',
-        },
-      },
       '0x64': {
         moduleFactory: {
           address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
@@ -342,12 +324,6 @@ export const MODULES: Record<string, ModuleTemplate> = {
     },
     chain: {
       '0x1': {},
-      '0x5': {
-        moduleFactory: {
-          address: '0x8f60853B55847d91331106acc303F4A8676efc8B',
-          singletonAddress: '0x92c82e6DFd97e54c5f22bE866b863Ce71f26373f',
-        },
-      },
       '0x64': {
         moduleFactory: {
           address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',
@@ -423,12 +399,6 @@ export const MODULES: Record<string, ModuleTemplate> = {
     },
     chain: {
       '0x1': {},
-      '0x5': {
-        moduleFactory: {
-          address: '0x8f60853B55847d91331106acc303F4A8676efc8B',
-          singletonAddress: '0x5BeFFF7186811b49d29B5565B161Ea7e3d890CC8',
-        },
-      },
       '0x64': {
         moduleFactory: {
           address: '0xD858ce60102BCEa272a6FA36B2E1770877B8Fa45',

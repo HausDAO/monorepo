@@ -8,12 +8,4 @@ export const limitedNetworkTest = {
     rpc: `https://${process.env.NX_RIVET_KEY}.eth.rpc.rivet.cloud/`,
     explorer: 'https://etherscan.io',
   },
-  '0x5': {
-    chainId: '0x5',
-    networkId: 5,
-    name: 'Goerli',
-    symbol: 'ETH',
-    rpc: `https://${process.env.NX_RIVET_KEY}.goerli.rpc.rivet.cloud/`,
-    explorer: 'https://goerli.etherscan.io',
-  },
 };

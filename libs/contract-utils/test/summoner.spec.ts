@@ -9,7 +9,7 @@ describe('baal contract loads', () => {
       `https://12345.goerli.rpc.rivet.cloud`
     );
     summoner = await MolochV3SummonerContract.create({
-      networkId: '0x5',
+      networkId: '0x1',
       provider,
     });
   });

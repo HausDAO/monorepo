@@ -110,7 +110,7 @@ export const useDaoProposals = (props?: DaoProposalsProps) => {
     ['proposals', { daoId, daoChain, filter, ordering, paging }],
     ({ pageParam }) =>
       fetchProposals({
-        daoId,
+        daoId: daoId?.toLowerCase(),
         daoChain,
         graphApiKeys,
         filter,

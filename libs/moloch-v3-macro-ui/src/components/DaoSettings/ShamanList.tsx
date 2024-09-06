@@ -31,7 +31,7 @@ export const ShamanList = ({
       </ShamanListContainer>
       {shamen &&
         shamen.map((shaman) => (
-          <ShamanListContainer key={shaman.id}>
+          <ShamanListContainer key={`${shaman.id}-${shaman.permissions}`}>
             <span className="contract">
               <AddressDisplay
                 address={shaman.shamanAddress}

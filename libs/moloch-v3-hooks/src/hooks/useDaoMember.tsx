@@ -24,7 +24,7 @@ const fetchMember = async ({
 
   try {
     const res = await findMember({
-      dao: daoId,
+      dao: daoId.toLowerCase(),
       memberAddress,
       networkId: daoChain,
       graphApiKeys,

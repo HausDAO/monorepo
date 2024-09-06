@@ -26,7 +26,7 @@ export const fetchMember = async ({
   try {
     const res = await findMember({
       networkId: daochain,
-      dao: daoid,
+      dao: daoid.toLowerCase(),
       memberAddress: address.toLowerCase(),
       graphApiKeys,
     });

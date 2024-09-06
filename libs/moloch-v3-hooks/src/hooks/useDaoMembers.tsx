@@ -111,7 +111,7 @@ export const useDaoMembers = (props?: DaoMembersProps) => {
     [queryId, { daoId, daoChain, filter, ordering, paging }],
     ({ pageParam }) =>
       fetchMembers({
-        daoId,
+        daoId: daoId?.toLowerCase(),
         daoChain,
         graphApiKeys,
         filter,

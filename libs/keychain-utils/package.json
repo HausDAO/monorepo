@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/keychain-utils",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/HausDAO/monorepo"

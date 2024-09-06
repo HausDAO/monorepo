@@ -69,7 +69,7 @@ export const useRecords = ({
     [credentialType || recordType, { daoId, chainId }],
     () =>
       fetchRecords({
-        daoId,
+        daoId: daoId.toLowerCase(),
         chainId: chainId as ValidNetwork,
         recordType,
         pageSize,

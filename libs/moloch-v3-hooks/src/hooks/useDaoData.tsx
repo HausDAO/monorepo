@@ -22,7 +22,7 @@ export const fetchDao = async ({
   try {
     const daoRes = await findDao({
       networkId: daoChain,
-      dao: daoId,
+      dao: daoId.toLowerCase(),
       includeTokens: true,
       graphApiKeys,
     });

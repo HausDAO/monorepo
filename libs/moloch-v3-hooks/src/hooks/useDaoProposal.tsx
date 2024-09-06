@@ -23,7 +23,7 @@ const fetchProposal = async ({
 
   try {
     const res = await findProposal({
-      dao: daoId,
+      dao: daoId.toLowerCase(),
       proposalId,
       networkId: daoChain,
       graphApiKeys,

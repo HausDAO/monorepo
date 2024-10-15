@@ -148,7 +148,7 @@ export const FormBuilder = ({
         onSubmit={handleSubmit}
         footer={
           <FormFooter
-            submitButtonText={submitButtonText}
+            submitButtonText={form.submitButtonText || submitButtonText}
             status={status}
             txHash={txHash}
           />

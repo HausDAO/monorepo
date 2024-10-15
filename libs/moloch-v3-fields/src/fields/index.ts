@@ -16,3 +16,4 @@ export * from './TagsInput';
 export * from './TributeInput';
 export * from './WalletConnectLink';
 export * from './EpochDatePicker';
+export * from './TransferTokens';

@@ -732,6 +732,17 @@ export const COMMON_FORMS: Record<string, MolochFormLego> = {
     submitButtonText: 'Update Delegate',
     tx: TX.MANAGE_DELEGATE,
   },
+  MANAGE_TOKENS: {
+    id: 'MANAGE_TOKENS',
+    fields: [FIELD.TRANSFER_TOKENS],
+    requiredFields: {
+      transferTokens: true,
+      paymentTokenAddress: true,
+      recipientAddress: true,
+    },
+    submitButtonText: 'Transfer Tokens',
+    tx: TX.TRANSFER_TOKENS,
+  },
   RAGEQUIT: {
     id: 'RAGEQUIT',
     title: 'Ragequit',

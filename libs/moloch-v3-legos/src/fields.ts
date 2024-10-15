@@ -126,4 +126,9 @@ export const FIELD: Record<string, MolochFieldLego> = {
     type: 'addressesAndAmounts',
     label: 'Addresses & Amounts',
   },
+  TRANSFER_TOKENS: {
+    id: 'transferTokens',
+    type: 'transferTokens',
+    label: 'Transfer DAO Tokens',
+  },
 };

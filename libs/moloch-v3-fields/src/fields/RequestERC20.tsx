@@ -2,10 +2,10 @@ import { useEffect, useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 
 import {
-  formatValueTo,
   handleBaseUnits,
   ignoreEmptyVal,
   toWholeUnits,
+  truncValue,
   ValidateField,
 } from '@daohaus/utils';
 import { isValidNetwork } from '@daohaus/keychain-utils';
@@ -74,17 +74,21 @@ export const RequestERC20 = (
     return erc20s.find(({ address }) => address === paymentTokenAddr);
   }, [paymentTokenAddr, erc20s]);
 
-  const tokenBalance = selectedToken?.daoBalance
-    ? formatValueTo({
-        value: toWholeUnits(selectedToken?.daoBalance, selectedToken?.decimals),
-        decimals: 6,
-        format: 'number',
-      })
-    : '0';
+  const displayBalance = useMemo(() => {
+    if (!selectedToken || BigInt(selectedToken.daoBalance) === BigInt(0))
+      return '0';
+    return truncValue(
+      toWholeUnits(selectedToken.daoBalance, selectedToken.decimals),
+      6
+    );
+  }, [selectedToken]);
 
   const setMax = () => {
     if (!selectedToken) return;
-    setValue(amtId, tokenBalance.trim());
+    setValue(
+      amtId,
+      toWholeUnits(selectedToken?.daoBalance || '0', selectedToken?.decimals)
+    );
   };
 
   const newRules: RegisterOptions = {
@@ -116,7 +120,7 @@ export const RequestERC20 = (
       options={selectOptions || []}
       rightAddon={
         <Button color="secondary" size="sm" onClick={setMax}>
-          Max: {tokenBalance}
+          Max: {displayBalance}
         </Button>
       }
       rules={newRules}

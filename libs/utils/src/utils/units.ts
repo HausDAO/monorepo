@@ -9,6 +9,10 @@ export const toBaseUnits = (amount: string, decimals = 18) =>
 export const toWholeUnits = (amount: string, decimals = 18) =>
   formatUnits(BigInt(amount), decimals).toString();
 
+export const truncValue = (amount: string, decimals = 6) =>
+  // wrapped again into Number to strip any trailing zeroes
+  Number(Number(amount).toFixed(decimals));
+
 type NumericalFormat =
   | 'currency'
   | 'currencyShort'

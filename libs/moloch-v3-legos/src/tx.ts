@@ -560,6 +560,12 @@ export const TX: Record<string, TXLego> = {
     method: 'delegate',
     args: ['.formValues.delegatingTo'],
   },
+  TRANSFER_TOKENS: {
+    id: 'TRANSFER_TOKENS',
+    contract: CONTRACT.ERC_20_FUNDING,
+    method: 'transfer',
+    args: ['.formValues.recipientAddress', '.formValues.transferTokens'],
+  },
   RAGEQUIT: {
     id: 'RAGEQUIT',
     contract: CONTRACT.CURRENT_DAO,

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { RiMore2Fill } from 'react-icons/ri/index.js';
 
 import { useDHConnect } from '@daohaus/connect';
@@ -15,6 +15,7 @@ import {
 } from '@daohaus/ui';
 
 import { ManageDelegate } from './ManageDelegate';
+import { ManageTokens } from './ManageTokens';
 import { ProfileMenuLink, ProfileMenuText } from './MemberProfileCard.styles';
 
 type MemberProfileMenuProps = {
@@ -51,6 +52,8 @@ export const MemberProfileMenu = ({
     return connectedMember?.memberAddress === memberAddress;
   }, [connectedMember, memberAddress]);
 
+  const [activeDialog, setActiveDialog] = useState<'delegate' | 'transfer'>();
+
   if (!connectedMember || !allowMemberMenu) return null;
 
   return (
@@ -66,10 +69,23 @@ export const MemberProfileMenu = ({
           {isMenuForConnectedMember && (
             <>
               <DropdownItem key="delegate" asChild>
-                <DialogTrigger asChild>
+                <DialogTrigger
+                  asChild
+                  onClick={() => setActiveDialog('delegate')}
+                >
                   <ProfileMenuText>Delegate</ProfileMenuText>
                 </DialogTrigger>
               </DropdownItem>
+              {isMenuForConnectedMember && (
+                <DropdownItem key="transfer" asChild>
+                  <DialogTrigger
+                    asChild
+                    onClick={() => setActiveDialog('transfer')}
+                  >
+                    <ProfileMenuText>Transfer</ProfileMenuText>
+                  </DialogTrigger>
+                </DropdownItem>
+              )}
               {allowLinks && (
                 <DropdownItem key="ragequit" asChild>
                   <ProfileMenuLink
@@ -86,7 +102,10 @@ export const MemberProfileMenu = ({
             <>
               <DropdownItem key="delegateTo" asChild>
                 <DialogTrigger asChild>
-                  <ProfileMenuText className={enableActions ? '' : 'disabled'}>
+                  <ProfileMenuText
+                    className={enableActions ? '' : 'disabled'}
+                    onClick={() => setActiveDialog('delegate')}
+                  >
                     Delegate To
                   </ProfileMenuText>
                 </DialogTrigger>
@@ -109,12 +128,25 @@ export const MemberProfileMenu = ({
           )}
         </DropdownContent>
       </DropdownMenu>
-      <DialogContent title="Manage Delegate">
-        <ManageDelegate
-          daoChain={daoChain}
-          daoId={daoId}
-          defaultMember={!isMenuForConnectedMember ? memberAddress : undefined}
-        />
+      <DialogContent
+        title={
+          activeDialog === 'delegate'
+            ? 'Manage Delegate'
+            : 'Transfer DAO Tokens'
+        }
+      >
+        {activeDialog === 'delegate' && (
+          <ManageDelegate
+            daoChain={daoChain}
+            daoId={daoId}
+            defaultMember={
+              !isMenuForConnectedMember ? memberAddress : undefined
+            }
+          />
+        )}
+        {activeDialog === 'transfer' && (
+          <ManageTokens daoChain={daoChain} daoId={daoId} />
+        )}
       </DialogContent>
     </Dialog>
   );

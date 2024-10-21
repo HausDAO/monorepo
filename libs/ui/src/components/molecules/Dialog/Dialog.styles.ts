@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { widthQuery } from '../../../theme';
 
 export const DialogRoot = DialogPrimitive.Root;
-export const DialogPrimitaveTrigger = DialogPrimitive.Trigger;
+export const DialogPrimitiveTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 export const DialogPortal = DialogPrimitive.Portal;
 export const DialogTitle = DialogPrimitive.Title;

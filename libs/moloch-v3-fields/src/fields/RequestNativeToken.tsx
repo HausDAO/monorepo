@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 
-import { toWholeUnits, handleBaseUnits } from '@daohaus/utils';
+import { handleBaseUnits, toWholeUnits, truncValue } from '@daohaus/utils';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 import { isValidNetwork } from '@daohaus/keychain-utils';
 import { useDaoData, useCurrentDao } from '@daohaus/moloch-v3-hooks';
@@ -28,6 +28,15 @@ export const RequestNativeToken = (
     if (!dao || !isValidNetwork(daoChain)) return null;
     return getNetworkToken(dao, daoChain, safeAddress);
   }, [dao, daoChain, safeAddress]);
+
+  const displayBalance = useMemo(() => {
+    if (!networkTokenData || BigInt(networkTokenData.daoBalance) === BigInt(0))
+      return '0';
+    return truncValue(
+      toWholeUnits(networkTokenData.daoBalance, networkTokenData.decimals),
+      6
+    );
+  }, [networkTokenData]);
 
   const label = networkTokenData?.name
     ? `Request ${networkTokenData.name}`
@@ -56,11 +65,7 @@ export const RequestNativeToken = (
       defaultValue="0"
       rightAddon={
         <Button color="secondary" size="sm" onClick={setMax}>
-          Max:{' '}
-          {toWholeUnits(
-            networkTokenData?.daoBalance || '0',
-            networkTokenData?.decimals
-          )}
+          Max: {displayBalance}
         </Button>
       }
       rules={newRules}

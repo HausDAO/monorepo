@@ -5,7 +5,7 @@ import { DialogProps } from './Dialog.types';
 import { Button, H5 } from '../../atoms';
 import {
   DialogRoot,
-  DialogPrimitaveTrigger,
+  DialogPrimitiveTrigger,
   DialogTitle,
   DialogDescription,
   DialogClose,
@@ -26,7 +26,7 @@ type Ref =
   | undefined;
 
 export const Dialog = DialogRoot;
-export const DialogTrigger = DialogPrimitaveTrigger;
+export const DialogTrigger = DialogPrimitiveTrigger;
 
 export const DialogContent = React.forwardRef(
   (

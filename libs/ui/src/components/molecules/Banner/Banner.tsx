@@ -24,7 +24,7 @@ export const Banner = ({
         >
           Give Feedback
         </Link>
-        <Link showExternalIcon={false} href="https://discord.gg/daohaus">
+        <Link showExternalIcon={false} href="https://discord.gg/kJaVkXtsXA">
           <RiDiscordFill />
           Support
         </Link>

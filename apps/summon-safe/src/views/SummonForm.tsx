@@ -260,6 +260,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
                 required
                 control={methods.control}
                 shouldUnregister={false}
+                switchLabel="Transferrable"
               />
             </Grid>
             <Grid item xs={5}>
@@ -269,6 +270,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
                 required
                 control={methods.control}
                 shouldUnregister={false}
+                switchLabel="Transferrable"
               />
             </Grid>
           </StyledPairInputContainer>
@@ -382,34 +384,6 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           <Divider />
 
           <Title size="sm" withoutMargin>
-            Starting Shamans
-          </Title>
-          <Text size="md">
-            Shamans are powerful and have control over key components of the
-            DAO. Use caution in the spirit world.
-          </Text>
-          <RecordsDataTable
-            id="shamans"
-            label="Shamans"
-            description="Addresses & Permissions"
-            placeholder="0xbeef 3"
-            tooltip="Input Shaman list with contract address and permission level per row using spaces. E.g. 0xbeef 3"
-            columns={SHAMAN_PROPS}
-            required={false}
-            disabled={formDisabled}
-            control={methods.control}
-            shouldUnregister={false}
-            register={methods.register}
-            registerOptions={{
-              transform: transformShamans,
-              validate: validateShamanData,
-            }}
-            setValue={methods.setValue}
-            getValues={methods.getValues}
-          />
-          <Divider />
-
-          <Title size="sm" withoutMargin>
             Starting Members
           </Title>
           <Text size="md">
@@ -431,6 +405,34 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             registerOptions={{
               transform: transformMemberData,
               validate: validateMemberData,
+            }}
+            setValue={methods.setValue}
+            getValues={methods.getValues}
+          />
+          <Divider />
+
+          <Title size="sm" withoutMargin>
+            Starting Shamans
+          </Title>
+          <Text size="md">
+            Shamans are powerful and have control over key components of the
+            DAO. Use caution in the spirit world.
+          </Text>
+          <RecordsDataTable
+            id="shamans"
+            label="Shamans"
+            description="Addresses & Permissions"
+            placeholder="0xbeef 3"
+            tooltip="Input Shaman list with contract address and permission level per row using spaces. E.g. 0xbeef 3"
+            columns={SHAMAN_PROPS}
+            required={false}
+            disabled={formDisabled}
+            control={methods.control}
+            shouldUnregister={false}
+            register={methods.register}
+            registerOptions={{
+              transform: transformShamans,
+              validate: validateShamanData,
             }}
             setValue={methods.setValue}
             getValues={methods.getValues}

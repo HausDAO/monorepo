@@ -69,3 +69,9 @@ export const SafeActionMenuLink = styled(RouterLink)`
   ${DropdownLinkStyles}
   font-weight: ${font.weight.bold};
 `;
+
+export const SafeToken = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;

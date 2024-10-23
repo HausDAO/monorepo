@@ -25,9 +25,7 @@ export const listTokenBalances = async ({
 
   try {
     const res = await fetch.get<TokenBalance[]>(
-      `${url}/safes/${getAddress(
-        safeAddress
-      )}/balances/?trusted=true&exclude_spam=true`
+      `${url}/safes/${getAddress(safeAddress)}/balances/?exclude_spam=true`
     );
 
     return { data: transformTokenBalances(res, safeAddress) };

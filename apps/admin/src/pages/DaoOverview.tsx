@@ -10,7 +10,11 @@ export const DaoOverview = () => {
   return (
     <SingleColumnLayout>
       {dao && (
-        <DaoOverviewCard daoChain={daoChain as keyof Keychain} daoId={dao.id} />
+        <DaoOverviewCard
+          daoChain={daoChain as keyof Keychain}
+          daoId={dao.id}
+          showFarcatserLink={daoChain !== '0xaa36a7'}
+        />
       )}
     </SingleColumnLayout>
   );

@@ -147,8 +147,8 @@ export const FarcasterShareLink = ({
     <FarcasterLinkContainer>
       <Link showExternalIcon={false} href={url}>
         <FarcasterLinkContents>
-          <img src={FarcasterLogo} alt="farcaster" width="18px" />
-          <DataSm>Cast Farcastle Frame</DataSm>
+          <img src={FarcasterLogo} alt="farcaster" width="22px" />
+          <DataMd>Cast Farcastle Frame</DataMd>
         </FarcasterLinkContents>
       </Link>
     </FarcasterLinkContainer>

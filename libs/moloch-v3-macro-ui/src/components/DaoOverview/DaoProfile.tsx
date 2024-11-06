@@ -24,10 +24,10 @@ import {
 
 type DaoProfileProps = {
   dao: MolochV3Dao;
-  showFarcatserLink?: boolean;
+  showFarcasterLink?: boolean;
 };
 
-export const DaoProfile = ({ dao, showFarcatserLink }: DaoProfileProps) => {
+export const DaoProfile = ({ dao, showFarcasterLink }: DaoProfileProps) => {
   const { daoChain, daoId } = useCurrentDao();
 
   const missingProfile = useMemo(() => {
@@ -69,7 +69,7 @@ export const DaoProfile = ({ dao, showFarcatserLink }: DaoProfileProps) => {
               <OverviewIconLinkList links={dao.links} />
             </>
           )}
-          {showFarcatserLink && (
+          {showFarcasterLink && (
             <FarcasterShareLink daoId={daoId} daoChain={daoChain} />
           )}
           <TagListContainer>

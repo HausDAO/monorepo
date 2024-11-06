@@ -12,6 +12,7 @@ import {
 import { BiColumnLayout, Card, ParLg, Loading, widthQuery } from '@daohaus/ui';
 import {
   DAO_METHOD_TO_PROPOSAL_TYPE,
+  farcastleChain,
   getProposalTypeLabel,
   PROPOSAL_TYPE_LABELS,
   PROPOSAL_TYPE_WARNINGS,
@@ -95,6 +96,7 @@ export const Proposal = () => {
               daoId={daoId}
               proposal={proposal}
               includeLinks={true}
+              showFarcasterLink={farcastleChain(daoChain)}
               proposalActionConfig={{
                 sensitiveProposalTypes: SENSITIVE_PROPOSAL_TYPES,
                 actionToProposalType: DAO_METHOD_TO_PROPOSAL_TYPE,

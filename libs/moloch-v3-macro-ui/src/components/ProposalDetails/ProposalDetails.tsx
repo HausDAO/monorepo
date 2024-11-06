@@ -30,6 +30,7 @@ import styled from 'styled-components';
 import { ProposalActionConfig } from '../ProposalActionData';
 
 import ReactMarkdown from 'react-markdown';
+import { FarcasterShareLink } from '../Layout';
 
 const Spacer = styled.div`
   margin-bottom: 2rem;
@@ -66,6 +67,7 @@ type ProposalDetailsProps = {
   actionData?: DecodedMultiTX | null;
   decodeError: boolean;
   proposalActionConfig?: ProposalActionConfig;
+  showFarcasterLink?: boolean;
 };
 
 export const ProposalDetails = ({
@@ -76,6 +78,7 @@ export const ProposalDetails = ({
   actionData,
   decodeError = false,
   proposalActionConfig,
+  showFarcasterLink,
 }: ProposalDetailsProps) => {
   const { networks } = useDHConnect();
   const { profile: submitterProfile } = useProfile({
@@ -203,6 +206,14 @@ export const ProposalDetails = ({
         daoChain={daoChain}
         proposalActionConfig={proposalActionConfig}
       />
+
+      {showFarcasterLink && (
+        <FarcasterShareLink
+          daoId={daoId}
+          daoChain={daoChain}
+          location={`proposals/${proposal.proposalId}`}
+        />
+      )}
     </OverviewContainer>
   );
 };

@@ -29,7 +29,6 @@ type ProposalDetailsContainerProps = {
   includeLinks: boolean;
   proposalActionConfig?: ProposalActionConfig;
   txLegos?: Record<string, TXLego>;
-  showFarcasterLink?: boolean;
 };
 
 export const ProposalDetailsContainer = ({
@@ -37,7 +36,6 @@ export const ProposalDetailsContainer = ({
   daoId,
   proposal,
   includeLinks = false,
-  showFarcasterLink,
   proposalActionConfig = {
     sensitiveProposalTypes: SENSITIVE_PROPOSAL_TYPES,
     actionToProposalType: DAO_METHOD_TO_PROPOSAL_TYPE,
@@ -94,7 +92,6 @@ export const ProposalDetailsContainer = ({
         actionData={actionData}
         decodeError={decodeError}
         includeLinks={includeLinks}
-        showFarcasterLink={showFarcasterLink}
         proposalActionConfig={proposalActionConfig}
       />
       <ProposalActionData

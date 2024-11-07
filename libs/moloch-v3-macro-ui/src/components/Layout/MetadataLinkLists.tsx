@@ -9,9 +9,9 @@ import {
 } from 'react-icons/ri/index.js';
 
 import { DaoProfileLink } from '@daohaus/moloch-v3-data';
-import { DataMd, DataSm, Link, ParMd } from '@daohaus/ui';
+import { DataMd, Link, ParMd } from '@daohaus/ui';
 import { charLimit, getFarcastleFramemUrl } from '@daohaus/utils';
-import FarcasterLogo from '../../assets/farcaster-logo.svg';
+import FarcasterLogo from '../../assets/farcaster-logo-yellow.svg';
 
 export const isPredefinedSettingsLink = (link: DaoProfileLink) => {
   return (

@@ -10,6 +10,7 @@ import {
 
 import {
   charLimit,
+  farcastleChain,
   formatLongDateFromSeconds,
   ZERO_ADDRESS,
 } from '@daohaus/utils';
@@ -19,33 +20,28 @@ import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   DaoProfileAvatar,
   MetaCardHeader,
+  MetaCardLinks,
   MetaContent,
   SettingsContainer,
   WarningContainer,
 } from './DaoSettings.styles';
 import { useDHConnect } from '@daohaus/connect';
 import { useDaoMember } from '@daohaus/moloch-v3-hooks';
-import {
-  ButtonRouterLink,
-  FarcasterShareLink,
-  SettingsLinkList,
-  TagList,
-} from '../Layout';
+import { ButtonRouterLink, SettingsLinkList, TagList } from '../Layout';
 import { daoProfileHasLinks } from '../../utils/daoDataDisplayHelpers';
 import { useMemo } from 'react';
+import { FarcastleButton } from './FarcastleButton';
 
 type MetadataSettingsProps = {
   dao: MolochV3Dao;
   daoChain: ValidNetwork;
   includeLinks?: boolean;
-  showFarcasterLink?: boolean;
 };
 
 export const MetadataSettings = ({
   dao,
   daoChain,
   includeLinks,
-  showFarcasterLink,
 }: MetadataSettingsProps) => {
   const { address } = useDHConnect();
   const { member } = useDaoMember({
@@ -64,14 +60,19 @@ export const MetadataSettings = ({
     <SettingsContainer>
       <MetaCardHeader>
         <H3>Metadata</H3>
-        {includeLinks && enableActions && (
-          <ButtonRouterLink
-            color="secondary"
-            to={`/molochv3/${daoChain}/${dao.id}/settings/update`}
-          >
-            Update Metadata
-          </ButtonRouterLink>
-        )}
+        <MetaCardLinks>
+          {includeLinks && enableActions && (
+            <ButtonRouterLink
+              color="secondary"
+              to={`/molochv3/${daoChain}/${dao.id}/settings/update`}
+            >
+              Update Metadata
+            </ButtonRouterLink>
+          )}
+          {farcastleChain(daoChain) && (
+            <FarcastleButton daoId={dao.id} daoChain={daoChain} />
+          )}
+        </MetaCardLinks>
       </MetaCardHeader>
       <MetaContent>
         <div>
@@ -102,9 +103,6 @@ export const MetadataSettings = ({
         <div className="links">
           {daoProfileHasLinks(dao.links) && (
             <SettingsLinkList links={dao.links} />
-          )}
-          {showFarcasterLink && (
-            <FarcasterShareLink daoId={dao.id} daoChain={daoChain} />
           )}
           {dao.forwarder !== ZERO_ADDRESS && (
             <WarningContainer>

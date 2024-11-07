@@ -13,7 +13,6 @@ type DaoSettingsProps = {
   daoId: string;
   includeLinks?: boolean;
   graphApiKeys?: Keychain;
-  showFarcasterLink?: boolean;
 };
 
 export const DaoSettings = ({
@@ -21,7 +20,6 @@ export const DaoSettings = ({
   daoId,
   includeLinks = false,
   graphApiKeys,
-  showFarcasterLink,
 }: DaoSettingsProps) => {
   const { dao } = useDaoData({
     daoChain,
@@ -37,7 +35,6 @@ export const DaoSettings = ({
         dao={dao}
         daoChain={daoChain}
         includeLinks={includeLinks}
-        showFarcasterLink={showFarcasterLink}
       />
 
       <ContractSettings dao={dao} daoChain={daoChain} />

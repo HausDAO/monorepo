@@ -10,7 +10,8 @@ import {
 
 import { DaoProfileLink } from '@daohaus/moloch-v3-data';
 import { DataMd, Link, ParMd } from '@daohaus/ui';
-import { charLimit } from '@daohaus/utils';
+import { charLimit, getFarcastleFramemUrl } from '@daohaus/utils';
+import FarcasterLogo from '../../assets/farcaster-logo-yellow.svg';
 
 export const isPredefinedSettingsLink = (link: DaoProfileLink) => {
   return (
@@ -38,6 +39,19 @@ const IconLinkContainer = styled.div`
   display: flex;
   gap: 1.5rem;
   margin: 1.5rem 0;
+`;
+
+const FarcasterLinkContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  padding-left: 0.5rem;
+`;
+
+const FarcasterLinkContents = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
 const MetadataLinkIcons: { [key: string]: React.ReactNode } = {
@@ -115,5 +129,28 @@ export const OverviewLinkList = ({ links }: LinkListsProps) => {
           </Link>
         ))}
     </LinkContainer>
+  );
+};
+
+export const FarcasterShareLink = ({
+  daoId,
+  daoChain,
+  location,
+}: {
+  daoId?: string;
+  daoChain?: string;
+  location?: string;
+}) => {
+  if (!daoId || !daoChain) return null;
+  const url = getFarcastleFramemUrl({ daoId, daoChain, location });
+  return (
+    <FarcasterLinkContainer>
+      <Link showExternalIcon={false} href={url}>
+        <FarcasterLinkContents>
+          <img src={FarcasterLogo} alt="farcaster" width="22px" />
+          <DataMd>Cast Farcastle Frame</DataMd>
+        </FarcasterLinkContents>
+      </Link>
+    </FarcasterLinkContainer>
   );
 };

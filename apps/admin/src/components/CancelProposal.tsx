@@ -110,6 +110,7 @@ export const CancelProposal = ({
       color="secondary"
       rules={[daoExists, isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
+      style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
       // centerAlign
     >
       {isLoading ? <Loading size={20} /> : 'Cancel'}

@@ -2,6 +2,7 @@ import { useCurrentDao, useDaoData } from '@daohaus/moloch-v3-hooks';
 import { SingleColumnLayout } from '@daohaus/ui';
 import { DaoOverview as DaoOverviewCard } from '@daohaus/moloch-v3-macro-ui';
 import { Keychain } from '@daohaus/keychain-utils';
+import { farcastleChain } from '@daohaus/utils';
 
 export const DaoOverview = () => {
   const { daoChain } = useCurrentDao();
@@ -10,7 +11,11 @@ export const DaoOverview = () => {
   return (
     <SingleColumnLayout>
       {dao && (
-        <DaoOverviewCard daoChain={daoChain as keyof Keychain} daoId={dao.id} />
+        <DaoOverviewCard
+          daoChain={daoChain as keyof Keychain}
+          daoId={dao.id}
+          showFarcasterLink={farcastleChain(daoChain)}
+        />
       )}
     </SingleColumnLayout>
   );

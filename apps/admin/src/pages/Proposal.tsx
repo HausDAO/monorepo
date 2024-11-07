@@ -5,21 +5,32 @@ import {
   useDaoProposal,
 } from '@daohaus/moloch-v3-hooks';
 import {
+  FarcastleButton,
   ProposalActions,
   ProposalDetailsContainer,
   ProposalHistory,
 } from '@daohaus/moloch-v3-macro-ui';
-import { BiColumnLayout, Card, ParLg, Loading, widthQuery } from '@daohaus/ui';
+import {
+  BiColumnLayout,
+  Card,
+  ParLg,
+  Loading,
+  widthQuery,
+  Button,
+} from '@daohaus/ui';
 import {
   DAO_METHOD_TO_PROPOSAL_TYPE,
+  farcastleChain,
+  getFarcastleFramemUrl,
   getProposalTypeLabel,
   PROPOSAL_TYPE_LABELS,
   PROPOSAL_TYPE_WARNINGS,
-  ProposalTypeIds,
   SENSITIVE_PROPOSAL_TYPES,
 } from '@daohaus/utils';
 
 import { CancelProposal } from '../components/CancelProposal';
+
+import FarcasterLogo from '../assets/farcaster-logo.svg';
 
 const LoadingContainer = styled.div`
   margin-top: 5rem;
@@ -84,7 +95,16 @@ export const Proposal = () => {
       )}`}
       actions={
         proposal && (
-          <CancelProposal proposal={proposal} onSuccess={() => refetch()} />
+          <>
+            <CancelProposal proposal={proposal} onSuccess={() => refetch()} />
+            {farcastleChain(daoChain) && (
+              <FarcastleButton
+                daoId={daoId}
+                daoChain={daoChain}
+                location={`proposals/${proposal.proposalId}`}
+              />
+            )}
+          </>
         )
       }
       left={

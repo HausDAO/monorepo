@@ -10,6 +10,7 @@ import {
 
 import {
   charLimit,
+  farcastleChain,
   formatLongDateFromSeconds,
   ZERO_ADDRESS,
 } from '@daohaus/utils';
@@ -19,6 +20,7 @@ import { MolochV3Dao } from '@daohaus/moloch-v3-data';
 import {
   DaoProfileAvatar,
   MetaCardHeader,
+  MetaCardLinks,
   MetaContent,
   SettingsContainer,
   WarningContainer,
@@ -28,6 +30,7 @@ import { useDaoMember } from '@daohaus/moloch-v3-hooks';
 import { ButtonRouterLink, SettingsLinkList, TagList } from '../Layout';
 import { daoProfileHasLinks } from '../../utils/daoDataDisplayHelpers';
 import { useMemo } from 'react';
+import { FarcastleButton } from './FarcastleButton';
 
 type MetadataSettingsProps = {
   dao: MolochV3Dao;
@@ -57,14 +60,19 @@ export const MetadataSettings = ({
     <SettingsContainer>
       <MetaCardHeader>
         <H3>Metadata</H3>
-        {includeLinks && enableActions && (
-          <ButtonRouterLink
-            color="secondary"
-            to={`/molochv3/${daoChain}/${dao.id}/settings/update`}
-          >
-            Update Metadata
-          </ButtonRouterLink>
-        )}
+        <MetaCardLinks>
+          {includeLinks && enableActions && (
+            <ButtonRouterLink
+              color="secondary"
+              to={`/molochv3/${daoChain}/${dao.id}/settings/update`}
+            >
+              Update Metadata
+            </ButtonRouterLink>
+          )}
+          {farcastleChain(daoChain) && (
+            <FarcastleButton daoId={dao.id} daoChain={daoChain} />
+          )}
+        </MetaCardLinks>
       </MetaCardHeader>
       <MetaContent>
         <div>

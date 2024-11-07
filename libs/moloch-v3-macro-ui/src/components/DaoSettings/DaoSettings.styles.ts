@@ -20,6 +20,12 @@ export const MetaCardHeader = styled.div`
   margin-bottom: 3rem;
 `;
 
+export const MetaCardLinks = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
 export const MetaContent = styled.div`
   display: flex;
   justify-content: flex-start;

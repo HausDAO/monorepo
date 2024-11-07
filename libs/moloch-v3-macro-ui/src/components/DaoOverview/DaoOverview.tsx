@@ -14,12 +14,14 @@ type DaoOverviewProps = {
   daoChain: ValidNetwork;
   daoId: string;
   graphApiKeys?: Keychain;
+  showFarcasterLink?: boolean;
 };
 
 export const DaoOverview = ({
   daoChain,
   daoId,
   graphApiKeys,
+  showFarcasterLink,
 }: DaoOverviewProps) => {
   const { dao } = useDaoData({
     daoChain,
@@ -34,7 +36,7 @@ export const DaoOverview = ({
       {dao && (
         <>
           <OverviewCard>
-            <DaoProfile dao={dao} />
+            <DaoProfile dao={dao} showFarcasterLink={showFarcasterLink} />
             <DataGrid>
               <DataIndicator label="Members" data={dao.activeMemberCount} />
               <DataIndicator label="Proposals" data={dao.proposalCount} />

@@ -30,6 +30,7 @@ import styled from 'styled-components';
 import { ProposalActionConfig } from '../ProposalActionData';
 
 import ReactMarkdown from 'react-markdown';
+import { FarcasterShareLink } from '../Layout';
 
 const Spacer = styled.div`
   margin-bottom: 2rem;

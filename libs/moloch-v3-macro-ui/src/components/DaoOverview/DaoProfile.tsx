@@ -15,13 +15,19 @@ import {
   daoProfileHasLinks,
   missingDaoProfileData,
 } from '../../utils/daoDataDisplayHelpers';
-import { OverviewIconLinkList, OverviewLinkList, TagList } from '../Layout';
+import {
+  FarcasterShareLink,
+  OverviewIconLinkList,
+  OverviewLinkList,
+  TagList,
+} from '../Layout';
 
 type DaoProfileProps = {
   dao: MolochV3Dao;
+  showFarcasterLink?: boolean;
 };
 
-export const DaoProfile = ({ dao }: DaoProfileProps) => {
+export const DaoProfile = ({ dao, showFarcasterLink }: DaoProfileProps) => {
   const { daoChain, daoId } = useCurrentDao();
 
   const missingProfile = useMemo(() => {
@@ -62,6 +68,9 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
               <OverviewLinkList links={dao.links} />
               <OverviewIconLinkList links={dao.links} />
             </>
+          )}
+          {showFarcasterLink && (
+            <FarcasterShareLink daoId={daoId} daoChain={daoChain} />
           )}
           <TagListContainer>
             {dao.tags && <TagList tags={dao.tags} />}

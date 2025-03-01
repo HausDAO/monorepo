@@ -16,6 +16,7 @@
     "@storybook/react-docgen-typescript-plugin": "1.0.6--canary.9.cd77847.0"
   },
   "dependencies": {
+    "0xsequence": "^2.2.14",
     "@daohaus/baal-contracts": "^1.2.17",
     "@gnosis.pm/safe-apps-react-sdk": "^4.6.2",
     "@gnosis.pm/safe-apps-web3modal": "^17.0.2",

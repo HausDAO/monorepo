@@ -2,7 +2,6 @@ import { IFindQueryResult } from '@daohaus/data-fetch-utils';
 import {
   DaoTokenBalances,
   MolochV3Membership,
-  TokenBalance,
   votingPowerPercentage,
 } from '@daohaus/utils';
 import {
@@ -23,13 +22,6 @@ export const transformProposal = (
     ...proposal,
     status: getProposalStatus(proposal),
   };
-};
-
-export const transformTokenBalances = (
-  tokenBalanceRes: TokenBalance[],
-  safeAddress: string
-): DaoTokenBalances => {
-  return { safeAddress, tokenBalances: tokenBalanceRes };
 };
 
 export const transformMembershipList = (

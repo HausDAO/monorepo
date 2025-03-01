@@ -48,6 +48,15 @@ export const ENDPOINTS: KeychainList = {
     '0x2105':
       'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-goerli',
   },
+  SEQUENCE_API: {
+    '0x1': 'https://mainnet-indexer.sequence.app',
+    '0x64': 'https://gnosis-indexer.sequence.app',
+    '0x89': 'https://polygon-indexer.sequence.app',
+    '0xa': 'https://optimism-indexer.sequence.app',
+    '0xa4b1': 'https://arbitrum-indexer.sequence.app',
+    '0xaa36a7': 'https://sepolia-indexer.sequence.app',
+    '0x2105': 'https://base-indexer.sequence.app',
+  },
 };
 
 export const addApiKeyToGraphEnpoints = (

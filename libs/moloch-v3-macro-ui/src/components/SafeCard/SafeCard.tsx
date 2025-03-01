@@ -49,6 +49,7 @@ export const SafeCard = ({
 
   const tokenBalances = useMemo(() => {
     const network = getNetwork(daoChain);
+
     return safe.tokenBalances.map((t) => {
       return {
         tokenLogo: t.token?.logoUri,
@@ -60,6 +61,7 @@ export const SafeCard = ({
         ),
       };
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [safe]);
 
   return (
@@ -117,6 +119,7 @@ export const SafeCard = ({
                   size="md"
                   src={token.token?.logoUri || ''}
                   fallback={token.token?.symbol || nativeTokenSymbol}
+                  key={token.tokenAddress}
                 />
               ))}
             </div>

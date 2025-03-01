@@ -24,6 +24,12 @@ export const listTokenBalances = async ({
     };
   }
 
+  if (!key) {
+    return {
+      error: formatFetchError({ type: 'MISSING_SEQUENCE_ENV_VARIABLE' }),
+    };
+  }
+
   const indexer = new SequenceIndexer(url, key);
 
   try {

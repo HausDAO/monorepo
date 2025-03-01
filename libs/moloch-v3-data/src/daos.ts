@@ -62,9 +62,7 @@ export const findDao = async ({
       }
     );
 
-    const gnosisUrl = ENDPOINTS['GNOSIS_API'][networkId];
-
-    if (includeTokens && daoRes?.data?.dao && gnosisUrl) {
+    if (includeTokens && daoRes?.data?.dao) {
       try {
         const tokenPromises: Promise<IFindQueryResult<DaoTokenBalances>>[] = [];
 

@@ -37,7 +37,8 @@ export const listTokenBalances = async ({
       accountAddress: safeAddress,
       includeMetadata: true,
       includeCollectionTokens: false,
-      metadataOptions: { verifiedOnly: true },
+      // spam flter
+      // metadataOptions: { verifiedOnly: true },
     });
 
     const balance = await indexer.getEtherBalance({

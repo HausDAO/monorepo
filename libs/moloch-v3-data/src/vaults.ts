@@ -41,9 +41,13 @@ export const listTokenBalances = async ({
       // metadataOptions: { verifiedOnly: true },
     });
 
+    console.log('tokenBalances', tokenBalances);
+
     const balance = await indexer.getEtherBalance({
       accountAddress: safeAddress,
     });
+
+    console.log('balance', balance);
 
     const transformedTokenBalances = tokenBalances.balances.map((tokenBal) => {
       return {

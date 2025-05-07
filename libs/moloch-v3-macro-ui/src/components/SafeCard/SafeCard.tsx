@@ -10,6 +10,7 @@ import {
   DataIndicator,
   H4,
   Link,
+  ParSm,
   ParXs,
   Tag,
 } from '@daohaus/ui';
@@ -50,7 +51,9 @@ export const SafeCard = ({
   const tokenBalances = useMemo(() => {
     const network = getNetwork(daoChain);
 
-    return safe.tokenBalances.map((t) => {
+    const balances = safe.tokenBalances || [];
+
+    return balances.map((t) => {
       return {
         tokenLogo: t.token?.logoUri,
         tokenName: t.token?.name || nativeTokenSymbol,
@@ -62,7 +65,7 @@ export const SafeCard = ({
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [safe]);
+  }, [safe, safe.tokenBalances]);
 
   return (
     <SafeContainer>
@@ -103,27 +106,36 @@ export const SafeCard = ({
             )}
           </div>
         </SafeCardHeader>
-        <DataGrid>
-          <DataIndicator label="Tokens" data={safe.tokenBalances.length} />
-        </DataGrid>
-        {safe.tokenBalances.length > 0 && (
-          <CollapsibleCard
-            triggerLabel="Balances"
-            width="auto"
-            collapsibleContent={<SafeBalancesTable balances={tokenBalances} />}
-          >
-            <div>
-              {safe.tokenBalances.map((token) => (
-                <Avatar
-                  alt={token.token?.name || token.tokenAddress || ''}
-                  size="md"
-                  src={token.token?.logoUri || ''}
-                  fallback={token.token?.symbol || nativeTokenSymbol}
-                  key={token.tokenAddress}
-                />
-              ))}
-            </div>
-          </CollapsibleCard>
+        {!safe.tokenBalances && (
+          <ParSm>Unable to fetch token balances try later</ParSm>
+        )}
+        {safe.tokenBalances && (
+          <>
+            <DataGrid>
+              <DataIndicator label="Tokens" data={safe.tokenBalances?.length} />
+            </DataGrid>
+            {safe.tokenBalances?.length > 0 && (
+              <CollapsibleCard
+                triggerLabel="Balances"
+                width="auto"
+                collapsibleContent={
+                  <SafeBalancesTable balances={tokenBalances} />
+                }
+              >
+                <div>
+                  {safe.tokenBalances.map((token) => (
+                    <Avatar
+                      alt={token.token?.name || token.tokenAddress || ''}
+                      size="md"
+                      src={token.token?.logoUri || ''}
+                      fallback={token.token?.symbol || nativeTokenSymbol}
+                      key={token.tokenAddress}
+                    />
+                  ))}
+                </div>
+              </CollapsibleCard>
+            )}
+          </>
         )}
       </SafeOverviewCard>
     </SafeContainer>

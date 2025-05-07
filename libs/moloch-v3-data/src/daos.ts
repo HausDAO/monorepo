@@ -7,7 +7,6 @@ import {
   IListQueryResults,
 } from '@daohaus/data-fetch-utils';
 import {
-  ENDPOINTS,
   getGraphUrl,
   GRAPH_API_KEYS,
   Keychain,

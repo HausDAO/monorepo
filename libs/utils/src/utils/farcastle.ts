@@ -10,7 +10,7 @@ export const getFarcastleFramemUrl = ({
   location?: string;
 }): string | undefined => {
   if (daoChain === '0xaa36a7') return;
-  const baseUrl = `https://warpcast.com/~/compose?text=&embeds[]=https://frames.farcastle.net/molochv3/${daoChain}/${daoId}`;
+  const baseUrl = `https://farcaster.xyz/~/compose?text=&embeds[]=https://frames.farcastle.net/molochv3/${daoChain}/${daoId}`;
 
   return location ? `${baseUrl}/${location}` : baseUrl;
 };

@@ -19,7 +19,6 @@
     "0xsequence": "^2.2.14",
     "@daohaus/baal-contracts": "^1.2.17",
     "@gnosis.pm/safe-apps-react-sdk": "^4.6.2",
-    "@gnosis.pm/safe-apps-web3modal": "^17.0.2",
     "@gnosis.pm/safe-react-components": "^1.2.0",
     "@graphql-typed-document-node/core": "^3.1.1",
     "@hookform/devtools": "^4.2.3",
@@ -46,10 +45,10 @@
     "@types/react-datepicker": "^4.19.1",
     "@types/react-table": "^7.7.12",
     "@wagmi/connectors": "^2.6.6",
-    "@walletconnect/client": "^1.8.0",
-    "@walletconnect/web3wallet": "^1.9.0",
-    "@web3modal/ethereum": "^2.7.1",
-    "@web3modal/react": "^2.7.1",
+    "@walletconnect/core": "^2.11.3",
+    "@walletconnect/types": "^2.11.3",
+    "@walletconnect/web3wallet": "^1.10.3",
+    "caniuse-lite": "^1.0.30001741",
     "classnames": "^2.3.2",
     "core-js": "^3.6.5",
     "cross-fetch": "^3.1.5",
@@ -121,7 +120,6 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
-    "@walletconnect/types": "^2.9.1",
     "babel-jest": "28.1.1",
     "babel-loader": "8.1.0",
     "babel-plugin-styled-components": "1.10.7",
@@ -147,5 +145,6 @@
     "typescript": "~5.0.4",
     "url-loader": "^3.0.0",
     "wrangler": "^2.1.15"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

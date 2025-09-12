@@ -20,19 +20,16 @@ import {
   WrappedInput,
 } from '@daohaus/ui';
 import { IClientMeta } from '@walletconnect/legacy-types';
-import { CoreTypes } from '@walletconnect/types';
 
-import {
-  WCParams,
-  WalletConnectVersion,
-  getWalletConnectVersion,
-  useWalletConnect,
-} from '../utils/walletConnect';
 import useWalletConnectV2 from '../utils/walletConnectV2';
+import {
+  getWalletConnectVersion,
+  WalletConnectVersion,
+} from '../utils/walletConnect';
 
 import WalletConnectLogo from '../assets/wallet_connect.svg';
 
-type MetadataType = CoreTypes.Metadata | IClientMeta | undefined;
+// MetadataType unused after v1 removal; legacy reference pruned.
 
 enum Status {
   DISCONNECTED,
@@ -89,31 +86,19 @@ export const WalletConnectLink = ({
   const { register, setValue, watch } = useFormContext();
   const { daoChain } = useCurrentDao();
   const {
-    wcConnector,
-    txPayload: txPayloadV1,
-    wcClientData: wcClientDataV1,
-    wcConnect: wcConnectV1,
-    wcDisconnect: wcDisconnectV1,
-    txError: txErrorV1,
-  } = useWalletConnect();
-  const {
-    txPayload: txPayloadV2,
-    wcClientData: wcClientDataV2,
+    txPayload,
+    wcClientData,
     wcConnect: wcConnectV2,
     wcDisconnect: wcDisconnectV2,
-    error: txErrorV2,
+    error: txError,
   } = useWalletConnectV2();
-
-  const wcClientData: MetadataType = wcClientDataV1 || wcClientDataV2;
-  const txPayload = txPayloadV1 || txPayloadV2;
-  const txError = txErrorV1 || txErrorV2;
 
   const inputId = 'wcLink';
 
-  const [wcVersion, setWCVersion] = useState<WalletConnectVersion>();
   const [connectionStatus, setConnectionStatus] = useState(Status.DISCONNECTED);
 
   const wcLink = watch(inputId);
+  const [legacyError, setLegacyError] = useState<string | null>(null);
 
   useEffect(() => {
     register('txTo');
@@ -129,21 +114,22 @@ export const WalletConnectLink = ({
       wcLink?.startsWith('wc:') &&
       connectionStatus === Status.DISCONNECTED
     ) {
-      const params: WCParams = {
+      const version = getWalletConnectVersion(wcLink);
+      if (version === WalletConnectVersion.V1) {
+        setLegacyError(
+          'WalletConnect v1 links are no longer supported. Please request a v2 connection URI from the dApp.'
+        );
+        return;
+      }
+      setLegacyError(null);
+      setConnectionStatus(Status.CONNECTING);
+      wcConnectV2({
         chainId: daoChain as ValidNetwork,
         safeAddress: dao.safeAddress,
         uri: wcLink,
-      };
-      setConnectionStatus(Status.CONNECTING);
-      const version: WalletConnectVersion = getWalletConnectVersion(wcLink);
-      setWCVersion(version);
-      if (version === WalletConnectVersion.V1) {
-        wcConnectV1(params);
-      } else {
-        wcConnectV2(params);
-      }
+      });
     }
-  }, [connectionStatus, dao, daoChain, wcConnectV1, wcConnectV2, wcLink]);
+  }, [connectionStatus, dao, daoChain, wcConnectV2, wcLink]);
 
   const clean = () => {
     [inputId, 'txTo', 'txData', 'txValue', 'txOperation'].forEach((formInput) =>
@@ -153,11 +139,7 @@ export const WalletConnectLink = ({
   };
 
   const onDisconnect = () => {
-    if (wcVersion === WalletConnectVersion.V1) {
-      if (wcConnector) wcDisconnectV1(wcConnector);
-    } else {
-      wcDisconnectV2();
-    }
+    wcDisconnectV2();
     clean();
   };
 
@@ -183,7 +165,11 @@ export const WalletConnectLink = ({
         id={inputId}
         disabled={connectionStatus === Status.CONNECTED}
         rules={rules}
-        error={txError ? { type: 'error', message: txError } : undefined}
+        error={
+          txError || legacyError
+            ? { type: 'error', message: (txError || legacyError) as string }
+            : undefined
+        }
       />
       <WalletConectContainer>
         <img

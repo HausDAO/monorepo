@@ -258,8 +258,8 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   }, [chainId, wcSession, isWallectConnectInitialized, web3wallet]);
 
   useEffect(() => {
-  if (WC_V2_DISABLED) return; // no restoration when disabled
-  if (!isWallectConnectInitialized && web3wallet && chainId && safeAddress) {
+    if (WC_V2_DISABLED) return; // no restoration when disabled
+    if (!isWallectConnectInitialized && web3wallet && chainId && safeAddress) {
       const activeSessions = web3wallet.getActiveSessions();
       const compatibleSession = Object.keys(activeSessions)
         .map((topic) => activeSessions[topic])
@@ -344,8 +344,8 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   );
 
   const wcDisconnect = useCallback<wcDisconnectType>(async () => {
-  if (WC_V2_DISABLED) return;
-  if (wcSession && web3wallet) {
+    if (WC_V2_DISABLED) return;
+    if (wcSession && web3wallet) {
       await web3wallet.disconnectSession({
         topic: wcSession.topic,
         reason: {
@@ -371,7 +371,14 @@ const useWalletConnectV2 = (): useWalletConnectType => {
     };
   }
 
-  return { wcConnect, wcClientData, wcDisconnect, txPayload, isWallectConnectInitialized, error };
+  return {
+    wcConnect,
+    wcClientData,
+    wcDisconnect,
+    txPayload,
+    isWallectConnectInitialized,
+    error,
+  };
 };
 
 export default useWalletConnectV2;

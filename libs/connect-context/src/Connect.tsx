@@ -58,7 +58,10 @@ const baseConnectors = [
     options: { shimDisconnect: true, name: 'Browser Wallet' },
   }),
   new MetaMaskConnector({ chains, options: { shimDisconnect: true } }),
-  new CoinbaseWalletConnector({ chains, options: { appName: 'DAOhaus Admin' } }),
+  new CoinbaseWalletConnector({
+    chains,
+    options: { appName: 'DAOhaus Admin' },
+  }),
   ...(includeSafe
     ? [
         new SafeConnector({

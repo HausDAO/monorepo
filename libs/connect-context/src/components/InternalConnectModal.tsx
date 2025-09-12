@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useAccount, useConnect, useDisconnect, useSwitchNetwork, useNetwork } from 'wagmi';
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useSwitchNetwork,
+  useNetwork,
+} from 'wagmi';
 import { Button } from '@daohaus/ui';
 import { connectorIcon } from './WalletIcons';
 
@@ -9,8 +15,13 @@ type Props = {
   defaultChainId?: number;
 };
 
-export const InternalConnectModal = ({ open, onClose, defaultChainId }: Props) => {
-  const { connectAsync, connectors, isLoading, pendingConnector, error } = useConnect();
+export const InternalConnectModal = ({
+  open,
+  onClose,
+  defaultChainId,
+}: Props) => {
+  const { connectAsync, connectors, isLoading, pendingConnector, error } =
+    useConnect();
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
   const { isConnected } = useAccount();
@@ -29,7 +40,13 @@ export const InternalConnectModal = ({ open, onClose, defaultChainId }: Props) =
   });
 
   useEffect(() => {
-    if (open && defaultChainId && chain && chain.id !== defaultChainId && switchNetwork) {
+    if (
+      open &&
+      defaultChainId &&
+      chain &&
+      chain.id !== defaultChainId &&
+      switchNetwork
+    ) {
       setSwitching(true);
       switchNetwork(defaultChainId);
       setSwitching(false);
@@ -40,8 +57,10 @@ export const InternalConnectModal = ({ open, onClose, defaultChainId }: Props) =
 
   // Prefer MetaMask: if MetaMask is available, hide the generic injected (Browser Wallet) entry.
   // If MetaMask is NOT available, hide the dedicated metaMask connector (some providers misreport) and show generic injected.
-  const hasMetaMask = connectors.some((c) => c.id === 'metaMask' && c.ready) ||
-    (typeof (window as any)?.ethereum !== 'undefined' && (window as any).ethereum?.isMetaMask);
+  const hasMetaMask =
+    connectors.some((c) => c.id === 'metaMask' && c.ready) ||
+    (typeof (window as any)?.ethereum !== 'undefined' &&
+      (window as any).ethereum?.isMetaMask);
 
   const filteredConnectors = connectors.filter((c) => {
     // Hide generic injected when MetaMask present
@@ -57,15 +76,27 @@ export const InternalConnectModal = ({ open, onClose, defaultChainId }: Props) =
     try {
       window.localStorage.setItem(LAST_KEY, id);
       setLastUsed(id);
-    } catch {/* ignore storage issues */}
+    } catch {
+      /* ignore storage issues */
+    }
   };
 
   return (
     <div style={overlayStyles}>
       <div style={modalStyles}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <h3 style={{ margin: 0 }}>Connect Wallet</h3>
-          <button onClick={onClose} style={closeBtnStyles} aria-label="Close connect modal">
+          <button
+            onClick={onClose}
+            style={closeBtnStyles}
+            aria-label="Close connect modal"
+          >
             ×
           </button>
         </div>
@@ -99,7 +130,10 @@ export const InternalConnectModal = ({ open, onClose, defaultChainId }: Props) =
                       // Not strictly required but guards against flicker.
                       await Promise.resolve();
                     }
-                    await connectAsync({ connector: c, chainId: defaultChainId });
+                    await connectAsync({
+                      connector: c,
+                      chainId: defaultChainId,
+                    });
                     markLastUsed(c.id);
                     if (c.id !== 'walletConnect') {
                       onClose();
@@ -110,8 +144,17 @@ export const InternalConnectModal = ({ open, onClose, defaultChainId }: Props) =
                 }}
                 fullWidth
               >
-                <span style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span
+                  style={{
+                    display: 'flex',
+                    width: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <span
+                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+                  >
                     {connectorIcon(c.id)}
                     <span>{c.name || 'Unknown Wallet'}</span>
                   </span>

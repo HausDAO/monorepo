@@ -40,14 +40,19 @@ export const IconMetaMask: React.FC<{ size?: number }> = ({ size = 20 }) => {
       xmlns="http://www.w3.org/2000/svg"
       style={{ display: 'block' }}
     >
-      <path fill="#FF5C16" d="M132.682 132.192 102.099 123.086 79.036 136.873l-16.092-.007-23.077-13.78L9.298 132.192 0 100.801l9.299-34.839L0 36.507 9.299 0l47.766 28.538h27.85L132.682 0l9.299 36.507-9.299 29.455 9.299 34.839-9.299 31.391Z" />
+      <path
+        fill="#FF5C16"
+        d="M132.682 132.192 102.099 123.086 79.036 136.873l-16.092-.007-23.077-13.78L9.298 132.192 0 100.801l9.299-34.839L0 36.507 9.299 0l47.766 28.538h27.85L132.682 0l9.299 36.507-9.299 29.455 9.299 34.839-9.299 31.391Z"
+      />
     </svg>
   );
   const inner = renderImportedSvg(metaMaskAsset, size, Fallback, 'MetaMask');
   return <IconWrapper brand="metamask">{inner}</IconWrapper>;
 };
 
-export const IconCoinbaseWallet: React.FC<{ size?: number }> = ({ size = 20 }) => {
+export const IconCoinbaseWallet: React.FC<{ size?: number }> = ({
+  size = 20,
+}) => {
   const Fallback = (
     <svg
       width={size}
@@ -61,11 +66,18 @@ export const IconCoinbaseWallet: React.FC<{ size?: number }> = ({ size = 20 }) =
       <rect x="44" y="44" width="12" height="12" rx="2" fill="#0052FF" />
     </svg>
   );
-  const inner = renderImportedSvg(coinbaseAsset, size, Fallback, 'Coinbase Wallet');
+  const inner = renderImportedSvg(
+    coinbaseAsset,
+    size,
+    Fallback,
+    'Coinbase Wallet'
+  );
   return <IconWrapper brand="coinbase">{inner}</IconWrapper>;
 };
 
-export const IconWalletConnect: React.FC<{ size?: number }> = ({ size = 20 }) => {
+export const IconWalletConnect: React.FC<{ size?: number }> = ({
+  size = 20,
+}) => {
   const inner = renderImportedSvg(
     walletConnectAsset,
     size,
@@ -86,7 +98,9 @@ export const IconWalletConnect: React.FC<{ size?: number }> = ({ size = 20 }) =>
   return <IconWrapper brand="walletconnect">{inner}</IconWrapper>;
 };
 
-export const IconBrowserWallet: React.FC<{ size?: number }> = ({ size = 20 }) => {
+export const IconBrowserWallet: React.FC<{ size?: number }> = ({
+  size = 20,
+}) => {
   const inner = (
     <svg
       width={size}
@@ -108,7 +122,10 @@ export const IconBrowserWallet: React.FC<{ size?: number }> = ({ size = 20 }) =>
 };
 
 // Wrapper adds consistent background and sizing for visibility on dark surfaces.
-const IconWrapper: React.FC<{ brand: string; children: React.ReactNode }> = ({ brand, children }) => {
+const IconWrapper: React.FC<{ brand: string; children: React.ReactNode }> = ({
+  brand,
+  children,
+}) => {
   const brandColorMap: Record<string, string> = {
     metamask: '#1F1A17',
     coinbase: '#0B3CFF',

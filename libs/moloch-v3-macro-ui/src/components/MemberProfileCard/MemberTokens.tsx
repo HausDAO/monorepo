@@ -33,8 +33,8 @@ export const MemberTokens = ({ daoChain, dao, member }: MemberTokensProps) => {
 
   const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
     if (dao) {
-  const vaults = dao.vaults || [];
-  return vaults.find((v: DaoSafe) => v.safeAddress === dao.safeAddress);
+      const vaults = dao.vaults || [];
+      return vaults.find((v: DaoSafe) => v.safeAddress === dao.safeAddress);
     }
     return undefined;
   }, [dao]);

@@ -2,7 +2,8 @@
 
 // Enable by setting NX_CONNECT_DEBUG=true in env (or toggling window.__CONNECT_DEBUG = true)
 const isDebug = () => {
-  if (typeof window !== 'undefined' && (window as any).__CONNECT_DEBUG) return true;
+  if (typeof window !== 'undefined' && (window as any).__CONNECT_DEBUG)
+    return true;
   return process.env['NX_CONNECT_DEBUG'] === 'true';
 };
 
@@ -67,7 +68,11 @@ export const logChains = (chains: { id: number; name?: string }[]) => {
     console.group('[ConnectDebug] Chains');
     // eslint-disable-next-line no-console
     console.table(
-      chains.map((c) => ({ id: c.id, hex: '0x' + c.id.toString(16), name: c.name }))
+      chains.map((c) => ({
+        id: c.id,
+        hex: '0x' + c.id.toString(16),
+        name: c.name,
+      }))
     );
     // eslint-disable-next-line no-console
     console.groupEnd();

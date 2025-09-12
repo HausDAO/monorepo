@@ -69,10 +69,10 @@ const getENSReverseResolver = async ({
         /not implemented/i.test(msg);
       if (!isRetryable) {
         // Non-retryable -> break, but keep logging minimal
-  // Non-retryable; silent.
+        // Non-retryable; silent.
         break;
       }
-  // Retryable; proceed to next.
+      // Retryable; proceed to next.
       continue; // Try next candidate
     }
   }

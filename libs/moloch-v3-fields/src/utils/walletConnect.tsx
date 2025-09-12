@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+// Slimmed WalletConnect shared helpers (v1 client removed)
 import type { BigIntish, BytesLike } from '@daohaus/utils';
 import {
   hashMessage,
@@ -10,8 +10,7 @@ import { LOCAL_ABI } from '@daohaus/abis';
 import { encodeFunction } from '@daohaus/utils';
 import { CONTRACT_KEYCHAINS, ValidNetwork } from '@daohaus/keychain-utils';
 
-import WalletConnect from '@walletconnect/client';
-import { IClientMeta } from '@walletconnect/legacy-types';
+// NOTE: v1 client removed. If a wc: URI with @1 is supplied downstream code should surface an error.
 
 type EIP712TypedData = {
   domain: {
@@ -102,20 +101,8 @@ export const encodeSafeSignMessage = (
   return undefined;
 };
 
-const rejectWithMessage = (
-  connector: WalletConnect,
-  id: number,
-  message: string
-) => {
-  connector.rejectRequest({ id, error: { message } });
-};
-
-export type WCParams = {
-  chainId: ValidNetwork;
-  safeAddress: string;
-  session?: WalletConnect;
-  uri: string;
-};
+// Removed hooks and types tied to v1 sessions.
+// Lightweight shared types still required by the WalletConnect v2 implementation.
 
 export type Tx = {
   data: string;
@@ -133,137 +120,8 @@ export type WCPayload = {
   params: Array<Tx>;
 };
 
-export const useWalletConnect = (): {
-  wcConnector?: WalletConnect;
-  wcClientData?: IClientMeta;
-  txPayload?: WCPayload;
-  txError?: string;
-  wcConnect: (params: WCParams) => Promise<void>;
-  wcDisconnect: (session: WalletConnect) => Promise<void>;
-} => {
-  const [wcClientData, setWcClientData] = useState<IClientMeta>();
-  const [txPayload, setTxPayload] = useState();
-  const [wcConnector, setConnector] = useState<WalletConnect>();
-  const [localStorageSessionKey, setLocalStorageSessionKey] = useState('');
-  const [txError, setTxError] = useState('');
-
-  const wcDisconnect = useCallback(
-    async (session: WalletConnect) => {
-      try {
-        await session.killSession();
-      } catch (error) {
-        console.error('Error trying to close WC session: ', error);
-      } finally {
-        setConnector(undefined);
-        setWcClientData(undefined);
-        localStorage.removeItem(localStorageSessionKey);
-        setLocalStorageSessionKey('');
-        setTxError('');
-      }
-    },
-    [localStorageSessionKey]
-  );
-
-  const wcConnect = useCallback(
-    async ({ chainId, safeAddress, session, uri }: WCParams) => {
-      const connector = new WalletConnect({
-        uri,
-        session,
-        storageId: `session_${safeAddress}`,
-      });
-      setConnector(connector);
-      setWcClientData(connector.peerMeta || undefined);
-      setLocalStorageSessionKey(`session_${safeAddress}`);
-
-      connector.on('session_request', (error, payload) => {
-        if (error) {
-          setTxError(error.message);
-          throw error;
-        }
-
-        connector.approveSession({
-          accounts: [safeAddress],
-          chainId: Number(chainId),
-        });
-
-        setWcClientData(payload.params[0].peerMeta);
-      });
-
-      connector.on('call_request', async (error, payload) => {
-        setTxError('');
-        try {
-          if (error) {
-            setTxError(error.message);
-            throw error;
-          }
-          switch (payload.method) {
-            case 'eth_sendTransaction': {
-              setTxPayload(payload);
-              break;
-            }
-            case 'personal_sign': {
-              const [message] = payload.params;
-              if (message.startsWith('0x')) {
-                const tx = encodeSafeSignMessage(chainId, message);
-                setTxPayload({
-                  ...payload,
-                  params: [tx],
-                });
-              } else {
-                const errorMsg = 'Tx personal_sign has the wrong format';
-                setTxError(errorMsg);
-                rejectWithMessage(connector, payload.id, errorMsg);
-              }
-              break;
-            }
-            case 'eth_signTypedData':
-            case 'eth_signTypedData_v4': {
-              const [, typedDataString] = payload.params;
-              const typedData = JSON.parse(typedDataString);
-              if (isObjectEIP712TypedData(typedData)) {
-                const tx = encodeSafeSignMessage(chainId, typedData);
-                setTxPayload({
-                  ...payload,
-                  params: [tx],
-                });
-              } else {
-                const errorMsg = 'Tx eth_signTypedData has the wrong format';
-                setTxError(errorMsg);
-                rejectWithMessage(connector, payload.id, errorMsg);
-              }
-              break;
-            }
-            default: {
-              const errorMsg = 'Tx type not supported';
-              setTxError(errorMsg);
-              rejectWithMessage(connector, payload.id, errorMsg);
-              break;
-            }
-          }
-        } catch (exception) {
-          const errorMsg = (exception as Error).message;
-          setTxError(errorMsg);
-          rejectWithMessage(connector, payload.id, errorMsg);
-        }
-      });
-
-      connector.on('disconnect', (error) => {
-        if (error) {
-          throw error;
-        }
-        setTxPayload(undefined);
-        if (wcConnector) wcDisconnect(wcConnector);
-      });
-    },
-    [wcConnector, wcDisconnect]
-  );
-
-  return {
-    wcConnector,
-    wcClientData,
-    txPayload,
-    txError,
-    wcConnect,
-    wcDisconnect,
-  };
+export type WCParams = {
+  chainId: ValidNetwork;
+  safeAddress: string;
+  uri: string;
 };

@@ -23,7 +23,10 @@ import { IClientMeta } from '@walletconnect/legacy-types';
 import { CoreTypes } from '@walletconnect/types';
 
 import useWalletConnectV2 from '../utils/walletConnectV2';
-import { getWalletConnectVersion, WalletConnectVersion } from '../utils/walletConnect';
+import {
+  getWalletConnectVersion,
+  WalletConnectVersion,
+} from '../utils/walletConnect';
 
 import WalletConnectLogo from '../assets/wallet_connect.svg';
 
@@ -106,10 +109,17 @@ export const WalletConnectLink = ({
   }, [register]);
 
   useEffect(() => {
-    if (dao && daoChain && wcLink?.startsWith('wc:') && connectionStatus === Status.DISCONNECTED) {
+    if (
+      dao &&
+      daoChain &&
+      wcLink?.startsWith('wc:') &&
+      connectionStatus === Status.DISCONNECTED
+    ) {
       const version = getWalletConnectVersion(wcLink);
       if (version === WalletConnectVersion.V1) {
-        setLegacyError('WalletConnect v1 links are no longer supported. Please request a v2 connection URI from the dApp.');
+        setLegacyError(
+          'WalletConnect v1 links are no longer supported. Please request a v2 connection URI from the dApp.'
+        );
         return;
       }
       setLegacyError(null);
@@ -130,7 +140,7 @@ export const WalletConnectLink = ({
   };
 
   const onDisconnect = () => {
-  wcDisconnectV2();
+    wcDisconnectV2();
     clean();
   };
 
@@ -156,7 +166,11 @@ export const WalletConnectLink = ({
         id={inputId}
         disabled={connectionStatus === Status.CONNECTED}
         rules={rules}
-        error={(txError || legacyError) ? { type: 'error', message: (txError || legacyError) as string } : undefined}
+        error={
+          txError || legacyError
+            ? { type: 'error', message: (txError || legacyError) as string }
+            : undefined
+        }
       />
       <WalletConectContainer>
         <img

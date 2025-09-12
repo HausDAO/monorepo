@@ -44,8 +44,14 @@ class EtherscanABILoader implements loaders.ABILoader {
       rpcs: this.rpcs,
       explorerKeys: this.explorerKeys,
     });
+    // Instead of throwing, return empty array so MultiABILoader can try other loaders (e.g. Sourcify)
+    // Downstream we'll gracefully handle empty ABI and mark call as unknown.
     if (!abi || !abi?.length) {
-      throw new Error('No ABI found for this contract');
+      if (process.env['NX_CONNECT_DEBUG'] === 'true') {
+        // eslint-disable-next-line no-console
+        console.warn('[DeepDecode] No ABI found via explorer for', address);
+      }
+      return [];
     }
     return abi;
   }
@@ -435,12 +441,16 @@ const decodeAction = async (
   });
 
   if (!abi || !abi?.length) {
-    return createActionError(
-      data,
-      'Could not decode action: abi not found',
-      to,
-      decodeValue(value)
-    );
+    // Unknown contract: return minimal decoded info rather than hard error
+    const selector = data && data.length >= 10 ? data.slice(0, 10) : '0x';
+    return {
+      to: to,
+      operation: operation || OperationType.Call,
+      name: `unknown(${selector})`,
+      value: decodeValue(value),
+      params: [],
+      decodedActions: [],
+    };
   }
 
   const decodedMethod = decodeMethod({

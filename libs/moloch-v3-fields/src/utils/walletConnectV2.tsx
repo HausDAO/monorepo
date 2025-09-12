@@ -11,11 +11,8 @@ import {
   isObjectEIP712TypedData,
 } from './walletConnect';
 
-if (!process.env['NX_WALLET_CONNECT_ID']) {
-  throw new Error('You need to provide NX_WALLET_CONNECT_ID env variable');
-}
-
 const WALLETCONNECT_V2_PROJECT_ID = process.env['NX_WALLET_CONNECT_ID'];
+const WC_V2_DISABLED = !WALLETCONNECT_V2_PROJECT_ID; // Silent disable when unset
 
 const WALLET_METADATA = {
   name: 'DAOHaus Admin',
@@ -95,26 +92,27 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    const initializeWalletConnectV2Client = async () => {
-      const core = new Core({
-        projectId: WALLETCONNECT_V2_PROJECT_ID,
-        // logger: 'debug', // disabled on production
-      });
-
-      const web3wallet = await Web3Wallet.init({
-        core,
-        metadata: WALLET_METADATA,
-      });
-
-      setWeb3wallet(web3wallet);
-    };
-
-    try {
-      initializeWalletConnectV2Client();
-    } catch (error) {
-      console.log('Error on walletconnect version 2 initialization: ', error);
+    if (WC_V2_DISABLED) {
       setIsWallectConnectInitialized(true);
+      return;
     }
+    const initializeWalletConnectV2Client = async () => {
+      try {
+        const core = new Core({
+          projectId: WALLETCONNECT_V2_PROJECT_ID as string,
+          // logger: 'debug',
+        });
+        const web3walletInstance = await Web3Wallet.init({
+          core,
+          metadata: WALLET_METADATA,
+        });
+        setWeb3wallet(web3walletInstance);
+      } catch (error) {
+        console.log('Error on walletconnect version 2 initialization: ', error);
+        setIsWallectConnectInitialized(true);
+      }
+    };
+    initializeWalletConnectV2Client();
   }, []);
 
   useEffect(() => {
@@ -260,7 +258,8 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   }, [chainId, wcSession, isWallectConnectInitialized, web3wallet]);
 
   useEffect(() => {
-    if (!isWallectConnectInitialized && web3wallet && chainId && safeAddress) {
+  if (WC_V2_DISABLED) return; // no restoration when disabled
+  if (!isWallectConnectInitialized && web3wallet && chainId && safeAddress) {
       const activeSessions = web3wallet.getActiveSessions();
       const compatibleSession = Object.keys(activeSessions)
         .map((topic) => activeSessions[topic])
@@ -280,6 +279,10 @@ const useWalletConnectV2 = (): useWalletConnectType => {
 
   const wcConnect = useCallback<wcConnectType>(
     async ({ chainId, safeAddress, uri }: WCParams) => {
+      if (WC_V2_DISABLED) {
+        // silently ignore connect attempts when disabled
+        return;
+      }
       if (web3wallet) {
         setChainId(Number(chainId));
         setSafeAddress(safeAddress);
@@ -341,7 +344,8 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   );
 
   const wcDisconnect = useCallback<wcDisconnectType>(async () => {
-    if (wcSession && web3wallet) {
+  if (WC_V2_DISABLED) return;
+  if (wcSession && web3wallet) {
       await web3wallet.disconnectSession({
         topic: wcSession.topic,
         reason: {
@@ -356,14 +360,18 @@ const useWalletConnectV2 = (): useWalletConnectType => {
 
   const wcClientData = wcSession?.peer.metadata;
 
-  return {
-    wcConnect,
-    wcClientData,
-    wcDisconnect,
-    txPayload,
-    isWallectConnectInitialized,
-    error,
-  };
+  if (WC_V2_DISABLED) {
+    return {
+      wcConnect: async () => undefined,
+      wcClientData: undefined,
+      wcDisconnect: async () => undefined,
+      txPayload: undefined,
+      isWallectConnectInitialized: true,
+      error: undefined,
+    };
+  }
+
+  return { wcConnect, wcClientData, wcDisconnect, txPayload, isWallectConnectInitialized, error };
 };
 
 export default useWalletConnectV2;

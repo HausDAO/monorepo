@@ -85,8 +85,13 @@ export const WalletConnectLink = ({
   const { dao } = useDaoData();
   const { register, setValue, watch } = useFormContext();
   const { daoChain } = useCurrentDao();
-  const { txPayload, wcClientData, wcConnect: wcConnectV2, wcDisconnect: wcDisconnectV2, error: txError } =
-    useWalletConnectV2();
+  const {
+    txPayload,
+    wcClientData,
+    wcConnect: wcConnectV2,
+    wcDisconnect: wcDisconnectV2,
+    error: txError,
+  } = useWalletConnectV2();
 
   const inputId = 'wcLink';
 

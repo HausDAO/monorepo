@@ -22,17 +22,43 @@ type SessionRequestEvent = {
 type SessionProposal = {
   id: number;
   params: {
-    requiredNamespaces: Record<string, { methods: string[]; chains?: string[]; events?: string[] }>;
+    requiredNamespaces: Record<
+      string,
+      { methods: string[]; chains?: string[]; events?: string[] }
+    >;
   };
 };
 type Web3WalletType = {
-  on(event: 'session_request', listener: (e: SessionRequestEvent) => void): void;
+  on(
+    event: 'session_request',
+    listener: (e: SessionRequestEvent) => void
+  ): void;
   on(event: 'session_proposal', listener: (p: SessionProposal) => void): void;
   on(event: 'session_delete', listener: () => void): void;
-  approveSession(args: { id: number; namespaces: Record<string, { accounts: string[]; chains: string[]; methods: string[]; events: string[] }> }): Promise<SessionTypes.Struct>;
-  disconnectSession(args: { topic: string; reason: { code: number; message: string } }): Promise<void>;
-  respondSessionRequest(args: { topic: string; response: unknown }): Promise<void>;
-  rejectSession(args: { id: number; reason: { code: number; message: string } }): Promise<void>;
+  approveSession(args: {
+    id: number;
+    namespaces: Record<
+      string,
+      {
+        accounts: string[];
+        chains: string[];
+        methods: string[];
+        events: string[];
+      }
+    >;
+  }): Promise<SessionTypes.Struct>;
+  disconnectSession(args: {
+    topic: string;
+    reason: { code: number; message: string };
+  }): Promise<void>;
+  respondSessionRequest(args: {
+    topic: string;
+    response: unknown;
+  }): Promise<void>;
+  rejectSession(args: {
+    id: number;
+    reason: { code: number; message: string };
+  }): Promise<void>;
   getActiveSessions(): Record<string, SessionTypes.Struct>;
   core: { pairing: { pair(args: { uri: string }): Promise<void> } };
 };
@@ -163,7 +189,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   useEffect(() => {
     // session_request needs to be a separate Effect because a valid wcSession should be present
     if (isWallectConnectInitialized && web3wallet && wcSession) {
-  web3wallet.on('session_request', async (event: SessionRequestEvent) => {
+      web3wallet.on('session_request', async (event: SessionRequestEvent) => {
         const { topic, id } = event;
         const { request, chainId: transactionChainId } = event.params;
         const { method, params } = request;
@@ -332,7 +358,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         setChainId(Number(chainId));
         setSafeAddress(safeAddress);
         // events
-  web3wallet.on('session_proposal', async (proposal: SessionProposal) => {
+        web3wallet.on('session_proposal', async (proposal: SessionProposal) => {
           const { id, params } = proposal;
           const { requiredNamespaces } = params;
 

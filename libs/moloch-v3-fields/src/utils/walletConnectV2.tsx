@@ -2,15 +2,40 @@ import { useState, useCallback, useEffect } from 'react';
 import { ValidNetwork } from '@daohaus/keychain-utils';
 // Dynamic import of walletconnect v2 modules to avoid type duplication mismatches during build.
 import { SignClientTypes, SessionTypes } from '@walletconnect/types';
-// Note: Core + Web3Wallet loaded lazily in initializeWalletConnectV2Client
-type Web3WalletType = any; // fallback loosely typed (runtime shapes validated by library)
-
 import {
   WCParams,
   WCPayload,
   encodeSafeSignMessage,
   isObjectEIP712TypedData,
 } from './walletConnect';
+
+// Minimal runtime type surface for the Web3Wallet we interact with. Keeps us off the fragile
+// upstream internal types while satisfying lint (no explicit any) and providing autocomplete.
+type SessionRequestEvent = {
+  topic: string;
+  id: number;
+  params: {
+    request: { method: string; params: any[] }; // params elements are method-specific
+    chainId: string;
+  };
+};
+type SessionProposal = {
+  id: number;
+  params: {
+    requiredNamespaces: Record<string, { methods: string[]; chains?: string[]; events?: string[] }>;
+  };
+};
+type Web3WalletType = {
+  on(event: 'session_request', listener: (e: SessionRequestEvent) => void): void;
+  on(event: 'session_proposal', listener: (p: SessionProposal) => void): void;
+  on(event: 'session_delete', listener: () => void): void;
+  approveSession(args: { id: number; namespaces: Record<string, { accounts: string[]; chains: string[]; methods: string[]; events: string[] }> }): Promise<SessionTypes.Struct>;
+  disconnectSession(args: { topic: string; reason: { code: number; message: string } }): Promise<void>;
+  respondSessionRequest(args: { topic: string; response: unknown }): Promise<void>;
+  rejectSession(args: { id: number; reason: { code: number; message: string } }): Promise<void>;
+  getActiveSessions(): Record<string, SessionTypes.Struct>;
+  core: { pairing: { pair(args: { uri: string }): Promise<void> } };
+};
 
 const WALLETCONNECT_V2_PROJECT_ID = process.env['NX_WALLET_CONNECT_ID'];
 const WC_V2_DISABLED = !WALLETCONNECT_V2_PROJECT_ID; // Silent disable when unset
@@ -97,17 +122,17 @@ const useWalletConnectV2 = (): useWalletConnectType => {
       setIsWallectConnectInitialized(true);
       return;
     }
-  const initializeWalletConnectV2Client = async () => {
+    const initializeWalletConnectV2Client = async () => {
       try {
         const [{ Core }, { Web3Wallet }] = await Promise.all([
           import('@walletconnect/core'),
           import('@walletconnect/web3wallet'),
         ]);
-    // NOTE: We lazy-load Core + Web3Wallet because Nx + multiple transitive packages were
-    // pulling distinct copies of @walletconnect/types which caused a structural type mismatch
-    // (Core not assignable to ICore) at build time. Dynamic import ensures a single evaluated
-    // copy and we cast to any to decouple from fragile internal type surfaces. If upstream
-    // versions are unified later, this can revert to static imports without the cast.
+        // NOTE: We lazy-load Core + Web3Wallet because Nx + multiple transitive packages were
+        // pulling distinct copies of @walletconnect/types which caused a structural type mismatch
+        // (Core not assignable to ICore) at build time. Dynamic import ensures a single evaluated
+        // copy and we cast to any to decouple from fragile internal type surfaces. If upstream
+        // versions are unified later, this can revert to static imports without the cast.
         const core = new Core({
           projectId: WALLETCONNECT_V2_PROJECT_ID as string,
         });
@@ -116,8 +141,12 @@ const useWalletConnectV2 = (): useWalletConnectType => {
           metadata: WALLET_METADATA,
         });
         // minimal runtime guard: ensure expected event api exists
-        if (web3walletInstance && typeof web3walletInstance.on === 'function' && typeof web3walletInstance.core === 'object') {
-          setWeb3wallet(web3walletInstance as Web3WalletType);
+        if (
+          web3walletInstance &&
+          typeof web3walletInstance.on === 'function' &&
+          typeof web3walletInstance.core === 'object'
+        ) {
+          setWeb3wallet(web3walletInstance as unknown as Web3WalletType);
         } else {
           console.warn('Unexpected Web3Wallet instance shape');
           setIsWallectConnectInitialized(true);
@@ -134,7 +163,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
   useEffect(() => {
     // session_request needs to be a separate Effect because a valid wcSession should be present
     if (isWallectConnectInitialized && web3wallet && wcSession) {
-  web3wallet.on('session_request', async (event: any) => {
+  web3wallet.on('session_request', async (event: SessionRequestEvent) => {
         const { topic, id } = event;
         const { request, chainId: transactionChainId } = event.params;
         const { method, params } = request;
@@ -303,7 +332,7 @@ const useWalletConnectV2 = (): useWalletConnectType => {
         setChainId(Number(chainId));
         setSafeAddress(safeAddress);
         // events
-  web3wallet.on('session_proposal', async (proposal: any) => {
+  web3wallet.on('session_proposal', async (proposal: SessionProposal) => {
           const { id, params } = proposal;
           const { requiredNamespaces } = params;
 

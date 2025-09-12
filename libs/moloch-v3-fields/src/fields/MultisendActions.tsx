@@ -414,7 +414,7 @@ const Action = ({
         isJSON(contractAbi) ? (JSON.parse(contractAbi) as ABI) : undefined
       );
     }
-  }, [contractAddress, contractAbi, fetchContractAbi]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [contractAddress, contractAbi, fetchContractAbi, selectedMethod]);
 
   useEffect(() => {
     if (abiMethod) {
@@ -434,14 +434,14 @@ const Action = ({
     }
     setSelectedMethod(undefined);
     setArgFieldsIds([]);
-  }, [abiMethod]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [abiMethod, resetField, actionId]);
 
   useEffect(() => {
     if (isEOA) {
       setValue(dataFieldId, '0x');
       setValue(`tx.${actionId}.operation`, '0');
     }
-  }, [isEOA]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isEOA, dataFieldId, actionId, setValue]);
 
   useEffect(() => {
     if (customDataToggle && customData) {
@@ -454,7 +454,7 @@ const Action = ({
     if (noArgs) {
       encodeAction({ ...values.tx?.[actionId]?.fields });
     }
-  }, [noArgs]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [noArgs, encodeAction, values, actionId]);
 
   useEffect(() => {
     if (
@@ -473,7 +473,7 @@ const Action = ({
         values.tx?.[actionId]?.data
       );
     }
-  }, [encodeAction, values]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [encodeAction, values, selectedMethod, actionId, argFieldsIds]);
 
   const txFields: FieldLegoBase<LookupType>[] = [
     {

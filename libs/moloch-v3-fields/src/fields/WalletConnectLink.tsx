@@ -20,7 +20,6 @@ import {
   WrappedInput,
 } from '@daohaus/ui';
 import { IClientMeta } from '@walletconnect/legacy-types';
-import { CoreTypes } from '@walletconnect/types';
 
 import useWalletConnectV2 from '../utils/walletConnectV2';
 import {
@@ -30,7 +29,7 @@ import {
 
 import WalletConnectLogo from '../assets/wallet_connect.svg';
 
-type MetadataType = CoreTypes.Metadata | IClientMeta | undefined;
+// MetadataType unused after v1 removal; legacy reference pruned.
 
 enum Status {
   DISCONNECTED,
@@ -86,13 +85,8 @@ export const WalletConnectLink = ({
   const { dao } = useDaoData();
   const { register, setValue, watch } = useFormContext();
   const { daoChain } = useCurrentDao();
-  const {
-    txPayload: txPayload,
-    wcClientData: wcClientData,
-    wcConnect: wcConnectV2,
-    wcDisconnect: wcDisconnectV2,
-    error: txError,
-  } = useWalletConnectV2();
+  const { txPayload, wcClientData, wcConnect: wcConnectV2, wcDisconnect: wcDisconnectV2, error: txError } =
+    useWalletConnectV2();
 
   const inputId = 'wcLink';
 

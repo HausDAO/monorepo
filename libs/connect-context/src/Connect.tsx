@@ -22,8 +22,8 @@ import { logChains } from './utils/debug';
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { Buffer } = require('buffer');
-  if (typeof window !== 'undefined' && !(window as any).Buffer) {
-    (window as any).Buffer = Buffer;
+  if (typeof window !== 'undefined' && !(window as unknown as { Buffer?: unknown }).Buffer) {
+    (window as unknown as { Buffer?: unknown }).Buffer = Buffer;
   }
 } catch (err) {
   // Buffer polyfill failed – non-fatal.

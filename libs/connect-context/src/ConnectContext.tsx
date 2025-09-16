@@ -22,7 +22,6 @@ import {
   isValidNetwork,
   NetworkConfigs,
   ValidNetwork,
-  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
 import { defaultConnectValues } from './utils/defaults';

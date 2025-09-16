@@ -2,7 +2,10 @@
 
 // Enable by setting NX_CONNECT_DEBUG=true in env (or toggling window.__CONNECT_DEBUG = true)
 const isDebug = () => {
-  if (typeof window !== 'undefined' && (window as any).__CONNECT_DEBUG)
+  if (
+    typeof window !== 'undefined' &&
+    (window as unknown as { __CONNECT_DEBUG?: boolean }).__CONNECT_DEBUG
+  )
     return true;
   return process.env['NX_CONNECT_DEBUG'] === 'true';
 };
@@ -20,7 +23,7 @@ type ProviderLike = Record<string, unknown> & {
 
 export const collectInjectedProviders = (): ProviderLike[] => {
   if (typeof window === 'undefined') return [];
-  const eth = (window as any).ethereum as ProviderLike | undefined;
+  const eth = (window as unknown as { ethereum?: ProviderLike }).ethereum;
   if (!eth) return [];
   if (Array.isArray(eth.providers)) return eth.providers as ProviderLike[];
   return [eth];
@@ -34,7 +37,9 @@ export const logInjectedWallets = () => {
     const summarized = providers.map((p, idx) => ({
       index: idx,
       flags: Object.keys(p)
-        .filter((k) => k.startsWith('is') && (p as any)[k] === true)
+        .filter(
+          (k) => k.startsWith('is') && (p as Record<string, unknown>)[k] === true
+        )
         .join(','),
       isMetaMask: !!p.isMetaMask,
       isCoinbase: !!p.isCoinbaseWallet,

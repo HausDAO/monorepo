@@ -156,7 +156,22 @@ export const InternalConnectModal = ({
                     style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                   >
                     {connectorIcon(c.id)}
-                    <span>{c.name || 'Unknown Wallet'}</span>
+                    <span>
+                      {(() => {
+                        if (typeof window !== 'undefined' && window.ethereum) {
+                          if (window.ethereum.isRabby && (c.id === 'metaMask' || c.id === 'injected')) {
+                            return 'Rabby';
+                          }
+                          if (window.ethereum.isMetaMask && c.id === 'metaMask') {
+                            return 'MetaMask';
+                          }
+                          if (c.id === 'injected') {
+                            return 'Browser Wallet';
+                          }
+                        }
+                        return c.name || 'Unknown Wallet';
+                      })()}
+                    </span>
                   </span>
                   <span style={{ fontSize: 11, opacity: 0.75 }}>
                     {c.id === lastUsed && 'Recent'}

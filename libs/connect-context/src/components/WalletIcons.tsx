@@ -2,6 +2,16 @@ import React from 'react';
 // Local copies of brand assets (moved here to avoid app->lib dependency cycles)
 // They may resolve either to a ReactComponent (SVGR) or a URL string depending on tooling.
 import metaMaskAsset from '../assets/icons/MetaMask-icon-fox.svg';
+import rabbyAsset from '../assets/icons/rabby-avatar.svg';
+export const IconRabby: React.FC<{ size?: number }> = ({ size = 20 }) => {
+  const Fallback = (
+    <svg width={size} height={size} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+      <circle cx="16" cy="16" r="16" fill="#1F1A17" />
+    </svg>
+  );
+  const inner = renderImportedSvg(rabbyAsset, size, Fallback, 'Rabby');
+  return <IconWrapper brand="metamask">{inner}</IconWrapper>;
+};
 import coinbaseAsset from '../assets/icons/coinbase_wallet_appicon.svg';
 import walletConnectAsset from '../assets/icons/walletconnect-icon.svg';
 
@@ -154,6 +164,18 @@ const IconWrapper: React.FC<{ brand: string; children: React.ReactNode }> = ({
 };
 
 export const connectorIcon = (id: string): React.ReactNode => {
+  if (typeof window !== 'undefined' && window.ethereum) {
+    if (window.ethereum.isRabby && (id === 'metaMask' || id === 'injected')) {
+      return <IconRabby />;
+    }
+    if (window.ethereum.isMetaMask && id === 'metaMask') {
+      return <IconMetaMask />;
+    }
+    // fallback: generic browser wallet icon for injected
+    if (id === 'injected') {
+      return <IconBrowserWallet />;
+    }
+  }
   switch (id) {
     case 'metaMask':
       return <IconMetaMask />;

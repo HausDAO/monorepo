@@ -46,13 +46,13 @@ const getABIUrl = ({
 }) => {
   const ABI_ADDRESS = '<<address>>';
   const TEMPORARY_ABI_EXPLORER: Keychain = {
-    '0x1': `https://api.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
-    '0x64': `https://api.gnosisscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
-    '0x89': `https://api.polygonscan.com/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
-    '0xa': `https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
-    '0xa4b1': `https://api.arbiscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apiKey=${explorerKeys[chainId]}`,
-    '0xaa36a7': `https://api-sepolia.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys[chainId]}`,
-    '0x2105': `https://api.basescan.org/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apiKey=${explorerKeys[chainId]}`,
+    '0x1': `https://api.etherscan.io/v2/api?chainid=1&module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys['0x1']}`,
+    '0x64': `https://api.etherscan.io/v2/api?chainid=100&module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys['0x1']}`,
+    '0x89': `https://api.etherscan.io/v2/api?chainid=137&module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys['0x1']}`,
+    '0xa': `https://api.etherscan.io/v2/api?chainid=10&module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys['0x1']}`,
+    '0xa4b1': `https://api.etherscan.io/v2/api?chainid=42161&module=contract&action=getabi&address=${ABI_ADDRESS}&apiKey=${explorerKeys['0x1']}`,
+    '0xaa36a7': `https://api.etherscan.io/v2/api?chainid=11155111&module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${explorerKeys['0x1']}`,
+    '0x2105': `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getabi&address=${ABI_ADDRESS}&apiKey=${explorerKeys['0x1']}`,
   };
 
   return TEMPORARY_ABI_EXPLORER[chainId]?.replace(ABI_ADDRESS, contractAddress);

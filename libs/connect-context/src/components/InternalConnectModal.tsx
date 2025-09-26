@@ -59,8 +59,7 @@ export const InternalConnectModal = ({
   // If MetaMask is NOT available, hide the dedicated metaMask connector (some providers misreport) and show generic injected.
   const hasMetaMask =
     connectors.some((c) => c.id === 'metaMask' && c.ready) ||
-    (typeof (window as any)?.ethereum !== 'undefined' &&
-      (window as any).ethereum?.isMetaMask);
+    (typeof window !== 'undefined' && (window as any)?.ethereum?.isMetaMask);
 
   const filteredConnectors = connectors.filter((c) => {
     // Hide generic injected when MetaMask present
@@ -156,7 +155,28 @@ export const InternalConnectModal = ({
                     style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                   >
                     {connectorIcon(c.id)}
-                    <span>{c.name || 'Unknown Wallet'}</span>
+                    <span>
+                      {(() => {
+                        if (typeof window !== 'undefined' && window.ethereum) {
+                          if (
+                            window.ethereum.isRabby &&
+                            (c.id === 'metaMask' || c.id === 'injected')
+                          ) {
+                            return 'Rabby';
+                          }
+                          if (
+                            window.ethereum.isMetaMask &&
+                            c.id === 'metaMask'
+                          ) {
+                            return 'MetaMask';
+                          }
+                          if (c.id === 'injected') {
+                            return 'Browser Wallet';
+                          }
+                        }
+                        return c.name || 'Unknown Wallet';
+                      })()}
+                    </span>
                   </span>
                   <span style={{ fontSize: 11, opacity: 0.75 }}>
                     {c.id === lastUsed && 'Recent'}

@@ -1,16 +1,18 @@
 import {
+  createPublicClient,
   decodeAbiParameters,
   decodeFunctionData,
   fromHex,
   getAbiItem,
 } from 'viem';
-import { ENCODED_0X0_DATA } from '@daohaus/utils';
+import { createTransport, ENCODED_0X0_DATA } from '@daohaus/utils';
 import {
   ABI_EXPLORER_KEYS,
   HAUS_NETWORK_DATA,
   HAUS_RPC,
   Keychain,
   ValidNetwork,
+  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
 import { MetaTransaction, OperationType, decodeMulti } from 'ethers-multisend';
@@ -434,8 +436,15 @@ const decodeAction = async (
     };
   }
 
+  const transport = createTransport({ chainId, rpcs });
+  const client = createPublicClient({
+    chain: VIEM_CHAINS[chainId],
+    transport,
+  });
+
   const { abi } = await whatsabi.autoload(to, {
-    provider: new providers.JsonRpcProvider(rpcs[chainId]),
+    // provider: new providers.JsonRpcProvider(rpcs[chainId]),
+    provider: client,
     followProxies: true,
     abiLoader: loader,
   });

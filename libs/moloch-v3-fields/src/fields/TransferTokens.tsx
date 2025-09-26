@@ -95,10 +95,9 @@ export const TransferTokens = (props: Buildable<Field>) => {
   }, [connectedMember, dao, selectedToken]);
 
   const setMax = useCallback(() => {
-    console.log('selectedToken', selectedToken);
     if (!selectedToken) return;
     setValue(props.id, tokenBalance.trim());
-  }, [selectedToken]);
+  }, [selectedToken, setValue, props.id, tokenBalance]);
 
   const newRules: RegisterOptions = useMemo(() => {
     return {
@@ -115,7 +114,7 @@ export const TransferTokens = (props: Buildable<Field>) => {
       },
       ...props.rules,
     };
-  }, [selectedToken, tokenBalance]);
+  }, [selectedToken, tokenBalance, props.rules]);
 
   return (
     <>

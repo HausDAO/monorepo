@@ -33,37 +33,35 @@ export const MemberTokens = ({ daoChain, dao, member }: MemberTokensProps) => {
 
   const treasury: MolochV3Dao['vaults'][number] | undefined = useMemo(() => {
     if (dao) {
-      return (
-        dao.vaults.find((v: DaoSafe) => v.safeAddress === dao.safeAddress) ||
-        undefined
-      );
+      const vaults = dao.vaults || [];
+      return vaults.find((v: DaoSafe) => v.safeAddress === dao.safeAddress);
     }
     return undefined;
   }, [dao]);
 
   const tableData: TokenTableType[] | null = useMemo(() => {
     if (dao && member && treasury) {
-      return treasury.tokenBalances
-        .filter((bal) => Number(bal.balance))
-        .map((bal) => {
-          return {
-            token: {
-              address: bal.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
-              name: charLimit(bal.token?.name, 21),
-            },
-            balance: formatValueTo({
-              value: memberTokenBalanceShare(
-                bal.balance,
-                dao.totalShares || 0,
-                dao.totalLoot || 0,
-                member.shares || 0,
-                member.loot || 0,
-                bal.token?.decimals || 18
-              ),
-              format: 'number',
-            }),
-          };
-        });
+      const balances = treasury.tokenBalances || [];
+      if (!Array.isArray(balances) || !balances.length) return [];
+      return balances
+        .filter((bal) => bal && Number(bal.balance))
+        .map((bal) => ({
+          token: {
+            address: bal.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
+            name: charLimit(bal.token?.name, 21),
+          },
+          balance: formatValueTo({
+            value: memberTokenBalanceShare(
+              bal.balance,
+              dao.totalShares || 0,
+              dao.totalLoot || 0,
+              member.shares || 0,
+              member.loot || 0,
+              bal.token?.decimals || 18
+            ),
+            format: 'number',
+          }),
+        }));
     } else {
       return null;
     }

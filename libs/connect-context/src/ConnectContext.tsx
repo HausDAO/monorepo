@@ -7,7 +7,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useWeb3Modal } from '@web3modal/react';
 import {
   useAccount,
   useDisconnect,
@@ -23,12 +22,12 @@ import {
   isValidNetwork,
   NetworkConfigs,
   ValidNetwork,
-  VIEM_CHAINS,
 } from '@daohaus/keychain-utils';
 
 import { defaultConnectValues } from './utils/defaults';
 import { ConnectLifecycleFns, UserProfile } from './utils/types';
 import { loadProfile } from './utils';
+import InternalConnectModal from './components/InternalConnectModal';
 
 export type UserConnectType = {
   networks: NetworkConfigs;
@@ -58,6 +57,9 @@ export type ConnectProviderProps = {
   daoChainId?: string;
 };
 
+// Always use internal connect modal (Web3Modal removed)
+const useInternal = true;
+
 export const ConnectProvider = ({
   children,
   networks = HAUS_NETWORK_DATA,
@@ -65,7 +67,6 @@ export const ConnectProvider = ({
   daoChainId,
   daoId,
 }: ConnectProviderProps) => {
-  const { open, setDefaultChain } = useWeb3Modal();
   const { address, isConnecting } = useAccount();
   const { disconnect } = useDisconnect();
   const { chain } = useNetwork();
@@ -93,13 +94,11 @@ export const ConnectProvider = ({
     [chainId, networks]
   );
 
-  const connectWallet = useCallback(async () => {
-    if (daoChainId && VIEM_CHAINS[daoChainId as ValidNetwork]) {
-      setDefaultChain(VIEM_CHAINS[daoChainId as ValidNetwork]);
-    }
+  const [internalOpen, setInternalOpen] = useState(false);
 
-    open();
-  }, [open, setDefaultChain, daoChainId]);
+  const connectWallet = useCallback(async () => {
+    setInternalOpen(true);
+  }, []);
 
   const handleSwitchNetwork = async (_chainId: string | number) => {
     switchNetwork?.(Number(_chainId));
@@ -135,6 +134,19 @@ export const ConnectProvider = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chainId]);
 
+  // Auto switch to daoChainId if provided and connected and mismatch
+  useEffect(() => {
+    if (
+      daoChainId &&
+      isConnected &&
+      chain &&
+      Number(daoChainId) !== chain.id &&
+      switchNetwork
+    ) {
+      switchNetwork(Number(daoChainId));
+    }
+  }, [daoChainId, isConnected, chain, switchNetwork]);
+
   return (
     <ConnectContext.Provider
       value={{
@@ -155,6 +167,13 @@ export const ConnectProvider = ({
       }}
     >
       {children}
+      {useInternal && (
+        <InternalConnectModal
+          open={internalOpen}
+          onClose={() => setInternalOpen(false)}
+          defaultChainId={daoChainId ? Number(daoChainId) : undefined}
+        />
+      )}
     </ConnectContext.Provider>
   );
 };

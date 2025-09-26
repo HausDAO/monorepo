@@ -35,6 +35,12 @@ export const loadProfile = async ({
     if (profile && shouldUpdate) {
       const displayName = profile.ens || truncateAddress(address);
       setProfile({ ...profile, displayName });
+    } else if (shouldUpdate) {
+      setProfile({
+        address,
+        ens: '',
+        displayName: truncateAddress(address),
+      });
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (web3Error: any) {
@@ -46,8 +52,12 @@ export const loadProfile = async ({
       name: 'Connection Error',
       message: errMsg,
     });
-    console.error(web3Error);
-    setProfile({ displayName: '', address: '', ens: '' });
+    // Silent profile load failure
+    setProfile({
+      displayName: truncateAddress(address),
+      address,
+      ens: '',
+    });
     lifeCycleFns?.onProfileError?.(web3Error);
   } finally {
     if (shouldUpdate) {

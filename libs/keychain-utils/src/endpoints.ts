@@ -61,7 +61,7 @@ export const ENDPOINTS: KeychainList = {
 
 export const addApiKeyToGraphEnpoints = (
   graphApiKeys: Keychain,
-  endpoints: KeychainList
+  endpoints: KeychainList,
 ): KeychainList => {
   return Object.keys(graphApiKeys).reduce((acc, key) => {
     if (endpoints['V3_SUBGRAPH'][key as keyof Keychain] && acc) {
@@ -70,7 +70,7 @@ export const addApiKeyToGraphEnpoints = (
       if (unreplacedValue && apiKey) {
         acc['V3_SUBGRAPH'][key as keyof Keychain] = unreplacedValue.replace(
           '[api-key]',
-          apiKey
+          apiKey,
         );
       }
     }
@@ -79,7 +79,7 @@ export const addApiKeyToGraphEnpoints = (
 };
 export const getGraphUrl = (
   networkId: ValidNetwork,
-  graphApiKeys?: Keychain
+  graphApiKeys?: Keychain,
 ): string | undefined => {
   if (graphApiKeys) {
     const endpoints = addApiKeyToGraphEnpoints(graphApiKeys, ENDPOINTS);
@@ -88,9 +88,9 @@ export const getGraphUrl = (
   return ENDPOINTS['V3_SUBGRAPH'][networkId];
 };
 export const HAUS_RPC_DEFAULTS = {
-  '0x1': process.env['NX_RIVET_KEY']
-    ? `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud`
-    : `https://eth-mainnet.g.alchemy.com/v2/${process.env['NX_ETHEREUM_ALCHEMY_KEY']}`,
+  '0x1': process.env['NX_ETHEREUM_ALCHEMY_KEY']
+    ? `https://eth-mainnet.g.alchemy.com/v2/${process.env['NX_ETHEREUM_ALCHEMY_KEY']}`
+    : `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud`,
   '0x64': 'https://rpc.gnosischain.com/',
   '0xa': process.env['NX_OPTIMISM_ALCHEMY_KEY']
     ? `https://opt-mainnet.g.alchemy.com/v2/${process.env['NX_OPTIMISM_ALCHEMY_KEY']}`

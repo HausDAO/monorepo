@@ -101,9 +101,12 @@ export const HAUS_RPC_DEFAULTS = {
   '0xa4b1': process.env['NX_ARBITRUM_ALCHEMY_KEY']
     ? `https://arb-mainnet.g.alchemy.com/v2/${process.env['NX_ARBITRUM_ALCHEMY_KEY']}`
     : 'https://arb1.arbitrum.io/rpc',
-  '0xaa36a7': 'https://eth-sepolia.g.alchemy.com/v2/demo',
+  '0xaa36a7': process.env['NX_ETHEREUM_ALCHEMY_KEY']
+    ? `https://shape-sepolia.g.alchemy.com/v2/${process.env['NX_ETHEREUM_ALCHEMY_KEY']}`
+    : 'https://ethereum-sepolia.rpc.subquery.network/public',
   '0x2105': `https://mainnet.base.org`,
 };
+
 export const HAUS_RPC = {
   '0x1': process.env['NX_MAINNET_RPC']
     ? process.env['NX_MAINNET_RPC']

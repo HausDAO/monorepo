@@ -1,5 +1,7 @@
 # DAOhaus v3 Monorepo
 
+## 🪜 This project has been packed away in the attic — not actively maintained, but preserved for reference
+
 DAOhaus is a platform for summoning and managing Moloch DAOs. We've worked to reimagine our platform into multiple apps, libraries, and microservices. We're using a monorepo to streamline the development of all of these elements, and we used [Nx](https://nx.dev) to scaffold our monorepo.
 
 If you'd like to join our community, we coordinate on [Discord](https://discord.gg/gWH4vt3tWE).
